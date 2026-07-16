@@ -1,4 +1,5 @@
 import { animationRegistry } from '@repo/randomart-engine-next';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
 import { randomartStore } from '../stores/randomart/store';
@@ -31,7 +32,10 @@ export function useWebGLRenderer(
 
   // Resolve raw behavior implementation instances from our engine registry
   const behaviors = activeAnimationBehaviorIds
-    .map((id) => animationRegistry.find((b) => b.id === id))
+    .map((id) => {
+      const behavior = animationRegistry.find((behavior) => behavior.id === id);
+      return behavior;
+    })
     .filter((b): b is NonNullable<typeof b> => !!b);
 
   // 3. Keep mutable animation speed reference updated without triggering component redraw loops

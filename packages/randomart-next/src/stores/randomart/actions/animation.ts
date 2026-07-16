@@ -1,6 +1,7 @@
+import type { AnimationBehaviorId } from '@repo/randomart-engine-next/types';
 import { randomartStore } from '../store';
 
-export function toggleAnimationBehavior(id: string): void {
+export function toggleAnimationBehavior(id: AnimationBehaviorId): void {
   const { activeAnimationBehaviorIds } = randomartStore.getState();
   const isActive = activeAnimationBehaviorIds.includes(id);
 

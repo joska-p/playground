@@ -1,5 +1,5 @@
-import type { ExprNode, OperatorId } from '@repo/randomart-engine-next';
 import { createRule, getRule } from '@repo/randomart-engine-next';
+import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
 
 export type TreeOutput = {
   treeR: ExprNode;

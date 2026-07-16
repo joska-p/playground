@@ -130,3 +130,7 @@ export type AnimationBehavior = {
   applyCode: (ctx: ApplyCodeContext) => string;
   noiseDependencies?: string[];
 };
+
+export type { AnimationBehaviorId, animationRegistry } from './animation';
+
+export type { OperatorId } from './grammar/operators/registry';

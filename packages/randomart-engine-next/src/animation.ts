@@ -1,38 +1,32 @@
 /**
- * Animation behaviors.
+ * Fancy animation behaviors — curated registry.
  *
- * Each behavior is a self-contained function that modifies either spatial
- * coordinates or the final color during shader execution. Behaviors are
- * independently applicable — the consumer runs several at once.
+ * This is a trimmed + extended version of the original behaviors.ts:
+ *   - Kept every behavior that produces a visually distinct, worthwhile effect.
+ *   - Dropped: zoom, ripple, drift, expand, goldenWander, recamanPulse, inversion
+ *     (either redundant with a stronger behavior, too subtle to read as animation,
+ *     or — in the case of drift/expand — driven by unbounded time instead of a
+ *     periodic function, so they never loop and just scroll/zoom forever).
+ *   - Fixed chromaticAberration: it was shifting red by ca_dir.x and blue by
+ *     ca_dir.y (different axes), so the split wasn't actually aligned.
+ *   - Added 11 new behaviors aiming for more dramatic, "fancy" looks:
+ *     spiralGalaxy, gravityLens, waveInterference, crystalFacet, glitchBlocks,
+ *     liquidMetal (spatial); paletteCycle, neonGlowPulse, rgbGlitchSplit,
+ *     auroraFlow, thermalVision (color).
  *
- * Spatial behaviors warp the coordinate space (zoom, rotate, swirl, etc.);
- * color behaviors post-process the fragment color (hue shift, contrast, etc.).
- *
- * Ported from randomart-engine/src/animation/behaviors.ts (S7).
+ * Assumes the same noise helpers as the original file are available in your
+ * pipeline: smoothNoise(float)->float, smoothNoise2(float)->vec2, random2d(vec2)->float.
+ * New behaviors that need noise reuse these via noiseDependencies, same convention
+ * as the original noiseCrawl / colorDrift / edgeDetect / filmGrain.
  */
 
 import type { AnimationBehavior } from './types.js';
 
 // ---------------------------------------------------------------------------
-// Spatial behaviors
+// Spatial behaviors — kept from original
 // ---------------------------------------------------------------------------
 
-const zoomBehavior: AnimationBehavior = {
-  id: 'zoom',
-  name: 'Zoom',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => `${spatial} *= (1.0 + 0.5 * sin(${time} * ${speed}));`
-};
-
-const rippleBehavior: AnimationBehavior = {
-  id: 'ripple',
-  name: 'Ripple',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
-    `${spatial} += 0.1 * sin(${spatial} * 5.0 + ${time} * ${speed});`
-};
-
-const rotateBehavior: AnimationBehavior = {
+const rotateBehavior = {
   id: 'rotate',
   name: 'Rotate',
   glslFunction: `\
@@ -44,9 +38,9 @@ mat2 rotate2d(float _angle){
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = rotate2d(${time} * ${speed} * 0.5) * ${spatial};`
-};
+} as const satisfies AnimationBehavior;
 
-const swirlBehavior: AnimationBehavior = {
+const swirlBehavior = {
   id: 'swirl',
   name: 'Swirl',
   glslFunction: `\
@@ -59,23 +53,9 @@ vec2 swirl(vec2 coords, float angle) {
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = swirl(${spatial}, sin(${time} * ${speed}) * 2.0);`
-};
+} as const satisfies AnimationBehavior;
 
-const driftBehavior: AnimationBehavior = {
-  id: 'drift',
-  name: 'Drift',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => `${spatial} += ${time} * ${speed} * 0.1;`
-};
-
-const expandBehavior: AnimationBehavior = {
-  id: 'expand',
-  name: 'Expand',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => `${spatial} /= (1.0 + ${time} * ${speed} * 0.1);`
-};
-
-const kaleidoscopeBehavior: AnimationBehavior = {
+const kaleidoscopeBehavior = {
   id: 'kaleidoscope',
   name: 'Kaleidoscope',
   glslFunction: `\
@@ -98,9 +78,9 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = kaleidoscope(${spatial}, ${time}, ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
-const domainWarpBehavior: AnimationBehavior = {
+const domainWarpBehavior = {
   id: 'domain-warp',
   name: 'Warp',
   glslFunction: `\
@@ -114,17 +94,17 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
 `,
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
-const mirrorTileBehavior: AnimationBehavior = {
+const mirrorTileBehavior = {
   id: 'mirror-tile',
   name: 'Mirror',
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
-};
+} as const satisfies AnimationBehavior;
 
-const tunnelBehavior: AnimationBehavior = {
+const tunnelBehavior = {
   id: 'tunnel',
   name: 'Tunnel',
   glslFunction: `\
@@ -137,22 +117,9 @@ vec2 tunnel(vec2 coords, float t, float speed) {
 `,
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
-const goldenWanderBehavior: AnimationBehavior = {
-  id: 'golden-wander',
-  name: 'Wander',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => {
-    const phi = '1.6180339887';
-    return [
-      `float gw_t = ${time} * ${speed} * 0.3;`,
-      `${spatial} += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`
-    ].join('\n  ');
-  }
-};
-
-const noiseCrawlBehavior: AnimationBehavior = {
+const noiseCrawlBehavior = {
   id: 'noise-crawl',
   name: 'Crawl',
   type: 'spatial',
@@ -162,34 +129,9 @@ const noiseCrawlBehavior: AnimationBehavior = {
       `vec2 nc_offset = smoothNoise2(${time} * ${speed} * 0.15) * 2.0 - 1.0;`,
       `${spatial} += nc_offset * 0.6;`
     ].join('\n  ')
-};
+} as const satisfies AnimationBehavior;
 
-const recamanPulseBehavior: AnimationBehavior = {
-  id: 'recaman-pulse',
-  name: 'Recamán',
-  glslFunction: `\
-vec2 recamanWarp(vec2 coords, float t, float speed) {
-  float timeFactor = t * speed * 0.4;
-  float r = length(coords);
-  float theta = atan(coords.y, coords.x);
-
-  // Instead of floor/fract steps, use smooth continuous trigonometric oscillations
-  float waveSelector = sin(r * 4.0 + timeFactor);
-
-  // Smoothly scale the warp magnitude without hard integer cuts
-  float arcWarp = sin(theta * 2.0 + timeFactor) * (timeFactor * 0.01);
-
-  // A smooth continuous pulse instead of a hard directional sign-flip snap
-  r += waveSelector * 0.1 + arcWarp;
-
-  return vec2(cos(theta) * r, sin(theta) * r);
-}`,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
-    `${spatial} = recamanWarp(${spatial}, ${time}, ${speed});`
-};
-
-const mouseProximityBehavior: AnimationBehavior = {
+const mouseProximityBehavior = {
   id: 'mouse-proximity',
   name: 'Mouse Field',
   type: 'spatial',
@@ -201,9 +143,9 @@ const mouseProximityBehavior: AnimationBehavior = {
       `${spatial} += normalize(fragPx - u_mouse) * force * 0.25;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
 
-const pixelationBehavior: AnimationBehavior = {
+const pixelationBehavior = {
   id: 'pixelation',
   name: 'Pixelation',
   type: 'spatial',
@@ -213,9 +155,9 @@ const pixelationBehavior: AnimationBehavior = {
       `${spatial} = floor(${spatial} * pix_res + 0.5) / pix_res;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
 
-const voronoiBehavior: AnimationBehavior = {
+const voronoiBehavior = {
   id: 'voronoi',
   name: 'Voronoi',
   glslFunction: `\
@@ -248,13 +190,143 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = voronoiWarp(${spatial}, ${time}, ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
 // ---------------------------------------------------------------------------
-// Color behaviors
+// Spatial behaviors — new
 // ---------------------------------------------------------------------------
 
-const hueShiftBehavior: AnimationBehavior = {
+const spiralGalaxyBehavior = {
+  id: 'spiral-galaxy',
+  name: 'Galaxy',
+  glslFunction: `\
+vec2 spiralGalaxy(vec2 coords, float t, float speed) {
+  float r = length(coords);
+  float a = atan(coords.y, coords.x);
+  float spiralAmount = 3.0 * log(r + 0.001) + t * speed * 0.3;
+  a += spiralAmount * 0.5;
+  return vec2(cos(a), sin(a)) * r;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = spiralGalaxy(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const gravityLensBehavior = {
+  id: 'gravity-lens',
+  name: 'Gravity Lens',
+  glslFunction: `\
+vec2 gravityLens(vec2 coords, float t, float speed) {
+  vec2 center = 0.6 * vec2(cos(t * speed * 0.3), sin(t * speed * 0.37));
+  vec2 delta = coords - center;
+  float d = length(delta) + 0.05;
+  float bend = 0.15 / (d * d);
+  return coords - normalize(delta) * bend;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = gravityLens(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const waveInterferenceBehavior = {
+  id: 'wave-interference',
+  name: 'Interference',
+  glslFunction: `\
+vec2 waveInterference(vec2 coords, float t, float speed) {
+  vec2 p1 = vec2(0.5, 0.3);
+  vec2 p2 = vec2(-0.4, -0.5);
+  vec2 p3 = vec2(-0.3, 0.6);
+  float d1 = length(coords - p1);
+  float d2 = length(coords - p2);
+  float d3 = length(coords - p3);
+  float wave = sin(d1 * 10.0 - t * speed)
+             + sin(d2 * 10.0 - t * speed * 1.3)
+             + sin(d3 * 10.0 - t * speed * 0.8);
+  vec2 dir = normalize(coords + 0.0001);
+  return coords + dir * wave * 0.03;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = waveInterference(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const crystalFacetBehavior = {
+  id: 'crystal-facet',
+  name: 'Crystal',
+  glslFunction: `\
+vec2 crystalHash(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return fract(sin(p) * 43758.5453123);
+}
+
+vec2 crystalFacet(vec2 x, float t, float speed) {
+  vec2 scaled = x * 3.0;
+  vec2 n = floor(scaled);
+  vec2 f = fract(scaled);
+  float minDist = 8.0;
+  vec2 cellOffset = vec2(0.0);
+  for (int j = -1; j <= 1; j++) {
+    for (int i = -1; i <= 1; i++) {
+      vec2 g = vec2(float(i), float(j));
+      vec2 h = crystalHash(n + g);
+      vec2 cellCenter = g + h;
+      float d = length(cellCenter - f);
+      if (d < minDist) {
+        minDist = d;
+        cellOffset = h;
+      }
+    }
+  }
+  float facetAngle = t * speed * 0.2 + cellOffset.x * 6.2831;
+  mat2 rot = mat2(cos(facetAngle), -sin(facetAngle), sin(facetAngle), cos(facetAngle));
+  return rot * x;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = crystalFacet(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const glitchBlocksBehavior = {
+  id: 'glitch-blocks',
+  name: 'Glitch',
+  glslFunction: `\
+vec2 glitchBlocks(vec2 coords, float t, float speed) {
+  float band = floor(coords.y * 12.0);
+  float step_t = floor(t * speed * 4.0);
+  float trigger = step(0.85, fract(sin(band * 12.9898 + step_t) * 43758.5453));
+  float seed = fract(sin(band * 78.233 + step_t) * 43758.5453);
+  float shift = (seed - 0.5) * 0.25 * trigger;
+  coords.x += shift;
+  return coords;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = glitchBlocks(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const liquidMetalBehavior = {
+  id: 'liquid-metal',
+  name: 'Liquid Metal',
+  type: 'spatial',
+  noiseDependencies: ['smoothNoise2'],
+  applyCode: ({ time, speed, spatial }) =>
+    [
+      `vec2 lm_a = smoothNoise2(${spatial}.x * 2.0 + ${time} * ${speed} * 0.2);`,
+      `vec2 lm_b = smoothNoise2(${spatial}.y * 2.0 + ${time} * ${speed} * 0.2 + 7.0);`,
+      `${spatial} += (lm_a + lm_b - 1.0) * 0.25;`
+    ].join('\n  ')
+} as const satisfies AnimationBehavior;
+
+// ---------------------------------------------------------------------------
+// Color behaviors — kept from original (chromaticAberration fixed)
+// ---------------------------------------------------------------------------
+
+const hueShiftBehavior = {
   id: 'hue-shift',
   name: 'Hue Shift',
   glslFunction: `\
@@ -270,22 +342,9 @@ vec3 hueRotate(vec3 color, float angle) {
 `,
   type: 'color',
   applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
-const contrastPulseBehavior: AnimationBehavior = {
-  id: 'contrast-pulse',
-  name: 'Pulse',
-  glslFunction: `\
-vec3 contrastPulse(vec3 color, float t, float speed) {
-  float k = 1.5 + 1.0 * sin(t * speed * 0.5);
-  return clamp((color - 0.5) * k + 0.5, 0.0, 1.0);
-}
-`,
-  type: 'color',
-  applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
-};
-
-const colorDriftBehavior: AnimationBehavior = {
+const colorDriftBehavior = {
   id: 'color-drift',
   name: 'Color Drift',
   type: 'color',
@@ -296,9 +355,9 @@ const colorDriftBehavior: AnimationBehavior = {
       `vec3 cd_tint = vec3(smoothNoise(cd_t), smoothNoise(cd_t + 17.3), smoothNoise(cd_t + 53.9));`,
       `${color} = mix(${color}, ${color} * (0.6 + 0.8 * cd_tint), 0.4);`
     ].join('\n  ')
-};
+} as const satisfies AnimationBehavior;
 
-const edgeDetectBehavior: AnimationBehavior = {
+const edgeDetectBehavior = {
   id: 'edge-detect',
   name: 'Contour',
   type: 'color',
@@ -307,52 +366,40 @@ const edgeDetectBehavior: AnimationBehavior = {
 vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
     float centerLuminance = dot(baseColor, vec3(0.299, 0.587, 0.114));
 
-    // Screen-space derivatives for clean edge isolation
     float dX = dFdx(centerLuminance);
     float dY = dFdy(centerLuminance);
     float edge = length(vec2(dX, dY));
 
-    // Animate edge intensity slightly
     float intensityModifier = 1.0 + smoothNoise(time * 0.3) * 1.0;
     edge *= intensityModifier;
 
-    // Generate a cycling neon color palette using cosine waves based on position + time
     vec3 edgeColor = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0.0, 2.0, 4.0));
-
-    // Boost the brightness of the neon line
     edgeColor *= 1.5;
 
-    // Mix the glowing neon color into your generative base color matrix
     return mix(baseColor, edgeColor, smoothstep(0.04, 0.2, edge));
 }
 `,
   applyCode: ({ time, speed, color }) =>
     `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
-};
+} as const satisfies AnimationBehavior;
 
-const inversionBehavior: AnimationBehavior = {
-  id: 'inversion',
-  name: 'Inversion',
-  type: 'color',
-  applyCode: ({ time, speed, color }) =>
-    `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
-};
-
-const chromaticAberrationBehavior: AnimationBehavior = {
+const chromaticAberrationBehavior = {
   id: 'chromatic-aberration',
   name: 'Aberration',
   type: 'color',
   applyCode: ({ time, speed, spatial, color }) => {
+    // Fixed: red and blue are now shifted along the same axis (ca_dir.x)
+    // in opposite directions, instead of mixing x for red and y for blue.
     return [
       `float ca_offset = 0.003 * sin(${time} * ${speed} * 0.7);`,
       `vec2 ca_dir = normalize(${spatial}) * ca_offset;`,
       `${color}.r = ${color}.r + ca_dir.x;`,
-      `${color}.b = ${color}.b - ca_dir.y;`
+      `${color}.b = ${color}.b - ca_dir.x;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
 
-const vignetteBehavior: AnimationBehavior = {
+const vignetteBehavior = {
   id: 'vignette',
   name: 'Vignette',
   type: 'color',
@@ -364,9 +411,9 @@ const vignetteBehavior: AnimationBehavior = {
       `${color} *= vig;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
 
-const filmGrainBehavior: AnimationBehavior = {
+const filmGrainBehavior = {
   id: 'film-grain',
   name: 'Grain',
   type: 'color',
@@ -378,9 +425,9 @@ const filmGrainBehavior: AnimationBehavior = {
       `${color} += grain - 0.075;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
 
-const scanLinesBehavior: AnimationBehavior = {
+const scanLinesBehavior = {
   id: 'scan-lines',
   name: 'Scan',
   type: 'color',
@@ -391,38 +438,149 @@ const scanLinesBehavior: AnimationBehavior = {
       `${color} *= scan;`
     ].join('\n  ');
   }
-};
+} as const satisfies AnimationBehavior;
+
+// ---------------------------------------------------------------------------
+// Color behaviors — new
+// ---------------------------------------------------------------------------
+
+const paletteCycleBehavior = {
+  id: 'palette-cycle',
+  name: 'Palette Cycle',
+  glslFunction: `\
+vec3 iqPalette(float t) {
+  vec3 a = vec3(0.5, 0.5, 0.5);
+  vec3 b = vec3(0.5, 0.5, 0.5);
+  vec3 c = vec3(1.0, 1.0, 1.0);
+  vec3 d = vec3(0.0, 0.33, 0.67);
+  return a + b * cos(6.28318 * (c * t + d));
+}
+
+vec3 paletteCycleColor(vec3 baseColor, float t) {
+  float lum = dot(baseColor, vec3(0.299, 0.587, 0.114));
+  return iqPalette(lum + t * 0.15);
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) =>
+    `${color} = mix(${color}, paletteCycleColor(${color}, ${time} * ${speed}), 0.85);`
+} as const satisfies AnimationBehavior;
+
+const neonGlowPulseBehavior = {
+  id: 'neon-glow-pulse',
+  name: 'Neon Glow',
+  glslFunction: `\
+vec3 neonGlow(vec3 color, float t, float speed) {
+  float lum = dot(color, vec3(0.299, 0.587, 0.114));
+  float pulse = 0.5 + 0.5 * sin(t * speed * 0.6);
+  float glow = smoothstep(0.5, 0.9, lum) * pulse;
+  return color + glow * vec3(0.3, 0.8, 1.0);
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) => `${color} = neonGlow(${color}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const rgbGlitchSplitBehavior = {
+  id: 'rgb-glitch-split',
+  name: 'RGB Split',
+  glslFunction: `\
+vec3 rgbGlitchSplit(vec3 color, vec2 coords, float t, float speed) {
+  float band = floor(coords.y * 20.0);
+  float step_t = floor(t * speed * 3.0);
+  float trigger = step(0.9, fract(sin(band * 91.345 + step_t) * 43758.5453));
+  float rShift = trigger * (fract(sin(band * 12.9898 + step_t) * 43758.5453) - 0.5) * 0.4;
+  color.r += rShift;
+  color.b -= rShift;
+  return color;
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) =>
+    `${color} = rgbGlitchSplit(${color}, ${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const auroraFlowBehavior = {
+  id: 'aurora-flow',
+  name: 'Aurora',
+  glslFunction: `\
+vec3 auroraFlow(vec3 color, vec2 coords, float t, float speed) {
+  float wave1 = sin(coords.x * 3.0 + t * speed * 0.4);
+  float wave2 = sin(coords.y * 2.0 - t * speed * 0.3 + wave1);
+  vec3 aurora = vec3(
+    0.2 + 0.3 * sin(wave2),
+    0.5 + 0.4 * cos(wave1 * 1.3),
+    0.6 + 0.3 * sin(wave1 + wave2)
+  );
+  return mix(color, color + aurora * 0.3, 0.5);
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) =>
+    `${color} = auroraFlow(${color}, ${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const thermalVisionBehavior = {
+  id: 'thermal-vision',
+  name: 'Thermal',
+  glslFunction: `\
+vec3 thermalPalette(float t) {
+  vec3 c1 = vec3(0.0, 0.0, 0.2);
+  vec3 c2 = vec3(0.8, 0.0, 0.6);
+  vec3 c3 = vec3(1.0, 0.6, 0.0);
+  vec3 c4 = vec3(1.0, 1.0, 0.8);
+  if (t < 0.33) return mix(c1, c2, t / 0.33);
+  else if (t < 0.66) return mix(c2, c3, (t - 0.33) / 0.33);
+  else return mix(c3, c4, (t - 0.66) / 0.34);
+}
+
+vec3 thermalVision(vec3 color, float t, float speed) {
+  float lum = dot(color, vec3(0.299, 0.587, 0.114));
+  float shift = fract(lum + t * speed * 0.05);
+  return mix(color, thermalPalette(shift), 0.7);
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) => `${color} = thermalVision(${color}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
 
 // ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
 
-export const animationRegistry: AnimationBehavior[] = [
-  // Spatial
-  zoomBehavior,
-  rippleBehavior,
+export const animationRegistry = [
+  // Spatial — kept
   rotateBehavior,
   swirlBehavior,
-  driftBehavior,
-  expandBehavior,
   kaleidoscopeBehavior,
   domainWarpBehavior,
   mirrorTileBehavior,
   tunnelBehavior,
-  goldenWanderBehavior,
   noiseCrawlBehavior,
-  recamanPulseBehavior,
   mouseProximityBehavior,
   pixelationBehavior,
   voronoiBehavior,
-  // Color
+  // Spatial — new
+  spiralGalaxyBehavior,
+  gravityLensBehavior,
+  waveInterferenceBehavior,
+  crystalFacetBehavior,
+  glitchBlocksBehavior,
+  liquidMetalBehavior,
+  // Color — kept
   hueShiftBehavior,
-  contrastPulseBehavior,
   colorDriftBehavior,
   edgeDetectBehavior,
-  inversionBehavior,
   chromaticAberrationBehavior,
   vignetteBehavior,
   filmGrainBehavior,
-  scanLinesBehavior
-];
+  scanLinesBehavior,
+  // Color — new
+  paletteCycleBehavior,
+  neonGlowPulseBehavior,
+  rgbGlitchSplitBehavior,
+  auroraFlowBehavior,
+  thermalVisionBehavior
+] as const satisfies AnimationBehavior[];
+
+export type AnimationBehaviorId = (typeof animationRegistry)[number]['id'];

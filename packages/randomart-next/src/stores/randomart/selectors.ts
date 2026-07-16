@@ -1,4 +1,4 @@
-import type { ExprNode } from '@repo/randomart-engine-next';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
 

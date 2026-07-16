@@ -1,4 +1,4 @@
-import type { ExprNode, OperatorId } from '@repo/randomart-engine-next';
+import type { AnimationBehaviorId, ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
 
 export type Mode = 'test' | 'play';
 
@@ -16,5 +16,5 @@ export type RandomartState = {
   running: boolean;
   time: number;
   animationSpeed: number;
-  activeAnimationBehaviorIds: string[];
+  activeAnimationBehaviorIds: AnimationBehaviorId[];
 };
