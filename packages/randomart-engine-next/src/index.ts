@@ -10,7 +10,7 @@ export { animationRegistry } from './animation.js';
 export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, evaluate, grow, toGLSL, toStructuredView } from './expression.js';
 export { toMathString, toTreeView } from './format.js';
-export { generate } from './generate.js';
+//export { generate } from './generate.js';
 export { functionById, glslFunctions, resolveGlslDeps } from './glsl.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';
 export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
