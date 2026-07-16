@@ -39,9 +39,6 @@ export function generate(
       return { error: `Rule "${ruleId}" is not enabled.` };
     }
     const rule = getRule(ruleId);
-    if (!rule) {
-      return { error: `Unknown ruleId "${ruleId}".` };
-    }
 
     const size = options.size ?? DEFAULT_SIZE;
     if (!Number.isInteger(size) || size < 1 || size > MAX_SIZE) {
