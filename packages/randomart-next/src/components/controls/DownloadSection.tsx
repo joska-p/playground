@@ -1,9 +1,7 @@
 import type { ExprNode } from '@repo/randomart-engine-next';
 import { evaluate } from '@repo/randomart-engine-next';
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button, Switch } from '@repo/ui/data-entry';
+import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
-import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {
   useCorrelatedRGB,
   useSeedText,
@@ -67,7 +65,7 @@ function renderTreesToBlob(
   });
 }
 
-function DisplaySection() {
+function DownloadSection() {
   const correlatedRGB = useCorrelatedRGB();
   const treeR = useTreeR();
   const treeG = useTreeG();
@@ -119,25 +117,15 @@ function DisplaySection() {
   }
 
   return (
-    <ControlGrid columns={2}>
-      <Switch
-        label="correlated RGB"
-        checked={correlatedRGB}
-        variant="primary"
-        onChange={() => {
-          setCorrelatedRGB(!correlatedRGB);
-        }}
-      />
-      <Button
-        variant="primary"
-        disabled={downloading}
-        onClick={handleDownload}
-        size="sm"
-      >
-        {downloading ? 'Rendering...' : 'Download PNG'}
-      </Button>
-    </ControlGrid>
+    <Button
+      variant="primary"
+      disabled={downloading}
+      onClick={handleDownload}
+      size="sm"
+    >
+      {downloading ? 'Rendering...' : 'Download'}
+    </Button>
   );
 }
 
-export { DisplaySection };
+export { DownloadSection };
