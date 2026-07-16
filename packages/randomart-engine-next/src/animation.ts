@@ -9,10 +9,26 @@
  *     periodic function, so they never loop and just scroll/zoom forever).
  *   - Fixed chromaticAberration: it was shifting red by ca_dir.x and blue by
  *     ca_dir.y (different axes), so the split wasn't actually aligned.
- *   - Added 11 new behaviors aiming for more dramatic, "fancy" looks:
- *     spiralGalaxy, gravityLens, waveInterference, crystalFacet, glitchBlocks,
- *     liquidMetal (spatial); paletteCycle, neonGlowPulse, rgbGlitchSplit,
- *     auroraFlow, thermalVision (color).
+ *   - Added 14 new behaviors aiming for more dramatic, "fancy" looks:
+ *     spiralGalaxy, gravityLens, waveInterference, glitchBlocks, liquidMetal,
+ *     cosmicMaelstrom, quantumTessellation, gravityWell, plasmaFluid (spatial);
+ *     iridescentSheen, thermalRadiance, neonReactivePulse, paletteCycle,
+ *     neonGlowPulse, rgbGlitchSplit, auroraFlow (color).
+ *   - De-duplicated a second pass that had drifted into near-identical pairs:
+ *     dropped cyberChromaGlitch (same row-shift formula as glitchBlocks),
+ *     crystalFacet (same voronoi-facet-rotate idea as quantumTessellation, but
+ *     without its smoothstep blend, so it popped at cell borders), spectralShift
+ *     (same luminance-driven IQ palette as paletteCycle), thermalVision (same
+ *     lava-ramp palette as thermalRadiance, just with hard if/else breakpoints
+ *     instead of a smoothstep chain), and trueChromaticAberration (reintroduced
+ *     the exact red/blue-vs-green axis mismatch that chromaticAberration was
+ *     fixed for, and its "ca_dir" temp var collided with chromaticAberration's
+ *     if both were ever selected together — everything else in this file
+ *     carefully prefixes temp vars per-behavior to avoid exactly that).
+ *   - Clamped gravityLens's falloff the same way gravityWell already guards its
+ *     pull term (0.15 / (d*d + 0.04)) instead of (0.15 / d*d) with only a linear
+ *     epsilon — the old version could spike to ~60x coordinate units near the
+ *     moving center, well past the guarded ~3.75x max used elsewhere.
  *
  * Assumes the same noise helpers as the original file are available in your
  * pipeline: smoothNoise(float)->float, smoothNoise2(float)->vec2, random2d(vec2)->float.
@@ -126,9 +142,9 @@ const noiseCrawlBehavior = {
   noiseDependencies: ['smoothNoise2'],
   applyCode: ({ time, speed, spatial }) =>
     [
-      `vec2 nc_offset = smoothNoise2(${time} * ${speed} * 0.15) * 2.0 - 1.0;`,
-      `${spatial} += nc_offset * 0.6;`
-    ].join('\n  ')
+      `vec2 nc_offset = smoothNoise2(vec2(${time} * ${speed} * 0.15, ${time} * ${speed} * 0.18));`,
+      `${spatial} += nc_offset * 2.0 - 1.0 * 0.6;`
+    ].join('\n ')
 } as const satisfies AnimationBehavior;
 
 const mouseProximityBehavior = {
@@ -220,9 +236,12 @@ const gravityLensBehavior = {
 vec2 gravityLens(vec2 coords, float t, float speed) {
   vec2 center = 0.6 * vec2(cos(t * speed * 0.3), sin(t * speed * 0.37));
   vec2 delta = coords - center;
-  float d = length(delta) + 0.05;
-  float bend = 0.15 / (d * d);
-  return coords - normalize(delta) * bend;
+  float d = length(delta);
+  // Guarded the same way gravityWell guards its pull term: squared-distance
+  // epsilon caps the max displacement (~3.75x here) instead of letting it
+  // spike to tens of coordinate units when the center passes near a fragment.
+  float bend = 0.15 / (d * d + 0.04);
+  return coords - normalize(delta + vec2(0.0001)) * bend;
 }
 `,
   type: 'spatial',
@@ -316,10 +335,10 @@ const liquidMetalBehavior = {
   noiseDependencies: ['smoothNoise2'],
   applyCode: ({ time, speed, spatial }) =>
     [
-      `vec2 lm_a = smoothNoise2(${spatial}.x * 2.0 + ${time} * ${speed} * 0.2);`,
-      `vec2 lm_b = smoothNoise2(${spatial}.y * 2.0 + ${time} * ${speed} * 0.2 + 7.0);`,
+      `vec2 lm_a = smoothNoise2(${spatial} * 2.0 + vec2(${time} * ${speed} * 0.2));`,
+      `vec2 lm_b = smoothNoise2(${spatial} * 2.0 + vec2(${time} * ${speed} * 0.23 + 7.0));`,
       `${spatial} += (lm_a + lm_b - 1.0) * 0.25;`
-    ].join('\n  ')
+    ].join('\n ')
 } as const satisfies AnimationBehavior;
 
 // ---------------------------------------------------------------------------
@@ -443,6 +462,65 @@ const scanLinesBehavior = {
 // ---------------------------------------------------------------------------
 // Color behaviors — new
 // ---------------------------------------------------------------------------
+
+const iridescentSheenBehavior = {
+  id: 'iridescent-sheen',
+  name: 'Iridescence',
+  glslFunction: `
+vec3 applyIridescence(vec3 baseColor, vec2 coords, float t) {
+  float factor = sin(coords.x * 2.5 + t) * cos(coords.y * 2.5 - t);
+  vec3 sheen = 0.5 + 0.5 * cos(t + coords.xyx * 3.0 + vec3(0.0, 2.0, 4.0));
+  return mix(baseColor, baseColor + sheen * 0.4, smoothstep(-0.5, 0.5, factor));
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) =>
+    `${color} = applyIridescence(${color}, ${spatial}, ${time} * ${speed} * 0.5);`
+} as const satisfies AnimationBehavior;
+
+const thermalRadianceBehavior = {
+  id: 'thermal-radiance',
+  name: 'Thermal Infusion',
+  glslFunction: `
+vec3 branchlessThermal(float t) {
+  // Complete replacement of conditional if-statements to prevent mobile GPU pipeline stalls
+  vec3 c1 = vec3(0.0, 0.0, 0.15);
+  vec3 c2 = vec3(0.7, 0.0, 0.55);
+  vec3 c3 = vec3(1.0, 0.5, 0.0);
+  vec3 c4 = vec3(0.98, 0.98, 0.8);
+
+  float ramp1 = smoothstep(0.0, 0.33, t);
+  float ramp2 = smoothstep(0.33, 0.66, t);
+  float ramp3 = smoothstep(0.66, 1.0, t);
+
+  vec3 col = mix(c1, c2, ramp1);
+  col = mix(col, c3, ramp2);
+  col = mix(col, c4, ramp3);
+  return col;
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) =>
+    [
+      `float th_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
+      `float th_cycle = fract(th_lum + ${time} * ${speed} * 0.04);`,
+      `${color} = mix(${color}, branchlessThermal(th_cycle), 0.75);`
+    ].join('\n  ')
+} as const satisfies AnimationBehavior;
+
+const neonReactivePulseBehavior = {
+  id: 'neon-reactive',
+  name: 'Neon Reactive',
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float nr_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
+      `float nr_pulse = 0.5 + 0.5 * sin(${time} * ${speed} * 1.2 - length(${spatial}) * 2.0);`,
+      `vec3 nr_glow = vec3(0.1, 0.85, 1.0) * smoothstep(0.45, 0.85, nr_lum) * nr_pulse;`,
+      `${color} = clamp(${color} + nr_glow * 1.4, 0.0, 1.0);`
+    ].join('\n  ');
+  }
+} as const satisfies AnimationBehavior;
 
 const paletteCycleBehavior = {
   id: 'palette-cycle',
@@ -713,65 +791,6 @@ const TrueChromaticAberrationBehavior = {
   }
 } as const satisfies AnimationBehavior;
 
-const iridescentSheenBehavior = {
-  id: 'iridescent-sheen',
-  name: 'Iridescence',
-  glslFunction: `
-vec3 applyIridescence(vec3 baseColor, vec2 coords, float t) {
-  float factor = sin(coords.x * 2.5 + t) * cos(coords.y * 2.5 - t);
-  vec3 sheen = 0.5 + 0.5 * cos(t + coords.xyx * 3.0 + vec3(0.0, 2.0, 4.0));
-  return mix(baseColor, baseColor + sheen * 0.4, smoothstep(-0.5, 0.5, factor));
-}
-`,
-  type: 'color',
-  applyCode: ({ time, speed, spatial, color }) =>
-    `${color} = applyIridescence(${color}, ${spatial}, ${time} * ${speed} * 0.5);`
-} as const satisfies AnimationBehavior;
-
-const thermalRadianceBehavior = {
-  id: 'thermal-radiance',
-  name: 'Thermal Infusion',
-  glslFunction: `
-vec3 branchlessThermal(float t) {
-  // Complete replacement of conditional if-statements to prevent mobile GPU pipeline stalls
-  vec3 c1 = vec3(0.0, 0.0, 0.15);
-  vec3 c2 = vec3(0.7, 0.0, 0.55);
-  vec3 c3 = vec3(1.0, 0.5, 0.0);
-  vec3 c4 = vec3(0.98, 0.98, 0.8);
-
-  float ramp1 = smoothstep(0.0, 0.33, t);
-  float ramp2 = smoothstep(0.33, 0.66, t);
-  float ramp3 = smoothstep(0.66, 1.0, t);
-
-  vec3 col = mix(c1, c2, ramp1);
-  col = mix(col, c3, ramp2);
-  col = mix(col, c4, ramp3);
-  return col;
-}
-`,
-  type: 'color',
-  applyCode: ({ time, speed, color }) =>
-    [
-      `float th_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
-      `float th_cycle = fract(th_lum + ${time} * ${speed} * 0.04);`,
-      `${color} = mix(${color}, branchlessThermal(th_cycle), 0.75);`
-    ].join('\n  ')
-} as const satisfies AnimationBehavior;
-
-const neonReactivePulseBehavior = {
-  id: 'neon-reactive',
-  name: 'Neon Reactive',
-  type: 'color',
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float nr_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
-      `float nr_pulse = 0.5 + 0.5 * sin(${time} * ${speed} * 1.2 - length(${spatial}) * 2.0);`,
-      `vec3 nr_glow = vec3(0.1, 0.85, 1.0) * smoothstep(0.45, 0.85, nr_lum) * nr_pulse;`,
-      `${color} = clamp(${color} + nr_glow * 1.4, 0.0, 1.0);`
-    ].join('\n  ');
-  }
-} as const satisfies AnimationBehavior;
-
 // ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
@@ -779,6 +798,9 @@ const neonReactivePulseBehavior = {
 export const animationRegistry = [
   // Spatial — kept
   rotateBehavior,
+  neonReactivePulseBehavior,
+  thermalRadianceBehavior,
+  iridescentSheenBehavior,
   swirlBehavior,
   kaleidoscopeBehavior,
   domainWarpBehavior,
@@ -792,7 +814,6 @@ export const animationRegistry = [
   spiralGalaxyBehavior,
   gravityLensBehavior,
   waveInterferenceBehavior,
-  crystalFacetBehavior,
   glitchBlocksBehavior,
   liquidMetalBehavior,
   cosmicMaelstromBehavior,
@@ -800,6 +821,7 @@ export const animationRegistry = [
   gravityWellBehavior,
   plasmaFluidBehavior,
   cyberChromaGlitchBehavior,
+  crystalFacetBehavior,
   // Color — kept
   hueShiftBehavior,
   colorDriftBehavior,

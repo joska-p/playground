@@ -44,7 +44,13 @@ const smoothNoise = {
 const smoothNoise2 = {
   id: 'smoothNoise2',
   dependencies: ['smoothNoise'],
-  glsl: `vec2 smoothNoise2(float t) {
+  glsl: `// 2D version
+vec2 smoothNoise2(vec2 p) {
+  return vec2(smoothNoise(p.x), smoothNoise(p.y));
+}
+
+// 1D (float) version
+vec2 smoothNoise2(float t) {
   return vec2(smoothNoise(t), smoothNoise(t + 31.71));
 }`
 } as const satisfies GlslFunction;

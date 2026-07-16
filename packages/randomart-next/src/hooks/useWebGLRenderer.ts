@@ -71,6 +71,7 @@ export function useWebGLRenderer(
       // Execute initial draw invocation on program compile/ready frames
       gl.uniform1f(locs.time, timeRef.current);
       gl.uniform1f(locs.animSpeed, speedRef.current);
+      gl.uniform2f(locs.mouse, mouseRef.current.x, mouseRef.current.y);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
   );
@@ -81,9 +82,10 @@ export function useWebGLRenderer(
     // Direct draw snapshot frame: If updated while paused, give the user real-time feedback immediately
     const gl = glRef.current;
     if (!running && gl && programRef.current) {
-      const { time, animSpeed } = uniformLocsRef.current;
+      const { time, animSpeed, mouse } = uniformLocsRef.current;
       gl.uniform1f(time, timeRef.current);
       gl.uniform1f(animSpeed, speedRef.current);
+      gl.uniform2f(mouse, mouseRef.current.x, mouseRef.current.y);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
   }, [animationSpeed, running, glRef, programRef, uniformLocsRef]);
@@ -106,9 +108,10 @@ export function useWebGLRenderer(
       const gl = glRef.current;
       if (!gl || !programRef.current) return;
 
-      const { time, animSpeed } = uniformLocsRef.current;
+      const { time, animSpeed, mouse } = uniformLocsRef.current;
       gl.uniform1f(time, timeRef.current);
       gl.uniform1f(animSpeed, speedRef.current);
+      gl.uniform2f(mouse, mouseRef.current.x, mouseRef.current.y);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     },
     true
