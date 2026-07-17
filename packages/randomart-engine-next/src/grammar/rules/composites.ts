@@ -11,6 +11,7 @@ import { createRule } from './createRule.js';
 export const flowArtRule = createRule({
   id: 'flow-art',
   displayName: 'Flow Art',
+  category: 'composite',
   operators: ['if', 'product', 'sum', 'sin'],
   minDepth: 4,
   maxDepth: 10
@@ -19,6 +20,7 @@ export const flowArtRule = createRule({
 export const compareAndClampRule = createRule({
   id: 'compare-and-clamp',
   displayName: 'Compare and Clamp',
+  category: 'composite',
   operators: ['if', 'less-than', 'greater-than', 'step', 'sum', 'product'],
   minDepth: 4,
   maxDepth: 10

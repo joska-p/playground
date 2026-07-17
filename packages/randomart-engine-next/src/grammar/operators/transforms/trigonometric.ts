@@ -7,6 +7,8 @@ const GL_PI = '3.141592653589793';
 export const sinOp = {
   arity: 1,
   opcode: 7,
+  category: 'transform' as const,
+  label: 'sin',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.sin(Math.PI * value)),
   toGLSL: ({ value }: { value: string }) => `sin(${GL_PI} * (${value}))`,
@@ -16,6 +18,8 @@ export const sinOp = {
 export const cosOp = {
   arity: 1,
   opcode: 8,
+  category: 'transform' as const,
+  label: 'cos',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.cos(Math.PI * value)),
   toGLSL: ({ value }: { value: string }) => `cos(${GL_PI} * (${value}))`,

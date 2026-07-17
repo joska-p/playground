@@ -11,7 +11,16 @@ export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, evaluate, grow, toGLSL, toStructuredView } from './expression.js';
 export { toMathString, toTreeView } from './format.js';
 export { functionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';
-export { OPERATORS, getOperator } from './grammar/operators/registry.js';
+export { OPERATORS, getOperator, getOperatorCategories } from './grammar/operators/registry.js';
+export type { OperatorCategory, OperatorGroup } from './grammar/operators/registry.js';
 export { createRule } from './grammar/rules/createRule.js';
-export { DEFAULT_RULE_ID, RULES, getRule, hasRule, listRules } from './grammar/rules/registry.js';
+export {
+  DEFAULT_RULE_ID,
+  RULES,
+  getRule,
+  hasRule,
+  listRuleGroups,
+  listRules
+} from './grammar/rules/registry.js';
+export type { RuleCategory, RuleGroup } from './grammar/rules/registry.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';

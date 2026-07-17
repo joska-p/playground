@@ -46,11 +46,15 @@ import {
 } from './transforms.js';
 
 /** Configuration for a grammar composition. */
+export type RuleCategory = 'classic' | 'terminal' | 'transform' | 'combinator' | 'composite';
+
 export type GrammarSpec = {
   /** Unique identifier for this rule. */
   id: string;
   /** Human readable name. */
   displayName: string;
+  /** Which category this rule belongs to. */
+  category: RuleCategory;
   /** Which operators this grammar uses, by operator id. */
   operators: OperatorId[];
   /** Maximum tree depth. */
@@ -131,4 +135,48 @@ export function getRule(id: string): GrammarRule {
 /** Whether a rule id is registered. */
 export function hasRule(id: string): boolean {
   return RULES.has(id);
+}
+
+// ── Category grouping ───────────────────────────────────────────
+
+const RULE_CATEGORY_ORDER: RuleCategory[] = [
+  'classic',
+  'terminal',
+  'transform',
+  'combinator',
+  'composite'
+];
+
+const RULE_CATEGORY_LABELS: Record<RuleCategory, string> = {
+  classic: 'Classic',
+  terminal: 'Terminal',
+  transform: 'Transform',
+  combinator: 'Combinator',
+  composite: 'Composite'
+};
+
+export type RuleGroup = {
+  label: string;
+  rules: { id: string; displayName: string }[];
+};
+
+/**
+ * Group all registered rules by their {@link GrammarSpec.category}.
+ * The order is deterministic: Classic → Terminal → Transform → Combinator → Composite.
+ */
+export function listRuleGroups(): RuleGroup[] {
+  const grouped = new Map<RuleCategory, { id: string; displayName: string }[]>();
+
+  for (const cat of RULE_CATEGORY_ORDER) {
+    grouped.set(cat, []);
+  }
+
+  for (const rule of RULES.values()) {
+    grouped.get(rule.category)!.push({ id: rule.id, displayName: rule.displayName });
+  }
+
+  return RULE_CATEGORY_ORDER.map((cat) => ({
+    label: RULE_CATEGORY_LABELS[cat],
+    rules: grouped.get(cat)!
+  }));
 }

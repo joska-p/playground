@@ -12,6 +12,7 @@ import { createRule } from './createRule.js';
 export const classicRule = createRule({
   id: 'classic',
   displayName: 'Classic Random Art',
+  category: 'classic',
   operators: ['sum', 'product', 'sin', 'cos', 'abs', 'if'],
   minDepth: 4,
   maxDepth: 11
@@ -20,6 +21,7 @@ export const classicRule = createRule({
 export const trigRule = createRule({
   id: 'trig',
   displayName: 'Trigonometric Waves',
+  category: 'classic',
   operators: ['sin', 'cos', 'sum', 'product'],
   minDepth: 4,
   maxDepth: 10
@@ -28,6 +30,7 @@ export const trigRule = createRule({
 export const blockyRule = createRule({
   id: 'blocky',
   displayName: 'Blocky Modular',
+  category: 'classic',
   operators: ['mod', 'abs', 'sqrt', 'product', 'sum'],
   minDepth: 3,
   maxDepth: 8
@@ -36,6 +39,7 @@ export const blockyRule = createRule({
 export const arithmeticMixRule = createRule({
   id: 'arithmetic-mix',
   displayName: 'Arithmetic Mix',
+  category: 'classic',
   operators: ['sum', 'product', 'pow', 'mod', 'sin', 'abs'],
   minDepth: 4,
   maxDepth: 10

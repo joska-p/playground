@@ -5,6 +5,8 @@ import { clamp } from '../../../util.js';
 export const constOp = {
   arity: 0,
   opcode: 3,
+  category: 'terminal' as const,
+  label: 'const',
   argNames: [] as const,
   evaluate: () => 0,
   toGLSL: () => '0.0',
@@ -14,6 +16,8 @@ export const constOp = {
 export const randomOp = {
   arity: 0,
   opcode: 13,
+  category: 'terminal' as const,
+  label: 'random',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) => {
     const dot = Math.abs(x) * 12.9898 + Math.abs(y) * 78.233;

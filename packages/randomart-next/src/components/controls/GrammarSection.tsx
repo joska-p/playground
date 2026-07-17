@@ -1,5 +1,4 @@
-import { getRule, listRules } from '@repo/randomart-engine-next';
-import type { OperatorId } from '@repo/randomart-engine-next/types';
+import { getOperatorCategories, getRule, listRuleGroups } from '@repo/randomart-engine-next';
 import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Select, Slider } from '@repo/ui/data-entry';
 import {
@@ -15,99 +14,8 @@ import {
   useSelectedRuleId
 } from '../../stores/randomart/selectors';
 
-type OperatorCategory = {
-  label: string;
-  operators: { id: OperatorId; label: string }[];
-};
-
-const OPERATOR_CATEGORIES: OperatorCategory[] = [
-  {
-    label: 'Terminals',
-    operators: [
-      { id: 'x', label: 'x' },
-      { id: 'y', label: 'y' },
-      { id: 'const', label: 'const' },
-      { id: 'random', label: 'random' },
-      { id: 'radial', label: 'radial' },
-      { id: 'sweep', label: 'sweep' },
-      { id: 'fbm', label: 'fbm' },
-      { id: 'recaman-pattern', label: 'recaman' },
-      { id: 'nested-oscillation', label: 'nested osc.' }
-    ]
-  },
-  {
-    label: 'Transforms',
-    operators: [
-      { id: 'sin', label: 'sin' },
-      { id: 'cos', label: 'cos' },
-      { id: 'abs', label: 'abs' },
-      { id: 'sqrt', label: 'sqrt' },
-      { id: 'exp', label: 'exp' },
-      { id: 'log', label: 'log' },
-      { id: 'fract', label: 'fract' }
-    ]
-  },
-  {
-    label: 'Combinators',
-    operators: [
-      { id: 'sum', label: 'sum' },
-      { id: 'product', label: 'product' },
-      { id: 'mod', label: 'mod' },
-      { id: 'pow', label: 'pow' },
-      { id: 'less-than', label: '<' },
-      { id: 'greater-than', label: '>' },
-      { id: 'step', label: 'step' },
-      { id: 'if', label: 'if' }
-    ]
-  }
-];
-
-type RuleGroup = {
-  label: string;
-  rules: { id: string; displayName: string }[];
-};
-
-const RULE_GROUPS: RuleGroup[] = [
-  {
-    label: 'Classic',
-    rules: [
-      { id: 'classic', displayName: 'Classic Random Art' },
-      { id: 'trig', displayName: 'Trigonometric Waves' },
-      { id: 'blocky', displayName: 'Blocky Modular' },
-      { id: 'arithmetic-mix', displayName: 'Arithmetic Mix' }
-    ]
-  },
-  {
-    label: 'Terminal',
-    rules: listRules()
-      .filter((r) => r.id.startsWith('terminal-'))
-      .map((r) => ({ id: r.id, displayName: r.displayName }))
-  },
-  {
-    label: 'Transform',
-    rules: listRules()
-      .filter((r) => r.id.startsWith('transform-'))
-      .map((r) => ({ id: r.id, displayName: r.displayName }))
-  },
-  {
-    label: 'Combinator',
-    rules: listRules()
-      .filter((r) => r.id.startsWith('combinator-'))
-      .map((r) => ({ id: r.id, displayName: r.displayName }))
-  },
-  {
-    label: 'Composite',
-    rules: listRules()
-      .filter(
-        (r) =>
-          !r.id.startsWith('terminal-') &&
-          !r.id.startsWith('transform-') &&
-          !r.id.startsWith('combinator-') &&
-          !['classic', 'trig', 'blocky', 'arithmetic-mix'].includes(r.id)
-      )
-      .map((r) => ({ id: r.id, displayName: r.displayName }))
-  }
-];
+const OPERATOR_CATEGORIES = getOperatorCategories();
+const RULE_GROUPS = listRuleGroups();
 
 function GrammarSection() {
   const selectedRuleId = useSelectedRuleId();
@@ -185,18 +93,18 @@ function GrammarSection() {
           defaultOpen={true}
         >
           <ControlGrid columns={3}>
-            {category.operators.map((op) => {
-              const isActive = activeOperators.includes(op.id);
+            {category.operators.map((operator) => {
+              const isActive = activeOperators.includes(operator.id);
               return (
                 <Button
-                  key={op.id}
+                  key={operator.id}
                   variant={isActive ? 'secondary' : 'default'}
                   size="sm"
                   onClick={() => {
-                    toggleOperator(op.id);
+                    toggleOperator(operator.id);
                   }}
                 >
-                  {op.label}
+                  {operator.label}
                 </Button>
               );
             })}

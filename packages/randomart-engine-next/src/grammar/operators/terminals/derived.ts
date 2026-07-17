@@ -5,6 +5,8 @@ import { clamp } from '../../../util.js';
 export const radialOp = {
   arity: 0,
   opcode: 14,
+  category: 'terminal' as const,
+  label: 'radial',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
     clamp(Math.sqrt(x * x + y * y) * 2.0 - 1.0),
@@ -15,6 +17,8 @@ export const radialOp = {
 export const sweepOp = {
   arity: 0,
   opcode: 15,
+  category: 'terminal' as const,
+  label: 'sweep',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
     clamp((Math.atan2(y, x) / Math.PI) * 2.0 - 1.0),
@@ -28,6 +32,8 @@ export const sweepOp = {
 export const fbmOp = {
   arity: 0,
   opcode: 16,
+  category: 'terminal' as const,
+  label: 'fbm',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) => {
     let value = 0.0;
@@ -60,6 +66,8 @@ export const fbmOp = {
 export const recamanPatternOp = {
   arity: 0,
   opcode: 17,
+  category: 'terminal' as const,
+  label: 'recaman',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) => {
     const d = Math.sqrt(x * x + y * y);
@@ -85,6 +93,8 @@ export const recamanPatternOp = {
 export const nestedOscillationOp = {
   arity: 0,
   opcode: 18,
+  category: 'terminal' as const,
+  label: 'nested osc.',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
     clamp(Math.sin(x * Math.sin(y * Math.PI) * Math.PI)),

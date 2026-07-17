@@ -10,15 +10,15 @@
 import { modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
 import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
 import { ifOp } from './combinators/flow.js';
-import { xOp, yOp } from './inputs/coordinate.js';
+import { xOp, yOp } from './terminals/coordinate.js';
 import {
   fbmOp,
   nestedOscillationOp,
   radialOp,
   recamanPatternOp,
   sweepOp
-} from './inputs/derived.js';
-import { constOp, randomOp } from './inputs/values.js';
+} from './terminals/derived.js';
+import { constOp, randomOp } from './terminals/values.js';
 import { absOp, expOp, fractOp, logOp, sqrtOp } from './transforms/math.js';
 import { cosOp, sinOp } from './transforms/trigonometric.js';
 
@@ -31,9 +31,13 @@ import { cosOp, sinOp } from './transforms/trigonometric.js';
  * wider `Record<string, T>` signatures below — no `as never` needed
  * at call sites.
  */
+export type OperatorCategory = 'terminal' | 'transform' | 'combinator';
+
 export type OperatorDef = {
   readonly arity: number;
   readonly opcode: number;
+  readonly category: OperatorCategory;
+  readonly label: string;
   readonly argNames: readonly string[];
   evaluate(args: Record<string, number>, x: number, y: number): number;
   toGLSL(args: Record<string, string>): string;
@@ -86,3 +90,39 @@ export function getOperator(id: OperatorId): OperatorDef {
 }
 
 export { OPERATORS };
+
+// ── Category grouping ───────────────────────────────────────────
+
+const CATEGORY_ORDER: OperatorCategory[] = ['terminal', 'transform', 'combinator'];
+
+const CATEGORY_LABELS: Record<OperatorCategory, string> = {
+  terminal: 'Terminals',
+  transform: 'Transforms',
+  combinator: 'Combinators'
+};
+
+export type OperatorGroup = {
+  label: string;
+  operators: { id: OperatorId; label: string }[];
+};
+
+/**
+ * Group all registered operators by their {@link OperatorDef.category}.
+ * The order is deterministic: Terminals → Transforms → Combinators.
+ */
+export function getOperatorCategories(): OperatorGroup[] {
+  const grouped = new Map<OperatorCategory, { id: OperatorId; label: string }[]>();
+
+  for (const cat of CATEGORY_ORDER) {
+    grouped.set(cat, []);
+  }
+
+  for (const [id, op] of Object.entries(OPERATORS) as [OperatorId, OperatorDef][]) {
+    grouped.get(op.category)!.push({ id, label: op.label });
+  }
+
+  return CATEGORY_ORDER.map((cat) => ({
+    label: CATEGORY_LABELS[cat],
+    operators: grouped.get(cat)!
+  }));
+}

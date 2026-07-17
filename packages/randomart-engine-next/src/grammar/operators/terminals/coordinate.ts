@@ -3,6 +3,8 @@
 export const xOp = {
   arity: 0,
   opcode: 1,
+  category: 'terminal' as const,
+  label: 'x',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number) => x,
   toGLSL: () => 'p.x',
@@ -12,6 +14,8 @@ export const xOp = {
 export const yOp = {
   arity: 0,
   opcode: 2,
+  category: 'terminal' as const,
+  label: 'y',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, _x: number, y: number) => y,
   toGLSL: () => 'p.y',
