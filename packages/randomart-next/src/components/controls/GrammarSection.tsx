@@ -1,6 +1,6 @@
 import type { OperatorId } from '@repo/randomart-engine-next';
 import { getRule, listRules } from '@repo/randomart-engine-next';
-import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Select, Slider } from '@repo/ui/data-entry';
 import {
   selectRule,
@@ -147,54 +147,61 @@ function GrammarSection() {
           ))}
         </Select>
       </ControlRow>
+      <ControlSubsection
+        title="Depth"
+        defaultOpen={false}
+      >
+        <ControlRow label={`Min: ${String(minDepth)}`}>
+          <div className="flex items-center gap-2">
+            <Slider
+              min={1}
+              max={12}
+              step={1}
+              value={minDepth}
+              onChange={setMinDepth}
+            />
+            <span className="text-foreground-dim w-6 text-right font-mono text-xs">{minDepth}</span>
+          </div>
+        </ControlRow>
 
-      <ControlRow label="Min Depth">
-        <div className="flex items-center gap-2">
-          <Slider
-            min={1}
-            max={12}
-            step={1}
-            value={minDepth}
-            onChange={setMinDepth}
-          />
-          <span className="text-foreground-dim w-6 text-right font-mono text-xs">{minDepth}</span>
-        </div>
-      </ControlRow>
-
-      <ControlRow label="Max Depth">
-        <div className="flex items-center gap-2">
-          <Slider
-            min={1}
-            max={16}
-            step={1}
-            value={maxDepth}
-            onChange={setMaxDepth}
-          />
-          <span className="text-foreground-dim w-6 text-right font-mono text-xs">{maxDepth}</span>
-        </div>
-      </ControlRow>
+        <ControlRow label={`Max: ${String(maxDepth)}`}>
+          <div className="flex items-center gap-2">
+            <Slider
+              min={1}
+              max={16}
+              step={1}
+              value={maxDepth}
+              onChange={setMaxDepth}
+            />
+            <span className="text-foreground-dim w-6 text-right font-mono text-xs">{maxDepth}</span>
+          </div>
+        </ControlRow>
+      </ControlSubsection>
 
       {OPERATOR_CATEGORIES.map((category) => (
-        <ControlSection
+        <ControlSubsection
           key={category.label}
           title={category.label}
-          defaultOpen={false}
+          defaultOpen={true}
         >
           <ControlGrid columns={3}>
-            {category.operators.map((op) => (
-              <Button
-                key={op.id}
-                variant={activeOperators.includes(op.id) ? 'secondary' : 'default'}
-                size="sm"
-                onClick={() => {
-                  toggleOperator(op.id);
-                }}
-              >
-                {op.label}
-              </Button>
-            ))}
+            {category.operators.map((op) => {
+              const isActive = activeOperators.includes(op.id);
+              return (
+                <Button
+                  key={op.id}
+                  variant={isActive ? 'secondary' : 'default'}
+                  size="sm"
+                  onClick={() => {
+                    toggleOperator(op.id);
+                  }}
+                >
+                  {op.label}
+                </Button>
+              );
+            })}
           </ControlGrid>
-        </ControlSection>
+        </ControlSubsection>
       ))}
     </ControlSection>
   );

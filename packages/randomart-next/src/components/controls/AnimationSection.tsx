@@ -1,11 +1,19 @@
 import { animationRegistry } from '@repo/randomart-engine-next';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { Button, Slider } from '@repo/ui/data-entry';
 import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
-import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';
+import { setAnimationSpeed } from '../../stores/randomart/actions/config';
+import { toggleRunning } from '../../stores/randomart/actions/playback';
+import {
+  useActiveAnimationBehaviorIds,
+  useAnimationSpeed,
+  useRunning
+} from '../../stores/randomart/selectors';
 
 function AnimationSection() {
   const activeIds = useActiveAnimationBehaviorIds();
+  const running = useRunning();
+  const animationSpeed = useAnimationSpeed();
 
   return (
     <ControlSection
@@ -13,6 +21,23 @@ function AnimationSection() {
       defaultOpen={false}
     >
       <ControlGrid columns={2}>
+        <Button
+          size="sm"
+          variant="primary"
+          onClick={toggleRunning}
+        >
+          {running ? 'Pause' : 'Play'}
+        </Button>
+
+        <Slider
+          className="col-span-3"
+          aria-label="animation speed"
+          value={animationSpeed}
+          min={0}
+          max={2}
+          step={0.1}
+          onChange={setAnimationSpeed}
+        />
         {animationRegistry.map((behavior) => (
           <Button
             size="sm"
