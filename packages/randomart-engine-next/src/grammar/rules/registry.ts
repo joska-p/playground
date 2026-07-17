@@ -12,41 +12,10 @@
 
 import type { ExprNode, TreeView } from '../../types.js';
 import type { OperatorId } from '../operators/registry.js';
-import { arithmeticMixRule, blockyRule, classicRule, fatRule, trigRule } from './classic.js';
-import {
-  combinatorGreaterThanRule,
-  combinatorIfRule,
-  combinatorLessThanRule,
-  combinatorModRule,
-  combinatorPowRule,
-  combinatorProductRule,
-  combinatorStepRule,
-  combinatorSumRule
-} from './combinators.js';
-import { compareAndClampRule, flowArtRule } from './composites.js';
-import {
-  terminalConstRule,
-  terminalFbmRule,
-  terminalNestedOscillationRule,
-  terminalRadialRule,
-  terminalRandomRule,
-  terminalRecamanRule,
-  terminalSweepRule,
-  terminalXRule,
-  terminalYRule
-} from './terminals.js';
-import {
-  transformAbsRule,
-  transformCosRule,
-  transformExpRule,
-  transformFractRule,
-  transformLogRule,
-  transformSinRule,
-  transformSqrtRule
-} from './transforms.js';
+import { classicRule, fatRule, flowRule, paperRule } from './classic.js';
 
 /** Configuration for a grammar composition. */
-export type RuleCategory = 'classic' | 'terminal' | 'transform' | 'combinator' | 'composite';
+export type RuleCategory = 'classic';
 
 export type GrammarSpec = {
   /** Unique identifier for this rule. */
@@ -77,43 +46,7 @@ export type GrammarRule = GrammarSpec & {
   toTreeView(textSeed: string): TreeView;
 };
 
-const RULE_DEFINITIONS: GrammarRule[] = [
-  fatRule,
-  classicRule,
-  trigRule,
-  blockyRule,
-
-  terminalXRule,
-  terminalYRule,
-  terminalConstRule,
-  terminalRandomRule,
-  terminalRadialRule,
-  terminalSweepRule,
-  terminalFbmRule,
-  terminalRecamanRule,
-  terminalNestedOscillationRule,
-
-  transformSinRule,
-  transformCosRule,
-  transformAbsRule,
-  transformSqrtRule,
-  transformExpRule,
-  transformLogRule,
-  transformFractRule,
-
-  combinatorSumRule,
-  combinatorProductRule,
-  combinatorModRule,
-  combinatorPowRule,
-  combinatorLessThanRule,
-  combinatorGreaterThanRule,
-  combinatorStepRule,
-  combinatorIfRule,
-
-  arithmeticMixRule,
-  flowArtRule,
-  compareAndClampRule
-];
+const RULE_DEFINITIONS: GrammarRule[] = [classicRule, paperRule, flowRule, fatRule];
 
 /** Immutable registry of grammar rules keyed by id. */
 export const RULES: ReadonlyMap<string, GrammarRule> = new Map(
@@ -140,20 +73,10 @@ export function hasRule(id: string): boolean {
 
 // ── Category grouping ───────────────────────────────────────────
 
-const RULE_CATEGORY_ORDER: RuleCategory[] = [
-  'classic',
-  'terminal',
-  'transform',
-  'combinator',
-  'composite'
-];
+const RULE_CATEGORY_ORDER: RuleCategory[] = ['classic'];
 
 const RULE_CATEGORY_LABELS: Record<RuleCategory, string> = {
-  classic: 'Classic',
-  terminal: 'Terminal',
-  transform: 'Transform',
-  combinator: 'Combinator',
-  composite: 'Composite'
+  classic: 'Classic'
 };
 
 export type RuleGroup = {
@@ -163,7 +86,7 @@ export type RuleGroup = {
 
 /**
  * Group all registered rules by their {@link GrammarSpec.category}.
- * The order is deterministic: Classic → Terminal → Transform → Combinator → Composite.
+ * The order is deterministic: Classic.
  */
 export function listRuleGroups(): RuleGroup[] {
   const grouped = new Map<RuleCategory, { id: string; displayName: string }[]>();

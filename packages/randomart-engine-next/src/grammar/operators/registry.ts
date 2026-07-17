@@ -9,7 +9,7 @@
 
 import { divOp, modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
 import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
-import { ifOp } from './combinators/flow.js';
+import { ifOp, mixOp } from './combinators/flow.js';
 import { xOp, yOp } from './terminals/coordinate.js';
 import {
   fbmOp,
@@ -72,7 +72,8 @@ export const OPERATORS = {
   'less-than': lessThanOp,
   'greater-than': greaterThanOp,
   step: stepOp,
-  if: ifOp
+  if: ifOp,
+  mix: mixOp
 } satisfies Record<string, OperatorDef>;
 
 // ── Inferred types ──────────────────────────────────────────────
