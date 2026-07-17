@@ -798,9 +798,6 @@ const TrueChromaticAberrationBehavior = {
 export const animationRegistry = [
   // Spatial — kept
   rotateBehavior,
-  neonReactivePulseBehavior,
-  thermalRadianceBehavior,
-  iridescentSheenBehavior,
   swirlBehavior,
   kaleidoscopeBehavior,
   domainWarpBehavior,
