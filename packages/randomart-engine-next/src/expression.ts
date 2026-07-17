@@ -14,8 +14,7 @@
  *  - toTreeView()    a nested, serializable structure
  */
 
-import type { OperatorId } from './grammar/operators/registry.js';
-import { OPERATORS } from './grammar/operators/registry.js';
+import { type OperatorId, getOperator } from './grammar/operators/registry.js';
 import type { GrammarSpec } from './grammar/types.js';
 import type { SeededRandom } from './prng.js';
 import type { ExprNode, TreeView } from './types.js';
@@ -57,7 +56,7 @@ const DEFAULT_TERMINALS: readonly PoolEntry[] = [
 
 const toEntry = (id: OperatorId): PoolEntry => ({
   type: id,
-  arity: OPERATORS[id].arity,
+  arity: getOperator(id).arity,
   weight: id === 'const' ? 0.5 : 1.0
 });
 
@@ -244,17 +243,17 @@ export function buildTree(
  * the GPU path (toGLSL).
  */
 export function evaluate(node: ExprNode, x: number, y: number): number {
-  const op = OPERATORS[node.type];
-
   if (node.type === 'x') return x;
   if (node.type === 'y') return y;
   if (node.type === 'const') return node.value ?? 0;
-  if (op.arity === 0) return op.evaluate({} as never, x, y);
+
+  const op = getOperator(node.type);
+  if (op.arity === 0) return op.evaluate({}, x, y);
 
   const args = Object.fromEntries(
     op.argNames.map((name, i) => [name, evaluate(node.children![i]!, x, y)])
   ) as Record<string, number>;
-  return op.evaluate(args as never, x, y);
+  return op.evaluate(args, x, y);
 }
 
 /**
@@ -267,17 +266,17 @@ export function evaluate(node: ExprNode, x: number, y: number): number {
  * function calls), which matters for shader compiler optimization.
  */
 export function toGLSL(node: ExprNode): string {
-  const op = OPERATORS[node.type];
-
   if (node.type === 'x') return 'p.x';
   if (node.type === 'y') return 'p.y';
   if (node.type === 'const') return (node.value ?? 0).toFixed(4);
-  if (op.arity === 0) return op.toGLSL({} as never);
+
+  const op = getOperator(node.type);
+  if (op.arity === 0) return op.toGLSL({});
 
   const args = Object.fromEntries(
     op.argNames.map((name, i) => [name, toGLSL(node.children![i]!)])
   ) as Record<string, string>;
-  return op.toGLSL(args as never);
+  return op.toGLSL(args);
 }
 
 /**
@@ -293,7 +292,7 @@ export function toGLSL(node: ExprNode): string {
 export function toBytes(node: ExprNode): Uint8Array {
   const out: number[] = [];
   const walk = (n: ExprNode): void => {
-    out.push(OPERATORS[n.type].opcode);
+    out.push(getOperator(n.type).opcode);
     if (n.type === 'const') {
       const q = Math.round((clamp(n.value ?? 0) + 1) * 127.5);
       out.push(Math.max(0, Math.min(255, q)));

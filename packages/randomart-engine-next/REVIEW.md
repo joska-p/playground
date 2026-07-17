@@ -44,16 +44,13 @@ return op.evaluate(args as never, x, y);
 
 ## Medium Severity
 
-### 3. `string` used where union types exist — 4 locations
+### 3. `string` used where union types exist — 3 locations
 
-| Location                                              | Current Type | Should Be           |
-| ----------------------------------------------------- | ------------ | ------------------- |
-| `src/types.ts:74` — `GenerateOptions.ruleId`          | `string`     | Rule-ID union       |
-| `src/types.ts:82` — `GenerateOptions.enabledRuleIds`  | `string[]`   | Rule-ID union array |
-| `src/weight-presets.ts:66` — `getPresetWeights(name)` | `string`     | `PresetName`        |
-| `src/rules.ts:96,101` — `getRule`/`hasRule`           | `string`     | Rule-ID union       |
-
-`PresetName` is already defined at `weight-presets.ts:60` but `getPresetWeights` ignores it. Callers get no compile-time guard against typos like `'organik'`.
+| Location                                             | Current Type | Should Be           |
+| ---------------------------------------------------- | ------------ | ------------------- |
+| `src/types.ts:74` — `GenerateOptions.ruleId`         | `string`     | Rule-ID union       |
+| `src/types.ts:82` — `GenerateOptions.enabledRuleIds` | `string[]`   | Rule-ID union array |
+| `src/rules.ts:96,101` — `getRule`/`hasRule`          | `string`     | Rule-ID union       |
 
 Rule IDs can be derived from the `REGISTRY` map in `rules.ts` or from `GrammarRule['id']` if rule definitions use `as const`.
 
@@ -79,19 +76,15 @@ These were moved from "Spatial — kept" to "Color — kept" during refactoring 
 
 ## Low Severity
 
-### 6. `WEIGHT_PRESETS` type annotation widens inferred type
-
-`src/weight-presets.ts:18` annotates as `Record<string, WeightOverrides>` with `as const`. The explicit annotation widens keys from the inferred `'balanced' | 'organic' | 'geometric' | 'chaotic'` to `string`. Removing the annotation lets TypeScript infer the narrower type.
-
-### 7. `GL_PI` string constant duplicated
+### 6. `GL_PI` string constant duplicated
 
 Defined identically in `src/grammar/operators/transforms/trigonometric.ts:3` and `src/grammar/operators/inputs/derived.ts:22` (and inside closures in `derived.ts:22,92`). Minor — could be a shared constant.
 
-### 8. `noiseDependencies` access is untyped
+### 7. `noiseDependencies` access is untyped
 
 `src/compileToGLSL.ts:30-42` uses `'noiseDependencies' in op` — a runtime duck-type check. The `OperatorDef` type doesn't include this field. Only `recamanPatternOp` uses it. Could be added as optional to `OperatorDef`.
 
-### 9. `GrammarSpec.id` is `string` not a literal union
+### 8. `GrammarSpec.id` is `string` not a literal union
 
 `src/grammar/types.ts:15` types `id: string`. If rule definitions used `as const` on their `id` field, a `RuleId` union could be derived from them.
 
@@ -99,26 +92,24 @@ Defined identically in `src/grammar/operators/transforms/trigonometric.ts:3` and
 
 ## Summary
 
-| #   | Severity   | Issue                                   | Files Affected                                                                 |
-| --- | ---------- | --------------------------------------- | ------------------------------------------------------------------------------ |
-| 1   | **High**   | `clamp` duplicated 6x                   | expression.ts, arithmetic.ts, trigonometric.ts, math.ts, values.ts, derived.ts |
-| 2   | **High**   | `as never` casts bypass type safety     | expression.ts, format.ts                                                       |
-| 3   | **Medium** | `string` instead of union types         | types.ts, weight-presets.ts, rules.ts, cli.ts                                  |
-| 4   | **Medium** | Duplicate entries in animationRegistry  | animation.ts                                                                   |
-| 5   | **Medium** | Fragile error discriminated union       | types.ts, generate.ts, cli.ts                                                  |
-| 6   | Low        | `WEIGHT_PRESETS` annotation widens type | weight-presets.ts                                                              |
-| 7   | Low        | `GL_PI` duplicated                      | trigonometric.ts, derived.ts                                                   |
-| 8   | Low        | `noiseDependencies` untyped             | compileToGLSL.ts                                                               |
-| 9   | Low        | `GrammarSpec.id` not a literal union    | grammar/types.ts                                                               |
+| #   | Severity   | Issue                                  | Files Affected                                                                 |
+| --- | ---------- | -------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | **High**   | `clamp` duplicated 6x                  | expression.ts, arithmetic.ts, trigonometric.ts, math.ts, values.ts, derived.ts |
+| 2   | **High**   | `as never` casts bypass type safety    | expression.ts, format.ts                                                       |
+| 3   | **Medium** | `string` instead of union types        | types.ts, rules.ts, cli.ts                                                     |
+| 4   | **Medium** | Duplicate entries in animationRegistry | animation.ts                                                                   |
+| 5   | **Medium** | Fragile error discriminated union      | types.ts, generate.ts, cli.ts                                                  |
+| 6   | Low        | `GL_PI` duplicated                     | trigonometric.ts, derived.ts                                                   |
+| 7   | Low        | `noiseDependencies` untyped            | compileToGLSL.ts                                                               |
+| 8   | Low        | `GrammarSpec.id` not a literal union   | grammar/types.ts                                                               |
 
 ## Planned Fixes
 
 - [x] Step 1: Extract `clamp` to `src/util.ts` (issue #1)
-- [ ] Step 2: Add `RuleId` type derived from rule definitions (issue #3)
-- [ ] Step 3: Replace `string` with `RuleId` in public APIs (issue #3)
-- [ ] Step 4: Use `PresetName` in `getPresetWeights` (issue #3)
-- [ ] Step 5: Remove `Record<string, WeightOverrides>` annotation (issue #6)
-- [ ] Step 6: Remove duplicate entries from animationRegistry (issue #4)
-- [ ] Step 7: Add `kind` discriminator to error union (issue #5)
-- [ ] Step 8: Add `noiseDependencies?` to OperatorDef (issue #8)
-- [ ] Step 9: (Optional) Make OperatorDef generic over argNames (issue #2)
+- [x] Step 2: Remove dead weight-presets feature (engine + UI)
+- [ ] Step 3: Add `RuleId` type derived from rule definitions (issue #3)
+- [ ] Step 4: Replace `string` with `RuleId` in public APIs (issue #3)
+- [ ] Step 5: Remove duplicate entries from animationRegistry (issue #4)
+- [ ] Step 6: Add `kind` discriminator to error union (issue #5)
+- [ ] Step 7: Add `noiseDependencies?` to OperatorDef (issue #7)
+- [ ] Step 8: (Optional) Make OperatorDef generic over argNames (issue #2)

@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
 import { useRunning, useTreeB, useTreeG, useTreeR } from '../stores/randomart/selectors';
 import { FloatingInspector } from './inspector/FloatingInspector';
-import { FloatingWeightPanel } from './weights/FloatingWeightPanel';
 
 export function RandomArtCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +15,6 @@ export function RandomArtCanvas() {
   return (
     <>
       <FloatingInspector />
-      <FloatingWeightPanel />
 
       <div className="relative mx-auto flex aspect-square h-screen items-center justify-center overflow-hidden p-4">
         <canvas

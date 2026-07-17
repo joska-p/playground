@@ -1,12 +1,12 @@
 /**
  * Operator registry — single source of truth for all grammar operators.
  *
- * The `OPERATORS` record maps every `ExprNodeType` to its self-contained
- * implementation object. Types are inferred from the record; completeness
- * is checked at compile time against the `ExprNodeType` union.
+ * `OperatorDef` is the concrete shape every operator must satisfy.
+ * `OPERATORS` maps each operator id to its implementation; `OperatorId` and
+ * the `getOperator()` helper are inferred from this record so there is
+ * exactly one place to update when adding or removing an operator.
  */
 
-import type { ExprNodeType } from '../../types.js';
 import { modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
 import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
 import { ifOp } from './combinators/flow.js';
@@ -22,9 +22,28 @@ import { constOp, randomOp } from './inputs/values.js';
 import { absOp, expOp, fractOp, logOp, sqrtOp } from './transforms/math.js';
 import { cosOp, sinOp } from './transforms/trigonometric.js';
 
+// ── Operator definition shape ───────────────────────────────────
+
+/**
+ * Concrete interface every operator satisfies. Uses **method syntax**
+ * so that TypeScript's bivariant parameter checking allows operators
+ * with narrower destructured params (e.g. `{ a, b }`) to satisfy the
+ * wider `Record<string, T>` signatures below — no `as never` needed
+ * at call sites.
+ */
+export type OperatorDef = {
+  readonly arity: number;
+  readonly opcode: number;
+  readonly argNames: readonly string[];
+  evaluate(args: Record<string, number>, x: number, y: number): number;
+  toGLSL(args: Record<string, string>): string;
+  toMathString(args: Record<string, string>): string;
+  readonly noiseDependencies?: readonly string[];
+};
+
 // ── Registry ────────────────────────────────────────────────────
 
-export const OPERATORS = {
+const OPERATORS = {
   x: xOp,
   y: yOp,
   const: constOp,
@@ -49,14 +68,21 @@ export const OPERATORS = {
   'greater-than': greaterThanOp,
   step: stepOp,
   if: ifOp
-} satisfies Record<ExprNodeType, unknown>;
+} satisfies Record<string, OperatorDef>;
 
-// ── Type inference ──────────────────────────────────────────────
+// ── Inferred types ──────────────────────────────────────────────
 
-type InferredOps = typeof OPERATORS;
+/** The union of all operator keys — the single source of truth for ExprNodeType. */
+export type OperatorId = keyof typeof OPERATORS;
 
-/** Every value in OPERATORS must satisfy this shape. */
-export type OperatorDef = InferredOps[keyof InferredOps];
+// ── Runtime helpers ─────────────────────────────────────────────
 
-/** The union of all operator keys — replaces ExprNodeType. */
-export type OperatorId = keyof InferredOps;
+/**
+ * Look up an operator by id, widening to the concrete {@link OperatorDef}
+ * interface so callers can invoke methods without `as never` casts.
+ */
+export function getOperator(id: OperatorId): OperatorDef {
+  return OPERATORS[id];
+}
+
+export { OPERATORS };

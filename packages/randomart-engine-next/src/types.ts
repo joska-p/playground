@@ -9,6 +9,16 @@
  * an image, and it can also be rendered as GLSL, a math string, or a tree view.
  */
 
+import type { OperatorId } from './grammar/operators/registry.js';
+
+/**
+ * The set of grammar productions understood by the evaluator.
+ *
+ * Inferred from the operator registry — the single source of truth.
+ * Adding or removing an operator in `registry.ts` automatically updates this type.
+ */
+export type ExprNodeType = OperatorId;
+
 /**
  * A single node of the generated expression tree.
  *
@@ -24,37 +34,6 @@ export type ExprNode = {
   /** Child sub-expressions, present for operator nodes. */
   readonly children?: ExprNode[];
 };
-
-/** The set of grammar productions understood by the evaluator. */
-export type ExprNodeType =
-  // Terminals (9)
-  | 'x'
-  | 'y'
-  | 'const'
-  | 'random'
-  | 'radial'
-  | 'sweep'
-  | 'fbm'
-  | 'recaman-pattern'
-  | 'nested-oscillation'
-  // Transforms — unary (7)
-  | 'sin'
-  | 'cos'
-  | 'abs'
-  | 'sqrt'
-  | 'exp'
-  | 'log'
-  | 'fract'
-  // Combinators — binary (7)
-  | 'sum'
-  | 'product'
-  | 'mod'
-  | 'pow'
-  | 'less-than'
-  | 'greater-than'
-  | 'step'
-  // Combinators — ternary (1)
-  | 'if';
 
 /** A structured, presentation-friendly tree view of an {@link ExprNode}. */
 export type TreeView = {
@@ -76,8 +55,7 @@ export type GenerateOptions = {
    * Subset of rule ids that are currently enabled. When provided, `generate()`
    * rejects any `ruleId` not in this list — the consumer is expected to iterate
    * over `listRules()`, filter by this set, and call `generate()` for each
-   * enabled rule.  Composes with weight presets: the preset selects relative
-   * weights; the enabled-list restricts which rules can appear at all.
+   * enabled rule.
    */
   enabledRuleIds?: string[];
   /** Ordered list of hex colors (e.g. `"#ff0000"`) used to map output values. */
@@ -133,4 +111,4 @@ export type AnimationBehavior = {
 
 export type { AnimationBehaviorId, animationRegistry } from './animation';
 
-export type { OperatorId } from './grammar/operators/registry';
+export type { OperatorDef, OperatorId } from './grammar/operators/registry';

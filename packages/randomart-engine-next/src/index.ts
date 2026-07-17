@@ -12,10 +12,9 @@ export { buildTree, evaluate, grow, toGLSL, toStructuredView } from './expressio
 export { toMathString, toTreeView } from './format.js';
 export { functionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';
 export { createRule } from './grammar/createRule.js';
-export { OPERATORS } from './grammar/operators/registry.js';
+export { OPERATORS, getOperator } from './grammar/operators/registry.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';
 export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
-export { WEIGHT_PRESETS, getPresetWeights } from './weight-presets.js';
 
 export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
 export type { OperatorDef, OperatorId } from './grammar/operators/registry.js';
@@ -31,4 +30,3 @@ export type {
   GenerateResult,
   TreeView
 } from './types.js';
-export type { PresetName, WeightOverrides } from './weight-presets.js';

@@ -10,7 +10,7 @@
  */
 
 import { toStructuredView } from './expression.js';
-import { OPERATORS } from './grammar/operators/registry.js';
+import { getOperator } from './grammar/operators/registry.js';
 import type { ExprNode, TreeView } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -19,15 +19,15 @@ import type { ExprNode, TreeView } from './types.js';
 
 /** Render an expression node as a human-readable math formula. */
 export function toMathString(node: ExprNode): string {
-  const op = OPERATORS[node.type];
-
   if (node.type === 'const') return String(node.value ?? 0);
-  if (op.arity === 0) return op.toMathString({} as never);
+
+  const op = getOperator(node.type);
+  if (op.arity === 0) return op.toMathString({});
 
   const args = Object.fromEntries(
     op.argNames.map((name, i) => [name, toMathString(node.children![i]!)])
   ) as Record<string, string>;
-  return op.toMathString(args as never);
+  return op.toMathString(args);
 }
 
 // ---------------------------------------------------------------------------
