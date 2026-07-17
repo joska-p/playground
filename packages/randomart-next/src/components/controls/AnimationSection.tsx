@@ -20,7 +20,7 @@ function AnimationSection() {
       title="animation"
       defaultOpen={false}
     >
-      <ControlGrid columns={2}>
+      <ControlGrid columns={3}>
         <Button
           size="sm"
           variant="primary"
@@ -30,7 +30,7 @@ function AnimationSection() {
         </Button>
 
         <Slider
-          className="col-span-3"
+          className="col-span-2"
           aria-label="animation speed"
           value={animationSpeed}
           min={0}
