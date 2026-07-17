@@ -103,3 +103,21 @@ export function createCorrelatedRng(seedText: string): DualRng {
   const rng = new SeededRandom(`${seedText}_rgb`);
   return { structure: rng, channels: [rng, rng, rng] };
 }
+
+/**
+ * Deterministic Fisher-Yates shuffle using a separate mini-LCG.
+ *
+ * This does NOT consume from any {@link SeededRandom} instance, so callers
+ * can shuffle operator lists (or anything else) without affecting the main
+ * RNG stream used for tree generation.
+ */
+export function seededShuffle<T>(arr: readonly T[], seedText: string): T[] {
+  const result = [...arr];
+  let s = fnv1a(seedText);
+  for (let i = result.length - 1; i > 0; i--) {
+    s = (Math.imul(s, 1103515245) + 12345) >>> 0;
+    const j = s % (i + 1);
+    [result[i], result[j]] = [result[j]!, result[i]!];
+  }
+  return result;
+}

@@ -7,7 +7,7 @@
 import { compileToGLSL } from '../../compileToGLSL.js';
 import { grow, toBytes, toStructuredView } from '../../expression.js';
 import { toMathString as nodeToMathString } from '../../format.js';
-import { SeededRandom } from '../../prng.js';
+import { SeededRandom, seededShuffle } from '../../prng.js';
 import type { ExprNode } from '../../types.js';
 import type { GrammarRule, GrammarSpec } from './registry.js';
 
@@ -20,8 +20,10 @@ export function createRule(spec: GrammarSpec): GrammarRule {
     }
     const cached = cache.get(textSeed);
     if (cached) return cached;
-    const rng = new SeededRandom(`${spec.id}:${textSeed}`);
-    const node = grow(rng, spec, spec.maxDepth);
+    const seedStr = `${spec.id}:${textSeed}`;
+    const rng = new SeededRandom(seedStr);
+    const shuffledSpec = { ...spec, operators: seededShuffle(spec.operators, seedStr) };
+    const node = grow(rng, shuffledSpec, spec.maxDepth);
     cache.set(textSeed, node);
     return node;
   };

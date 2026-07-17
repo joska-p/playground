@@ -147,7 +147,7 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
   const forceTerminal = depth <= 0;
   const forceOperator = currentDepth < spec.minDepth;
 
-  const specEntries = [...spec.operators].sort().map(toEntry);
+  const specEntries = [...spec.operators].map(toEntry);
   const hasTerminals = specEntries.some((e) => e.arity === 0);
   const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
 
@@ -209,7 +209,7 @@ export function buildTree(
 ): ExprNode {
   const rngToUse = currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
 
-  const specEntries = [...spec.operators].sort().map(toEntry);
+  const specEntries = [...spec.operators].map(toEntry);
   const hasTerminals = specEntries.some((e) => e.arity === 0);
   const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
 
