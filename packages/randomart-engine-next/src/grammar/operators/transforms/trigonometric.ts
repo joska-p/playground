@@ -1,8 +1,8 @@
 /** Trigonometric transform operators — `sin` and `cos`. */
 
-const GL_PI = '3.141592653589793';
+import { clamp } from '../../../util.js';
 
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+const GL_PI = '3.141592653589793';
 
 export const sinOp = {
   arity: 1,

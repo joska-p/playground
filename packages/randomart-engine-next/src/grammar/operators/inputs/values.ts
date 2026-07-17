@@ -1,6 +1,6 @@
 /** Value input operators — `const` is special-cased by walkers. */
 
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+import { clamp } from '../../../util.js';
 
 export const constOp = {
   arity: 0,

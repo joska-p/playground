@@ -1,6 +1,6 @@
 /** Math transform operators — `abs`, `sqrt`, `exp`, `log`, `fract`. */
 
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+import { clamp } from '../../../util.js';
 
 export const absOp = {
   arity: 1,

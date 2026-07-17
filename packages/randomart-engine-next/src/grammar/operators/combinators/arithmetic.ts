@@ -1,6 +1,6 @@
 /** Arithmetic combinator operators — `sum`, `product`, `mod`, `pow`. */
 
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+import { clamp } from '../../../util.js';
 
 export const sumOp = {
   arity: 2,

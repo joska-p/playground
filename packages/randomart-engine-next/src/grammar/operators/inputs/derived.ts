@@ -1,6 +1,6 @@
 /** Derived terminal operators — coordinate-space noise patterns. */
 
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+import { clamp } from '../../../util.js';
 
 export const radialOp = {
   arity: 0,

@@ -19,8 +19,7 @@ import { OPERATORS } from './grammar/operators/registry.js';
 import type { GrammarSpec } from './grammar/types.js';
 import type { SeededRandom } from './prng.js';
 import type { ExprNode, TreeView } from './types.js';
-
-const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
+import { clamp } from './util.js';
 
 // ── Pool building for grow() / buildTree() ──────────────────────
 
