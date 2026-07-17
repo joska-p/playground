@@ -1,4 +1,4 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 
 /** Builds the same preview node for a rule+seed pair used by both CPU and GPU renderers. */
 export function buildPreviewNode(rule: GrammarRule, seed: number) {

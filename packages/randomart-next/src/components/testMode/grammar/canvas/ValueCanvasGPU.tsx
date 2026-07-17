@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import type { GrammarRule } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 import { useMemo, useRef } from 'react';
 import type * as THREE from 'three';
 import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from '../../glsl/buildValueShader';
@@ -60,8 +60,8 @@ function ValuePlane({ fragmentShader, t }: { fragmentShader: string; t: number }
   const uniforms = useMemo(() => ({ uT: { value: t } }), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useFrame(() => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.uT.value = t;
+    if (materialRef.current?.uniforms['uT']) {
+      materialRef.current.uniforms['uT'].value = t;
     }
   });
 

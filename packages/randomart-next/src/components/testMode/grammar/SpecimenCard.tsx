@@ -1,5 +1,5 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
 import { toMathString } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import {
   rerollRule,

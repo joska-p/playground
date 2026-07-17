@@ -5,7 +5,7 @@
  * operators were composite and have been dropped from the grammar.
  */
 
-import { createRule } from '../createRule.js';
+import { createRule } from './createRule.js';
 
 export const combinatorSumRule = createRule({
   id: 'combinator-sum',

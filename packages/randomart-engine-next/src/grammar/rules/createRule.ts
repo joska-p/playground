@@ -4,12 +4,12 @@
  * so every representation is derived from the exact same tree.
  */
 
-import { compileToGLSL } from '../compileToGLSL.js';
-import { grow, toBytes, toStructuredView } from '../expression.js';
-import { toMathString as nodeToMathString } from '../format.js';
-import { SeededRandom } from '../prng.js';
-import type { ExprNode } from '../types.js';
-import type { GrammarRule, GrammarSpec } from './types.js';
+import { compileToGLSL } from '../../compileToGLSL.js';
+import { grow, toBytes, toStructuredView } from '../../expression.js';
+import { toMathString as nodeToMathString } from '../../format.js';
+import { SeededRandom } from '../../prng.js';
+import type { ExprNode } from '../../types.js';
+import type { GrammarRule, GrammarSpec } from './registry.js';
 
 export function createRule(spec: GrammarSpec): GrammarRule {
   const cache = new Map<string, ExprNode>();

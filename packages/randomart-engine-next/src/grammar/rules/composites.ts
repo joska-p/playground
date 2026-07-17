@@ -6,7 +6,7 @@
  * The `compare-and-clamp` rule has been updated: `clamp` replaced with `if`.
  */
 
-import { createRule } from '../createRule.js';
+import { createRule } from './createRule.js';
 
 export const flowArtRule = createRule({
   id: 'flow-art',

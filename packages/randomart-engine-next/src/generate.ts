@@ -11,8 +11,8 @@
 
 import { makeColorMapper } from './color.js';
 import { evaluate } from './expression.js';
+import { DEFAULT_RULE_ID, getRule } from './grammar/rules/registry.js';
 import { encodePNG } from './png.js';
-import { DEFAULT_RULE_ID, getRule } from './rules.js';
 import type { GenerateError, GenerateOptions, GenerateResult } from './types.js';
 
 const DEFAULT_SIZE = 256;

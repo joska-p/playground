@@ -1,5 +1,5 @@
-import type { AnimationBehavior, ExprNode } from '@repo/randomart-engine-next';
 import { compileToGLSL } from '@repo/randomart-engine-next';
+import type { AnimationBehavior, ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 

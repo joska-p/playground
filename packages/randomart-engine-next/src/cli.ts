@@ -13,7 +13,7 @@
 import { writeFile } from 'node:fs/promises';
 import { toTreeView } from './format.js';
 import { generate } from './generate.js';
-import { listRules } from './rules.js';
+import { listRules } from './grammar/rules/registry.js';
 
 const USAGE = `
 randomart — generate visual hash art from a text seed

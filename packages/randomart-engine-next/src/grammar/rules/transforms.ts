@@ -2,7 +2,7 @@
  * Transform-only rule definitions — one rule per unary transform operator.
  */
 
-import { createRule } from '../createRule.js';
+import { createRule } from './createRule.js';
 
 export const transformSinRule = createRule({
   id: 'transform-sin',

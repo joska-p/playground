@@ -2,7 +2,7 @@
  * Terminal-only rule definitions — one rule per terminal operator.
  */
 
-import { createRule } from '../createRule.js';
+import { createRule } from './createRule.js';
 
 export const terminalXRule = createRule({
   id: 'terminal-x',

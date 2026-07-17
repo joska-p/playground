@@ -1,4 +1,4 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 
 function deriveCategory(ruleId: string): string {
   if (ruleId.startsWith('terminal-')) return 'terminal';

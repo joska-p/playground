@@ -1,5 +1,5 @@
-import type { ExprNode } from '@repo/randomart-engine-next';
 import { evaluate } from '@repo/randomart-engine-next';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { useSeedText, useTreeB, useTreeG, useTreeR } from '../../stores/randomart/selectors';

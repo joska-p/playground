@@ -14,8 +14,9 @@
  *  - toTreeView()    a nested, serializable structure
  */
 
-import { type OperatorId, getOperator } from './grammar/operators/registry.js';
-import type { GrammarSpec } from './grammar/types.js';
+import type { OperatorId } from './grammar/operators/registry.js';
+import { getOperator } from './grammar/operators/registry.js';
+import type { GrammarSpec } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
 import type { ExprNode, TreeView } from './types.js';
 import { clamp } from './util.js';

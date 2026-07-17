@@ -1,5 +1,5 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
 import { evaluate } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { valueToRGB } from '../../lib/colormap';
 import { buildPreviewNode } from '../../lib/evalHelpers';

@@ -1,4 +1,4 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 import type { ReactNode } from 'react';
 import type { RenderMode } from '../../store';
 import { ValueCanvasCPU } from './ValueCanvasCPU';

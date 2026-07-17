@@ -1,5 +1,5 @@
-import type { OperatorId } from '@repo/randomart-engine-next';
 import { getRule, listRules } from '@repo/randomart-engine-next';
+import type { OperatorId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Select, Slider } from '@repo/ui/data-entry';
 import {

@@ -1,34 +1,13 @@
-/**
- * Shared types for the randomart engine.
- *
- * The engine implements the "random art" hash-visualization scheme described by
- * Perrig & Song ("Hash Visualization: A New Technique to Improve Real-World
- * Security"). A text seed is expanded into a deterministic pseudo-random stream
- * which is used to grow an expression tree from a small context-free grammar.
- * The tree is a function f(x, y) -> [-1, 1] that is evaluated per pixel to paint
- * an image, and it can also be rendered as GLSL, a math string, or a tree view.
- */
+import type { OperatorId } from './grammar/operators/registry';
+export type { AnimationBehaviorId } from './animation';
+export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
+export type { OperatorDef, OperatorId } from './grammar/operators/registry.js';
+export type { GrammarRule } from './grammar/rules/registry.js';
+export type { DualRng } from './prng.js';
 
-import type { OperatorId } from './grammar/operators/registry.js';
-
-/**
- * The set of grammar productions understood by the evaluator.
- *
- * Inferred from the operator registry — the single source of truth.
- * Adding or removing an operator in `registry.ts` automatically updates this type.
- */
-export type ExprNodeType = OperatorId;
-
-/**
- * A single node of the generated expression tree.
- *
- * Every node evaluates to a scalar in the range [-1, 1] given normalized
- * coordinates (x, y) each in [-1, 1]. Terminal nodes (`x`, `y`, `const`) have no
- * children; operator nodes combine one or more child expressions.
- */
 export type ExprNode = {
   /** The grammar production used to build this node. */
-  readonly type: ExprNodeType;
+  readonly type: OperatorId;
   /** Constant value, only present when `type === "const"`. */
   readonly value?: number;
   /** Child sub-expressions, present for operator nodes. */
@@ -40,7 +19,7 @@ export type TreeView = {
   /** Human readable label for the node, e.g. `sin` or `const(0.42)`. */
   label: string;
   /** Grammar production type. */
-  type: ExprNodeType;
+  type: OperatorId;
   /** Constant value when applicable. */
   value?: number;
   /** Nested child tree views. */
@@ -108,7 +87,3 @@ export type AnimationBehavior = {
   applyCode: (ctx: ApplyCodeContext) => string;
   noiseDependencies?: string[];
 };
-
-export type { AnimationBehaviorId, animationRegistry } from './animation';
-
-export type { OperatorDef, OperatorId } from './grammar/operators/registry';

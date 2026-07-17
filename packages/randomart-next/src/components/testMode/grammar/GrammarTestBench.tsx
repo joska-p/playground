@@ -1,4 +1,4 @@
-import type { GrammarRule } from '@repo/randomart-engine-next';
+import type { GrammarRule } from '@repo/randomart-engine-next/types';
 import { useAnimationLoop } from '../hooks/useAnimationLoop';
 import { useFilteredRules } from '../hooks/useFilteredRules';
 import { setT, testModeStore, useAnimate, useCategory, useQuery } from '../store';

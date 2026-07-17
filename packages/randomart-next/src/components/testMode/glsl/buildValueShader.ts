@@ -1,5 +1,5 @@
-import type { ExprNode } from '@repo/randomart-engine-next';
 import { resolveGlslDeps, toGLSL } from '@repo/randomart-engine-next';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { colormapGLSL } from '../lib/colormap';
 
 export const VALUE_VERTEX_SHADER = `

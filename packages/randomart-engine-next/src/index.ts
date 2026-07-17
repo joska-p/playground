@@ -11,22 +11,7 @@ export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, evaluate, grow, toGLSL, toStructuredView } from './expression.js';
 export { toMathString, toTreeView } from './format.js';
 export { functionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';
-export { createRule } from './grammar/createRule.js';
 export { OPERATORS, getOperator } from './grammar/operators/registry.js';
+export { createRule } from './grammar/rules/createRule.js';
+export { DEFAULT_RULE_ID, RULES, getRule, hasRule, listRules } from './grammar/rules/registry.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';
-export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
-
-export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
-export type { OperatorDef, OperatorId } from './grammar/operators/registry.js';
-export type { GrammarRule, GrammarSpec } from './grammar/types.js';
-export type { DualRng } from './prng.js';
-export type {
-  AnimationBehavior,
-  ApplyCodeContext,
-  ExprNode,
-  ExprNodeType,
-  GenerateError,
-  GenerateOptions,
-  GenerateResult,
-  TreeView
-} from './types.js';

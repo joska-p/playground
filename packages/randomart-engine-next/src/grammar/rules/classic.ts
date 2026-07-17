@@ -7,7 +7,7 @@
  * the 24 primitive operators.
  */
 
-import { createRule } from '../createRule.js';
+import { createRule } from './createRule.js';
 
 export const classicRule = createRule({
   id: 'classic',
