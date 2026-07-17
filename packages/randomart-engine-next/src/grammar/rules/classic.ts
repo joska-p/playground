@@ -7,13 +7,26 @@
  * the 24 primitive operators.
  */
 
+import type { OperatorId } from '../operators/registry.js';
+import { OPERATORS } from '../operators/registry.js';
 import { createRule } from './createRule.js';
+
+const allOperatorIds = Object.keys(OPERATORS) as OperatorId[];
+
+export const fatRule = createRule({
+  id: 'fat',
+  displayName: 'All op enabled',
+  category: 'classic',
+  operators: allOperatorIds,
+  minDepth: 4,
+  maxDepth: 11
+});
 
 export const classicRule = createRule({
   id: 'classic',
   displayName: 'Classic Random Art',
   category: 'classic',
-  operators: ['sum', 'product', 'sin', 'cos', 'abs', 'if'],
+  operators: ['sum', 'product', 'sin', 'cos', 'abs', 'if', 'div'],
   minDepth: 4,
   maxDepth: 11
 });

@@ -7,7 +7,7 @@
  * exactly one place to update when adding or removing an operator.
  */
 
-import { modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
+import { divOp, modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
 import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
 import { ifOp } from './combinators/flow.js';
 import { xOp, yOp } from './terminals/coordinate.js';
@@ -47,7 +47,7 @@ export type OperatorDef = {
 
 // ── Registry ────────────────────────────────────────────────────
 
-const OPERATORS = {
+export const OPERATORS = {
   x: xOp,
   y: yOp,
   const: constOp,
@@ -68,6 +68,7 @@ const OPERATORS = {
   product: productOp,
   mod: modOp,
   pow: powOp,
+  div: divOp,
   'less-than': lessThanOp,
   'greater-than': greaterThanOp,
   step: stepOp,
@@ -88,8 +89,6 @@ export type OperatorId = keyof typeof OPERATORS;
 export function getOperator(id: OperatorId): OperatorDef {
   return OPERATORS[id];
 }
-
-export { OPERATORS };
 
 // ── Category grouping ───────────────────────────────────────────
 

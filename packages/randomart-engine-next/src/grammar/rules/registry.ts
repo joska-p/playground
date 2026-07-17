@@ -12,7 +12,7 @@
 
 import type { ExprNode, TreeView } from '../../types.js';
 import type { OperatorId } from '../operators/registry.js';
-import { arithmeticMixRule, blockyRule, classicRule, trigRule } from './classic.js';
+import { arithmeticMixRule, blockyRule, classicRule, fatRule, trigRule } from './classic.js';
 import {
   combinatorGreaterThanRule,
   combinatorIfRule,
@@ -78,6 +78,7 @@ export type GrammarRule = GrammarSpec & {
 };
 
 const RULE_DEFINITIONS: GrammarRule[] = [
+  fatRule,
   classicRule,
   trigRule,
   blockyRule,

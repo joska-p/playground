@@ -1,4 +1,4 @@
-/** Arithmetic combinator operators — `sum`, `product`, `mod`, `pow`. */
+/** Arithmetic combinator operators — `sum`, `product`, `mod`, `pow`, `div`. */
 
 import { clamp } from '../../../util.js';
 
@@ -53,4 +53,19 @@ export const powOp = {
     return `(sign(${base}) * pow(abs(${base}), ${expExpr}))`;
   },
   toMathString: ({ base, exp }: { base: string; exp: string }) => `(${base}^${exp})`
+};
+
+export const divOp = {
+  arity: 2,
+  opcode: 10,
+  category: 'combinator' as const,
+  label: 'div',
+  argNames: ['a', 'b'] as const,
+  evaluate: ({ a, b }: { a: number; b: number }) => {
+    if (Math.abs(b) < 1e-6) return 0;
+    return clamp(a / b);
+  },
+  toGLSL: ({ a, b }: { a: string; b: string }) =>
+    `(abs(${b}) < 1e-6 ? 0.0 : clamp((${a}) / (${b}), -1.0, 1.0))`,
+  toMathString: ({ a, b }: { a: string; b: string }) => `(${a} / ${b})`
 };
