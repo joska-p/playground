@@ -59,29 +59,26 @@ const pseudoRecaman = {
   id: 'pseudoRecaman',
   glsl: `float pseudoRecaman(vec2 coords) {
   float d = length(coords);
-  float continuousStep = clamp(d * 15.0, 1.0, 15.0);
-  int lowStep = int(floor(continuousStep));
+
+  // Scale the distance to create concentric wave frequencies
+  float continuousStep = d * 10.0;
+  float lowStep = floor(continuousStep);
   float stepFract = fract(continuousStep);
 
-  float val = 0.0;
-  float nextVal = 0.0;
+  // Instead of a random walk loop, we simulate expanding intervals
+  // using alternating analytical functions
+  float val = lowStep * (lowStep + 1.0) * 0.5; // Sum of steps (max expansion)
+  float nextVal = (lowStep + 1.0) * (lowStep + 2.0) * 0.5;
 
-  for(int i = 1; i < 16; i++) {
-    if (i <= lowStep + 1) {
-      float flip = fract(sin(val * 12.9898) * 43758.5453);
-      float nextFlipped = (flip > 0.5 && (val - float(i)) > 0.0) ? (val - float(i)) : (val + float(i));
+  // Modulate with a sine wave based on the step to create an alternating "in-out" pulse
+  val += sin(lowStep * 1.618) * lowStep;
+  nextVal += sin((lowStep + 1.0) * 1.618) * (lowStep + 1.0);
 
-      if (i <= lowStep) {
-        val = nextFlipped;
-      }
-      if (i == lowStep + 1) {
-        nextVal = nextFlipped;
-      }
-    }
-  }
+  // Smoothly blend between the rings to prevent harsh aliasing artifacts
+  float finalVal = mix(val, nextVal, smoothstep(0.0, 1.0, stepFract));
 
-  float finalVal = mix(val, nextVal, stepFract);
-  return fract(finalVal * 0.2);
+  // Map tightly back to a [0, 1] range for the randomart grammar pipeline
+  return fract(finalVal * 0.05);
 }`
 } as const satisfies GlslFunction;
 

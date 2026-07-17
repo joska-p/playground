@@ -116,7 +116,7 @@ function DownloadSection() {
       onClick={handleDownload}
       size="sm"
     >
-      {downloading ? 'Rendering...' : 'Download'}
+      {downloading ? '...' : 'png'}
     </Button>
   );
 }

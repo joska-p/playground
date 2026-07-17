@@ -3,12 +3,13 @@ import { Button, Textarea } from '@repo/ui/data-entry';
 import { setSeedText } from '../../stores/randomart/actions/config';
 import { useSeedText } from '../../stores/randomart/selectors';
 import { DownloadSection } from './DownloadSection';
+import { StateIOButtons } from './StateIOButtons';
 
 function ConfigSection() {
   const seedText = useSeedText();
 
   return (
-    <ControlGrid columns={2}>
+    <ControlGrid columns={4}>
       <Textarea
         className="col-span-full"
         autoGrow={false}
@@ -23,10 +24,11 @@ function ConfigSection() {
           setSeedText(Math.random().toString(36).slice(2, 10));
         }}
       >
-        Randomize
+        Rand
       </Button>
 
       <DownloadSection />
+      <StateIOButtons />
     </ControlGrid>
   );
 }
