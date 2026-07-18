@@ -1,5 +1,3 @@
-/** Coordinate input operators — `x` and `y` are special-cased by walkers. */
-
 export const xOp = {
   arity: 0,
   opcode: 1,

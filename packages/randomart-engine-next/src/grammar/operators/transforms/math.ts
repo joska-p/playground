@@ -1,5 +1,3 @@
-/** Math transform operators — `abs`, `sqrt`, `exp`, `log`, `fract`. */
-
 import { clamp } from '../../../util.js';
 
 export const absOp = {

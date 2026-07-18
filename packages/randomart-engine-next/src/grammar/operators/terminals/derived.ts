@@ -1,5 +1,4 @@
-/** Derived terminal operators — coordinate-space noise patterns. */
-
+import type { GlslFunctionsIds } from '../../../glsl-library.js';
 import { GLSL_PI } from '../../../glsl-library.js';
 import { clamp } from '../../../util.js';
 
@@ -47,18 +46,9 @@ export const fbmOp = {
     }
     return clamp(value);
   },
-  toGLSL: () => {
-    const noise = (pxExpr: string, pyExpr: string) =>
-      `(fract(sin(${pxExpr} * 12.9898 + ${pyExpr} * 78.233) * 43758.5453) * 2.0 - 1.0)`;
-    return [
-      `(( ${noise('p.x', 'p.y')}`,
-      `+ 0.5 * ${noise('p.x * 2.0', 'p.y * 2.0')}`,
-      `+ 0.25 * ${noise('p.x * 4.0', 'p.y * 4.0')}`,
-      `+ 0.125 * ${noise('p.x * 8.0', 'p.y * 8.0')}`,
-      `+ 0.0625 * ${noise('p.x * 16.0', 'p.y * 16.0')} ) * 0.67)`
-    ].join('\n');
-  },
-  toMathString: () => 'fbm(p)'
+  toGLSL: () => `fbm(p)`,
+  toMathString: () => 'fbmNoise(p)',
+  noiseDependencies: ['fbmNoise'] as GlslFunctionsIds[]
 };
 
 export const recamanPatternOp = {
@@ -85,7 +75,7 @@ export const recamanPatternOp = {
   },
   toGLSL: () => `pseudoRecaman(p)`,
   toMathString: () => 'recaman(p)',
-  noiseDependencies: ['pseudoRecaman']
+  noiseDependencies: ['pseudoRecaman'] as GlslFunctionsIds[]
 };
 
 export const nestedOscillationOp = {

@@ -1,5 +1,3 @@
-/** Arithmetic combinator operators — `sum`, `product`, `mod`, `pow`, `div`. */
-
 import { clamp } from '../../../util.js';
 
 export const sumOp = {

@@ -1,12 +1,4 @@
-/**
- * Operator registry — single source of truth for all grammar operators.
- *
- * `OperatorDef` is the concrete shape every operator must satisfy.
- * `OPERATORS` maps each operator id to its implementation; `OperatorId` and
- * the `getOperator()` helper are inferred from this record so there is
- * exactly one place to update when adding or removing an operator.
- */
-
+import type { GlslFunctionsIds } from '../../glsl-library.js';
 import { divOp, modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
 import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
 import { ifOp, mixOp } from './combinators/flow.js';
@@ -42,7 +34,7 @@ export type Operator = {
   evaluate(args: Record<string, number>, x: number, y: number): number;
   toGLSL(args: Record<string, string>): string;
   toMathString(args: Record<string, string>): string;
-  readonly noiseDependencies?: readonly string[];
+  readonly noiseDependencies?: readonly GlslFunctionsIds[];
 };
 
 // ── Registry ────────────────────────────────────────────────────

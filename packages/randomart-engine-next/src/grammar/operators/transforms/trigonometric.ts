@@ -1,5 +1,3 @@
-/** Trigonometric transform operators — `sin` and `cos`. */
-
 import { GLSL_PI } from '../../../glsl-library.js';
 import { clamp } from '../../../util.js';
 

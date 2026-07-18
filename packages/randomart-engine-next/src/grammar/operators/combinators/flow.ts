@@ -1,5 +1,3 @@
-/** Flow combinator operators — `if` (ternary conditional), `mix` (blend). */
-
 import { clamp } from '../../../util.js';
 
 export const ifOp = {

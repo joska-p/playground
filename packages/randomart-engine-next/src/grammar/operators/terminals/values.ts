@@ -1,5 +1,3 @@
-/** Value input operators — `const` is special-cased by walkers. */
-
 import { clamp } from '../../../util.js';
 
 export const constOp = {

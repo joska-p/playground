@@ -1,5 +1,3 @@
-/** Comparison combinator operators — `less-than`, `greater-than`, `step`. */
-
 export const lessThanOp = {
   arity: 2,
   opcode: 24,
