@@ -12,7 +12,7 @@
 
 import type { ExprNode, TreeView } from '../../types.js';
 import type { OperatorId } from '../operators/registry.js';
-import { classicRule, fatRule, flowRule, paperRule } from './classic.js';
+import { classicRule, fatRule, flowRule, paperRule } from './rule-definitions.js';
 
 /** Configuration for a grammar composition. */
 export type RuleCategory = 'classic';

@@ -55,7 +55,7 @@ const DEFAULT_TERMINALS: readonly PoolEntry[] = [
   { type: 'const', arity: 0, weight: 0.5 }
 ];
 
-const toEntry = (id: OperatorId): PoolEntry => ({
+const operatorToPoolEntry = (id: OperatorId): PoolEntry => ({
   type: id,
   arity: getOperator(id).arity,
   weight: id === 'const' ? 0.5 : 1.0
@@ -80,7 +80,7 @@ const toEntry = (id: OperatorId): PoolEntry => ({
  * of tree variety across seeds — two seeds with the same operators can produce
  * very different pool compositions.
  */
-function buildPool(
+function buildOperatorPool(
   rng: SeededRandom,
   operators: readonly PoolEntry[],
   structuralProbability: number
@@ -105,7 +105,7 @@ function buildPool(
  * that images lean toward coordinate-based and operator-based expression, with
  * constants sprinkled in for palette variation rather than dominating the tree.
  */
-function weightedPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
+function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
   const totalWeight = pool.reduce((sum, op) => sum + op.weight, 0);
   let threshold = rng.next() * totalWeight;
   for (const op of pool) {
@@ -147,7 +147,7 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
   const forceTerminal = depth <= 0;
   const forceOperator = currentDepth < spec.minDepth;
 
-  const specEntries = [...spec.operators].map(toEntry);
+  const specEntries = [...spec.operators].map(operatorToPoolEntry);
   const hasTerminals = specEntries.some((e) => e.arity === 0);
   const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
 
@@ -161,10 +161,10 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
     if (pool.length === 0) pool = [...operators];
   } else {
     const structuralProbability = 1 - currentDepth / spec.maxDepth;
-    pool = buildPool(rng, operators, structuralProbability);
+    pool = buildOperatorPool(rng, operators, structuralProbability);
   }
 
-  const pick = weightedPick(rng, pool);
+  const pick = weightedRandomPick(rng, pool);
 
   if (pick.type === 'const') {
     return { type: 'const', value: Number(rng.nextRange(-1, 1).toFixed(4)) };
@@ -200,7 +200,7 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
  * Unlike grow(), this function tracks currentDepth directly (incrementing up)
  * rather than counting down, which makes the dual-RNG switching logic clearer.
  */
-export function buildTree(
+export function buildExpressionTree(
   structureRng: SeededRandom,
   channelRng: SeededRandom,
   currentDepth: number,
@@ -209,13 +209,13 @@ export function buildTree(
 ): ExprNode {
   const rngToUse = currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
 
-  const specEntries = [...spec.operators].map(toEntry);
+  const specEntries = [...spec.operators].map(operatorToPoolEntry);
   const hasTerminals = specEntries.some((e) => e.arity === 0);
   const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
 
   const structuralProbability = 1 - currentDepth / maxDepth;
-  const pool = buildPool(rngToUse, operators, structuralProbability);
-  const pick = weightedPick(rngToUse, pool);
+  const pool = buildOperatorPool(rngToUse, operators, structuralProbability);
+  const pick = weightedRandomPick(rngToUse, pool);
 
   if (pick.type === 'const') {
     return { type: 'const', value: Number(rngToUse.nextRange(-1, 1).toFixed(4)) };
@@ -227,7 +227,7 @@ export function buildTree(
 
   const children: ExprNode[] = [];
   for (let i = 0; i < pick.arity; i++) {
-    children.push(buildTree(structureRng, channelRng, currentDepth + 1, maxDepth, spec));
+    children.push(buildExpressionTree(structureRng, channelRng, currentDepth + 1, maxDepth, spec));
   }
   return { type: pick.type, children };
 }
@@ -290,7 +290,7 @@ export function toGLSL(node: ExprNode): string {
  * array without needing the full ExprNode tree in memory, which is useful for
  * streaming or embedded contexts where memory is tight.
  */
-export function toBytes(node: ExprNode): Uint8Array {
+export function serializeToBytes(node: ExprNode): Uint8Array {
   const out: number[] = [];
   const walk = (n: ExprNode): void => {
     out.push(getOperator(n.type).opcode);

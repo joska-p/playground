@@ -1,4 +1,4 @@
-import { compileToGLSL } from '@repo/randomart-engine-next';
+import { compileToShader } from '@repo/randomart-engine-next';
 import type { AnimationBehavior, ColorSpaceId, ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
@@ -49,7 +49,7 @@ export function useShaderProgram(
 
     // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
     // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
-    const fragmentShaderSource = compileToGLSL(
+    const fragmentShaderSource = compileToShader(
       trees.treeR,
       trees.treeG,
       trees.treeB,

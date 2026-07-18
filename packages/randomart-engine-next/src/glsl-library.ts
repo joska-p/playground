@@ -9,6 +9,9 @@
  * Ported from randomart-engine/src/compile/glslLibrary.ts (S6).
  */
 
+/** GLSL literal string for π, used across operator GLSL output. */
+export const GLSL_PI = '3.141592653589793';
+
 export type GlslFunction = {
   id: string;
   glsl: string;
@@ -108,7 +111,7 @@ export const glslFunctions = [
 
 export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 
-export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
+export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 /**
  * Given a list of required GLSL function IDs, returns the concatenated GLSL
@@ -131,7 +134,7 @@ export function resolveGlslDeps(requiredIds: string[]): string {
     }
     resolving.add(id);
     path.push(id);
-    const fn = functionById.get(id);
+    const fn = glslFunctionById.get(id);
     if (!fn) {
       path.pop();
       resolving.delete(id);

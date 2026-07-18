@@ -38,7 +38,7 @@ export function parseHex(hex: string): RGB {
  *                gradient (black -> white) is used.
  * @returns A function mapping v in [-1, 1] to an RGB triple.
  */
-export function makeColorMapper(palette?: string[]): (v: number) => RGB {
+export function createColorMapper(palette?: string[]): (v: number) => RGB {
   const stops: RGB[] =
     palette && palette.length > 0
       ? palette.map(parseHex)

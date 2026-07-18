@@ -9,7 +9,7 @@
  * rather than thrown, matching the task's error-handling contract.
  */
 
-import { makeColorMapper } from './color.js';
+import { createColorMapper } from './color.js';
 import { evaluate } from './expression.js';
 import { DEFAULT_RULE_ID, getRule } from './grammar/rules/registry.js';
 import { encodePNG } from './png.js';
@@ -51,7 +51,7 @@ export function generate(
 
     let colorFn: (v: number) => { r: number; g: number; b: number };
     try {
-      colorFn = makeColorMapper(options.colorPalette);
+      colorFn = createColorMapper(options.colorPalette);
     } catch (err) {
       return { error: (err as Error).message };
     }

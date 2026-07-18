@@ -1,5 +1,6 @@
 /** Derived terminal operators — coordinate-space noise patterns. */
 
+import { GLSL_PI } from '../../../glsl-library.js';
 import { clamp } from '../../../util.js';
 
 export const radialOp = {
@@ -22,10 +23,7 @@ export const sweepOp = {
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
     clamp((Math.atan2(y, x) / Math.PI) * 2.0 - 1.0),
-  toGLSL: () => {
-    const GL_PI = '3.141592653589793';
-    return `(atan(p.y, p.x) / ${GL_PI} * 2.0 - 1.0)`;
-  },
+  toGLSL: () => `(atan(p.y, p.x) / ${GLSL_PI} * 2.0 - 1.0)`,
   toMathString: () => 'sweep(p)'
 };
 
@@ -98,9 +96,6 @@ export const nestedOscillationOp = {
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
     clamp(Math.sin(x * Math.sin(y * Math.PI) * Math.PI)),
-  toGLSL: () => {
-    const GL_PI = '3.141592653589793';
-    return `sin(p.x * sin(p.y * ${GL_PI}) * ${GL_PI})`;
-  },
+  toGLSL: () => `sin(p.x * sin(p.y * ${GLSL_PI}) * ${GLSL_PI})`,
   toMathString: () => 'nested-oscillation(p)'
 };

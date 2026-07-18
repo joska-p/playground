@@ -4,8 +4,8 @@
  * so every representation is derived from the exact same tree.
  */
 
-import { compileToGLSL } from '../../compileToGLSL.js';
-import { grow, toBytes, toStructuredView } from '../../expression.js';
+import { compileToShader } from '../../compileToGLSL.js';
+import { grow, serializeToBytes, toStructuredView } from '../../expression.js';
 import { toMathString as nodeToMathString } from '../../format.js';
 import { SeededRandom, seededShuffle } from '../../prng.js';
 import type { ExprNode } from '../../types.js';
@@ -31,10 +31,10 @@ export function createRule(spec: GrammarSpec): GrammarRule {
   return {
     ...spec,
     buildNode: (textSeed: string): ExprNode => build(textSeed),
-    toCPU: (textSeed: string): Uint8Array => toBytes(build(textSeed)),
+    toCPU: (textSeed: string): Uint8Array => serializeToBytes(build(textSeed)),
     toGPU: (textSeed: string): string => {
       const node = build(textSeed);
-      return compileToGLSL(node, node, node, []);
+      return compileToShader(node, node, node, []);
     },
     toMathString: (textSeed: string): string => nodeToMathString(build(textSeed)),
     toTreeView: (textSeed: string) => toStructuredView(build(textSeed))

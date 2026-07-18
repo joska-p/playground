@@ -1,13 +1,21 @@
-import type { OperatorId } from './grammar/operators/registry';
-export type { AnimationBehaviorId } from './animation';
+// ── Re-exports from sub-modules ──────────────────────────────────
+// Types that originate in other modules are re-exported here so
+// consumers can import everything from a single location.
+
+export type { AnimationBehaviorId } from './animation/index.js';
 export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
 export type { OperatorDef, OperatorId } from './grammar/operators/registry.js';
 export type { GrammarRule } from './grammar/rules/registry.js';
 export type { DualRng } from './prng.js';
 
+// ── Local type definitions ───────────────────────────────────────
+
+import type { OperatorId } from './grammar/operators/registry.js';
+
 /** Supported color spaces for pre-evaluation coordinate wrapping. */
 export type ColorSpaceId = 'srgb' | 'oklch' | 'oklab' | 'hsl';
 
+/** A node in the expression tree. */
 export type ExprNode = {
   /** The grammar production used to build this node. */
   readonly type: OperatorId;
