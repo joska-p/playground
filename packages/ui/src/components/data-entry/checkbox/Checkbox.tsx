@@ -5,12 +5,14 @@ import { checkboxVariants, type CheckboxVariants } from './variants';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement>, CheckboxVariants {
   label?: ReactNode;
+  labelClassName?: string;
   loading?: boolean;
   ref?: Ref<HTMLInputElement>;
 }
 
 export function Checkbox({
   className,
+  labelClassName,
   variant = 'primary',
   label,
   disabled = false,
@@ -38,7 +40,8 @@ export function Checkbox({
       htmlFor={id}
       className={cn(
         'flex items-center gap-2.5 text-sm select-none',
-        disabled || loading ? 'pointer-events-none opacity-40' : 'cursor-pointer'
+        disabled || loading ? 'pointer-events-none opacity-40' : 'cursor-pointer',
+        labelClassName
       )}
     >
       {input}

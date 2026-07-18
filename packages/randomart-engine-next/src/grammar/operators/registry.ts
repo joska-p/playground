@@ -1,15 +1,9 @@
 import type { GlslFunctionsIds } from '../../glsl-library.js';
 import { divOp, modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
-import { greaterThanOp, lessThanOp, stepOp } from './combinators/comparison.js';
+import { greaterThanOp, lessThanOp } from './combinators/comparison.js';
 import { ifOp, mixOp } from './combinators/flow.js';
 import { xOp, yOp } from './terminals/coordinate.js';
-import {
-  fbmOp,
-  nestedOscillationOp,
-  radialOp,
-  recamanPatternOp,
-  sweepOp
-} from './terminals/derived.js';
+import { radialOp, sweepOp } from './terminals/derived.js';
 import { constOp, randomOp } from './terminals/values.js';
 import { absOp, expOp, fractOp, logOp, sqrtOp } from './transforms/math.js';
 import { cosOp, sinOp } from './transforms/trigonometric.js';
@@ -46,9 +40,6 @@ export const OPERATORS = {
   random: randomOp,
   radial: radialOp,
   sweep: sweepOp,
-  fbm: fbmOp,
-  'recaman-pattern': recamanPatternOp,
-  'nested-oscillation': nestedOscillationOp,
   sin: sinOp,
   cos: cosOp,
   abs: absOp,
@@ -63,7 +54,6 @@ export const OPERATORS = {
   div: divOp,
   'less-than': lessThanOp,
   'greater-than': greaterThanOp,
-  step: stepOp,
   if: ifOp,
   mix: mixOp
 } satisfies Record<string, Operator>;

@@ -121,12 +121,14 @@ export function StateIOButtons() {
       <Button
         type="button"
         onClick={handleExport}
+        size="sm"
       >
         Export
       </Button>
       <Button
         type="button"
         onClick={handleImportClick}
+        size="sm"
       >
         Import
       </Button>

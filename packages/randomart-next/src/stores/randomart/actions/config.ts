@@ -27,6 +27,10 @@ export function setColorSpace(colorSpace: ColorSpaceId): void {
   randomartStore.setState({ colorSpace }, false, 'config/setColorSpace');
 }
 
+export function setCorrelatedRGB(correlatedRGB: boolean): void {
+  updateTreeConfig(() => ({ correlatedRGB }), 'display/setCorrelatedRGB');
+}
+
 export function selectRule(ruleId: RuleId): void {
   const rule = getRule(ruleId);
   updateTreeConfig(
