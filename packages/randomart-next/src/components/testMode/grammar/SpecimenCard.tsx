@@ -1,4 +1,4 @@
-import { toMathString } from '@repo/randomart-engine-next';
+import { buildChannelTrees, toMathString } from '@repo/randomart-engine-next';
 import type { Rule } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import {
@@ -24,6 +24,7 @@ export function SpecimenCard({ rule, index }: { rule: Rule; index: number }) {
   const renderMode = useRenderMode();
   const isSelected = selectedRuleId === rule.id;
   const sizePx = renderMode === 'compare' ? CARD_CANVAS_SIZE_COMPARE : CARD_CANVAS_SIZE;
+  const { treeR } = buildChannelTrees(String(seed), rule, true);
 
   return (
     <div
@@ -69,7 +70,7 @@ export function SpecimenCard({ rule, index }: { rule: Rule; index: number }) {
       </div>
 
       <pre className="bg-background text-warning overflow-x-auto rounded-md p-1.5 font-mono text-[10px]">
-        f(x, y) = {toMathString(rule.buildNode(String(seed)))}
+        f(x, y) = {toMathString(treeR)}
       </pre>
     </div>
   );

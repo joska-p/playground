@@ -1,72 +1,12 @@
-/**
- * The public `generate` entry point.
- *
- * Unified pipeline that both the CLI and UI consume. Builds three correlated
- * R/G/B expression trees from a seed, rasterizes them to a PNG, and bundles
- * the result with shader / math / tree representations.
- *
- * All input validation errors are returned as structured `{ error }` objects
- * rather than thrown, matching the error-handling contract.
- */
-
 import { compileToShader } from './compileToGLSL.js';
 import { toMathString } from './format.js';
-import type { Rule } from './grammar/rules/registry.js';
 import { DEFAULT_RULE_ID, getRule } from './grammar/rules/registry.js';
 import { encodePNG } from './png.js';
-import type { SeededRandom } from './prng.js';
-import { createCorrelatedRng, createDualRng } from './prng.js';
-import { buildTree, evaluate } from './tree.js';
-import type { ExprNode, GenerateError, GenerateOptions, GenerateResult } from './types.js';
+import { buildChannelTrees, evaluate } from './tree.js';
+import type { GenerateError, GenerateOptions, GenerateResult } from './types.js';
 
 const DEFAULT_SIZE = 256;
 const MAX_SIZE = 4096;
-
-/** Depth below which the shared structureRng drives branching decisions,
- *  keeping the overall tree shape consistent across R/G/B channels. */
-const STRUCTURE_RNG_DEPTH = 3;
-
-// ── Channel tree building ─────────────────────────────────────
-
-/**
- * Build three correlated R/G/B expression trees from a seed and grammar spec.
- *
- * This is the multi-channel tree builder used by the UI's rendering pipeline.
- * For a complete output (PNG + shader + math), use {@link generate} instead.
- *
- * - **Correlated mode**: all three channels share one RNG so structural decisions
- *   are identical — channels diverge only because trees are built as separate
- *   instances.
- * - **Uncorrelated mode**: a structure RNG (shared at shallow depths via
- *   `STRUCTURE_RNG_DEPTH`) plus three independent per-channel RNGs produce
- *   images with coherent broad structure but per-channel color variation.
- */
-export function buildChannelTrees(
-  seedText: string,
-  spec: Rule,
-  correlated: boolean
-): { treeR: ExprNode; treeG: ExprNode; treeB: ExprNode } {
-  const pickRng =
-    (structure: SeededRandom, channel: SeededRandom) =>
-    (depth: number): SeededRandom =>
-      depth < STRUCTURE_RNG_DEPTH ? structure : channel;
-
-  if (correlated) {
-    const { structure, channels } = createCorrelatedRng(seedText);
-    return {
-      treeR: buildTree(spec, spec.maxDepth, pickRng(structure, channels[0])),
-      treeG: buildTree(spec, spec.maxDepth, pickRng(structure, channels[1])),
-      treeB: buildTree(spec, spec.maxDepth, pickRng(structure, channels[2]))
-    };
-  }
-
-  const { structure, channels } = createDualRng(seedText, spec.maxDepth);
-  return {
-    treeR: buildTree(spec, spec.maxDepth, pickRng(structure, channels[0])),
-    treeG: buildTree(spec, spec.maxDepth, pickRng(structure, channels[1])),
-    treeB: buildTree(spec, spec.maxDepth, pickRng(structure, channels[2]))
-  };
-}
 
 // ── Public API ────────────────────────────────────────────────
 
