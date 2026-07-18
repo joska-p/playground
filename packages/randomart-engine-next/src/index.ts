@@ -1,4 +1,11 @@
-export { animationRegistry } from './animation/index.js';
+// ── Animation ────────────────────────────────────────────────────
+export {
+  BEHAVIORS,
+  getAnimation,
+  hasAnimation,
+  listAnimationGroups,
+  listAnimations
+} from './behaviours/registry.js';
 export { compileToShader } from './compileToGLSL.js';
 export { toMathString, toTreeView } from './format.js';
 export { GLSL_PI, glslFunctionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';

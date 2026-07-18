@@ -17,7 +17,7 @@ type RandomartRecipe = {
   minDepth: RandomartState['minDepth'];
   maxDepth: RandomartState['maxDepth'];
   time: RandomartState['time'];
-  activeAnimationBehaviorIds: RandomartState['activeAnimationBehaviorIds'];
+  activeBehaviorIds: RandomartState['activeBehaviorIds'];
   correlatedRGB?: RandomartState['correlatedRGB'];
 };
 
@@ -29,7 +29,7 @@ function toRecipe(state: RandomartState): RandomartRecipe {
     minDepth,
     maxDepth,
     time,
-    activeAnimationBehaviorIds,
+    activeBehaviorIds,
     correlatedRGB
   } = state;
   return {
@@ -39,7 +39,7 @@ function toRecipe(state: RandomartState): RandomartRecipe {
     minDepth,
     maxDepth,
     time,
-    activeAnimationBehaviorIds,
+    activeBehaviorIds,
     correlatedRGB
   };
 }

@@ -1,17 +1,18 @@
-import { animationRegistry } from '@repo/randomart-engine-next';
+import { listAnimations } from '@repo/randomart-engine-next';
+import type { BehaviorId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
-import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
+import { toggleBehavior } from '../../stores/randomart/actions/behaviour';
 import { setAnimationSpeed } from '../../stores/randomart/actions/config';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
 import {
-  useActiveAnimationBehaviorIds,
+  useActiveBehaviorIds,
   useAnimationSpeed,
   useRunning
 } from '../../stores/randomart/selectors';
 
 function AnimationSection() {
-  const activeIds = useActiveAnimationBehaviorIds();
+  const activeIds = useActiveBehaviorIds();
   const running = useRunning();
   const animationSpeed = useAnimationSpeed();
 
@@ -38,16 +39,16 @@ function AnimationSection() {
           step={0.1}
           onChange={setAnimationSpeed}
         />
-        {animationRegistry.map((behavior) => (
+        {listAnimations().map((behavior) => (
           <Button
             size="sm"
             key={`animation-${behavior.id}`}
-            variant={activeIds.includes(behavior.id) ? 'accent' : 'default'}
+            variant={activeIds.includes(behavior.id as BehaviorId) ? 'accent' : 'default'}
             onClick={() => {
-              toggleAnimationBehavior(behavior.id);
+              toggleBehavior(behavior.id as BehaviorId);
             }}
           >
-            {behavior.name}
+            {behavior.label}
           </Button>
         ))}
       </ControlGrid>

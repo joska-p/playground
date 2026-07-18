@@ -33,7 +33,7 @@ function generateInitial(): RandomartState {
     running: false,
     time: 0,
     animationSpeed: 0.3,
-    activeAnimationBehaviorIds: ['hue-shift'],
+    activeBehaviorIds: ['hue-shift'],
     colorSpace: 'srgb',
     correlatedRGB: false
   };

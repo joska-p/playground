@@ -10,9 +10,9 @@ import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-
 import { resolveGlslDeps } from './glsl-library.js';
 import { getOperator } from './grammar/operators/registry.js';
 import { toGLSL } from './tree.js';
-import type { AnimationBehavior, ApplyCodeContext, ColorSpaceId, ExprNode } from './types.js';
+import type { ApplyCodeContext, Behavior, ColorSpaceId, ExprNode } from './types.js';
 
-function buildShaderPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {
+function buildShaderPreamble(noiseIds: string[], behaviors: Behavior[]): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
   const seen = new Set<string>();
   const behaviorFunctions = behaviors
@@ -42,10 +42,7 @@ function collectNoiseDependencies(node: ExprNode, deps: Set<string>): void {
   }
 }
 
-function applyAnimationBehaviors(
-  behaviors: AnimationBehavior[],
-  behaviorType: AnimationBehavior['type']
-): string {
+function applyBehaviors(behaviors: Behavior[], behaviorType: Behavior['kind']): string {
   const ctx: ApplyCodeContext = {
     time: 'u_time',
     speed: 'u_animSpeed',
@@ -53,7 +50,7 @@ function applyAnimationBehaviors(
     color: 'color'
   };
   return behaviors
-    .filter((b) => b.type === behaviorType)
+    .filter((b) => b.kind === behaviorType)
     .map((b) => b.applyCode(ctx))
     .join('\n');
 }
@@ -88,13 +85,13 @@ export function compileToShader(
   treeR: ExprNode,
   treeG: ExprNode,
   treeB: ExprNode,
-  behaviors: AnimationBehavior[] = [],
+  behaviors: Behavior[] = [],
   colorSpace: ColorSpaceId = 'srgb'
 ): string {
   const noiseDeps = new Set<string>();
   const colorExpr = compileColorExpression(treeR, treeG, treeB);
-  const spatialCode = applyAnimationBehaviors(behaviors, 'spatial');
-  const colorCode = applyAnimationBehaviors(behaviors, 'color');
+  const spatialCode = applyBehaviors(behaviors, 'spatial');
+  const colorCode = applyBehaviors(behaviors, 'color');
   const colorSpaceGlsl = getColorSpaceGlslFunction(colorSpace);
 
   collectNoiseDependencies(treeR, noiseDeps);

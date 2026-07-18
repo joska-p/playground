@@ -1,22 +1,22 @@
-import type { AnimationBehavior } from '../types.js';
+import type { ApplyCodeContext } from './registry.js';
 
 export const rotateBehavior = {
   id: 'rotate',
-  name: 'Rotate',
+  label: 'Rotate',
   glslFunction: `\
 mat2 rotate2d(float _angle){
   return mat2(cos(_angle),-sin(_angle),
   sin(_angle),cos(_angle));
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = rotate2d(${time} * ${speed} * 0.5) * ${spatial};`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const swirlBehavior = {
   id: 'swirl',
-  name: 'Swirl',
+  label: 'Swirl',
   glslFunction: `\
 vec2 swirl(vec2 coords, float angle) {
   float r = length(coords);
@@ -24,14 +24,14 @@ vec2 swirl(vec2 coords, float angle) {
   return vec2(cos(a) * r, sin(a) * r);
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = swirl(${spatial}, sin(${time} * ${speed}) * 2.0);`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const kaleidoscopeBehavior = {
   id: 'kaleidoscope',
-  name: 'Kaleidoscope',
+  label: 'Kaleidoscope',
   glslFunction: `\
 vec2 kaleidoscope(vec2 coords, float t, float speed) {
   float rot = t * speed * 0.1;
@@ -49,14 +49,14 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
   return r * vec2(cos(a), sin(a));
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = kaleidoscope(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const domainWarpBehavior = {
   id: 'domain-warp',
-  name: 'Warp',
+  label: 'Warp',
   glslFunction: `\
 vec2 domainWarp(vec2 coords, float t, float speed) {
   vec2 q = vec2(
@@ -66,21 +66,22 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
   return coords + q * 0.4;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
+    `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
+} as const;
 
 export const mirrorTileBehavior = {
   id: 'mirror-tile',
-  name: 'Mirror',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  label: 'Mirror',
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const tunnelBehavior = {
   id: 'tunnel',
-  name: 'Tunnel',
+  label: 'Tunnel',
   glslFunction: `\
 vec2 tunnel(vec2 coords, float t, float speed) {
   float r = length(coords) + 0.0001;
@@ -89,27 +90,28 @@ vec2 tunnel(vec2 coords, float t, float speed) {
   return vec2(a / 3.14159265, depth * 2.0 - 1.0);
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
+    `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
+} as const;
 
 export const noiseCrawlBehavior = {
   id: 'noise-crawl',
-  name: 'Crawl',
-  type: 'spatial',
+  label: 'Crawl',
+  kind: 'spatial',
   noiseDependencies: ['smoothNoise2'],
-  applyCode: ({ time, speed, spatial }) =>
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     [
       `vec2 nc_offset = smoothNoise2(vec2(${time} * ${speed} * 0.15, ${time} * ${speed} * 0.18));`,
       `${spatial} += nc_offset * 2.0 - 1.0 * 0.6;`
     ].join('\n ')
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const mouseProximityBehavior = {
   id: 'mouse-proximity',
-  name: 'Mouse Field',
-  type: 'spatial',
-  applyCode: ({ spatial }) => {
+  label: 'Mouse Field',
+  kind: 'spatial',
+  applyCode: ({ spatial }: ApplyCodeContext) => {
     return [
       `vec2 fragPx = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);`,
       `float distToMouse = length(fragPx - u_mouse);`,
@@ -117,23 +119,23 @@ export const mouseProximityBehavior = {
       `${spatial} += normalize(fragPx - u_mouse) * force * 0.25;`
     ].join('\n  ');
   }
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const pixelationBehavior = {
   id: 'pixelation',
-  name: 'Pixelation',
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) => {
+  label: 'Pixelation',
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) => {
     return [
       `float pix_res = 20.0 + 80.0 * (0.5 + 0.5 * sin(${time} * ${speed} * 0.3));`,
       `${spatial} = floor(${spatial} * pix_res + 0.5) / pix_res;`
     ].join('\n  ');
   }
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const voronoiBehavior = {
   id: 'voronoi',
-  name: 'Voronoi',
+  label: 'Voronoi',
   glslFunction: `\
 vec2 voronoiHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -161,14 +163,14 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
   return x + mr * (0.5 + 0.5 * sin(md * 3.14159));
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = voronoiWarp(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const spiralGalaxyBehavior = {
   id: 'spiral-galaxy',
-  name: 'Galaxy',
+  label: 'Galaxy',
   glslFunction: `\
 vec2 spiralGalaxy(vec2 coords, float t, float speed) {
   float r = length(coords);
@@ -178,14 +180,14 @@ vec2 spiralGalaxy(vec2 coords, float t, float speed) {
   return vec2(cos(a), sin(a)) * r;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = spiralGalaxy(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const gravityLensBehavior = {
   id: 'gravity-lens',
-  name: 'Gravity Lens',
+  label: 'Gravity Lens',
   glslFunction: `\
 vec2 gravityLens(vec2 coords, float t, float speed) {
   vec2 center = 0.6 * vec2(cos(t * speed * 0.3), sin(t * speed * 0.37));
@@ -195,14 +197,14 @@ vec2 gravityLens(vec2 coords, float t, float speed) {
   return coords - normalize(delta + vec2(0.0001)) * bend;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = gravityLens(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const waveInterferenceBehavior = {
   id: 'wave-interference',
-  name: 'Interference',
+  label: 'Interference',
   glslFunction: `\
 vec2 waveInterference(vec2 coords, float t, float speed) {
   vec2 p1 = vec2(0.5, 0.3);
@@ -218,14 +220,14 @@ vec2 waveInterference(vec2 coords, float t, float speed) {
   return coords + dir * wave * 0.03;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = waveInterference(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const crystalFacetBehavior = {
   id: 'crystal-facet',
-  name: 'Crystal',
+  label: 'Crystal',
   glslFunction: `\
 vec2 crystalHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -255,14 +257,14 @@ vec2 crystalFacet(vec2 x, float t, float speed) {
   return rot * x;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = crystalFacet(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const glitchBlocksBehavior = {
   id: 'glitch-blocks',
-  name: 'Glitch',
+  label: 'Glitch',
   glslFunction: `\
 vec2 glitchBlocks(vec2 coords, float t, float speed) {
   float band = floor(coords.y * 12.0);
@@ -274,27 +276,27 @@ vec2 glitchBlocks(vec2 coords, float t, float speed) {
   return coords;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = glitchBlocks(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const liquidMetalBehavior = {
   id: 'liquid-metal',
-  name: 'Liquid Metal',
-  type: 'spatial',
+  label: 'Liquid Metal',
+  kind: 'spatial',
   noiseDependencies: ['smoothNoise2'],
-  applyCode: ({ time, speed, spatial }) =>
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     [
       `vec2 lm_a = smoothNoise2(${spatial} * 2.0 + vec2(${time} * ${speed} * 0.2));`,
       `vec2 lm_b = smoothNoise2(${spatial} * 2.0 + vec2(${time} * ${speed} * 0.23 + 7.0));`,
       `${spatial} += (lm_a + lm_b - 1.0) * 0.25;`
     ].join('\n ')
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const cosmicMaelstromBehavior = {
   id: 'cosmic-maelstrom',
-  name: 'Cosmic Maelstrom',
+  label: 'Cosmic Maelstrom',
   glslFunction: `
 vec2 cosmicMaelstrom(vec2 coords, float t, float speed) {
   float r = length(coords);
@@ -306,14 +308,14 @@ vec2 cosmicMaelstrom(vec2 coords, float t, float speed) {
   return vec2(cos(theta), sin(theta)) * (r * pulse);
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = cosmicMaelstrom(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const quantumTessellationBehavior = {
   id: 'quantum-tessellation',
-  name: 'Quantum Grid',
+  label: 'Quantum Grid',
   glslFunction: `
 vec2 quantumGridHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -346,14 +348,14 @@ vec2 quantumTessellation(vec2 p, float t, float speed) {
   return mix(p, rot * p, smoothstep(0.1, 0.9, minDist));
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = quantumTessellation(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const gravityWellBehavior = {
   id: 'gravity-well',
-  name: 'Singularity Lens',
+  label: 'Singularity Lens',
   glslFunction: `
 vec2 gravityWell(vec2 coords, float t, float speed) {
   vec2 p1 = 0.5 * vec2(cos(t * speed * 0.4), sin(t * speed * 0.4));
@@ -368,28 +370,28 @@ vec2 gravityWell(vec2 coords, float t, float speed) {
   return coords + pull1 + pull2;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = gravityWell(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const plasmaFluidBehavior = {
   id: 'plasma-fluid',
-  name: 'Fluid Dynamics',
-  type: 'spatial',
+  label: 'Fluid Dynamics',
+  kind: 'spatial',
   noiseDependencies: ['smoothNoise2'],
-  applyCode: ({ time, speed, spatial }) =>
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     [
       `vec2 pf_uv = ${spatial} * 1.5;`,
       `vec2 pf_n1 = smoothNoise2(pf_uv + vec2(${time} * ${speed} * 0.1, ${time} * ${speed} * 0.05));`,
       `vec2 pf_n2 = smoothNoise2(pf_uv * 2.0 - pf_n1 + vec2(-${time} * ${speed} * 0.08, ${time} * ${speed} * 0.12));`,
       `${spatial} += (pf_n2 - 0.5) * 0.35;`
     ].join('\n  ')
-} as const satisfies AnimationBehavior;
+} as const;
 
 export const cyberChromaGlitchBehavior = {
   id: 'cyber-chroma-glitch',
-  name: 'Matrix Fragmentation',
+  label: 'Matrix Fragmentation',
   glslFunction: `
 vec2 cyberGlitch(vec2 coords, float t, float speed) {
   float row = floor(coords.y * 24.0);
@@ -402,31 +404,7 @@ vec2 cyberGlitch(vec2 coords, float t, float speed) {
   return coords;
 }
 `,
-  type: 'spatial',
-  applyCode: ({ time, speed, spatial }) =>
+  kind: 'spatial',
+  applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
     `${spatial} = cyberGlitch(${spatial}, ${time}, ${speed});`
-} as const satisfies AnimationBehavior;
-
-export const spatialBehaviors: readonly AnimationBehavior[] = [
-  rotateBehavior,
-  swirlBehavior,
-  kaleidoscopeBehavior,
-  domainWarpBehavior,
-  mirrorTileBehavior,
-  tunnelBehavior,
-  noiseCrawlBehavior,
-  mouseProximityBehavior,
-  pixelationBehavior,
-  voronoiBehavior,
-  spiralGalaxyBehavior,
-  gravityLensBehavior,
-  waveInterferenceBehavior,
-  glitchBlocksBehavior,
-  liquidMetalBehavior,
-  cosmicMaelstromBehavior,
-  quantumTessellationBehavior,
-  gravityWellBehavior,
-  plasmaFluidBehavior,
-  cyberChromaGlitchBehavior,
-  crystalFacetBehavior
-];
+} as const;

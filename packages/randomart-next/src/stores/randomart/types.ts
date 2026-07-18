@@ -1,5 +1,5 @@
 import type {
-  AnimationBehaviorId,
+  BehaviorId,
   ColorSpaceId,
   ExprNode,
   OperatorId,
@@ -23,7 +23,7 @@ export type RandomartState = {
   running: boolean;
   time: number;
   animationSpeed: number;
-  activeAnimationBehaviorIds: AnimationBehaviorId[];
+  activeBehaviorIds: BehaviorId[];
   colorSpace: ColorSpaceId;
   correlatedRGB: boolean;
 };

@@ -1,4 +1,4 @@
-import { animationRegistry } from '@repo/randomart-engine-next';
+import { BEHAVIORS } from '@repo/randomart-engine-next';
 import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
@@ -27,17 +27,12 @@ export function useWebGLRenderer(
   // 1. Initialize WebGL Context and manage canvas sizing bounds
   const { glRef, bitmapSize } = useWebGLContext(canvasRef);
 
-  // 2. Extract active animation behavior configuration states from the store
-  const activeAnimationBehaviorIds = useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
+  // 2. Extract active  behavior configuration states from the store
+  const activeBehaviorIds = useStore(randomartStore, (s) => s.activeBehaviorIds);
   const colorSpace = useStore(randomartStore, (s) => s.colorSpace);
 
   // Resolve raw behavior implementation instances from our engine registry
-  const behaviors = activeAnimationBehaviorIds
-    .map((id) => {
-      const behavior = animationRegistry.find((behavior) => behavior.id === id);
-      return behavior;
-    })
-    .filter((b): b is NonNullable<typeof b> => !!b);
+  const behaviors = activeBehaviorIds.map((id) => BEHAVIORS[id]);
 
   // 3. Keep mutable animation speed reference updated without triggering component redraw loops
   const animationSpeed = useStore(randomartStore, (s) => s.animationSpeed);

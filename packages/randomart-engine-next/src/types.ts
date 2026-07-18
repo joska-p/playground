@@ -1,7 +1,7 @@
 // ── Re-exports from sub-modules ──────────────────────────────────
 // Types that originate in other modules are re-exported here so
 // consumers can import everything from a single location.
-export type { AnimationBehaviorId } from './animation/index.js';
+export type { BehaviorId } from './behaviours/registry.js';
 export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
 export type {
   Operator,
@@ -78,28 +78,4 @@ export type GenerateError = {
   error: string;
 };
 
-/** Context variable keys passed to AnimationBehavior#applyCode. */
-export type ApplyCodeContext = {
-  time: string;
-  speed: string;
-  spatial: string;
-  color: string;
-};
-
-/**
- * An animation behavior that modifies spatial coordinates or the final color.
- * The glsl definition and noise dependencies are resolved into the compiled
- * shader preamble; applyCode emits the line(s) injected at the appropriate
- * point in the fragment shader main body.
- */
-export type AnimationBehavior = {
-  id: string;
-  name: string;
-  /** GLSL function definition emitted in the shader preamble. Omit for
-   *  behaviors whose applyCode is a self-contained snippet that needs no
-   *  helper function. */
-  glslFunction?: string;
-  type: 'spatial' | 'color';
-  applyCode: (ctx: ApplyCodeContext) => string;
-  noiseDependencies?: string[];
-};
+export type { ApplyCodeContext, Behavior } from './behaviours/registry.js';

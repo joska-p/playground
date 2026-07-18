@@ -35,8 +35,8 @@ export function useAnimationSpeed() {
 export function useTime() {
   return useStore(randomartStore, (s) => s.time);
 }
-export function useActiveAnimationBehaviorIds() {
-  return useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
+export function useActiveBehaviorIds() {
+  return useStore(randomartStore, (s) => s.activeBehaviorIds);
 }
 export function useColorSpace() {
   return useStore(randomartStore, (s) => s.colorSpace);

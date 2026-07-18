@@ -4,6 +4,7 @@ import {
   getRule,
   listRuleGroups
 } from '@repo/randomart-engine-next';
+import type { RuleId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Select, Slider } from '@repo/ui/data-entry';
 import {
@@ -42,7 +43,7 @@ function GrammarSection() {
         <Select
           value={selectedRuleId}
           onChange={(e) => {
-            selectRule(e.target.value);
+            selectRule(e.target.value as RuleId);
           }}
         >
           {RULE_GROUPS.map((group) => (

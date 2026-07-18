@@ -1,5 +1,5 @@
 import { compileToShader } from '@repo/randomart-engine-next';
-import type { AnimationBehavior, ColorSpaceId, ExprNode } from '@repo/randomart-engine-next/types';
+import type { Behavior, ColorSpaceId, ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 
@@ -31,7 +31,7 @@ export function useShaderProgram(
     treeG: ExprNode;
     treeB: ExprNode;
   },
-  behaviors: AnimationBehavior[],
+  behaviors: Behavior[],
   colorSpace: ColorSpaceId,
   onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
 ) {
