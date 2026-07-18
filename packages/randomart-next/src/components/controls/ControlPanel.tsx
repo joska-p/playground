@@ -2,7 +2,6 @@ import { ControlPanel as Panel } from '@repo/ui/control-panel';
 import { setMode } from '../../stores/randomart/actions/config';
 import { useMode } from '../../stores/randomart/selectors';
 import type { Mode } from '../../stores/randomart/types';
-import { TestModeControls } from '../testMode/TestModeControls';
 import { AnimationSection } from './AnimationSection';
 import { ConfigSection } from './ConfigSection';
 import { GrammarSection } from './GrammarSection';
@@ -49,12 +48,7 @@ function PlayModeControlPanel() {
 function ControlPanel() {
   const mode = useMode();
 
-  return (
-    <Panel title={<ModeSelect />}>
-      {mode === 'play' ? <PlayModeControlPanel /> : null}{' '}
-      {mode === 'test' ? <TestModeControls /> : null}
-    </Panel>
-  );
+  return <Panel title={<ModeSelect />}>{mode === 'play' && <PlayModeControlPanel />}</Panel>;
 }
 
 export { ControlPanel };

@@ -1,19 +1,19 @@
 import { evaluate } from '@repo/randomart-engine-next';
-import type { Rule } from '@repo/randomart-engine-next/types';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
-import { valueToRGB } from '../../lib/colormap';
-import { buildPreviewNode } from '../../lib/evalHelpers';
-import { Corners } from '../ui/Corners';
 
-type ValueCanvasCPUProps = {
-  rule: Rule;
-  seed: number;
+type CanvasCPUProps = {
+  node: ExprNode;
   resolution: number;
   t: number;
   sizePx: number;
 };
 
-export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanvasCPUProps) {
+function clamp(v: number): number {
+  return v < -1 ? -1 : v > 1 ? 1 : v;
+}
+
+export function CanvasCPU({ node, resolution, t, sizePx }: CanvasCPUProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,6 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const node = buildPreviewNode(rule, seed);
     const buffer = new Uint8ClampedArray(resolution * resolution * 4);
 
     try {
@@ -35,17 +34,11 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
           const idx = (py * resolution + px) * 4;
 
           const value = evaluate(node, x, y);
+          const gray = Math.round(clamp(value) * 127.5 + 127.5);
 
-          if (!Number.isFinite(value)) {
-            buffer[idx] = 0;
-            buffer[idx + 1] = 0;
-            buffer[idx + 2] = 0;
-          } else {
-            const [r, g, b] = valueToRGB(value);
-            buffer[idx] = r;
-            buffer[idx + 1] = g;
-            buffer[idx + 2] = b;
-          }
+          buffer[idx] = gray;
+          buffer[idx + 1] = gray;
+          buffer[idx + 2] = gray;
           buffer[idx + 3] = 255;
         }
       }
@@ -59,10 +52,10 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
         errorRef.current.style.display = 'flex';
       }
     }
-  }, [rule, seed, resolution, t]);
+  }, [node, resolution, t]);
 
   return (
-    <Corners sizePx={sizePx}>
+    <>
       <canvas
         ref={canvasRef}
         width={resolution}
@@ -74,6 +67,6 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
         className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400"
         style={{ display: 'none' }}
       />
-    </Corners>
+    </>
   );
 }

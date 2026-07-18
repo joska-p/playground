@@ -1,30 +1,26 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import type { Rule } from '@repo/randomart-engine-next/types';
+import type { ExprNode } from '@repo/randomart-engine-next/types';
 import { useMemo, useRef } from 'react';
 import type * as THREE from 'three';
-import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from '../../glsl/buildValueShader';
-import { buildPreviewNode } from '../../lib/evalHelpers';
-import { Corners } from '../ui/Corners';
+import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from './buildValueShader';
 
-type ValueCanvasGPUProps = {
-  rule: Rule;
-  seed: number;
+type CanvasGPUProps = {
+  node: ExprNode;
   t: number;
   sizePx: number;
 };
 
-export function ValueCanvasGPU({ rule, seed, t, sizePx }: ValueCanvasGPUProps) {
+export function CanvasGPU({ node, t, sizePx }: CanvasGPUProps) {
   const { shader, error } = useMemo(() => {
     try {
-      const node = buildPreviewNode(rule, seed);
       return { shader: buildValueFragmentShader(node), error: null as string | null };
     } catch (e) {
       return { shader: null, error: e instanceof Error ? e.message : 'GLSL build error' };
     }
-  }, [rule, seed]);
+  }, [node]);
 
   return (
-    <Corners sizePx={sizePx}>
+    <>
       <div style={{ width: sizePx, height: sizePx }}>
         {shader && (
           <Canvas
@@ -45,7 +41,7 @@ export function ValueCanvasGPU({ rule, seed, t, sizePx }: ValueCanvasGPUProps) {
           {error}
         </div>
       )}
-    </Corners>
+    </>
   );
 }
 
