@@ -37,7 +37,7 @@ export function CanvasGPU({ node, t, sizePx }: CanvasGPUProps) {
         )}
       </div>
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400">
+        <div className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm">
           {error}
         </div>
       )}

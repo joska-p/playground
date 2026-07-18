@@ -13,9 +13,7 @@ export function Canvas({ node, resolution, t, sizePx }: CanvasProp) {
   return (
     <div className="flex gap-3">
       <div>
-        <p className="mb-1 text-center font-mono text-[9px] tracking-wider text-neutral-500 uppercase">
-          CPU
-        </p>
+        <p className="mb-1 text-center text-xs tracking-wider uppercase">CPU</p>
         <CanvasCPU
           node={node}
           resolution={resolution}
@@ -24,9 +22,7 @@ export function Canvas({ node, resolution, t, sizePx }: CanvasProp) {
         />
       </div>
       <div>
-        <p className="mb-1 text-center font-mono text-[9px] tracking-wider text-neutral-500 uppercase">
-          GPU
-        </p>
+        <p className="mb-1 text-center text-xs tracking-wider uppercase">GPU</p>
         <CanvasGPU
           node={node}
           t={t}

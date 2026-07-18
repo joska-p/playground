@@ -64,7 +64,7 @@ export function CanvasCPU({ node, resolution, t, sizePx }: CanvasCPUProps) {
       />
       <div
         ref={errorRef}
-        className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400"
+        className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm"
         style={{ display: 'none' }}
       />
     </>

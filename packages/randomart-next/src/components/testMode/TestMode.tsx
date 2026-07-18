@@ -37,8 +37,8 @@ export function TestMode() {
   }, [seed]);
 
   return (
-    <div className="bg-background text-foreground h-screen overflow-auto p-6">
-      <h1 className="text-foreground mb-4 text-lg font-bold">Operator CPU/GPU Compare</h1>
+    <div className="h-screen overflow-auto p-6">
+      <h1 className="mb-4 text-lg font-bold">Operator CPU/GPU Compare</h1>
 
       {categories.map((cat) => (
         <div
