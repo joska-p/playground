@@ -1,5 +1,5 @@
 import { toGLSL, toMathString, toTreeView } from '@repo/randomart-engine-next';
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import { useEffect } from 'react';
 import { buildPreviewNode } from '../lib/evalHelpers';
@@ -18,7 +18,7 @@ import { Badge } from './ui/Badge';
 const DETAIL_CANVAS_SIZE = 260;
 const DETAIL_CANVAS_SIZE_COMPARE = 200;
 
-export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
+export function DetailPanel({ rules }: { rules: Rule[] }) {
   const selectedRuleId = useSelectedRuleId();
   const resolution = useResolution();
   const t = useT();

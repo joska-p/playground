@@ -33,7 +33,7 @@ import { cosOp, sinOp } from './transforms/trigonometric.js';
  */
 export type OperatorCategory = 'terminal' | 'transform' | 'combinator';
 
-export type OperatorDef = {
+export type Operator = {
   readonly arity: number;
   readonly opcode: number;
   readonly category: OperatorCategory;
@@ -74,7 +74,7 @@ export const OPERATORS = {
   step: stepOp,
   if: ifOp,
   mix: mixOp
-} satisfies Record<string, OperatorDef>;
+} satisfies Record<string, Operator>;
 
 // ── Inferred types ──────────────────────────────────────────────
 
@@ -84,10 +84,10 @@ export type OperatorId = keyof typeof OPERATORS;
 // ── Runtime helpers ─────────────────────────────────────────────
 
 /**
- * Look up an operator by id, widening to the concrete {@link OperatorDef}
+ * Look up an operator by id, widening to the concrete {@link Operator}
  * interface so callers can invoke methods without `as never` casts.
  */
-export function getOperator(id: OperatorId): OperatorDef {
+export function getOperator(id: OperatorId): Operator {
   return OPERATORS[id];
 }
 
@@ -107,7 +107,7 @@ export type OperatorGroup = {
 };
 
 /**
- * Group all registered operators by their {@link OperatorDef.category}.
+ * Group all registered operators by their {@link Operator.category}.
  * The order is deterministic: Terminals → Transforms → Combinators.
  */
 export function getOperatorCategories(): OperatorGroup[] {
@@ -117,7 +117,7 @@ export function getOperatorCategories(): OperatorGroup[] {
     grouped.set(cat, []);
   }
 
-  for (const [id, op] of Object.entries(OPERATORS) as [OperatorId, OperatorDef][]) {
+  for (const [id, op] of Object.entries(OPERATORS) as [OperatorId, Operator][]) {
     grouped.get(op.category)!.push({ id, label: op.label });
   }
 

@@ -10,28 +10,18 @@
  * The same node is rendered four ways:
  *  - evaluate()      numeric evaluation for CPU rasterization
  *  - toGLSL()        a GPU fragment-shader expression
- *  - toMathString()  a readable mathematical formula
+ *  - toMathString()  a readable mathematical formula (in format.ts)
  *  - toTreeView()    a nested, serializable structure
  */
 
 import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
-import type { GrammarSpec } from './grammar/rules/registry.js';
+import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
 import type { ExprNode, TreeView } from './types.js';
 import { clamp } from './util.js';
 
-// ── Pool building for grow() / buildTree() ──────────────────────
-
-/**
- * The tree-growth algorithm uses two RNG streams: one for structure (which nodes
- * appear where) and one for per-channel detail. At shallow depths — the "skeleton"
- * of the tree — both streams share the structure RNG so the R/G/B channels get
- * the same branching shape. Beyond this threshold the per-channel RNG takes over,
- * letting each channel diverge. The result is images that share broad structure
- * across color channels but differ in fine detail, producing richer color mixing.
- */
-const STRUCTURE_RNG_DEPTH = 3;
+// ── Pool building for buildTree() ───────────────────────────────
 
 type PoolEntry = {
   type: ExprNode['type'];
@@ -40,7 +30,7 @@ type PoolEntry = {
 };
 
 /**
- * Guaranteed fallback terminals, injected by `grow`/`buildTree` when a grammar
+ * Guaranteed fallback terminals, injected by `buildTree` when a grammar
  * spec omits them. Every tree needs leaves to terminate — without these, a
  * grammar that only defines structural operators (e.g. add, sin) would produce
  * infinite trees.
@@ -118,33 +108,36 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
 // ── Tree growth ─────────────────────────────────────────────────
 
 /**
- * Recursively grow an expression node from the root down.
+ * Build an expression tree from a grammar spec.
  *
- * The key design choice is the three-way pool strategy:
+ * The caller controls the RNG strategy via the `pickRng` callback, which
+ * returns the RNG to use at a given depth. This is the single tree-building
+ * function — all tree construction flows through here.
+ *
+ * The three-way pool strategy:
  *  1. forceOperator (depth < minDepth): only structural operators — guarantees
  *     the tree has a minimum level of complexity before it's allowed to terminate.
- *  2. forceTerminal (depth = 0): only terminals — enforces a hard depth limit
- *     so trees are always finite.
- *  3. Normal growth: probabilistic filtering via buildPool, where the
- *     structuralProbability rises from 0 (root) to 1 (leaves). This creates a
- *     natural gradient: complex branching near the root, simple leaves near the
- *     bottom. The effect is trees that are "top-heavy" — visually interesting
- *     large-scale structure with fine detail at the leaves.
+ *  2. forceTerminal (depth >= maxDepth): only terminals — enforces a hard depth
+ *     limit so trees are always finite.
+ *  3. Normal growth: probabilistic filtering via buildOperatorPool, where the
+ *     structuralProbability rises from 0 (root) to 1 (leaves).
  *
- * If the grammar spec has no terminals, DEFAULT_TERMINALS are appended here —
- * this is the single point where the fallback lives (buildPool and weightedPick
- * no longer guard against empty pools).
- *
- * @param rng    Seeded random stream — advances as the tree grows, so the
- *               entire tree shape is determined by this stream's state.
- * @param spec   Grammar variant controlling which operators are available and
- *               the depth bounds that shape tree complexity.
- * @param depth  Remaining depth budget — counts down toward 0 (the leaves).
- *               At 0, only terminals are allowed.
+ * @param spec       Grammar variant controlling which operators are available
+ *                   and the depth bounds that shape tree complexity.
+ * @param maxDepth   Maximum tree depth. Terminals are forced at this depth.
+ * @param pickRng    Returns the RNG to use at the given depth. Called fresh at
+ *                   each recursive step so depth-dependent strategies (e.g.
+ *                   structure-vs-channel switching) work correctly.
+ * @param currentDepth  Current depth (starts at 0, increments toward maxDepth).
  */
-export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprNode {
-  const currentDepth = spec.maxDepth - depth;
-  const forceTerminal = depth <= 0;
+export function buildTree(
+  spec: Rule,
+  maxDepth: number,
+  pickRng: (depth: number) => SeededRandom,
+  currentDepth = 0
+): ExprNode {
+  const rng = pickRng(currentDepth);
+  const forceTerminal = currentDepth >= maxDepth;
   const forceOperator = currentDepth < spec.minDepth;
 
   const specEntries = [...spec.operators].map(operatorToPoolEntry);
@@ -160,7 +153,7 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
     pool = operators.filter((op) => op.arity > 0);
     if (pool.length === 0) pool = [...operators];
   } else {
-    const structuralProbability = 1 - currentDepth / spec.maxDepth;
+    const structuralProbability = 1 - currentDepth / maxDepth;
     pool = buildOperatorPool(rng, operators, structuralProbability);
   }
 
@@ -176,58 +169,7 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
 
   const children: ExprNode[] = [];
   for (let i = 0; i < pick.arity; i++) {
-    children.push(grow(rng, spec, depth - 1));
-  }
-  return { type: pick.type, children };
-}
-
-/**
- * Build a tree using dual-RNG separation for correlated-but-varied color channels.
- *
- * This is the entry point for generating the R/G/B expression trees. The
- * structural consistency comes from sharing the structureRng below
- * STRUCTURE_RNG_DEPTH: all three channels get the same branching decisions at
- * the top of the tree, so their overall shape is similar. Above that threshold
- * the per-channel channelRng takes over, letting each color channel diverge
- * independently.
- *
- * The visual effect: images that have a coherent structural identity (shared
- * branching pattern) but with per-channel variation that produces interesting
- * color mixing. Purely correlated generation (same RNG everywhere) looks flat;
- * purely uncorrelated generation looks noisy. This hybrid approach hits the
- * sweet spot.
- *
- * Unlike grow(), this function tracks currentDepth directly (incrementing up)
- * rather than counting down, which makes the dual-RNG switching logic clearer.
- */
-export function buildExpressionTree(
-  structureRng: SeededRandom,
-  channelRng: SeededRandom,
-  currentDepth: number,
-  maxDepth: number,
-  spec: GrammarSpec
-): ExprNode {
-  const rngToUse = currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
-
-  const specEntries = [...spec.operators].map(operatorToPoolEntry);
-  const hasTerminals = specEntries.some((e) => e.arity === 0);
-  const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
-
-  const structuralProbability = 1 - currentDepth / maxDepth;
-  const pool = buildOperatorPool(rngToUse, operators, structuralProbability);
-  const pick = weightedRandomPick(rngToUse, pool);
-
-  if (pick.type === 'const') {
-    return { type: 'const', value: Number(rngToUse.nextRange(-1, 1).toFixed(4)) };
-  }
-
-  if (pick.arity === 0) {
-    return { type: pick.type };
-  }
-
-  const children: ExprNode[] = [];
-  for (let i = 0; i < pick.arity; i++) {
-    children.push(buildExpressionTree(structureRng, channelRng, currentDepth + 1, maxDepth, spec));
+    children.push(buildTree(spec, maxDepth, pickRng, currentDepth + 1));
   }
   return { type: pick.type, children };
 }

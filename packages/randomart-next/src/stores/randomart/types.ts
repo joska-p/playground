@@ -2,7 +2,8 @@ import type {
   AnimationBehaviorId,
   ColorSpaceId,
   ExprNode,
-  OperatorId
+  OperatorId,
+  RuleId
 } from '@repo/randomart-engine-next/types';
 export type { ColorSpaceId } from '@repo/randomart-engine-next/types';
 
@@ -12,7 +13,7 @@ export type RandomartState = {
   mode: Mode;
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
-  selectedRuleId: string;
+  selectedRuleId: RuleId;
   customOperators: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;

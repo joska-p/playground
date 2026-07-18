@@ -1,11 +1,11 @@
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import type { ReactNode } from 'react';
 import type { RenderMode } from '../../store';
 import { ValueCanvasCPU } from './ValueCanvasCPU';
 import { ValueCanvasGPU } from './ValueCanvasGPU';
 
 type RuleCanvasProps = {
-  rule: GrammarRule;
+  rule: Rule;
   seed: number;
   resolution: number;
   t: number;

@@ -1,77 +1,40 @@
-/**
- * The grammar-rules registry — the core feature of the library.
- *
- * Each rule is a self-contained recipe that knows how to turn a text seed into
- * every representation the library supports. Rules differ only in their
- * grammar spec (which operators are available and how the tree grows),
- * which produces visually distinct families of art from the same engine.
- *
- * Rules are cached per-seed internally so that the potentially expensive tree
- * construction happens once even when multiple representations are requested.
- */
-
-import type { ExprNode, TreeView } from '../../types.js';
 import type { OperatorId } from '../operators/registry.js';
 import { classicRule, fatRule, flowRule, paperRule } from './rule-definitions.js';
 
-/** Configuration for a grammar composition. */
 export type RuleCategory = 'classic';
 
-export type GrammarSpec = {
-  /** Unique identifier for this rule. */
-  id: string;
-  /** Human readable name. */
-  displayName: string;
-  /** Which category this rule belongs to. */
-  category: RuleCategory;
-  /** Which operators this grammar uses, by operator id. */
-  operators: OperatorId[];
-  /** Maximum tree depth. */
-  maxDepth: number;
-  /** Minimum depth before terminals are allowed. */
-  minDepth: number;
+export type Rule = {
+  readonly id: string;
+  readonly displayName: string;
+  readonly category: RuleCategory;
+  readonly operators: OperatorId[];
+  readonly maxDepth: number;
+  readonly minDepth: number;
 };
 
-/** A grammar rule with all rendering methods attached. */
-export type GrammarRule = GrammarSpec & {
-  /** Build the expression tree for a seed. */
-  buildNode(textSeed: string): ExprNode;
-  /** CPU byte-array representation. */
-  toCPU(textSeed: string): Uint8Array;
-  /** GLSL fragment-shader snippet. */
-  toGPU(textSeed: string): string;
-  /** Mathematical expression string. */
-  toMathString(textSeed: string): string;
-  /** Nested tree view. */
-  toTreeView(textSeed: string): TreeView;
-};
+export const RULES = {
+  classic: classicRule,
+  paper: paperRule,
+  flow: flowRule,
+  fat: fatRule
+} satisfies Record<string, Rule>;
 
-const RULE_DEFINITIONS: GrammarRule[] = [classicRule, paperRule, flowRule, fatRule];
+export type RuleId = keyof typeof RULES;
+export const ruleIds: RuleId[] = Object.keys(RULES) as RuleId[];
 
-/** Immutable registry of grammar rules keyed by id. */
-export const RULES: ReadonlyMap<string, GrammarRule> = new Map(
-  RULE_DEFINITIONS.map((r) => [r.id, r])
-);
+export const DEFAULT_RULE_ID = 'classic' as RuleId;
 
-/** Id of the rule used when none is specified. */
-export const DEFAULT_RULE_ID = 'classic';
-
-/** Return all registered rules. */
-export function listRules(): GrammarRule[] {
-  return [...RULES.values()];
+export function listRules(): Rule[] {
+  return Object.values(RULES);
 }
 
-/** Look up a rule by id, or `classicRule` if it does not exist. */
-export function getRule(id: string): GrammarRule {
-  return RULES.get(id) ?? classicRule;
+export function getRule(id: RuleId): Rule {
+  return RULES[id];
 }
 
-/** Whether a rule id is registered. */
-export function hasRule(id: string): boolean {
-  return RULES.has(id);
+export function hasRule(id: RuleId): boolean {
+  return id in RULES;
 }
-
-// ── Category grouping ───────────────────────────────────────────
 
 const RULE_CATEGORY_ORDER: RuleCategory[] = ['classic'];
 
@@ -81,22 +44,18 @@ const RULE_CATEGORY_LABELS: Record<RuleCategory, string> = {
 
 export type RuleGroup = {
   label: string;
-  rules: { id: string; displayName: string }[];
+  rules: { id: RuleId; displayName: string }[];
 };
 
-/**
- * Group all registered rules by their {@link GrammarSpec.category}.
- * The order is deterministic: Classic.
- */
 export function listRuleGroups(): RuleGroup[] {
-  const grouped = new Map<RuleCategory, { id: string; displayName: string }[]>();
+  const grouped = new Map<RuleCategory, { id: RuleId; displayName: string }[]>();
 
   for (const cat of RULE_CATEGORY_ORDER) {
     grouped.set(cat, []);
   }
 
-  for (const rule of RULES.values()) {
-    grouped.get(rule.category)!.push({ id: rule.id, displayName: rule.displayName });
+  for (const rule of Object.values(RULES)) {
+    grouped.get(rule.category)!.push({ id: rule.id as RuleId, displayName: rule.displayName });
   }
 
   return RULE_CATEGORY_ORDER.map((cat) => ({

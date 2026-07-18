@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import { useMemo, useRef } from 'react';
 import type * as THREE from 'three';
 import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from '../../glsl/buildValueShader';
@@ -7,19 +7,13 @@ import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
 
 type ValueCanvasGPUProps = {
-  rule: GrammarRule;
+  rule: Rule;
   seed: number;
   t: number;
   sizePx: number;
 };
 
 export function ValueCanvasGPU({ rule, seed, t, sizePx }: ValueCanvasGPUProps) {
-  // Rebuilding the shader is relatively cheap (string templating) so doing it
-  // eagerly and catching failures here is simpler than trying to recover
-  // from a broken THREE.ShaderMaterial after the fact - WebGL shader compile
-  // errors are logged by the driver/three.js, not thrown as catchable JS
-  // exceptions, so this only catches errors from toGLSL() itself (e.g. a
-  // rule that doesn't implement GLSL output at all).
   const { shader, error } = useMemo(() => {
     try {
       const node = buildPreviewNode(rule, seed);

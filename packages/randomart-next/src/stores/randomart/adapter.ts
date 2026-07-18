@@ -1,5 +1,5 @@
-import { generateTrees as engineGenerateTrees, getRule } from '@repo/randomart-engine-next';
-import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
+import { buildChannelTrees, getRule } from '@repo/randomart-engine-next';
+import type { ExprNode, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 
 export type TreeOutput = {
   treeR: ExprNode;
@@ -9,7 +9,7 @@ export type TreeOutput = {
 
 export type TreeConfig = {
   seedText: string;
-  selectedRuleId: string;
+  selectedRuleId: RuleId;
   customOperators: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;
@@ -30,9 +30,5 @@ export function generateTrees(config: TreeConfig): TreeOutput {
     maxDepth: config.maxDepth
   };
 
-  return engineGenerateTrees({
-    seedText: config.seedText,
-    spec,
-    correlated: config.correlated
-  });
+  return buildChannelTrees(config.seedText, spec, config.correlated);
 }

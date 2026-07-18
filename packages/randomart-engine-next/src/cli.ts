@@ -1,19 +1,8 @@
-#!/usr/bin/env -S npx tsx
-/**
- * randomart CLI.
- *
- * Usage:
- *   tsx randomart <textseed> <outputfile> [--rule <id>] [--size <n>] [--colors <hex1,hex2,...>]
- *
- * Writes a PNG to <outputfile>, prints the math expression and an ASCII tree
- * to stdout. On any invalid input it prints an error plus the usage message
- * and exits non-zero.
- */
-
 import { writeFile } from 'node:fs/promises';
 import { toTreeView } from './format.js';
 import { generate } from './generate.js';
-import { listRules } from './grammar/rules/registry.js';
+import { listRules, ruleIds } from './grammar/rules/registry.js';
+import type { RuleId } from './types.js';
 
 const USAGE = `
 randomart — generate visual hash art from a text seed
@@ -28,7 +17,6 @@ Arguments:
 Options:
   --rule <id>            Grammar rule id (default: "classic")
   --size <number>        Square output size in pixels (default: 256)
-  --colors <h1,h2,...>   Comma-separated hex colors (default: grayscale)
   -h, --help             Show this help message
 
 Available rules:
@@ -37,15 +25,14 @@ ${listRules()
   .join('\n')}
 
 Example:
-  tsx randomart "hello world" out.png --rule trig --size 512 --colors "#0a0a0a,#38bdf8,#f8fafc"
+  tsx randomart "hello world" out.png --rule paper --size 512
 `.trim();
 
 type ParsedArgs = {
   textSeed?: string;
   outputFile?: string;
-  ruleId?: string;
+  ruleId?: RuleId;
   size?: number;
-  colors?: string[];
   help: boolean;
 };
 
@@ -64,7 +51,8 @@ function parseArgs(argv: string[]): ParsedArgs {
       case '--rule': {
         const val = argv[++i];
         if (val === undefined) throw new Error('--rule requires a value.');
-        result.ruleId = val;
+        if (!ruleIds.includes(val as RuleId)) throw new Error(`Invalid rule id "${val}".`);
+        result.ruleId = val as RuleId;
         break;
       }
       case '--size': {
@@ -75,15 +63,6 @@ function parseArgs(argv: string[]): ParsedArgs {
           throw new Error(`--size must be an integer (received "${val}").`);
         }
         result.size = n;
-        break;
-      }
-      case '--colors': {
-        const val = argv[++i];
-        if (val === undefined) throw new Error('--colors requires a value.');
-        result.colors = val
-          .split(',')
-          .map((c) => c.trim())
-          .filter((c) => c.length > 0);
         break;
       }
       default: {
@@ -125,8 +104,7 @@ async function main(): Promise<void> {
 
   const result = generate(parsed.textSeed, {
     ...(parsed.ruleId !== undefined && { ruleId: parsed.ruleId }),
-    ...(parsed.size !== undefined && { size: parsed.size }),
-    ...(parsed.colors !== undefined && { colorPalette: parsed.colors })
+    ...(parsed.size !== undefined && { size: parsed.size })
   });
 
   if ('error' in result) {
@@ -141,10 +119,16 @@ async function main(): Promise<void> {
 
   console.log(`Wrote ${result.png.length} bytes to ${parsed.outputFile}`);
   console.log(`Rule:  ${parsed.ruleId ?? 'classic'}`);
-  console.log(`Math:  ${result.math}`);
   console.log();
-  console.log('Expression tree:');
-  console.log(toTreeView(result.node));
+  console.log('R channel:');
+  console.log(`  Math: ${result.mathR}`);
+  console.log(toTreeView(result.treeR));
+  console.log('G channel:');
+  console.log(`  Math: ${result.mathG}`);
+  console.log(toTreeView(result.treeG));
+  console.log('B channel:');
+  console.log(`  Math: ${result.mathB}`);
+  console.log(toTreeView(result.treeB));
 }
 
 void main();

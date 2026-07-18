@@ -1,5 +1,5 @@
 import { toMathString } from '@repo/randomart-engine-next';
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import {
   rerollRule,
@@ -16,7 +16,7 @@ import { Badge } from './ui/Badge';
 const CARD_CANVAS_SIZE = 132;
 const CARD_CANVAS_SIZE_COMPARE = 96;
 
-export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number }) {
+export function SpecimenCard({ rule, index }: { rule: Rule; index: number }) {
   const selectedRuleId = useSelectedRuleId();
   const seed = useSeedForRule(rule.id);
   const resolution = useResolution();

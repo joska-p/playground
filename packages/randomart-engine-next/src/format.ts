@@ -9,8 +9,8 @@
  * operators used: π (pi), · (multiplication dot), mod, − (minus).
  */
 
-import { toStructuredView } from './expression.js';
 import { getOperator } from './grammar/operators/registry.js';
+import { toStructuredView } from './tree.js';
 import type { ExprNode, TreeView } from './types.js';
 
 // ---------------------------------------------------------------------------

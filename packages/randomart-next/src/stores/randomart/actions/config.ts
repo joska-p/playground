@@ -1,5 +1,5 @@
 import { getRule } from '@repo/randomart-engine-next';
-import type { ColorSpaceId, OperatorId } from '@repo/randomart-engine-next/types';
+import type { ColorSpaceId, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 import { randomartStore, updateTreeConfig } from '../store';
 import type { Mode } from '../types';
 
@@ -27,7 +27,7 @@ export function setColorSpace(colorSpace: ColorSpaceId): void {
   randomartStore.setState({ colorSpace }, false, 'config/setColorSpace');
 }
 
-export function selectRule(ruleId: string): void {
+export function selectRule(ruleId: RuleId): void {
   const rule = getRule(ruleId);
   updateTreeConfig(
     () => ({

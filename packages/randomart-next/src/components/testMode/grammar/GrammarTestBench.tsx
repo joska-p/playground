@@ -1,11 +1,11 @@
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import { useAnimationLoop } from '../hooks/useAnimationLoop';
 import { useFilteredRules } from '../hooks/useFilteredRules';
 import { setT, testModeStore, useAnimate, useCategory, useQuery } from '../store';
 import { DetailPanel } from './DetailPanel';
 import { SpecimenCard } from './SpecimenCard';
 
-export function GrammarTestBench({ rules }: { rules: GrammarRule[] }) {
+export function GrammarTestBench({ rules }: { rules: Rule[] }) {
   const query = useQuery();
   const category = useCategory();
   const animate = useAnimate();

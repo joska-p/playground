@@ -6,10 +6,10 @@
  * #version 300 es fragment shader string ready for WebGL 2 use.
  */
 
-import { toGLSL } from './expression.js';
 import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-color-spaces.js';
 import { resolveGlslDeps } from './glsl-library.js';
 import { getOperator } from './grammar/operators/registry.js';
+import { toGLSL } from './tree.js';
 import type { AnimationBehavior, ApplyCodeContext, ColorSpaceId, ExprNode } from './types.js';
 
 function buildShaderPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {

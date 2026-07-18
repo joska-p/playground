@@ -1,12 +1,12 @@
 import { evaluate } from '@repo/randomart-engine-next';
-import type { GrammarRule } from '@repo/randomart-engine-next/types';
+import type { Rule } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { valueToRGB } from '../../lib/colormap';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
 
 type ValueCanvasCPUProps = {
-  rule: GrammarRule;
+  rule: Rule;
   seed: number;
   resolution: number;
   t: number;
