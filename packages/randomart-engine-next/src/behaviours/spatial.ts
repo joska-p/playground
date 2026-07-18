@@ -109,7 +109,7 @@ export const noiseCrawlBehavior = {
 
 export const mouseProximityBehavior = {
   id: 'mouse-proximity',
-  label: 'Mouse Field',
+  label: 'Mouse',
   kind: 'spatial',
   applyCode: ({ spatial }: ApplyCodeContext) => {
     return [
@@ -123,7 +123,7 @@ export const mouseProximityBehavior = {
 
 export const pixelationBehavior = {
   id: 'pixelation',
-  label: 'Pixelation',
+  label: 'Pixel',
   kind: 'spatial',
   applyCode: ({ time, speed, spatial }: ApplyCodeContext) => {
     return [
@@ -187,7 +187,7 @@ vec2 spiralGalaxy(vec2 coords, float t, float speed) {
 
 export const gravityLensBehavior = {
   id: 'gravity-lens',
-  label: 'Gravity Lens',
+  label: 'Lens',
   glslFunction: `\
 vec2 gravityLens(vec2 coords, float t, float speed) {
   vec2 center = 0.6 * vec2(cos(t * speed * 0.3), sin(t * speed * 0.37));
@@ -283,7 +283,7 @@ vec2 glitchBlocks(vec2 coords, float t, float speed) {
 
 export const liquidMetalBehavior = {
   id: 'liquid-metal',
-  label: 'Liquid Metal',
+  label: 'Liquid',
   kind: 'spatial',
   noiseDependencies: ['smoothNoise2'],
   applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
@@ -296,7 +296,7 @@ export const liquidMetalBehavior = {
 
 export const cosmicMaelstromBehavior = {
   id: 'cosmic-maelstrom',
-  label: 'Cosmic Maelstrom',
+  label: 'Maelstrom',
   glslFunction: `
 vec2 cosmicMaelstrom(vec2 coords, float t, float speed) {
   float r = length(coords);
@@ -315,7 +315,7 @@ vec2 cosmicMaelstrom(vec2 coords, float t, float speed) {
 
 export const quantumTessellationBehavior = {
   id: 'quantum-tessellation',
-  label: 'Quantum Grid',
+  label: 'Quantum',
   glslFunction: `
 vec2 quantumGridHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -355,7 +355,7 @@ vec2 quantumTessellation(vec2 p, float t, float speed) {
 
 export const gravityWellBehavior = {
   id: 'gravity-well',
-  label: 'Singularity Lens',
+  label: 'Singularity',
   glslFunction: `
 vec2 gravityWell(vec2 coords, float t, float speed) {
   vec2 p1 = 0.5 * vec2(cos(t * speed * 0.4), sin(t * speed * 0.4));
@@ -377,7 +377,7 @@ vec2 gravityWell(vec2 coords, float t, float speed) {
 
 export const plasmaFluidBehavior = {
   id: 'plasma-fluid',
-  label: 'Fluid Dynamics',
+  label: 'Dynamics',
   kind: 'spatial',
   noiseDependencies: ['smoothNoise2'],
   applyCode: ({ time, speed, spatial }: ApplyCodeContext) =>
@@ -391,7 +391,7 @@ export const plasmaFluidBehavior = {
 
 export const cyberChromaGlitchBehavior = {
   id: 'cyber-chroma-glitch',
-  label: 'Matrix Fragmentation',
+  label: 'Matrix',
   glslFunction: `
 vec2 cyberGlitch(vec2 coords, float t, float speed) {
   float row = floor(coords.y * 24.0);

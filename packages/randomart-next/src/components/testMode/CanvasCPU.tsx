@@ -29,7 +29,7 @@ export function CanvasCPU({ node, resolution, sizePx }: CanvasCPUProps) {
       for (let py = 0; py < resolution; py++) {
         for (let px = 0; px < resolution; px++) {
           const x = (px / resolution) * 2 - 1;
-          const y = (py / resolution) * 2 - 1;
+          const y = -((py / resolution) * 2 - 1);
           const idx = (py * resolution + px) * 4;
 
           const value = evaluate(node, x, y);

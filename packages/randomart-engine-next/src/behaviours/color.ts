@@ -21,7 +21,7 @@ vec3 hueRotate(vec3 color, float angle) {
 
 export const colorDriftBehavior = {
   id: 'color-drift',
-  label: 'Color Drift',
+  label: 'Drift',
   kind: 'color',
   noiseDependencies: ['smoothNoise'],
   applyCode: ({ time, speed, color }: ApplyCodeContext) =>
@@ -101,7 +101,7 @@ export const scanLinesBehavior = {
 
 export const spectralShiftBehavior = {
   id: 'spectral-shift',
-  label: 'Cosine Palettizer',
+  label: 'Palettizer',
   glslFunction: `
 vec3 spectralPalette(float t) {
   vec3 a = vec3(0.5, 0.5, 0.5);
@@ -136,7 +136,7 @@ vec3 applyIridescence(vec3 baseColor, vec2 coords, float t) {
 
 export const thermalRadianceBehavior = {
   id: 'thermal-radiance',
-  label: 'Thermal Infusion',
+  label: 'Radiance',
   glslFunction: `
 vec3 branchlessThermal(float t) {
   vec3 c1 = vec3(0.0, 0.0, 0.15);
@@ -165,7 +165,7 @@ vec3 branchlessThermal(float t) {
 
 export const neonReactivePulseBehavior = {
   id: 'neon-reactive',
-  label: 'Neon Reactive',
+  label: 'Neon',
   kind: 'color',
   applyCode: ({ time, speed, spatial, color }: ApplyCodeContext) => {
     return [
@@ -179,7 +179,7 @@ export const neonReactivePulseBehavior = {
 
 export const paletteCycleBehavior = {
   id: 'palette-cycle',
-  label: 'Palette Cycle',
+  label: 'Cycle',
   glslFunction: `\
 vec3 iqPalette(float t) {
   vec3 a = vec3(0.5, 0.5, 0.5);
@@ -201,7 +201,7 @@ vec3 paletteCycleColor(vec3 baseColor, float t) {
 
 export const neonGlowPulseBehavior = {
   id: 'neon-glow-pulse',
-  label: 'Neon Glow',
+  label: 'Neon',
   glslFunction: `\
 vec3 neonGlow(vec3 color, float t, float speed) {
   float lum = dot(color, vec3(0.299, 0.587, 0.114));
