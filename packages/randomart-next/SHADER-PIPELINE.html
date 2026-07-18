@@ -1,0 +1,2054 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Randomart-Next — Shader Compilation Pipeline</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --fg: #c9d1d9;
+        --accent: #58a6ff;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --highlight: #1f6feb33;
+        --green: #3fb950;
+        --red: #f85149;
+        --orange: #d29922;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.6;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: #fff;
+      }
+      h2 {
+        font-size: 1.4rem;
+        margin-top: 2.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--accent);
+        border-left: 3px solid var(--accent);
+        padding-left: 0.75rem;
+      }
+      h3 {
+        font-size: 1.15rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #e6edf3;
+      }
+      p {
+        margin-bottom: 0.75rem;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      code {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        background: var(--code-bg);
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 0.75rem 0 1rem;
+        font-size: 0.85em;
+        line-height: 1.5;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0.75rem 0 1rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+      }
+      th {
+        background: var(--code-bg);
+        color: var(--accent);
+        font-weight: 600;
+      }
+      tr:nth-child(even) {
+        background: var(--code-bg);
+      }
+      .callout {
+        border-left: 3px solid var(--orange);
+        background: #d2992211;
+        padding: 0.75rem 1rem;
+        margin: 1rem 0;
+        border-radius: 0 6px 6px 0;
+      }
+      .callout.info {
+        border-color: var(--accent);
+        background: #1f6feb11;
+      }
+      .callout.danger {
+        border-color: var(--red);
+        background: #f8514911;
+      }
+      .callout.success {
+        border-color: var(--green);
+        background: #3fb95011;
+      }
+      svg {
+        display: block;
+        margin: 1rem auto;
+        max-width: 100%;
+      }
+      svg text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+      .diagram-box {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        background: #0d1117;
+        overflow-x: auto;
+      }
+      ul,
+      ol {
+        margin: 0.5rem 0 0.75rem 1.5rem;
+      }
+      li {
+        margin-bottom: 0.3rem;
+      }
+      .file-ref {
+        color: var(--green);
+        font-weight: 500;
+      }
+      .size-bar {
+        display: inline-block;
+        height: 16px;
+        border-radius: 3px;
+        vertical-align: middle;
+      }
+      .toc {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .toc ol {
+        margin: 0;
+        list-style-type: decimal;
+      }
+      .toc li {
+        margin-bottom: 0.25rem;
+      }
+      .toc a {
+        color: var(--accent);
+      }
+      .badge {
+        display: inline-block;
+        font-size: 0.75em;
+        padding: 0.1em 0.5em;
+        border-radius: 10px;
+        font-weight: 600;
+        vertical-align: middle;
+        margin-left: 0.4em;
+      }
+      .badge.high {
+        background: #f8514933;
+        color: var(--red);
+      }
+      .badge.med {
+        background: #d2992233;
+        color: var(--orange);
+      }
+      .badge.low {
+        background: #3fb95033;
+        color: var(--green);
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      @media (max-width: 700px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+      .col {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.75rem;
+      }
+      .col h4 {
+        margin: 0 0 0.5rem;
+        font-size: 0.95rem;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Randomart-Next — Shader Compilation Pipeline</h1>
+
+    <div class="toc">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#overview">Overview &amp; Architecture</a></li>
+        <li><a href="#packages">Package Structure</a></li>
+        <li><a href="#pipeline">Full Pipeline: Seed → Pixels</a></li>
+        <li><a href="#tree-generation">Expression Tree Generation</a></li>
+        <li><a href="#operator-registry">Operator Registry &amp; toGLSL</a></li>
+        <li><a href="#glsl-compilation">GLSL Compilation (compileToGLSL)</a></li>
+        <li><a href="#preamble">Preamble Assembly: Noise Library &amp; Behaviors</a></li>
+        <li><a href="#webgl-rendering">WebGL Rendering Pipeline</a></li>
+        <li><a href="#shader-anatomy">Anatomy of a Generated Shader</a></li>
+        <li><a href="#bloat-analysis">Bloat Analysis: Where the Size Comes From</a></li>
+        <li><a href="#optimizations">Optimization Opportunities</a></li>
+        <li><a href="#operators-ref">Complete Operator Reference</a></li>
+      </ol>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="overview">1. Overview &amp; Architecture</h2>
+
+    <p>
+      <strong>Randomart-next</strong> is a generative art system that turns a text seed into a
+      real-time animated image using WebGL 2. The core idea: a deterministic PRNG grows an
+      <em>expression tree</em> from a grammar, then the tree is compiled into a GLSL fragment shader
+      that evaluates the expression in parallel across every pixel.
+    </p>
+
+    <p>The system has two parallel evaluation paths:</p>
+
+    <div class="two-col">
+      <div class="col">
+        <h4>GPU Path (real-time)</h4>
+        <p>
+          Tree → <code>toGLSL()</code> → GLSL string → <code>gl.compileShader()</code> → 60 FPS
+          animation
+        </p>
+        <p>Used by: <span class="file-ref">useShaderProgram.ts</span></p>
+      </div>
+      <div class="col">
+        <h4>CPU Path (static PNG)</h4>
+        <p>Tree → <code>evaluate()</code> per-pixel → Uint8Array → PNG encode</p>
+        <p>Used by: <span class="file-ref">generate.ts</span></p>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="packages">2. Package Structure</h2>
+
+    <table>
+      <tr>
+        <th>Package</th>
+        <th>Role</th>
+        <th>Key Files</th>
+      </tr>
+      <tr>
+        <td><code>@repo/randomart-engine-next</code></td>
+        <td>Core engine — grammar, trees, GLSL compilation, animation</td>
+        <td>
+          <code>expression.ts</code>, <code>compileToGLSL.ts</code>, <code>glsl-library.ts</code>,
+          <code>animation.ts</code>, <code>grammar/</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>@repo/randomart-next</code></td>
+        <td>React app — WebGL canvas, store, hooks</td>
+        <td>
+          <code>hooks/useShaderProgram.ts</code>, <code>hooks/useWebGLRenderer.ts</code>,
+          <code>stores/randomart/</code>
+        </td>
+      </tr>
+    </table>
+
+    <!-- ============================================================ -->
+    <h2 id="pipeline">3. Full Pipeline: Seed → Pixels</h2>
+
+    <div class="diagram-box">
+      <svg
+        viewBox="0 0 880 620"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <marker
+            id="arrow"
+            markerWidth="8"
+            markerHeight="6"
+            refX="8"
+            refY="3"
+            orient="auto"
+          >
+            <path
+              d="M0,0 L8,3 L0,6"
+              fill="#58a6ff"
+            />
+          </marker>
+          <marker
+            id="arrow-g"
+            markerWidth="8"
+            markerHeight="6"
+            refX="8"
+            refY="3"
+            orient="auto"
+          >
+            <path
+              d="M0,0 L8,3 L0,6"
+              fill="#3fb950"
+            />
+          </marker>
+          <marker
+            id="arrow-o"
+            markerWidth="8"
+            markerHeight="6"
+            refX="8"
+            refY="3"
+            orient="auto"
+          >
+            <path
+              d="M0,0 L8,3 L0,6"
+              fill="#d29922"
+            />
+          </marker>
+        </defs>
+
+        <!-- Step boxes -->
+        <rect
+          x="20"
+          y="20"
+          width="160"
+          height="50"
+          rx="8"
+          fill="#1f6feb33"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="100"
+          y="42"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          Text Seed
+        </text>
+        <text
+          x="100"
+          y="58"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          "hello world"
+        </text>
+
+        <line
+          x1="180"
+          y1="45"
+          x2="230"
+          y2="45"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+          marker-end="url(#arrow)"
+        />
+
+        <rect
+          x="230"
+          y="20"
+          width="180"
+          height="50"
+          rx="8"
+          fill="#1f6feb33"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="320"
+          y="38"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          PRNG (FNV-1a + mulberry32)
+        </text>
+        <text
+          x="320"
+          y="54"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          SeededRandom × 3 channels
+        </text>
+
+        <line
+          x1="410"
+          y1="45"
+          x2="460"
+          y2="45"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+          marker-end="url(#arrow)"
+        />
+
+        <rect
+          x="460"
+          y="20"
+          width="180"
+          height="50"
+          rx="8"
+          fill="#1f6feb33"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="550"
+          y="38"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          Grammar Rule
+        </text>
+        <text
+          x="550"
+          y="54"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          classic / paper / flow / fat
+        </text>
+
+        <line
+          x1="640"
+          y1="45"
+          x2="690"
+          y2="45"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+          marker-end="url(#arrow)"
+        />
+
+        <rect
+          x="690"
+          y="20"
+          width="160"
+          height="50"
+          rx="8"
+          fill="#1f6feb33"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="770"
+          y="42"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          3× ExprNode Trees
+        </text>
+        <text
+          x="770"
+          y="58"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          treeR, treeG, treeB
+        </text>
+
+        <!-- Branch into GPU / CPU -->
+        <line
+          x1="770"
+          y1="70"
+          x2="770"
+          y2="110"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <line
+          x1="770"
+          y1="110"
+          x2="300"
+          y2="110"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <line
+          x1="770"
+          y1="110"
+          x2="770"
+          y2="110"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+
+        <!-- GPU Path -->
+        <rect
+          x="150"
+          y="100"
+          width="300"
+          height="40"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="300"
+          y="125"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="600"
+        >
+          GPU Path: toGLSL() × 3 channels
+        </text>
+
+        <line
+          x1="300"
+          y1="140"
+          x2="300"
+          y2="170"
+          stroke="#3fb950"
+          stroke-width="1.5"
+          marker-end="url(#arrow-g)"
+        />
+
+        <rect
+          x="140"
+          y="170"
+          width="320"
+          height="40"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="300"
+          y="195"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="600"
+        >
+          compileToGLSL(treeR, treeG, treeB, behaviors)
+        </text>
+
+        <line
+          x1="300"
+          y1="210"
+          x2="300"
+          y2="240"
+          stroke="#3fb950"
+          stroke-width="1.5"
+          marker-end="url(#arrow-g)"
+        />
+
+        <rect
+          x="120"
+          y="240"
+          width="360"
+          height="50"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="300"
+          y="260"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="600"
+        >
+          Assemble Fragment Shader
+        </text>
+        <text
+          x="300"
+          y="276"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          preamble + behaviors + color expr + colorSpace
+        </text>
+
+        <line
+          x1="300"
+          y1="290"
+          x2="300"
+          y2="320"
+          stroke="#3fb950"
+          stroke-width="1.5"
+          marker-end="url(#arrow-g)"
+        />
+
+        <rect
+          x="160"
+          y="320"
+          width="280"
+          height="40"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="300"
+          y="345"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="600"
+        >
+          gl.compileShader() → gl.linkProgram()
+        </text>
+
+        <line
+          x1="300"
+          y1="360"
+          x2="300"
+          y2="390"
+          stroke="#3fb950"
+          stroke-width="1.5"
+          marker-end="url(#arrow-g)"
+        />
+
+        <rect
+          x="170"
+          y="390"
+          width="260"
+          height="40"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="300"
+          y="415"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="600"
+        >
+          WebGL2 Animation Loop (60 FPS)
+        </text>
+
+        <line
+          x1="300"
+          y1="430"
+          x2="300"
+          y2="460"
+          stroke="#3fb950"
+          stroke-width="1.5"
+          marker-end="url(#arrow-g)"
+        />
+
+        <rect
+          x="200"
+          y="460"
+          width="200"
+          height="35"
+          rx="8"
+          fill="#3fb95033"
+          stroke="#3fb950"
+          stroke-width="2"
+        />
+        <text
+          x="300"
+          y="483"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="12"
+          font-weight="700"
+        >
+          Pixels on Screen
+        </text>
+
+        <!-- CPU Path -->
+        <rect
+          x="620"
+          y="100"
+          width="300"
+          height="40"
+          rx="8"
+          fill="#d2992222"
+          stroke="#d29922"
+          stroke-width="1.5"
+        />
+        <text
+          x="770"
+          y="125"
+          text-anchor="middle"
+          fill="#d29922"
+          font-size="11"
+          font-weight="600"
+        >
+          CPU Path: evaluate() × N² pixels
+        </text>
+
+        <line
+          x1="770"
+          y1="140"
+          x2="770"
+          y2="170"
+          stroke="#d29922"
+          stroke-width="1.5"
+          marker-end="url(#arrow-o)"
+        />
+
+        <rect
+          x="620"
+          y="170"
+          width="300"
+          height="40"
+          rx="8"
+          fill="#d2992222"
+          stroke="#d29922"
+          stroke-width="1.5"
+        />
+        <text
+          x="770"
+          y="195"
+          text-anchor="middle"
+          fill="#d29922"
+          font-size="11"
+          font-weight="600"
+        >
+          Per-pixel tree walk (O(tree depth))
+        </text>
+
+        <line
+          x1="770"
+          y1="210"
+          x2="770"
+          y2="240"
+          stroke="#d29922"
+          stroke-width="1.5"
+          marker-end="url(#arrow-o)"
+        />
+
+        <rect
+          x="640"
+          y="240"
+          width="260"
+          height="40"
+          rx="8"
+          fill="#d2992222"
+          stroke="#d29922"
+          stroke-width="1.5"
+        />
+        <text
+          x="770"
+          y="265"
+          text-anchor="middle"
+          fill="#d29922"
+          font-size="11"
+          font-weight="600"
+        >
+          Color Mapper: value → RGB
+        </text>
+
+        <line
+          x1="770"
+          y1="280"
+          x2="770"
+          y2="310"
+          stroke="#d29922"
+          stroke-width="1.5"
+          marker-end="url(#arrow-o)"
+        />
+
+        <rect
+          x="660"
+          y="310"
+          width="220"
+          height="40"
+          rx="8"
+          fill="#d2992222"
+          stroke="#d29922"
+          stroke-width="1.5"
+        />
+        <text
+          x="770"
+          y="335"
+          text-anchor="middle"
+          fill="#d29922"
+          font-size="11"
+          font-weight="600"
+        >
+          PNG Encode
+        </text>
+
+        <line
+          x1="770"
+          y1="350"
+          x2="770"
+          y2="380"
+          stroke="#d29922"
+          stroke-width="1.5"
+          marker-end="url(#arrow-o)"
+        />
+
+        <rect
+          x="670"
+          y="380"
+          width="200"
+          height="35"
+          rx="8"
+          fill="#d2992233"
+          stroke="#d29922"
+          stroke-width="2"
+        />
+        <text
+          x="770"
+          y="403"
+          text-anchor="middle"
+          fill="#d29922"
+          font-size="12"
+          font-weight="700"
+        >
+          PNG Buffer
+        </text>
+
+        <!-- Legend -->
+        <rect
+          x="30"
+          y="530"
+          width="820"
+          height="70"
+          rx="8"
+          fill="#161b22"
+          stroke="#30363d"
+        />
+        <text
+          x="50"
+          y="552"
+          fill="#8b949e"
+          font-size="11"
+          font-weight="600"
+        >
+          Legend
+        </text>
+        <rect
+          x="50"
+          y="562"
+          width="12"
+          height="12"
+          rx="2"
+          fill="#58a6ff"
+        />
+        <text
+          x="70"
+          y="573"
+          fill="#c9d1d9"
+          font-size="10"
+        >
+          Seed / Grammar / Tree Generation
+        </text>
+        <rect
+          x="280"
+          y="562"
+          width="12"
+          height="12"
+          rx="2"
+          fill="#3fb950"
+        />
+        <text
+          x="300"
+          y="573"
+          fill="#c9d1d9"
+          font-size="10"
+        >
+          GPU Path (GLSL → WebGL → Screen)
+        </text>
+        <rect
+          x="540"
+          y="562"
+          width="12"
+          height="12"
+          rx="2"
+          fill="#d29922"
+        />
+        <text
+          x="560"
+          y="573"
+          fill="#c9d1d9"
+          font-size="10"
+        >
+          CPU Path (evaluate → PNG)
+        </text>
+      </svg>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="tree-generation">4. Expression Tree Generation</h2>
+
+    <p>
+      The <code>ExprNode</code> type is the fundamental data structure — a recursive tree where each
+      node is an operator with children:
+    </p>
+
+    <pre><code>type ExprNode = {
+  readonly type: OperatorId;     // e.g. "sin", "sum", "x", "const"
+  readonly value?: number;       // only when type === "const"
+  readonly children?: ExprNode[];
+}</code></pre>
+
+    <h3>Tree Construction: <code>grow()</code> and <code>buildTree()</code></h3>
+
+    <p>
+      Located in <span class="file-ref">packages/randomart-engine-next/src/expression.ts</span>. Two
+      variants:
+    </p>
+
+    <ul>
+      <li>
+        <strong><code>grow(rng, spec, depth)</code></strong> — simple recursive growth. Uses a
+        single RNG. At each level, picks an operator weighted by category probability, then recurses
+        for each child.
+      </li>
+      <li>
+        <strong><code>buildTree(structureRng, channelRng, ...)</code></strong> — dual-RNG variant.
+        The <code>structureRng</code> drives the first few levels (tree shape); the
+        <code>channelRng</code> drives deeper levels (leaf values). This allows
+        correlated-but-varied color channels.
+      </li>
+    </ul>
+
+    <h3>Depth Control</h3>
+
+    <p>The grammar spec defines:</p>
+    <ul>
+      <li><code>maxDepth</code> — maximum tree depth (typically 10-12)</li>
+      <li><code>minDepth</code> — minimum depth before terminals are allowed (typically 3-4)</li>
+    </ul>
+
+    <p>
+      At <code>depth === 0</code>, only terminals (arity 0) are picked. Below <code>minDepth</code>,
+      only operators (arity > 0) are picked. In between, the choice is probabilistic based on
+      <code>structuralProbability = 1 - currentDepth / maxDepth</code>.
+    </p>
+
+    <h3>3 Separate Trees</h3>
+
+    <p>
+      Three trees are generated — one per RGB channel — using seeds with <code>_red</code>,
+      <code>_green</code>, <code>_blue</code> suffixes. In <strong>correlated mode</strong>, all
+      three share the same RNG stream, so they get identical structure but different leaf values. In
+      <strong>uncorrelated mode</strong>, each has its own structure and channel RNG.
+    </p>
+
+    <div class="callout info">
+      <strong>Key insight:</strong> The trees are independent JavaScript objects with no shared
+      references. Even in correlated mode, each tree is a separate instance — there is no node-level
+      sharing between R, G, B.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="operator-registry">5. Operator Registry &amp; toGLSL</h2>
+
+    <p>
+      Each operator defines a <code>toGLSL(args)</code> method that returns a
+      <strong>raw GLSL expression string</strong>. The <code>toGLSL()</code> walker in
+      <span class="file-ref">expression.ts:269</span> recursively inlines everything — it never
+      emits function calls for operators, only for library helpers.
+    </p>
+
+    <pre><code>// expression.ts — the recursive walker
+function toGLSL(node: ExprNode): string {
+  if (node.type === 'x') return 'p.x';
+  if (node.type === 'y') return 'p.y';
+  if (node.type === 'const') return (node.value ?? 0).toFixed(4);
+
+  const op = getOperator(node.type);
+  if (op.arity === 0) return op.toGLSL({});
+
+  const args = Object.fromEntries(
+    op.argNames.map((name, i) => [name, toGLSL(node.children![i]!)])
+  );
+  return op.toGLSL(args);
+}</code></pre>
+
+    <h3>Example: What a tree compiles to</h3>
+
+    <p>Given this expression tree:</p>
+    <pre><code>sum(
+  sin(x),
+  product(cos(y), const(0.5))
+)</code></pre>
+
+    <p>The GLSL output is a single deeply-nested inline expression:</p>
+    <pre><code>clamp(
+  (sin(3.141592653589793 * (p.x)) + clamp(
+    (cos(3.141592653589793 * (p.y))) * (0.5000),
+    -1.0, 1.0
+  )) * 0.5,
+  -1.0, 1.0
+)</code></pre>
+
+    <div class="callout danger">
+      <strong>Each node inlines its children.</strong> If <code>sin(x)</code> appears 5 times in the
+      tree, you get 5 copies of <code>sin(3.141592653589793 * (p.x))</code> as raw text. There are
+      <strong>no per-node function definitions</strong> — only raw expression text.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="glsl-compilation">6. GLSL Compilation (compileToGLSL)</h2>
+
+    <p>
+      Located in <span class="file-ref">packages/randomart-engine-next/src/compileToGLSL.ts</span>.
+      This is the heart of the pipeline — it takes 3 trees + animation behaviors + color space and
+      produces a complete <code>#version 300 es</code> fragment shader string.
+    </p>
+
+    <h3>Step-by-step</h3>
+
+    <ol>
+      <li>
+        <strong>Compile color expression</strong> — calls <code>toGLSL()</code> on each tree, wraps
+        in <code>vec3(r, g, b)</code>
+      </li>
+      <li>
+        <strong>Collect noise dependencies</strong> — walks all 3 trees recursively via
+        <code>collectNoiseDeps()</code>, gathering library function IDs from operators that declare
+        <code>noiseDependencies</code>
+      </li>
+      <li>
+        <strong>Collect behavior noise deps</strong> — active animation behaviors may also require
+        noise functions
+      </li>
+      <li>
+        <strong>Build preamble</strong> — resolves noise library functions in topological order,
+        appends behavior GLSL functions
+      </li>
+      <li>
+        <strong>Apply behaviors</strong> — injects spatial behavior code (modifies <code>p</code>)
+        and color behavior code (modifies <code>color</code>)
+      </li>
+      <li>
+        <strong>Color space wrapping</strong> — if not sRGB, wraps the expression with a color space
+        conversion
+      </li>
+      <li><strong>Assemble</strong> — template literal combining all parts</li>
+    </ol>
+
+    <pre><code>// compileToGLSL.ts:181 — the main entry point
+export function compileToGLSL(
+  treeR: ExprNode,
+  treeG: ExprNode,
+  treeB: ExprNode,
+  behaviors: AnimationBehavior[] = [],
+  colorSpace: ColorSpaceId = 'srgb'
+): string {
+  const noiseDeps = new Set&lt;string&gt;();
+  const colorExpr = compileColorExpr(treeR, treeG, treeB);
+  // ... collect deps, build preamble, assemble shader
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2 id="preamble">7. Preamble Assembly: Noise Library &amp; Behaviors</h2>
+
+    <h3>Noise Library (<code>glsl-library.ts</code>)</h3>
+
+    <p>
+      A registry of 6 reusable GLSL helper functions, each with optional dependencies. The
+      <code>resolveGlslDeps()</code> function performs topological sort to emit them in correct
+      order. A <code>Set</code>-based visited list prevents duplication.
+    </p>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Dependencies</th>
+        <th>GLSL Size</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>hash1</code></td>
+        <td>—</td>
+        <td>~60 B</td>
+        <td>1D hash from float</td>
+      </tr>
+      <tr>
+        <td><code>random2d</code></td>
+        <td>—</td>
+        <td>~60 B</td>
+        <td>2D hash from vec2</td>
+      </tr>
+      <tr>
+        <td><code>smoothNoise</code></td>
+        <td>hash1</td>
+        <td>~120 B</td>
+        <td>1D smooth value noise</td>
+      </tr>
+      <tr>
+        <td><code>smoothNoise2</code></td>
+        <td>smoothNoise</td>
+        <td>~80 B</td>
+        <td>2D smooth noise (overloaded)</td>
+      </tr>
+      <tr>
+        <td><code>fbmNoise</code></td>
+        <td>random2d</td>
+        <td>~130 B</td>
+        <td>5-octave FBM</td>
+      </tr>
+      <tr>
+        <td><code>pseudoRecaman</code></td>
+        <td>—</td>
+        <td>~450 B</td>
+        <td>Recamán-like pattern</td>
+      </tr>
+    </table>
+
+    <h3>Animation Behaviors (<code>animation.ts</code>)</h3>
+
+    <p>25 registered behaviors, each optionally providing:</p>
+    <ul>
+      <li>
+        <code>glslFunction</code> — GLSL function definition emitted in preamble (if non-trivial)
+      </li>
+      <li><code>applyCode(ctx)</code> — inline GLSL snippet injected into <code>main()</code></li>
+      <li>
+        <code>type</code> — <code>'spatial'</code> (modifies <code>p</code>) or
+        <code>'color'</code> (modifies <code>color</code>)
+      </li>
+      <li><code>noiseDependencies</code> — library function IDs this behavior requires</li>
+    </ul>
+
+    <p>Behaviors with <code>glslFunction</code> (non-trivial helpers):</p>
+    <table>
+      <tr>
+        <th>Behavior</th>
+        <th>Type</th>
+        <th>GLSL Function Size</th>
+      </tr>
+      <tr>
+        <td>rotate</td>
+        <td>spatial</td>
+        <td>~80 B (mat2 rotate2d)</td>
+      </tr>
+      <tr>
+        <td>swirl</td>
+        <td>spatial</td>
+        <td>~120 B</td>
+      </tr>
+      <tr>
+        <td>kaleidoscope</td>
+        <td>spatial</td>
+        <td>~250 B</td>
+      </tr>
+      <tr>
+        <td>domain-warp</td>
+        <td>spatial</td>
+        <td>~200 B</td>
+      </tr>
+      <tr>
+        <td>tunnel</td>
+        <td>spatial</td>
+        <td>~150 B</td>
+      </tr>
+      <tr>
+        <td>voronoi</td>
+        <td>spatial</td>
+        <td>~550 B (voronoiHash + voronoiWarp)</td>
+      </tr>
+      <tr>
+        <td>recaman-pulse</td>
+        <td>spatial</td>
+        <td>~350 B</td>
+      </tr>
+      <tr>
+        <td>hue-shift</td>
+        <td>color</td>
+        <td>~300 B (hueRotate)</td>
+      </tr>
+      <tr>
+        <td>contrast-pulse</td>
+        <td>color</td>
+        <td>~100 B</td>
+      </tr>
+      <tr>
+        <td>edge-detect</td>
+        <td>color</td>
+        <td>~450 B (applyLaplacianEdges)</td>
+      </tr>
+    </table>
+
+    <!-- ============================================================ -->
+    <h2 id="webgl-rendering">8. WebGL Rendering Pipeline</h2>
+
+    <div class="diagram-box">
+      <svg
+        viewBox="0 0 860 320"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <marker
+            id="a2"
+            markerWidth="8"
+            markerHeight="6"
+            refX="8"
+            refY="3"
+            orient="auto"
+          >
+            <path
+              d="M0,0 L8,3 L0,6"
+              fill="#58a6ff"
+            />
+          </marker>
+        </defs>
+
+        <!-- Zustand Store -->
+        <rect
+          x="20"
+          y="20"
+          width="180"
+          height="60"
+          rx="8"
+          fill="#1f6feb22"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="110"
+          y="44"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          Zustand Store
+        </text>
+        <text
+          x="110"
+          y="60"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="10"
+        >
+          treeR/G/B, behaviors, time
+        </text>
+
+        <line
+          x1="200"
+          y1="50"
+          x2="250"
+          y2="50"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+          marker-end="url(#a2)"
+        />
+
+        <!-- useWebGLRenderer -->
+        <rect
+          x="250"
+          y="15"
+          width="200"
+          height="70"
+          rx="8"
+          fill="#1f6feb22"
+          stroke="#58a6ff"
+          stroke-width="1.5"
+        />
+        <text
+          x="350"
+          y="40"
+          text-anchor="middle"
+          fill="#58a6ff"
+          font-size="11"
+          font-weight="600"
+        >
+          useWebGLRenderer
+        </text>
+        <text
+          x="350"
+          y="56"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="9"
+        >
+          Master orchestrator hook
+        </text>
+        <text
+          x="350"
+          y="70"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="9"
+        >
+          drives the 60 FPS loop
+        </text>
+
+        <!-- Three children -->
+        <line
+          x1="350"
+          y1="85"
+          x2="150"
+          y2="120"
+          stroke="#58a6ff"
+          stroke-width="1"
+          marker-end="url(#a2)"
+        />
+        <line
+          x1="350"
+          y1="85"
+          x2="350"
+          y2="120"
+          stroke="#58a6ff"
+          stroke-width="1"
+          marker-end="url(#a2)"
+        />
+        <line
+          x1="350"
+          y1="85"
+          x2="550"
+          y2="120"
+          stroke="#58a6ff"
+          stroke-width="1"
+          marker-end="url(#a2)"
+        />
+
+        <!-- useWebGLContext -->
+        <rect
+          x="50"
+          y="120"
+          width="200"
+          height="50"
+          rx="8"
+          fill="#161b22"
+          stroke="#30363d"
+        />
+        <text
+          x="150"
+          y="142"
+          text-anchor="middle"
+          fill="#c9d1d9"
+          font-size="10"
+          font-weight="600"
+        >
+          useWebGLContext
+        </text>
+        <text
+          x="150"
+          y="158"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="9"
+        >
+          WebGL2 context init + canvas sizing
+        </text>
+
+        <!-- useShaderProgram -->
+        <rect
+          x="280"
+          y="120"
+          width="200"
+          height="50"
+          rx="8"
+          fill="#3fb95022"
+          stroke="#3fb950"
+          stroke-width="1.5"
+        />
+        <text
+          x="380"
+          y="142"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="10"
+          font-weight="600"
+        >
+          useShaderProgram
+        </text>
+        <text
+          x="380"
+          y="158"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="9"
+        >
+          compileToGLSL → compileShader → link
+        </text>
+
+        <!-- useAnimationLoop -->
+        <rect
+          x="480"
+          y="120"
+          width="200"
+          height="50"
+          rx="8"
+          fill="#161b22"
+          stroke="#30363d"
+        />
+        <text
+          x="580"
+          y="142"
+          text-anchor="middle"
+          fill="#c9d1d9"
+          font-size="10"
+          font-weight="600"
+        >
+          useAnimationLoop
+        </text>
+        <text
+          x="580"
+          y="158"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-size="9"
+        >
+          requestAnimationFrame tick engine
+        </text>
+
+        <!-- Loop -->
+        <line
+          x1="580"
+          y1="170"
+          x2="580"
+          y2="210"
+          stroke="#58a6ff"
+          stroke-width="1"
+          marker-end="url(#a2)"
+        />
+        <rect
+          x="460"
+          y="210"
+          width="240"
+          height="40"
+          rx="8"
+          fill="#161b22"
+          stroke="#30363d"
+        />
+        <text
+          x="580"
+          y="235"
+          text-anchor="middle"
+          fill="#c9d1d9"
+          font-size="10"
+        >
+          uniform1f(u_time) → drawArrays()
+        </text>
+
+        <line
+          x1="580"
+          y1="250"
+          x2="580"
+          y2="280"
+          stroke="#58a6ff"
+          stroke-width="1"
+          marker-end="url(#a2)"
+        />
+        <rect
+          x="500"
+          y="280"
+          width="160"
+          height="30"
+          rx="8"
+          fill="#3fb95033"
+          stroke="#3fb950"
+          stroke-width="2"
+        />
+        <text
+          x="580"
+          y="300"
+          text-anchor="middle"
+          fill="#3fb950"
+          font-size="11"
+          font-weight="700"
+        >
+          Canvas pixels
+        </text>
+
+        <!-- Re-compile arrow -->
+        <line
+          x1="380"
+          y1="170"
+          x2="380"
+          y2="210"
+          stroke="#d29922"
+          stroke-width="1"
+          stroke-dasharray="4,3"
+        />
+        <text
+          x="410"
+          y="195"
+          fill="#d29922"
+          font-size="9"
+        >
+          re-compile on tree/behavior change
+        </text>
+      </svg>
+    </div>
+
+    <h3>Key details</h3>
+
+    <ul>
+      <li>
+        <strong>Vertex shader</strong> is fixed (simple pass-through with <code>v_texCoord</code>)
+      </li>
+      <li>
+        <strong>Fragment shader</strong> is regenerated from scratch whenever trees or active
+        behaviors change
+      </li>
+      <li>
+        <strong>Uniforms</strong>: <code>u_time</code>, <code>u_animSpeed</code>,
+        <code>u_resolution</code>, <code>u_mouse</code>
+      </li>
+      <li>
+        The shader is compiled synchronously in a <code>useEffect</code> — compilation failures are
+        caught and logged
+      </li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <h2 id="shader-anatomy">9. Anatomy of a Generated Shader</h2>
+
+    <pre><code>#version 300 es
+precision highp float;
+
+uniform float u_time;
+uniform float u_animSpeed;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+in vec2 v_texCoord;
+out vec4 fragColor;
+
+// ── PREAMBLE: Noise library (tree-shaken, topologically sorted) ──
+float hash1(float n) { ... }
+float smoothNoise(float t) { ... }
+float fbmNoise(vec2 p) { ... }  // only if fbm node exists
+
+// ── PREAMBLE: Behavior GLSL functions (deduplicated by ID) ──
+mat2 rotate2d(float _angle) { ... }  // if rotate behavior active
+vec2 swirl(vec2 coords, float angle) { ... }  // if swirl active
+vec3 hueRotate(vec3 color, float angle) { ... }  // if hue-shift active
+
+// ── PREAMBLE: Color space conversion (only if not sRGB) ──
+vec3 oklchToSrgb(vec3 oklch) { ... }  // only if oklch color space
+
+void main() {
+  vec2 p = v_texCoord * 2.0 - 1.0;
+  p.y = -p.y;
+
+  float t_time = u_time;
+  float t_speed = u_animSpeed;
+
+  // ── SPATIAL BEHAVIORS (modify p) ──
+  p = rotate2d(t_time * t_speed * 0.5) * p;
+  p = swirl(p, sin(t_time * t_speed) * 2.0);
+
+  // ── COLOR EXPRESSION (inline from 3 trees) ──
+  vec3 color = vec3(
+    /*R*/ clamp((sin(3.14159 * (p.x)) + clamp((cos(3.14159 * (p.y))) * 0.5, -1.0, 1.0)) * 0.5, -1.0, 1.0),
+    /*G*/ clamp((fract(p.x) * 2.0 - 1.0) * clamp((length(p) * 2.0 - 1.0), -1.0, 1.0), -1.0, 1.0),
+    /*B*/ fbmNoise(p)
+  );
+
+  // ── COLOR SPACE CONVERSION (if not sRGB) ──
+  // vec3 _cs_raw = color;
+  // float _L = clamp(_cs_raw.x * 0.5 + 0.5, 0.0, 1.0);
+  // ...
+  // vec3 color = oklchToSrgb(vec3(_L, _C, _H));
+
+  // ── COLOR BEHAVIORS (modify color) ──
+  color = hueRotate(color, t_time * t_speed);
+
+  fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
+}</code></pre>
+
+    <!-- ============================================================ -->
+    <h2 id="bloat-analysis">10. Bloat Analysis: Where the Size Comes From</h2>
+
+    <h3>Size Breakdown</h3>
+
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Typical Size</th>
+        <th>Max Size</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Shader boilerplate</td>
+        <td>~200 B</td>
+        <td>~200 B</td>
+        <td>Fixed: uniforms, version, precision</td>
+      </tr>
+      <tr>
+        <td>Noise library preamble</td>
+        <td>0 - 850 B</td>
+        <td>~1100 B</td>
+        <td>Tree-shaken: only used functions included</td>
+      </tr>
+      <tr>
+        <td>Behavior GLSL functions</td>
+        <td>0 - 1.5 KB</td>
+        <td>~2.5 KB</td>
+        <td>Deduplicated by behavior ID</td>
+      </tr>
+      <tr>
+        <td>Color space function</td>
+        <td>0 - 300 B</td>
+        <td>~300 B</td>
+        <td>Only one color space active at a time</td>
+      </tr>
+      <tr>
+        <td>Expression (R channel)</td>
+        <td>100 B - 3 KB</td>
+        <td>~5 KB</td>
+        <td>Highly variable, depends on tree</td>
+      </tr>
+      <tr>
+        <td>Expression (G channel)</td>
+        <td>100 B - 3 KB</td>
+        <td>~5 KB</td>
+        <td>Independent from R</td>
+      </tr>
+      <tr>
+        <td>Expression (B channel)</td>
+        <td>100 B - 3 KB</td>
+        <td>~5 KB</td>
+        <td>Independent from R, G</td>
+      </tr>
+      <tr>
+        <td>Spatial behavior code</td>
+        <td>0 - 500 B</td>
+        <td>~1 KB</td>
+        <td>Inline snippets in main()</td>
+      </tr>
+      <tr>
+        <td>Color behavior code</td>
+        <td>0 - 500 B</td>
+        <td>~1 KB</td>
+        <td>Inline snippets in main()</td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <th>~1 - 3 KB</th>
+        <th>~15 KB</th>
+        <th></th>
+      </tr>
+    </table>
+
+    <h3>The 3 Biggest Sources of Bloat</h3>
+
+    <h4>
+      1. <code>fbmOp</code> inlines 5 octaves of noise (~250 chars per occurrence)
+      <span class="badge high">HIGH</span>
+    </h4>
+
+    <p>
+      <span class="file-ref"
+        >packages/randomart-engine-next/src/grammar/operators/terminals/derived.ts:52-61</span
+      >
+    </p>
+
+    <p>
+      The <code>fbmOp.toGLSL()</code> manually inlines 5 calls to <code>fract(sin(...))</code> noise
+      instead of calling the existing <code>fbmNoise()</code> library function. If the tree has
+      multiple <code>fbm</code> nodes, each gets its own full 5-octave expansion.
+    </p>
+
+    <pre><code>// Current fbmOp.toGLSL() output per occurrence (~250 chars):
+(( (fract(sin(p.x * 12.9898 + p.y * 78.233) * 43758.5453) * 2.0 - 1.0)
++ 0.5 * (fract(sin(p.x * 2.0 * 12.9898 + p.y * 2.0 * 78.233) * 43758.5453) * 2.0 - 1.0)
++ 0.25 * (fract(sin(p.x * 4.0 * 12.9898 + p.y * 4.0 * 78.233) * 43758.5453) * 2.0 - 1.0)
++ 0.125 * (fract(sin(p.x * 8.0 * 12.9898 + p.y * 8.0 * 78.233) * 43758.5453) * 2.0 - 1.0)
++ 0.0625 * (fract(sin(p.x * 16.0 * 12.9898 + p.y * 16.0 * 78.233) * 43758.5453) * 2.0 - 1.0)
+) * 0.67)
+
+// Could be replaced with just:
+fbmNoise(p)  // ~12 chars + library function once in preamble</code></pre>
+
+    <h4>
+      2. No cross-tree CSE (common sub-expression elimination) <span class="badge high">HIGH</span>
+    </h4>
+
+    <p>
+      <span class="file-ref">packages/randomart-engine-next/src/compileToGLSL.ts:160-162</span>
+    </p>
+
+    <p>
+      <code>compileColorExpr()</code> calls <code>toGLSL()</code> on each tree independently. If two
+      trees share an identical subtree (common in correlated mode), the same GLSL text appears twice
+      in the output. There is no deduplication across channels.
+    </p>
+
+    <h4>3. <code>GL_PI</code> hardcoded as literal string <span class="badge med">MEDIUM</span></h4>
+
+    <p>
+      <span class="file-ref"
+        >packages/randomart-engine-next/src/grammar/operators/transforms/trigonometric.ts:5</span
+      >
+    </p>
+
+    <p>
+      Every <code>sin()</code> and <code>cos()</code> operator emits
+      <code>3.141592653589793</code> as a raw literal. A tree with 10 trig nodes repeats this 10
+      times (~15 chars each).
+    </p>
+
+    <h4>4. No intra-tree subtree deduplication <span class="badge med">MEDIUM</span></h4>
+
+    <p>
+      Within a single tree, structurally identical subtrees are inlined multiple times. For example,
+      if two branches both end in <code>sin(p.x)</code>, that expression appears twice. The
+      <code>toGLSL()</code> walker has no mechanism to detect and extract repeated subtrees into
+      local variables.
+    </p>
+
+    <h3>Typical Shader Size by Scenario</h3>
+
+    <table>
+      <tr>
+        <th>Scenario</th>
+        <th>Estimated Size</th>
+        <th>Breakdown</th>
+      </tr>
+      <tr>
+        <td>Simple (no behaviors, small tree, maxDepth=8)</td>
+        <td>~1 - 2 KB</td>
+        <td>Boilerplate + tiny expressions</td>
+      </tr>
+      <tr>
+        <td>Medium (1-2 simple behaviors, maxDepth=10)</td>
+        <td>~2 - 4 KB</td>
+        <td>One behavior function + moderate expressions</td>
+      </tr>
+      <tr>
+        <td>Complex (kaleidoscope + voronoi, maxDepth=12)</td>
+        <td>~5 - 8 KB</td>
+        <td>Large behavior functions + deep expression trees</td>
+      </tr>
+      <tr>
+        <td>Worst case (all behaviors, fat rule, maxDepth=12)</td>
+        <td>~10 - 15 KB</td>
+        <td>Everything active + maximum tree depth</td>
+      </tr>
+    </table>
+
+    <!-- ============================================================ -->
+    <h2 id="optimizations">11. Optimization Opportunities</h2>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Optimization</th>
+        <th>Impact</th>
+        <th>Complexity</th>
+        <th>Risk</th>
+        <th>Files to Change</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <strong>Cross-tree CSE</strong> — hash identical subtrees across R/G/B, emit as
+          <code>float _cse_N</code>
+        </td>
+        <td><span class="badge high">HIGH</span> 10-30%</td>
+        <td>High</td>
+        <td>Medium</td>
+        <td><code>compileToGLSL.ts</code>, <code>expression.ts</code></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <strong>fbmOp → library call</strong> — change <code>toGLSL</code> to return
+          <code>fbmNoise(p)</code>
+        </td>
+        <td><span class="badge high">HIGH</span> ~200 B/fbm</td>
+        <td>Low</td>
+        <td>Very Low</td>
+        <td><code>grammar/operators/terminals/derived.ts</code></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <strong>GL_PI constant</strong> — emit <code>const float PI = 3.141592653589793;</code> in
+          preamble
+        </td>
+        <td><span class="badge low">LOW</span> ~15 B/sin/cos</td>
+        <td>Low</td>
+        <td>Very Low</td>
+        <td>
+          <code>compileToGLSL.ts</code>, <code>trigonometric.ts</code>, <code>derived.ts</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <strong>Intra-tree dedup</strong> — hash subtrees within one channel, extract repeated
+          ones to variables
+        </td>
+        <td><span class="badge med">MEDIUM</span> 20-50%</td>
+        <td>Medium</td>
+        <td>Medium</td>
+        <td><code>expression.ts</code></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <strong>GLSL minification</strong> — post-process: strip comments, collapse whitespace
+        </td>
+        <td><span class="badge low">LOW</span> 15-25%</td>
+        <td>Low</td>
+        <td>Low</td>
+        <td><code>compileToGLSL.ts</code></td>
+      </tr>
+    </table>
+
+    <h3>Recommended Order</h3>
+
+    <ol>
+      <li>
+        <strong>Optimization 2</strong> (fbmOp fix) — trivial one-line change, immediate savings
+      </li>
+      <li><strong>Optimization 3</strong> (GL_PI constant) — small but clean improvement</li>
+      <li>
+        <strong>Optimization 1</strong> (cross-tree CSE) — biggest impact, needs careful design
+      </li>
+      <li><strong>Optimization 4</strong> (intra-tree dedup) — builds on CSE infrastructure</li>
+      <li>
+        <strong>Optimization 5</strong> (minification) — nice-to-have for storage/transmission
+      </li>
+    </ol>
+
+    <div class="callout success">
+      <strong>Note on GLSL compiler optimization:</strong> Most WebGL 2 implementations use ANGLE or
+      vendor-specific GLSL compilers that already perform common sub-expression elimination,
+      constant folding, and dead code elimination at compile time. The optimizations above primarily
+      reduce the <em>string size</em> of the generated shader (faster to compile, less memory), but
+      the GPU-side execution will be similar either way for small expressions. The biggest win is
+      reducing shader compilation time and avoiding GPU driver string-length limits.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="operators-ref">12. Complete Operator Reference</h2>
+
+    <h3>Terminals (arity 0)</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>GLSL Output</th>
+        <th>Size</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>p.x</code></td>
+        <td>~4 B</td>
+        <td>Hardcoded in walker</td>
+      </tr>
+      <tr>
+        <td><code>y</code></td>
+        <td><code>p.y</code></td>
+        <td>~4 B</td>
+        <td>Hardcoded in walker</td>
+      </tr>
+      <tr>
+        <td><code>const</code></td>
+        <td><code>0.1234</code></td>
+        <td>~6 B</td>
+        <td>Hardcoded in walker</td>
+      </tr>
+      <tr>
+        <td><code>radial</code></td>
+        <td><code>(length(p) * 2.0 - 1.0)</code></td>
+        <td>~24 B</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>sweep</code></td>
+        <td><code>(atan(p.y, p.x) / 3.14159... * 2.0 - 1.0)</code></td>
+        <td>~45 B</td>
+        <td>Contains GL_PI literal</td>
+      </tr>
+      <tr>
+        <td><code>fbm</code></td>
+        <td><em>5-octave inline noise</em></td>
+        <td>~250 B</td>
+        <td><strong>BLOAT SOURCE</strong> — duplicates library</td>
+      </tr>
+      <tr>
+        <td><code>recaman</code></td>
+        <td><code>pseudoRecaman(p)</code></td>
+        <td>~20 B</td>
+        <td>Library call + noiseDependencies</td>
+      </tr>
+      <tr>
+        <td><code>nested-oscillation</code></td>
+        <td><code>sin(p.x * sin(p.y * PI) * PI)</code></td>
+        <td>~38 B</td>
+        <td>Contains 2× GL_PI</td>
+      </tr>
+    </table>
+
+    <h3>Transforms (arity 1)</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>GLSL Pattern</th>
+        <th>Approx Size</th>
+      </tr>
+      <tr>
+        <td><code>sin</code></td>
+        <td><code>sin(PI * ({value}))</code></td>
+        <td>~20 B + child</td>
+      </tr>
+      <tr>
+        <td><code>cos</code></td>
+        <td><code>cos(PI * ({value}))</code></td>
+        <td>~20 B + child</td>
+      </tr>
+      <tr>
+        <td><code>abs</code></td>
+        <td><code>clamp(abs({value}) * 2.0 - 1.0, -1.0, 1.0)</code></td>
+        <td>~40 B + child</td>
+      </tr>
+      <tr>
+        <td><code>sqrt</code></td>
+        <td><code>sqrt(abs({value}) + 1e-10)</code></td>
+        <td>~28 B + child</td>
+      </tr>
+      <tr>
+        <td><code>exp</code></td>
+        <td><code>(((exp(clamp({v}, -1, 1)) - 0.3679) / 2.3504) * 2 - 1)</code></td>
+        <td>~55 B + child</td>
+      </tr>
+      <tr>
+        <td><code>log</code></td>
+        <td><code>((log(abs({v}) + 1.0) / 0.6931) * 2.0 - 1.0)</code></td>
+        <td>~48 B + child</td>
+      </tr>
+      <tr>
+        <td><code>fract</code></td>
+        <td><code>(fract({value}) * 2.0 - 1.0)</code></td>
+        <td>~30 B + child</td>
+      </tr>
+    </table>
+
+    <h3>Combinators (arity 2-4)</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Arity</th>
+        <th>GLSL Pattern</th>
+        <th>Approx Size</th>
+      </tr>
+      <tr>
+        <td><code>sum</code></td>
+        <td>2</td>
+        <td><code>clamp(({a} + {b}) * 0.5, -1, 1)</code></td>
+        <td>~35 B + children</td>
+      </tr>
+      <tr>
+        <td><code>product</code></td>
+        <td>2</td>
+        <td><code>clamp(({a}) * ({b}), -1, 1)</code></td>
+        <td>~30 B + children</td>
+      </tr>
+      <tr>
+        <td><code>mod</code></td>
+        <td>2</td>
+        <td><code>(abs({b}) < 1e-6 ? 0 : mod({a}, {b}))</code></td>
+        <td>~42 B + children</td>
+      </tr>
+      <tr>
+        <td><code>pow</code></td>
+        <td>2</td>
+        <td><code>(sign({base}) * pow(abs({base}), clamp({exp}, -3, 3)))</code></td>
+        <td>~55 B + children</td>
+      </tr>
+      <tr>
+        <td><code>div</code></td>
+        <td>2</td>
+        <td><code>(abs({b}) < 1e-6 ? 0 : clamp(({a}) / ({b}), -1, 1))</code></td>
+        <td>~55 B + children</td>
+      </tr>
+      <tr>
+        <td><code>&lt;</code></td>
+        <td>2</td>
+        <td><code>({a} < {b} ? 1.0 : -1.0)</code></td>
+        <td>~25 B + children</td>
+      </tr>
+      <tr>
+        <td><code>&gt;</code></td>
+        <td>2</td>
+        <td><code>({a} > {b} ? 1.0 : -1.0)</code></td>
+        <td>~25 B + children</td>
+      </tr>
+      <tr>
+        <td><code>step</code></td>
+        <td>2</td>
+        <td><code>(2.0 * step({a}, {b}) - 1.0)</code></td>
+        <td>~30 B + children</td>
+      </tr>
+      <tr>
+        <td><code>if</code></td>
+        <td>3</td>
+        <td><code>({cond} > 0.0 ? {truthy} : {falsy})</code></td>
+        <td>~30 B + children</td>
+      </tr>
+      <tr>
+        <td><code>mix</code></td>
+        <td>4</td>
+        <td><code>clamp(mix({c}, {d}, clamp(({a}+1)*0.5*(({b}+1)*0.5), -1, 1)), -1, 1)</code></td>
+        <td>~70 B + children</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <strong>Size explosion pattern:</strong> For a binary combinator (arity 2), the output size is
+      approximately <code>operator_overhead + sizeof(child_A) + sizeof(child_B)</code>. For a tree
+      of depth D with branching factor 2, the total expression size grows
+      <strong>exponentially</strong> — roughly O(2^D) characters. At depth 12, this can easily reach
+      5-10 KB for a single channel.
+    </div>
+
+    <hr style="margin-top: 3rem; border-color: var(--border)" />
+    <p style="text-align: center; color: var(--accent); font-size: 0.9em">
+      Generated analysis — see source code in <code>packages/randomart-engine-next/src/</code> for
+      implementation details.
+    </p>
+  </body>
+</html>

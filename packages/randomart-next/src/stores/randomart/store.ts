@@ -17,7 +17,8 @@ function generateInitial(): RandomartState {
     selectedRuleId,
     customOperators: null,
     minDepth,
-    maxDepth
+    maxDepth,
+    correlated: false
   });
 
   return {
@@ -33,7 +34,8 @@ function generateInitial(): RandomartState {
     time: 0,
     animationSpeed: 0.3,
     activeAnimationBehaviorIds: ['hue-shift'],
-    colorSpace: 'srgb'
+    colorSpace: 'srgb',
+    correlatedRGB: false
   };
 }
 
@@ -55,7 +57,8 @@ export function updateTreeConfig(
     selectedRuleId: nextState.selectedRuleId,
     customOperators: nextState.customOperators,
     minDepth: nextState.minDepth,
-    maxDepth: nextState.maxDepth
+    maxDepth: nextState.maxDepth,
+    correlated: nextState.correlatedRGB
   });
 
   randomartStore.setState(

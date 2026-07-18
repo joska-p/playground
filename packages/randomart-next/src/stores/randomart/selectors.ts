@@ -41,6 +41,9 @@ export function useActiveAnimationBehaviorIds() {
 export function useColorSpace() {
   return useStore(randomartStore, (s) => s.colorSpace);
 }
+export function useCorrelatedRGB() {
+  return useStore(randomartStore, (s) => s.correlatedRGB);
+}
 
 // --- Raw Channel Selectors ---
 export function useTreeR(): ExprNode {

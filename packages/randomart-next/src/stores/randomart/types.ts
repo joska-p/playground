@@ -24,4 +24,5 @@ export type RandomartState = {
   animationSpeed: number;
   activeAnimationBehaviorIds: AnimationBehaviorId[];
   colorSpace: ColorSpaceId;
+  correlatedRGB: boolean;
 };

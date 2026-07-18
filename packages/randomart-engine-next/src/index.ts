@@ -10,6 +10,8 @@ export { animationRegistry } from './animation.js';
 export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, evaluate, grow, toGLSL, toStructuredView } from './expression.js';
 export { toMathString, toTreeView } from './format.js';
+export { generateTrees } from './generateTrees.js';
+export type { GenerateTreesConfig, GenerateTreesOutput } from './generateTrees.js';
 export { functionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';
 export { OPERATORS, getOperator, getOperatorCategories } from './grammar/operators/registry.js';
 export type { OperatorCategory, OperatorGroup } from './grammar/operators/registry.js';

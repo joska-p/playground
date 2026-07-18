@@ -7,6 +7,7 @@ import type { Mode } from '../../stores/randomart/types';
 import { TestModeControls } from '../testMode/TestModeControls';
 import { AnimationSection } from './AnimationSection';
 import { ConfigSection } from './ConfigSection';
+import { DisplaySection } from './DisplaySection';
 import { GrammarSection } from './GrammarSection';
 
 const modeOptions = [
@@ -76,6 +77,7 @@ function PlayModeControlPanel() {
     <>
       <ConfigSection />
       <GrammarSection />
+      <DisplaySection />
       <ColorSpaceSection />
       <AnimationSection />
     </>

@@ -1,4 +1,4 @@
-import { createRule, getRule } from '@repo/randomart-engine-next';
+import { generateTrees as engineGenerateTrees, getRule } from '@repo/randomart-engine-next';
 import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
 
 export type TreeOutput = {
@@ -13,6 +13,7 @@ export type TreeConfig = {
   customOperators: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;
+  correlated: boolean;
 };
 
 export function generateTrees(config: TreeConfig): TreeOutput {
@@ -23,16 +24,15 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   const spec = {
     id: config.selectedRuleId,
     displayName: preset.displayName,
+    category: preset.category,
     operators,
     minDepth: config.minDepth,
     maxDepth: config.maxDepth
   };
 
-  const rule = createRule(spec);
-
-  return {
-    treeR: rule.buildNode(`${config.seedText}_red`),
-    treeG: rule.buildNode(`${config.seedText}_green`),
-    treeB: rule.buildNode(`${config.seedText}_blue`)
-  };
+  return engineGenerateTrees({
+    seedText: config.seedText,
+    spec,
+    correlated: config.correlated
+  });
 }
