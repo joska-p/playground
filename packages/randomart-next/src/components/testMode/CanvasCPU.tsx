@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react';
 type CanvasCPUProps = {
   node: ExprNode;
   resolution: number;
-  t: number;
   sizePx: number;
 };
 
@@ -13,7 +12,7 @@ function clamp(v: number): number {
   return v < -1 ? -1 : v > 1 ? 1 : v;
 }
 
-export function CanvasCPU({ node, resolution, t, sizePx }: CanvasCPUProps) {
+export function CanvasCPU({ node, resolution, sizePx }: CanvasCPUProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -52,10 +51,13 @@ export function CanvasCPU({ node, resolution, t, sizePx }: CanvasCPUProps) {
         errorRef.current.style.display = 'flex';
       }
     }
-  }, [node, resolution, t]);
+  }, [node, resolution]);
 
   return (
-    <>
+    <div
+      className="relative"
+      style={{ width: sizePx, height: sizePx }}
+    >
       <canvas
         ref={canvasRef}
         width={resolution}
@@ -67,6 +69,6 @@ export function CanvasCPU({ node, resolution, t, sizePx }: CanvasCPUProps) {
         className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm"
         style={{ display: 'none' }}
       />
-    </>
+    </div>
   );
 }

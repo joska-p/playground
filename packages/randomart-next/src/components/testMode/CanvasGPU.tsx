@@ -6,11 +6,10 @@ import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from './buildValueShade
 
 type CanvasGPUProps = {
   node: ExprNode;
-  t: number;
   sizePx: number;
 };
 
-export function CanvasGPU({ node, t, sizePx }: CanvasGPUProps) {
+export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
   const { shader, error } = useMemo(() => {
     try {
       return { shader: buildValueFragmentShader(node), error: null as string | null };
@@ -20,38 +19,36 @@ export function CanvasGPU({ node, t, sizePx }: CanvasGPUProps) {
   }, [node]);
 
   return (
-    <>
-      <div style={{ width: sizePx, height: sizePx }}>
-        {shader && (
-          <Canvas
-            orthographic
-            camera={{ position: [0, 0, 1], zoom: sizePx / 2 }}
-            gl={{ antialias: false, preserveDrawingBuffer: false }}
-            dpr={[1, 1]}
-          >
-            <ValuePlane
-              fragmentShader={shader}
-              t={t}
-            />
-          </Canvas>
-        )}
-      </div>
+    <div
+      className="relative"
+      style={{ width: sizePx, height: sizePx }}
+    >
+      {shader && (
+        <Canvas
+          orthographic
+          camera={{ position: [0, 0, 1], zoom: sizePx / 2 }}
+          gl={{ antialias: false, preserveDrawingBuffer: false }}
+          dpr={[1, 1]}
+        >
+          <ValuePlane fragmentShader={shader} />
+        </Canvas>
+      )}
       {error && (
         <div className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm">
           {error}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
-function ValuePlane({ fragmentShader, t }: { fragmentShader: string; t: number }) {
+function ValuePlane({ fragmentShader }: { fragmentShader: string }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({ uT: { value: t } }), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const uniforms = useMemo(() => ({}), []);
 
   useFrame(() => {
-    if (materialRef.current?.uniforms['uT']) {
-      materialRef.current.uniforms['uT'].value = t;
+    if (materialRef.current) {
+      materialRef.current.uniforms = uniforms;
     }
   });
 

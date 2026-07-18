@@ -15,13 +15,11 @@ export function buildValueFragmentShader(node: ExprNode): string {
   return `
 precision highp float;
 varying vec2 vUv;
-uniform float uT;
 
 void main() {
   vec2 p = vUv * 2.0 - 1.0;
   float x = p.x;
   float y = p.y;
-  float t = uT;
   float value = ${expression};
   float gray = clamp(value, -1.0, 1.0) * 0.5 + 0.5;
   gl_FragColor = vec4(gray, gray, gray, 1.0);

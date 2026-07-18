@@ -1,44 +1,52 @@
 import { getOperator, getOperatorCategories, OPERATORS } from '@repo/randomart-engine-next';
 import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Canvas } from './Canvas';
 
 const CARD_SIZE = 180;
 const RESOLUTION = 96;
 
-function makeOperatorNode(id: OperatorId, seed: number): ExprNode {
+function makeOperatorNode(id: OperatorId): ExprNode {
   const op = getOperator(id);
   if (op.arity === 0) {
-    if (id === 'random') return { type: 'const', value: seed };
     if (id === 'x') return { type: 'x' };
     if (id === 'y') return { type: 'y' };
     return { type: id };
   }
   if (op.arity === 1) return { type: id, children: [{ type: 'x' }] };
   if (op.arity === 2) return { type: id, children: [{ type: 'x' }, { type: 'y' }] };
+  const terminals: ExprNode[] = [
+    { type: 'x' },
+    { type: 'y' },
+    { type: 'const', value: 0.5 },
+    { type: 'const', value: -0.5 }
+  ];
   return {
     type: id,
-    children: Array.from({ length: op.arity }, (_, i) => (i === 0 ? { type: 'x' } : { type: 'y' }))
+    children: Array.from(
+      { length: op.arity },
+      (_, i) => terminals[i % terminals.length] ?? { type: 'x' }
+    )
   };
 }
 
 export function TestMode() {
-  const [seed] = useState(42);
-
   const categories = getOperatorCategories();
 
   const operatorNodes = useMemo(() => {
     const entries: { id: OperatorId; label: string; node: ExprNode }[] = [];
     for (const [id] of Object.entries(OPERATORS)) {
       const oid = id as OperatorId;
-      entries.push({ id: oid, label: getOperator(oid).label, node: makeOperatorNode(oid, seed) });
+      entries.push({ id: oid, label: getOperator(oid).label, node: makeOperatorNode(oid) });
     }
     return entries;
-  }, [seed]);
+  }, []);
 
   return (
     <div className="h-screen overflow-auto p-6">
-      <h1 className="mb-4 text-lg font-bold">Operator CPU/GPU Compare</h1>
+      <div className="mb-4 flex items-center gap-4">
+        <h1 className="text-lg font-bold">Operator CPU/GPU Compare</h1>
+      </div>
 
       {categories.map((cat) => (
         <div
@@ -65,7 +73,6 @@ export function TestMode() {
                     <Canvas
                       node={entry.node}
                       resolution={RESOLUTION}
-                      t={0.5}
                       sizePx={CARD_SIZE}
                     />
                   </div>
