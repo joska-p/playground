@@ -24,3 +24,4 @@ export {
 } from './grammar/rules/registry.js';
 export type { RuleCategory, RuleGroup } from './grammar/rules/registry.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';
+export type { ColorSpaceId } from './types.js';

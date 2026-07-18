@@ -364,22 +364,6 @@ vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
     `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
 } as const satisfies AnimationBehavior;
 
-const chromaticAberrationBehavior = {
-  id: 'chromatic-aberration',
-  name: 'Aberration',
-  type: 'color',
-  applyCode: ({ time, speed, spatial, color }) => {
-    // Fixed: red and blue are now shifted along the same axis (ca_dir.x)
-    // in opposite directions, instead of mixing x for red and y for blue.
-    return [
-      `float ca_offset = 0.003 * sin(${time} * ${speed} * 0.7);`,
-      `vec2 ca_dir = normalize(${spatial}) * ca_offset;`,
-      `${color}.r = ${color}.r + ca_dir.x;`,
-      `${color}.b = ${color}.b - ca_dir.x;`
-    ].join('\n  ');
-  }
-} as const satisfies AnimationBehavior;
-
 const vignetteBehavior = {
   id: 'vignette',
   name: 'Vignette',
@@ -735,24 +719,6 @@ vec3 spectralPalette(float t) {
     ].join('\n  ')
 } as const satisfies AnimationBehavior;
 
-const TrueChromaticAberrationBehavior = {
-  id: 'true-chromatic-aberration',
-  name: 'Spectral Dispersion',
-  type: 'color',
-  // Requires 'color' variables mapped cleanly to UV spaces to accurately emulate prism splits
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float t_ca = ${time} * ${speed} * 0.8;`,
-      `vec2 ca_dir = normalize(${spatial} + vec2(0.0001)) * (0.015 * sin(t_ca));`,
-      // Branchless edge clamping to prevent hard texture wrapping artifacts
-      `float r_edge = clamp(${color}.r + ca_dir.x, 0.0, 1.0);`,
-      `float g_edge = clamp(${color}.g + ca_dir.y, 0.0, 1.0);`,
-      `float b_edge = clamp(${color}.b - ca_dir.x, 0.0, 1.0);`,
-      `${color} = vec3(r_edge, mix(${color}.g, g_edge, 0.3), b_edge);`
-    ].join('\n  ');
-  }
-} as const satisfies AnimationBehavior;
-
 // ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
@@ -785,12 +751,10 @@ export const animationRegistry = [
   hueShiftBehavior,
   colorDriftBehavior,
   edgeDetectBehavior,
-  chromaticAberrationBehavior,
   vignetteBehavior,
   filmGrainBehavior,
   scanLinesBehavior,
   spectralShiftBehavior,
-  TrueChromaticAberrationBehavior,
   iridescentSheenBehavior,
   thermalRadianceBehavior,
   neonReactivePulseBehavior,

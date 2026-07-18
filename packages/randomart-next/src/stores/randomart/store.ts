@@ -32,7 +32,8 @@ function generateInitial(): RandomartState {
     running: false,
     time: 0,
     animationSpeed: 0.3,
-    activeAnimationBehaviorIds: ['hue-shift']
+    activeAnimationBehaviorIds: ['hue-shift'],
+    colorSpace: 'srgb'
   };
 }
 

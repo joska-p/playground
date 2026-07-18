@@ -5,6 +5,9 @@ export type { OperatorDef, OperatorId } from './grammar/operators/registry.js';
 export type { GrammarRule } from './grammar/rules/registry.js';
 export type { DualRng } from './prng.js';
 
+/** Supported color spaces for pre-evaluation coordinate wrapping. */
+export type ColorSpaceId = 'srgb' | 'oklch' | 'oklab' | 'hsl';
+
 export type ExprNode = {
   /** The grammar production used to build this node. */
   readonly type: OperatorId;

@@ -1,5 +1,5 @@
 import { compileToGLSL } from '@repo/randomart-engine-next';
-import type { AnimationBehavior, ExprNode } from '@repo/randomart-engine-next/types';
+import type { AnimationBehavior, ColorSpaceId, ExprNode } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 
@@ -32,6 +32,7 @@ export function useShaderProgram(
     treeB: ExprNode;
   },
   behaviors: AnimationBehavior[],
+  colorSpace: ColorSpaceId,
   onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
 ) {
   const programRef = useRef<WebGLProgram | null>(null);
@@ -48,7 +49,13 @@ export function useShaderProgram(
 
     // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
     // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
-    const fragmentShaderSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB, behaviors);
+    const fragmentShaderSource = compileToGLSL(
+      trees.treeR,
+      trees.treeG,
+      trees.treeB,
+      behaviors,
+      colorSpace
+    );
 
     let program: WebGLProgram | null = null;
     try {
@@ -98,7 +105,7 @@ export function useShaderProgram(
         uniformLocsRef.current = { time: null, animSpeed: null, resolution: null, mouse: null };
       }
     };
-  }, [glRef, bitmapSize, trees, behaviors, onReady]);
+  }, [glRef, bitmapSize, trees, behaviors, colorSpace, onReady]);
 
   return { programRef, uniformLocsRef };
 }

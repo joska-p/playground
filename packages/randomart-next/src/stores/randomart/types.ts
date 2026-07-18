@@ -1,4 +1,10 @@
-import type { AnimationBehaviorId, ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
+import type {
+  AnimationBehaviorId,
+  ColorSpaceId,
+  ExprNode,
+  OperatorId
+} from '@repo/randomart-engine-next/types';
+export type { ColorSpaceId } from '@repo/randomart-engine-next/types';
 
 export type Mode = 'test' | 'play';
 
@@ -17,4 +23,5 @@ export type RandomartState = {
   time: number;
   animationSpeed: number;
   activeAnimationBehaviorIds: AnimationBehaviorId[];
+  colorSpace: ColorSpaceId;
 };

@@ -29,6 +29,7 @@ export function useWebGLRenderer(
 
   // 2. Extract active animation behavior configuration states from the store
   const activeAnimationBehaviorIds = useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
+  const colorSpace = useStore(randomartStore, (s) => s.colorSpace);
 
   // Resolve raw behavior implementation instances from our engine registry
   const behaviors = activeAnimationBehaviorIds
@@ -67,6 +68,7 @@ export function useWebGLRenderer(
     bitmapSize,
     trees,
     behaviors,
+    colorSpace,
     (gl, locs) => {
       // Execute initial draw invocation on program compile/ready frames
       gl.uniform1f(locs.time, timeRef.current);

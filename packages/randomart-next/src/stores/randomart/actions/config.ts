@@ -1,5 +1,5 @@
 import { getRule } from '@repo/randomart-engine-next';
-import type { OperatorId } from '@repo/randomart-engine-next/types';
+import type { ColorSpaceId, OperatorId } from '@repo/randomart-engine-next/types';
 import { randomartStore, updateTreeConfig } from '../store';
 import type { Mode } from '../types';
 
@@ -21,6 +21,10 @@ export function setMinDepth(minDepth: number): void {
 
 export function setAnimationSpeed(speed: number): void {
   randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
+}
+
+export function setColorSpace(colorSpace: ColorSpaceId): void {
+  randomartStore.setState({ colorSpace }, false, 'config/setColorSpace');
 }
 
 export function selectRule(ruleId: string): void {

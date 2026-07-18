@@ -38,6 +38,9 @@ export function useTime() {
 export function useActiveAnimationBehaviorIds() {
   return useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
 }
+export function useColorSpace() {
+  return useStore(randomartStore, (s) => s.colorSpace);
+}
 
 // --- Raw Channel Selectors ---
 export function useTreeR(): ExprNode {
