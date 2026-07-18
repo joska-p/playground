@@ -17,12 +17,12 @@ import { cosOp, sinOp } from './transforms/trigonometric.js';
  * wider `Record<string, T>` signatures below — no `as never` needed
  * at call sites.
  */
-export type OperatorCategory = 'terminal' | 'transform' | 'combinator';
+export type OperatorKind = 'terminal' | 'transform' | 'combinator';
 
 export type Operator = {
   readonly arity: number;
   readonly opcode: number;
-  readonly category: OperatorCategory;
+  readonly kind: OperatorKind;
   readonly label: string;
   readonly argNames: readonly string[];
   evaluate(args: Record<string, number>, x: number, y: number): number;
@@ -73,11 +73,11 @@ export function getOperator(id: OperatorId): Operator {
   return OPERATORS[id];
 }
 
-// ── Category grouping ───────────────────────────────────────────
+// ── Kind grouping ───────────────────────────────────────────
 
-const CATEGORY_ORDER: OperatorCategory[] = ['terminal', 'transform', 'combinator'];
+const KIND_ORDER: OperatorKind[] = ['terminal', 'transform', 'combinator'];
 
-const CATEGORY_LABELS: Record<OperatorCategory, string> = {
+const KIND_LABELS: Record<OperatorKind, string> = {
   terminal: 'Terminals',
   transform: 'Transforms',
   combinator: 'Combinators'
@@ -89,22 +89,22 @@ export type OperatorGroup = {
 };
 
 /**
- * Group all registered operators by their {@link Operator.category}.
+ * Group all registered operators by their {@link Operator.kind}.
  * The order is deterministic: Terminals → Transforms → Combinators.
  */
-export function getOperatorCategories(): OperatorGroup[] {
-  const grouped = new Map<OperatorCategory, { id: OperatorId; label: string }[]>();
+export function getOperatorKinds(): OperatorGroup[] {
+  const grouped = new Map<OperatorKind, { id: OperatorId; label: string }[]>();
 
-  for (const cat of CATEGORY_ORDER) {
+  for (const cat of KIND_ORDER) {
     grouped.set(cat, []);
   }
 
   for (const [id, op] of Object.entries(OPERATORS) as [OperatorId, Operator][]) {
-    grouped.get(op.category)!.push({ id, label: op.label });
+    grouped.get(op.kind)!.push({ id, label: op.label });
   }
 
-  return CATEGORY_ORDER.map((cat) => ({
-    label: CATEGORY_LABELS[cat],
+  return KIND_ORDER.map((cat) => ({
+    label: KIND_LABELS[cat],
     operators: grouped.get(cat)!
   }));
 }

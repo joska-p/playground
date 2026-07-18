@@ -3,7 +3,7 @@ import { clamp } from '../../../util.js';
 export const sumOp = {
   arity: 2,
   opcode: 4,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'sum',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => clamp((a + b) / 2),
@@ -14,7 +14,7 @@ export const sumOp = {
 export const productOp = {
   arity: 2,
   opcode: 5,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'product',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => clamp(a * b),
@@ -25,7 +25,7 @@ export const productOp = {
 export const modOp = {
   arity: 2,
   opcode: 6,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'mod',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => {
@@ -39,7 +39,7 @@ export const modOp = {
 export const powOp = {
   arity: 2,
   opcode: 23,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'pow',
   argNames: ['base', 'exp'] as const,
   evaluate: ({ base, exp }: { base: number; exp: number }) => {
@@ -56,7 +56,7 @@ export const powOp = {
 export const divOp = {
   arity: 2,
   opcode: 10,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'div',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => {

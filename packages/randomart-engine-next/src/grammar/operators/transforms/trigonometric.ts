@@ -4,7 +4,7 @@ import { clamp } from '../../../util.js';
 export const sinOp = {
   arity: 1,
   opcode: 7,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'sin',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.sin(Math.PI * value)),
@@ -15,7 +15,7 @@ export const sinOp = {
 export const cosOp = {
   arity: 1,
   opcode: 8,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'cos',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.cos(Math.PI * value)),

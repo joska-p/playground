@@ -23,8 +23,8 @@ export function generateTrees(config: TreeConfig): TreeOutput {
 
   const spec = {
     id: config.selectedRuleId,
-    displayName: preset.displayName,
-    category: preset.category,
+    label: preset.label,
+    kind: preset.kind,
     operators,
     minDepth: config.minDepth,
     maxDepth: config.maxDepth

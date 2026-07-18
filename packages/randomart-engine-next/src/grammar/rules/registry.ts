@@ -1,12 +1,12 @@
 import type { OperatorId } from '../operators/registry.js';
 import { classicRule, fatRule, flowRule, paperRule } from './rule-definitions.js';
 
-export type RuleCategory = 'classic';
+export type RuleKind = 'classic';
 
 export type Rule = {
   readonly id: string;
-  readonly displayName: string;
-  readonly category: RuleCategory;
+  readonly label: string;
+  readonly kind: RuleKind;
   readonly operators: OperatorId[];
   readonly maxDepth: number;
   readonly minDepth: number;
@@ -36,30 +36,30 @@ export function hasRule(id: RuleId): boolean {
   return id in RULES;
 }
 
-const RULE_CATEGORY_ORDER: RuleCategory[] = ['classic'];
+const RULE_KIND_ORDER: RuleKind[] = ['classic'];
 
-const RULE_CATEGORY_LABELS: Record<RuleCategory, string> = {
+const RULE_KIND_LABELS: Record<RuleKind, string> = {
   classic: 'Classic'
 };
 
 export type RuleGroup = {
   label: string;
-  rules: { id: RuleId; displayName: string }[];
+  rules: { id: RuleId; label: string }[];
 };
 
 export function listRuleGroups(): RuleGroup[] {
-  const grouped = new Map<RuleCategory, { id: RuleId; displayName: string }[]>();
+  const grouped = new Map<RuleKind, { id: RuleId; label: string }[]>();
 
-  for (const cat of RULE_CATEGORY_ORDER) {
+  for (const cat of RULE_KIND_ORDER) {
     grouped.set(cat, []);
   }
 
   for (const rule of Object.values(RULES)) {
-    grouped.get(rule.category)!.push({ id: rule.id as RuleId, displayName: rule.displayName });
+    grouped.get(rule.kind)!.push({ id: rule.id as RuleId, label: rule.label });
   }
 
-  return RULE_CATEGORY_ORDER.map((cat) => ({
-    label: RULE_CATEGORY_LABELS[cat],
+  return RULE_KIND_ORDER.map((cat) => ({
+    label: RULE_KIND_LABELS[cat],
     rules: grouped.get(cat)!
   }));
 }

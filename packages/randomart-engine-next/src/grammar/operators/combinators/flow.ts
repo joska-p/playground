@@ -3,7 +3,7 @@ import { clamp } from '../../../util.js';
 export const ifOp = {
   arity: 3,
   opcode: 27,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'if',
   argNames: ['cond', 'truthy', 'falsy'] as const,
   evaluate: ({ cond, truthy, falsy }: { cond: number; truthy: number; falsy: number }) =>
@@ -17,7 +17,7 @@ export const ifOp = {
 export const mixOp = {
   arity: 4,
   opcode: 28,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: 'mix',
   argNames: ['a', 'b', 'c', 'd'] as const,
   evaluate: ({ a, b, c, d }: { a: number; b: number; c: number; d: number }) => {

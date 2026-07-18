@@ -21,7 +21,7 @@ Options:
 
 Available rules:
 ${listRules()
-  .map((r) => `  ${r.id.padEnd(30)} ${r.displayName}`)
+  .map((rule) => `  ${rule.id.padEnd(30)} ${rule.label}`)
   .join('\n')}
 
 Example:

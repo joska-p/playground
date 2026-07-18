@@ -3,7 +3,7 @@ import { clamp } from '../../../util.js';
 export const constOp = {
   arity: 0,
   opcode: 3,
-  category: 'terminal' as const,
+  kind: 'terminal' as const,
   label: 'const',
   argNames: [] as const,
   evaluate: () => 0,
@@ -14,7 +14,7 @@ export const constOp = {
 export const randomOp = {
   arity: 0,
   opcode: 13,
-  category: 'terminal' as const,
+  kind: 'terminal' as const,
   label: 'random',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) => {

@@ -1,6 +1,6 @@
 import {
   getOperator,
-  getOperatorCategories,
+  getOperatorKinds,
   getRule,
   listRuleGroups
 } from '@repo/randomart-engine-next';
@@ -20,7 +20,7 @@ import {
   useSelectedRuleId
 } from '../../stores/randomart/selectors';
 
-const OPERATOR_CATEGORIES = getOperatorCategories();
+const OPERATOR_KINDS = getOperatorKinds();
 const RULE_GROUPS = listRuleGroups();
 
 function GrammarSection() {
@@ -56,7 +56,7 @@ function GrammarSection() {
                   key={rule.id}
                   value={rule.id}
                 >
-                  {rule.displayName}
+                  {rule.label}
                 </option>
               ))}
             </optgroup>
@@ -94,7 +94,7 @@ function GrammarSection() {
         </ControlRow>
       </ControlSubsection>
 
-      {OPERATOR_CATEGORIES.map((category) => (
+      {OPERATOR_KINDS.map((category) => (
         <ControlSubsection
           key={category.label}
           title={category.label}

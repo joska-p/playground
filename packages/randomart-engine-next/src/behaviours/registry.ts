@@ -98,31 +98,21 @@ export const BEHAVIORS = {
   'thermal-vision': thermalVisionBehavior
 } satisfies Record<string, Behavior>;
 
-// ── Inferred types ──────────────────────────────────────────────
-
-/** The union of all animation behavior keys — the single source of truth for BehaviorId. */
 export type BehaviorId = keyof typeof BEHAVIORS;
 
-// ── Runtime helpers ─────────────────────────────────────────────
-
-/** Look up an animation behavior by id. */
-export function getAnimation(id: BehaviorId): Behavior {
+export function getBehaviour(id: BehaviorId): Behavior {
   return BEHAVIORS[id];
 }
-
-/** Whether an animation behavior id is registered. */
-export function hasAnimation(id: string): id is BehaviorId {
+export function hasBehaviour(id: string): id is BehaviorId {
   return id in BEHAVIORS;
 }
-
-/** Return all registered animation behaviors. */
-export function listAnimations(): Behavior[] {
+export function listBehaviours(): Behavior[] {
   return Object.values(BEHAVIORS);
 }
 
 // ── Type grouping ───────────────────────────────────────────────
 
-export type AnimationGroup = {
+export type BehaviourGroup = {
   label: string;
   behaviors: { id: BehaviorId; label: string }[];
 };
@@ -134,7 +124,7 @@ const TYPE_LABELS: Record<Behavior['kind'], string> = {
   color: 'Color'
 };
 
-export function listAnimationGroups(): AnimationGroup[] {
+export function listBehaviourGroups(): BehaviourGroup[] {
   const grouped = new Map<Behavior['kind'], { id: BehaviorId; label: string }[]>();
 
   for (const t of TYPE_ORDER) {

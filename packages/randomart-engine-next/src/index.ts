@@ -1,15 +1,14 @@
-// ── Animation ────────────────────────────────────────────────────
 export {
   BEHAVIORS,
-  getAnimation,
-  hasAnimation,
-  listAnimationGroups,
-  listAnimations
+  getBehaviour,
+  hasBehaviour,
+  listBehaviourGroups,
+  listBehaviours
 } from './behaviours/registry.js';
 export { compileToShader } from './compileToGLSL.js';
 export { toMathString, toTreeView } from './format.js';
 export { GLSL_PI, glslFunctionById, glslFunctions, resolveGlslDeps } from './glsl-library.js';
-export { OPERATORS, getOperator, getOperatorCategories } from './grammar/operators/registry.js';
+export { OPERATORS, getOperator, getOperatorKinds } from './grammar/operators/registry.js';
 export {
   DEFAULT_RULE_ID,
   RULES,

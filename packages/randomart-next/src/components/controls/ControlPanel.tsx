@@ -2,7 +2,7 @@ import { ControlPanel as Panel } from '@repo/ui/control-panel';
 import { setMode } from '../../stores/randomart/actions/config';
 import { useMode } from '../../stores/randomart/selectors';
 import type { Mode } from '../../stores/randomart/types';
-import { AnimationSection } from './AnimationSection';
+import { BehaviourSection } from './BehaviourSection';
 import { ConfigSection } from './ConfigSection';
 import { GrammarSection } from './GrammarSection';
 
@@ -40,7 +40,7 @@ function PlayModeControlPanel() {
     <>
       <ConfigSection />
       <GrammarSection />
-      <AnimationSection />
+      <BehaviourSection />
     </>
   );
 }

@@ -1,7 +1,7 @@
 export const lessThanOp = {
   arity: 2,
   opcode: 24,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: '<',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => (a < b ? 1.0 : -1.0),
@@ -12,7 +12,7 @@ export const lessThanOp = {
 export const greaterThanOp = {
   arity: 2,
   opcode: 25,
-  category: 'combinator' as const,
+  kind: 'combinator' as const,
   label: '>',
   argNames: ['a', 'b'] as const,
   evaluate: ({ a, b }: { a: number; b: number }) => (a > b ? 1.0 : -1.0),

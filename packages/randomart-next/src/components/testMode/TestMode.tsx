@@ -1,4 +1,4 @@
-import { getOperator, getOperatorCategories, OPERATORS } from '@repo/randomart-engine-next';
+import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next';
 import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
 import { useMemo } from 'react';
 import { Canvas } from './Canvas';
@@ -31,7 +31,7 @@ function makeOperatorNode(id: OperatorId): ExprNode {
 }
 
 export function TestMode() {
-  const categories = getOperatorCategories();
+  const categories = getOperatorKinds();
 
   const operatorNodes = useMemo(() => {
     const entries: { id: OperatorId; label: string; node: ExprNode }[] = [];

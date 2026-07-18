@@ -5,11 +5,11 @@ export type { BehaviorId } from './behaviours/registry.js';
 export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
 export type {
   Operator,
-  OperatorCategory,
   OperatorGroup,
-  OperatorId
+  OperatorId,
+  OperatorKind
 } from './grammar/operators/registry.js';
-export type { Rule, RuleCategory, RuleGroup, RuleId } from './grammar/rules/registry.js';
+export type { Rule, RuleGroup, RuleId, RuleKind } from './grammar/rules/registry.js';
 export type { DualRng } from './prng.js';
 
 // ── Local type definitions ───────────────────────────────────────

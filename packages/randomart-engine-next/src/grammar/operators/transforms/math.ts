@@ -3,7 +3,7 @@ import { clamp } from '../../../util.js';
 export const absOp = {
   arity: 1,
   opcode: 9,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'abs',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.abs(value) * 2 - 1),
@@ -14,7 +14,7 @@ export const absOp = {
 export const sqrtOp = {
   arity: 1,
   opcode: 19,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'sqrt',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp(Math.sqrt(Math.abs(value) + 1e-10)),
@@ -25,7 +25,7 @@ export const sqrtOp = {
 export const expOp = {
   arity: 1,
   opcode: 20,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'exp',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => {
@@ -42,7 +42,7 @@ export const expOp = {
 export const logOp = {
   arity: 1,
   opcode: 21,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'log',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => {
@@ -57,7 +57,7 @@ export const logOp = {
 export const fractOp = {
   arity: 1,
   opcode: 22,
-  category: 'transform' as const,
+  kind: 'transform' as const,
   label: 'fract',
   argNames: ['value'] as const,
   evaluate: ({ value }: { value: number }) => clamp((value - Math.floor(value)) * 2.0 - 1.0),

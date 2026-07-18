@@ -4,7 +4,7 @@ import { clamp } from '../../../util.js';
 export const radialOp = {
   arity: 0,
   opcode: 14,
-  category: 'terminal' as const,
+  kind: 'terminal' as const,
   label: 'radial',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
@@ -16,7 +16,7 @@ export const radialOp = {
 export const sweepOp = {
   arity: 0,
   opcode: 15,
-  category: 'terminal' as const,
+  kind: 'terminal' as const,
   label: 'sweep',
   argNames: [] as const,
   evaluate: (_args: Record<string, number>, x: number, y: number) =>
