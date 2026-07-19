@@ -1,6 +1,8 @@
 import { compileToShader } from '@repo/randomart-engine-next';
 import type { Behavior, ColorSpaceId, Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
+import { useSeedText } from '../stores/randomart/selectors';
+import type { UniformLocs } from './types';
 import type { BitmapSize } from './useWebGLContext';
 
 // WebGL2 GLSL ES 3.00 Vertex Shader
@@ -13,28 +15,28 @@ void main() {
 }
 `;
 
-export type UniformLocs = {
-  time: WebGLUniformLocation | null;
-  animSpeed: WebGLUniformLocation | null;
-  resolution: WebGLUniformLocation | null;
-  mouse: WebGLUniformLocation | null;
-};
-
-/**
- * Owns shader compilation and the resulting WebGLProgram lifecycle.
- */
-export function useShaderProgram(
-  glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
-  bitmapSize: BitmapSize,
+export type UseShaderProgramProps = {
+  glRef: React.RefObject<WebGL2RenderingContext | null>;
+  bitmapSize: BitmapSize;
   trees: {
     treeR: Node;
     treeG: Node;
     treeB: Node;
-  },
-  behaviors: Behavior[],
-  colorSpace: ColorSpaceId,
-  onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
-) {
+  };
+  behaviors: Behavior[];
+  colorSpace: ColorSpaceId;
+  onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void;
+};
+
+export function useShaderProgram({
+  glRef,
+  bitmapSize,
+  trees,
+  behaviors,
+  colorSpace,
+  onReady
+}: UseShaderProgramProps) {
+  const seedText = useSeedText();
   const programRef = useRef<WebGLProgram | null>(null);
   const uniformLocsRef = useRef<UniformLocs>({
     time: null,
@@ -47,15 +49,16 @@ export function useShaderProgram(
     const gl = glRef.current;
     if (!gl) return;
 
-    // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
-    // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
-    const fragmentShaderSource = compileToShader(
-      trees.treeR,
-      trees.treeG,
-      trees.treeB,
+    const options = {
+      seedText,
+      treeR: trees.treeR,
+      treeG: trees.treeG,
+      treeB: trees.treeB,
       behaviors,
       colorSpace
-    );
+    };
+
+    const fragmentShaderSource = compileToShader(options);
 
     let program: WebGLProgram | null = null;
     try {
@@ -105,7 +108,7 @@ export function useShaderProgram(
         uniformLocsRef.current = { time: null, animSpeed: null, resolution: null, mouse: null };
       }
     };
-  }, [glRef, bitmapSize, trees, behaviors, colorSpace, onReady]);
+  }, [glRef, bitmapSize, trees, behaviors, colorSpace, onReady, seedText]);
 
   return { programRef, uniformLocsRef };
 }

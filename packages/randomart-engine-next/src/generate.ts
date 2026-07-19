@@ -31,11 +31,11 @@ const DEFAULT_SIZE = 256;
 const MAX_SIZE = 4096;
 
 export function generate(
-  textSeed: string,
+  seedText: string,
   options: GenerateOptions = {}
 ): GenerateResult | GenerateError {
   try {
-    if (typeof textSeed !== 'string' || textSeed.length === 0) {
+    if (typeof seedText !== 'string' || seedText.length === 0) {
       return { error: 'textSeed must be a non-empty string.' };
     }
 
@@ -54,7 +54,7 @@ export function generate(
       };
     }
 
-    const { treeR, treeG, treeB } = buildChannelTrees(textSeed, rule, false);
+    const { treeR, treeG, treeB } = buildChannelTrees({ seedText, rule, correlated: false });
 
     // Rasterize: evaluate all three trees at each pixel's normalized coordinate.
     const pixels = new Uint8Array(size * size * 3);
@@ -73,7 +73,7 @@ export function generate(
     }
 
     const png = encodePNG(pixels, size, size);
-    const shader = compileToShader(treeR, treeG, treeB);
+    const shader = compileToShader({ seedText, treeR, treeG, treeB });
 
     return {
       png,

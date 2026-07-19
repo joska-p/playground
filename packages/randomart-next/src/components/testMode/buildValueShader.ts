@@ -16,6 +16,8 @@ export function buildValueFragmentShader(node: Node): string {
 precision highp float;
 varying vec2 vUv;
 
+uniform float u_time;
+
 void main() {
   vec2 p = vUv * 2.0 - 1.0;
   float x = p.x;

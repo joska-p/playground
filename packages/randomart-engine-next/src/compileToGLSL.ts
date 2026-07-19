@@ -1,10 +1,16 @@
 import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-color-spaces.js';
 import { resolveGlslDeps } from './glsl-library.js';
 import { getOperator } from './grammar/operators/registry.js';
+import { seededShuffle } from './prng.js';
 import { toGLSL } from './tree.js';
 import type { ApplyCodeContext, Behavior, ColorSpaceId, Node } from './types.js';
 
-function buildShaderPreamble(noiseIds: string[], behaviors: Behavior[]): string {
+export type BuildShaderPreambleProps = {
+  noiseIds: string[];
+  behaviors: Behavior[];
+};
+
+export function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
   const seen = new Set<string>();
   const behaviorFunctions = behaviors
@@ -19,7 +25,13 @@ function buildShaderPreamble(noiseIds: string[], behaviors: Behavior[]): string 
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
-function collectNoiseDependencies(node: Node, deps: Set<string>): void {
+export type CollectNoiseDependenciesProps = {
+  node: Node;
+  deps: Set<string>;
+};
+
+// TODO: see usage in compileToGLSL line ~71
+function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps): void {
   const operator = getOperator(node.type);
   if (operator.noiseDependencies) {
     for (const id of operator.noiseDependencies) {
@@ -31,12 +43,17 @@ function collectNoiseDependencies(node: Node, deps: Set<string>): void {
   for (const name of operator.argNames) {
     const child = node.args[name];
     if (child && typeof child !== 'number') {
-      collectNoiseDependencies(child, deps);
+      collectNoiseDependencies({ node: child, deps });
     }
   }
 }
 
-function applyBehaviors(behaviors: Behavior[], behaviorType: Behavior['kind']): string {
+export type ApplyBehaviorsProps = {
+  behaviors: Behavior[];
+  behaviorType: Behavior['kind'];
+};
+
+function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): string {
   const ctx: ApplyCodeContext = {
     time: 'u_time',
     speed: 'u_animSpeed',
@@ -49,29 +66,47 @@ function applyBehaviors(behaviors: Behavior[], behaviorType: Behavior['kind']): 
     .join('\n');
 }
 
-function compileColorExpression(treeR: Node, treeG: Node, treeB: Node): string {
+export type compileColorExpressionProps = {
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
+};
+
+function compileColorExpression({ treeR, treeG, treeB }: compileColorExpressionProps): string {
   // Pass down the target coordinate variable variable name string ('p')
   return `vec3(${toGLSL(treeR, 'p')}, ${toGLSL(treeG, 'p')}, ${toGLSL(treeB, 'p')})`;
 }
 
-export function compileToShader(
-  treeR: Node,
-  treeG: Node,
-  treeB: Node,
-  behaviors: Behavior[] = [],
-  colorSpace: ColorSpaceId = 'srgb'
-): string {
+export type CompileToShaderProps = {
+  seedText: string;
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
+  behaviors?: Behavior[] | undefined;
+  colorSpace?: ColorSpaceId;
+};
+
+export function compileToShader({
+  seedText,
+  treeR,
+  treeG,
+  treeB,
+  behaviors = [],
+  colorSpace = 'srgb'
+}: CompileToShaderProps): string {
+  const deterministicBehaviors = seededShuffle(behaviors, `${seedText}_behaviors`);
   const noiseDeps = new Set<string>();
-  const colorExpr = compileColorExpression(treeR, treeG, treeB);
-  const spatialCode = applyBehaviors(behaviors, 'spatial');
-  const colorCode = applyBehaviors(behaviors, 'color');
+  const colorExpr = compileColorExpression({ treeR, treeG, treeB });
+  const spatialCode = applyBehaviors({ behaviors, behaviorType: 'spatial' });
+  const colorCode = applyBehaviors({ behaviors, behaviorType: 'color' });
   const colorSpaceGlsl = getColorSpaceGlslFunction(colorSpace);
 
-  collectNoiseDependencies(treeR, noiseDeps);
-  collectNoiseDependencies(treeG, noiseDeps);
-  collectNoiseDependencies(treeB, noiseDeps);
+  // TODO: make collectNoiseDependencies return a set of noise dependencies instead of mutating it
+  collectNoiseDependencies({ node: treeR, deps: noiseDeps });
+  collectNoiseDependencies({ node: treeG, deps: noiseDeps });
+  collectNoiseDependencies({ node: treeB, deps: noiseDeps });
 
-  for (const behaviour of behaviors) {
+  for (const behaviour of deterministicBehaviors) {
     for (const id of behaviour.noiseDependencies ?? []) {
       noiseDeps.add(id);
     }
@@ -89,7 +124,7 @@ in vec2 v_texCoord;
 
 out vec4 fragColor;
 
-${buildShaderPreamble([...noiseDeps], behaviors)}
+${buildShaderPreamble({ noiseIds: [...noiseDeps], behaviors })}
 ${colorSpaceGlsl ? colorSpaceGlsl + '\n' : ''}
 void main() {
   vec2 p = v_texCoord * 2.0 - 1.0;

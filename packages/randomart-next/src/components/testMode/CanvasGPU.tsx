@@ -44,11 +44,13 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
 
 function ValuePlane({ fragmentShader }: { fragmentShader: string }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const uniforms = useMemo(() => ({}), []);
+  const uniforms = {
+    u_time: { value: 0.0 }
+  };
 
-  useFrame(() => {
-    if (materialRef.current) {
-      materialRef.current.uniforms = uniforms;
+  useFrame((state) => {
+    if (materialRef.current?.uniforms['u_time']) {
+      materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
     }
   });
 

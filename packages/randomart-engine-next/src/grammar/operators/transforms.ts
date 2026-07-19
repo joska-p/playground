@@ -81,3 +81,29 @@ export const cosOp = {
   toGLSL: ({ args }) => `cos(${GLSL_PI} * (${args['value'] ?? 0.5}))`,
   toMathString: ({ args }) => `cos(π·${args['value'] ?? 0.5})`
 } as const satisfies Operator;
+
+export const oscOp = {
+  arity: 1,
+  kind: 'transform',
+  label: 'osc/t',
+  argNames: ['value'],
+  // Oscillates the input slowly over time within a perfect [-1, 1] bounds
+  evaluate: ({ args, ctx }) => Math.sin((args['value'] ?? 0.5) + ctx.t * 0.5),
+  toGLSL: ({ args }) => `sin(${args['value']} + u_time * 0.5)`,
+  toMathString: ({ args }) => `osc(${args['value']})`
+} as const satisfies Operator;
+
+export const shiftOp = {
+  arity: 1,
+  kind: 'transform',
+  label: 'shift/t',
+  argNames: ['value'],
+  // Constantly shifts the phase of the inner sub-tree over time
+  evaluate: ({ args, ctx }) => {
+    const shifted = (args['value'] ?? 0.5) + ctx.t * 0.2;
+    // Keep it wrapped between [-1, 1] cleanly
+    return ((shifted + 1) % 2) - 1;
+  },
+  toGLSL: ({ args }) => `(mod(${args['value']} + u_time * 0.2 + 1.0, 2.0) - 1.0)`,
+  toMathString: ({ args }) => `shift(${args['value']})`
+} as const satisfies Operator;

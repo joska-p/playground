@@ -3,7 +3,7 @@ import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
 import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
-import { createCorrelatedRng, createDualRng } from './prng.js';
+import { createCorrelatedRng, createDualRng, seededShuffle } from './prng.js';
 
 export type Node = {
   readonly type: OperatorId;
@@ -52,17 +52,28 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
   return pool[pool.length - 1]!;
 }
 
-export function buildTree(
-  spec: Rule,
-  maxDepth: number,
-  pickRng: (depth: number) => SeededRandom,
-  currentDepth = 0
-): Node {
+export type BuildTreeProps = {
+  rule: Rule;
+  maxDepth: number;
+  pickRng: (depth: number) => SeededRandom;
+  currentDepth?: number;
+  seedText?: string;
+};
+
+export function buildTree({
+  rule,
+  maxDepth,
+  pickRng,
+  currentDepth = 0,
+  seedText = 'randomseed'
+}: BuildTreeProps): Node {
   const rng = pickRng(currentDepth);
   const forceTerminal = currentDepth >= maxDepth;
-  const forceOperator = currentDepth < spec.minDepth;
+  const forceOperator = currentDepth < rule.minDepth;
 
-  const specEntries = [...spec.operators].map(operatorToPoolEntry);
+  const shuffledOperators = seededShuffle([...rule.operators], `${seedText}_depth_${currentDepth}`);
+
+  const specEntries = shuffledOperators.map(operatorToPoolEntry);
   const hasTerminals = specEntries.some((entry) => entry.arity === 0);
   const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
 
@@ -88,7 +99,7 @@ export function buildTree(
     if (pick.type === 'const' && argName === 'value') {
       args[argName] = Number(rng.nextRange(-1, 1).toFixed(4));
     } else {
-      args[argName] = buildTree(spec, maxDepth, pickRng, currentDepth + 1);
+      args[argName] = buildTree({ rule, maxDepth, pickRng, currentDepth: currentDepth + 1 });
     }
   }
 
@@ -121,18 +132,18 @@ export function toGLSL(node: Node, coordVar = 'p'): string {
 }
 
 export function toStructuredView(node: Node): TreeView {
-  const op = getOperator(node.type);
-  const constVal = node.args['value'];
-  const hasConstVal = typeof constVal === 'number';
-  const label = hasConstVal ? `const(${constVal})` : node.type;
+  const operator = getOperator(node.type);
+  const value = node.args['value'];
+  const hasValue = typeof value === 'number';
+  const label = hasValue ? `const(${value})` : node.type;
 
-  const view: TreeView = { label, type: node.type };
-  if (hasConstVal) {
-    view.value = constVal;
+  const treeView: TreeView = { label, type: node.type };
+  if (hasValue) {
+    treeView.value = value;
   }
 
   const childrenViews: TreeView[] = [];
-  for (const name of op.argNames) {
+  for (const name of operator.argNames) {
     const child = node.args[name];
     if (child && typeof child !== 'number') {
       childrenViews.push(toStructuredView(child));
@@ -140,19 +151,25 @@ export function toStructuredView(node: Node): TreeView {
   }
 
   if (childrenViews.length > 0) {
-    view.children = childrenViews;
+    treeView.children = childrenViews;
   }
 
-  return view;
+  return treeView;
 }
 
 const STRUCTURE_RNG_DEPTH = 3;
 
-export function buildChannelTrees(
-  seedText: string,
-  spec: Rule,
-  correlated: boolean
-): { treeR: Node; treeG: Node; treeB: Node } {
+export type BuildChannelTreesProps = {
+  seedText: string;
+  rule: Rule;
+  correlated?: boolean;
+};
+
+export function buildChannelTrees({ seedText, rule, correlated = false }: BuildChannelTreesProps): {
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
+} {
   const pickRng =
     (structure: SeededRandom, channel: SeededRandom) =>
     (depth: number): SeededRandom =>
@@ -161,16 +178,46 @@ export function buildChannelTrees(
   if (correlated) {
     const { structure, channels } = createCorrelatedRng(seedText);
     return {
-      treeR: buildTree(spec, spec.maxDepth, pickRng(structure, channels[0])),
-      treeG: buildTree(spec, spec.maxDepth, pickRng(structure, channels[1])),
-      treeB: buildTree(spec, spec.maxDepth, pickRng(structure, channels[2]))
+      treeR: buildTree({
+        rule,
+        maxDepth: rule.maxDepth,
+        pickRng: pickRng(structure, channels[0]),
+        seedText
+      }),
+      treeG: buildTree({
+        rule,
+        maxDepth: rule.maxDepth,
+        pickRng: pickRng(structure, channels[1]),
+        seedText
+      }),
+      treeB: buildTree({
+        rule,
+        maxDepth: rule.maxDepth,
+        pickRng: pickRng(structure, channels[2]),
+        seedText
+      })
     };
   }
 
-  const { structure, channels } = createDualRng(seedText, spec.maxDepth);
+  const { structure, channels } = createDualRng(seedText, rule.maxDepth);
   return {
-    treeR: buildTree(spec, spec.maxDepth, pickRng(structure, channels[0])),
-    treeG: buildTree(spec, spec.maxDepth, pickRng(structure, channels[1])),
-    treeB: buildTree(spec, spec.maxDepth, pickRng(structure, channels[2]))
+    treeR: buildTree({
+      rule,
+      maxDepth: rule.maxDepth,
+      pickRng: pickRng(structure, channels[0]),
+      seedText
+    }),
+    treeG: buildTree({
+      rule,
+      maxDepth: rule.maxDepth,
+      pickRng: pickRng(structure, channels[1]),
+      seedText
+    }),
+    treeB: buildTree({
+      rule,
+      maxDepth: rule.maxDepth,
+      pickRng: pickRng(structure, channels[2]),
+      seedText
+    })
   };
 }

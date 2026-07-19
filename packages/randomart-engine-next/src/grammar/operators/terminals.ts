@@ -22,16 +22,6 @@ export const yOp = {
   toMathString: () => 'y'
 } as const satisfies Operator;
 
-export const timeOp = {
-  arity: 0,
-  kind: 'terminal',
-  label: 'time',
-  argNames: [],
-  evaluate: ({ ctx }) => ctx.t,
-  toGLSL: () => 'u_time',
-  toMathString: () => 't'
-} as const satisfies Operator;
-
 export const constOp = {
   arity: 0,
   kind: 'terminal',

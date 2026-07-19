@@ -21,7 +21,7 @@ export function generateTrees(config: TreeConfig): TreeOutput {
 
   const operators = config.customOperators ?? preset.operators;
 
-  const spec = {
+  const rule = {
     id: config.selectedRuleId,
     label: preset.label,
     kind: preset.kind,
@@ -30,5 +30,11 @@ export function generateTrees(config: TreeConfig): TreeOutput {
     maxDepth: config.maxDepth
   };
 
-  return buildChannelTrees(config.seedText, spec, config.correlated);
+  const options = {
+    seedText: config.seedText,
+    rule,
+    correlated: config.correlated
+  };
+
+  return buildChannelTrees(options);
 }

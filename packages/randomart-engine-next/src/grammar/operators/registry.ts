@@ -10,8 +10,18 @@ import {
   productOp,
   sumOp
 } from './combinators.js';
-import { constOp, radialOp, randomOp, sweepOp, timeOp, xOp, yOp } from './terminals.js';
-import { absOp, cosOp, expOp, fractOp, logOp, sinOp, sqrtOp } from './transforms.js';
+import { constOp, radialOp, randomOp, sweepOp, xOp, yOp } from './terminals.js';
+import {
+  absOp,
+  cosOp,
+  expOp,
+  fractOp,
+  logOp,
+  oscOp,
+  shiftOp,
+  sinOp,
+  sqrtOp
+} from './transforms.js';
 
 export type OperatorKind = 'terminal' | 'transform' | 'combinator';
 
@@ -36,7 +46,6 @@ export type Operator<TArgNames extends readonly string[] = readonly string[]> = 
 export const OPERATORS = {
   x: xOp,
   y: yOp,
-  time: timeOp,
   const: constOp,
   random: randomOp,
   radial: radialOp,
@@ -56,7 +65,9 @@ export const OPERATORS = {
   'less-than': lessThanOp,
   'greater-than': greaterThanOp,
   if: ifOp,
-  mix: mixOp
+  mix: mixOp,
+  osc: oscOp,
+  shift: shiftOp
 } satisfies Record<string, Operator>;
 
 export type OperatorId = keyof typeof OPERATORS;

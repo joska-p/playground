@@ -8,25 +8,32 @@ const RESOLUTION = 96;
 
 function makeOperatorNode(id: OperatorId): Node {
   const op = getOperator(id);
-  if (op.arity === 0) {
-    if (id === 'x') return { type: 'x' };
-    if (id === 'y') return { type: 'y' };
-    return { type: id };
-  }
-  if (op.arity === 1) return { type: id, children: [{ type: 'x' }] };
-  if (op.arity === 2) return { type: id, children: [{ type: 'x' }, { type: 'y' }] };
-  const terminals: Node[] = [
-    { type: 'x' },
-    { type: 'y' },
-    { type: 'const', value: 0.5 },
-    { type: 'const', value: -0.5 }
+  const args: Record<string, Node | number> = {};
+
+  // Mock inputs to feed into the argument slots of multi-arity combinators
+  const mockTerminals: Node[] = [
+    { type: 'x', args: {} },
+    { type: 'y', args: {} },
+    { type: 'radial', args: {} },
+    { type: 'sweep', args: {} }
   ];
+
+  for (let i = 0; i < op.argNames.length; i++) {
+    const argName = op.argNames[i];
+    if (!argName) continue;
+
+    if (id === 'const' && argName === 'value') {
+      // Primitive numerical config values map directly in 'args' now!
+      args[argName] = 0.5;
+    } else {
+      // Cycle through our mock sub-trees for standard arguments
+      args[argName] = mockTerminals[i % mockTerminals.length] ?? { type: 'x', args: {} };
+    }
+  }
+
   return {
     type: id,
-    children: Array.from(
-      { length: op.arity },
-      (_, i) => terminals[i % terminals.length] ?? { type: 'x' }
-    )
+    args
   };
 }
 

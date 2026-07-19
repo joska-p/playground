@@ -7,27 +7,27 @@ export const classicRule = {
   id: 'classic',
   label: 'Classic',
   kind: 'classic' as const,
-  operators: ['sum', 'product', 'sin', 'cos', 'time'] as OperatorId[],
+  operators: ['sum', 'product', 'sin', 'cos'] as OperatorId[],
   minDepth: 4,
-  maxDepth: 12
+  maxDepth: 8
 };
 
 export const paperRule = {
   id: 'paper',
   label: 'Paper',
   kind: 'classic' as const,
-  operators: ['sum', 'product', 'sin', 'cos', 'exp', 'sqrt', 'div', 'mix', 'time'] as OperatorId[],
+  operators: ['sum', 'product', 'sin', 'cos', 'exp', 'sqrt', 'div', 'mix'] as OperatorId[],
   minDepth: 4,
-  maxDepth: 12
+  maxDepth: 8
 };
 
 export const flowRule = {
   id: 'flow',
   label: 'Flow',
   kind: 'classic' as const,
-  operators: ['if', 'less-than', 'greater-than', 'mix', 'sum', 'product', 'time'] as OperatorId[],
+  operators: ['if', 'less-than', 'greater-than', 'mix', 'sum', 'product'] as OperatorId[],
   minDepth: 4,
-  maxDepth: 10
+  maxDepth: 8
 };
 
 export const fatRule = {
@@ -36,5 +36,5 @@ export const fatRule = {
   kind: 'classic' as const,
   operators: allOperatorIds,
   minDepth: 4,
-  maxDepth: 11
+  maxDepth: 8
 };
