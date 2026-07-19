@@ -1,3 +1,4 @@
+import { OPERATORS } from '@repo/randomart-engine-next/operators';
 import { getRule } from '@repo/randomart-engine-next/rules';
 import { buildChannelTrees } from '@repo/randomart-engine-next/tree';
 import type { Node, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
@@ -17,10 +18,17 @@ export type TreeConfig = {
   correlated: boolean;
 };
 
+const CANONICAL_ORDER = Object.keys(OPERATORS) as OperatorId[];
+
+function canonicalSort(ids: OperatorId[]): OperatorId[] {
+  const index = new Map(CANONICAL_ORDER.map((id, i) => [id, i]));
+  return [...ids].sort((a, b) => (index.get(a) ?? 0) - (index.get(b) ?? 0));
+}
+
 export function generateTrees(config: TreeConfig): TreeOutput {
   const preset = getRule(config.selectedRuleId);
 
-  const operatorIds = config.customOperatorIds ?? preset.operatorIds;
+  const operatorIds = canonicalSort(config.customOperatorIds ?? preset.operatorIds);
 
   const rule = {
     id: config.selectedRuleId,
