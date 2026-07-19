@@ -1,4 +1,4 @@
-import { listBehaviours } from '@repo/randomart-engine-next';
+import { listBehaviours } from '@repo/randomart-engine-next/behaviours';
 import type { BehaviorId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';

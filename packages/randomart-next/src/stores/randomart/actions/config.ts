@@ -1,4 +1,4 @@
-import { getRule } from '@repo/randomart-engine-next';
+import { getRule } from '@repo/randomart-engine-next/rules';
 import type { ColorSpaceId, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 import { randomartStore, updateTreeConfig } from '../store';
 import type { Mode } from '../types';

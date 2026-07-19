@@ -1,4 +1,4 @@
-import { BEHAVIORS } from '@repo/randomart-engine-next';
+import { BEHAVIORS } from '@repo/randomart-engine-next/behaviours';
 import type { Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';

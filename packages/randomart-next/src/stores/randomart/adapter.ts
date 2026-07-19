@@ -1,4 +1,5 @@
-import { buildChannelTrees, getRule } from '@repo/randomart-engine-next';
+import { getRule } from '@repo/randomart-engine-next/rules';
+import { buildChannelTrees } from '@repo/randomart-engine-next/tree';
 import type { Node, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 
 export type TreeOutput = {

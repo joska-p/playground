@@ -1,9 +1,11 @@
+import type { ApplyCodeContext, Behavior } from './behaviours/registry.js';
+import type { ColorSpaceId } from './glsl-color-spaces.js';
 import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-color-spaces.js';
 import { resolveGlslDeps } from './glsl-library.js';
 import { getOperator } from './grammar/operators/registry.js';
 import { seededShuffle } from './prng.js';
+import type { Node } from './tree.js';
 import { toGLSL } from './tree.js';
-import type { ApplyCodeContext, Behavior, ColorSpaceId, Node } from './types.js';
 
 type BuildShaderPreambleProps = {
   noiseIds: string[];

@@ -1,4 +1,4 @@
-import { evaluate } from '@repo/randomart-engine-next';
+import { evaluate } from '@repo/randomart-engine-next/tree';
 import type { Node } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';

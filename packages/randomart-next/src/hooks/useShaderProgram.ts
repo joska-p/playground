@@ -1,4 +1,4 @@
-import { compileToShader } from '@repo/randomart-engine-next';
+import { compileToShader } from '@repo/randomart-engine-next/compileToGLSL';
 import type { Behavior, ColorSpaceId, Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useSeedText } from '../stores/randomart/selectors';

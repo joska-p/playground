@@ -1,9 +1,5 @@
-import {
-  getOperator,
-  getOperatorKinds,
-  getRule,
-  listRuleGroups
-} from '@repo/randomart-engine-next';
+import { getOperator, getOperatorKinds } from '@repo/randomart-engine-next/operators';
+import { getRule, listRuleGroups } from '@repo/randomart-engine-next/rules';
 import type { RuleId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Select, Slider } from '@repo/ui/data-entry';

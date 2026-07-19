@@ -1,4 +1,4 @@
-import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next';
+import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next/operators';
 import type { Node, OperatorId } from '@repo/randomart-engine-next/types';
 import { useMemo } from 'react';
 import { Canvas } from './Canvas';

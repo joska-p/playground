@@ -1,4 +1,4 @@
-import { DEFAULT_RULE_ID, getRule } from '@repo/randomart-engine-next';
+import { DEFAULT_RULE_ID, getRule } from '@repo/randomart-engine-next/rules';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { generateTrees } from './adapter';
