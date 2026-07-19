@@ -1,9 +1,9 @@
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { CanvasCPU } from './CanvasCPU';
 import { CanvasGPU } from './CanvasGPU';
 
 type CanvasProp = {
-  node: ExprNode;
+  node: Node;
   resolution: number;
   sizePx: number;
 };

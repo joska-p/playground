@@ -1,9 +1,31 @@
 import { compileToShader } from './compileToGLSL.js';
 import { toMathString } from './format.js';
+import type { RuleId } from './grammar/rules/registry.js';
 import { DEFAULT_RULE_ID, getRule } from './grammar/rules/registry.js';
 import { encodePNG } from './png.js';
+import type { Node } from './tree.js';
 import { buildChannelTrees, evaluate } from './tree.js';
-import type { GenerateError, GenerateOptions, GenerateResult } from './types.js';
+
+export type GenerateOptions = {
+  ruleId?: RuleId;
+  enabledRuleIds?: RuleId[];
+  size?: number;
+};
+
+export type GenerateResult = {
+  png: Buffer;
+  shader: string;
+  mathR: string;
+  mathG: string;
+  mathB: string;
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
+};
+
+export type GenerateError = {
+  error: string;
+};
 
 const DEFAULT_SIZE = 256;
 const MAX_SIZE = 4096;

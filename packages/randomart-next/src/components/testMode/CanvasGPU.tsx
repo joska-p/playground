@@ -1,11 +1,11 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { useMemo, useRef } from 'react';
 import type * as THREE from 'three';
 import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from './buildValueShader';
 
 type CanvasGPUProps = {
-  node: ExprNode;
+  node: Node;
   sizePx: number;
 };
 

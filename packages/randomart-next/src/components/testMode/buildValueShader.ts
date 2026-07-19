@@ -1,5 +1,5 @@
 import { toGLSL } from '@repo/randomart-engine-next';
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 
 export const VALUE_VERTEX_SHADER = `
 varying vec2 vUv;
@@ -9,7 +9,7 @@ void main() {
 }
 `;
 
-export function buildValueFragmentShader(node: ExprNode): string {
+export function buildValueFragmentShader(node: Node): string {
   const expression = toGLSL(node);
 
   return `

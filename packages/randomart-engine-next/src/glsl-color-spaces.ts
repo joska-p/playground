@@ -1,12 +1,4 @@
-/**
- * GLSL color-space conversion functions.
- *
- * Each entry provides the GLSL function definition and the wrapper code that
- * maps raw expression-tree outputs (in [-1, 1]) into the target color space
- * and converts back to sRGB.
- */
-
-import type { ColorSpaceId } from './types.js';
+export type ColorSpaceId = 'srgb' | 'oklch' | 'oklab' | 'hsl';
 
 export const OKLCH_TO_SRGB_GLSL = `\
 vec3 oklchToSrgb(vec3 oklch) {
@@ -65,13 +57,6 @@ const COLOR_SPACE_GLSL: Record<string, string> = {
   hsl: HSL_TO_SRGB_GLSL
 };
 
-/**
- * Wrap a raw vec3 expression with color-space conversion to sRGB.
- *
- * When `colorSpace` is `'srgb'`, the expression is returned as-is. For other
- * spaces the expression is treated as coordinates in that perceptual space,
- * remapped to the appropriate ranges, and converted back to sRGB.
- */
 export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorSpaceId): string {
   switch (colorSpace) {
     case 'oklch':
@@ -100,7 +85,6 @@ export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorS
   }
 }
 
-/** Look up the GLSL function definition for a color space, or empty string for sRGB. */
 export function getColorSpaceGlslFunction(colorSpace: ColorSpaceId): string {
   return COLOR_SPACE_GLSL[colorSpace] ?? '';
 }

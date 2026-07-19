@@ -1,4 +1,4 @@
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
 
@@ -46,17 +46,17 @@ export function useCorrelatedRGB() {
 }
 
 // --- Raw Channel Selectors ---
-export function useTreeR(): ExprNode {
+export function useTreeR(): Node {
   return useStore(randomartStore, (s) => s.treeR);
 }
-export function useTreeG(): ExprNode {
+export function useTreeG(): Node {
   return useStore(randomartStore, (s) => s.treeG);
 }
-export function useTreeB(): ExprNode {
+export function useTreeB(): Node {
   return useStore(randomartStore, (s) => s.treeB);
 }
 
-export function useSelectedTree(): ExprNode {
+export function useSelectedTree(): Node {
   return useStore(randomartStore, (s) => {
     return s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
   });

@@ -1,12 +1,12 @@
 import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next';
-import type { ExprNode, OperatorId } from '@repo/randomart-engine-next/types';
+import type { Node, OperatorId } from '@repo/randomart-engine-next/types';
 import { useMemo } from 'react';
 import { Canvas } from './Canvas';
 
 const CARD_SIZE = 180;
 const RESOLUTION = 96;
 
-function makeOperatorNode(id: OperatorId): ExprNode {
+function makeOperatorNode(id: OperatorId): Node {
   const op = getOperator(id);
   if (op.arity === 0) {
     if (id === 'x') return { type: 'x' };
@@ -15,7 +15,7 @@ function makeOperatorNode(id: OperatorId): ExprNode {
   }
   if (op.arity === 1) return { type: id, children: [{ type: 'x' }] };
   if (op.arity === 2) return { type: id, children: [{ type: 'x' }, { type: 'y' }] };
-  const terminals: ExprNode[] = [
+  const terminals: Node[] = [
     { type: 'x' },
     { type: 'y' },
     { type: 'const', value: 0.5 },
@@ -34,7 +34,7 @@ export function TestMode() {
   const categories = getOperatorKinds();
 
   const operatorNodes = useMemo(() => {
-    const entries: { id: OperatorId; label: string; node: ExprNode }[] = [];
+    const entries: { id: OperatorId; label: string; node: Node }[] = [];
     for (const [id] of Object.entries(OPERATORS)) {
       const oid = id as OperatorId;
       entries.push({ id: oid, label: getOperator(oid).label, node: makeOperatorNode(oid) });

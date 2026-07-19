@@ -1,7 +1,7 @@
 import type {
   BehaviorId,
   ColorSpaceId,
-  ExprNode,
+  Node,
   OperatorId,
   RuleId
 } from '@repo/randomart-engine-next/types';
@@ -17,9 +17,9 @@ export type RandomartState = {
   customOperators: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;
-  treeR: ExprNode;
-  treeG: ExprNode;
-  treeB: ExprNode;
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
   running: boolean;
   time: number;
   animationSpeed: number;

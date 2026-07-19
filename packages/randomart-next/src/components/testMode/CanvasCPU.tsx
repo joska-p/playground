@@ -1,9 +1,9 @@
 import { evaluate } from '@repo/randomart-engine-next';
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 
 type CanvasCPUProps = {
-  node: ExprNode;
+  node: Node;
   resolution: number;
   sizePx: number;
 };

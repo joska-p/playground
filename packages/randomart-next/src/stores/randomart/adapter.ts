@@ -1,10 +1,10 @@
 import { buildChannelTrees, getRule } from '@repo/randomart-engine-next';
-import type { ExprNode, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
+import type { Node, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 
 export type TreeOutput = {
-  treeR: ExprNode;
-  treeG: ExprNode;
-  treeB: ExprNode;
+  treeR: Node;
+  treeG: Node;
+  treeB: Node;
 };
 
 export type TreeConfig = {

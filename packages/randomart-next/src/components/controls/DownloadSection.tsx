@@ -1,5 +1,5 @@
 import { evaluate } from '@repo/randomart-engine-next';
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { useSeedText, useTreeB, useTreeG, useTreeR } from '../../stores/randomart/selectors';
@@ -17,12 +17,7 @@ function triggerDownload(blob: Blob, filename: string) {
   }, 1000);
 }
 
-function renderTreesToBlob(
-  treeR: ExprNode,
-  treeG: ExprNode,
-  treeB: ExprNode,
-  size: number
-): Promise<Blob> {
+function renderTreesToBlob(treeR: Node, treeG: Node, treeB: Node, size: number): Promise<Blob> {
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;

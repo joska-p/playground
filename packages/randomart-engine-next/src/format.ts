@@ -1,24 +1,16 @@
-/**
- * Human-readable formatting for expression trees.
- *
- * Two output formats:
- *  - **Math string** — a compact, Unicode-rich formula (e.g. `sin(π·x)`).
- *  - **Tree view** — an indented ASCII tree using `├──` / `└──` box-drawing.
- *
- * Both walk the tree recursively and delegate to the operator registry. Unicode
- * operators used: π (pi), · (multiplication dot), mod, − (minus).
- */
-
+import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
 import { toStructuredView } from './tree.js';
-import type { ExprNode, TreeView } from './types.js';
+import type { Node } from './types.js';
 
-// ---------------------------------------------------------------------------
-// Math string
-// ---------------------------------------------------------------------------
+export type TreeView = {
+  label: string;
+  type: OperatorId;
+  value?: number;
+  children?: TreeView[];
+};
 
-/** Render an expression node as a human-readable math formula. */
-export function toMathString(node: ExprNode): string {
+export function toMathString(node: Node): string {
   if (node.type === 'const') return String(node.value ?? 0);
 
   const op = getOperator(node.type);
@@ -30,12 +22,7 @@ export function toMathString(node: ExprNode): string {
   return op.toMathString(args);
 }
 
-// ---------------------------------------------------------------------------
-// ASCII tree view
-// ---------------------------------------------------------------------------
-
-/** Render an expression node as an indented ASCII tree. */
-export function toTreeView(node: ExprNode): string {
+export function toTreeView(node: Node): string {
   return renderTreeView(toStructuredView(node));
 }
 

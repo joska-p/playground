@@ -1,45 +1,23 @@
-/**
- * Expression-tree construction, evaluation, and rendering.
- *
- * This is the heart of the random-art scheme. Following Perrig & Song, we grow a
- * random expression from a context-free grammar. The grammar's terminals are the
- * coordinates `x`, `y`, and random constants; its non-terminals are arithmetic
- * and trigonometric combinators. Growth is bounded by a maximum depth so the
- * tree stays finite. The resulting node is a pure function f(x, y) -> [-1, 1].
- *
- * The same node is rendered four ways:
- *  - evaluate()      numeric evaluation for CPU rasterization
- *  - toGLSL()        a GPU fragment-shader expression
- *  - toMathString()  a readable mathematical formula (in format.ts)
- *  - toTreeView()    a nested, serializable structure
- */
-
+import type { TreeView } from './format.js';
 import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
 import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
 import { createCorrelatedRng, createDualRng } from './prng.js';
-import type { ExprNode, TreeView } from './types.js';
 import { clamp } from './util.js';
 
-// ── Pool building for buildTree() ───────────────────────────────
+export type Node = {
+  readonly type: OperatorId;
+  readonly value?: number;
+  readonly children?: Node[];
+};
 
 type PoolEntry = {
-  type: ExprNode['type'];
+  type: Node['type'];
   arity: number;
   weight: number;
 };
 
-/**
- * Guaranteed fallback terminals, injected by `buildTree` when a grammar
- * spec omits them. Every tree needs leaves to terminate — without these, a
- * grammar that only defines structural operators (e.g. add, sin) would produce
- * infinite trees.
- *
- * `const` is weighted at 0.5 (half as likely as x/y) so random constants appear
- * in roughly a third of terminal picks, avoiding over-reliance on magic numbers
- * while still giving each image a unique color palette.
- */
 const DEFAULT_TERMINALS: readonly PoolEntry[] = [
   { type: 'x', arity: 0, weight: 1.0 },
   { type: 'y', arity: 0, weight: 1.0 },
@@ -52,25 +30,6 @@ const operatorToPoolEntry = (id: OperatorId): PoolEntry => ({
   weight: id === 'const' ? 0.5 : 1.0
 });
 
-/**
- * Probabilistically filters which operators are available at a given depth.
- *
- * Assumes the input includes terminals (arity-0 entries) — callers guarantee
- * this by appending DEFAULT_TERMINALS when the spec omits them. Terminals always
- * pass the filter, so the output is never empty.
- *
- * The effect is a depth-dependent "temperature" for tree complexity:
- *  - Near the root (structuralProbability ≈ 0), most structural operators are
- *    filtered out, so the pool is small and the root stays simple.
- *  - Near the leaves (structuralProbability ≈ 1), almost everything survives,
- *    giving maximum variety at the bottom — but depth pressure forces terminals
- *    anyway, so this doesn't create overly deep trees.
- *
- * Each operator gets its own independent coin flip, so different random seeds
- * produce pools of different sizes. This per-rule variance is the primary driver
- * of tree variety across seeds — two seeds with the same operators can produce
- * very different pool compositions.
- */
 function buildOperatorPool(
   rng: SeededRandom,
   operators: readonly PoolEntry[],
@@ -85,17 +44,6 @@ function buildOperatorPool(
   return pool;
 }
 
-/**
- * Biased random selection from the pool. Assumes a non-empty pool — callers
- * guarantee this by ensuring terminals are always present.
- *
- * Higher weight means more likely to be picked, but every entry has a non-zero
- * chance. This is how `const` gets its reduced frequency: it has weight 0.5 vs
- * 1.0 for everything else. In a pool of [x, y, const, sin], const has ~17%
- * chance (0.5/3.0) while each other entry has ~33% (1.0/3.0). The effect is
- * that images lean toward coordinate-based and operator-based expression, with
- * constants sprinkled in for palette variation rather than dominating the tree.
- */
 function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
   const totalWeight = pool.reduce((sum, op) => sum + op.weight, 0);
   let threshold = rng.next() * totalWeight;
@@ -106,37 +54,12 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
   return pool[pool.length - 1]!;
 }
 
-// ── Tree growth ─────────────────────────────────────────────────
-
-/**
- * Build an expression tree from a grammar spec.
- *
- * The caller controls the RNG strategy via the `pickRng` callback, which
- * returns the RNG to use at a given depth. This is the single tree-building
- * function — all tree construction flows through here.
- *
- * The three-way pool strategy:
- *  1. forceOperator (depth < minDepth): only structural operators — guarantees
- *     the tree has a minimum level of complexity before it's allowed to terminate.
- *  2. forceTerminal (depth >= maxDepth): only terminals — enforces a hard depth
- *     limit so trees are always finite.
- *  3. Normal growth: probabilistic filtering via buildOperatorPool, where the
- *     structuralProbability rises from 0 (root) to 1 (leaves).
- *
- * @param spec       Grammar variant controlling which operators are available
- *                   and the depth bounds that shape tree complexity.
- * @param maxDepth   Maximum tree depth. Terminals are forced at this depth.
- * @param pickRng    Returns the RNG to use at the given depth. Called fresh at
- *                   each recursive step so depth-dependent strategies (e.g.
- *                   structure-vs-channel switching) work correctly.
- * @param currentDepth  Current depth (starts at 0, increments toward maxDepth).
- */
 export function buildTree(
   spec: Rule,
   maxDepth: number,
   pickRng: (depth: number) => SeededRandom,
   currentDepth = 0
-): ExprNode {
+): Node {
   const rng = pickRng(currentDepth);
   const forceTerminal = currentDepth >= maxDepth;
   const forceOperator = currentDepth < spec.minDepth;
@@ -168,25 +91,14 @@ export function buildTree(
     return { type: pick.type };
   }
 
-  const children: ExprNode[] = [];
+  const children: Node[] = [];
   for (let i = 0; i < pick.arity; i++) {
     children.push(buildTree(spec, maxDepth, pickRng, currentDepth + 1));
   }
   return { type: pick.type, children };
 }
 
-// ── Registry-based walkers ──────────────────────────────────────
-
-/**
- * Evaluate a node at normalized coordinates x, y (each in [-1, 1]).
- *
- * This is the CPU rendering path — it walks the tree and computes a numeric
- * output for each pixel. The returned value is always in [-1, 1], which gets
- * mapped to a color in the rendering pipeline. The tree structure means each
- * pixel evaluation is O(tree size), which is why CPU rendering is slower than
- * the GPU path (toGLSL).
- */
-export function evaluate(node: ExprNode, x: number, y: number): number {
+export function evaluate(node: Node, x: number, y: number): number {
   if (node.type === 'x') return x;
   if (node.type === 'y') return y;
   if (node.type === 'const') return node.value ?? 0;
@@ -200,16 +112,7 @@ export function evaluate(node: ExprNode, x: number, y: number): number {
   return op.evaluate(args, x, y);
 }
 
-/**
- * Render a node as a GLSL expression string (all values kept in [-1, 1]).
- *
- * This is the GPU rendering path — it converts the tree into a single GLSL
- * expression that gets injected into a fragment shader. The GPU evaluates this
- * expression in parallel across all pixels, making it orders of magnitude faster
- * than the CPU path for large images. The expression is inlined directly (no
- * function calls), which matters for shader compiler optimization.
- */
-export function toGLSL(node: ExprNode): string {
+export function toGLSL(node: Node): string {
   if (node.type === 'x') return 'p.x';
   if (node.type === 'y') return 'p.y';
   if (node.type === 'const') return (node.value ?? 0).toFixed(4);
@@ -223,19 +126,9 @@ export function toGLSL(node: ExprNode): string {
   return op.toGLSL(args);
 }
 
-/**
- * Serialize a node into a compact byte array (the CPU representation).
- *
- * Layout is a pre-order traversal: one opcode byte per node, and for `const`
- * nodes a following signed byte encoding the value quantized to [-1, 1].
- *
- * This byte format is consumed by the CPU rasterizer — it can walk the byte
- * array without needing the full ExprNode tree in memory, which is useful for
- * streaming or embedded contexts where memory is tight.
- */
-export function serializeToBytes(node: ExprNode): Uint8Array {
+export function serializeToBytes(node: Node): Uint8Array {
   const out: number[] = [];
-  const walk = (n: ExprNode): void => {
+  const walk = (n: Node): void => {
     out.push(getOperator(n.type).opcode);
     if (n.type === 'const') {
       const q = Math.round((clamp(n.value ?? 0) + 1) * 127.5);
@@ -247,15 +140,7 @@ export function serializeToBytes(node: ExprNode): Uint8Array {
   return Uint8Array.from(out);
 }
 
-/**
- * Build a structured, serializable tree view from an expression node.
- *
- * The ASCII-rendered version lives in `format.ts`; this function produces the
- * underlying data structure that both the structured API and the ASCII renderer
- * consume. The TreeView format is intentionally JSON-serializable so the tree
- * can be sent over the wire or stored without losing information.
- */
-export function toStructuredView(node: ExprNode): TreeView {
+export function toStructuredView(node: Node): TreeView {
   const label = node.type === 'const' ? `const(${node.value ?? 0})` : node.type;
   const view: TreeView = { label, type: node.type };
   if (node.type === 'const') view.value = node.value ?? 0;
@@ -269,26 +154,11 @@ export function toStructuredView(node: ExprNode): TreeView {
  *  keeping the overall tree shape consistent across R/G/B channels. */
 const STRUCTURE_RNG_DEPTH = 3;
 
-// ── Channel tree building ─────────────────────────────────────
-
-/**
- * Build three correlated R/G/B expression trees from a seed and grammar spec.
- *
- * This is the multi-channel tree builder used by the UI's rendering pipeline.
- * For a complete output (PNG + shader + math), use {@link generate} instead.
- *
- * - **Correlated mode**: all three channels share one RNG so structural decisions
- *   are identical — channels diverge only because trees are built as separate
- *   instances.
- * - **Uncorrelated mode**: a structure RNG (shared at shallow depths via
- *   `STRUCTURE_RNG_DEPTH`) plus three independent per-channel RNGs produce
- *   images with coherent broad structure but per-channel color variation.
- */
 export function buildChannelTrees(
   seedText: string,
   spec: Rule,
   correlated: boolean
-): { treeR: ExprNode; treeG: ExprNode; treeB: ExprNode } {
+): { treeR: Node; treeG: Node; treeB: Node } {
   const pickRng =
     (structure: SeededRandom, channel: SeededRandom) =>
     (depth: number): SeededRandom =>

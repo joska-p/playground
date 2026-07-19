@@ -1,5 +1,5 @@
 import { BEHAVIORS } from '@repo/randomart-engine-next';
-import type { ExprNode } from '@repo/randomart-engine-next/types';
+import type { Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
 import { randomartStore } from '../stores/randomart/store';
@@ -14,9 +14,9 @@ import { useWebGLContext } from './useWebGLContext';
 export function useWebGLRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   trees: {
-    treeR: ExprNode;
-    treeG: ExprNode;
-    treeB: ExprNode;
+    treeR: Node;
+    treeG: Node;
+    treeB: Node;
   },
   running: boolean
 ) {
