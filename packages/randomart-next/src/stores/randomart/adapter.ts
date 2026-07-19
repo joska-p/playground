@@ -11,7 +11,7 @@ export type TreeOutput = {
 export type TreeConfig = {
   seedText: string;
   selectedRuleId: RuleId;
-  customOperators: OperatorId[] | null;
+  customOperatorIds: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;
   correlated: boolean;
@@ -20,13 +20,13 @@ export type TreeConfig = {
 export function generateTrees(config: TreeConfig): TreeOutput {
   const preset = getRule(config.selectedRuleId);
 
-  const operators = config.customOperators ?? preset.operators;
+  const operatorIds = config.customOperatorIds ?? preset.operatorIds;
 
   const rule = {
     id: config.selectedRuleId,
     label: preset.label,
     kind: preset.kind,
-    operators,
+    operatorIds,
     minDepth: config.minDepth,
     maxDepth: config.maxDepth
   };

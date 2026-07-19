@@ -7,7 +7,7 @@ export type Rule = {
   readonly id: string;
   readonly label: string;
   readonly kind: RuleKind;
-  readonly operators: OperatorId[];
+  readonly operatorIds: OperatorId[];
   readonly maxDepth: number;
   readonly minDepth: number;
 };

@@ -15,7 +15,7 @@ function generateInitial(): RandomartState {
   const trees = generateTrees({
     seedText,
     selectedRuleId,
-    customOperators: null,
+    customOperatorIds: null,
     minDepth,
     maxDepth,
     correlated: false
@@ -26,7 +26,7 @@ function generateInitial(): RandomartState {
     seedText,
     activeChannel: 'red',
     selectedRuleId,
-    customOperators: null,
+    customOperatorIds: null,
     minDepth,
     maxDepth,
     ...trees,
@@ -55,7 +55,7 @@ export function updateTreeConfig(
   const recalculatedTrees = generateTrees({
     seedText: nextState.seedText,
     selectedRuleId: nextState.selectedRuleId,
-    customOperators: nextState.customOperators,
+    customOperatorIds: nextState.customOperatorIds,
     minDepth: nextState.minDepth,
     maxDepth: nextState.maxDepth,
     correlated: nextState.correlatedRGB

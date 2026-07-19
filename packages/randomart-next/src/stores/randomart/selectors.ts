@@ -18,7 +18,7 @@ export function useSelectedRuleId() {
   return useStore(randomartStore, (s) => s.selectedRuleId);
 }
 export function useCustomOperators() {
-  return useStore(randomartStore, (s) => s.customOperators);
+  return useStore(randomartStore, (s) => s.customOperatorIds);
 }
 export function useMinDepth() {
   return useStore(randomartStore, (s) => s.minDepth);

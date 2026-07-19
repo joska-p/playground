@@ -1,4 +1,4 @@
-import { getOperator, getOperatorKinds } from '@repo/randomart-engine-next/operators';
+import { getOperatorKinds } from '@repo/randomart-engine-next/operators';
 import { getRule, listRuleGroups } from '@repo/randomart-engine-next/rules';
 import type { RuleId } from '@repo/randomart-engine-next/types';
 import { ControlGrid, ControlRow, ControlSection, ControlSubsection } from '@repo/ui/control-panel';
@@ -24,11 +24,9 @@ function GrammarSection() {
   const customOperators = useCustomOperators();
   const minDepth = useMinDepth();
   const maxDepth = useMaxDepth();
-
   const preset = getRule(selectedRuleId);
-  const baseOperators = customOperators ?? preset.operators;
-  const hasTerminals = baseOperators.some((id) => getOperator(id).arity === 0);
-  const activeOperators = hasTerminals ? baseOperators : [...baseOperators, 'x', 'y', 'const'];
+  const baseOperatorIds = customOperators ?? preset.operatorIds;
+  const activeOperatorIds = [...baseOperatorIds, 'x', 'y', 'const'];
 
   return (
     <ControlSection
@@ -98,7 +96,7 @@ function GrammarSection() {
         >
           <ControlGrid columns={3}>
             {category.operators.map((operator) => {
-              const isActive = activeOperators.includes(operator.id);
+              const isActive = activeOperatorIds.includes(operator.id);
               return (
                 <Button
                   key={operator.id}

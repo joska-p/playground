@@ -47,13 +47,13 @@ export function selectRule(ruleId: RuleId): void {
 export function toggleOperator(operatorId: OperatorId): void {
   updateTreeConfig((state) => {
     const rule = getRule(state.selectedRuleId);
-    const base = state.customOperators ?? rule.operators;
+    const base = state.customOperatorIds ?? rule.operatorIds;
     const isCurrentlyEnabled = base.includes(operatorId);
 
-    const nextOperators = isCurrentlyEnabled
+    const nextOperatorIds = isCurrentlyEnabled
       ? base.filter((id) => id !== operatorId)
       : [...base, operatorId];
 
-    return { customOperators: nextOperators };
+    return { customOperatorIds: nextOperatorIds };
   }, `config/toggleOperator (${operatorId})`);
 }

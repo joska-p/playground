@@ -14,7 +14,7 @@ export type RandomartState = {
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
   selectedRuleId: RuleId;
-  customOperators: OperatorId[] | null;
+  customOperatorIds: OperatorId[] | null;
   minDepth: number;
   maxDepth: number;
   treeR: Node;

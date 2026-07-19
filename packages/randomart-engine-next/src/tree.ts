@@ -71,23 +71,27 @@ export function buildTree({
   const forceTerminal = currentDepth >= maxDepth;
   const forceOperator = currentDepth < rule.minDepth;
 
-  const shuffledOperators = seededShuffle([...rule.operators], `${seedText}_depth_${currentDepth}`);
-
-  const specEntries = shuffledOperators.map(operatorToPoolEntry);
-  const hasTerminals = specEntries.some((entry) => entry.arity === 0);
-  const operators = hasTerminals ? specEntries : [...specEntries, ...DEFAULT_TERMINALS];
+  const poolEntriesFromRule = [...rule.operatorIds].map(operatorToPoolEntry);
+  const hasTerminals = poolEntriesFromRule.some((entry) => entry.arity === 0);
+  const poolEntriesWithTerminals = hasTerminals
+    ? poolEntriesFromRule
+    : [...poolEntriesFromRule, ...DEFAULT_TERMINALS];
+  const shuffledPoolEntries = seededShuffle(
+    poolEntriesWithTerminals,
+    `${seedText}_depth_${currentDepth}`
+  );
 
   let pool: PoolEntry[];
 
   if (forceTerminal) {
-    pool = operators.filter((operator) => operator.arity === 0);
+    pool = shuffledPoolEntries.filter((operator) => operator.arity === 0);
     if (pool.length === 0) pool = [...DEFAULT_TERMINALS];
   } else if (forceOperator) {
-    pool = operators.filter((operator) => operator.arity > 0);
-    if (pool.length === 0) pool = [...operators];
+    pool = shuffledPoolEntries.filter((operator) => operator.arity > 0);
+    if (pool.length === 0) pool = [...shuffledPoolEntries];
   } else {
     const structuralProbability = 1 - currentDepth / maxDepth;
-    pool = buildOperatorPool(rng, operators, structuralProbability);
+    pool = buildOperatorPool(rng, shuffledPoolEntries, structuralProbability);
   }
 
   const pick = weightedRandomPick(rng, pool);
