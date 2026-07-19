@@ -5,12 +5,12 @@ import { seededShuffle } from './prng.js';
 import { toGLSL } from './tree.js';
 import type { ApplyCodeContext, Behavior, ColorSpaceId, Node } from './types.js';
 
-export type BuildShaderPreambleProps = {
+type BuildShaderPreambleProps = {
   noiseIds: string[];
   behaviors: Behavior[];
 };
 
-export function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps): string {
+function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
   const seen = new Set<string>();
   const behaviorFunctions = behaviors

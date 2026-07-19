@@ -5,10 +5,6 @@ const setToolMode = (mode: BrushMode): void => {
   uiStore.setState({ toolMode: mode });
 };
 
-const setShowDebug = (v: boolean): void => {
-  uiStore.setState({ showDebug: v });
-};
-
 const setStateColor = (index: number, color: string): void => {
   uiStore.setState((s) => {
     const next = [...s.stateColors];
@@ -29,4 +25,4 @@ const setPaletteBrush = (id: string | null): void => {
   uiStore.setState({ paletteBrush: id });
 };
 
-export { setGlowColor, setPaletteBrush, setShader, setShowDebug, setStateColor, setToolMode };
+export { setGlowColor, setPaletteBrush, setShader, setStateColor, setToolMode };

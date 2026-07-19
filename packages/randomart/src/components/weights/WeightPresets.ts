@@ -2,7 +2,7 @@ import type { getInitialWeights } from '@repo/randomart-engine/grammar/registry'
 
 export type Preset = Partial<ReturnType<typeof getInitialWeights>>;
 
-export const organic = {
+const organic = {
   sin: 2.0,
   cos: 1.5,
   sqrt: 1.2,
@@ -14,7 +14,7 @@ export const organic = {
   step: 0.1
 } as const satisfies Preset;
 
-export const geometric = {
+const geometric = {
   sin: 0.5,
   cos: 0.5,
   abs: 2.0,
@@ -28,7 +28,7 @@ export const geometric = {
   step: 1.0
 } as const satisfies Preset;
 
-export const chaotic = {
+const chaotic = {
   sin: 2.5,
   cos: 2.0,
   multiply: 2.0,

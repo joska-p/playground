@@ -11,7 +11,7 @@
 const textEncoder = new TextEncoder();
 
 /** FNV-1a 32-bit hash of a string (proper UTF-8 encoding). */
-export function fnv1a(text: string): number {
+function fnv1a(text: string): number {
   let hash = 0x811c9dc5;
   const bytes = textEncoder.encode(text);
   for (const byte of bytes) {

@@ -32,9 +32,6 @@ export function useRunning() {
 export function useAnimationSpeed() {
   return useStore(randomartStore, (s) => s.animationSpeed);
 }
-export function useTime() {
-  return useStore(randomartStore, (s) => s.time);
-}
 export function useActiveBehaviorIds() {
   return useStore(randomartStore, (s) => s.activeBehaviorIds);
 }

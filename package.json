@@ -14,7 +14,6 @@
     "graphify": "graphify update",
     "clean": "turbo clean && turbo run clean && rm -rf node_modules /**/node_modules",
     "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
-    "fallow": "fallow",
     "gen:project-pages": "turbo gen run project-pages"
   },
   "devDependencies": {
@@ -22,12 +21,11 @@
     "prettier-plugin-astro": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
-    "turbo": "^2.10.5",
     "typescript": "catalog:",
-    "@turbo/gen": "^2.10.5",
     "@types/node": "catalog:",
-    "fallow": "^3.3.0",
-    "yaml": "^2.9.0"
+    "@turbo/gen": "catalog:",
+    "turbo": "catalog:",
+    "yaml": "catalog:"
   },
   "packageManager": "pnpm@11.10.0+sha512.0b7f8b98060031904c017e3a41eb187a16d40eeb829b95c4f8cb03681761fc4ab53dd219115b9b447f4dce1a05a214764461e7d3703392a9f32f9511ce8c86c8"
 }

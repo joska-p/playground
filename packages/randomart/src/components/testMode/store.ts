@@ -41,7 +41,6 @@ const testModeStore = createStore<TestModeState>()(
 export const useGlobalT = () => useStore(testModeStore, (s) => s.globalT);
 export const useArgPreset = () => useStore(testModeStore, (s) => s.argPreset);
 export const useSeed = () => useStore(testModeStore, (s) => s.seed);
-export const useRuleSeedOverrides = () => useStore(testModeStore, (s) => s.ruleSeedOverrides);
 export const useResolution = () => useStore(testModeStore, (s) => s.resolution);
 export const useRenderMode = () => useStore(testModeStore, (s) => s.renderMode);
 export const useQuery = () => useStore(testModeStore, (s) => s.query);
@@ -112,15 +111,6 @@ export function setGlobalT(value: number): void {
 
 export function setArgPreset(value: ArgPreset): void {
   testModeStore.setState({ argPreset: value }, false, 'testMode/setArgPreset');
-}
-
-export function seedForRule(ruleId: string): number {
-  const state = testModeStore.getState();
-  return state.ruleSeedOverrides[ruleId] ?? state.seed;
-}
-
-export function getStoreState() {
-  return testModeStore.getState();
 }
 
 export { testModeStore };

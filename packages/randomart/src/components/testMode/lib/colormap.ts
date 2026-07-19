@@ -1,6 +1,6 @@
-export const COLOR_NEGATIVE: [number, number, number] = [55, 48, 163];
-export const COLOR_ZERO: [number, number, number] = [11, 13, 16];
-export const COLOR_POSITIVE: [number, number, number] = [240, 169, 58];
+const COLOR_NEGATIVE: [number, number, number] = [55, 48, 163];
+const COLOR_ZERO: [number, number, number] = [11, 13, 16];
+const COLOR_POSITIVE: [number, number, number] = [240, 169, 58];
 
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;

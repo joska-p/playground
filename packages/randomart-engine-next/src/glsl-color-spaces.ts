@@ -1,6 +1,6 @@
 export type ColorSpaceId = 'srgb' | 'oklch' | 'oklab' | 'hsl';
 
-export const OKLCH_TO_SRGB_GLSL = `\
+const OKLCH_TO_SRGB_GLSL = `\
 vec3 oklchToSrgb(vec3 oklch) {
   float L = oklch.x;
   float C = oklch.y;
@@ -22,7 +22,7 @@ vec3 oklchToSrgb(vec3 oklch) {
   return clamp(mix(hi, lo, lessThanEqual(linearRgb, vec3(0.0031308))), 0.0, 1.0);
 }`;
 
-export const OKLAB_TO_SRGB_GLSL = `\
+const OKLAB_TO_SRGB_GLSL = `\
 vec3 oklabToSrgb(vec3 oklab) {
   float L = oklab.x;
   float a = oklab.y;
@@ -42,7 +42,7 @@ vec3 oklabToSrgb(vec3 oklab) {
   return clamp(mix(hi, lo, lessThanEqual(linearRgb, vec3(0.0031308))), 0.0, 1.0);
 }`;
 
-export const HSL_TO_SRGB_GLSL = `\
+const HSL_TO_SRGB_GLSL = `\
 vec3 hslToSrgb(vec3 hsl) {
   float h = hsl.x / 360.0;
   float s = hsl.y / 100.0;
