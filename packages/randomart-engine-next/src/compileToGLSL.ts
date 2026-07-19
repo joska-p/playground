@@ -8,26 +8,29 @@ function buildShaderPreamble(noiseIds: string[], behaviors: Behavior[]): string 
   const noiseFunctions = resolveGlslDeps(noiseIds);
   const seen = new Set<string>();
   const behaviorFunctions = behaviors
-    .filter((b) => {
-      if (seen.has(b.id)) return false;
-      seen.add(b.id);
+    .filter((behaviour) => {
+      if (seen.has(behaviour.id)) return false;
+      seen.add(behaviour.id);
       return true;
     })
-    .map((b) => b.glslFunction ?? '')
+    .map((behaviour) => behaviour.glslFunction ?? '')
     .filter((fn) => fn.length > 0)
     .join('\n');
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
 function collectNoiseDependencies(node: Node, deps: Set<string>): void {
-  const op = getOperator(node.type);
-  if (op.noiseDependencies) {
-    for (const id of op.noiseDependencies) {
+  const operator = getOperator(node.type);
+  if (operator.noiseDependencies) {
+    for (const id of operator.noiseDependencies) {
       deps.add(id);
     }
   }
-  if (node.children) {
-    for (const child of node.children) {
+
+  // Recursively inspect keys mapped inside the unified args dictionary
+  for (const name of operator.argNames) {
+    const child = node.args[name];
+    if (child && typeof child !== 'number') {
       collectNoiseDependencies(child, deps);
     }
   }
@@ -41,13 +44,14 @@ function applyBehaviors(behaviors: Behavior[], behaviorType: Behavior['kind']): 
     color: 'color'
   };
   return behaviors
-    .filter((b) => b.kind === behaviorType)
-    .map((b) => b.applyCode(ctx))
+    .filter((behaviour) => behaviour.kind === behaviorType)
+    .map((behaviour) => behaviour.applyCode(ctx))
     .join('\n');
 }
 
 function compileColorExpression(treeR: Node, treeG: Node, treeB: Node): string {
-  return `vec3(${toGLSL(treeR)}, ${toGLSL(treeG)}, ${toGLSL(treeB)})`;
+  // Pass down the target coordinate variable variable name string ('p')
+  return `vec3(${toGLSL(treeR, 'p')}, ${toGLSL(treeG, 'p')}, ${toGLSL(treeB, 'p')})`;
 }
 
 export function compileToShader(
@@ -67,8 +71,8 @@ export function compileToShader(
   collectNoiseDependencies(treeG, noiseDeps);
   collectNoiseDependencies(treeB, noiseDeps);
 
-  for (const b of behaviors) {
-    for (const id of b.noiseDependencies ?? []) {
+  for (const behaviour of behaviors) {
+    for (const id of behaviour.noiseDependencies ?? []) {
       noiseDeps.add(id);
     }
   }

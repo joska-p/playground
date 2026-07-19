@@ -18,11 +18,4 @@ export {
   listRules
 } from './grammar/rules/registry.js';
 export { SeededRandom, createCorrelatedRng, createDualRng } from './prng.js';
-export {
-  buildChannelTrees,
-  buildTree,
-  evaluate,
-  serializeToBytes,
-  toGLSL,
-  toStructuredView
-} from './tree.js';
+export { buildChannelTrees, buildTree, evaluate, toGLSL, toStructuredView } from './tree.js';

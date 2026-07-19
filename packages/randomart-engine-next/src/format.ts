@@ -1,7 +1,6 @@
 import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
-import { toStructuredView } from './tree.js';
-import type { Node } from './types.js';
+import { toStructuredView, type Node } from './tree.js';
 
 export type TreeView = {
   label: string;
@@ -11,15 +10,15 @@ export type TreeView = {
 };
 
 export function toMathString(node: Node): string {
-  if (node.type === 'const') return String(node.value ?? 0);
-
   const op = getOperator(node.type);
-  if (op.arity === 0) return op.toMathString({});
+  const resolvedArgs: Record<string, string> = {};
 
-  const args = Object.fromEntries(
-    op.argNames.map((name, i) => [name, toMathString(node.children![i]!)])
-  ) as Record<string, string>;
-  return op.toMathString(args);
+  for (const name of op.argNames) {
+    const val = node.args[name];
+    resolvedArgs[name] = typeof val === 'number' ? String(val) : toMathString(val!);
+  }
+
+  return op.toMathString({ args: resolvedArgs });
 }
 
 export function toTreeView(node: Node): string {

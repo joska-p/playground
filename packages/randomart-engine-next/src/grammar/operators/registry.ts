@@ -1,30 +1,42 @@
 import type { GlslFunctionsIds } from '../../glsl-library.js';
-import { divOp, modOp, powOp, productOp, sumOp } from './combinators/arithmetic.js';
-import { greaterThanOp, lessThanOp } from './combinators/comparison.js';
-import { ifOp, mixOp } from './combinators/flow.js';
-import { xOp, yOp } from './terminals/coordinate.js';
-import { radialOp, sweepOp } from './terminals/derived.js';
-import { constOp, randomOp } from './terminals/values.js';
-import { absOp, expOp, fractOp, logOp, sqrtOp } from './transforms/math.js';
-import { cosOp, sinOp } from './transforms/trigonometric.js';
+import {
+  divOp,
+  greaterThanOp,
+  ifOp,
+  lessThanOp,
+  mixOp,
+  modOp,
+  powOp,
+  productOp,
+  sumOp
+} from './combinators.js';
+import { constOp, radialOp, randomOp, sweepOp, timeOp, xOp, yOp } from './terminals.js';
+import { absOp, cosOp, expOp, fractOp, logOp, sinOp, sqrtOp } from './transforms.js';
 
 export type OperatorKind = 'terminal' | 'transform' | 'combinator';
 
-export type Operator = {
+export type EvalContext = {
+  x: number;
+  y: number;
+  t: number;
+};
+
+export type Operator<TArgNames extends readonly string[] = readonly string[]> = {
   readonly arity: number;
-  readonly opcode: number;
   readonly kind: OperatorKind;
   readonly label: string;
-  readonly argNames: readonly string[];
-  evaluate(args: Record<string, number>, x: number, y: number): number;
-  toGLSL(args: Record<string, string>): string;
-  toMathString(args: Record<string, string>): string;
+  readonly argNames: TArgNames;
+  evaluate(params: { args: Record<TArgNames[number], number>; ctx: EvalContext }): number;
+  toGLSL(params: { args: Record<TArgNames[number], string>; coordVar: string }): string;
+  toMathString(params: { args: Record<TArgNames[number], string> }): string;
+
   readonly noiseDependencies?: readonly GlslFunctionsIds[];
 };
 
 export const OPERATORS = {
   x: xOp,
   y: yOp,
+  time: timeOp,
   const: constOp,
   random: randomOp,
   radial: radialOp,
