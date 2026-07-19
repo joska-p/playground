@@ -30,19 +30,6 @@ export type GenerateError = {
 const DEFAULT_SIZE = 256;
 const MAX_SIZE = 4096;
 
-// ── Public API ────────────────────────────────────────────────
-
-/**
- * Generate a random-art image and its symbolic representations from a seed.
- *
- * Builds three correlated R/G/B expression trees, rasterizes them to a PNG
- * by evaluating all three trees per pixel, and bundles the PNG together with
- * shader / math / tree representations.
- *
- * @param textSeed The seed string. Must be non-empty.
- * @param options  Optional rule id and output size.
- * @returns Either a {@link GenerateResult} or a {@link GenerateError}.
- */
 export function generate(
   textSeed: string,
   options: GenerateOptions = {}
