@@ -1,4 +1,4 @@
-import type { ApplyCodeContext, Behavior } from './behaviours/registry.js';
+import type { ApplyCodeContext, Behavior } from './behaviors/registry.js';
 import type { ColorSpaceId } from './glsl-color-spaces.js';
 import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-color-spaces.js';
 import { resolveGlslDeps } from './glsl-library.js';
@@ -16,12 +16,12 @@ function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps):
   const noiseFunctions = resolveGlslDeps(noiseIds);
   const seen = new Set<string>();
   const behaviorFunctions = behaviors
-    .filter((behaviour) => {
-      if (seen.has(behaviour.id)) return false;
-      seen.add(behaviour.id);
+    .filter((behavior) => {
+      if (seen.has(behavior.id)) return false;
+      seen.add(behavior.id);
       return true;
     })
-    .map((behaviour) => behaviour.glslFunction ?? '')
+    .map((behavior) => behavior.glslFunction ?? '')
     .filter((fn) => fn.length > 0)
     .join('\n');
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
@@ -63,8 +63,8 @@ function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): strin
     color: 'color'
   };
   return behaviors
-    .filter((behaviour) => behaviour.kind === behaviorType)
-    .map((behaviour) => behaviour.applyCode(ctx))
+    .filter((behavior) => behavior.kind === behaviorType)
+    .map((behavior) => behavior.applyCode(ctx))
     .join('\n');
 }
 
@@ -108,8 +108,8 @@ export function compileToShader({
   collectNoiseDependencies({ node: treeG, deps: noiseDeps });
   collectNoiseDependencies({ node: treeB, deps: noiseDeps });
 
-  for (const behaviour of deterministicBehaviors) {
-    for (const id of behaviour.noiseDependencies ?? []) {
+  for (const behavior of deterministicBehaviors) {
+    for (const id of behavior.noiseDependencies ?? []) {
       noiseDeps.add(id);
     }
   }

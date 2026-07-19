@@ -2,9 +2,12 @@ import { ControlPanel as Panel } from '@repo/ui/control-panel';
 import { setMode } from '../../stores/randomart/actions/config';
 import { useMode } from '../../stores/randomart/selectors';
 import type { Mode } from '../../stores/randomart/types';
-import { BehaviourSection } from './BehaviourSection';
-import { ConfigSection } from './ConfigSection';
-import { GrammarSection } from './GrammarSection';
+import { ActionControls } from './ActionControls';
+import { BehaviorControls } from './BehaviorControls';
+import { ConfigControls } from './ConfigControls';
+import { DepthControls } from './DepthControls';
+import { OperatorControls } from './OperatorControls';
+import { PlaybackControls } from './PlaybackControls';
 
 const modeOptions = [
   { value: 'play', label: 'Play' },
@@ -38,9 +41,12 @@ function ModeSelect() {
 function PlayModeControlPanel() {
   return (
     <>
-      <ConfigSection />
-      <GrammarSection />
-      <BehaviourSection />
+      <ConfigControls />
+      <ActionControls />
+      <PlaybackControls />
+      <DepthControls />
+      <OperatorControls />
+      <BehaviorControls />
     </>
   );
 }

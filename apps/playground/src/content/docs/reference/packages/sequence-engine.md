@@ -71,7 +71,7 @@ const sequence = generateSequence(recamanRule, 50);
   or large step counts where memory matters. Rule composition: chaining
   two rules so that the output of one feeds the input of another, creating
   hybrid sequences. A formal rule-validation layer that can detect
-  cycles, divergence, or undefined behaviour before generation starts.
+  cycles, divergence, or undefined behavior before generation starts.
 
 ---
 

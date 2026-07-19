@@ -96,7 +96,7 @@ produces `birth[3] = true`, `survive[2] = survive[3] = true`.
 
 ### Built-in rules
 
-| Rule                  | ID             | Notation  | States | Behaviour                                      |
+| Rule                  | ID             | Notation  | States | Behavior                                       |
 | --------------------- | -------------- | --------- | ------ | ---------------------------------------------- |
 | Conway's Game of Life | `conway`       | `B3/S23`  | 2      | Classic — birth on 3, survive on 2 or 3        |
 | HighLife              | `highlife`     | `B36/S23` | 2      | Conway + B6 — self-replicating patterns emerge |

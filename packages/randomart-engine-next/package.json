@@ -13,7 +13,7 @@
     "./glsl-color-spaces": "./src/glsl-color-spaces.ts",
     "./operators": "./src/grammar/operators/registry.ts",
     "./rules": "./src/grammar/rules/registry.ts",
-    "./behaviours": "./src/behaviours/registry.ts"
+    "./behaviors": "./src/behaviors/registry.ts"
   },
   "scripts": {
     "randomart": "tsx src/cli.ts",

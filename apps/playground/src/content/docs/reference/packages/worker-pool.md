@@ -51,9 +51,9 @@ export class MockWorkerPool<TTask, TResult> {
 }
 ```
 
-### Behaviour contract
+### Behavior contract
 
-| Behaviour            | Detail                                                                 |
+| Behavior             | Detail                                                                 |
 | -------------------- | ---------------------------------------------------------------------- |
 | **Lazy init**        | Workers are created on first `run()`, not at construction              |
 | **Pool size**        | Up to `maxPoolSize` workers; defaults to `min(hardwareConcurrency, 4)` |

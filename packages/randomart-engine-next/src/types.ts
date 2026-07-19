@@ -1,4 +1,4 @@
-export type { ApplyCodeContext, Behavior, BehaviorId } from './behaviours/registry.js';
+export type { ApplyCodeContext, Behavior, BehaviorId } from './behaviors/registry.js';
 export type { ColorSpaceId } from './glsl-color-spaces.js';
 export type { GlslFunction, GlslFunctionsIds } from './glsl-library.js';
 export type {

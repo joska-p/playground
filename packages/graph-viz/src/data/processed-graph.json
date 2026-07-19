@@ -36505,8 +36505,8 @@
       "color": "#fee440"
     },
     {
-      "id": "packages_worker_pool_behaviour_contract",
-      "label": "Behaviour contract",
+      "id": "packages_worker_pool_behavior_contract",
+      "label": "Behavior contract",
       "x": 345.953103343805,
       "y": 16.52829391853723,
       "z": -240.04740667693528,
@@ -39145,8 +39145,8 @@
       "color": "#00bbf9"
     },
     {
-      "id": "worker_pool_readme_behaviour_contract",
-      "label": "Behaviour contract",
+      "id": "worker_pool_readme_behavior_contract",
+      "label": "Behavior contract",
       "x": 379.24152258365484,
       "y": -64.62865373738505,
       "z": 173.55354669085378,

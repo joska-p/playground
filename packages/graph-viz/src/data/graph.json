@@ -30442,14 +30442,14 @@
       "norm_label": "public api"
     },
     {
-      "label": "Behaviour contract",
+      "label": "Behavior contract",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/worker-pool.md",
       "source_location": "L56",
       "_origin": "ast",
-      "id": "packages_worker_pool_behaviour_contract",
+      "id": "packages_worker_pool_behavior_contract",
       "community": 81,
-      "norm_label": "behaviour contract"
+      "norm_label": "behavior contract"
     },
     {
       "label": "Non-goals",
@@ -32642,14 +32642,14 @@
       "norm_label": "public api"
     },
     {
-      "label": "Behaviour contract",
+      "label": "Behavior contract",
       "file_type": "document",
       "source_file": "packages/worker-pool/README.md",
       "source_location": "L48",
       "_origin": "ast",
-      "id": "worker_pool_readme_behaviour_contract",
+      "id": "worker_pool_readme_behavior_contract",
       "community": 83,
-      "norm_label": "behaviour contract"
+      "norm_label": "behavior contract"
     },
     {
       "label": "Non-goals",
@@ -78885,7 +78885,7 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_worker_pool_spec",
-      "target": "packages_worker_pool_behaviour_contract"
+      "target": "packages_worker_pool_behavior_contract"
     },
     {
       "relation": "contains",
@@ -80915,7 +80915,7 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "worker_pool_readme_spec",
-      "target": "worker_pool_readme_behaviour_contract"
+      "target": "worker_pool_readme_behavior_contract"
     },
     {
       "relation": "contains",

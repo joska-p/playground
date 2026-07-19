@@ -375,7 +375,7 @@ pnpm --filter @repo/l-system-engine test
 pnpm --filter @repo/l-system-engine test-watch
 ```
 
-The test suite covers all six canonical L-system examples (Koch curve, binary tree, signal propagation, shrinking branch, stochastic branching, metadata passthrough), plus rule priority, `unmatchedSymbol`, `validate()`, `steps()`, and bracket-skipping behaviour. 38 tests total.
+The test suite covers all six canonical L-system examples (Koch curve, binary tree, signal propagation, shrinking branch, stochastic branching, metadata passthrough), plus rule priority, `unmatchedSymbol`, `validate()`, `steps()`, and bracket-skipping behavior. 38 tests total.
 
 ---
 

@@ -92,8 +92,8 @@ export type OperatorGroup = {
 export function getOperatorKinds(): OperatorGroup[] {
   const grouped = new Map<OperatorKind, { id: OperatorId; label: string }[]>();
 
-  for (const cat of KIND_ORDER) {
-    grouped.set(cat, []);
+  for (const kind of KIND_ORDER) {
+    grouped.set(kind, []);
   }
 
   for (const [id, op] of Object.entries(OPERATORS) as [OperatorId, Operator][]) {

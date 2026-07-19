@@ -54,7 +54,7 @@ function renderTreesToBlob(treeR: Node, treeG: Node, treeB: Node, size: number):
   });
 }
 
-function DownloadSection() {
+function DownloadButton() {
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
@@ -116,4 +116,4 @@ function DownloadSection() {
   );
 }
 
-export { DownloadSection };
+export { DownloadButton };

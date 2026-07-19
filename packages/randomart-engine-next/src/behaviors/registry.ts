@@ -39,7 +39,7 @@ import {
   waveInterferenceBehavior
 } from './spatial.js';
 
-export type BehaviourKind = 'spatial' | 'color';
+export type BehaviorKind = 'spatial' | 'color';
 
 export type ApplyCodeContext = {
   time: string;
@@ -52,7 +52,7 @@ export type Behavior = {
   readonly id: string;
   readonly label: string;
   readonly glslFunction?: string;
-  readonly kind: BehaviourKind;
+  readonly kind: BehaviorKind;
   readonly applyCode: (ctx: ApplyCodeContext) => string;
   readonly noiseDependencies?: readonly string[];
 };
@@ -100,43 +100,35 @@ export const BEHAVIORS = {
 
 export type BehaviorId = keyof typeof BEHAVIORS;
 
-export function getBehaviour(id: BehaviorId): Behavior {
+export function getBehavior(id: BehaviorId): Behavior {
   return BEHAVIORS[id];
 }
-export function hasBehaviour(id: string): id is BehaviorId {
-  return id in BEHAVIORS;
-}
-export function listBehaviours(): Behavior[] {
-  return Object.values(BEHAVIORS);
-}
 
-// ── Type grouping ───────────────────────────────────────────────
+const KIND_ORDER: Behavior['kind'][] = ['spatial', 'color'];
 
-export type BehaviourGroup = {
-  label: string;
-  behaviors: { id: BehaviorId; label: string }[];
-};
-
-const TYPE_ORDER: Behavior['kind'][] = ['spatial', 'color'];
-
-const TYPE_LABELS: Record<Behavior['kind'], string> = {
+const KIND_LABELS: Record<Behavior['kind'], string> = {
   spatial: 'Spatial',
   color: 'Color'
 };
 
-export function listBehaviourGroups(): BehaviourGroup[] {
-  const grouped = new Map<Behavior['kind'], { id: BehaviorId; label: string }[]>();
+export type BehaviorGroup = {
+  label: string;
+  behaviors: { id: BehaviorId; label: string }[];
+};
 
-  for (const t of TYPE_ORDER) {
-    grouped.set(t, []);
+export function getBehaviorKinds(): BehaviorGroup[] {
+  const grouped = new Map<BehaviorKind, { id: BehaviorId; label: string }[]>();
+
+  for (const kind of KIND_ORDER) {
+    grouped.set(kind, []);
   }
 
   for (const [id, b] of Object.entries(BEHAVIORS) as [BehaviorId, Behavior][]) {
     grouped.get(b.kind)!.push({ id, label: b.label });
   }
 
-  return TYPE_ORDER.map((t) => ({
-    label: TYPE_LABELS[t],
-    behaviors: grouped.get(t)!
+  return KIND_ORDER.map((k) => ({
+    label: KIND_LABELS[k],
+    behaviors: grouped.get(k)!
   }));
 }
