@@ -13,7 +13,7 @@ import type { RandomartState } from '../../stores/randomart/types';
 type RandomartRecipe = {
   seedText: RandomartState['seedText'];
   selectedRuleId: RandomartState['selectedRuleId'];
-  customOperators: RandomartState['customOperators'];
+  customOperatorIds: RandomartState['customOperatorIds'];
   minDepth: RandomartState['minDepth'];
   maxDepth: RandomartState['maxDepth'];
   time: RandomartState['time'];
@@ -25,7 +25,7 @@ function toRecipe(state: RandomartState): RandomartRecipe {
   const {
     seedText,
     selectedRuleId,
-    customOperators,
+    customOperatorIds,
     minDepth,
     maxDepth,
     time,
@@ -35,7 +35,7 @@ function toRecipe(state: RandomartState): RandomartRecipe {
   return {
     seedText,
     selectedRuleId,
-    customOperators,
+    customOperatorIds,
     minDepth,
     maxDepth,
     time,
