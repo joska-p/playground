@@ -16,7 +16,7 @@
     "./behaviours": "./src/behaviours/registry.ts"
   },
   "scripts": {
-    "randomart": "npx tsx src/cli.ts",
+    "randomart": "tsx src/cli.ts",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
