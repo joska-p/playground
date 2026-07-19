@@ -1,5 +1,6 @@
 import type { OperatorId } from '../operators/registry.js';
 import { OPERATORS } from '../operators/registry.js';
+import type { Rule } from './registry.js';
 
 const allOperatorIds = Object.keys(OPERATORS) as OperatorId[];
 
@@ -10,7 +11,7 @@ export const classicRule = {
   operators: ['sum', 'product', 'sin', 'cos'] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
-};
+} as const satisfies Rule;
 
 export const paperRule = {
   id: 'paper',
@@ -19,7 +20,7 @@ export const paperRule = {
   operators: ['sum', 'product', 'sin', 'cos', 'exp', 'sqrt', 'div', 'mix'] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
-};
+} as const satisfies Rule;
 
 export const flowRule = {
   id: 'flow',
@@ -28,7 +29,7 @@ export const flowRule = {
   operators: ['if', 'less-than', 'greater-than', 'mix', 'sum', 'product'] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
-};
+} as const satisfies Rule;
 
 export const fatRule = {
   id: 'fat',
@@ -37,4 +38,4 @@ export const fatRule = {
   operators: allOperatorIds,
   minDepth: 4,
   maxDepth: 8
-};
+} as const satisfies Rule;

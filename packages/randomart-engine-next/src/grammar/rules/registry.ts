@@ -22,7 +22,7 @@ export const RULES = {
 export type RuleId = keyof typeof RULES;
 export const ruleIds: RuleId[] = Object.keys(RULES) as RuleId[];
 
-export const DEFAULT_RULE_ID = 'classic' as RuleId;
+export const DEFAULT_RULE_ID: RuleId = 'classic';
 
 export function listRules(): Rule[] {
   return Object.values(RULES);
@@ -55,7 +55,7 @@ export function listRuleGroups(): RuleGroup[] {
   }
 
   for (const rule of Object.values(RULES)) {
-    grouped.get(rule.kind)!.push({ id: rule.id as RuleId, label: rule.label });
+    grouped.get(rule.kind)!.push({ id: rule.id, label: rule.label });
   }
 
   return RULE_KIND_ORDER.map((cat) => ({
