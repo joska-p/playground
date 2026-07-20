@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const inputVariants = cva(
-  'bg-surface flex items-center gap-2 rounded-md px-3 transition-all duration-200 disabled:pointer-events-none disabled:opacity-40',
+  'bg-surface rounded px-3 transition-all duration-200 disabled:pointer-events-none disabled:opacity-40 text-foreground placeholder:text-foreground-dim w-full bg-transparent py-1',
   {
     variants: {
       variant: {
@@ -23,9 +23,9 @@ export const inputVariants = cva(
           'border-border focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15'
       },
       size: {
-        sm: 'h-8 text-sm',
-        md: 'h-10 text-base',
-        lg: 'h-12 text-lg'
+        sm: 'h-8 min-w-10 text-sm',
+        md: 'h-10 min-w-12 text-base',
+        lg: 'h-12 min-w-14 text-lg'
       }
     },
     defaultVariants: {

@@ -46,7 +46,7 @@ export function ControlPanel({
         <button
           onClick={handleToggle}
           className={cn(
-            'flex w-full grow cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-right select-none',
+            'flex grow cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-right select-none',
             'text-foreground-muted hover:text-foreground text-left transition-colors',
             // For vertical collapsed: make it prominent
             isVertical &&

@@ -51,7 +51,6 @@ export function Radio({
 
   return (
     <Label
-      htmlFor={id}
       className={cn(
         radioVariants({ variant }),
         disabled || loading ? 'pointer-events-none opacity-40' : 'cursor-pointer'
