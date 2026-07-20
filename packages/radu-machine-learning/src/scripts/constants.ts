@@ -6,7 +6,7 @@ const RAW_DIR = path.join(DATA_DIR, 'raw-samples');
 const DATASET_DIR = path.join(DATA_DIR, 'dataset');
 const JSON_DIR = path.join(DATASET_DIR, 'json');
 const IMG_DIR = path.join(BASE_DIR, '../../public/img');
-const SAMPLE = path.join(DATASET_DIR, 'samples.json');
+const SAMPLES = path.join(DATASET_DIR, 'samples.json');
 const TS_OBJECTS = path.join(DATASET_DIR, 'ts_objects');
 const SAMPLES_TS = path.join(TS_OBJECTS, 'samples.ts');
 
@@ -17,7 +17,7 @@ export const CONSTANTS = {
   DATASET_DIR,
   JSON_DIR,
   IMG_DIR,
-  SAMPLE,
+  SAMPLES,
   TS_OBJECTS,
   SAMPLES_TS
 };

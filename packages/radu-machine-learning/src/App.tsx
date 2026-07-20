@@ -4,9 +4,7 @@ import { RaduMachineLearning } from './components/RaduMachineLearning';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="h-dvh">
-        <RaduMachineLearning />
-      </div>
+      <RaduMachineLearning />
     </ErrorBoundary>
   );
 }

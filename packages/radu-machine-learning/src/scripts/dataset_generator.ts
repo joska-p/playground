@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import type { Samples } from '../core/types.ts';
 import { CONSTANTS } from './constants.ts';
 import { generateSVG } from './generate-svg.ts';
 import { printProgress } from './utils.ts';
@@ -7,37 +8,24 @@ import { printProgress } from './utils.ts';
 fs.mkdirSync(CONSTANTS.JSON_DIR, { recursive: true });
 fs.mkdirSync(CONSTANTS.IMG_DIR, { recursive: true });
 
-type Drawing = {
-  id: number;
-  label: string;
-  paths: [number, number][][];
-};
-
-type Samples = {
-  student_id: string;
-  student_name: string;
-  drawings: Drawing[];
-};
-
 const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR);
 
-const samplesMap: Record<string, Samples> = {};
+const samples: Samples = [];
 let id = 1;
 
 fileNames.forEach((fileName) => {
   const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR, fileName), 'utf8');
-  const { session, drawings } = JSON.parse(fileContent);
+  const { session, student, drawings } = JSON.parse(fileContent);
 
   for (const label in drawings) {
-    const paths = drawings[label];
-    if (!samplesMap[session]) return;
-    // Push the sample directly into that specific student's sample array
-    samplesMap[session].drawings.push({
+    samples.push({
       id,
       label,
-      paths
+      student_name: student,
+      student_id: session
     });
 
+    const paths = drawings[label];
     fs.writeFileSync(path.join(CONSTANTS.JSON_DIR, `${id}.json`), JSON.stringify(paths));
 
     const svgPath = path.join(CONSTANTS.IMG_DIR, `${id}.svg`);
@@ -49,14 +37,11 @@ fileNames.forEach((fileName) => {
   }
 });
 
-// Convert the map back into a clean array of students for easy rendering
-const samplesArray = Object.values(samplesMap);
-
 // Save the raw JSON data if needed
-fs.writeFileSync(CONSTANTS.SAMPLE, JSON.stringify(samplesArray));
+fs.writeFileSync(CONSTANTS.SAMPLES, JSON.stringify(samples));
 
 // 2. Write the perfectly pre-grouped data directly to your TS file!
 fs.writeFileSync(
   CONSTANTS.SAMPLES_TS,
-  `export const samples = ${JSON.stringify(samplesArray)} as const;`
+  `export const samples = ${JSON.stringify(samples)} as const;`
 );

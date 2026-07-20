@@ -2,10 +2,7 @@ import { ControlGrid, ControlPanel } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef, useState } from 'react';
-
-type Point = [number, number];
-type Path = Point[];
-type Paths = Path[];
+import type { Path, Paths, Point } from '../../core/types';
 
 function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);

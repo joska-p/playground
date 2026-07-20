@@ -3,7 +3,7 @@ import { Sketchpad } from './sketchpad/Sketchpad';
 
 function RaduMachineLearning() {
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background text-foreground h-screen overflow-hidden">
       <DisplaySamples />
       <Sketchpad />
     </div>

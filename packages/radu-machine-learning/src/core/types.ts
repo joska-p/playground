@@ -1,6 +1,17 @@
-import type { samples } from '../data/dataset/ts_objects/samples';
-
-export type Sample = (typeof samples)[number];
-export type Student_name = Sample['student_name'];
-export type Drawings = Sample['drawings'];
-export type Drawing = Sample['drawings'][number];
+export type Sample = {
+  id: number;
+  label: string;
+  student_id: string;
+  student_name: string;
+};
+export type StudentName = Sample['student_name'];
+export type Samples = Sample[];
+export type Point = [number, number];
+export type Path = Point[];
+export type Paths = Path[];
+export type Drawing = {
+  id: number;
+  label: string;
+  paths: [number, number][][];
+};
+export type Drawings = Drawing[];
