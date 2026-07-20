@@ -6,6 +6,7 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+  '@repo/': true
 minimumReleaseAgeExclude:
   - astro@6.3.7
   - '@storybook/addon-a11y@10.4.1'
