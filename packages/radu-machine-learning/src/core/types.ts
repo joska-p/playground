@@ -3,6 +3,7 @@ export type Sample = {
   label: string;
   student_id: string;
   student_name: string;
+  point?: number[];
 };
 export type StudentName = Sample['student_name'];
 export type Samples = Sample[];

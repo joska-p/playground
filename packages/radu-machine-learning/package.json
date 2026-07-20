@@ -15,7 +15,8 @@
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo",
-    "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts"
+    "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
+    "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"
   },
   "dependencies": {
     "@repo/ui": "workspace:*"

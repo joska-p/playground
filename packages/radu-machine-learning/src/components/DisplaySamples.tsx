@@ -1,5 +1,7 @@
-import { samples } from '../data/dataset/ts_objects/samples';
+import { features } from '../data/dataset/ts_objects/features';
 import { DisplayStudent } from './DisplayStudent';
+
+const { samples } = features;
 
 function getDrawingIdsFromStudentId(id: number) {
   return samples.filter((sample) => sample.student_id === id).map((sample) => sample.id);

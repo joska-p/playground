@@ -7,8 +7,10 @@ const DATASET_DIR = path.join(DATA_DIR, 'dataset');
 const JSON_DIR = path.join(DATASET_DIR, 'json');
 const IMG_DIR = path.join(BASE_DIR, '../../public/img');
 const SAMPLES = path.join(DATASET_DIR, 'samples.json');
+const FEATURES = path.join(DATASET_DIR, 'features.json');
 const TS_OBJECTS = path.join(DATASET_DIR, 'ts_objects');
 const SAMPLES_TS = path.join(TS_OBJECTS, 'samples.ts');
+const FEATURES_TS = path.join(TS_OBJECTS, 'features.ts');
 
 export const CONSTANTS = {
   BASE_DIR,
@@ -18,6 +20,8 @@ export const CONSTANTS = {
   JSON_DIR,
   IMG_DIR,
   SAMPLES,
+  FEATURES,
+  FEATURES_TS,
   TS_OBJECTS,
   SAMPLES_TS
 };
