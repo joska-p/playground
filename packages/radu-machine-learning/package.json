@@ -8,6 +8,7 @@
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
+    "postinstall": "cp -r public/radu-img ../../apps/playground/public/radu-img",
     "dev": "vite --host",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",

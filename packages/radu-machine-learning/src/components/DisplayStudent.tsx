@@ -24,7 +24,7 @@ function DisplayStudent({ student_name, drawings }: DisplayStudentProps) {
               <img
                 loading="lazy"
                 className="border-border/10 rounded border bg-black/50 object-cover p-2"
-                src={`/img/${drawing.id}.svg`}
+                src={`/radu-img/${drawing.id}.svg`}
                 alt={drawing.label}
               />
             </div>
