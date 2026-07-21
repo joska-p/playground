@@ -1,3 +1,5 @@
+import { Card } from '@repo/ui/card';
+import { getDrawingLabels } from '../core/api';
 import type { Drawing, Drawings, StudentName } from '../core/types';
 
 type DisplayStudentProps = {
@@ -6,21 +8,28 @@ type DisplayStudentProps = {
 };
 
 function DisplayStudent({ name, drawings }: DisplayStudentProps) {
+  const columnCount = getDrawingLabels().length + 1;
+
   return (
-    <>
+    <div
+      className="grid items-center gap-2"
+      style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
+    >
       <h3 className="text-muted text-ellipsis">{name}</h3>
       {drawings.map((drawing: Drawing) => {
         return (
-          <img
-            key={drawing.id}
-            loading="lazy"
-            className="shrink rounded object-cover p-2"
-            src={`/radu-img/${drawing.id}.svg`}
-            alt={drawing.label}
-          />
+          <Card className="w-fit">
+            <img
+              key={drawing.id}
+              loading="lazy"
+              className="aspect-square object-cover"
+              src={`/radu-img/${drawing.id}.svg`}
+              alt={drawing.label}
+            />
+          </Card>
         );
       })}
-    </>
+    </div>
   );
 }
 export { DisplayStudent };
