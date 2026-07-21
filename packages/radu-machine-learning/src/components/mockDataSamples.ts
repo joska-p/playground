@@ -1,19 +1,9 @@
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
-function invLerp(a: number, b: number, v: number) {
-  return (v - a) / (b - a);
-}
-
-function remap(oldA: number, oldB: number, newA: number, newB: number, v: number) {
-  return lerp(newA, newB, invLerp(oldA, oldB, v));
-}
+import { lerp, remap } from '../core/math';
 
 export type Sample = {
   id: number;
   type: 'basic' | 'sport';
-  point: [number, number];
+  point: [x: number, y: number];
 };
 
 export const samples: Sample[] = [];

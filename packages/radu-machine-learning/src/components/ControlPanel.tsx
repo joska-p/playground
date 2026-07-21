@@ -3,7 +3,10 @@ import { Sketchpad } from './Sketchpad';
 
 function ControlPanel() {
   return (
-    <Panel size="lg">
+    <Panel
+      size="lg"
+      defaultCollapsed
+    >
       <Sketchpad />
     </Panel>
   );

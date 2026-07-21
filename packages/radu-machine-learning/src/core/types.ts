@@ -3,7 +3,6 @@ export type Sample = {
   readonly label: string;
   readonly student_id: number;
   readonly student_name: string;
-  point?: Point;
 };
 export type StudentName = Sample['student_name'];
 export type Samples = Sample[];
@@ -18,7 +17,7 @@ export type Drawing = {
 export type Drawings = Drawing[];
 export type Features = {
   readonly featureNames: ['Path Count', 'Point Count'];
-  readonly samples: Samples;
+  readonly samples: Samples & { point: Point };
 };
 
 export type Student = {
