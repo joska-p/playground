@@ -1,13 +1,32 @@
-import { ControlSection } from '@repo/ui/control-panel';
+import { useEffect, useRef } from 'react';
+import type { Sample } from './mockDataSamples';
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
+type ChartProps = {
+  size?: number;
+  xAxes?: string;
+  yAxes?: string;
+  styles?: Record<string, string>;
+  samples: Sample[];
+};
 
-const value = lerp(Math.random(), Math.random(), 0.5);
+function Chart({ size = 250, xAxes = 'x', yAxes = 'y', styles, samples }: ChartProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-function Chart() {
-  return <ControlSection title="chart">{value}</ControlSection>;
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const ctx = canvasRef.current.getContext('2d');
+    if (!ctx) return;
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0, 0, size, size);
+  }, [size]);
+  // TODO: implement chart
+  return (
+    <canvas
+      ref={canvasRef}
+      width={size}
+      height={size}
+    />
+  );
 }
 
 export { Chart };

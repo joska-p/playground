@@ -50,7 +50,7 @@ export function ControlPanel({
             'text-foreground-muted hover:text-foreground text-left transition-colors',
             // For vertical collapsed: make it prominent
             isVertical &&
-              'landscape:data-[collapsed=true]:bg-surface/98 landscape:data-[collapsed=true]:shadow-sm'
+              'landscape:data-[collapsed=true]:bg-surface/80 landscape:data-[collapsed=true]:shadow-sm'
           )}
         >
           <ChevronUp

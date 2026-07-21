@@ -18,9 +18,11 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
       <h3 className="text-muted text-ellipsis">{name}</h3>
       {drawings.map((drawing: Drawing) => {
         return (
-          <Card className="w-fit">
+          <Card
+            key={drawing.id}
+            className="w-fit"
+          >
             <img
-              key={drawing.id}
               loading="lazy"
               className="aspect-square object-cover"
               src={`/radu-img/${drawing.id}.svg`}
