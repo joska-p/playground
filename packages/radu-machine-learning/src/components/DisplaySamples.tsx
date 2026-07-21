@@ -1,22 +1,21 @@
-import { features } from '../data/dataset/ts_objects/features';
+import { getDrawingLabels, getSamplesByStudents } from '../core/api';
 import { DisplayStudent } from './DisplayStudent';
 
-const { samples } = features;
-
-function getDrawingIdsFromStudentId(id: number) {
-  return samples.filter((sample) => sample.student_id === id).map((sample) => sample.id);
-}
-
 function DisplaySamples() {
+  const students = getSamplesByStudents();
+  const columnCount = getDrawingLabels().length + 1;
+
   return (
-    <div className="flex h-full flex-col gap-2 overflow-y-auto">
-      {samples.map((sample) => {
-        const drawingIds = getDrawingIdsFromStudentId(sample.student_id);
+    <div
+      className="grid h-full content-start items-center gap-2 overflow-y-auto"
+      style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
+    >
+      {Object.values(students).map((student) => {
         return (
           <DisplayStudent
-            key={sample.id}
-            student_name={sample.student_name}
-            drawingIds={drawingIds}
+            key={student.id}
+            name={student.name}
+            drawings={student.drawings}
           />
         );
       })}

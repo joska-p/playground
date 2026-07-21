@@ -24,7 +24,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   CONSTANTS.FEATURES_TS,
-  `export const features = ${JSON.stringify({ featureNames, samples })} as const;`
+  `import type { Features } from '../../../core/types'; export const features = ${JSON.stringify({ featureNames, samples })} as const satisfies Features;`
 );
 
 console.log('Features extracted successfully.');

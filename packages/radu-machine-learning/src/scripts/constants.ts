@@ -3,9 +3,10 @@ import path from 'path';
 const BASE_DIR = import.meta.dirname;
 const DATA_DIR = path.join(BASE_DIR, '../data');
 const RAW_DIR = path.join(DATA_DIR, 'raw-samples');
+const RAW_DIR_SUBSET = path.join(DATA_DIR, 'subset-samples');
 const DATASET_DIR = path.join(DATA_DIR, 'dataset');
 const JSON_DIR = path.join(DATASET_DIR, 'json');
-const IMG_DIR = path.join(BASE_DIR, '../../public/img');
+const IMG_DIR = path.join(BASE_DIR, '../../public/radu-img');
 const SAMPLES = path.join(DATASET_DIR, 'samples.json');
 const FEATURES = path.join(DATASET_DIR, 'features.json');
 const TS_OBJECTS = path.join(DATASET_DIR, 'ts_objects');
@@ -16,6 +17,7 @@ export const CONSTANTS = {
   BASE_DIR,
   DATA_DIR,
   RAW_DIR,
+  RAW_DIR_SUBSET,
   DATASET_DIR,
   JSON_DIR,
   IMG_DIR,

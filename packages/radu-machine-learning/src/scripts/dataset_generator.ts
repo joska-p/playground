@@ -7,8 +7,9 @@ import { printProgress } from './utils.ts';
 
 fs.mkdirSync(CONSTANTS.JSON_DIR, { recursive: true });
 fs.mkdirSync(CONSTANTS.IMG_DIR, { recursive: true });
+fs.mkdirSync(CONSTANTS.TS_OBJECTS, { recursive: true });
 
-const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR);
+const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR_SUBSET);
 
 const samples: Samples = [];
 let id = 1;
@@ -43,5 +44,5 @@ fs.writeFileSync(CONSTANTS.SAMPLES, JSON.stringify(samples));
 // 2. Write the perfectly pre-grouped data directly to your TS file!
 fs.writeFileSync(
   CONSTANTS.SAMPLES_TS,
-  `export const samples = ${JSON.stringify(samples)} as const;`
+  `import type { Samples } from '../../../core/types'; export const samples = ${JSON.stringify(samples)} as const satisfies Samples;`
 );

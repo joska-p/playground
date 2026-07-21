@@ -1,9 +1,9 @@
 export type Sample = {
-  id: number;
-  label: string;
-  student_id: string;
-  student_name: string;
-  point?: number[];
+  readonly id: number;
+  readonly label: string;
+  readonly student_id: number;
+  readonly student_name: string;
+  point?: Point;
 };
 export type StudentName = Sample['student_name'];
 export type Samples = Sample[];
@@ -13,6 +13,17 @@ export type Paths = Path[];
 export type Drawing = {
   id: number;
   label: string;
-  paths: [number, number][][];
+  point?: Point;
 };
 export type Drawings = Drawing[];
+export type Features = {
+  readonly featureNames: ['Path Count', 'Point Count'];
+  readonly samples: Samples;
+};
+
+export type Student = {
+  id: number;
+  name: StudentName;
+  drawings: Drawing[];
+};
+export type Students = Record<Student['id'], Student>;
