@@ -1,6 +1,6 @@
+import { MockDataTable } from './Chart/MockDataTable';
 import { ControlPanel } from './ControlPanel';
 import { DisplaySamples } from './DisplaySamples';
-import { MockDataTable } from './MockDataTable';
 
 function RaduMachineLearning() {
   return (
