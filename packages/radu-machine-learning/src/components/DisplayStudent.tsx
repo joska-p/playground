@@ -22,6 +22,7 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
             key={drawing.id}
             className="w-fit"
             id={`drawing-${drawing.id}`}
+            data-label={drawing.label}
           >
             <img
               loading="lazy"

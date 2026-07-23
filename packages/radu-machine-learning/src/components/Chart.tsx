@@ -1,4 +1,6 @@
 import { ControlSection } from '@repo/ui/control-panel';
+import { useRef } from 'react';
+import type { ScatterPointItem } from 'recharts';
 import { ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from 'recharts';
 import type { Label } from '../core/types';
 import { features } from '../data/dataset/ts_objects/features';
@@ -34,27 +36,13 @@ const CustomScatterDot = ({ cx, cy, payload }: CustomDotProps) => {
 
   const color = labelToColorMap[payload.label];
 
-  const handleClick = () => {
-    const elementId = `drawing-${payload.drawingId}`;
-    const targetElement = document.getElementById(elementId);
-
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'nearest'
-      });
-    }
-  };
-
   return (
     <circle
       data-drawing-id={payload.drawingId}
       cx={cx}
       cy={cy}
-      r={4} // symbolSize
+      r={4}
       fill={color}
-      onClick={handleClick}
       className="cursor-pointer transition-[r] duration-200"
       onMouseEnter={(e) => {
         e.currentTarget.setAttribute('r', '8');
@@ -67,6 +55,33 @@ const CustomScatterDot = ({ cx, cy, payload }: CustomDotProps) => {
 };
 
 function Chart() {
+  const activeElementRef = useRef<HTMLElement | null>(null);
+
+  const handleScatterClick = (rechartsData: ScatterPointItem) => {
+    const payload = rechartsData.payload as CustomDotProps['payload'];
+    if (!payload) return;
+
+    const elementId = `drawing-${payload.drawingId}`;
+    const targetElement = document.getElementById(elementId);
+
+    if (activeElementRef.current) {
+      activeElementRef.current.classList.remove('ring', 'z-10');
+      activeElementRef.current.style.removeProperty('--tw-ring-color');
+    }
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest'
+      });
+
+      targetElement.classList.add('ring', 'z-10');
+      targetElement.style.setProperty('--tw-ring-color', labelToColorMap[payload.label]);
+      activeElementRef.current = targetElement;
+    }
+  };
+
   return (
     <ControlSection title="charts">
       <div style={{ width: '100%', aspectRatio: '1/1' }}>
@@ -92,6 +107,7 @@ function Chart() {
             <Scatter
               data={data}
               shape={<CustomScatterDot />}
+              onClick={handleScatterClick}
             />
           </ScatterChart>
         </ResponsiveContainer>
