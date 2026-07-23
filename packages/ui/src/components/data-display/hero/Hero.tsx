@@ -40,17 +40,17 @@ function Hero({
       className={cn(heroVariants({ variant }), className)}
     >
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-        {badgeText && <Badge>{badgeText}</Badge>}
+        {badgeText && <Badge appearance="outline">{badgeText}</Badge>}
 
         <h1
           className={cn(
-            'text-[clamp(2.75rem,7.5vw,5.5rem)]',
+            'mt-4 text-[clamp(2.75rem,7.5vw,5.5rem)]',
             'bg-linear-to-br bg-clip-text leading-tight font-black text-transparent',
             fromColor,
             'via-accent to-secondary'
           )}
         >
-          <span className="block text-[clamp(0.75rem,5.5vw,3.5rem)] font-black">{highlight}</span>
+          <span className="block text-[clamp(0.75rem,5.5vw,3.5rem)] font-light">{highlight}</span>
           {title}
           <span className="ml-1 animate-ping font-light">_</span>
         </h1>

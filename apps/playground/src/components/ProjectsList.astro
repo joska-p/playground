@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { AtlasCard } from '@repo/ui/cards';
+import { toBraille, toOgham, toCanadianSyllabics } from '../utils/format';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}discoveries/`;
@@ -29,11 +30,11 @@ function stringToSeed(str: string): number {
         >
           <AtlasCard
             seed={stringToSeed(project.data.title)}
-            cardId={project.data.tags[0].id}
+            cardId={toCanadianSyllabics.fromHash(project.data.tags[0].id).substring(0, 8)}
             cardTitle={project.data.title}
             classification={project.data.description}
-            density={String(stringToSeed(project.data.description))}
-            resolution={String(stringToSeed(project.data.title))}
+            density={toBraille.fromHash(project.data.description).substring(0, 8)}
+            resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
             color={`var(--tags-${mainTag})`}
           />
         </a>

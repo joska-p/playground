@@ -8,5 +8,6 @@ drafts
 
 packages/graph-viz/src/data/processes-graph.json
 packages/radu-machine-learning/src/data/raw-samples
+packages/radu-machine-learning/src/data/subset-samples
 packages/radu-machine-learning/src/data/dataset/json
 turbo/generators/templates

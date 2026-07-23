@@ -12,7 +12,12 @@ export function AtlasCardContent({
   return (
     <div className="relative z-20 flex h-full flex-col justify-between">
       <div className="flex items-start justify-between gap-4">
-        <Badge appearance="outline">{cardId}</Badge>
+        <Badge
+          appearance="outline"
+          className="border-(--variant-color) text-(--variant-color)"
+        >
+          {cardId}
+        </Badge>
         <h3 className="text-foreground border border-(--variant-color) px-2 py-1 text-base tracking-wider uppercase">
           {cardTitle}
         </h3>
@@ -22,7 +27,7 @@ export function AtlasCardContent({
         <p className="text-foreground mb-1.5 font-light tracking-tight transition-colors group-hover:text-(--variant-color)">
           {classification}
         </p>
-        <div className="text-foreground-dim mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider">
+        <div className="text-foreground-muted/80 mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider">
           <span>{resolution}</span>
           <span>{density}</span>
         </div>
