@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { Sample } from '../core/types.ts';
+import type { Label, RawSample, Sample } from '../core/types.ts';
 import { CONSTANTS } from './constants.ts';
 import { generateSVG } from './generate-svg.ts';
 import { printProgress } from './utils.ts';
@@ -16,20 +16,19 @@ let id = 1;
 
 fileNames.forEach((fileName) => {
   const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR, fileName), 'utf8');
-  const { session, student, drawings } = JSON.parse(fileContent);
+  const { session, student, drawings } = JSON.parse(fileContent) as RawSample;
 
-  for (const label in drawings) {
+  for (const [label, paths] of Object.entries(drawings)) {
     samples.push({
       id,
-      label,
+      label: label as Label,
       student_name: student,
       student_id: session
     });
 
-    const paths = drawings[label];
-    fs.writeFileSync(path.join(CONSTANTS.JSON_DIR, `${id}.json`), JSON.stringify(paths));
+    fs.writeFileSync(path.join(CONSTANTS.JSON_DIR, `${String(id)}.json`), JSON.stringify(paths));
 
-    const svgPath = path.join(CONSTANTS.IMG_DIR, `${id}.svg`);
+    const svgPath = path.join(CONSTANTS.IMG_DIR, `${String(id)}.svg`);
     const svgContent = generateSVG({ paths });
     fs.writeFileSync(svgPath, svgContent);
 

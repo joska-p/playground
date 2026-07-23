@@ -12,6 +12,12 @@ export type Paths = Path[];
 
 export type Label = 'car' | 'fish' | 'house' | 'tree' | 'bicycle' | 'guitar' | 'pencil' | 'clock';
 
+export type RawSample = {
+  session: number;
+  student: string;
+  drawings: Record<Label, Paths>;
+};
+
 export type Sample = {
   readonly id: number;
   readonly label: Label;

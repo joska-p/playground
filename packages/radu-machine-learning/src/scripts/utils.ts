@@ -8,7 +8,7 @@ function printProgress({ count, max }: { count: number; max: number }) {
   process.stdout.cursorTo(0);
 
   const percent = formatPercent(count / max);
-  process.stdout.write(`Progress: ${count} / ${max} (${percent})`);
+  process.stdout.write(`Progress: ${String(count)} / ${String(max)} (${percent})`);
 }
 
 export { printProgress };

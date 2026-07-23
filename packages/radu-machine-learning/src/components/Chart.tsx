@@ -61,7 +61,7 @@ function Chart() {
     const payload = rechartsData.payload as CustomDotProps['payload'];
     if (!payload) return;
 
-    const elementId = `drawing-${payload.drawingId}`;
+    const elementId = `drawing-${String(payload.drawingId)}`;
     const targetElement = document.getElementById(elementId);
 
     if (activeElementRef.current) {

@@ -13,7 +13,7 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
   return (
     <div
       className="grid items-center gap-2"
-      style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
+      style={{ gridTemplateColumns: `repeat(${String(columnCount)}, minmax(0, 1fr))` }}
     >
       <h3 className="text-muted text-ellipsis">{name}</h3>
       {drawings.map((drawing: Drawing) => {
@@ -21,13 +21,13 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
           <Card
             key={drawing.id}
             className="w-fit"
-            id={`drawing-${drawing.id}`}
+            id={`drawing-${String(drawing.id)}`}
             data-label={drawing.label}
           >
             <img
               loading="lazy"
               className="aspect-square object-cover"
-              src={`/radu-img/${drawing.id}.svg`}
+              src={`/radu-img/${String(drawing.id)}.svg`}
               alt={drawing.label}
             />
           </Card>
