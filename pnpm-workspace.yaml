@@ -69,7 +69,7 @@ catalog:
   'tailwindcss': '^4.3.0'
   'three': '^0.184.0'
   'tsx': '^4.23.0'
-  'turbo': '^2.10.5'
+  'turbo': '^2.10.6'
   'typescript': '~6.0.3'
   'typescript-eslint': '^8.59.2'
   'vite': '^8.0.12'
