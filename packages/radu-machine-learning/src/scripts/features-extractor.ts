@@ -1,11 +1,11 @@
 import fs from 'fs';
 import { features } from '../core/features.ts';
-import type { Samples } from '../core/types.ts';
+import type { FeatureSample } from '../core/types.ts';
 import { CONSTANTS } from './constants.ts';
 
 console.log('Extracting features...');
 
-const samples = JSON.parse(fs.readFileSync(CONSTANTS.SAMPLES, 'utf-8')) as Samples;
+const samples = JSON.parse(fs.readFileSync(CONSTANTS.SAMPLES, 'utf-8')) as FeatureSample[];
 
 for (const sample of samples) {
   const paths = JSON.parse(fs.readFileSync(`${CONSTANTS.JSON_DIR}/${sample.id}.json`, 'utf-8'));
