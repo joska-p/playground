@@ -24,10 +24,10 @@ export function AtlasCardContent({
       </div>
 
       <div className="mt-auto">
-        <p className="text-foreground mb-1.5 font-light tracking-tight transition-colors group-hover:text-(--variant-color)">
+        <p className="text-foreground mb-1.5 font-light tracking-tight transition-colors">
           {classification}
         </p>
-        <div className="text-foreground-muted/80 mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider">
+        <div className="mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider text-(--variant-color)">
           <span>{resolution}</span>
           <span>{density}</span>
         </div>
