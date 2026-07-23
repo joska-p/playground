@@ -1,10 +1,10 @@
 import { Card } from '@repo/ui/card';
 import { getDrawingLabels } from '../core/api';
-import type { Drawing, Drawings, StudentName } from '../core/types';
+import type { Drawing, StudentName } from '../core/types';
 
 type DisplayStudentProps = {
   name: StudentName;
-  drawings: Drawings;
+  drawings: Drawing[];
 };
 
 function DisplayStudent({ name, drawings }: DisplayStudentProps) {
@@ -21,6 +21,7 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
           <Card
             key={drawing.id}
             className="w-fit"
+            id={`drawing-${drawing.id}`}
           >
             <img
               loading="lazy"

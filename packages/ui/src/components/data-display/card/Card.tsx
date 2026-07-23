@@ -6,11 +6,12 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement>, CardVariantPr
   ref?: Ref<HTMLDivElement>;
 }
 
-export function Card({ className, variant, ref, children }: CardProps) {
+export function Card({ className, variant, ref, children, ...props }: CardProps) {
   return (
     <div
       ref={ref}
       className={cn(cardVariants({ variant }), className)}
+      {...props}
     >
       {children}
     </div>

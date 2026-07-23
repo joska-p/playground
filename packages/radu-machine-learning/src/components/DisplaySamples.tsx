@@ -5,7 +5,7 @@ function DisplaySamples() {
   const students = getSamplesByStudents();
 
   return (
-    <div className="hidden h-full min-h-0 space-y-4 overflow-y-auto">
+    <div className="h-full min-h-0 space-y-4 overflow-y-auto">
       {Object.values(students).map((student) => {
         return (
           <DisplayStudent

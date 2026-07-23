@@ -5,7 +5,8 @@ import { features } from '../data/dataset/ts_objects/features';
 
 const { featureNames, samples } = features;
 
-const data = samples.toSpliced(100).map(({ label, point }) => ({
+const data = samples.toSpliced(100).map(({ label, point, id }) => ({
+  drawingId: id,
   label,
   x: point[0],
   y: point[1]
@@ -25,26 +26,35 @@ const labelToColorMap: Record<Label, string> = {
 type CustomDotProps = {
   cx?: number;
   cy?: number;
-  payload?: { label: Label; x: number; y: number };
-  index?: number;
+  payload?: { drawingId: number; label: Label; x: number; y: number };
 };
 
-const CustomScatterDot = (props: CustomDotProps) => {
-  const { cx, cy, payload } = props;
-
+const CustomScatterDot = ({ cx, cy, payload }: CustomDotProps) => {
   if (!cx || !cy || !payload) return null;
 
   const color = labelToColorMap[payload.label];
 
+  const handleClick = () => {
+    const elementId = `drawing-${payload.drawingId}`;
+    const targetElement = document.getElementById(elementId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest'
+      });
+    }
+  };
+
   return (
     <circle
+      data-drawing-id={payload.drawingId}
       cx={cx}
       cy={cy}
       r={4} // symbolSize
       fill={color}
-      onClick={() => {
-        console.log(`Clicked on ${payload.label} at (${payload.x}, ${payload.y})`);
-      }}
+      onClick={handleClick}
       className="cursor-pointer transition-[r] duration-200"
       onMouseEnter={(e) => {
         e.currentTarget.setAttribute('r', '8');
