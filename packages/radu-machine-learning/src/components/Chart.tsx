@@ -69,11 +69,13 @@ function Chart() {
               type="number"
               dataKey="x"
               name={featureNames[0]}
+              fontSize={12}
             />
             <YAxis
               type="number"
               dataKey="y"
               name={featureNames[1]}
+              fontSize={12}
             />
             <Tooltip cursor={false} />
 
