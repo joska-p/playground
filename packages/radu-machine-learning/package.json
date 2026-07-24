@@ -19,8 +19,7 @@
     "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "recharts": "^3.10.0"
+    "@repo/ui": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:",
