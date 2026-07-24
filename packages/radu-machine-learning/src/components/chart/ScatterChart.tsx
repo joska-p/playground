@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { computeChartBounds, createScalers, getTicks } from './chart-utils';
 import { HEIGHT, MARGIN, WIDTH } from './constants';
 import { ScatterDot } from './ScatterDot';
@@ -11,40 +11,28 @@ type ScatterChartProps = {
   data: Point[];
   xName?: string;
   yName?: string;
-  showTooltip?: boolean;
-  renderDot: (point: Point, coords: { cx: number; cy: number }) => React.ReactNode;
-  onPointClick?: (point: Point) => void;
-};
-
-export const ScatterChart = ({
-  data,
-  xName,
-  yName,
-  renderDot,
-  onPointClick
-}: ScatterChartProps) => {
-  const [hovered, setHovered] = useState<{
+  hovered: {
     point: Point;
     cx: number;
     cy: number;
-  } | null>(null);
+  } | null;
 
+  renderDot: (point: Point, coords: { cx: number; cy: number }) => React.ReactNode;
+};
+
+export const ScatterChart = ({ data, xName, yName, hovered, renderDot }: ScatterChartProps) => {
   const domain = computeChartBounds(data);
   const xDomain = domain.xDomain;
   const yDomain = domain.yDomain;
 
-  const { xScale, yScale } = useMemo(
-    () =>
-      createScalers(xDomain, yDomain, {
-        width: WIDTH,
-        height: HEIGHT,
-        margin: MARGIN
-      }),
-    [xDomain, yDomain]
-  );
+  const { xScale, yScale } = createScalers(xDomain, yDomain, {
+    width: WIDTH,
+    height: HEIGHT,
+    margin: MARGIN
+  });
 
-  const xTicks = useMemo(() => getTicks(xDomain, 5), [xDomain]);
-  const yTicks = useMemo(() => getTicks(yDomain, 5), [yDomain]);
+  const xTicks = getTicks(xDomain, 5);
+  const yTicks = getTicks(yDomain, 5);
 
   return (
     <div className="relative h-full w-full">
@@ -72,8 +60,6 @@ export const ScatterChart = ({
           xScale={xScale}
           yScale={yScale}
           renderDot={renderDot}
-          onPointClick={onPointClick}
-          setHovered={setHovered}
         />
       </svg>
 

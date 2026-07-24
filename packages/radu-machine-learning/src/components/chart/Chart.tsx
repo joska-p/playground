@@ -1,5 +1,5 @@
 import { ControlSection } from '@repo/ui/control-panel';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { Label } from '../../core/types';
 import { features } from '../../data/dataset/ts_objects/features';
 import { ScatterChart } from './ScatterChart';
@@ -27,6 +27,11 @@ const labelToColorMap: Record<Label, string> = {
 
 function Chart() {
   const activeElementRef = useRef<HTMLElement | null>(null);
+  const [hovered, setHovered] = useState<{
+    point: Point;
+    cx: number;
+    cy: number;
+  } | null>(null);
 
   const handleScatterClick = (point: Point) => {
     const { drawingId, label } = point;
@@ -59,7 +64,7 @@ function Chart() {
           data={data}
           xName={featureNames[0]}
           yName={featureNames[1]}
-          showTooltip
+          hovered={hovered}
           renderDot={(point, { cx, cy }) => (
             <circle
               id={`drawing-${String(point.drawingId)}`}
@@ -67,10 +72,20 @@ function Chart() {
               cy={cy}
               r={4}
               fill={labelToColorMap[point.label as Label]}
-              className="hover:r-[8px] cursor-pointer transition-[r] duration-200"
+              className="cursor-pointer transition-[r] duration-200"
+              onMouseEnter={(e) => {
+                setHovered({ point, cx, cy });
+                e.currentTarget.setAttribute('r', '8');
+              }}
+              onMouseLeave={(e) => {
+                setHovered(null);
+                e.currentTarget.setAttribute('r', '4');
+              }}
+              onClick={() => {
+                handleScatterClick(point);
+              }}
             />
           )}
-          onPointClick={handleScatterClick}
         />
       </div>
     </ControlSection>
