@@ -12,10 +12,6 @@ export type ChartBounds = {
   yDomain: Domain;
 };
 
-/**
- * Calculates domain bounds with padding ahead of time.
- * Clamps domain minimum to 0 if the original dataset is strictly non-negative.
- */
 export function computeChartBounds(
   data: Point[],
   options: { padRatio?: number; clampToZero?: boolean } = {}
@@ -48,9 +44,6 @@ export function computeChartBounds(
   };
 }
 
-/**
- * Generates N linearly spaced tick values across a given domain.
- */
 export function getTicks(domain: Domain, count = 5): number[] {
   const [min, max] = domain;
   if (count <= 1) return [min];
@@ -59,9 +52,6 @@ export function getTicks(domain: Domain, count = 5): number[] {
   return Array.from({ length: count }, (_, i) => min + i * step);
 }
 
-/**
- * Generates scalar mapping functions for standard pixel scaling.
- */
 export function createScalers(
   xDomain: Domain,
   yDomain: Domain,

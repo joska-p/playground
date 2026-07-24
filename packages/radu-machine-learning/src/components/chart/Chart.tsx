@@ -1,7 +1,7 @@
 import { ControlSection } from '@repo/ui/control-panel';
 import { useRef } from 'react';
-import type { Label } from '../core/types';
-import { features } from '../data/dataset/ts_objects/features';
+import type { Label } from '../../core/types';
+import { features } from '../../data/dataset/ts_objects/features';
 import { ScatterChart } from './ScatterChart';
 import type { Point } from './chart-utils';
 

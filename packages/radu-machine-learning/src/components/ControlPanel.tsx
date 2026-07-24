@@ -1,5 +1,5 @@
 import { ControlPanel as Panel } from '@repo/ui/control-panel';
-import { Chart } from './Chart';
+import { Chart } from './chart/Chart';
 import { Sketchpad } from './Sketchpad';
 
 function ControlPanel() {
