@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CHART_SAMPLE_LIMIT, labelToColorMap } from '../../constants';
+import { labelToColorMap } from '../../constants';
 import { features } from '../../data/dataset/ts_objects/features';
 import {
   setSelectedDrawingId,
@@ -31,7 +31,7 @@ function Chart() {
     cy: number;
   } | null>(null);
 
-  const data: ChartPoint[] = samples.toSpliced(CHART_SAMPLE_LIMIT).map(({ label, point, id }) => ({
+  const data: ChartPoint[] = samples.map(({ label, point, id }) => ({
     drawingId: id,
     label,
     x: point[0],

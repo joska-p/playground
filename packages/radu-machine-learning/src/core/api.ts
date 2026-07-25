@@ -4,25 +4,23 @@ import type { Drawing, Path, Students } from './types';
 const { samples } = features;
 
 function getSamplesByStudents(): Students {
-  const studentsMap: Students = {};
-
-  for (const sample of samples) {
-    const existing = studentsMap[sample.student_id];
+  return samples.reduce((students: Students, sample) => {
+    const existing = students[sample.student_id];
 
     const drawing: Drawing = { id: sample.id, label: sample.label, point: sample.point };
 
     if (existing) {
       existing.drawings.push(drawing);
     } else {
-      studentsMap[sample.student_id] = {
+      students[sample.student_id] = {
         id: sample.student_id,
         name: sample.student_name,
         drawings: [drawing]
       };
     }
-  }
 
-  return studentsMap;
+    return students;
+  }, {});
 }
 
 function getDrawingLabels() {
