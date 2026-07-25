@@ -2,20 +2,20 @@ import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef, useState } from 'react';
-import { getPathCount, getPointCount } from '../core/api';
+import { getPointCount } from '../core/api';
 import type { Path, Point } from '../core/types';
-import { setCurrentDrawingPathCount, setCurrentDrawingPointCount } from '../stores/radu';
+import { setCurrentDrawingPathCount, setCurrentDrawingPointCount } from '../stores/store';
 
 function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  const currentPathRef = useRef<Path | null>(null);
   const isDrawingRef = useRef(false);
   const [strokeColor, setStrokeColor] = useState('#fefefeff');
-  const [paths, setPaths] = useState<Path[] | null>(null);
+  const [paths, setPaths] = useState<Path[]>([]);
+  const [currentPath, setCurrentPath] = useState<Path>([]);
 
   function exportPaths() {
-    if (!paths) return;
+    if (paths.length === 0) return;
     const data = JSON.stringify(paths);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -35,43 +35,28 @@ function Sketchpad() {
   }
 
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
-    if (!ctxRef.current) return;
-
     isDrawingRef.current = true;
-
-    const point = toCanvasPosition(e);
-
-    ctxRef.current.strokeStyle = strokeColor;
-    ctxRef.current.beginPath();
-    ctxRef.current.moveTo(point[0], point[1]);
-
-    currentPathRef.current = [point];
+    setCurrentPath([toCanvasPosition(e)]);
   }
 
   function handleMouseUp() {
-    if (!isDrawingRef.current || !currentPathRef.current) return;
+    if (!isDrawingRef.current || currentPath.length === 0) return;
 
-    const completedPath = currentPathRef.current;
+    const completedPath = currentPath;
     setPaths((prev) => {
-      const newPaths = prev ? [...prev, completedPath] : [completedPath];
-      setCurrentDrawingPathCount(getPathCount(newPaths));
+      const newPaths = [...prev, completedPath];
+      setCurrentDrawingPathCount(newPaths.length);
       setCurrentDrawingPointCount(getPointCount(newPaths));
       return newPaths;
     });
 
-    currentPathRef.current = null;
+    setCurrentPath([]);
     isDrawingRef.current = false;
   }
 
   function handleMouseMove(e: React.MouseEvent<HTMLCanvasElement>) {
-    if (!ctxRef.current || !isDrawingRef.current) return;
-
-    const point = toCanvasPosition(e);
-
-    ctxRef.current.lineTo(point[0], point[1]);
-    ctxRef.current.stroke();
-
-    currentPathRef.current = currentPathRef.current ? [...currentPathRef.current, point] : [point];
+    if (!isDrawingRef.current) return;
+    setCurrentPath((prev) => [...prev, toCanvasPosition(e)]);
   }
 
   useEffect(() => {
@@ -85,9 +70,11 @@ function Sketchpad() {
     if (!ctx || !canvas) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (!paths) return;
 
-    paths.forEach((path) => {
+    const allPaths = currentPath.length > 0 ? [...paths, currentPath] : paths;
+
+    allPaths.forEach((path) => {
+      if (path.length === 0) return;
       ctx.beginPath();
       ctx.strokeStyle = strokeColor;
       path.forEach((point, index) => {
@@ -96,7 +83,7 @@ function Sketchpad() {
       });
       ctx.stroke();
     });
-  }, [paths, strokeColor]);
+  }, [paths, currentPath, strokeColor]);
 
   return (
     <div className="space-y-2">
@@ -118,22 +105,22 @@ function Sketchpad() {
         </Label>
 
         <Button
+          size="sm"
           variant="warning"
           onClick={() => {
-            if (!paths) return;
-            setPaths(paths.slice(0, -1));
+            setPaths((prev) => prev.slice(0, -1));
           }}
         >
-          undo
+          Undo
         </Button>
 
         <Button
           size="sm"
           variant="destructive"
           onClick={() => {
-            currentPathRef.current = null;
             isDrawingRef.current = false;
-            setPaths(null);
+            setCurrentPath([]);
+            setPaths([]);
           }}
         >
           Clear

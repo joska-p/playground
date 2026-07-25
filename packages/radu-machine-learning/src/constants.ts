@@ -1,7 +1,6 @@
 import type { Label } from './core/types';
 
 export const CHART_SAMPLE_LIMIT = 100;
-export const CURRENT_DRAWING_ID = -1;
 
 export const labelToColorMap: Record<Label, string> = {
   car: 'var(--color-red)',

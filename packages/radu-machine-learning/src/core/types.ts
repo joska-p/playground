@@ -24,8 +24,6 @@ export type Sample = {
   readonly student_name: string;
 };
 
-export type StudentName = Sample['student_name'];
-
 export type Drawing = {
   id: number;
   label: Label;
@@ -34,7 +32,7 @@ export type Drawing = {
 
 export type Student = {
   id: number;
-  name: StudentName;
+  name: string;
   drawings: Drawing[];
 };
 

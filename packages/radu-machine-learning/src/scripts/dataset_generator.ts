@@ -11,6 +11,12 @@ fs.mkdirSync(CONSTANTS.TS_OBJECTS, { recursive: true });
 
 const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR_SUBSET);
 
+const totalDrawings = fileNames.reduce((total, fileName) => {
+  const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
+  const { drawings } = JSON.parse(fileContent) as RawSample;
+  return total + Object.keys(drawings).length;
+}, 0);
+
 const samples: Sample[] = [];
 let id = 1;
 
@@ -32,7 +38,7 @@ fileNames.forEach((fileName) => {
     const svgContent = generateSVG({ paths });
     fs.writeFileSync(svgPath, svgContent);
 
-    printProgress({ count: id, max: fileNames.length * 8 });
+    printProgress({ count: id, max: totalDrawings });
     id++;
   }
 });

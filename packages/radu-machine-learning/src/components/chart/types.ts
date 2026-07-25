@@ -1,6 +1,8 @@
+import type { Label } from '../../core/types';
+
 export type ChartPoint = {
-  drawingId: number;
-  label: string;
+  drawingId: number | null;
+  label: Label | 'current';
   x: number;
   y: number;
 };

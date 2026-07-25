@@ -1,10 +1,14 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
-import { RaduMachineLearning } from './components/RaduMachineLearning';
+import { ControlPanel } from './components/ControlPanel';
+import { Samples } from './components/Samples';
 
 function App() {
   return (
     <ErrorBoundary>
-      <RaduMachineLearning />
+      <div className="bg-background text-foreground h-screen overflow-hidden">
+        <Samples />
+        <ControlPanel />
+      </div>
     </ErrorBoundary>
   );
 }

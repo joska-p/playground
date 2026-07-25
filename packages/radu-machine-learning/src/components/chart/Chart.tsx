@@ -1,20 +1,24 @@
 import { useState } from 'react';
-import { CHART_SAMPLE_LIMIT, CURRENT_DRAWING_ID, labelToColorMap } from '../../constants';
-import type { Label } from '../../core/types';
+import { CHART_SAMPLE_LIMIT, labelToColorMap } from '../../constants';
 import { features } from '../../data/dataset/ts_objects/features';
 import {
   setSelectedDrawingId,
   useCurrentDrawingPathCount,
   useCurrentDrawingPointCount,
   useSelectedDrawingId
-} from '../../stores/radu';
+} from '../../stores/store';
 import { ScatterChart } from './ScatterChart';
 import type { ChartPoint } from './types';
 
 const { featureNames, samples } = features;
 
-function dotRadius(selectedDrawingId: number | null, pointDrawingId: number) {
-  return selectedDrawingId === pointDrawingId ? 8 : 4;
+function dotRadius(
+  selectedDrawingId: number | null,
+  pointDrawingId: number | null,
+  isHovered: boolean
+) {
+  if (isHovered || selectedDrawingId === pointDrawingId) return 8;
+  return 4;
 }
 
 function Chart() {
@@ -34,22 +38,17 @@ function Chart() {
     y: point[1]
   }));
 
-  const augmentedData =
-    currentDrawingPointCount > 0
-      ? [
-          ...data,
-          {
-            drawingId: CURRENT_DRAWING_ID,
-            label: 'current',
-            x: currentDrawingPathCount,
-            y: currentDrawingPointCount
-          }
-        ]
-      : data;
+  if (currentDrawingPointCount > 0) {
+    data.push({
+      drawingId: null,
+      label: 'current',
+      x: currentDrawingPathCount,
+      y: currentDrawingPointCount
+    });
+  }
 
   const handleScatterClick = (point: ChartPoint) => {
-    const { drawingId } = point;
-    const targetElement = document.querySelector(`[data-drawing-id="${String(drawingId)}"]`);
+    const targetElement = document.querySelector(`[data-drawing-id="${String(point.drawingId)}"]`);
 
     if (targetElement) {
       targetElement.scrollIntoView({
@@ -57,38 +56,39 @@ function Chart() {
         block: 'center',
         inline: 'nearest'
       });
-      setSelectedDrawingId(drawingId);
+      setSelectedDrawingId(point.drawingId);
     }
   };
 
   return (
     <div className="relative aspect-4/3 w-full">
       <ScatterChart
-        data={augmentedData}
+        data={data}
         xName={featureNames[0]}
         yName={featureNames[1]}
         hovered={hovered}
-        renderDot={(point, { cx, cy }) => (
-          <circle
-            data-drawing-id-point={point.drawingId}
-            cx={cx}
-            cy={cy}
-            r={dotRadius(selectedDrawingId, point.drawingId)}
-            fill={point.label === 'current' ? 'red' : labelToColorMap[point.label as Label]}
-            className="cursor-pointer transition-[r] duration-200"
-            onMouseEnter={(e) => {
-              setHovered({ point, cx, cy });
-              e.currentTarget.setAttribute('r', '8');
-            }}
-            onMouseLeave={(e) => {
-              setHovered(null);
-              e.currentTarget.setAttribute('r', '4');
-            }}
-            onClick={() => {
-              handleScatterClick(point);
-            }}
-          />
-        )}
+        renderDot={(point, { cx, cy }) => {
+          const isHovered = hovered?.point.drawingId === point.drawingId;
+          return (
+            <circle
+              data-drawing-id-point={point.drawingId}
+              cx={cx}
+              cy={cy}
+              r={dotRadius(selectedDrawingId, point.drawingId, isHovered)}
+              fill={point.label === 'current' ? 'red' : labelToColorMap[point.label]}
+              className="cursor-pointer transition-[r] duration-200"
+              onMouseEnter={() => {
+                setHovered({ point, cx, cy });
+              }}
+              onMouseLeave={() => {
+                setHovered(null);
+              }}
+              onClick={() => {
+                handleScatterClick(point);
+              }}
+            />
+          );
+        }}
       />
     </div>
   );

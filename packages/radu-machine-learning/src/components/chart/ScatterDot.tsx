@@ -11,13 +11,13 @@ type ScatterDotProps = {
 function ScatterDot({ data, xScale, yScale, renderDot }: ScatterDotProps) {
   return (
     <g>
-      {data.map((point) => {
+      {data.map((point, index) => {
         const cx = xScale(point.x);
         const cy = yScale(point.y);
 
         return (
           <g
-            key={point.drawingId}
+            key={index}
             className="cursor-pointer transition-[r] duration-200"
           >
             {renderDot(point, { cx, cy })}

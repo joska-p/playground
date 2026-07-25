@@ -35,12 +35,8 @@ function getDrawingLabels() {
   return Array.from(labels);
 }
 
-function getPathCount(paths: Path[]) {
-  return paths.length;
-}
-
 function getPointCount(paths: Path[]) {
   return paths.flat().length;
 }
 
-export { getDrawingLabels, getPathCount, getPointCount, getSamplesByStudents };
+export { getDrawingLabels, getPointCount, getSamplesByStudents };
