@@ -75,7 +75,7 @@ function Chart() {
               cx={cx}
               cy={cy}
               r={dotRadius(selectedDrawingId, point.drawingId, isHovered)}
-              fill={point.label === 'current' ? 'red' : labelToColorMap[point.label]}
+              fill={point.label === 'current' ? 'var(--destructive)' : labelToColorMap[point.label]}
               className="cursor-pointer transition-[r] duration-200"
               onMouseEnter={() => {
                 setHovered({ point, cx, cy });

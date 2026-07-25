@@ -10,9 +10,9 @@ function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const isDrawingRef = useRef(false);
+  const currentPathRef = useRef<Path>([]);
   const [strokeColor, setStrokeColor] = useState('#fefefeff');
   const [paths, setPaths] = useState<Path[]>([]);
-  const [currentPath, setCurrentPath] = useState<Path>([]);
 
   function exportPaths() {
     if (paths.length === 0) return;
@@ -35,28 +35,36 @@ function Sketchpad() {
   }
 
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+
     isDrawingRef.current = true;
-    setCurrentPath([toCanvasPosition(e)]);
-  }
+    const point = toCanvasPosition(e);
+    currentPathRef.current = [point];
 
-  function handleMouseUp() {
-    if (!isDrawingRef.current || currentPath.length === 0) return;
-
-    const completedPath = currentPath;
-    setPaths((prev) => {
-      const newPaths = [...prev, completedPath];
-      setCurrentDrawingPathCount(newPaths.length);
-      setCurrentDrawingPointCount(getPointCount(newPaths));
-      return newPaths;
-    });
-
-    setCurrentPath([]);
-    isDrawingRef.current = false;
+    ctx.strokeStyle = strokeColor;
+    ctx.beginPath();
+    ctx.moveTo(point[0], point[1]);
   }
 
   function handleMouseMove(e: React.MouseEvent<HTMLCanvasElement>) {
-    if (!isDrawingRef.current) return;
-    setCurrentPath((prev) => [...prev, toCanvasPosition(e)]);
+    const ctx = ctxRef.current;
+    if (!ctx || !isDrawingRef.current) return;
+
+    const point = toCanvasPosition(e);
+    ctx.lineTo(point[0], point[1]);
+    ctx.stroke();
+    currentPathRef.current.push(point);
+  }
+
+  function handleMouseUp() {
+    if (!isDrawingRef.current || currentPathRef.current.length === 0) return;
+
+    const completedPath = [...currentPathRef.current];
+    currentPathRef.current = [];
+    isDrawingRef.current = false;
+
+    setPaths((prev) => [...prev, completedPath]);
   }
 
   useEffect(() => {
@@ -71,19 +79,20 @@ function Sketchpad() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const allPaths = currentPath.length > 0 ? [...paths, currentPath] : paths;
-
-    allPaths.forEach((path) => {
+    paths.forEach((path) => {
       if (path.length === 0) return;
       ctx.beginPath();
       ctx.strokeStyle = strokeColor;
-      path.forEach((point, index) => {
-        if (index === 0) ctx.moveTo(point[0], point[1]);
+      path.forEach((point, i) => {
+        if (i === 0) ctx.moveTo(point[0], point[1]);
         else ctx.lineTo(point[0], point[1]);
       });
       ctx.stroke();
     });
-  }, [paths, currentPath, strokeColor]);
+
+    setCurrentDrawingPathCount(paths.length);
+    setCurrentDrawingPointCount(getPointCount(paths));
+  }, [paths, strokeColor]);
 
   return (
     <div className="space-y-2">
@@ -119,7 +128,7 @@ function Sketchpad() {
           variant="destructive"
           onClick={() => {
             isDrawingRef.current = false;
-            setCurrentPath([]);
+            currentPathRef.current = [];
             setPaths([]);
           }}
         >
@@ -137,8 +146,8 @@ function Sketchpad() {
       <canvas
         ref={canvasRef}
         width={400}
-        height={400}
-        className="bg-background aspect-square w-full"
+        height={255}
+        className="bg-background aspect-video w-full"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
