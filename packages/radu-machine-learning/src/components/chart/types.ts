@@ -1,5 +1,5 @@
 export type Point = {
-  drawingId: string | number;
+  drawingId: number;
   label: string;
   x: number;
   y: number;

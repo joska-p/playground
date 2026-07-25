@@ -1,9 +1,9 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import type { Label } from '../../core/types';
 import { features } from '../../data/dataset/ts_objects/features';
+import { setSelectedDrawingId, useSelectedDrawingId } from '../../stores/radu';
 import { ScatterChart } from './ScatterChart';
-import type { Point } from './chart-utils';
+import type { Point } from './types';
 
 const { featureNames, samples } = features;
 
@@ -13,6 +13,10 @@ const data: Point[] = samples.toSpliced(100).map(({ label, point, id }) => ({
   x: point[0],
   y: point[1]
 }));
+
+function dotRadius(selectedDrawingId: number | null, pointDrawingId: number) {
+  return selectedDrawingId === pointDrawingId ? 8 : 4;
+}
 
 const labelToColorMap: Record<Label, string> = {
   car: 'var(--color-red)',
@@ -26,7 +30,7 @@ const labelToColorMap: Record<Label, string> = {
 };
 
 function Chart() {
-  const activeElementRef = useRef<HTMLElement | null>(null);
+  const selectedDrawingId = useSelectedDrawingId();
   const [hovered, setHovered] = useState<{
     point: Point;
     cx: number;
@@ -34,61 +38,49 @@ function Chart() {
   } | null>(null);
 
   const handleScatterClick = (point: Point) => {
-    const { drawingId, label } = point;
-    const elementId = `drawing-${String(drawingId)}`;
-    const targetElement = document.getElementById(elementId);
+    const { drawingId } = point;
+    const targetElement = document.querySelector(`[data-drawing-id="${String(drawingId)}"]`);
 
-    // 1. Remove classes & styles from previous active element
-    if (activeElementRef.current) {
-      activeElementRef.current.classList.remove('ring', 'z-10');
-      activeElementRef.current.style.removeProperty('--tw-ring-color');
-    }
-
-    // 2. Add classes & styles to newly selected element + scroll
     if (targetElement) {
       targetElement.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
         inline: 'nearest'
       });
-      targetElement.classList.add('ring', 'z-10');
-      targetElement.style.setProperty('--tw-ring-color', labelToColorMap[label as Label]);
-      activeElementRef.current = targetElement;
+      setSelectedDrawingId(drawingId);
     }
   };
 
   return (
-    <ControlSection title="charts">
-      <div className="relative aspect-square w-full">
-        <ScatterChart
-          data={data}
-          xName={featureNames[0]}
-          yName={featureNames[1]}
-          hovered={hovered}
-          renderDot={(point, { cx, cy }) => (
-            <circle
-              id={`drawing-${String(point.drawingId)}`}
-              cx={cx}
-              cy={cy}
-              r={4}
-              fill={labelToColorMap[point.label as Label]}
-              className="cursor-pointer transition-[r] duration-200"
-              onMouseEnter={(e) => {
-                setHovered({ point, cx, cy });
-                e.currentTarget.setAttribute('r', '8');
-              }}
-              onMouseLeave={(e) => {
-                setHovered(null);
-                e.currentTarget.setAttribute('r', '4');
-              }}
-              onClick={() => {
-                handleScatterClick(point);
-              }}
-            />
-          )}
-        />
-      </div>
-    </ControlSection>
+    <div className="relative aspect-square w-full">
+      <ScatterChart
+        data={data}
+        xName={featureNames[0]}
+        yName={featureNames[1]}
+        hovered={hovered}
+        renderDot={(point, { cx, cy }) => (
+          <circle
+            data-drawing-id-point={point.drawingId}
+            cx={cx}
+            cy={cy}
+            r={dotRadius(selectedDrawingId, point.drawingId)}
+            fill={labelToColorMap[point.label as Label]}
+            className="cursor-pointer transition-[r] duration-200"
+            onMouseEnter={(e) => {
+              setHovered({ point, cx, cy });
+              e.currentTarget.setAttribute('r', '8');
+            }}
+            onMouseLeave={(e) => {
+              setHovered(null);
+              e.currentTarget.setAttribute('r', '4');
+            }}
+            onClick={() => {
+              handleScatterClick(point);
+            }}
+          />
+        )}
+      />
+    </div>
   );
 }
 

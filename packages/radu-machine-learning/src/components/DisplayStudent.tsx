@@ -1,6 +1,19 @@
 import { Card } from '@repo/ui/card';
+import { cn } from '@repo/ui/lib/cn';
 import { getDrawingLabels } from '../core/api';
-import type { Drawing, StudentName } from '../core/types';
+import type { Drawing, Label, StudentName } from '../core/types';
+import { setSelectedDrawingId, useSelectedDrawingId } from '../stores/radu';
+
+const labelToColorMap: Record<Label, string> = {
+  car: 'var(--color-red)',
+  fish: 'var(--color-blue)',
+  house: 'var(--color-primary)',
+  tree: 'var(--color-green)',
+  bicycle: 'var(--color-yellow)',
+  guitar: 'var(--color-purple)',
+  pencil: 'var(--color-aqua)',
+  clock: 'var(--color-orange)'
+};
 
 type DisplayStudentProps = {
   name: StudentName;
@@ -9,6 +22,7 @@ type DisplayStudentProps = {
 
 function DisplayStudent({ name, drawings }: DisplayStudentProps) {
   const columnCount = getDrawingLabels().length + 1;
+  const selectedDrawingId = useSelectedDrawingId();
 
   return (
     <div
@@ -20,9 +34,15 @@ function DisplayStudent({ name, drawings }: DisplayStudentProps) {
         return (
           <Card
             key={drawing.id}
-            className="w-fit"
-            id={`drawing-${String(drawing.id)}`}
+            data-drawing-id={String(drawing.id)}
             data-label={drawing.label}
+            onClick={() => {
+              setSelectedDrawingId(drawing.id);
+            }}
+            className={cn('w-fit cursor-pointer hover:ring', {
+              'z-20 ring': selectedDrawingId === drawing.id
+            })}
+            style={{ '--tw-ring-color': labelToColorMap[drawing.label] } as React.CSSProperties}
           >
             <img
               loading="lazy"

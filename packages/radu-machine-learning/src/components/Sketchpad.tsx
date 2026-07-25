@@ -1,4 +1,4 @@
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef, useState } from 'react';
@@ -89,10 +89,7 @@ function Sketchpad() {
   }, [paths, strokeColor]);
 
   return (
-    <ControlSection
-      title="sketchpad"
-      defaultOpen={false}
-    >
+    <div>
       <ControlGrid columns={4}>
         <Label className="flex items-center gap-2">
           <Input
@@ -148,7 +145,7 @@ function Sketchpad() {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       ></canvas>
-    </ControlSection>
+    </div>
   );
 }
 
