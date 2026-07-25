@@ -89,7 +89,7 @@ function Sketchpad() {
   }, [paths, strokeColor]);
 
   return (
-    <div>
+    <div className="space-y-2">
       <ControlGrid columns={4}>
         <Label className="flex items-center gap-2">
           <Input
@@ -140,7 +140,7 @@ function Sketchpad() {
         ref={canvasRef}
         width={400}
         height={400}
-        className="bg-background aspect-square w-full"
+        className="bg-background aspect-video w-full"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

@@ -52,7 +52,7 @@ function Chart() {
   };
 
   return (
-    <div className="relative aspect-square w-full">
+    <div className="relative aspect-4/3 w-full">
       <ScatterChart
         data={data}
         xName={featureNames[0]}
