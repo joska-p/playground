@@ -35,7 +35,7 @@ function ScatterChart({ data, xName, yName, hovered, renderDot }: ScatterChartPr
   const yTicks = getTicks(yDomain, 5);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative aspect-3/2 w-full">
       <svg
         width="100%"
         height="100%"
