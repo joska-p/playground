@@ -1,19 +1,9 @@
 import { Card } from '@repo/ui/card';
 import { cn } from '@repo/ui/lib/cn';
+import { labelToColorMap } from '../constants';
 import { getDrawingLabels } from '../core/api';
-import type { Drawing, Label, StudentName } from '../core/types';
+import type { Drawing, StudentName } from '../core/types';
 import { setSelectedDrawingId, useSelectedDrawingId } from '../stores/radu';
-
-const labelToColorMap: Record<Label, string> = {
-  car: 'var(--color-red)',
-  fish: 'var(--color-blue)',
-  house: 'var(--color-primary)',
-  tree: 'var(--color-green)',
-  bicycle: 'var(--color-yellow)',
-  guitar: 'var(--color-purple)',
-  pencil: 'var(--color-aqua)',
-  clock: 'var(--color-orange)'
-};
 
 type DisplayStudentProps = {
   name: StudentName;

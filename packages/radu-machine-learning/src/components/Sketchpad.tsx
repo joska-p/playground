@@ -2,14 +2,17 @@ import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef, useState } from 'react';
+import { getPathCount, getPointCount } from '../core/api';
 import type { Path, Point } from '../core/types';
+import { setCurrentDrawingPathCount, setCurrentDrawingPointCount } from '../stores/radu';
 
 function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const currentPathRef = useRef<Path | null>(null);
+  const isDrawingRef = useRef(false);
   const [strokeColor, setStrokeColor] = useState('#fefefeff');
   const [paths, setPaths] = useState<Path[] | null>(null);
-  const [currentPath, setCurrentPath] = useState<Path | null>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
 
   function exportPaths() {
     if (!paths) return;
@@ -32,49 +35,56 @@ function Sketchpad() {
   }
 
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
-    if (!canvasRef.current) return;
+    if (!ctxRef.current) return;
 
-    setIsDrawing(true);
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
+    isDrawingRef.current = true;
 
     const point = toCanvasPosition(e);
 
-    ctx.strokeStyle = strokeColor;
-    ctx.beginPath();
-    ctx.moveTo(point[0], point[1]);
+    ctxRef.current.strokeStyle = strokeColor;
+    ctxRef.current.beginPath();
+    ctxRef.current.moveTo(point[0], point[1]);
 
-    setCurrentPath([point]);
+    currentPathRef.current = [point];
   }
 
   function handleMouseUp() {
-    if (!isDrawing || !currentPath) return;
+    if (!isDrawingRef.current || !currentPathRef.current) return;
 
-    setPaths((prev) => (prev ? [...prev, currentPath] : [currentPath]));
-    setCurrentPath(null);
-    setIsDrawing(false);
+    const completedPath = currentPathRef.current;
+    setPaths((prev) => {
+      const newPaths = prev ? [...prev, completedPath] : [completedPath];
+      setCurrentDrawingPathCount(getPathCount(newPaths));
+      setCurrentDrawingPointCount(getPointCount(newPaths));
+      return newPaths;
+    });
+
+    currentPathRef.current = null;
+    isDrawingRef.current = false;
   }
 
   function handleMouseMove(e: React.MouseEvent<HTMLCanvasElement>) {
-    if (!canvasRef.current || !isDrawing) return;
-
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
+    if (!ctxRef.current || !isDrawingRef.current) return;
 
     const point = toCanvasPosition(e);
 
-    ctx.lineTo(point[0], point[1]);
-    ctx.stroke();
+    ctxRef.current.lineTo(point[0], point[1]);
+    ctxRef.current.stroke();
 
-    setCurrentPath((prev) => (prev ? [...prev, point] : [point]));
+    currentPathRef.current = currentPathRef.current ? [...currentPathRef.current, point] : [point];
   }
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
+    ctxRef.current = canvasRef.current.getContext('2d');
+  }, []);
 
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+  useEffect(() => {
+    const ctx = ctxRef.current;
+    const canvas = canvasRef.current;
+    if (!ctx || !canvas) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (!paths) return;
 
     paths.forEach((path) => {
@@ -121,7 +131,8 @@ function Sketchpad() {
           size="sm"
           variant="destructive"
           onClick={() => {
-            setCurrentPath(null);
+            currentPathRef.current = null;
+            isDrawingRef.current = false;
             setPaths(null);
           }}
         >
@@ -140,7 +151,7 @@ function Sketchpad() {
         ref={canvasRef}
         width={400}
         height={400}
-        className="bg-background aspect-video w-full"
+        className="bg-background aspect-square w-full"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

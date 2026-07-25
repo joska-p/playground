@@ -1,7 +1,7 @@
-import type { ChartBounds, Domain, Point } from './types';
+import type { ChartBounds, ChartPoint, Domain } from './types';
 
 export function computeChartBounds(
-  data: Point[],
+  data: ChartPoint[],
   options: { padRatio?: number; clampToZero?: boolean } = {}
 ): ChartBounds {
   if (data.length === 0) {

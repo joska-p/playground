@@ -1,26 +1,26 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { computeChartBounds, createScalers, getTicks } from './chart-utils';
 import { HEIGHT, MARGIN, WIDTH } from './constants';
 import { ScatterDot } from './ScatterDot';
 import { Tooltip } from './Tooltip';
-import type { Point } from './types';
+import type { ChartPoint } from './types';
 import { Xaxis } from './Xaxis';
 import { Yaxis } from './Yaxis';
 
 type ScatterChartProps = {
-  data: Point[];
+  data: ChartPoint[];
   xName?: string;
   yName?: string;
   hovered: {
-    point: Point;
+    point: ChartPoint;
     cx: number;
     cy: number;
   } | null;
 
-  renderDot: (point: Point, coords: { cx: number; cy: number }) => React.ReactNode;
+  renderDot: (point: ChartPoint, coords: { cx: number; cy: number }) => ReactNode;
 };
 
-export const ScatterChart = ({ data, xName, yName, hovered, renderDot }: ScatterChartProps) => {
+function ScatterChart({ data, xName, yName, hovered, renderDot }: ScatterChartProps) {
   const domain = computeChartBounds(data);
   const xDomain = domain.xDomain;
   const yDomain = domain.yDomain;
@@ -66,4 +66,6 @@ export const ScatterChart = ({ data, xName, yName, hovered, renderDot }: Scatter
       <Tooltip hovered={hovered} />
     </div>
   );
-};
+}
+
+export { ScatterChart };

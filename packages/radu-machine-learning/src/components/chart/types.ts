@@ -1,4 +1,4 @@
-export type Point = {
+export type ChartPoint = {
   drawingId: number;
   label: string;
   x: number;

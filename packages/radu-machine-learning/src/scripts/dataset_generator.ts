@@ -15,7 +15,7 @@ const samples: Sample[] = [];
 let id = 1;
 
 fileNames.forEach((fileName) => {
-  const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR, fileName), 'utf8');
+  const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
   const { session, student, drawings } = JSON.parse(fileContent) as RawSample;
 
   for (const [label, paths] of Object.entries(drawings)) {

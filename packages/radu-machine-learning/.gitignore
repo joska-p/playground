@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated dataset files
+src/data/dataset/ts_objects/*.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

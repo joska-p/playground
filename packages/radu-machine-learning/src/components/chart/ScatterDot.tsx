@@ -1,10 +1,11 @@
-import type { Point } from './types';
+import type React from 'react';
+import type { ChartPoint } from './types';
 
 type ScatterDotProps = {
-  data: Point[];
+  data: ChartPoint[];
   xScale: (value: number) => number;
   yScale: (value: number) => number;
-  renderDot: (point: Point, coords: { cx: number; cy: number }) => React.ReactNode;
+  renderDot: (point: ChartPoint, coords: { cx: number; cy: number }) => React.ReactNode;
 };
 
 function ScatterDot({ data, xScale, yScale, renderDot }: ScatterDotProps) {
