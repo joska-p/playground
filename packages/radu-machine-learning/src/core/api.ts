@@ -1,5 +1,5 @@
 import { features } from '../data/dataset/ts_objects/features';
-import type { Drawing, Students } from './types';
+import type { Drawing, Path, Students } from './types';
 
 const { samples } = features;
 
@@ -35,4 +35,12 @@ function getDrawingLabels() {
   return Array.from(labels);
 }
 
-export { getDrawingLabels, getSamplesByStudents };
+function getPathCount(paths: Path[]) {
+  return paths.length;
+}
+
+function getPointCount(paths: Path[]) {
+  return paths.flat().length;
+}
+
+export { getDrawingLabels, getPathCount, getPointCount, getSamplesByStudents };

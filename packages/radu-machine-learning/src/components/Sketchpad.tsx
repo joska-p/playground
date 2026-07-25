@@ -2,12 +2,12 @@ import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef, useState } from 'react';
-import type { Path, Paths, Point } from '../core/types';
+import type { Path, Point } from '../core/types';
 
 function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [strokeColor, setStrokeColor] = useState('#fefefeff');
-  const [paths, setPaths] = useState<Paths | null>(null);
+  const [paths, setPaths] = useState<Path[] | null>(null);
   const [currentPath, setCurrentPath] = useState<Path | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
 

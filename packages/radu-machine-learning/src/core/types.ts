@@ -4,7 +4,6 @@
 
 export type Point = [number, number];
 export type Path = Point[];
-export type Paths = Path[];
 
 // ==========================================
 // 2. Core Entities
@@ -15,7 +14,7 @@ export type Label = 'car' | 'fish' | 'house' | 'tree' | 'bicycle' | 'guitar' | '
 export type RawSample = {
   session: number;
   student: string;
-  drawings: Record<Label, Paths>;
+  drawings: Record<Label, Path[]>;
 };
 
 export type Sample = {
