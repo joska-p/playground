@@ -36,7 +36,7 @@ export function selectRule(ruleId: RuleId): void {
   updateTreeConfig(
     () => ({
       selectedRuleId: ruleId,
-      customOperators: null,
+      customOperatorIds: null,
       minDepth: rule.minDepth,
       maxDepth: rule.maxDepth
     }),

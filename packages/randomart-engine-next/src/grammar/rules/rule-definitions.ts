@@ -8,7 +8,7 @@ export const classicRule = {
   id: 'classic',
   label: 'Classic',
   kind: 'classic' as const,
-  operatorIds: ['sum', 'product', 'sin', 'cos'] as OperatorId[],
+  operatorIds: ['x', 'y', 'const', 'sum', 'product', 'sin', 'cos'] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
 } as const satisfies Rule;
@@ -17,7 +17,19 @@ export const paperRule = {
   id: 'paper',
   label: 'Paper',
   kind: 'classic' as const,
-  operatorIds: ['sum', 'product', 'sin', 'cos', 'exp', 'sqrt', 'div', 'mix'] as OperatorId[],
+  operatorIds: [
+    'x',
+    'y',
+    'const',
+    'sum',
+    'product',
+    'sin',
+    'cos',
+    'exp',
+    'sqrt',
+    'div',
+    'mix'
+  ] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
 } as const satisfies Rule;
@@ -26,7 +38,17 @@ export const flowRule = {
   id: 'flow',
   label: 'Flow',
   kind: 'classic' as const,
-  operatorIds: ['if', 'less-than', 'greater-than', 'mix', 'sum', 'product'] as OperatorId[],
+  operatorIds: [
+    'x',
+    'y',
+    'const',
+    'if',
+    'less-than',
+    'greater-than',
+    'mix',
+    'sum',
+    'product'
+  ] as OperatorId[],
   minDepth: 4,
   maxDepth: 8
 } as const satisfies Rule;

@@ -16,11 +16,11 @@ type PoolEntry = {
   weight: number;
 };
 
-const DEFAULT_TERMINALS: readonly PoolEntry[] = [
+export const DEFAULT_TERMINALS = [
   { type: 'x', arity: 0, weight: 1.0 },
   { type: 'y', arity: 0, weight: 1.0 },
   { type: 'const', arity: 0, weight: 0.5 }
-];
+] as const satisfies readonly PoolEntry[];
 
 const operatorToPoolEntry = (id: OperatorId): PoolEntry => ({
   type: id,
