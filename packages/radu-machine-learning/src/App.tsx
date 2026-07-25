@@ -5,7 +5,7 @@ import { Samples } from './components/Samples';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="bg-background text-foreground h-screen overflow-hidden">
+      <div className="bg-background text-foreground relative h-screen overflow-hidden">
         <Samples />
         <ControlPanel />
       </div>
