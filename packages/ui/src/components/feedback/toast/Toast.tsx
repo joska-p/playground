@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { ToastItem, ToastOptions } from '../../../hooks/useToastQueue';
 import { cn } from '../../../lib/cn';
-import styles from './toast.module.css';
+import styles from './Toast.module.css';
 import { ToastContext } from './useToast';
 
 const iconMap: Record<string, ReactNode> = {
