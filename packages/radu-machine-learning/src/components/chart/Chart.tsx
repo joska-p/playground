@@ -1,3 +1,4 @@
+import { cn } from '@repo/ui/lib/cn';
 import { useState } from 'react';
 import { labelToColorMap } from '../../constants';
 import { features } from '../../data/dataset/ts_objects/features';
@@ -76,7 +77,10 @@ function Chart() {
               cy={cy}
               r={dotRadius(selectedDrawingId, point.drawingId, isHovered)}
               fill={point.label === 'current' ? 'var(--destructive)' : labelToColorMap[point.label]}
-              className="cursor-pointer transition-[r] duration-200"
+              className={cn(
+                'cursor-pointer opacity-25 transition-[r_opacity] duration-200 hover:opacity-100',
+                { 'opacity-100': selectedDrawingId === point.drawingId }
+              )}
               onMouseEnter={() => {
                 setHovered({ point, cx, cy });
               }}
