@@ -2,18 +2,24 @@ import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
 type RaduStore = {
+  baseUrl: string;
   selectedDrawingId: number | null;
   currentDrawingPathCount: number;
   currentDrawingPointCount: number;
 };
 
 const raduStore = createStore<RaduStore>(() => ({
+  baseUrl: '/',
   selectedDrawingId: null,
   currentDrawingPathCount: 0,
   currentDrawingPointCount: 0
 }));
 
 /* Getters */
+
+export function useBaseUrl(): string {
+  return useStore(raduStore, (state) => state.baseUrl);
+}
 
 export function useSelectedDrawingId(): number | null {
   return useStore(raduStore, (state) => state.selectedDrawingId);
@@ -28,6 +34,10 @@ export function useCurrentDrawingPointCount(): number {
 }
 
 /* Setters */
+
+export function setBaseUrl(baseUrl: string): void {
+  raduStore.setState({ baseUrl });
+}
 
 export function setSelectedDrawingId(id: number | null): void {
   raduStore.setState({ selectedDrawingId: id });

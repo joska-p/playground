@@ -3,11 +3,12 @@ import { cn } from '@repo/ui/lib/cn';
 import { labelToColorMap } from '../constants';
 import { getDrawingLabels, getSamplesByStudents } from '../core/api';
 import type { Drawing } from '../core/types';
-import { setSelectedDrawingId, useSelectedDrawingId } from '../stores/store';
+import { setSelectedDrawingId, useBaseUrl, useSelectedDrawingId } from '../stores/store';
 
 function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
   const columnCount = getDrawingLabels().length + 1;
   const selectedDrawingId = useSelectedDrawingId();
+  const baseUrl = useBaseUrl();
 
   return (
     <div
@@ -31,7 +32,7 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
           <img
             loading="lazy"
             className="aspect-square object-cover"
-            src={`radu-img/${String(drawing.id)}.svg`}
+            src={`${baseUrl}radu-img/${String(drawing.id)}.svg`}
             alt={drawing.label}
           />
         </Card>
@@ -40,7 +41,7 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
   );
 }
 
-function Samples() {
+function Samples({ baseUrl }: { baseUrl: string }) {
   const students = getSamplesByStudents();
 
   return (
