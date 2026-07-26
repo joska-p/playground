@@ -1,13 +1,13 @@
 import { Card } from '@repo/ui/card';
 import { cn } from '@repo/ui/lib/cn';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { labelToColorMap } from '../constants';
 import { getDrawingLabels, getSamplesByStudents } from '../core/api';
 import type { Drawing } from '../core/types';
 import {
-  scrollToDrawing,
+  setSelectedDrawingId,
   useBaseUrl,
-  useScrollToDrawingId,
+  useScrollTargetId,
   useSelectedDrawingId
 } from '../stores/selection';
 
@@ -16,21 +16,10 @@ const columnCount = getDrawingLabels().length + 1;
 
 function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
   const selectedDrawingId = useSelectedDrawingId();
-  const scrollToId = useScrollToDrawingId();
   const baseUrl = useBaseUrl();
-  const rowRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollToId === null) return;
-    const match = drawings.some((d) => d.id === scrollToId);
-    if (match && rowRef.current) {
-      rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-    }
-  }, [scrollToId, drawings]);
 
   return (
     <div
-      ref={rowRef}
       className="grid items-center gap-2"
       style={{ gridTemplateColumns: `repeat(${String(columnCount)}, minmax(0, 1fr))` }}
     >
@@ -41,7 +30,7 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
           data-drawing-id={String(drawing.id)}
           data-label={drawing.label}
           onClick={() => {
-            scrollToDrawing(drawing.id);
+            setSelectedDrawingId(drawing.id);
           }}
           className={cn('w-fit cursor-pointer hover:ring', {
             'z-20 ring': selectedDrawingId === drawing.id
@@ -61,6 +50,16 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
 }
 
 function Samples() {
+  const scrollTargetId = useScrollTargetId();
+
+  useEffect(() => {
+    if (scrollTargetId === null) return;
+    const drawingElement = document.querySelector(`[data-drawing-id="${String(scrollTargetId)}"]`);
+    if (drawingElement) {
+      drawingElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    }
+  }, [scrollTargetId]);
+
   return (
     <div className="h-full min-h-0 max-w-2/3 space-y-4 overflow-y-auto p-2">
       {Object.values(students).map((student) => (

@@ -4,13 +4,13 @@ import { createStore } from 'zustand/vanilla';
 type SelectionStore = {
   baseUrl: string;
   selectedDrawingId: number | null;
-  scrollToDrawingId: number | null;
+  scrollTargetId: number | null;
 };
 
 const selectionStore = createStore<SelectionStore>(() => ({
   baseUrl: '/',
   selectedDrawingId: null,
-  scrollToDrawingId: null
+  scrollTargetId: null
 }));
 
 /* Getters */
@@ -23,8 +23,8 @@ export function useSelectedDrawingId(): number | null {
   return useStore(selectionStore, (state) => state.selectedDrawingId);
 }
 
-export function useScrollToDrawingId(): number | null {
-  return useStore(selectionStore, (state) => state.scrollToDrawingId);
+export function useScrollTargetId(): number | null {
+  return useStore(selectionStore, (state) => state.scrollTargetId);
 }
 
 /* Setters */
@@ -37,12 +37,12 @@ export function setSelectedDrawingId(id: number | null): void {
   selectionStore.setState({ selectedDrawingId: id });
 }
 
-export function scrollToDrawing(id: number): void {
-  selectionStore.setState({ scrollToDrawingId: id, selectedDrawingId: id });
+export function setScrollTarget(id: number): void {
+  selectionStore.setState({ scrollTargetId: id, selectedDrawingId: id });
 }
 
-export function clearScrollTo(): void {
-  selectionStore.setState({ scrollToDrawingId: null });
+export function clearScrollTarget(): void {
+  selectionStore.setState({ scrollTargetId: null });
 }
 
 export { selectionStore };

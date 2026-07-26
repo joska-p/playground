@@ -18,6 +18,9 @@ const keywords = project.data.tags?.join(', ').slice(1) || '';
   title={title}
 >
   <div class="h-0 min-h-screen">
-    <App client:only="react" baseUrl={baseUrl}/>
+    <App
+      client:only="react"
+      baseUrl={baseUrl}
+    />
   </div>
 </BaseLayout>
