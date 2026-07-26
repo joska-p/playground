@@ -31,7 +31,7 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
           <img
             loading="lazy"
             className="aspect-square object-cover"
-            src={`/radu-img/${String(drawing.id)}.svg`}
+            src={`radu-img/${String(drawing.id)}.svg`}
             alt={drawing.label}
           />
         </Card>
