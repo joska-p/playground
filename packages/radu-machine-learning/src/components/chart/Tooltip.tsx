@@ -1,4 +1,4 @@
-import { useShowTooltipAt } from '../../stores/store';
+import { useShowTooltipAt } from '../../stores/chart-ui';
 import { HEIGHT, WIDTH } from './constants';
 
 function Tooltip() {

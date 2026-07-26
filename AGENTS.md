@@ -1,6 +1,6 @@
 # Playground
 
-Monorepo with pnpm workspaces + Turborepo.
+Monorepo with pnpm workspaces + Turborepo. React 19 with compiler (no need for useMemo or useCallback)
 
 ## Commands
 

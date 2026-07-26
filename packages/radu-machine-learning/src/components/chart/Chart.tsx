@@ -1,14 +1,9 @@
 import { cn } from '@repo/ui/lib/cn';
 import { labelToColorMap } from '../../constants';
 import { features } from '../../data/dataset/ts_objects/features';
-import {
-  setSelectedDrawingId,
-  setShowTooltipAt,
-  useCurrentDrawingPathCount,
-  useCurrentDrawingPointCount,
-  useSelectedDrawingId,
-  useShowTooltipAt
-} from '../../stores/store';
+import { setShowTooltipAt, useShowTooltipAt } from '../../stores/chart-ui';
+import { scrollToDrawing, useSelectedDrawingId } from '../../stores/selection';
+import { useSketchpadPathCount, useSketchpadPointCount } from '../../stores/sketchpad';
 import { ScatterChart } from './ScatterChart';
 import type { ChartPoint } from './types';
 
@@ -25,8 +20,8 @@ function dotRadius(
 
 function Chart() {
   const selectedDrawingId = useSelectedDrawingId();
-  const currentDrawingPathCount = useCurrentDrawingPathCount();
-  const currentDrawingPointCount = useCurrentDrawingPointCount();
+  const currentDrawingPathCount = useSketchpadPathCount();
+  const currentDrawingPointCount = useSketchpadPointCount();
   const showTooltipAt = useShowTooltipAt();
 
   const data: ChartPoint[] = samples.map(({ label, point, id }) => ({
@@ -46,15 +41,8 @@ function Chart() {
   }
 
   const handleScatterClick = (point: ChartPoint) => {
-    const targetElement = document.querySelector(`[data-drawing-id="${String(point.drawingId)}"]`);
-
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'nearest'
-      });
-      setSelectedDrawingId(point.drawingId);
+    if (point.drawingId !== null) {
+      scrollToDrawing(point.drawingId);
     }
   };
 

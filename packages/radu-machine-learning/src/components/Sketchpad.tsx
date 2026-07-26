@@ -1,18 +1,25 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
-import { useEffect, useRef, useState } from 'react';
-import { getPointCount } from '../core/api';
+import { useEffect, useRef } from 'react';
 import type { Path, Point } from '../core/types';
-import { setCurrentDrawingPathCount, setCurrentDrawingPointCount } from '../stores/store';
+import {
+  addPath,
+  clearPaths,
+  setStrokeColor,
+  undoPath,
+  useSketchpadPaths,
+  useSketchpadStrokeColor
+} from '../stores/sketchpad';
 
 function Sketchpad() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const isDrawingRef = useRef(false);
   const currentPathRef = useRef<Path>([]);
-  const [strokeColor, setStrokeColor] = useState('#fefefeff');
-  const [paths, setPaths] = useState<Path[]>([]);
+
+  const paths = useSketchpadPaths();
+  const strokeColor = useSketchpadStrokeColor();
 
   function exportPaths() {
     if (paths.length === 0) return;
@@ -64,7 +71,7 @@ function Sketchpad() {
     currentPathRef.current = [];
     isDrawingRef.current = false;
 
-    setPaths((prev) => [...prev, completedPath]);
+    addPath(completedPath);
   }
 
   useEffect(() => {
@@ -89,9 +96,6 @@ function Sketchpad() {
       });
       ctx.stroke();
     });
-
-    setCurrentDrawingPathCount(paths.length);
-    setCurrentDrawingPointCount(getPointCount(paths));
   }, [paths, strokeColor]);
 
   return (
@@ -116,9 +120,7 @@ function Sketchpad() {
         <Button
           size="sm"
           variant="warning"
-          onClick={() => {
-            setPaths((prev) => prev.slice(0, -1));
-          }}
+          onClick={undoPath}
         >
           Undo
         </Button>
@@ -129,7 +131,7 @@ function Sketchpad() {
           onClick={() => {
             isDrawingRef.current = false;
             currentPathRef.current = [];
-            setPaths([]);
+            clearPaths();
           }}
         >
           Clear
