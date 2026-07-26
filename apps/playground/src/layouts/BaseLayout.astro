@@ -3,6 +3,8 @@ import Navbar from './nav-bar/NavBar.astro';
 import { Font } from 'astro:assets';
 import '../styles/styles.css';
 import BackgroundCanvas from '../components/ui/features/BackgroundCanvas.astro';
+import edgeFiledImage from '../assets/background/edge-field.webp';
+import { Image } from 'astro:assets';
 
 const baseUrl = import.meta.env.BASE_URL || '';
 
@@ -175,9 +177,15 @@ const { className } = Astro.props;
     <Font cssVariable="--font-jetbrains-mono" />
   </head>
   <body
-    class="bg-background text-foreground relative min-h-screen bg-[url(background/edge-field.webp)] bg-cover bg-fixed bg-center bg-no-repeat antialiased"
+    class="bg-background text-foreground relative min-h-screen"
     id="home"
   >
+    <Image
+      src={edgeFiledImage}
+      alt=""
+      class="fixed top-0 left-0 w-full h-full object-cover opacity-80"
+      loading="lazy"
+    />
     <BackgroundCanvas />
     <Navbar />
     <main
