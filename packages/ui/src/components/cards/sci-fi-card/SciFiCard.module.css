@@ -1,0 +1,27 @@
+@keyframes laser {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes snakeMove {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1100;
+  }
+}
+
+.snakePath {
+  stroke-dasharray: 1000 10;
+  animation: snakeMove 60s linear infinite;
+}
+
+.laserPath {
+  stroke-dasharray: 10 30;
+  animation: laser 60s linear infinite;
+}

@@ -79,10 +79,8 @@ export default defineConfig({
         'three',
         '@react-three/fiber',
         '@react-three/drei',
-        'three-mesh-bvh', // <-- Extracted from your stats! Safely bundle this heavy BVH math.
 
         // --- Math & Canvas Utilities ---
-        'p5',
         'fast-png', // <-- Extracted from your stats! Keep pixel parsing fast.
         'zustand',
         'leva'

@@ -98,8 +98,6 @@ export function RegionGrid() {
         {REGIONS.map((r) => (
           <SciFiCard
             key={r.id}
-            flavor="atlas"
-            animated={true}
             seed={r.seed}
             cardId={r.id}
             cardTitle={r.title}

@@ -10,15 +10,6 @@ const meta: Meta<typeof SciFiCard> = {
       description: 'Seed for deterministic procedural SVG artwork.',
       control: { type: 'number' }
     },
-    flavor: {
-      description: 'Visual flavor — edge detection contours or atlas scan.',
-      options: ['edge', 'atlas'],
-      control: { type: 'select' }
-    },
-    animated: {
-      description: 'Enable mouse-tracking glow and animated stroke draw-on.',
-      control: { type: 'boolean' }
-    },
     cardId: {
       description: 'Badge label shown in the top corner.',
       control: 'text'
@@ -55,57 +46,15 @@ export default meta;
 
 type Story = StoryObj<typeof SciFiCard>;
 
-export const EdgeDefault: Story = {
+export const Default: Story = {
   args: {
     seed: 42,
-    flavor: 'edge',
-    cardId: 'edge-01',
-    cardTitle: 'Neural Pathway',
-    classification: 'Classified',
-    resolution: '3840×2160',
-    density: '142.3',
-    variant: 'primary'
-  }
-};
-
-export const AtlasDefault: Story = {
-  args: {
-    seed: 42,
-    flavor: 'atlas',
     cardId: 'A-01',
     cardTitle: 'Northern Frontier',
     classification: 'Tundra',
     resolution: '256 px',
     density: '0.8 g/cm³',
     variant: 'primary'
-  }
-};
-
-export const EdgeAnimated: Story = {
-  args: {
-    seed: 108,
-    flavor: 'edge',
-    animated: true,
-    cardId: 'edge-02',
-    cardTitle: 'Signal Cascade',
-    classification: 'Restricted',
-    resolution: '2560×1440',
-    density: '87.1',
-    variant: 'accent'
-  }
-};
-
-export const AtlasAnimated: Story = {
-  args: {
-    seed: 108,
-    flavor: 'atlas',
-    animated: true,
-    cardId: 'A-02',
-    cardTitle: 'Southern Basin',
-    classification: 'Abyssal',
-    resolution: '512 px',
-    density: '1.2 g/cm³',
-    variant: 'accent'
   }
 };
 
