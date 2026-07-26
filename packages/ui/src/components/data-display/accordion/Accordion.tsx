@@ -1,5 +1,6 @@
 import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
+import styles from './Accordion.module.css';
 import { accordionItemVariants, type AccordionItemVariants } from './variants';
 
 export interface AccordionItemProps
@@ -27,7 +28,7 @@ export function AccordionItem({
         {title}
         <span className={cn(accordionItemVariants({ variant }))} />
       </summary>
-      <div className={'accordion-body text-foreground-muted px-5 pb-4 leading-relaxed'}>
+      <div className={cn(styles['body'], 'text-foreground-muted px-5 pb-4 leading-relaxed')}>
         {children}
       </div>
     </details>

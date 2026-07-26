@@ -1,0 +1,25 @@
+.item {
+  @starting-style {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+  animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.itemExit {
+  animation: toastOut 0.3s ease both;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+}

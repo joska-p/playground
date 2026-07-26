@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const dialogVariants = cva(
-  'dialog-modal bg-surface w-full self-center justify-self-center rounded-lg p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground-dim',
+  'bg-surface w-full self-center justify-self-center rounded-lg p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground-dim',
   {
     variants: {
       size: {

@@ -1,6 +1,7 @@
 import { createContext, useContext, useId, type ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 import type { ColorVariant } from '../../../lib/colorVariant';
+import styles from './Tabs.module.css';
 import { tabUnderlineVariants } from './variants';
 
 interface TabsContextValue {
@@ -36,9 +37,7 @@ export function Tabs({
 
   return (
     <TabsContext.Provider value={{ value, setValue: onValueChange, name, variant }}>
-      <div
-        className={cn('tabs-container bg-surface overflow-hidden rounded-lg shadow-sm', className)}
-      >
+      <div className={cn('bg-surface overflow-hidden rounded-lg shadow-sm', className)}>
         {children}
       </div>
     </TabsContext.Provider>
@@ -63,7 +62,7 @@ export function TabsTrigger({
   return (
     <label
       className={cn(
-        'group tab-trigger text-foreground-dim relative cursor-pointer px-5 py-3 text-[13px] font-medium transition-colors select-none',
+        'group text-foreground-dim data-[active=true]:text-foreground relative cursor-pointer px-5 py-3 text-sm font-medium transition-colors select-none',
         className
       )}
       data-active={isActive}
@@ -107,7 +106,8 @@ export function TabsContent({
       hidden={!isActive}
       data-active={isActive}
       className={cn(
-        'tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed',
+        'text-foreground-muted px-5 py-5 text-[13px] leading-relaxed',
+        isActive && styles['panelActive'],
         className
       )}
     >

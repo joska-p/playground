@@ -20,7 +20,11 @@ export function Textarea({
   return (
     <textarea
       ref={ref}
-      className={cn(textareaVariants({ variant }), autoGrow && 'textarea-auto', className)}
+      className={cn(
+        textareaVariants({ variant }),
+        autoGrow && 'field-sizing-content max-h-[15lh] min-h-[3lh]',
+        className
+      )}
       style={style}
       {...props}
     />

@@ -65,7 +65,7 @@ export function Carousel({
       )}
       <div
         ref={trackRef}
-        className="carousel flex gap-4 px-1 py-2"
+        className="flex snap-x snap-mandatory scrollbar-none gap-4 overflow-x-scroll px-1 py-2"
         aria-hidden={loading}
       >
         {loading && (
@@ -88,10 +88,7 @@ export function CarouselSlide({ children, className, ref, ...props }: CarouselSl
   return (
     <div
       ref={ref}
-      className={cn(
-        'carousel-slide bg-surface w-60 shrink-0 overflow-hidden rounded-lg',
-        className
-      )}
+      className={cn('bg-surface w-60 shrink-0 snap-center overflow-hidden rounded-lg', className)}
       style={{ boxShadow: 'var(--shadow-sm)' }}
       {...props}
     >

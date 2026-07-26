@@ -2,6 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 import { Button } from '../../data-entry';
 import type { ButtonVariants } from '../../data-entry/button/variants';
+import styles from './Dialog.module.css';
 import {
   dialogBodyVariants,
   dialogDescriptionVariants,
@@ -32,7 +33,7 @@ export function Dialog({
     <dialog
       open={open}
       onClose={onClose}
-      className={cn(dialogVariants({ size }), className)}
+      className={cn(dialogVariants({ size }), styles['modal'], className)}
       style={{ boxShadow: 'var(--shadow-lg)' }}
       {...props}
     >

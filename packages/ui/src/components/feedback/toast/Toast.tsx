@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { ToastItem, ToastOptions } from '../../../hooks/useToastQueue';
 import { cn } from '../../../lib/cn';
+import styles from './toast.module.css';
 import { ToastContext } from './useToast';
 
 const iconMap: Record<string, ReactNode> = {
@@ -34,26 +35,30 @@ export function ToastViewport({
 
   return createPortal(
     <div className="fixed right-4 bottom-4 z-9999 flex flex-col gap-2">
-      {toasts.map((t) => {
-        const key = t.variant ?? 'default';
+      {toasts.map((toast) => {
+        const key = toast.variant ?? 'default';
         return (
           <div
-            key={t.id}
-            className={cn('toast-item bg-surface-raised w-72 rounded-lg p-4', t.exiting && 'exit')}
+            key={toast.id}
+            className={cn(
+              styles['item'],
+              'bg-surface-raised w-72 rounded-lg p-4',
+              toast.exiting && styles['itemExit']
+            )}
             style={{ boxShadow: 'var(--shadow-lg)' }}
             role="status"
           >
             <div className="flex gap-3">
               <span className={cn('mt-0.5 text-xs', iconColor[key])}>{iconMap[key]}</span>
               <div className="flex-1">
-                <p className="text-foreground text-[13px] font-medium">{t.title}</p>
-                {t.description && (
-                  <p className="text-foreground-muted mt-1 text-[11px]">{t.description}</p>
+                <p className="text-foreground text-sm font-medium">{toast.title}</p>
+                {toast.description && (
+                  <p className="text-foreground-muted mt-1 text-xs">{toast.description}</p>
                 )}
               </div>
               <button
                 onClick={() => {
-                  onDismiss(t.id);
+                  onDismiss(toast.id);
                 }}
                 aria-label="Dismiss notification"
                 className="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"
