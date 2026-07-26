@@ -3,7 +3,7 @@ import { ControlPanel } from './components/ControlPanel';
 import { Samples } from './components/Samples';
 import { setBaseUrl } from './stores/store';
 
-function App({ baseUrl = '/' }: { baseUrl: string }) {
+function App({ baseUrl = '/' }: { baseUrl?: string }) {
   setBaseUrl(baseUrl);
   return (
     <ErrorBoundary>

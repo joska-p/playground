@@ -145,9 +145,9 @@ function Sketchpad() {
       </ControlGrid>
       <canvas
         ref={canvasRef}
-        width={400}
-        height={255}
-        className="bg-background aspect-video w-full"
+        width={600}
+        height={400}
+        className="bg-background aspect-3/2 w-full"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

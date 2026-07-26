@@ -41,7 +41,7 @@ function StudentRow({ name, drawings }: { name: string; drawings: Drawing[] }) {
   );
 }
 
-function Samples({ baseUrl }: { baseUrl: string }) {
+function Samples() {
   const students = getSamplesByStudents();
 
   return (
