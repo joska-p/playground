@@ -6,13 +6,13 @@ const { href } = Astro.props;
 ---
 
 <a
-  href={href}
-  class="group text-foreground pointer-events-auto flex items-center gap-2 text-xs font-bold transition-all duration-300"
   aria-label="Playground home"
+  class="group text-foreground pointer-events-auto flex items-center gap-2 text-xs font-bold transition-all duration-300"
+  href={href}
 >
   <span
-    class="relative flex h-6 w-6 items-center justify-center"
     aria-hidden="true"
+    class="relative flex h-6 w-6 items-center justify-center"
   >
     <span
       class="group-hover:bg-accent absolute inset-0 animate-ping rounded-full border-2 border-(--glow-color) bg-(--glow-color) opacity-30"

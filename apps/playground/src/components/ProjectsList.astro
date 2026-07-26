@@ -29,13 +29,13 @@ function stringToSeed(str: string): number {
           title={project.data.title}
         >
           <AtlasCard
-            seed={stringToSeed(project.data.title)}
             cardId={toCanadianSyllabics.fromHash(project.data.tags[0].id).substring(0, 8)}
             cardTitle={project.data.title}
             classification={project.data.description}
+            color={`var(--tags-${mainTag})`}
             density={toBraille.fromHash(project.data.description).substring(0, 8)}
             resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
-            color={`var(--tags-${mainTag})`}
+            seed={stringToSeed(project.data.title)}
           />
         </a>
       );

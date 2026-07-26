@@ -3,7 +3,7 @@ import eslintPluginAstro from 'eslint-plugin-astro';
 
 export default [
   ...createConfig(import.meta.dirname),
-  ...eslintPluginAstro.configs.all,
+  ...eslintPluginAstro.configs.recommended,
   {
     files: ['**/*.astro', 'src/content.config.ts'],
     rules: {

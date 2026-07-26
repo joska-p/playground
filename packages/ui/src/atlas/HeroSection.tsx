@@ -1,13 +1,10 @@
 import { Badge } from '../components/data-display/badge/Badge';
 import { Hero } from '../components/data-display/hero/Hero';
 import { Button } from '../components/data-entry/button/Button';
-import { EdgeFieldMask } from '../components/widgets/edge-field/mask/EdgeFieldMask';
 
 export function HeroSection() {
   return (
     <div className="relative">
-      <EdgeFieldMask />
-
       <Hero
         variant="ghost"
         badgeText="Topographic UI System v0.1.0"

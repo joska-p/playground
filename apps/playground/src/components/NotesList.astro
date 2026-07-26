@@ -35,13 +35,13 @@ function stringToSeed(str: string): number {
           title={note.data.title}
         >
           <AtlasCard
-            seed={seed}
             cardId={note.data.tags[0].id}
             cardTitle={note.data.description ?? 'NC'}
             classification={note.data.title}
+            color={`var(--tags-${mainTag})`}
             density={String(seed)}
             resolution={date}
-            color={`var(--tags-${mainTag})`}
+            seed={seed}
           />
         </a>
       );

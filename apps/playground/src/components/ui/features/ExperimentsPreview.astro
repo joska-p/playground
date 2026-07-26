@@ -20,8 +20,8 @@ const groups = allTags
 ---
 
 <section
-  class="px-5 py-10 sm:px-6 lg:py-14"
   aria-label="Experiment categories"
+  class="px-5 py-10 sm:px-6 lg:py-14"
 >
   <div class="mx-auto max-w-6xl space-y-6">
     <header class="flex items-center gap-3">
@@ -41,12 +41,12 @@ const groups = allTags
           } as CSSProperties;
           return (
             <CategoryCard
+              count={count}
+              description={description}
               href={link}
+              iconName={iconName}
               id={id}
               label={label}
-              description={description}
-              iconName={iconName}
-              count={count}
               style={cardStyle}
             />
           );

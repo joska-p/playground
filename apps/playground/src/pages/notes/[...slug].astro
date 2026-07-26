@@ -40,15 +40,15 @@ const formattedDate = date.toLocaleDateString('fr-FR', {
 ---
 
 <BaseLayout
-  title={note.data.title}
   katex={true}
+  title={note.data.title}
 >
   <Hero
-    variant="ghost"
     badgeText={formattedDate}
+    description={note.data.description ?? ''}
     highlight={tagEntry?.data.title ?? mainTag}
     title={note.data.title}
-    description={note.data.description ?? ''}
+    variant="ghost"
   />
 
   <article

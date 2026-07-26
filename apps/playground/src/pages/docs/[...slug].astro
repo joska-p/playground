@@ -34,11 +34,11 @@ const heroTitle = tagEntry?.data.title ?? mainTag;
 
 <BaseLayout title={doc.data.title}>
   <Hero
-    variant="ghost"
     badgeText="Documentation"
+    description={doc.data.description ?? ''}
     highlight="Knowledge"
     title={heroTitle}
-    description={doc.data.description ?? ''}
+    variant="ghost"
   />
   <div class="flex justify-center">
     <article

@@ -13,50 +13,50 @@ const badgeText = toOgham.fromHash('Recreational Programming');
 
 <BaseLayout title="Cahier d'exercices">
   <Hero
-    variant="ghost"
     badgeText={badgeText}
+    description="A personal archive of uncharted logic, visual phenomena, and mathematical playgrounds. Built not to be finished, but to discover what happens next."
     highlight={highlight}
     title="Cahier d'exercices"
-    description="A personal archive of uncharted logic, visual phenomena, and mathematical playgrounds. Built not to be finished, but to discover what happens next."
+    variant="ghost"
   />
 </BaseLayout>
 
 <section
-  id="discoveries"
   class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  id="discoveries"
 >
   <SectionHeader
+    className="mb-12"
+    description="Experiments catalogued in the field — live prototypes and visual investigations."
     iconName="bluesky"
     title="Discoveries"
-    description="Experiments catalogued in the field — live prototypes and visual investigations."
-    className="mb-12"
   />
   <ProjectsList />
 </section>
 
 <section
-  id="notes"
   class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  id="notes"
 >
   <SectionHeader
+    className="mb-12"
+    description="Reflective writing, logs, and observations from the research process."
     iconName="bluesky"
     title="Field Notes"
-    description="Reflective writing, logs, and observations from the research process."
-    className="mb-12"
   />
   <NotesList />
 </section>
 
 <section
-  id="documents"
   class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  id="documents"
 >
   <SectionHeader
-    iconName="bluesky"
-    title="Codex"
-    description="Technical references, guides, and the collective manual."
     align="center"
     className="mb-12"
+    description="Technical references, guides, and the collective manual."
+    iconName="bluesky"
+    title="Codex"
   />
   <DocumentsList />
 </section>

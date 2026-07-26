@@ -19,12 +19,12 @@ const sortedDocs = allDocs.sort((a, b) => a.data.title.localeCompare(b.data.titl
       const docUrl = `${docsBaseUrl}${doc.id}/#main`;
       return (
         <DocCard
-          href={docUrl}
-          title={doc.data.title}
           description={doc.data.description ?? ''}
-          type={doc.data.tags[0].id}
+          href={docUrl}
           iconName="bluesky"
           style={cardStyle}
+          title={doc.data.title}
+          type={doc.data.tags[0].id}
         />
       );
     })
