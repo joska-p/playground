@@ -11,16 +11,10 @@ type ScatterChartProps = {
   data: ChartPoint[];
   xName?: string;
   yName?: string;
-  hovered: {
-    point: ChartPoint;
-    cx: number;
-    cy: number;
-  } | null;
-
   renderDot: (point: ChartPoint, coords: { cx: number; cy: number }) => ReactNode;
 };
 
-function ScatterChart({ data, xName, yName, hovered, renderDot }: ScatterChartProps) {
+function ScatterChart({ data, xName, yName, renderDot }: ScatterChartProps) {
   const domain = computeChartBounds(data);
   const xDomain = domain.xDomain;
   const yDomain = domain.yDomain;
@@ -63,7 +57,7 @@ function ScatterChart({ data, xName, yName, hovered, renderDot }: ScatterChartPr
         />
       </svg>
 
-      <Tooltip hovered={hovered} />
+      <Tooltip />
     </div>
   );
 }

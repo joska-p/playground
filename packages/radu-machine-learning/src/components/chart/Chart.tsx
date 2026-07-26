@@ -1,12 +1,13 @@
 import { cn } from '@repo/ui/lib/cn';
-import { useState } from 'react';
 import { labelToColorMap } from '../../constants';
 import { features } from '../../data/dataset/ts_objects/features';
 import {
   setSelectedDrawingId,
+  setShowTooltipAt,
   useCurrentDrawingPathCount,
   useCurrentDrawingPointCount,
-  useSelectedDrawingId
+  useSelectedDrawingId,
+  useShowTooltipAt
 } from '../../stores/store';
 import { ScatterChart } from './ScatterChart';
 import type { ChartPoint } from './types';
@@ -26,11 +27,7 @@ function Chart() {
   const selectedDrawingId = useSelectedDrawingId();
   const currentDrawingPathCount = useCurrentDrawingPathCount();
   const currentDrawingPointCount = useCurrentDrawingPointCount();
-  const [hovered, setHovered] = useState<{
-    point: ChartPoint;
-    cx: number;
-    cy: number;
-  } | null>(null);
+  const showTooltipAt = useShowTooltipAt();
 
   const data: ChartPoint[] = samples.map(({ label, point, id }) => ({
     drawingId: id,
@@ -67,9 +64,8 @@ function Chart() {
         data={data}
         xName={featureNames[0]}
         yName={featureNames[1]}
-        hovered={hovered}
         renderDot={(point, { cx, cy }) => {
-          const isHovered = hovered?.point.drawingId === point.drawingId;
+          const isHovered = showTooltipAt?.point.drawingId === point.drawingId;
           return (
             <circle
               data-drawing-id-point={point.drawingId}
@@ -82,10 +78,10 @@ function Chart() {
                 { 'opacity-100': selectedDrawingId === point.drawingId }
               )}
               onMouseEnter={() => {
-                setHovered({ point, cx, cy });
+                setShowTooltipAt({ point, cx, cy });
               }}
               onMouseLeave={() => {
-                setHovered(null);
+                setShowTooltipAt(null);
               }}
               onClick={() => {
                 handleScatterClick(point);
