@@ -1,4 +1,4 @@
-import { AtlasCard } from '../components/cards/atlas-card';
+import { SciFiCard } from '../components/cards';
 import { Badge } from '../components/data-display/badge/Badge';
 import { SectionHeader } from '../components/data-display/section-header/SectionHeader';
 
@@ -96,8 +96,9 @@ export function RegionGrid() {
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {REGIONS.map((r) => (
-          <AtlasCard
+          <SciFiCard
             key={r.id}
+            flavor="atlas"
             animated={true}
             seed={r.seed}
             cardId={r.id}

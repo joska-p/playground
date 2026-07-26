@@ -1,24 +1,16 @@
-// Deterministic Atlas-detection style artwork generator.
-// Every AtlasCard renders a unique "scan" made of open curves, closed
-// silhouettes, and sample points, seeded so the same `seed` always
-// produces the same artwork.
-
-export interface AtlasDot {
+export interface SciFiDot {
   cx: string;
   cy: string;
   r: string;
-  /** CSS time value (e.g. "1.2s"), used to stagger the optional pulse animation */
   delay: string;
 }
 
-export interface AtlasCardPaths {
+export interface SciFiCardPaths {
   openPaths: string;
-  /** Total length (SVG user units) of `openPaths`, for stroke-dashoffset draw-on animation. */
   openPathLength: number;
   closedPaths: string;
-  /** Total length (SVG user units) of `closedPaths`, for stroke-dashoffset draw-on animation. */
   closedPathLength: number;
-  dots: AtlasDot[];
+  dots: SciFiDot[];
 }
 
 interface PathResult {
@@ -30,14 +22,6 @@ function distance(x0: number, y0: number, x1: number, y1: number): number {
   return Math.hypot(x1 - x0, y1 - y0);
 }
 
-/**
- * Rough (deliberately over-)estimate of a quadratic bezier's length, using the
- * control-polygon length (start→control + control→end) instead of sampling
- * the curve. This is always >= the true curve length, which matters for the
- * stroke-dashoffset draw-on effect: overestimating just means the line
- * finishes drawing a touch before the animation ends and then holds — safe.
- * Underestimating would leave a stretch of the curve permanently undrawn.
- */
 function quadLength(
   x0: number,
   y0: number,
@@ -49,7 +33,6 @@ function quadLength(
   return distance(x0, y0, cx, cy) + distance(cx, cy, x1, y1);
 }
 
-/** Mulberry32 — small, fast, deterministic PRNG. */
 export function mulberry32(seed: number) {
   return function random() {
     let t = (seed += 0x6d2b79f5);
@@ -61,7 +44,6 @@ export function mulberry32(seed: number) {
 
 const SIZE = 300;
 
-/** Open, flowing curves — reads like fabric folds or topographic contours. */
 function buildOpenPaths(rand: () => number): PathResult {
   const numCurves = 4 + Math.floor(rand() * 4);
   let d = '';
@@ -89,7 +71,6 @@ function buildOpenPaths(rand: () => number): PathResult {
   return { d, length };
 }
 
-/** Closed, jagged polygons — reads like detected object silhouettes. */
 function buildClosedPaths(rand: () => number): PathResult {
   const numShapes = 1 + Math.floor(rand() * 2);
   let d = '';
@@ -130,8 +111,7 @@ function buildClosedPaths(rand: () => number): PathResult {
   return { d, length };
 }
 
-/** Sample points scattered across the card, like detection markers. */
-function buildDots(rand: () => number): AtlasDot[] {
+function buildDots(rand: () => number): SciFiDot[] {
   return Array.from({ length: 12 }, () => ({
     cx: (rand() * SIZE).toFixed(1),
     cy: (rand() * SIZE).toFixed(1),
@@ -140,8 +120,7 @@ function buildDots(rand: () => number): AtlasDot[] {
   }));
 }
 
-/** Generates a deterministic set of SVG path strings + sample dots for a given seed. */
-export function generateAtlasPaths(seed: number): AtlasCardPaths {
+export function generateSciFiPaths(seed: number): SciFiCardPaths {
   const rand = mulberry32(seed);
   const open = buildOpenPaths(rand);
   const closed = buildClosedPaths(rand);

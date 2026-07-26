@@ -55,7 +55,7 @@ export function AtlasFooter() {
           Atlas v0.1.0 — cartographer's draft
         </Badge>
         <p className="text-foreground-muted text-xs">
-          Built with EdgeCard, Hero, Badge, Card, Accordion, Tabs, FloatingNav, and more.
+          Built with SciFiCard, Hero, Badge, Card, Accordion, Tabs, FloatingNav, and more.
         </p>
         <div className="flex gap-2">
           <Button

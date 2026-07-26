@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { AtlasCard } from '@repo/ui/cards';
+import { SciFiCard } from '@repo/ui/cards';
 import { toBraille, toOgham, toCanadianSyllabics } from '../utils/format';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
@@ -28,7 +28,7 @@ function stringToSeed(str: string): number {
           href={`${projectsBaseUrl}${project.id}/#main`}
           title={project.data.title}
         >
-          <AtlasCard
+          <SciFiCard
             cardId={toCanadianSyllabics.fromHash(project.data.tags[0].id).substring(0, 8)}
             cardTitle={project.data.title}
             classification={project.data.description}

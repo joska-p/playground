@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const atlasCardVariants = cva(
+export const sciFiCardVariants = cva(
   'group relative aspect-square overflow-hidden border p-5 transition-all duration-450 ease-[cubic-bezier(0.4,0,0.2,1)]',
   {
     variants: {
@@ -17,4 +17,4 @@ export const atlasCardVariants = cva(
   }
 );
 
-export type AtlasCardVariantProps = VariantProps<typeof atlasCardVariants>;
+export type SciFiCardVariantProps = VariantProps<typeof sciFiCardVariants>;

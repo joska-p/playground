@@ -4,7 +4,7 @@ import { SectionHeader } from '../components/data-display/section-header/Section
 const NOTES = [
   {
     title: 'How are contour lines generated?',
-    body: 'Each EdgeCardAnimated uses a seeded PRNG (Mulberry32) to produce deterministic quadratic Bézier curves and closed polygons. The seed ensures the same terrain renders on every visit — no randomness at runtime.'
+    body: 'Each SciFiCard uses a seeded PRNG (Mulberry32) to produce deterministic quadratic Bézier curves and closed polygons. The seed ensures the same terrain renders on every visit — no randomness at runtime.'
   },
   {
     title: 'What do the density values represent?',
@@ -16,7 +16,7 @@ const NOTES = [
   },
   {
     title: 'Can I create new regions?',
-    body: 'Yes — pass any integer seed to EdgeCardAnimated. The PRNG is deterministic, so seed 42 always produces the same terrain. Mix seeds from different sources (timestamps, coordinates) for unique maps.'
+    body: 'Yes — pass any integer seed to SciFiCard. The PRNG is deterministic, so seed 42 always produces the same terrain. Mix seeds from different sources (timestamps, coordinates) for unique maps.'
   }
 ];
 

@@ -1,6 +1,5 @@
 import type { ComponentProps, CSSProperties, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { accentTokens } from '../accent-tokens/accentTokens';
 
 export type CardLinkProps = {
   ref?: Ref<HTMLAnchorElement>;
@@ -22,7 +21,7 @@ export type CardLinkProps = {
 export function CardLink({
   ref,
   href,
-  accent = accentTokens.primary,
+  accent = 'var(--primary)',
   className,
   style,
   children,
