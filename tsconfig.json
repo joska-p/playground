@@ -8,6 +8,7 @@
     { "path": "packages/sequence-engine" },
     { "path": "packages/pixel-engine" },
     { "path": "packages/randomart-engine" },
+    { "path": "packages/randomart-engine-next" },
     { "path": "packages/ui" },
     { "path": "packages/art-canvas" },
     { "path": "packages/automa" },

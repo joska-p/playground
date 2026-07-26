@@ -5,28 +5,19 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [
-        ".astro/**",
-        "dist/**",
-        "storybook-static/**",
-        ".next/**",
-        "!.next/cache/**",
-        ".svelte-kit/**",
-        ".output/**"
-      ]
+      "outputs": [".astro/**", "dist/**", "storybook-static/**"]
     },
     "test": {
       "outputs": ["coverage/**", "playwright-report/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"],
+      "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"],
       "outputs": [".eslintcache"]
     },
     "lint-fix": {
-      "dependsOn": ["^lint-fix"]
+      "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"]
     },
     "check-types": {
-      "dependsOn": ["^check-types"],
       "inputs": [
         "src/**",
         "tsconfig.json",

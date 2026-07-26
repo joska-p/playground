@@ -12,7 +12,7 @@
     "check-types": "turbo run check-types",
     "gen": "turbo gen",
     "graphify": "graphify update",
-    "clean": "turbo clean && turbo run clean && rm -rf node_modules /**/node_modules",
+    "clean": "turbo clean && turbo run clean && rm -rf node_modules && find . -name node_modules -type d -prune -exec rm -rf {} +",
     "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
     "gen:project-pages": "turbo gen run project-pages"
   },
