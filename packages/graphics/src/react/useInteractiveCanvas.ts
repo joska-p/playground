@@ -6,7 +6,7 @@ export type CanvasInteractionState = {
   zoom: number;
   pointer: Point;
   isPanning: boolean;
-}
+};
 
 export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
   const [state, setState] = useState<CanvasInteractionState>({

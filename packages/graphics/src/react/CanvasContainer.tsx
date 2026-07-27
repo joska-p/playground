@@ -4,7 +4,7 @@ export type CanvasContainerProps = {
   children: ReactNode;
   className?: string;
   onResize?: (width: number, height: number) => void;
-}
+};
 
 export function CanvasContainer({ children, className, onResize }: CanvasContainerProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,7 +20,9 @@ export function CanvasContainer({ children, className, onResize }: CanvasContain
       }
     });
     observer.observe(el);
-    return () => { observer.disconnect(); };
+    return () => {
+      observer.disconnect();
+    };
   }, [onResize]);
 
   return (

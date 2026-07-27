@@ -4,7 +4,7 @@ export type WebGLContextConfig = {
   alpha?: boolean;
   antialias?: boolean;
   premultipliedAlpha?: boolean;
-}
+};
 
 export class WebGLContext {
   readonly gl: WebGL2RenderingContext;

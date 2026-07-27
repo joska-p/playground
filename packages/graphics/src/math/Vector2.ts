@@ -1,7 +1,7 @@
 export type Vector2Like = {
   x: number;
   y: number;
-}
+};
 
 export class Vector2 implements Vector2Like {
   x: number;

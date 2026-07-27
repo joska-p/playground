@@ -2,7 +2,7 @@ export type Vector3Like = {
   x: number;
   y: number;
   z: number;
-}
+};
 
 export class Vector3 implements Vector3Like {
   x: number;
