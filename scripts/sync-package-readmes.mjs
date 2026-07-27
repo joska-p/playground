@@ -31,7 +31,8 @@ const PACKAGE_NAMES = {
   'l-system-engine': 'L-system engine',
   'real-life': 'Real Life',
   'config-eslint': 'ESLint Config',
-  'config-typescript': 'TypeScript Config'
+  'config-typescript': 'TypeScript Config',
+  graphics: 'Graphics lib'
 };
 
 function kebabToTitle(name) {

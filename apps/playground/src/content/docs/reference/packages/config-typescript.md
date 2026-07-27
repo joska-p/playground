@@ -46,8 +46,7 @@ to include.
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "incremental": true
+    "noEmit": true
   },
   "include": ["src"]
 }

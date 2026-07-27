@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { SpaceMapper } from '../math/SpaceMapper';
+import {
+  createShaderUniformBuilder,
+  type Point2D,
+  type ShaderUniformValues
+} from '../math/transforms';
 import { QuadPipeline } from './QuadPipeline';
 
 function createMockGL() {
@@ -69,20 +73,20 @@ function createMockGL() {
 
 describe('QuadPipeline', () => {
   let gl: WebGL2RenderingContext;
-  let mapper: SpaceMapper;
+  let uniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues;
 
   beforeEach(() => {
     gl = createMockGL();
-    mapper = new SpaceMapper({ cssWidth: 800, cssHeight: 600, dpr: 2 });
+    uniformBuilder = createShaderUniformBuilder(800, 600, 2);
   });
 
   it('instantiates cleanly', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     expect(pipeline).toBeDefined();
   });
 
   it('returns true for valid fragment shader', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     const result = pipeline.compileFragmentShader(`
       #version 300 es
       precision highp float;
@@ -96,20 +100,20 @@ describe('QuadPipeline', () => {
   });
 
   it('returns false for invalid fragment shader', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     const result = pipeline.compileFragmentShader('NOT VALID GLSL');
     expect(result).toBe(false);
   });
 
   it('does not throw on invalid shader', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     expect(() => {
       pipeline.compileFragmentShader('BROKEN CODE {{{');
     }).not.toThrow();
   });
 
   it('getShaderUniforms returns expected values after compilation', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     pipeline.compileFragmentShader(`
       #version 300 es
       precision highp float;
@@ -122,14 +126,14 @@ describe('QuadPipeline', () => {
         fragColor = vec4(1.0);
       }
     `);
-    const uniforms = mapper.getShaderUniforms({ x: 100, y: 200 });
-    expect(uniforms.u_resolution).toEqual([1600, 1200]);
-    expect(uniforms.u_aspect).toBeCloseTo(800 / 600);
-    expect(uniforms.u_mouse).toEqual([100, 200]);
+    const uniforms = uniformBuilder({ x: 100, y: 200 });
+    expect(uniforms.uniformResolution).toEqual([1600, 1200]);
+    expect(uniforms.uniformAspectRatio).toBeCloseTo(800 / 600);
+    expect(uniforms.uniformMouse).toEqual([100, 200]);
   });
 
   it('render calls drawArrays with TRIANGLES and count 3', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     pipeline.compileFragmentShader(`
       #version 300 es
       precision highp float;
@@ -143,7 +147,7 @@ describe('QuadPipeline', () => {
   });
 
   it('dispose calls deleteProgram', () => {
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     pipeline.compileFragmentShader(`
       #version 300 es
       precision highp float;

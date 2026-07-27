@@ -4,6 +4,7 @@
 .agents
 .opencode
 /docs/
+.superpowers
 
 # Local workspace config
 .pnpm-store

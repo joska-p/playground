@@ -1,4 +1,4 @@
-import type { Point, SpaceMapper } from '../math/SpaceMapper';
+import type { Point2D, ShaderUniformValues } from '../math/transforms';
 
 const FULLSCREEN_TRIANGLE = `#version 300 es
 precision highp float;
@@ -12,12 +12,15 @@ void main() {
 export class QuadPipeline {
   private gl: WebGL2RenderingContext;
   private program: WebGLProgram | null = null;
-  private mapper: SpaceMapper;
+  private uniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues;
   private uniforms = new Map<string, WebGLUniformLocation>();
 
-  constructor(gl: WebGL2RenderingContext, mapper: SpaceMapper) {
+  constructor(
+    gl: WebGL2RenderingContext,
+    uniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues
+  ) {
     this.gl = gl;
-    this.mapper = mapper;
+    this.uniformBuilder = uniformBuilder;
   }
 
   compileFragmentShader(fragmentSource: string): boolean {
@@ -52,23 +55,23 @@ export class QuadPipeline {
     return true;
   }
 
-  render(mousePx?: Point): void {
+  render(mousePx?: Point2D): void {
     const gl = this.gl;
     if (!this.program) return;
 
     gl.useProgram(this.program);
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-    const uniforms = this.mapper.getShaderUniforms(mousePx);
+    const uniforms = this.uniformBuilder(mousePx);
 
-    const resLoc = this.uniforms.get('u_resolution');
-    if (resLoc) gl.uniform2f(resLoc, ...uniforms.u_resolution);
+    const resLoc = this.uniforms.get('uniformResolution') ?? this.uniforms.get('u_resolution');
+    if (resLoc) gl.uniform2f(resLoc, ...uniforms.uniformResolution);
 
-    const aspectLoc = this.uniforms.get('u_aspect');
-    if (aspectLoc) gl.uniform1f(aspectLoc, uniforms.u_aspect);
+    const aspectLoc = this.uniforms.get('uniformAspectRatio') ?? this.uniforms.get('u_aspect');
+    if (aspectLoc) gl.uniform1f(aspectLoc, uniforms.uniformAspectRatio);
 
-    const mouseLoc = this.uniforms.get('u_mouse');
-    if (mouseLoc) gl.uniform2f(mouseLoc, ...uniforms.u_mouse);
+    const mouseLoc = this.uniforms.get('uniformMouse') ?? this.uniforms.get('u_mouse');
+    if (mouseLoc) gl.uniform2f(mouseLoc, ...uniforms.uniformMouse);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }

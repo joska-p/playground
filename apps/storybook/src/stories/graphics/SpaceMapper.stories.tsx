@@ -1,4 +1,9 @@
-import { SpaceMapper } from '@repo/graphics/math/SpaceMapper';
+import {
+  createBufferToCanvas,
+  createCanvasToBuffer,
+  createCanvasToNormalized,
+  createScreenToCanvas
+} from '@repo/graphics/math/transforms';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useCallback, useRef } from 'react';
 
@@ -57,11 +62,21 @@ function InteractiveCanvas({
 
       const rect = canvas.getBoundingClientRect();
       const [w, h] = getDimensions(aspectRatio);
-      const mapper = new SpaceMapper({ cssWidth: w, cssHeight: h, dpr });
 
-      const screenPt = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      const uv = mapper.screenToUV(screenPt);
-      const buffer = mapper.screenToBuffer(screenPt);
+      const screenToCanvas = createScreenToCanvas({
+        left: rect.left,
+        top: rect.top,
+        width: w,
+        height: h
+      });
+      const canvasToNormalized = createCanvasToNormalized(w, h);
+      const createCanvasBuffer = createCanvasToBuffer(dpr);
+      const createBufferCanvas = createBufferToCanvas(dpr);
+
+      const screenPt = { x: e.clientX, y: e.clientY };
+      const canvasPt = screenToCanvas(screenPt);
+      const uv = canvasToNormalized(canvasPt);
+      const buffer = createCanvasBuffer(canvasPt);
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -82,8 +97,9 @@ function InteractiveCanvas({
       }
 
       // Draw crosshair at pointer
-      const bx = buffer.x / dpr;
-      const by = buffer.y / dpr;
+      const canvasPos = createBufferCanvas(buffer);
+      const bx = canvasPos.x;
+      const by = canvasPos.y;
       ctx.strokeStyle = '#ff3366';
       ctx.lineWidth = 2;
       ctx.beginPath();

@@ -6,7 +6,7 @@
   "exports": {
     "./math/Vector2": "./src/math/Vector2.ts",
     "./math/Vector3": "./src/math/Vector3.ts",
-    "./math/SpaceMapper": "./src/math/SpaceMapper.ts",
+    "./math/transforms": "./src/math/transforms.ts",
     "./webgl/WebGLContext": "./src/webgl/WebGLContext.ts",
     "./webgl/QuadPipeline": "./src/webgl/QuadPipeline.ts",
     "./webgl/FBOManager": "./src/webgl/FBOManager.ts",

@@ -1,16 +1,14 @@
 ---
-title: 'Graphics'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-07-27
+title: 'Graphics lib'
+description: 'A zero-dependency, React-first generative graphics library that bridges custom GLSL engines with WebGL2 — replacing heavy 3D engines with tiny, decoupled modules for coordinate mapping, shader execution, framebuffer management, and instanced drawing.'
+category: 'reference'
+tags:
+  - reference
+  - graphics
+order: 20
 ---
 
 # @repo/graphics
-
-> A zero-dependency, React-first generative graphics library that bridges custom
-> GLSL engines with WebGL2 — replacing heavy 3D engines with tiny, decoupled modules
-> for coordinate mapping, shader execution, framebuffer management, and
-> instanced drawing.
 
 ---
 

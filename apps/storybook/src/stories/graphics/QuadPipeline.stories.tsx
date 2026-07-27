@@ -1,4 +1,8 @@
-import { SpaceMapper } from '@repo/graphics/math/SpaceMapper';
+import {
+  createCanvasToNormalized,
+  createScreenToCanvas,
+  createShaderUniformBuilder
+} from '@repo/graphics/math/transforms';
 import { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef, useState } from 'react';
@@ -27,13 +31,9 @@ function useWebGLPipeline(
     const gl = canvas.getContext('webgl2');
     if (!gl) return;
 
-    const mapper = new SpaceMapper({
-      cssWidth: canvas.clientWidth,
-      cssHeight: canvas.clientHeight,
-      dpr
-    });
+    const uniformBuilder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight, dpr);
 
-    const pipeline = new QuadPipeline(gl, mapper);
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
     pipeline.compileFragmentShader(fragmentSrc);
     pipelineRef.current = pipeline;
 
@@ -81,11 +81,11 @@ const ASPECT_CIRCLE_FS = `#version 300 es
 precision highp float;
 in vec2 vUv;
 out vec4 fragColor;
-uniform float u_aspect;
+uniform float uniformAspectRatio;
 void main() {
   vec2 uv = vUv;
-  uv.x *= u_aspect;
-  vec2 center = vec2(0.5 * u_aspect, 0.5);
+  uv.x *= uniformAspectRatio;
+  vec2 center = vec2(0.5 * uniformAspectRatio, 0.5);
   float d = length(uv - center);
   float circle = smoothstep(0.305, 0.295, d);
   fragColor = vec4(circle, circle * 0.6, circle * 0.2, 1.0);
@@ -124,10 +124,10 @@ const MOUSE_SPOTLIGHT_FS = `#version 300 es
 precision highp float;
 in vec2 vUv;
 out vec4 fragColor;
-uniform vec2 u_mouse;
+uniform vec2 uniformMouse;
 void main() {
   vec2 uv = vUv;
-  float d = distance(uv, u_mouse);
+  float d = distance(uv, uniformMouse);
   float glow = exp(-d * d * 20.0);
   vec3 color = mix(vec3(0.02), vec3(1.0, 0.8, 0.2), glow);
   fragColor = vec4(color, 1.0);
@@ -137,7 +137,6 @@ export const MouseUniformTest: Story = {
   render: () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const pipelineRef = useRef<QuadPipeline | null>(null);
-    const mapperRef = useRef<SpaceMapper | null>(null);
     const glRef = useRef<WebGL2RenderingContext | null>(null);
 
     useEffect(() => {
@@ -147,14 +146,9 @@ export const MouseUniformTest: Story = {
       if (!gl) return;
       glRef.current = gl;
 
-      const mapper = new SpaceMapper({
-        cssWidth: canvas.clientWidth,
-        cssHeight: canvas.clientHeight,
-        dpr: 1
-      });
-      mapperRef.current = mapper;
+      const uniformBuilder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight, 1);
 
-      const pipeline = new QuadPipeline(gl, mapper);
+      const pipeline = new QuadPipeline(gl, uniformBuilder);
       pipeline.compileFragmentShader(MOUSE_SPOTLIGHT_FS);
       pipelineRef.current = pipeline;
 
@@ -168,12 +162,20 @@ export const MouseUniformTest: Story = {
     const handleMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
       const canvas = canvasRef.current;
       const pipeline = pipelineRef.current;
-      const mapper = mapperRef.current;
       const gl = glRef.current;
-      if (!canvas || !pipeline || !mapper || !gl) return;
+      if (!canvas || !pipeline || !gl) return;
 
       const rect = canvas.getBoundingClientRect();
-      const uv = mapper.screenToUV({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      const screenToCanvas = createScreenToCanvas({
+        left: rect.left,
+        top: rect.top,
+        width: canvas.clientWidth,
+        height: canvas.clientHeight
+      });
+      const canvasToNormalized = createCanvasToNormalized(canvas.clientWidth, canvas.clientHeight);
+
+      const canvasPt = screenToCanvas({ x: e.clientX, y: e.clientY });
+      const uv = canvasToNormalized(canvasPt);
 
       pipeline.render({ x: uv.x, y: 1.0 - uv.y });
     };
