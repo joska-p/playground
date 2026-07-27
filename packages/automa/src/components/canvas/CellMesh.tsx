@@ -1,25 +1,46 @@
-import type { ThreeEvent } from '@react-three/fiber';
 import { getCreature } from '@repo/automa-engine/creature/registry';
+import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
+import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
+import { useEffect } from 'react';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useGridTexture } from '../../hooks/useGridTexture';
-import { getShader } from '../../shaders/registry';
+import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 import { paintCell, placePattern } from '../../stores/simulation/actions';
 import { useCols, useRows } from '../../stores/simulation/selectors';
-import { useBrushMode, usePaletteBrush, useShaderId } from '../../stores/ui/selectors';
+import { useBrushMode, usePaletteBrush } from '../../stores/ui/selectors';
 
 function CellMesh() {
   const cols = useCols();
   const rows = useRows();
   const brushMode = useBrushMode();
-  const shaderId = useShaderId();
-  const shader = getShader(shaderId);
-
   const paletteBrushId = usePaletteBrush();
   const creature = paletteBrushId ? (getCreature(paletteBrushId) ?? null) : null;
 
-  const { uniforms } = useGridTexture({ cols, rows });
+  const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
 
-  const { meshRef, onPointerDown, onPointerUp, onContextMenu } = useCellPainting(
+  const { onBeforeRender } = useGridTexture({
+    runnerRef,
+    cols,
+    rows
+  });
+
+  // Attach interactive panning/zooming
+  useInteractiveCanvas(canvasRef);
+
+  useEffect(() => {
+    const runner = runnerRef.current;
+    if (!runner) return;
+
+    runner.start((time) => {
+      onBeforeRender(time);
+    });
+
+    return () => {
+      runner.stop();
+    };
+  }, [onBeforeRender, runnerRef]);
+
+  const { onPointerDown, onPointerMove, onPointerUp, onContextMenu } = useCellPainting(
     cols,
     rows,
     brushMode,
@@ -28,28 +49,21 @@ function CellMesh() {
     placePattern
   );
 
-  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
-    uniforms.mouse.value.set((e.point.x + cols / 2) / cols, (e.point.y + rows / 2) / rows);
-  };
-
-  if (!shader) return null;
-
   return (
-    <mesh
-      ref={meshRef}
+    <canvas
+      ref={canvasRef}
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        transformOrigin: 'center center',
+        cursor: brushMode === 'erase' ? 'crosshair' : 'cell'
+      }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onContextMenu={onContextMenu}
-    >
-      <planeGeometry args={[cols, rows]} />
-      <shaderMaterial
-        key={shaderId}
-        uniforms={uniforms}
-        vertexShader={shader.vert}
-        fragmentShader={shader.frag}
-      />
-    </mesh>
+    />
   );
 }
 

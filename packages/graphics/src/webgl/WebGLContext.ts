@@ -34,9 +34,14 @@ export class WebGLContext {
     this.canvas.height = h;
   }
 
-  resize(dpr?: number): void {
+  resize(width?: number, height?: number, dpr?: number): void {
     if (dpr !== undefined) this.dpr = dpr;
-    this.applyDPR();
+    if (width !== undefined && height !== undefined) {
+      this.canvas.width = Math.round(width * this.dpr);
+      this.canvas.height = Math.round(height * this.dpr);
+    } else {
+      this.applyDPR();
+    }
   }
 
   get drawingBufferWidth(): number {

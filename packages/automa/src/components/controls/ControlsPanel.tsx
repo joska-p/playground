@@ -4,7 +4,6 @@ import { DebugSection } from './DebugSection';
 import { EditSection } from './EditSection';
 import { PlaybackSection } from './PlaybackSection';
 import { RuleSection } from './RuleSection';
-import { ShaderSection } from './ShaderSection';
 
 function ControlsPanel() {
   return (
@@ -13,7 +12,6 @@ function ControlsPanel() {
       <EditSection />
       <CreatureSection />
       <RuleSection />
-      <ShaderSection />
       <DebugSection />
     </ControlPanel>
   );

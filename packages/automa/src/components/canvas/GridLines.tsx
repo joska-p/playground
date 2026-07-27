@@ -1,27 +1,38 @@
 type GridLinesProps = {
   cols: number;
   rows: number;
-  cellSize?: number;
 };
 
-function GridLines({ cols, rows, cellSize = 1 }: GridLinesProps) {
-  const maxCells = Math.max(cols, rows);
-  const totalSize = maxCells * cellSize;
-
+/**
+ * A CSS-only grid overlay for debug mode.
+ * Uses repeating-linear-gradient to draw cell boundaries without any WebGL draw call.
+ */
+function GridLines({ cols, rows }: GridLinesProps) {
   return (
-    <gridHelper
-      args={[totalSize, maxCells, 'white', 'white']}
-      rotation={[Math.PI / 2, 0, 0]} // Flip from horizontal XZ plane to vertical XY plane
-      position={[0, 0, 0.01]} // Slight offset to prevent z-fighting with a background
-    >
-      <lineBasicMaterial
-        attach="material"
-        color="white"
-        transparent
-        opacity={0.15}
-        depthWrite={false}
-      />
-    </gridHelper>
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none',
+        backgroundImage: `
+          repeating-linear-gradient(
+            to right,
+            rgba(255,255,255,0.15) 0px,
+            rgba(255,255,255,0.15) 1px,
+            transparent 1px,
+            transparent calc(100% / ${String(cols)})
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.15) 0px,
+            rgba(255,255,255,0.15) 1px,
+            transparent 1px,
+            transparent calc(100% / ${String(rows)})
+          )
+        `
+      }}
+    />
   );
 }
 

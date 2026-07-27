@@ -1,8 +1,4 @@
-import {
-  GRID_DEFAULT_COLS,
-  GRID_DEFAULT_DENSITY,
-  GRID_DEFAULT_ROWS
-} from '@repo/automa-engine/config';
+import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
@@ -16,12 +12,7 @@ type AppProps = {
   initialDensity?: number;
 };
 
-function App({
-  rows = GRID_DEFAULT_ROWS,
-  cols = GRID_DEFAULT_COLS,
-  seed,
-  initialDensity
-}: AppProps) {
+function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
   useEffect(() => {
     init({
       rows,

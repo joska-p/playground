@@ -15,9 +15,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-three/drei": "catalog:",
-    "@react-three/fiber": "catalog:",
-    "three": "catalog:",
+    "@repo/graphics": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/worker-pool": "workspace:*",
     "@repo/automa-engine": "workspace:*",
@@ -28,7 +26,6 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@types/three": "catalog:",
     "@babel/core": "catalog:",
     "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Point2D as Point } from '../math/transforms';
 
 export type CanvasInteractionState = {
@@ -9,7 +9,8 @@ export type CanvasInteractionState = {
 };
 
 export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
-  const [state, setState] = useState<CanvasInteractionState>({
+  // Store interaction state in refs to avoid React re-render thrashing on mouse move!
+  const stateRef = useRef<CanvasInteractionState>({
     pan: { x: 0, y: 0 },
     zoom: 1,
     pointer: { x: 0, y: 0 },
@@ -19,69 +20,71 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
   const dragStart = useRef<Point | null>(null);
   const panStart = useRef<Point>({ x: 0, y: 0 });
 
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      if (e.button === 2 || e.button === 1) {
-        dragStart.current = { x: e.clientX, y: e.clientY };
-        panStart.current = { ...state.pan };
-        setState((s) => ({ ...s, isPanning: true }));
-      }
-    },
-    [state.pan]
-  );
-
-  const handlePointerMove = useCallback(
-    (event: React.PointerEvent) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const bounds = canvas.getBoundingClientRect();
-      const pointer = { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
-
-      if (dragStart.current) {
-        const dx = event.clientX - dragStart.current.x;
-        const dy = event.clientY - dragStart.current.y;
-        setState((prev) => ({
-          ...prev,
-          pan: { x: panStart.current.x + dx, y: panStart.current.y + dy },
-          pointer
-        }));
-      } else {
-        setState((prev) => ({ ...prev, pointer }));
-      }
-    },
-    [canvasRef]
-  );
-
-  const handlePointerUp = useCallback(() => {
-    dragStart.current = null;
-    setState((prev) => ({ ...prev, isPanning: false }));
-  }, []);
-
-  const handleWheel = useCallback((event: React.WheelEvent) => {
-    event.preventDefault();
-    const zoomFactor = Math.exp(-event.deltaY / 500);
-    setState((prev) => ({
-      ...prev,
-      zoom: Math.max(0.1, Math.min(5, prev.zoom * zoomFactor))
-    }));
-  }, []);
+  const applyTransform = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const { pan, zoom } = stateRef.current;
+    canvas.style.transform = `translate(${String(pan.x)}px, ${String(pan.y)}px) scale(${String(zoom)})`;
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    canvas.addEventListener('wheel', handleWheel as unknown as EventListener, {
-      passive: false
-    });
-    return () => {
-      canvas.removeEventListener('wheel', handleWheel as unknown as EventListener);
+    const handlePointerDown = (e: PointerEvent) => {
+      if (e.button === 2 || e.button === 1) {
+        // Right or middle click for panning
+        dragStart.current = { x: e.clientX, y: e.clientY };
+        panStart.current = { ...stateRef.current.pan };
+        stateRef.current.isPanning = true;
+      }
     };
-  }, [canvasRef, handleWheel]);
 
-  return {
-    ...state,
-    onPointerDown: handlePointerDown,
-    onPointerMove: handlePointerMove,
-    onPointerUp: handlePointerUp
-  };
+    const handlePointerMove = (e: PointerEvent) => {
+      const bounds = canvas.getBoundingClientRect();
+      const pointer = { x: e.clientX - bounds.left, y: e.clientY - bounds.top };
+
+      if (dragStart.current) {
+        const dx = e.clientX - dragStart.current.x;
+        const dy = e.clientY - dragStart.current.y;
+        stateRef.current.pan = {
+          x: panStart.current.x + dx,
+          y: panStart.current.y + dy
+        };
+      }
+      stateRef.current.pointer = pointer;
+
+      applyTransform();
+    };
+
+    const handlePointerUp = () => {
+      dragStart.current = null;
+      stateRef.current.isPanning = false;
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const zoomFactor = Math.exp(-e.deltaY / 500);
+      const currentZoom = stateRef.current.zoom;
+      stateRef.current.zoom = Math.max(0.1, Math.min(5, currentZoom * zoomFactor));
+
+      applyTransform();
+    };
+
+    // Attach all event listeners natively on the canvas element
+    canvas.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('pointermove', handlePointerMove); // Window allows dragging outside canvas
+    window.addEventListener('pointerup', handlePointerUp);
+    canvas.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      canvas.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      canvas.removeEventListener('wheel', handleWheel);
+    };
+  }, [canvasRef]);
+
+  // Return mutable ref for render loops (0 re-renders!)
+  return stateRef;
 }

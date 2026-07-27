@@ -1,16 +1,15 @@
-import type { ThreeEvent } from '@react-three/fiber';
 import type { Creature } from '@repo/automa-engine/creature/types';
 import type { CellValue } from '@repo/automa-engine/types';
+import { createCanvasToData, createWorldToGrid } from '@repo/graphics/math/transforms';
 import { useRef } from 'react';
-import type * as THREE from 'three';
 import type { BrushMode } from '../stores/ui/store';
 
 type CellPaintingHandlers = {
-  meshRef: React.RefObject<THREE.Mesh | null>;
-  onPointerDown: (e: ThreeEvent<PointerEvent>) => void;
-  onPointerMove: (e: ThreeEvent<PointerEvent>) => void;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  onPointerDown: (e: React.PointerEvent<HTMLCanvasElement>) => void;
+  onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void;
   onPointerUp: () => void;
-  onContextMenu: (e: ThreeEvent<MouseEvent>) => void;
+  onContextMenu: (e: React.MouseEvent<HTMLCanvasElement>) => void;
 };
 
 const useCellPainting = (
@@ -21,54 +20,61 @@ const useCellPainting = (
   creature: Creature | null = null,
   paintCreature?: (col: number, row: number, creature: Creature) => void
 ): CellPaintingHandlers => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const isPainting = useRef(false);
 
-  const paintAtGridPosition = (point: THREE.Vector3, shiftKey: boolean) => {
-    const col = Math.floor(point.x + cols / 2);
-    const row = Math.floor(point.y + rows / 2);
-
-    if (col < 0 || col >= cols || row < 0 || row >= rows) return;
+  const paintAtCanvasPoint = (clientX: number, clientY: number, shiftKey: boolean) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
     if (shiftKey) return;
 
-    // If a creature brush is active, delegate to the paintCreature handler
+    const bounds = canvas.getBoundingClientRect();
+
+    // Map from canvas CSS pixels → grid cell coordinates.
+    // The grid domain is [0, cols] × [0, rows] with origin at top-left,
+    // and the texture UV origin matches (no Y-flip needed at this stage).
+    const canvasToGrid = createCanvasToData(
+      { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+      bounds.width,
+      bounds.height,
+      'fill'
+    );
+
+    const localX = clientX - bounds.left;
+    const localY = clientY - bounds.top;
+    const worldToGrid = createWorldToGrid(cols, rows);
+    const { column: col, row, index } = worldToGrid(canvasToGrid({ x: localX, y: localY }));
+
+    if (col < 0 || col >= cols || row < 0 || row >= rows) return;
+
     if (creature && paintCreature && brushMode !== 'erase') {
       paintCreature(col, row, creature);
       return;
     }
 
-    const index = row * cols + col;
     paintCell(index, brushMode === 'erase' ? 0 : 1);
   };
 
-  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
-    if (e.object !== meshRef.current) return;
-    if (e.button !== 0) return; // Only react to primary mouse button
+  const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (e.button !== 0) return;
     isPainting.current = true;
-    paintAtGridPosition(e.point, e.shiftKey);
+    paintAtCanvasPoint(e.clientX, e.clientY, e.shiftKey);
   };
 
-  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
+  const onPointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isPainting.current) return;
-    if (e.object !== meshRef.current) return;
-    paintAtGridPosition(e.point, e.shiftKey);
+    paintAtCanvasPoint(e.clientX, e.clientY, e.shiftKey);
   };
 
   const onPointerUp = () => {
     isPainting.current = false;
   };
 
-  const onContextMenu = (e: ThreeEvent<MouseEvent>) => {
-    e.nativeEvent.preventDefault();
+  const onContextMenu = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
   };
 
-  return {
-    meshRef,
-    onPointerDown,
-    onPointerMove,
-    onPointerUp,
-    onContextMenu
-  };
+  return { canvasRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu };
 };
 
 export { useCellPainting };

@@ -10,8 +10,6 @@ export const SPEED_DEFAULT_MS = 100;
 
 export const MAX_STATE_COUNT = 8;
 
-export const COLOR_GLOW = '#fbbf24';
-
 export const DEFAULT_STATE_COLORS: string[] = ['#070a14', '#d97706'];
 
 const STATE_FALLBACK_COLORS = ['#6b21a8', '#0891b2', '#059669', '#ca8a04'];

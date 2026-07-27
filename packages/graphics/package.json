@@ -11,9 +11,10 @@
     "./webgl/QuadPipeline": "./src/webgl/QuadPipeline.ts",
     "./webgl/FBOManager": "./src/webgl/FBOManager.ts",
     "./webgl/InstancedBatch": "./src/webgl/InstancedBatch.ts",
-    "./react/useShaderPass": "./src/react/useShaderPass.ts",
-    "./react/useInteractiveCanvas": "./src/react/useInteractiveCanvas.ts",
-    "./react/CanvasContainer": "./src/react/CanvasContainer.tsx"
+    "./webgl/ShaderRunner": "./src/webgl/ShaderRunner.ts",
+    "./react/ShaderCanvas": "./src/react/ShaderCanvas.tsx",
+    "./react/useShaderRunner": "./src/react/useShaderRunner.ts",
+    "./react/useInteractiveCanvas": "./src/react/useInteractiveCanvas.ts"
   },
   "scripts": {
     "lint": "eslint .",

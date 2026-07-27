@@ -13,16 +13,9 @@ const setStateColor = (index: number, color: string): void => {
   });
 };
 
-const setGlowColor = (color: string): void => {
-  uiStore.setState({ glowColor: color });
-};
-
-const setShader = (id: string): void => {
-  uiStore.setState({ shaderId: id });
-};
 
 const setPaletteBrush = (id: string | null): void => {
   uiStore.setState({ paletteBrush: id });
 };
 
-export { setGlowColor, setPaletteBrush, setShader, setStateColor, setToolMode };
+export { setPaletteBrush, setStateColor, setToolMode };

@@ -9,11 +9,13 @@ void main() {
   gl_Position = vec4(pos[gl_VertexID], 0.0, 1.0);
 }`;
 
+type UniformEntry = { location: WebGLUniformLocation; type: number; size: number };
+
 export class QuadPipeline {
   private gl: WebGL2RenderingContext;
   private program: WebGLProgram | null = null;
   private uniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues;
-  private uniforms = new Map<string, WebGLUniformLocation>();
+  private uniforms = new Map<string, UniformEntry>();
 
   constructor(
     gl: WebGL2RenderingContext,
@@ -48,7 +50,13 @@ export class QuadPipeline {
       const info = gl.getActiveUniform(program, i);
       if (info) {
         const loc = gl.getUniformLocation(program, info.name);
-        if (loc) this.uniforms.set(info.name, loc);
+        if (loc) {
+          const entry: UniformEntry = { location: loc, type: info.type, size: info.size };
+          this.uniforms.set(info.name, entry);
+          // Also register the base name for arrays ("stateColors[0]" → "stateColors")
+          const baseName = info.name.replace(/\[0\]$/, '');
+          if (baseName !== info.name) this.uniforms.set(baseName, entry);
+        }
       }
     }
 
@@ -59,19 +67,20 @@ export class QuadPipeline {
     const gl = this.gl;
     if (!this.program) return;
 
+    this.nextTextureUnit = 0;
     gl.useProgram(this.program);
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
     const uniforms = this.uniformBuilder(mousePx);
 
-    const resLoc = this.uniforms.get('uniformResolution') ?? this.uniforms.get('u_resolution');
-    if (resLoc) gl.uniform2f(resLoc, ...uniforms.uniformResolution);
+    const resEntry = this.uniforms.get('uniformResolution') ?? this.uniforms.get('u_resolution');
+    if (resEntry) gl.uniform2f(resEntry.location, ...uniforms.uniformResolution);
 
-    const aspectLoc = this.uniforms.get('uniformAspectRatio') ?? this.uniforms.get('u_aspect');
-    if (aspectLoc) gl.uniform1f(aspectLoc, uniforms.uniformAspectRatio);
+    const aspectEntry = this.uniforms.get('uniformAspectRatio') ?? this.uniforms.get('u_aspect');
+    if (aspectEntry) gl.uniform1f(aspectEntry.location, uniforms.uniformAspectRatio);
 
-    const mouseLoc = this.uniforms.get('uniformMouse') ?? this.uniforms.get('u_mouse');
-    if (mouseLoc) gl.uniform2f(mouseLoc, ...uniforms.uniformMouse);
+    const mouseEntry = this.uniforms.get('uniformMouse') ?? this.uniforms.get('u_mouse');
+    if (mouseEntry) gl.uniform2f(mouseEntry.location, ...uniforms.uniformMouse);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
@@ -97,26 +106,42 @@ export class QuadPipeline {
     return shader;
   }
 
+  private nextTextureUnit = 0;
+
   /**
    * Upload arbitrary uniforms to the current program.
-   * Dispatches to uniform1f / uniform2fv / uniform3fv / uniform4fv based on value shape.
+   * Supports:
+   *   - `number`        → uniform1f
+   *   - `number[]`      → uniform2fv / 3fv / 4fv based on length
+   *   - `WebGLTexture`  → bound to the next available texture unit; sampler uniform set to that unit
+   *
    * Call this inside an onBeforeRender callback, before pipeline.render().
    */
-  setUniforms(uniforms: Record<string, number | number[]>): void {
+  setUniforms(uniforms: Record<string, number | number[] | WebGLTexture>): void {
     const { gl } = this;
     if (!this.program) return;
     gl.useProgram(this.program);
     for (const [name, value] of Object.entries(uniforms)) {
-      const loc = this.uniforms.get(name);
-      if (loc === undefined) continue;
-      if (typeof value === 'number') {
+      const entry = this.uniforms.get(name);
+      if (entry === undefined) continue;
+      const { location: loc, type } = entry;
+      if (value instanceof WebGLTexture) {
+        const unit = this.nextTextureUnit++;
+        gl.activeTexture(gl.TEXTURE0 + unit);
+        gl.bindTexture(gl.TEXTURE_2D, value);
+        gl.uniform1i(loc, unit);
+      } else if (typeof value === 'number') {
         gl.uniform1f(loc, value);
-      } else if (value.length === 2) {
-        gl.uniform2fv(loc, value as [number, number]);
-      } else if (value.length === 3) {
-        gl.uniform3fv(loc, value as [number, number, number]);
-      } else if (value.length === 4) {
-        gl.uniform4fv(loc, value as [number, number, number, number]);
+      } else {
+        // Dispatch based on the GL type stored at compile time so that
+        // arrays of any length (e.g. vec3[8] → 24 floats) are handled correctly.
+        const FLOAT_VEC2 = 0x8b50;
+        const FLOAT_VEC3 = 0x8b51;
+        const FLOAT_VEC4 = 0x8b52;
+        if (type === FLOAT_VEC4) gl.uniform4fv(loc, value);
+        else if (type === FLOAT_VEC3) gl.uniform3fv(loc, value);
+        else if (type === FLOAT_VEC2) gl.uniform2fv(loc, value);
+        else gl.uniform1fv(loc, value);
       }
     }
   }
