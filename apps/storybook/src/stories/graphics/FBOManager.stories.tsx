@@ -1,4 +1,3 @@
-import { SpaceMapper } from '@repo/graphics/math/SpaceMapper';
 import { FBOManager } from '@repo/graphics/webgl/FBOManager';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef } from 'react';
@@ -48,7 +47,6 @@ export const FeedbackTrail: Story = {
 
       const w = 500;
       const h = 400;
-      const mapper = new SpaceMapper({ cssWidth: w, cssHeight: h, dpr: 1 });
       const fbo = new FBOManager(gl, w, h);
 
       // Compile feedback shader
