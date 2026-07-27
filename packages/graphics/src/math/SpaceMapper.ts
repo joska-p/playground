@@ -1,21 +1,21 @@
 export type Point = {
   x: number;
   y: number;
-}
+};
 
 export type Rect = {
   x: number;
   y: number;
   width: number;
   height: number;
-}
+};
 
 export type DomainBounds = {
   xMin: number;
   xMax: number;
   yMin: number;
   yMax: number;
-}
+};
 
 export type FitMode = 'contain' | 'cover' | 'fill' | 'none';
 
@@ -23,13 +23,13 @@ export type ViewportConfig = {
   cssWidth: number;
   cssHeight: number;
   dpr: number;
-}
+};
 
 export type ShaderUniforms = {
   u_resolution: [number, number];
   u_aspect: number;
   u_mouse: [number, number];
-}
+};
 
 export class SpaceMapper {
   private cssWidth: number;
@@ -150,24 +150,17 @@ export class SpaceMapper {
   worldToGrid(
     worldPoint: Point,
     cols: number,
-    rows: number,
-    centerOffset: Point = { x: cols / 2, y: rows / 2 }
+    rows: number
   ): { col: number; row: number; index: number } {
-    const col = Math.floor(worldPoint.x + centerOffset.x);
-    const row = Math.floor(worldPoint.y + centerOffset.y);
+    const col = Math.max(0, Math.min(cols - 1, Math.floor(worldPoint.x)));
+    const row = Math.max(0, Math.min(rows - 1, Math.floor(worldPoint.y)));
     return { col, row, index: row * cols + col };
   }
 
-  gridToWorld(
-    col: number,
-    row: number,
-    cols: number,
-    rows: number,
-    centerOffset: Point = { x: cols / 2, y: rows / 2 }
-  ): Point {
+  gridToWorld(col: number, row: number, _cols: number, _rows: number): Point {
     return {
-      x: col - centerOffset.x + 0.5,
-      y: row - centerOffset.y + 0.5
+      x: col + 0.5,
+      y: row + 0.5
     };
   }
 
