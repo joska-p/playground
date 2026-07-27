@@ -2,8 +2,8 @@ export class FBOManager {
   private gl: WebGL2RenderingContext;
   private fboA: WebGLFramebuffer | null = null;
   private fboB: WebGLFramebuffer | null = null;
-  private texA: WebGLTexture | null = null;
-  private texB: WebGLTexture | null = null;
+  private textureA: WebGLTexture | null = null;
+  private textureB: WebGLTexture | null = null;
   private pingPong = 0;
   private currentWidth: number;
   private currentHeight: number;
@@ -21,9 +21,9 @@ export class FBOManager {
     const [tex0, fbo0] = this.createFBO(width, height);
     const [tex1, fbo1] = this.createFBO(width, height);
 
-    this.texA = tex0;
+    this.textureA = tex0;
     this.fboA = fbo0;
-    this.texB = tex1;
+    this.textureB = tex1;
     this.fboB = fbo1;
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -68,13 +68,13 @@ export class FBOManager {
   }
 
   getReadTexture(): WebGLTexture {
-    const tex = this.pingPong === 0 ? this.texB : this.texA;
+    const tex = this.pingPong === 0 ? this.textureB : this.textureA;
     if (!tex) throw new Error('FBO not initialized');
     return tex;
   }
 
   getWriteTexture(): WebGLTexture {
-    const tex = this.pingPong === 0 ? this.texA : this.texB;
+    const tex = this.pingPong === 0 ? this.textureA : this.textureB;
     if (!tex) throw new Error('FBO not initialized');
     return tex;
   }
@@ -95,11 +95,11 @@ export class FBOManager {
     const gl = this.gl;
     if (this.fboA) gl.deleteFramebuffer(this.fboA);
     if (this.fboB) gl.deleteFramebuffer(this.fboB);
-    if (this.texA) gl.deleteTexture(this.texA);
-    if (this.texB) gl.deleteTexture(this.texB);
+    if (this.textureA) gl.deleteTexture(this.textureA);
+    if (this.textureB) gl.deleteTexture(this.textureB);
     this.fboA = null;
     this.fboB = null;
-    this.texA = null;
-    this.texB = null;
+    this.textureA = null;
+    this.textureB = null;
   }
 }

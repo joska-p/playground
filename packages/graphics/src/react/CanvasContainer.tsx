@@ -7,11 +7,11 @@ export type CanvasContainerProps = {
 };
 
 export function CanvasContainer({ children, className, onResize }: CanvasContainerProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el || !onResize) return;
+    const canvas = canvasRef.current;
+    if (!canvas || !onResize) return;
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -19,7 +19,7 @@ export function CanvasContainer({ children, className, onResize }: CanvasContain
         onResize(width, height);
       }
     });
-    observer.observe(el);
+    observer.observe(canvas);
     return () => {
       observer.disconnect();
     };
@@ -27,7 +27,7 @@ export function CanvasContainer({ children, className, onResize }: CanvasContain
 
   return (
     <div
-      ref={ref}
+      ref={canvasRef}
       className={className}
       style={{
         width: '100%',

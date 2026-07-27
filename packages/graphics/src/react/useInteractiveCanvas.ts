@@ -31,22 +31,22 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
   );
 
   const handlePointerMove = useCallback(
-    (e: React.PointerEvent) => {
+    (event: React.PointerEvent) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      const bounds = canvas.getBoundingClientRect();
+      const pointer = { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
 
       if (dragStart.current) {
-        const dx = e.clientX - dragStart.current.x;
-        const dy = e.clientY - dragStart.current.y;
-        setState((s) => ({
-          ...s,
+        const dx = event.clientX - dragStart.current.x;
+        const dy = event.clientY - dragStart.current.y;
+        setState((prev) => ({
+          ...prev,
           pan: { x: panStart.current.x + dx, y: panStart.current.y + dy },
           pointer
         }));
       } else {
-        setState((s) => ({ ...s, pointer }));
+        setState((prev) => ({ ...prev, pointer }));
       }
     },
     [canvasRef]
@@ -54,15 +54,15 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
 
   const handlePointerUp = useCallback(() => {
     dragStart.current = null;
-    setState((s) => ({ ...s, isPanning: false }));
+    setState((prev) => ({ ...prev, isPanning: false }));
   }, []);
 
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    e.preventDefault();
-    const factor = Math.exp(-e.deltaY / 500);
-    setState((s) => ({
-      ...s,
-      zoom: Math.max(0.1, Math.min(5, s.zoom * factor))
+  const handleWheel = useCallback((event: React.WheelEvent) => {
+    event.preventDefault();
+    const zoomFactor = Math.exp(-event.deltaY / 500);
+    setState((prev) => ({
+      ...prev,
+      zoom: Math.max(0.1, Math.min(5, prev.zoom * zoomFactor))
     }));
   }, []);
 
