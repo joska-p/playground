@@ -98,14 +98,14 @@ describe('SpaceMapper', () => {
 
     it('maps grid (0,0) to world cell center', () => {
       const mapper = createMapper();
-      const world = mapper.gridToWorld(0, 0, cols, rows);
+      const world = mapper.gridToWorld(0, 0);
       expect(world.x).toBeCloseTo(0.5);
       expect(world.y).toBeCloseTo(0.5);
     });
 
     it('maps grid (49,49) to world cell center', () => {
       const mapper = createMapper();
-      const world = mapper.gridToWorld(49, 49, cols, rows);
+      const world = mapper.gridToWorld(49, 49);
       expect(world.x).toBeCloseTo(49.5);
       expect(world.y).toBeCloseTo(49.5);
     });
@@ -121,17 +121,15 @@ describe('SpaceMapper', () => {
     it('worldToGrid clamps out-of-range to nearest valid cell', () => {
       const mapper = createMapper();
       const result = mapper.worldToGrid({ x: 999, y: -999 }, cols, rows);
-      expect(result.col).toBeGreaterThanOrEqual(0);
-      expect(result.col).toBeLessThan(cols);
-      expect(result.row).toBeGreaterThanOrEqual(0);
-      expect(result.row).toBeLessThan(rows);
+      expect(result.col).toBe(49);
+      expect(result.row).toBe(0);
     });
 
     it('round-trips grid -> world -> grid', () => {
       const mapper = createMapper();
       for (let col = 0; col < cols; col += 10) {
         for (let row = 0; row < rows; row += 10) {
-          const world = mapper.gridToWorld(col, row, cols, rows);
+          const world = mapper.gridToWorld(col, row);
           const back = mapper.worldToGrid(world, cols, rows);
           expect(back.col).toBe(col);
           expect(back.row).toBe(row);

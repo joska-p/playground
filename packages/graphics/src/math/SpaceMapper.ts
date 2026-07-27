@@ -157,7 +157,7 @@ export class SpaceMapper {
     return { col, row, index: row * cols + col };
   }
 
-  gridToWorld(col: number, row: number, _cols: number, _rows: number): Point {
+  gridToWorld(col: number, row: number): Point {
     return {
       x: col + 0.5,
       y: row + 0.5
