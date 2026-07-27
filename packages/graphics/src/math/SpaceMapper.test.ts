@@ -67,7 +67,7 @@ describe('SpaceMapper', () => {
       { x: 100, y: 50 }
     ];
 
-    const fitModes: Array<'contain' | 'cover' | 'fill'> = ['contain', 'cover', 'fill'];
+    const fitModes: ('contain' | 'cover' | 'fill')[] = ['contain', 'cover', 'fill'];
 
     for (const fitMode of fitModes) {
       it(`round-trips under "${fitMode}" fit mode`, () => {

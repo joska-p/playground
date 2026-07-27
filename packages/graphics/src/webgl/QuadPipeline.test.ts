@@ -20,7 +20,7 @@ function createMockGL() {
     drawingBufferWidth: 1600,
     drawingBufferHeight: 1200,
 
-    createShader: vi.fn(() => `shader_${++shaderId}` as unknown as WebGLShader),
+    createShader: vi.fn(() => `shader_${String(++shaderId)}`),
     shaderSource: vi.fn((shader: WebGLShader, source: string) => {
       shaderSources.set(shader, source);
     }),
@@ -28,7 +28,7 @@ function createMockGL() {
       if (!shaderParams.has(shader)) shaderParams.set(shader, new Map());
       const source = shaderSources.get(shader) ?? '';
       const isValid = source.includes('#version');
-      shaderParams.get(shader)!.set(gl.COMPILE_STATUS, isValid);
+      shaderParams.get(shader)?.set(gl.COMPILE_STATUS, isValid);
     }),
     getShaderParameter: vi.fn((shader: WebGLShader, param: number) => {
       return shaderParams.get(shader)?.get(param) ?? false;
@@ -36,12 +36,12 @@ function createMockGL() {
     getShaderInfoLog: vi.fn(() => ''),
     deleteShader: vi.fn(),
 
-    createProgram: vi.fn(() => `program_${++programId}` as unknown as WebGLProgram),
+    createProgram: vi.fn(() => `program_${String(++programId)}`),
     attachShader: vi.fn(),
     linkProgram: vi.fn((program: WebGLProgram) => {
       if (!programParams.has(program)) programParams.set(program, new Map());
-      programParams.get(program)!.set(gl.LINK_STATUS, true);
-      programParams.get(program)!.set(gl.ACTIVE_UNIFORMS, 3);
+      programParams.get(program)?.set(gl.LINK_STATUS, true);
+      programParams.get(program)?.set(gl.ACTIVE_UNIFORMS, 3);
     }),
     getProgramParameter: vi.fn((program: WebGLProgram, param: number) => {
       return programParams.get(program)?.get(param) ?? 0;
@@ -53,7 +53,7 @@ function createMockGL() {
       return null;
     }),
     getUniformLocation: vi.fn((_program: WebGLProgram, name: string) => {
-      return `loc_${name}` as unknown as WebGLUniformLocation;
+      return `loc_${name}`;
     }),
     bindAttribLocation: vi.fn(),
     useProgram: vi.fn(),
@@ -138,6 +138,7 @@ describe('QuadPipeline', () => {
       void main() { fragColor = vec4(1.0); }
     `);
     pipeline.render({ x: 50, y: 50 });
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- mock assertion
     expect(gl.drawArrays).toHaveBeenCalledWith(0x0004, 0, 3);
   });
 
@@ -151,6 +152,7 @@ describe('QuadPipeline', () => {
       void main() { fragColor = vec4(1.0); }
     `);
     pipeline.dispose();
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- mock assertion
     expect(gl.deleteProgram).toHaveBeenCalled();
   });
 });
