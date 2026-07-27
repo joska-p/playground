@@ -138,12 +138,14 @@ export const MouseUniformTest: Story = {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const pipelineRef = useRef<QuadPipeline | null>(null);
     const mapperRef = useRef<SpaceMapper | null>(null);
+    const glRef = useRef<WebGL2RenderingContext | null>(null);
 
     useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const gl = canvas.getContext('webgl2');
       if (!gl) return;
+      glRef.current = gl;
 
       const mapper = new SpaceMapper({
         cssWidth: canvas.clientWidth,
@@ -159,6 +161,7 @@ export const MouseUniformTest: Story = {
       return () => {
         pipeline.dispose();
         pipelineRef.current = null;
+        glRef.current = null;
       };
     }, []);
 
@@ -166,12 +169,11 @@ export const MouseUniformTest: Story = {
       const canvas = canvasRef.current;
       const pipeline = pipelineRef.current;
       const mapper = mapperRef.current;
-      if (!canvas || !pipeline || !mapper) return;
+      const gl = glRef.current;
+      if (!canvas || !pipeline || !mapper || !gl) return;
 
       const rect = canvas.getBoundingClientRect();
       const uv = mapper.screenToUV({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-      const gl = canvas.getContext('webgl2');
-      if (!gl) return;
 
       pipeline.render({ x: uv.x, y: 1.0 - uv.y });
     };

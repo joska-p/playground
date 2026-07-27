@@ -99,7 +99,7 @@ function InteractiveCanvas({
       ctx.fillText(`UV: ${uv.x.toFixed(3)}, ${uv.y.toFixed(3)}`, bx + 16, by - 8);
       ctx.fillText(`Buffer: ${Math.round(buffer.x)}, ${Math.round(buffer.y)}`, bx + 16, by + 8);
     },
-    [dpr, aspectRatio, padding]
+    [dpr, aspectRatio]
   );
 
   const [w, h] = getDimensions(aspectRatio);
