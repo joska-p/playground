@@ -1,0 +1,40 @@
+{
+  "name": "@repo/graphics",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./math/Vector2": "./src/math/Vector2.ts",
+    "./math/Vector3": "./src/math/Vector3.ts",
+    "./math/SpaceMapper": "./src/math/SpaceMapper.ts",
+    "./webgl/WebGLContext": "./src/webgl/WebGLContext.ts",
+    "./webgl/QuadPipeline": "./src/webgl/QuadPipeline.ts",
+    "./webgl/FBOManager": "./src/webgl/FBOManager.ts",
+    "./webgl/InstancedBatch": "./src/webgl/InstancedBatch.ts",
+    "./react/useShaderPass": "./src/react/useShaderPass.ts",
+    "./react/useInteractiveCanvas": "./src/react/useInteractiveCanvas.ts",
+    "./react/CanvasContainer": "./src/react/CanvasContainer.tsx"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf node_modules dist .turbo"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
