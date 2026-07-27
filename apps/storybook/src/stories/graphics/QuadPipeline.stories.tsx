@@ -15,7 +15,9 @@ type Story = StoryObj<typeof meta>;
 function useWebGLPipeline(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   fragmentSrc: string,
-  dpr = 1
+  dpr = 1,
+  width?: number,
+  height?: number
 ) {
   const pipelineRef = useRef<QuadPipeline | null>(null);
 
@@ -42,7 +44,7 @@ function useWebGLPipeline(
       pipeline.dispose();
       pipelineRef.current = null;
     };
-  }, [canvasRef, fragmentSrc, dpr]);
+  }, [canvasRef, fragmentSrc, dpr, width, height]);
 
   return pipelineRef;
 }
@@ -93,7 +95,7 @@ export const AspectCircleTest: Story = {
   render: () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [size, setSize] = useState({ w: 400, h: 300 });
-    useWebGLPipeline(canvasRef, ASPECT_CIRCLE_FS);
+    useWebGLPipeline(canvasRef, ASPECT_CIRCLE_FS, 1, size.w, size.h);
 
     return (
       <div>
@@ -123,7 +125,6 @@ precision highp float;
 in vec2 vUv;
 out vec4 fragColor;
 uniform vec2 u_mouse;
-uniform vec2 u_resolution;
 void main() {
   vec2 uv = vUv;
   float d = distance(uv, u_mouse);
