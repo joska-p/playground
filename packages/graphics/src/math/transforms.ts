@@ -228,3 +228,38 @@ export function generateGLSLFragment(options?: {
 
   return lines.join('\n');
 }
+
+export function createCanvasToGrid(
+  cols: number,
+  rows: number,
+  boundsWidth: number,
+  boundsHeight: number,
+  fit: 'fill' | 'contain' | 'cover' = 'fill'
+) {
+  const canvasToData = createCanvasToData(
+    { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+    boundsWidth,
+    boundsHeight,
+    fit
+  );
+  const worldToGrid = createWorldToGrid(cols, rows);
+
+  return (point: { x: number; y: number }) => {
+    const dataPoint = canvasToData(point);
+    return worldToGrid(dataPoint);
+  };
+}
+
+export function eventToGridPoint(
+  e: { clientX: number; clientY: number },
+  canvas: HTMLCanvasElement,
+  cols: number,
+  rows: number
+) {
+  const bounds = canvas.getBoundingClientRect();
+  const localX = e.clientX - bounds.left;
+  const localY = e.clientY - bounds.top;
+
+  const canvasToGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
+  return canvasToGrid({ x: localX, y: localY });
+}
