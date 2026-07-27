@@ -1,29 +1,22 @@
-import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import type * as THREE from 'three';
-import { foldedSpace } from './foldedSpace';
+import { CanvasContainer } from '@repo/graphics/react/CanvasContainer';
+import { useShaderPass } from '@repo/graphics/react/useShaderPass';
+import { foldedSpaceFragment } from './foldedSpace';
 
 function FoldedSpace() {
-  const materialRef = useRef<THREE.ShaderMaterial>(null);
-
-  useFrame((state) => {
-    if (materialRef.current?.uniforms['u_time']) {
-      materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
+  const { canvasRef } = useShaderPass({
+    fragmentShader: foldedSpaceFragment,
+    onBeforeRender: (pipeline, time) => {
+      pipeline.setUniforms({ u_time: time });
     }
   });
 
   return (
-    <mesh>
-      <planeGeometry args={[2, 2]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={foldedSpace.vertexShader}
-        fragmentShader={foldedSpace.fragmentShader}
-        uniforms={{
-          u_time: { value: 0.0 }
-        }}
+    <CanvasContainer>
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block' }}
       />
-    </mesh>
+    </CanvasContainer>
   );
 }
 

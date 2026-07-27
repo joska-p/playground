@@ -1,7 +1,8 @@
-const fragmentShader = `
+// GLSL 300 ES fragment shader — vertex shader is provided by QuadPipeline's
+// built-in fullscreen triangle (no vertex shader needed here).
+const fragmentShader = `#version 300 es
   precision highp float;
 
-  // Uniforms & Varyings matching your setup
   uniform float uDivisions;
   uniform float uChroma;
   uniform float uLightness;
@@ -9,6 +10,7 @@ const fragmentShader = `
 
   in vec2 vUv;
 
+  out vec4 fragColor;
 
   #define PI 3.141592653589793
 
@@ -73,28 +75,13 @@ const fragmentShader = `
 
       // Return final computed pixel state
       if (isTop) {
-        pc_fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        fragColor = vec4(0.0, 0.0, 0.0, 1.0);
       } else {
-        pc_fragColor = vec4(finalColor, 1.0);
+        fragColor = vec4(finalColor, 1.0);
       }
-  }
- `;
-
-const vertexShader = `
-  // 1. The variable we want to share with the fragment shader
-  out vec2 vUv;
-
-  void main() {
-    // 2. Assign the incoming uv data to our varying variable
-    vUv = uv;
-
-    gl_Position = vec4(position, 1.0);
   }
 `;
 
-const manual = {
-  fragmentShader,
-  vertexShader
-};
+const manual = { fragmentShader };
 
 export { manual };

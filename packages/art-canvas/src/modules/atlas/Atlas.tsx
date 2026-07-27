@@ -1,6 +1,6 @@
-import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
-import type { Vector2 } from 'three';
+import { CanvasContainer } from '@repo/graphics/react/CanvasContainer';
+import { useShaderPass } from '@repo/graphics/react/useShaderPass';
+import { useMemo } from 'react';
 import {
   useComplexity,
   useGlitch,
@@ -9,11 +9,9 @@ import {
   useSeed,
   useSymbolType
 } from './store/selectors';
-import type { SyllabicFibonacciMaterial } from './SyllabicFibonacciMaterial';
-import { SyllabicFibonacciShaderElement } from './SyllabicFibonacciMaterial';
+import { SYLLABIC_FIBONACCI_FRAGMENT } from './SyllabicFibonacciMaterial';
 
 function Atlas() {
-  const materialRef = useRef<SyllabicFibonacciMaterial>(null);
   const seed = useSeed();
   const modulo = useModulo();
   const complexity = useComplexity();
@@ -30,44 +28,30 @@ function Atlas() {
     return Math.abs(hash % 1000);
   }, [seed]);
 
-  useFrame((state) => {
-    const mat = materialRef.current;
-    if (!mat) return;
-
-    // Secure Frame-0 updates (replaces dynamic truthiness check on numeric uTime/uSeedOffset values)
-    if (mat.uniforms['uTime'] !== undefined) {
-      mat.uniforms['uTime'].value = state.clock.getElapsedTime();
-    }
-    if (mat.uniforms['uGridSize'] !== undefined) {
-      mat.uniforms['uGridSize'].value = complexity;
-    }
-    if (mat.uniforms['uModulo'] !== undefined) {
-      mat.uniforms['uModulo'].value = modulo;
-    }
-    if (mat.uniforms['uSymbolType'] !== undefined) {
-      mat.uniforms['uSymbolType'].value = symbolType;
-    }
-    if (mat.uniforms['uPalette'] !== undefined) {
-      mat.uniforms['uPalette'].value = palette;
-    }
-    if (mat.uniforms['uGlitch'] !== undefined) {
-      mat.uniforms['uGlitch'].value = glitch;
-    }
-    if (mat.uniforms['uSeedOffset'] !== undefined) {
-      mat.uniforms['uSeedOffset'].value = seedOffset;
-    }
-
-    // Smoothly push resolution size directly here instead of static JSX declarations
-    if (mat.uniforms['uResolution'] !== undefined) {
-      (mat.uniforms['uResolution'].value as Vector2).set(state.size.width, state.size.height);
+  const { canvasRef } = useShaderPass({
+    fragmentShader: SYLLABIC_FIBONACCI_FRAGMENT,
+    // All 7 custom uniforms are pushed every frame.
+    // Resolution is handled by QuadPipeline's built-in uniform builder.
+    onBeforeRender: (pipeline, time) => {
+      pipeline.setUniforms({
+        uTime: time,
+        uGridSize: complexity,
+        uModulo: modulo,
+        uSymbolType: symbolType,
+        uPalette: palette,
+        uGlitch: glitch,
+        uSeedOffset: seedOffset
+      });
     }
   });
 
   return (
-    <mesh>
-      <planeGeometry args={[2, 2]} />
-      <SyllabicFibonacciShaderElement ref={materialRef} />
-    </mesh>
+    <CanvasContainer>
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block' }}
+      />
+    </CanvasContainer>
   );
 }
 

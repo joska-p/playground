@@ -1,9 +1,15 @@
 import { cosinePalette } from '../../shaders/modules/effects/cosinePalette';
 import { repeatSpace } from '../../shaders/modules/space/repeatSpace';
 
-const fragmentShader = `
+// GLSL 300 ES fragment shader — vertex shader is provided by QuadPipeline's
+// built-in fullscreen triangle (no vertex shader needed here).
+const fragmentShader = `#version 300 es
+  precision highp float;
+
   uniform float u_time;
-  varying vec2 vUv;
+  in vec2 vUv;
+
+  out vec4 fragColor;
 
   // --- INJECTING DETACHED MODULES ---
   ${repeatSpace.code}
@@ -39,22 +45,8 @@ const fragmentShader = `
         finalColor += col * wave;
     }
 
-    gl_FragColor = vec4(finalColor, 1.0);
-  }
- `;
-
-const vertexShader = `
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv; // Three.js injects 'uv' automatically as an attribute
-    gl_Position = vec4(position, 1.0); // Map vertex to clip coordinates
+    fragColor = vec4(finalColor, 1.0);
   }
 `;
 
-const foldedSpace = {
-  fragmentShader,
-  vertexShader
-};
-
-export { foldedSpace };
+export { fragmentShader as foldedSpaceFragment };

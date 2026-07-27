@@ -1,6 +1,6 @@
 import type { Point2D, ShaderUniformValues } from '../math/transforms';
 
-const FULLSCREEN_TRIANGLE = `#version 300 es
+const FULLSCREEN_TRIANGLE = `
 precision highp float;
 out vec2 vUv;
 void main() {
@@ -80,7 +80,13 @@ export class QuadPipeline {
     const gl = this.gl;
     const shader = gl.createShader(type);
     if (!shader) return null;
-    gl.shaderSource(shader, source);
+
+    let finalSource = source;
+    if (!source.startsWith('#version 300 es')) {
+      finalSource = `#version 300 es\n${source}`;
+    }
+
+    gl.shaderSource(shader, finalSource);
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -89,6 +95,38 @@ export class QuadPipeline {
       return null;
     }
     return shader;
+  }
+
+  /**
+   * Upload arbitrary uniforms to the current program.
+   * Dispatches to uniform1f / uniform2fv / uniform3fv / uniform4fv based on value shape.
+   * Call this inside an onBeforeRender callback, before pipeline.render().
+   */
+  setUniforms(uniforms: Record<string, number | number[]>): void {
+    const { gl } = this;
+    if (!this.program) return;
+    gl.useProgram(this.program);
+    for (const [name, value] of Object.entries(uniforms)) {
+      const loc = this.uniforms.get(name);
+      if (loc === undefined) continue;
+      if (typeof value === 'number') {
+        gl.uniform1f(loc, value);
+      } else if (value.length === 2) {
+        gl.uniform2fv(loc, value as [number, number]);
+      } else if (value.length === 3) {
+        gl.uniform3fv(loc, value as [number, number, number]);
+      } else if (value.length === 4) {
+        gl.uniform4fv(loc, value as [number, number, number, number]);
+      }
+    }
+  }
+
+  /**
+   * Replace the uniform builder (e.g. after a canvas resize).
+   * The next render() call will use the updated resolution / DPR values.
+   */
+  updateUniformBuilder(builder: (mouseBufferPixel?: Point2D) => ShaderUniformValues): void {
+    this.uniformBuilder = builder;
   }
 
   dispose(): void {

@@ -15,12 +15,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-three/drei": "catalog:",
-    "@react-three/fiber": "catalog:",
+    "@repo/graphics": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@types/three": "catalog:",
-    "leva": "catalog:",
-    "three": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {

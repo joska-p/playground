@@ -417,24 +417,12 @@ importers:
 
   packages/art-canvas:
     dependencies:
-      '@react-three/drei':
-        specifier: 'catalog:'
-        version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.17)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0))(@types/react@19.2.17)(@types/three@0.184.1)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
-      '@react-three/fiber':
-        specifier: 'catalog:'
-        version: 9.6.1(@types/react@19.2.17)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
+      '@repo/graphics':
+        specifier: workspace:*
+        version: link:../graphics
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
-      '@types/three':
-        specifier: 'catalog:'
-        version: 0.184.1
-      leva:
-        specifier: 'catalog:'
-        version: 0.10.1(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      three:
-        specifier: 'catalog:'
-        version: 0.184.0
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))

@@ -4,9 +4,13 @@ const ClassicTemplate: ShaderTemplate = {
   name: 'classic',
   weight: 1.0,
   generate: ({ spaceBlock, shapeBlock, effectBlock, palette, uniqueInjectedCode }) => `
+    precision highp float;
+
     uniform float u_time;
     uniform vec2 u_mouse;
-    varying vec2 vUv;
+    in vec2 vUv;
+    out vec4 fragColor;
+
     ${uniqueInjectedCode}
 
     void main() {
@@ -21,7 +25,6 @@ const ClassicTemplate: ShaderTemplate = {
         uv = uv0;
         ${spaceBlock}
         ${shapeBlock} // declares float dist
-
         float wave = abs(sin(dist * 8.0 - u_time * 1.5));
         ${effectBlock}
 
@@ -29,7 +32,8 @@ const ClassicTemplate: ShaderTemplate = {
         vec3 col = a + b * cos(6.28318 * (c * (dist + i * 0.15 + u_time * 0.05) + d));
         finalColor += col * (smoothstep(0.5, 0.0, abs(dist)) * 0.6);
       }
-      gl_FragColor = vec4(finalColor * (1.0 - 0.3 * length(uv0)), 1.0);
+
+      fragColor = vec4(finalColor * (1.0 - 0.3 * length(uv0)), 1.0);
     }
   `
 };
