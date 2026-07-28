@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { ShaderRunner } from '../webgl/ShaderRunner';
-import { useFrame } from './FrameLoopContext';
 
 export function useShaderRunner(fragmentShader: string, dpr?: number) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -31,10 +30,6 @@ export function useShaderRunner(fragmentShader: string, dpr?: number) {
   useEffect(() => {
     runnerRef.current?.pipeline.compileFragmentShader(fragmentShader);
   }, [fragmentShader]);
-
-  useFrame(() => {
-    runnerRef.current?.render();
-  });
 
   return { canvasRef, runnerRef };
 }

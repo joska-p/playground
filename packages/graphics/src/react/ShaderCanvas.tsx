@@ -16,6 +16,7 @@ export function ShaderCanvas({ fragmentShader, className, onBeforeRender }: Shad
     if (onBeforeRender && runner) {
       onBeforeRender(runner.pipeline, time);
     }
+    runner?.render();
   });
 
   return (
