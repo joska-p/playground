@@ -1,3 +1,4 @@
+import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
 import { useCols, useRows } from '../../stores/simulation/selectors';
 import { useShowDebug } from '../../stores/ui/selectors';
 import { CellMesh } from './CellMesh.tsx';
@@ -9,15 +10,17 @@ function AutomatonCanvas() {
   const showDebug = useShowDebug();
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
-      <CellMesh />
-      {showDebug && (
-        <GridLines
-          cols={cols}
-          rows={rows}
-        />
-      )}
-    </div>
+    <GraphicsProvider>
+      <div className="relative h-full w-full overflow-hidden">
+        <CellMesh />
+        {showDebug && (
+          <GridLines
+            cols={cols}
+            rows={rows}
+          />
+        )}
+      </div>
+    </GraphicsProvider>
   );
 }
 

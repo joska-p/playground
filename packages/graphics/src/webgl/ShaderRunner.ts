@@ -5,7 +5,6 @@ import { WebGLContext } from './WebGLContext';
 export class ShaderRunner {
   readonly ctx: WebGLContext;
   readonly pipeline: QuadPipeline;
-  private rafId = 0;
   private mousePx: Point2D = { x: 0, y: 0 };
 
   constructor(canvas: HTMLCanvasElement, fragmentShader: string, dpr = window.devicePixelRatio) {
@@ -26,22 +25,11 @@ export class ShaderRunner {
     this.mousePx = pixel;
   }
 
-  start(onFrame?: (time: number) => void): void {
-    const loop = () => {
-      const time = performance.now() / 1000;
-      onFrame?.(time);
-      this.pipeline.render(this.mousePx);
-      this.rafId = requestAnimationFrame(loop);
-    };
-    this.rafId = requestAnimationFrame(loop);
-  }
-
-  stop(): void {
-    cancelAnimationFrame(this.rafId);
+  render(): void {
+    this.pipeline.render(this.mousePx);
   }
 
   dispose(): void {
-    this.stop();
     this.pipeline.dispose();
   }
 }

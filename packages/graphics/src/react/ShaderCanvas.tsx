@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import type { QuadPipeline } from '../webgl/QuadPipeline';
+import { useFrame } from './FrameLoopContext';
 import { useShaderRunner } from './useShaderRunner';
 
 export type ShaderCanvasProps = {
@@ -11,20 +11,12 @@ export type ShaderCanvasProps = {
 export function ShaderCanvas({ fragmentShader, className, onBeforeRender }: ShaderCanvasProps) {
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
 
-  useEffect(() => {
+  useFrame((time) => {
     const runner = runnerRef.current;
-    if (!runner) return;
-
-    runner.start((time) => {
-      if (onBeforeRender) {
-        onBeforeRender(runner.pipeline, time);
-      }
-    });
-
-    return () => {
-      runner.stop();
-    };
-  }, [onBeforeRender, runnerRef]);
+    if (onBeforeRender && runner) {
+      onBeforeRender(runner.pipeline, time);
+    }
+  });
 
   return (
     <canvas

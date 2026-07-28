@@ -1,7 +1,7 @@
 import { getCreature } from '@repo/automa-engine/creature/registry';
+import { useFrame } from '@repo/graphics/react/FrameLoopContext';
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
-import { useEffect } from 'react';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useGridTexture } from '../../hooks/useGridTexture';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
@@ -18,7 +18,7 @@ function CellMesh() {
 
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
 
-  const { onBeforeRender } = useGridTexture({
+  const { onBeforeRenderRef } = useGridTexture({
     runnerRef,
     cols,
     rows
@@ -27,18 +27,10 @@ function CellMesh() {
   // Attach interactive panning/zooming
   useInteractiveCanvas(canvasRef);
 
-  useEffect(() => {
-    const runner = runnerRef.current;
-    if (!runner) return;
-
-    runner.start((time) => {
-      onBeforeRender(time);
-    });
-
-    return () => {
-      runner.stop();
-    };
-  }, [onBeforeRender, runnerRef]);
+  useFrame((time) => {
+    onBeforeRenderRef.current?.(time);
+    runnerRef.current?.render();
+  });
 
   const { onPointerDown, onPointerMove, onPointerUp, onContextMenu } = useCellPainting(
     cols,
@@ -46,7 +38,8 @@ function CellMesh() {
     brushMode,
     paintCell,
     creature,
-    placePattern
+    placePattern,
+    canvasRef
   );
 
   return (
