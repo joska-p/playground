@@ -21,7 +21,9 @@ function PlaybackSection() {
           {running ? 'Pause' : 'Play'}
         </Button>
         <Button
-          onClick={() => { step(); }}
+          onClick={() => {
+            step();
+          }}
           disabled={running}
         >
           Step

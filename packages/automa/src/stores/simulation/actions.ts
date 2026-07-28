@@ -40,7 +40,6 @@ const destroy = (): void => {
 const step = (): void => {
   const state = simulationStore.getState();
   const rule = getRule(state.ruleId);
-  if (!rule) return;
   const engine = getEngine();
   if (!engine) return;
   engine.step(rule);
@@ -51,8 +50,6 @@ const setRule = (ruleId: string): void => {
   simulationStore.setState({ ruleId });
 
   const rule = getRule(ruleId);
-  if (!rule) return;
-
   const { stateColors } = uiStore.getState();
   if (rule.stateCount > stateColors.length) {
     const next = [...stateColors];

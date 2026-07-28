@@ -21,8 +21,6 @@ self.onmessage = (e: MessageEvent<StepRequest>) => {
   const { grid, cols, rows, ruleId } = e.data;
 
   const rule = getRule(ruleId);
-  if (!rule) return;
-
   if (nextGrid?.length !== grid.length) {
     nextGrid = new Uint8Array(grid.length);
   }

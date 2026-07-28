@@ -34,22 +34,21 @@ function RuleSection() {
           ))}
         </Select>
       </ControlRow>
-      {rule &&
-        stateColors.slice(0, rule.stateCount).map((color, i) => (
-          <ControlRow
-            key={`stateColor-${String(i)}`}
-            label={i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${String(i)}`}
-          >
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => {
-                setStateColor(i, e.target.value);
-              }}
-              className="h-8 w-full cursor-pointer rounded border"
-            />
-          </ControlRow>
-        ))}
+      {stateColors.slice(0, rule.stateCount).map((color, i) => (
+        <ControlRow
+          key={`stateColor-${String(i)}`}
+          label={i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${String(i)}`}
+        >
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => {
+              setStateColor(i, e.target.value);
+            }}
+            className="h-8 w-full cursor-pointer rounded border"
+          />
+        </ControlRow>
+      ))}
     </ControlSection>
   );
 }
