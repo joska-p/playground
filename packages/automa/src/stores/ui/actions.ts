@@ -13,9 +13,12 @@ const setStateColor = (index: number, color: string): void => {
   });
 };
 
+const setShowDebug = (showDebug: boolean): void => {
+  uiStore.setState({ showDebug });
+};
 
 const setPaletteBrush = (id: string | null): void => {
   uiStore.setState({ paletteBrush: id });
 };
 
-export { setPaletteBrush, setStateColor, setToolMode };
+export { setPaletteBrush, setShowDebug, setStateColor, setToolMode };

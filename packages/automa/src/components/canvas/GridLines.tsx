@@ -3,10 +3,6 @@ type GridLinesProps = {
   rows: number;
 };
 
-/**
- * A CSS-only grid overlay for debug mode.
- * Uses repeating-linear-gradient to draw cell boundaries without any WebGL draw call.
- */
 function GridLines({ cols, rows }: GridLinesProps) {
   return (
     <div
