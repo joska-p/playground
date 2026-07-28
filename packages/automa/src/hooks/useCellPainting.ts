@@ -15,7 +15,7 @@ export function useCellPainting(
   cols: number,
   rows: number,
   brushMode: BrushMode,
-  paintCell: (index: number, value: CellValue) => void,
+  paintCell: (col: number, row: number, value: CellValue) => void,
   creature: Creature | null = null,
   paintCreature?: (col: number, row: number, creature: Creature) => void,
   canvasRef?: React.RefObject<HTMLCanvasElement | null>
@@ -32,7 +32,7 @@ export function useCellPainting(
     const canvas = activeCanvasRef.current;
     if (!canvas || e.shiftKey) return;
 
-    const { column: col, row, index } = eventToGridPoint(e, canvas, cols, rows);
+    const { column: col, row } = eventToGridPoint(e, canvas, cols, rows);
 
     if (col < 0 || col >= cols || row < 0 || row >= rows) return;
 
@@ -41,7 +41,7 @@ export function useCellPainting(
       return;
     }
 
-    paintCell(index, brushMode === 'erase' ? 0 : 1);
+    paintCell(col, row, brushMode === 'erase' ? 0 : 1);
   };
 
   const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {

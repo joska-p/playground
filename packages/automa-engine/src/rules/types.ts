@@ -1,9 +1,9 @@
 type Rule = {
-  id: string;
-  name: string;
-  stateCount: number;
-  birth: readonly boolean[];
-  survive: readonly boolean[];
+  readonly id: string;
+  readonly name: string;
+  readonly stateCount: number;
+  readonly birth: readonly boolean[];
+  readonly survive: readonly boolean[];
 };
 
 export type { Rule };

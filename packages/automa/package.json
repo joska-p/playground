@@ -17,7 +17,6 @@
   "dependencies": {
     "@repo/graphics": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@repo/worker-pool": "workspace:*",
     "@repo/automa-engine": "workspace:*",
     "zustand": "catalog:"
   },

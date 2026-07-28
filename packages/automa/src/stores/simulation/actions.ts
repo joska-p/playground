@@ -1,10 +1,9 @@
-import { GRID_DEFAULT_DENSITY, WORKER_MESSAGE_STEP } from '@repo/automa-engine/config';
+import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
 import type { Creature } from '@repo/automa-engine/creature/types';
 import { createGrid, seedGrid } from '@repo/automa-engine/grid';
 import { getRule } from '@repo/automa-engine/rules/registry';
 import type { CellValue } from '@repo/automa-engine/types';
-import { WorkerPool } from '@repo/worker-pool/worker-pool';
-import { getDefaultStateColor } from '../../config';
+import { getEngine, onEngineReady } from '../../core/gpu/engine-ref';
 import { uiStore } from '../ui/store';
 import { simulationStore } from './store';
 
@@ -15,42 +14,18 @@ type SimulationInit = {
   seed: number;
 };
 
-type StepRequest = {
-  type: typeof WORKER_MESSAGE_STEP;
-  grid: Uint8Array;
-  cols: number;
-  rows: number;
-  ruleId: string;
-};
-
-type StepResponse = {
-  type: typeof WORKER_MESSAGE_STEP;
-  grid: Uint8Array;
-};
-
-const pool = new WorkerPool<StepRequest, StepResponse>({
-  maxPoolSize: 1,
-  workerFactory: () =>
-    new Worker(new URL('@repo/automa-engine/worker', import.meta.url), {
-      type: 'module'
-    }),
-  serialize: (task) => ({
-    message: task,
-    transfer: [task.grid.buffer]
-  }),
-  deserialize: (event) => {
-    const data = event.data as StepResponse;
-    return { ok: true, value: data };
-  }
-});
-
 const init = (opts: SimulationInit): void => {
   const grid = createGrid(opts.rows, opts.cols);
   seedGrid(grid, opts.initialDensity, opts.seed);
 
+  onEngineReady(() => {
+    const engine = getEngine();
+    if (!engine) return;
+    engine.resize(opts.cols, opts.rows);
+    engine.init(grid);
+  });
+
   simulationStore.setState({
-    grid,
-    backBuffer: createGrid(opts.rows, opts.cols),
     cols: opts.cols,
     rows: opts.rows,
     seed: opts.seed,
@@ -59,22 +34,17 @@ const init = (opts: SimulationInit): void => {
 };
 
 const destroy = (): void => {
-  pool.teardown();
+  // engine lifecycle is managed by CellMesh
 };
 
-const step = async (): Promise<void> => {
+const step = (): void => {
   const state = simulationStore.getState();
-  const response = await pool.run({
-    type: WORKER_MESSAGE_STEP,
-    grid: state.grid,
-    cols: state.cols,
-    rows: state.rows,
-    ruleId: state.ruleId
-  });
-  simulationStore.setState({
-    grid: response.grid,
-    generation: state.generation + 1
-  });
+  const rule = getRule(state.ruleId);
+  if (!rule) return;
+  const engine = getEngine();
+  if (!engine) return;
+  engine.step(rule);
+  simulationStore.setState({ generation: state.generation + 1 });
 };
 
 const setRule = (ruleId: string): void => {
@@ -87,7 +57,7 @@ const setRule = (ruleId: string): void => {
   if (rule.stateCount > stateColors.length) {
     const next = [...stateColors];
     for (let i = stateColors.length; i < rule.stateCount; i++) {
-      next[i] = getDefaultStateColor(i) ?? '#000000';
+      next[i] = '#000000';
     }
     uiStore.setState({ stateColors: next });
   }
@@ -96,7 +66,7 @@ const setRule = (ruleId: string): void => {
 const play = async (): Promise<void> => {
   uiStore.setState({ running: true });
   while (uiStore.getState().running) {
-    await step();
+    step();
     await new Promise((r) => setTimeout(r, uiStore.getState().speedMs));
   }
 };
@@ -118,34 +88,41 @@ const setSpeed = (ms: number): void => {
 };
 
 const clear = (): void => {
+  const engine = getEngine();
+  if (!engine) return;
   const state = simulationStore.getState();
-  state.grid.fill(0);
+  const empty = new Uint8Array(state.cols * state.rows);
+  engine.init(empty);
   simulationStore.setState({ generation: state.generation + 1 });
 };
 
 const randomize = (density?: number): void => {
+  const engine = getEngine();
+  if (!engine) return;
   const state = simulationStore.getState();
-  seedGrid(state.grid, density ?? GRID_DEFAULT_DENSITY, state.seed);
+  const grid = createGrid(state.rows, state.cols);
+  seedGrid(grid, density ?? GRID_DEFAULT_DENSITY, state.seed);
+  engine.init(grid);
   simulationStore.setState({ generation: state.generation + 1 });
 };
 
-const paintCell = (index: number, value: CellValue): void => {
+const paintCell = (col: number, row: number, value: CellValue): void => {
+  const engine = getEngine();
+  if (!engine) return;
   const state = simulationStore.getState();
-  if (index >= 0 && index < state.grid.length) {
-    state.grid[index] = value;
-    simulationStore.setState({ generation: state.generation + 1 });
-  }
+  const brushSize = 0.5 / Math.max(state.cols, state.rows);
+  engine.paint(col / state.cols, row / state.rows, brushSize, value);
+  simulationStore.setState({ generation: state.generation + 1 });
 };
 
-// Place an entire creature pattern centered on (col, row)
 const placePattern = (col: number, row: number, creature: Creature): void => {
-  const state = simulationStore.getState();
-  const grid = state.grid;
-  const ccols = state.cols;
-  const rrows = state.rows;
+  const engine = getEngine();
+  if (!engine) return;
 
+  const state = simulationStore.getState();
   const offsetX = Math.floor(creature.width / 2);
   const offsetY = Math.floor(creature.height / 2);
+  const brushSize = 0.5 / Math.max(state.cols, state.rows);
 
   let changed = false;
   for (let y = 0; y < creature.height; y++) {
@@ -156,8 +133,8 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
       if (!val) continue;
       const gx = col - offsetX + x;
       const gy = row - offsetY + y;
-      if (gx < 0 || gx >= ccols || gy < 0 || gy >= rrows) continue;
-      grid[gy * ccols + gx] = val;
+      if (gx < 0 || gx >= state.cols || gy < 0 || gy >= state.rows) continue;
+      engine.paint(gx / state.cols, gy / state.rows, brushSize, val);
       changed = true;
     }
   }

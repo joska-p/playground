@@ -9,8 +9,8 @@ const rules = new Map<string, Rule>([
   [briansBrainRule.id, briansBrainRule]
 ]);
 
-function getRule(id: string): Rule | undefined {
-  return rules.get(id);
+function getRule(id: string): Rule {
+  return rules.get(id) ?? conwayRule;
 }
 
 function getAllRules(): Rule[] {
