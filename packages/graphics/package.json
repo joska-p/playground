@@ -4,13 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./math/Vector2": "./src/math/Vector2.ts",
-    "./math/Vector3": "./src/math/Vector3.ts",
     "./math/transforms": "./src/math/transforms.ts",
     "./webgl/WebGLContext": "./src/webgl/WebGLContext.ts",
     "./webgl/QuadPipeline": "./src/webgl/QuadPipeline.ts",
     "./webgl/FBOManager": "./src/webgl/FBOManager.ts",
-    "./webgl/InstancedBatch": "./src/webgl/InstancedBatch.ts",
     "./webgl/ShaderRunner": "./src/webgl/ShaderRunner.ts",
     "./react/ShaderCanvas": "./src/react/ShaderCanvas.tsx",
     "./react/useShaderRunner": "./src/react/useShaderRunner.ts",
@@ -18,8 +15,7 @@
     "./react/FrameLoopContext": "./src/react/FrameLoopContext.tsx",
     "./webgl/FrameLoop": "./src/webgl/FrameLoop.ts",
     "./webgl/GPGPUPipeline": "./src/webgl/GPGPUPipeline.ts",
-    "./react/useGPGPU": "./src/react/useGPGPU.ts",
-    "./webgl/texture-utils": "./src/webgl/texture-utils.ts"
+    "./react/useGPGPU": "./src/react/useGPGPU.ts"
   },
   "scripts": {
     "lint": "eslint .",

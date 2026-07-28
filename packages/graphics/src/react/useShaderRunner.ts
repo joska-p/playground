@@ -27,9 +27,5 @@ export function useShaderRunner(fragmentShader: string, dpr?: number) {
     };
   }, [dpr, fragmentShader]);
 
-  useEffect(() => {
-    runnerRef.current?.pipeline.compileFragmentShader(fragmentShader);
-  }, [fragmentShader]);
-
   return { canvasRef, runnerRef };
 }
