@@ -1,6 +1,6 @@
-import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '@repo/automa-engine/config';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
+import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../config';
 import { setSpeed, step, toggleRunning } from '../../stores/simulation/actions';
 import { useRunning, useSpeedMs } from '../../stores/ui/selectors';
 

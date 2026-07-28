@@ -1,12 +1,9 @@
 import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
+import { createGridWebGLTexture, uploadGridTexture } from '@repo/graphics/webgl/texture-utils';
 import { useEffect, useMemo, useRef } from 'react';
 import { simulationStore } from '../stores/simulation/store';
 import { useStateColors } from '../stores/ui/selectors';
-import {
-  buildStateColorArray,
-  createGridWebGLTexture,
-  uploadGridTexture
-} from './grid-texture.utils';
+import { buildStateColorArray } from './grid-texture.utils';
 
 export type GridTextureRunnerTarget = {
   ctx: {

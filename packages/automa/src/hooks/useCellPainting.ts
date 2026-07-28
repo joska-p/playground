@@ -1,8 +1,8 @@
 import type { Creature } from '@repo/automa-engine/creature/types';
 import type { CellValue } from '@repo/automa-engine/types';
-import { eventToGridPoint } from '@repo/graphics/math/transforms';
 import { useRef } from 'react';
 import type { BrushMode } from '../stores/ui/store';
+import { eventToGridPoint } from '../utils/grid-coords';
 
 type CellPaintingHandlers = {
   onPointerDown: (e: React.PointerEvent<HTMLCanvasElement>) => void;

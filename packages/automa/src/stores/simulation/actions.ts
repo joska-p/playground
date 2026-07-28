@@ -1,13 +1,10 @@
-import {
-  GRID_DEFAULT_DENSITY,
-  WORKER_MESSAGE_STEP,
-  getDefaultStateColor
-} from '@repo/automa-engine/config';
+import { GRID_DEFAULT_DENSITY, WORKER_MESSAGE_STEP } from '@repo/automa-engine/config';
 import type { Creature } from '@repo/automa-engine/creature/types';
 import { createGrid, seedGrid } from '@repo/automa-engine/grid';
 import { getRule } from '@repo/automa-engine/rules/registry';
 import type { CellValue } from '@repo/automa-engine/types';
 import { WorkerPool } from '@repo/worker-pool/worker-pool';
+import { getDefaultStateColor } from '../../config';
 import { uiStore } from '../ui/store';
 import { simulationStore } from './store';
 

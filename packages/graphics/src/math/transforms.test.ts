@@ -10,9 +10,7 @@ import {
   createScreenToBuffer,
   createScreenToCanvas,
   createShaderUniformBuilder,
-  createWorldToGrid,
   generateGLSLFragment,
-  gridToWorld,
   type DataDomainBounds,
   type Point2D
 } from './transforms';
@@ -175,50 +173,6 @@ describe('transforms', () => {
         }
       });
     }
-  });
-
-  describe('createWorldToGrid and gridToWorld', () => {
-    const columns = 50;
-    const rows = 50;
-
-    it('maps grid (0,0) to world cell center', () => {
-      const world = gridToWorld({ column: 0, row: 0 });
-      expect(world.x).toBeCloseTo(0.5);
-      expect(world.y).toBeCloseTo(0.5);
-    });
-
-    it('maps grid (49,49) to world cell center', () => {
-      const world = gridToWorld({ column: 49, row: 49 });
-      expect(world.x).toBeCloseTo(49.5);
-      expect(world.y).toBeCloseTo(49.5);
-    });
-
-    it('createWorldToGrid returns correct cell for center of grid', () => {
-      const toGrid = createWorldToGrid(columns, rows);
-      const result = toGrid({ x: 25.5, y: 25.5 });
-      expect(result.column).toBe(25);
-      expect(result.row).toBe(25);
-      expect(result.index).toBe(25 * columns + 25);
-    });
-
-    it('createWorldToGrid clamps out-of-range to nearest valid cell', () => {
-      const toGrid = createWorldToGrid(columns, rows);
-      const result = toGrid({ x: 999, y: -999 });
-      expect(result.column).toBe(49);
-      expect(result.row).toBe(0);
-    });
-
-    it('round-trips grid -> world -> grid', () => {
-      const toGrid = createWorldToGrid(columns, rows);
-      for (let column = 0; column < columns; column += 10) {
-        for (let row = 0; row < rows; row += 10) {
-          const world = gridToWorld({ column, row });
-          const back = toGrid(world);
-          expect(back.column).toBe(column);
-          expect(back.row).toBe(row);
-        }
-      }
-    });
   });
 
   describe('createScreenToBuffer and createBufferToScreen', () => {

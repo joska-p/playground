@@ -1,5 +1,5 @@
-import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '@repo/automa-engine/config';
 import { createStore } from 'zustand/vanilla';
+import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../../config';
 
 export type BrushMode = 'draw' | 'erase';
 
