@@ -29,7 +29,7 @@ export function createCanvasToGrid(
   rows: number,
   boundsWidth: number,
   boundsHeight: number,
-  fit: 'fill' | 'contain' | 'cover' = 'fill'
+  fit: 'fill' | 'contain' | 'cover' = 'contain'
 ) {
   const scaleX = boundsWidth / cols;
   const scaleY = boundsHeight / rows;
@@ -62,7 +62,7 @@ export function eventToGridPoint(
 ) {
   const bounds = canvas.getBoundingClientRect();
   const localX = e.clientX - bounds.left;
-  const localY = e.clientY - bounds.top;
+  const localY = bounds.height - (e.clientY - bounds.top);
 
   const canvasToGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
   return canvasToGrid({ x: localX, y: localY });
