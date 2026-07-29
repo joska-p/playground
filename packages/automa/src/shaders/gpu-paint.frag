@@ -16,7 +16,8 @@ void main() {
   float dist = length(diff);
 
   if (dist < u_brushSize) {
-    fragColor = vec4(u_value, u_value, u_value, 1.0);
+    float normalized = u_value / 255.0;
+    fragColor = vec4(normalized, normalized, normalized, 1.0);
   } else {
     fragColor = current;
   }

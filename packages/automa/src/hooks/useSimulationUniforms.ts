@@ -1,23 +1,23 @@
 import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
 import { useEffect, useMemo, useRef } from 'react';
-import { getEngine } from '../core/gpu/engine-ref';
+import { getEngine } from '../core/gpu/engineRegistry';
 import { useStateColors } from '../stores/ui/selectors';
-import { buildStateColorArray } from './grid-texture.utils';
+import { buildStateColorArray } from './color-utils';
 
-export type GridTextureRunnerTarget = {
+type SimulationUniformsRunnerTarget = {
   ctx: {
     gl: WebGL2RenderingContext;
   };
   pipeline: QuadPipeline;
 };
 
-export type UseGridTextureParams = {
-  runnerRef: React.RefObject<GridTextureRunnerTarget | null>;
+type UseSimulationUniformsParams = {
+  runnerRef: React.RefObject<SimulationUniformsRunnerTarget | null>;
   cols: number;
   rows: number;
 };
 
-export function useGridTexture({ runnerRef, cols, rows }: UseGridTextureParams) {
+function useSimulationUniforms({ runnerRef, cols, rows }: UseSimulationUniformsParams) {
   const stateColors = useStateColors();
 
   const stateColorsArray = useMemo(() => buildStateColorArray(stateColors), [stateColors]);
@@ -43,3 +43,5 @@ export function useGridTexture({ runnerRef, cols, rows }: UseGridTextureParams) 
 
   return { onBeforeRenderRef };
 }
+
+export { useSimulationUniforms };

@@ -4,13 +4,13 @@ import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas'
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
 import { useEffect, useRef } from 'react';
 import { SimulationEngine } from '../../core/gpu/SimulationEngine';
-import { setEngine } from '../../core/gpu/engine-ref';
+import { setEngine } from '../../core/gpu/engineRegistry';
 import { useCellPainting } from '../../hooks/useCellPainting';
-import { useGridTexture } from '../../hooks/useGridTexture';
+import { useSimulationUniforms } from '../../hooks/useSimulationUniforms';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 import gpuPaintShader from '../../shaders/gpu-paint.frag?raw';
 import simStepShader from '../../shaders/sim-step.frag?raw';
-import { paintCell, placePattern } from '../../stores/simulation/actions';
+import { paintCell, placePattern } from '../../stores/simulation/gridActions';
 import { useCols, useRows } from '../../stores/simulation/selectors';
 import { useBrushMode, usePaletteBrush } from '../../stores/ui/selectors';
 
@@ -24,7 +24,7 @@ function CellMesh() {
 
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
 
-  const { onBeforeRenderRef } = useGridTexture({
+  const { onBeforeRenderRef } = useSimulationUniforms({
     runnerRef,
     cols,
     rows
