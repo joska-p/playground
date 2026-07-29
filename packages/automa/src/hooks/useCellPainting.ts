@@ -1,6 +1,7 @@
 import type { Creature } from '@repo/automa-engine/creature/types';
 import type { CellValue } from '@repo/automa-engine/types';
 import { useRef } from 'react';
+import type { Point2D } from '../lib/coordinates';
 import { eventToGridPoint } from '../lib/coordinates';
 import type { BrushMode } from '../stores/automa';
 
@@ -18,7 +19,8 @@ export function useCellPainting(
   paintCell: (col: number, row: number, value: CellValue) => void,
   creature: Creature | null = null,
   paintCreature?: (col: number, row: number, creature: Creature) => void,
-  canvasRef?: React.RefObject<HTMLCanvasElement | null>
+  canvasRef?: React.RefObject<HTMLCanvasElement | null>,
+  interactionState?: { current: { pan: Point2D; zoom: number } }
 ): CellPaintingHandlers {
   const localCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const activeCanvasRef = canvasRef ?? localCanvasRef;
@@ -32,7 +34,8 @@ export function useCellPainting(
     const canvas = activeCanvasRef.current;
     if (!canvas || e.shiftKey) return;
 
-    const { column: col, row } = eventToGridPoint(e, canvas, cols, rows);
+    const interaction = interactionState?.current;
+    const { column: col, row } = eventToGridPoint(e, canvas, cols, rows, interaction);
 
     if (col < 0 || col >= cols || row < 0 || row >= rows) return;
 

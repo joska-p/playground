@@ -5,12 +5,17 @@ uniform sampler2D gridTexture;
 uniform vec3 stateColors[8];
 uniform vec2 texelSize;
 uniform vec2 uniformResolution;
+uniform vec2 u_panOffset;
+uniform float u_zoom;
 
 in vec2 vUv;
 out vec4 fragColor;
 
 void main() {
   vec2 uv = vUv;
+
+  uv = (uv - 0.5) / u_zoom + 0.5;
+  uv -= u_panOffset;
 
   float gridAspect = texelSize.y / texelSize.x;
   float canvasAspect = uniformResolution.x / uniformResolution.y;

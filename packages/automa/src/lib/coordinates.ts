@@ -1,27 +1,23 @@
-export type GridCellCoordinates = {
+import { createCanvasToData, type Point2D } from '@repo/graphics/math/transforms';
+
+export type GridCell = {
   column: number;
   row: number;
   index: number;
 };
 
-export type Point2D = {
-  x: number;
-  y: number;
-};
+export type { Point2D };
 
-export function createWorldToGrid(gridColumns: number, gridRows: number) {
-  return (vector: Point2D): GridCellCoordinates => {
-    const column = Math.max(0, Math.min(gridColumns - 1, Math.floor(vector.x)));
-    const row = Math.max(0, Math.min(gridRows - 1, Math.floor(vector.y)));
-    return { column, row, index: row * gridColumns + column };
-  };
+export function createWorldToGrid(cols: number, rows: number) {
+  return (p: Point2D) => ({
+    column: Math.max(0, Math.min(cols - 1, Math.floor(p.x))),
+    row: Math.max(0, Math.min(rows - 1, Math.floor(p.y))),
+    index: Math.floor(p.y) * cols + Math.floor(p.x)
+  });
 }
 
-export function gridToWorld(cellCoordinates: { column: number; row: number }): Point2D {
-  return {
-    x: cellCoordinates.column + 0.5,
-    y: cellCoordinates.row + 0.5
-  };
+export function gridToWorld(cell: { column: number; row: number }): Point2D {
+  return { x: cell.column + 0.5, y: cell.row + 0.5 };
 }
 
 export function createCanvasToGrid(
@@ -31,26 +27,19 @@ export function createCanvasToGrid(
   boundsHeight: number,
   fit: 'fill' | 'contain' | 'cover' = 'contain'
 ) {
-  const scaleX = boundsWidth / cols;
-  const scaleY = boundsHeight / rows;
-  let scale: number;
-  if (fit === 'contain') {
-    scale = Math.min(scaleX, scaleY);
-  } else if (fit === 'cover') {
-    scale = Math.max(scaleX, scaleY);
-  } else {
-    scale = 1;
-  }
-
-  const offsetX = (boundsWidth - cols * scale) / 2;
-  const offsetY = (boundsHeight - rows * scale) / 2;
-
-  const worldToGrid = createWorldToGrid(cols, rows);
-
-  return (point: { x: number; y: number }) => {
-    const worldX = (point.x - offsetX) / scale;
-    const worldY = (point.y - offsetY) / scale;
-    return worldToGrid({ x: worldX, y: worldY });
+  const toData = createCanvasToData(
+    { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+    boundsWidth,
+    boundsHeight,
+    fit
+  );
+  return (p: Point2D) => {
+    const d = toData(p);
+    return {
+      column: Math.floor(d.x),
+      row: Math.floor(d.y),
+      index: Math.floor(d.y) * cols + Math.floor(d.x)
+    };
   };
 }
 
@@ -58,12 +47,20 @@ export function eventToGridPoint(
   e: { clientX: number; clientY: number },
   canvas: HTMLCanvasElement,
   cols: number,
-  rows: number
+  rows: number,
+  interaction?: { pan: Point2D; zoom: number }
 ) {
   const bounds = canvas.getBoundingClientRect();
-  const localX = e.clientX - bounds.left;
-  const localY = bounds.height - (e.clientY - bounds.top);
+  let localX = e.clientX - bounds.left;
+  let localY = bounds.height - (e.clientY - bounds.top);
 
-  const canvasToGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
-  return canvasToGrid({ x: localX, y: localY });
+  if (interaction) {
+    const cx = bounds.width / 2;
+    const cy = bounds.height / 2;
+    localX = (localX - cx) / interaction.zoom + cx - interaction.pan.x;
+    localY = (localY - cy) / interaction.zoom + cy - interaction.pan.y;
+  }
+
+  const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
+  return toGrid({ x: localX, y: localY });
 }

@@ -26,13 +26,13 @@ function CellMesh() {
   const paletteBrushId = usePaletteBrush();
   const creature = paletteBrushId ? (getCreature(paletteBrushId) ?? null) : null;
   const engineCreated = useRef(false);
-
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
-
+  const interactionState = useInteractiveCanvas(canvasRef);
   const { onBeforeRenderRef } = useSimulationUniforms({
     runnerRef,
     cols,
-    rows
+    rows,
+    interactionState
   });
 
   useEffect(() => {
@@ -54,9 +54,6 @@ function CellMesh() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Attach interactive panning/zooming
-  useInteractiveCanvas(canvasRef);
-
   useFrame((time) => {
     onBeforeRenderRef.current?.(time);
     runnerRef.current?.render();
@@ -69,7 +66,8 @@ function CellMesh() {
     paintCell,
     creature,
     placePattern,
-    canvasRef
+    canvasRef,
+    interactionState
   );
 
   return (

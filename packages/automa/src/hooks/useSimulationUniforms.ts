@@ -1,5 +1,6 @@
+import type { Point2D } from '@repo/graphics/math/transforms';
 import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { getEngine } from '../engine/registry';
 import { buildStateColorArray } from '../lib/colors';
 import { useStateColors } from '../stores/automa';
@@ -15,13 +16,17 @@ type UseSimulationUniformsParams = {
   runnerRef: React.RefObject<SimulationUniformsRunnerTarget | null>;
   cols: number;
   rows: number;
+  interactionState?: { current: { pan: Point2D; zoom: number } };
 };
 
-function useSimulationUniforms({ runnerRef, cols, rows }: UseSimulationUniformsParams) {
+function useSimulationUniforms({
+  runnerRef,
+  cols,
+  rows,
+  interactionState
+}: UseSimulationUniformsParams) {
   const stateColors = useStateColors();
-
-  const stateColorsArray = useMemo(() => buildStateColorArray(stateColors), [stateColors]);
-
+  const stateColorsArray = buildStateColorArray(stateColors);
   const onBeforeRenderRef = useRef<((time: number) => void) | null>(null);
 
   useEffect(() => {
@@ -32,11 +37,21 @@ function useSimulationUniforms({ runnerRef, cols, rows }: UseSimulationUniformsP
       const engine = getEngine();
       if (!engine) return;
 
+      const interaction = interactionState?.current;
+      const canvas = runner.ctx.gl.canvas;
+
       runner.pipeline.setUniforms({
         gridTexture: engine.getDisplayTexture(),
         stateColors: Array.from(stateColorsArray),
         texelSize: [1 / cols, 1 / rows],
-        time
+        time,
+        u_panOffset: interaction
+          ? [
+              interaction.pan.x / (canvas as HTMLCanvasElement).clientWidth,
+              -interaction.pan.y / (canvas as HTMLCanvasElement).clientHeight
+            ]
+          : [0, 0],
+        u_zoom: interaction?.zoom ?? 1
       });
     };
   });

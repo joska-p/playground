@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Point2D as Point } from '../math/transforms';
 
 export type CanvasInteractionState = {
@@ -19,13 +19,6 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
 
   const dragStart = useRef<Point | null>(null);
   const panStart = useRef<Point>({ x: 0, y: 0 });
-
-  const applyTransform = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const { pan, zoom } = stateRef.current;
-    canvas.style.transform = `translate(${String(pan.x)}px, ${String(pan.y)}px) scale(${String(zoom)})`;
-  }, [canvasRef]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,8 +45,6 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
         };
       }
       stateRef.current.pointer = pointer;
-
-      applyTransform();
     };
 
     const handlePointerUp = () => {
@@ -66,8 +57,6 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
       const zoomFactor = Math.exp(-e.deltaY / 500);
       const currentZoom = stateRef.current.zoom;
       stateRef.current.zoom = Math.max(0.1, Math.min(5, currentZoom * zoomFactor));
-
-      applyTransform();
     };
 
     // Attach all event listeners natively on the canvas element
@@ -82,7 +71,7 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
       window.removeEventListener('pointerup', handlePointerUp);
       canvas.removeEventListener('wheel', handleWheel);
     };
-  }, [canvasRef, applyTransform]);
+  }, [canvasRef]);
 
   // Return mutable ref for render loops (0 re-renders!)
   return stateRef;
