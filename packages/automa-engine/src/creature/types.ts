@@ -1,9 +1,9 @@
 type Creature = {
-  id: string;
-  name: string;
-  width: number;
-  height: number;
-  cells: number[][];
+  readonly id: string;
+  readonly name: string;
+  readonly width: number;
+  readonly height: number;
+  readonly cells: number[][];
 };
 
 export type { Creature };

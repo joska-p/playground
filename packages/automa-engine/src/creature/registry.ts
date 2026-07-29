@@ -19,27 +19,33 @@ import {
 } from './builtin';
 import type { Creature } from './types';
 
-const creatures = new Map<string, Creature>([
-  [block.id, block],
-  [beehive.id, beehive],
-  [loaf.id, loaf],
-  [blinker.id, blinker],
-  [toad.id, toad],
-  [beacon.id, beacon],
-  [pulsar.id, pulsar],
-  [pentadecathlon.id, pentadecathlon],
-  [glider.id, glider],
-  [lwss.id, lwss],
-  [mwss.id, mwss],
-  [rPentomino.id, rPentomino],
-  [diehard.id, diehard],
-  [acorn.id, acorn],
-  [piHeptomino.id, piHeptomino],
-  [bHeptomino.id, bHeptomino],
-  [gosperGliderGun.id, gosperGliderGun]
-]);
+export const allCreatures = [
+  block,
+  beehive,
+  loaf,
+  blinker,
+  toad,
+  beacon,
+  pulsar,
+  pentadecathlon,
+  glider,
+  lwss,
+  mwss,
+  rPentomino,
+  diehard,
+  acorn,
+  piHeptomino,
+  bHeptomino,
+  gosperGliderGun
+] as const satisfies readonly Creature[];
 
-function getCreature(id: string): Creature | undefined {
+type CreatureId = (typeof allCreatures)[number]['id'];
+
+const creatures = new Map<CreatureId, Creature>(
+  allCreatures.map((creature) => [creature.id, creature])
+);
+
+function getCreature(id: CreatureId): Creature | undefined {
   return creatures.get(id);
 }
 
@@ -48,3 +54,4 @@ function getAllCreatures(): Creature[] {
 }
 
 export { getAllCreatures, getCreature };
+export type { CreatureId };
