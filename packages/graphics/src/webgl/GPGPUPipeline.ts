@@ -83,11 +83,13 @@ export class GPGPUPipeline {
   private programs = new Map<string, ProgramEntry>();
   private activeName: string | null = null;
   private defaultShader: string;
+  private emptyVao: WebGLVertexArrayObject;
 
   constructor(gl: WebGL2RenderingContext, width: number, height: number, defaultShader: string) {
     this.gl = gl;
     this.defaultShader = defaultShader;
     this.fbo = new FBOManager(gl, width, height);
+    this.emptyVao = gl.createVertexArray();
   }
 
   compile(): boolean {
@@ -127,63 +129,54 @@ export class GPGPUPipeline {
   }
 
   private setUniform(entry: ProgramEntry, name: string, value: UniformValue): void {
-    const gl = this.gl;
+    const { gl } = this;
     const info = entry.uniforms.get(name);
     if (!info) return;
 
+    const loc = info.loc;
     const type = info.type;
 
-    if (value instanceof Int32Array) {
-      gl.uniform1iv(info.loc, value);
-    } else if (value instanceof Float32Array) {
-      gl.uniform1fv(info.loc, value);
-    } else if (typeof value === 'number') {
-      if (type === gl.FLOAT) {
-        gl.uniform1f(info.loc, value);
-      } else {
-        gl.uniform1i(info.loc, value);
-      }
-    } else {
-      const a = value[0] as number;
-      const b = value[1] as number;
-      const c = value[2] as number;
-      const d = value[3] as number;
-      const isInt =
-        type === gl.INT_VEC2 ||
-        type === gl.INT_VEC3 ||
-        type === gl.INT_VEC4 ||
-        type === gl.BOOL_VEC2 ||
-        type === gl.BOOL_VEC3 ||
-        type === gl.BOOL_VEC4;
-      switch (value.length) {
-        case 1:
-          gl.uniform1f(info.loc, a);
-          break;
-        case 2:
-          if (isInt) {
-            gl.uniform2i(info.loc, a, b);
-          } else {
-            gl.uniform2f(info.loc, a, b);
-          }
-          break;
-        case 3:
-          if (isInt) {
-            gl.uniform3i(info.loc, a, b, c);
-          } else {
-            gl.uniform3f(info.loc, a, b, c);
-          }
-          break;
-        case 4:
-          if (isInt) {
-            gl.uniform4i(info.loc, a, b, c, d);
-          } else {
-            gl.uniform4f(info.loc, a, b, c, d);
-          }
-          break;
-        default:
-          gl.uniform1fv(info.loc, value);
-          break;
-      }
+    switch (type) {
+      case gl.FLOAT:
+        if (typeof value === 'number') gl.uniform1f(loc, value);
+        else gl.uniform1fv(loc, value as Float32Array);
+        break;
+      case gl.FLOAT_VEC2:
+        gl.uniform2fv(loc, value as Float32Array | number[]);
+        break;
+      case gl.FLOAT_VEC3:
+        gl.uniform3fv(loc, value as Float32Array | number[]);
+        break;
+      case gl.FLOAT_VEC4:
+        gl.uniform4fv(loc, value as Float32Array | number[]);
+        break;
+      case gl.INT:
+      case gl.BOOL:
+      case gl.SAMPLER_2D:
+        if (typeof value === 'number') gl.uniform1i(loc, value);
+        else gl.uniform1iv(loc, value as Int32Array);
+        break;
+      case gl.INT_VEC2:
+      case gl.BOOL_VEC2:
+        gl.uniform2iv(loc, value as Int32Array | number[]);
+        break;
+      case gl.INT_VEC3:
+      case gl.BOOL_VEC3:
+        gl.uniform3iv(loc, value as Int32Array | number[]);
+        break;
+      case gl.INT_VEC4:
+      case gl.BOOL_VEC4:
+        gl.uniform4iv(loc, value as Int32Array | number[]);
+        break;
+      case gl.FLOAT_MAT2:
+        gl.uniformMatrix2fv(loc, false, value as Float32Array | number[]);
+        break;
+      case gl.FLOAT_MAT3:
+        gl.uniformMatrix3fv(loc, false, value as Float32Array | number[]);
+        break;
+      case gl.FLOAT_MAT4:
+        gl.uniformMatrix4fv(loc, false, value as Float32Array | number[]);
+        break;
     }
   }
 
@@ -201,6 +194,8 @@ export class GPGPUPipeline {
     if (stateEntry) {
       gl.uniform1i(stateEntry.loc, 0);
     }
+
+    gl.bindVertexArray(this.emptyVao);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     this.fbo.unbind();
