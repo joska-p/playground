@@ -1,4 +1,4 @@
-import type { Creature } from './types';
+import type { Creature } from './registry';
 
 const block = {
   id: 'block',

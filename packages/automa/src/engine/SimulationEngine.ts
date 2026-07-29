@@ -1,4 +1,4 @@
-import type { Rule } from '@repo/automa-engine/rules/types';
+import type { Rule } from '@repo/automa-engine/rules/registry';
 import { GPGPUPipeline } from '@repo/graphics/webgl/GPGPUPipeline';
 
 export class SimulationEngine {

@@ -7,13 +7,10 @@
     "./engine": "./src/engine.ts",
     "./config": "./src/config.ts",
     "./grid": "./src/grid.ts",
-    "./types": "./src/types.ts",
     "./worker": "./src/worker.ts",
     "./creature/builtin": "./src/creature/builtin.ts",
     "./creature/registry": "./src/creature/registry.ts",
-    "./creature/types": "./src/creature/types.ts",
-    "./rules/registry": "./src/rules/registry.ts",
-    "./rules/types": "./src/rules/types.ts"
+    "./rules/registry": "./src/rules/registry.ts"
   },
   "scripts": {
     "lint": "eslint .",

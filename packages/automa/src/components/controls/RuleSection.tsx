@@ -1,4 +1,4 @@
-import { getAllRules, getRule } from '@repo/automa-engine/rules/registry';
+import { allRules, rules, type RuleId } from '@repo/automa-engine/rules/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
 import { setRule, setStateColor, useRuleId, useStateColors } from '../../stores/automa';
@@ -6,8 +6,7 @@ import { setRule, setStateColor, useRuleId, useStateColors } from '../../stores/
 function RuleSection() {
   const ruleId = useRuleId();
   const stateColors = useStateColors();
-  const rules = getAllRules();
-  const rule = getRule(ruleId);
+  const rule = rules[ruleId];
 
   return (
     <ControlSection
@@ -18,15 +17,15 @@ function RuleSection() {
         <Select
           value={ruleId}
           onChange={(e) => {
-            setRule(e.target.value);
+            setRule(e.target.value as RuleId);
           }}
         >
-          {rules.map((r) => (
+          {allRules.map((rule) => (
             <option
-              key={r.id}
-              value={r.id}
+              key={rule.id}
+              value={rule.id}
             >
-              {r.name}
+              {rule.name}
             </option>
           ))}
         </Select>

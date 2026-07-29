@@ -4,10 +4,10 @@ import {
   GRID_DEFAULT_ROWS,
   GRID_DEFAULT_SEED
 } from '@repo/automa-engine/config';
-import type { Creature } from '@repo/automa-engine/creature/types';
+import type { Creature, CreatureId } from '@repo/automa-engine/creature/registry';
 import { createGrid, seedGrid } from '@repo/automa-engine/grid';
-import { getRule } from '@repo/automa-engine/rules/registry';
-import type { CellValue } from '@repo/automa-engine/types';
+import type { RuleId } from '@repo/automa-engine/rules/registry';
+import { rules } from '@repo/automa-engine/rules/registry';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 import { getEngine, onEngineReady } from '../engine/registry';
@@ -22,13 +22,13 @@ type AutomaState = {
   cols: number;
   rows: number;
   seed: number;
-  ruleId: string;
+  ruleId: RuleId;
   running: boolean;
   speedMs: number;
   toolMode: BrushMode;
   showDebug: boolean;
   stateColors: string[];
-  paletteBrush: string | null;
+  paletteBrush: CreatureId | null;
 };
 
 // --- Store ---
@@ -94,17 +94,17 @@ const destroy = (): void => {
 
 const step = (): void => {
   const state = automaStore.getState();
-  const rule = getRule(state.ruleId);
+  const rule = rules[state.ruleId];
   const engine = getEngine();
   if (!engine) return;
   engine.step(rule);
   automaStore.setState({ generation: state.generation + 1 });
 };
 
-const setRule = (ruleId: string): void => {
+const setRule = (ruleId: RuleId): void => {
   automaStore.setState({ ruleId });
 
-  const rule = getRule(ruleId);
+  const rule = rules[ruleId];
   const { stateColors } = automaStore.getState();
   if (rule.stateCount > stateColors.length) {
     const next = [...stateColors];
@@ -136,7 +136,7 @@ const randomize = (density?: number): void => {
   automaStore.setState({ generation: state.generation + 1 });
 };
 
-const paintCell = (col: number, row: number, value: CellValue): void => {
+const paintCell = (col: number, row: number, value: number): void => {
   const engine = getEngine();
   if (!engine) return;
   engine.paint(col, row, value);
@@ -222,7 +222,7 @@ const setShowDebug = (showDebug: boolean): void => {
   automaStore.setState({ showDebug });
 };
 
-const setPaletteBrush = (id: string | null): void => {
+const setPaletteBrush = (id: CreatureId | null): void => {
   automaStore.setState({ paletteBrush: id });
 };
 

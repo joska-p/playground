@@ -1,5 +1,6 @@
 import { createSeededRandom } from './rng';
-import type { Grid } from './types';
+
+type Grid = Uint8Array;
 
 const createGrid = (rows: number, cols: number): Grid => new Uint8Array(rows * cols);
 
@@ -11,3 +12,4 @@ const seedGrid = (grid: Grid, density: number, seed: number): void => {
 };
 
 export { createGrid, seedGrid };
+export type { Grid };

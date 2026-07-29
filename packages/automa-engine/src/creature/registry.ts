@@ -17,9 +17,16 @@ import {
   rPentomino,
   toad
 } from './builtin';
-import type { Creature } from './types';
 
-export const allCreatures = [
+type Creature = {
+  readonly id: string;
+  readonly name: string;
+  readonly width: number;
+  readonly height: number;
+  readonly cells: number[][];
+};
+
+const allCreatures = [
   block,
   beehive,
   loaf,
@@ -41,17 +48,13 @@ export const allCreatures = [
 
 type CreatureId = (typeof allCreatures)[number]['id'];
 
-const creatures = new Map<CreatureId, Creature>(
-  allCreatures.map((creature) => [creature.id, creature])
+const creatures = allCreatures.reduce(
+  (acc, creature) => {
+    acc[creature.id] = creature;
+    return acc;
+  },
+  {} as Record<CreatureId, Creature>
 );
 
-function getCreature(id: CreatureId): Creature | undefined {
-  return creatures.get(id);
-}
-
-function getAllCreatures(): Creature[] {
-  return Array.from(creatures.values());
-}
-
-export { getAllCreatures, getCreature };
-export type { CreatureId };
+export { allCreatures, creatures };
+export type { Creature, CreatureId };

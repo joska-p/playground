@@ -1,4 +1,4 @@
-import { getCreature } from '@repo/automa-engine/creature/registry';
+import { creatures } from '@repo/automa-engine/creature/registry';
 import { useFrame } from '@repo/graphics/react/FrameLoopContext';
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
@@ -24,7 +24,7 @@ function CellMesh() {
   const rows = useRows();
   const brushMode = useBrushMode();
   const paletteBrushId = usePaletteBrush();
-  const creature = paletteBrushId ? (getCreature(paletteBrushId) ?? null) : null;
+  const creature = paletteBrushId ? creatures[paletteBrushId] : null;
   const engineCreated = useRef(false);
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
   const interactionState = useInteractiveCanvas(canvasRef);
