@@ -139,10 +139,10 @@ const randomize = (density?: number): void => {
 const paintCell = (col: number, row: number, value: CellValue): void => {
   const engine = getEngine();
   if (!engine) return;
-  const state = automaStore.getState();
-  const brushSize = 1.0 / Math.min(state.cols, state.rows);
-  engine.paint(col / state.cols, row / state.rows, brushSize, value);
-  automaStore.setState({ generation: state.generation + 1 });
+  engine.paint(col, row, value);
+  automaStore.setState(function (s) {
+    return { generation: s.generation + 1 };
+  });
 };
 
 const placePattern = (col: number, row: number, creature: Creature): void => {
@@ -152,7 +152,6 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
   const state = automaStore.getState();
   const offsetX = Math.floor(creature.width / 2);
   const offsetY = Math.floor(creature.height / 2);
-  const brushSize = 1.0 / Math.min(state.cols, state.rows);
 
   let changed = false;
   for (let y = 0; y < creature.height; y++) {
@@ -164,11 +163,10 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
       const gx = col - offsetX + x;
       const gy = row - offsetY + y;
       if (gx < 0 || gx >= state.cols || gy < 0 || gy >= state.rows) continue;
-      engine.paint(gx / state.cols, gy / state.rows, brushSize, val);
+      engine.paint(gx, gy, val);
       changed = true;
     }
   }
-
   if (changed) {
     automaStore.setState({ generation: state.generation + 1 });
   }

@@ -131,33 +131,54 @@ export class GPGPUPipeline {
     const info = entry.uniforms.get(name);
     if (!info) return;
 
+    const type = info.type;
+
     if (value instanceof Int32Array) {
       gl.uniform1iv(info.loc, value);
     } else if (value instanceof Float32Array) {
       gl.uniform1fv(info.loc, value);
     } else if (typeof value === 'number') {
-      if (info.type === gl.FLOAT) {
+      if (type === gl.FLOAT) {
         gl.uniform1f(info.loc, value);
       } else {
         gl.uniform1i(info.loc, value);
       }
     } else {
-      const a = value[0];
-      const b = value[1];
-      const c = value[2];
-      const d = value[3];
+      const a = value[0] as number;
+      const b = value[1] as number;
+      const c = value[2] as number;
+      const d = value[3] as number;
+      const isInt =
+        type === gl.INT_VEC2 ||
+        type === gl.INT_VEC3 ||
+        type === gl.INT_VEC4 ||
+        type === gl.BOOL_VEC2 ||
+        type === gl.BOOL_VEC3 ||
+        type === gl.BOOL_VEC4;
       switch (value.length) {
         case 1:
-          gl.uniform1f(info.loc, a ?? 0);
+          gl.uniform1f(info.loc, a);
           break;
         case 2:
-          gl.uniform2f(info.loc, a ?? 0, b ?? 0);
+          if (isInt) {
+            gl.uniform2i(info.loc, a, b);
+          } else {
+            gl.uniform2f(info.loc, a, b);
+          }
           break;
         case 3:
-          gl.uniform3f(info.loc, a ?? 0, b ?? 0, c ?? 0);
+          if (isInt) {
+            gl.uniform3i(info.loc, a, b, c);
+          } else {
+            gl.uniform3f(info.loc, a, b, c);
+          }
           break;
         case 4:
-          gl.uniform4f(info.loc, a ?? 0, b ?? 0, c ?? 0, d ?? 0);
+          if (isInt) {
+            gl.uniform4i(info.loc, a, b, c, d);
+          } else {
+            gl.uniform4f(info.loc, a, b, c, d);
+          }
           break;
         default:
           gl.uniform1fv(info.loc, value);

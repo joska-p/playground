@@ -34,13 +34,11 @@ export class SimulationEngine {
     this.pipeline.step();
   }
 
-  paint(normalizedX: number, normalizedY: number, brushSize: number, value: number): void {
+  paint(col: number, row: number, value: number): void {
     this.pipeline.useProgram('paint');
     this.pipeline.setUniforms({
-      u_mouse: [normalizedX, normalizedY],
-      u_brushSize: brushSize,
-      u_value: value,
-      u_resolution: [this.pipeline.width, this.pipeline.height]
+      u_targetCell: [col, row],
+      u_value: value
     });
     this.pipeline.step();
   }
