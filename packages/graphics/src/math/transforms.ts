@@ -161,6 +161,56 @@ export function createBufferToScreen(
   };
 }
 
+export type GridCell = {
+  column: number;
+  row: number;
+  index: number;
+};
+
+export function createWorldToGrid(cols: number, rows: number): (world: Point2D) => GridCell {
+  return (world: Point2D) => {
+    const column = Math.max(0, Math.min(cols - 1, Math.floor(world.x)));
+    const row = Math.max(0, Math.min(rows - 1, Math.floor(world.y)));
+    return { column, row, index: row * cols + column };
+  };
+}
+
+export function gridToWorld(cell: { column: number; row: number }): Point2D {
+  return { x: cell.column + 0.5, y: cell.row + 0.5 };
+}
+
+export function createCanvasToGrid(
+  cols: number,
+  rows: number,
+  canvasWidth: number,
+  canvasHeight: number,
+  fit: AspectFitMode = 'contain'
+): (canvas: Point2D) => GridCell {
+  const toData = createCanvasToData(
+    { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+    canvasWidth,
+    canvasHeight,
+    fit
+  );
+  return (canvas: Point2D) => {
+    const d = toData(canvas);
+    const column = Math.floor(d.x);
+    const row = Math.floor(d.y);
+    return { column, row, index: row * cols + column };
+  };
+}
+
+export function createScreenToGrid(
+  canvasBounds: CanvasElementBounds,
+  cols: number,
+  rows: number,
+  fit: AspectFitMode = 'contain'
+): (screen: Point2D) => GridCell {
+  const toCanvas = createScreenToCanvas(canvasBounds);
+  const toGrid = createCanvasToGrid(cols, rows, canvasBounds.width, canvasBounds.height, fit);
+  return (screen: Point2D) => toGrid(toCanvas(screen));
+}
+
 export function createShaderUniformBuilder(
   cssWidth: number,
   cssHeight: number,

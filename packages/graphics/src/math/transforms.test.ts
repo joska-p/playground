@@ -4,13 +4,18 @@ import {
   createBufferToScreen,
   createCanvasToBuffer,
   createCanvasToData,
+  createCanvasToGrid,
   createCanvasToNormalized,
   createDataToCanvas,
   createNormalizedToWebGL,
   createScreenToBuffer,
   createScreenToCanvas,
+  createScreenToGrid,
   createShaderUniformBuilder,
+  createWorldToGrid,
   generateGLSLFragment,
+  gridToWorld,
+  type AspectFitMode,
   type DataDomainBounds,
   type Point2D
 } from './transforms';
@@ -232,6 +237,73 @@ describe('transforms', () => {
       const glsl = generateGLSLFragment({ inputSpace: 'webgl', flipVertically: true });
       expect(glsl).toContain('vec2 uv = vUv * 2.0 - 1.0;');
       expect(glsl).toContain('uv.y = -uv.y;');
+    });
+  });
+
+  describe('grid transforms', () => {
+    const cols = 4;
+    const rows = 3;
+
+    describe('createWorldToGrid', () => {
+      it('maps continuous coords to correct cell', () => {
+        const toGrid = createWorldToGrid(cols, rows);
+        expect(toGrid({ x: 0.5, y: 0.5 })).toEqual({ column: 0, row: 0, index: 0 });
+        expect(toGrid({ x: 3.7, y: 2.2 })).toEqual({ column: 3, row: 2, index: 11 });
+        expect(toGrid({ x: 1.0, y: 1.0 })).toEqual({ column: 1, row: 1, index: 5 });
+      });
+
+      it('clamps out-of-bounds values', () => {
+        const toGrid = createWorldToGrid(cols, rows);
+        expect(toGrid({ x: -1, y: -5 })).toEqual({ column: 0, row: 0, index: 0 });
+        expect(toGrid({ x: 100, y: 100 })).toEqual({ column: 3, row: 2, index: 11 });
+      });
+    });
+
+    describe('gridToWorld', () => {
+      it('returns cell center at col+0.5, row+0.5', () => {
+        expect(gridToWorld({ column: 0, row: 0 })).toEqual({ x: 0.5, y: 0.5 });
+        expect(gridToWorld({ column: 3, row: 2 })).toEqual({ x: 3.5, y: 2.5 });
+        expect(gridToWorld({ column: 1, row: 1 })).toEqual({ x: 1.5, y: 1.5 });
+      });
+    });
+
+    describe('createCanvasToGrid', () => {
+      const canvasWidth = 800;
+      const canvasHeight = 600;
+      const dataDomain: DataDomainBounds = { xMin: 0, xMax: cols, yMin: 0, yMax: rows };
+      const testDataPoints = [
+        { x: 0.5, y: 0.5, expectedCol: 0, expectedRow: 0 },
+        { x: 1.2, y: 0.8, expectedCol: 1, expectedRow: 0 },
+        { x: 3.7, y: 2.2, expectedCol: 3, expectedRow: 2 },
+        { x: 2.5, y: 1.5, expectedCol: 2, expectedRow: 1 }
+      ];
+      const fits: AspectFitMode[] = ['contain', 'cover', 'fill', 'none'];
+
+      for (const fit of fits) {
+        it(`round-trips with gridToWorld under "${fit}"`, () => {
+          const toCanvas = createDataToCanvas(dataDomain, canvasWidth, canvasHeight, fit);
+          const toGrid = createCanvasToGrid(cols, rows, canvasWidth, canvasHeight, fit);
+
+          for (const { x, y, expectedCol, expectedRow } of testDataPoints) {
+            const canvas = toCanvas({ x, y });
+            const cell = toGrid(canvas);
+            expect(cell.column).toBe(expectedCol);
+            expect(cell.row).toBe(expectedRow);
+            const world = gridToWorld(cell);
+            expect(world.x).toBe(expectedCol + 0.5);
+            expect(world.y).toBe(expectedRow + 0.5);
+          }
+        });
+      }
+    });
+
+    describe('createScreenToGrid', () => {
+      it('composes with known canvas bounds', () => {
+        const bounds = { left: 100, top: 50, width: 800, height: 600 };
+        const toGrid = createScreenToGrid(bounds, cols, rows);
+        expect(toGrid({ x: 100, y: 50 })).toEqual({ column: 0, row: 0, index: 0 });
+        expect(toGrid({ x: 500, y: 350 })).toEqual({ column: 2, row: 1, index: 6 });
+      });
     });
   });
 });
