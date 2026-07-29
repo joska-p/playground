@@ -1,8 +1,8 @@
 import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
 import { useEffect, useMemo, useRef } from 'react';
-import { getEngine } from '../core/gpu/engineRegistry';
-import { useStateColors } from '../stores/ui/selectors';
-import { buildStateColorArray } from './color-utils';
+import { getEngine } from '../engine/registry';
+import { buildStateColorArray } from '../lib/colors';
+import { useStateColors } from '../stores/automa';
 
 type SimulationUniformsRunnerTarget = {
   ctx: {

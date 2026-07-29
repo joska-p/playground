@@ -1,9 +1,7 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Checkbox } from '@repo/ui/data-entry';
 import { useStepTimer } from '../../hooks/useStepTimer';
-import { useCols, useGeneration, useRows } from '../../stores/simulation/selectors';
-import { setShowDebug } from '../../stores/ui/actions';
-import { useShowDebug } from '../../stores/ui/selectors';
+import { setShowDebug, useCols, useGeneration, useRows, useShowDebug } from '../../stores/automa';
 
 function DebugSection() {
   const generation = useGeneration();

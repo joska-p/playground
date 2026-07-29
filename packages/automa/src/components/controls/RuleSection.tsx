@@ -1,10 +1,7 @@
 import { getAllRules, getRule } from '@repo/automa-engine/rules/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-import { setRule } from '../../stores/simulation/actions';
-import { useRuleId } from '../../stores/simulation/selectors';
-import { setStateColor } from '../../stores/ui/actions';
-import { useStateColors } from '../../stores/ui/selectors';
+import { setRule, setStateColor, useRuleId, useStateColors } from '../../stores/automa';
 
 function RuleSection() {
   const ruleId = useRuleId();

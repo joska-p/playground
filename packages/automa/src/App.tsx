@@ -1,9 +1,11 @@
 import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
+import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
-import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
-import { ControlsPanel } from './components/controls/ControlsPanel.tsx';
-import { destroy, init } from './stores/simulation/actions';
+import { CellMesh } from './components/canvas/CellMesh.tsx';
+import { GridLines } from './components/canvas/GridLines.tsx';
+import { ControlPanel } from './components/controls/ControlPanel';
+import { destroy, init, useShowDebug } from './stores/automa';
 
 type AppProps = {
   rows?: number;
@@ -13,6 +15,8 @@ type AppProps = {
 };
 
 function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
+  const showDebug = useShowDebug();
+
   useEffect(() => {
     init({
       rows,
@@ -26,8 +30,16 @@ function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
   return (
     <div className="relative h-screen overflow-hidden">
       <ErrorBoundary>
-        <AutomatonCanvas />
-        <ControlsPanel />
+        <GraphicsProvider>
+          <CellMesh />
+          {showDebug && (
+            <GridLines
+              cols={cols}
+              rows={rows}
+            />
+          )}
+        </GraphicsProvider>
+        <ControlPanel />
       </ErrorBoundary>
     </div>
   );

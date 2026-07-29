@@ -1,8 +1,6 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
-import { clear, randomize } from '../../stores/simulation/gridActions';
-import { setToolMode } from '../../stores/ui/actions';
-import { useBrushMode } from '../../stores/ui/selectors';
+import { clear, randomize, setToolMode, useBrushMode } from '../../stores/automa';
 
 function EditSection() {
   const brushMode = useBrushMode();

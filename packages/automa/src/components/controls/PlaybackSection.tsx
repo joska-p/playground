@@ -1,9 +1,7 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
-import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../config';
-import { step } from '../../stores/simulation/actions';
-import { setSpeed, toggleRunning } from '../../stores/simulation/playback';
-import { useRunning, useSpeedMs } from '../../stores/ui/selectors';
+import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../lib/constants';
+import { setSpeed, step, toggleRunning, useRunning, useSpeedMs } from '../../stores/automa';
 
 function PlaybackSection() {
   const running = useRunning();

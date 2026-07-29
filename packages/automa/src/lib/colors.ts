@@ -1,4 +1,4 @@
-import { MAX_STATE_COUNT } from '../config';
+import { MAX_STATE_COUNT } from './constants';
 
 export function buildStateColorArray(stateColors: string[]): Float32Array {
   const floats = new Float32Array(MAX_STATE_COUNT * 3);

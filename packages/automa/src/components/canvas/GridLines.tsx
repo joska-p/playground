@@ -1,9 +1,9 @@
-type GridLinesProps = {
-  cols: number;
-  rows: number;
-};
+import { useCols, useRows } from '../../stores/automa';
 
-function GridLines({ cols, rows }: GridLinesProps) {
+function GridLines() {
+  const cols = useCols();
+  const rows = useRows();
+
   return (
     <div
       aria-hidden="true"
