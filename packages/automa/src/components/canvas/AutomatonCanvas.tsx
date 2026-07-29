@@ -11,15 +11,13 @@ function AutomatonCanvas() {
 
   return (
     <GraphicsProvider>
-      <div className="relative h-full w-full overflow-hidden">
-        <CellMesh />
-        {showDebug && (
-          <GridLines
-            cols={cols}
-            rows={rows}
-          />
-        )}
-      </div>
+      <CellMesh />
+      {showDebug && (
+        <GridLines
+          cols={cols}
+          rows={rows}
+        />
+      )}
     </GraphicsProvider>
   );
 }
