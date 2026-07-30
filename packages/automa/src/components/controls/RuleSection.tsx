@@ -33,7 +33,7 @@ function RuleSection() {
       {stateColors.slice(0, rule.stateCount).map((color, i) => (
         <ControlRow
           key={`stateColor-${String(i)}`}
-          label={i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${String(i)}`}
+          label={`Age ${String(i)}`}
         >
           <input
             type="color"

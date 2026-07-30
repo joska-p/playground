@@ -12,6 +12,7 @@ import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 import type { SimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../lib/constants';
+import { computeDerivedColors } from '../lib/colors';
 
 // --- Types ---
 
@@ -117,13 +118,10 @@ const setRule = (ruleId: RuleId): void => {
   const rule = rules[ruleId];
   const { stateColors } = automaStore.getState();
 
-  let nextColors = stateColors;
-  if (rule.stateCount > stateColors.length) {
-    nextColors = [...stateColors];
-    for (let i = stateColors.length; i < rule.stateCount; i++) {
-      nextColors[i] = '#000000';
-    }
-  }
+  const deadColor = stateColors[0] ?? '#070a14';
+  const aliveColor = stateColors[1] ?? '#d97706';
+
+  const nextColors = computeDerivedColors(rule.stateCount, deadColor, aliveColor);
 
   automaStore.setState({ ruleId, stateColors: nextColors });
 };
@@ -226,9 +224,12 @@ const setToolMode = (mode: BrushMode): void => {
 
 const setStateColor = (index: number, color: string): void => {
   automaStore.setState((s) => {
-    const next = [...s.stateColors];
-    next[index] = color;
-    return { stateColors: next };
+    const deadColor = index === 0 ? color : (s.stateColors[0] ?? '#070a14');
+    const aliveColor = index === 1 ? color : (s.stateColors[1] ?? '#d97706');
+    const rule = rules[s.ruleId];
+
+    const nextColors = computeDerivedColors(rule.stateCount, deadColor, aliveColor);
+    return { stateColors: nextColors };
   });
 };
 

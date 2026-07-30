@@ -33,9 +33,21 @@ void main() {
     return;
   }
 
-  float raw = texture(gridTexture, uv).r;
+  // Sample both state (Red) and heat/age (Green)
+  vec4 texel = texture(gridTexture, uv);
+  float raw = texel.r;
+  float age = texel.g;
+
   int state = int(raw * 255.0 + 0.5);
+
+  // Base color from your stateColors array (state 0 = dead background)
   vec3 base = stateColors[state];
+
+  // If the cell is dead (state 0), render the trail color using the Green channel!
+  if (state == 0 && age > 0.0) {
+    vec3 trailColor = vec3(0.0, 0.5, 0.8); // Custom fading glow color
+    base = mix(base, trailColor, age * 0.6); // Blend gently with background
+  }
 
   fragColor = vec4(base, 1.0);
 }
