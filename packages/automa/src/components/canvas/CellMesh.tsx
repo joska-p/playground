@@ -2,14 +2,13 @@ import { useFrame } from '@repo/graphics/react/FrameLoopContext';
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
 import { useEffect, useRef } from 'react';
-import { SimulationEngine } from '../../engine/SimulationEngine';
-import { setEngine } from '../../engine/registry';
+import { createSimulationEngine } from '../../engine/createSimulationEngine';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useSimulationUniforms } from '../../hooks/useSimulationUniforms';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 import gpuPaintShader from '../../shaders/gpu-paint.frag?raw';
 import simStepShader from '../../shaders/sim-step.frag?raw';
-import { useBrushMode, useCols, useRows } from '../../stores/automa';
+import { useBrushMode, useCols, useRows, setEngine } from '../../stores/automa';
 
 function CellMesh() {
   const brushMode = useBrushMode();
@@ -28,7 +27,7 @@ function CellMesh() {
     if (!runner) return;
 
     const gl = runner.ctx.gl;
-    const engine = new SimulationEngine(gl, cols, rows, simStepShader, gpuPaintShader);
+    const engine = createSimulationEngine(gl, cols, rows, simStepShader, gpuPaintShader);
     setEngine(engine);
     engineCreated.current = true;
 

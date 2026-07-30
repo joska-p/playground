@@ -10,7 +10,7 @@ import type { RuleId } from '@repo/automa-engine/rules/registry';
 import { rules } from '@repo/automa-engine/rules/registry';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
-import { getEngine, onEngineReady } from '../engine/registry';
+import type { SimulationEngine } from '../engine/createSimulationEngine';
 import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../lib/constants';
 
 // --- Types ---
@@ -18,6 +18,7 @@ import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../lib/constants';
 export type BrushMode = 'draw' | 'erase';
 
 type AutomaState = {
+  engine: SimulationEngine | null;
   generation: number;
   cols: number;
   rows: number;
@@ -34,6 +35,7 @@ type AutomaState = {
 // --- Store ---
 
 const automaStore = createStore<AutomaState>(() => ({
+  engine: null,
   generation: 0,
   cols: GRID_DEFAULT_COLS,
   rows: GRID_DEFAULT_ROWS,
@@ -49,6 +51,7 @@ const automaStore = createStore<AutomaState>(() => ({
 
 // --- Selectors ---
 
+const useEngine = () => useStore(automaStore, (s) => s.engine);
 const useCols = () => useStore(automaStore, (s) => s.cols);
 const useGeneration = () => useStore(automaStore, (s) => s.generation);
 const useRows = () => useStore(automaStore, (s) => s.rows);
@@ -69,16 +72,20 @@ type SimulationInit = {
   seed: number;
 };
 
+const setEngine = (engine: SimulationEngine | null): void => {
+  automaStore.setState({ engine });
+};
+
 const init = (opts: SimulationInit): void => {
+  const { engine } = automaStore.getState();
+
   const grid = createGrid(opts.rows, opts.cols);
   seedGrid(grid, opts.initialDensity, opts.seed);
 
-  onEngineReady(() => {
-    const engine = getEngine();
-    if (!engine) return;
+  if (engine) {
     engine.resize(opts.cols, opts.rows);
     engine.init(grid);
-  });
+  }
 
   automaStore.setState({
     cols: opts.cols,
@@ -90,66 +97,70 @@ const init = (opts: SimulationInit): void => {
 
 const destroy = (): void => {
   playController?.abort();
+  const { engine } = automaStore.getState();
+  if (engine) {
+    engine.destroy();
+    automaStore.setState({ engine: null });
+  }
 };
 
 const step = (): void => {
   const state = automaStore.getState();
+  if (!state.engine) return;
+
   const rule = rules[state.ruleId];
-  const engine = getEngine();
-  if (!engine) return;
-  engine.step(rule);
+  state.engine.step(rule);
   automaStore.setState({ generation: state.generation + 1 });
 };
 
 const setRule = (ruleId: RuleId): void => {
-  automaStore.setState({ ruleId });
-
   const rule = rules[ruleId];
   const { stateColors } = automaStore.getState();
+
+  let nextColors = stateColors;
   if (rule.stateCount > stateColors.length) {
-    const next = [...stateColors];
+    nextColors = [...stateColors];
     for (let i = stateColors.length; i < rule.stateCount; i++) {
-      next[i] = '#000000';
+      nextColors[i] = '#000000';
     }
-    automaStore.setState({ stateColors: next });
   }
+
+  automaStore.setState({ ruleId, stateColors: nextColors });
 };
 
 // --- Grid editing ---
 
 const clear = (): void => {
-  const engine = getEngine();
+  const { engine, cols, rows, generation } = automaStore.getState();
   if (!engine) return;
-  const state = automaStore.getState();
-  const empty = new Uint8Array(state.cols * state.rows);
+
+  const empty = new Uint8Array(cols * rows);
   engine.init(empty);
-  automaStore.setState({ generation: state.generation + 1 });
+  automaStore.setState({ generation: generation + 1 });
 };
 
 const randomize = (density?: number): void => {
-  const engine = getEngine();
+  const { engine, rows, cols, seed, generation } = automaStore.getState();
   if (!engine) return;
-  const state = automaStore.getState();
-  const grid = createGrid(state.rows, state.cols);
-  seedGrid(grid, density ?? GRID_DEFAULT_DENSITY, state.seed);
+
+  const grid = createGrid(rows, cols);
+  seedGrid(grid, density ?? GRID_DEFAULT_DENSITY, seed);
   engine.init(grid);
-  automaStore.setState({ generation: state.generation + 1 });
+  automaStore.setState({ generation: generation + 1 });
 };
 
 const paintCell = (col: number, row: number, value: number): void => {
-  const engine = getEngine();
+  const { engine } = automaStore.getState();
   if (!engine) return;
+
   engine.paint(col, row, value);
-  automaStore.setState(function (s) {
-    return { generation: s.generation + 1 };
-  });
+  automaStore.setState((s) => ({ generation: s.generation + 1 }));
 };
 
 const placePattern = (col: number, row: number, creature: Creature): void => {
-  const engine = getEngine();
+  const { engine, cols, rows, generation } = automaStore.getState();
   if (!engine) return;
 
-  const state = automaStore.getState();
   const offsetX = Math.floor(creature.width / 2);
   const offsetY = Math.floor(creature.height / 2);
 
@@ -162,13 +173,14 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
       if (!val) continue;
       const gx = col - offsetX + x;
       const gy = row - offsetY + y;
-      if (gx < 0 || gx >= state.cols || gy < 0 || gy >= state.rows) continue;
+      if (gx < 0 || gx >= cols || gy < 0 || gy >= rows) continue;
       engine.paint(gx, gy, val);
       changed = true;
     }
   }
+
   if (changed) {
-    automaStore.setState({ generation: state.generation + 1 });
+    automaStore.setState({ generation: generation + 1 });
   }
 };
 
@@ -182,6 +194,7 @@ const play = async (): Promise<void> => {
   const { signal } = playController;
 
   automaStore.setState({ running: true });
+
   while (automaStore.getState().running && !signal.aborted) {
     step();
     await new Promise((r) => setTimeout(r, automaStore.getState().speedMs));
@@ -189,6 +202,7 @@ const play = async (): Promise<void> => {
 };
 
 const pause = (): void => {
+  playController?.abort();
   automaStore.setState({ running: false });
 };
 
@@ -235,6 +249,7 @@ export {
   pause,
   placePattern,
   randomize,
+  setEngine,
   setPaletteBrush,
   setRule,
   setShowDebug,
@@ -245,6 +260,7 @@ export {
   toggleRunning,
   useBrushMode,
   useCols,
+  useEngine,
   useGeneration,
   usePaletteBrush,
   useRows,
