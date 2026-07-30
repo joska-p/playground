@@ -1,13 +1,14 @@
 import type { Point2D, ShaderUniformValues } from '../math/transforms';
 
-const FULLSCREEN_TRIANGLE = `
-precision highp float;
-out vec2 vUv;
-void main() {
-  vec2 pos[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
-  vUv = pos[gl_VertexID] * 0.5 + 0.5;
-  gl_Position = vec4(pos[gl_VertexID], 0.0, 1.0);
-}`;
+const FULLSCREEN_TRIANGLE = /* glsl */ `
+  precision highp float;
+  out vec2 vUv;
+  void main() {
+    vec2 pos[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
+    vUv = pos[gl_VertexID] * 0.5 + 0.5;
+    gl_Position = vec4(pos[gl_VertexID], 0.0, 1.0);
+  }
+`;
 
 type UniformEntry = { location: WebGLUniformLocation; type: number; size: number };
 
