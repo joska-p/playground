@@ -16,11 +16,9 @@
   },
   "dependencies": {
     "@repo/randomart-engine": "workspace:*",
+    "@repo/graphics": "workspace:*",
     "@repo/ui": "workspace:*",
-    "zustand": "catalog:",
-    "@react-three/fiber": "catalog:",
-    "@types/three": "catalog:",
-    "three": "catalog:"
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

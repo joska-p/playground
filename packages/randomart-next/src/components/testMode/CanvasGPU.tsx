@@ -1,8 +1,7 @@
-import { Canvas, useFrame } from '@react-three/fiber';
 import type { Node } from '@repo/randomart-engine-next/types';
-import { useMemo, useRef } from 'react';
-import type * as THREE from 'three';
-import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from './buildValueShader';
+import { useMemo } from 'react';
+import { buildValueFragmentShader } from './buildValueShader';
+import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
 
 type CanvasGPUProps = {
   node: Node;
@@ -24,14 +23,14 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
       style={{ width: sizePx, height: sizePx }}
     >
       {shader && (
-        <Canvas
-          orthographic
-          camera={{ position: [0, 0, 1], zoom: sizePx / 2 }}
-          gl={{ antialias: false, preserveDrawingBuffer: false }}
-          dpr={[1, 1]}
-        >
-          <ValuePlane fragmentShader={shader} />
-        </Canvas>
+        <ShaderCanvas
+          fragmentShader={shader}
+          onBeforeRender={(pipeline, time) => {
+            pipeline.setUniforms({
+              u_time: time
+            });
+          }}
+        />
       )}
       {error && (
         <div className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm">
@@ -39,30 +38,5 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
         </div>
       )}
     </div>
-  );
-}
-
-function ValuePlane({ fragmentShader }: { fragmentShader: string }) {
-  const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const uniforms = {
-    u_time: { value: 0.0 }
-  };
-
-  useFrame((state) => {
-    if (materialRef.current?.uniforms['u_time']) {
-      materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
-    }
-  });
-
-  return (
-    <mesh>
-      <planeGeometry args={[2, 2]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={VALUE_VERTEX_SHADER}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-      />
-    </mesh>
   );
 }

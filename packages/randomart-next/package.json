@@ -18,9 +18,7 @@
     "@repo/randomart-engine-next": "workspace:*",
     "@repo/ui": "workspace:*",
     "zustand": "catalog:",
-    "@react-three/fiber": "catalog:",
-    "@types/three": "catalog:",
-    "three": "catalog:"
+    "@repo/graphics": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:",
