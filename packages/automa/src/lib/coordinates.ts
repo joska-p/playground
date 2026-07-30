@@ -34,7 +34,7 @@ export function createCanvasToGrid(
     fit
   );
   return (p: Point2D) => {
-    const d = toData(p);
+    const d = toData({ x: p.x, y: boundsHeight - p.y });
     return {
       column: Math.floor(d.x),
       row: Math.floor(d.y),
@@ -52,7 +52,7 @@ export function eventToGridPoint(
 ) {
   const bounds = canvas.getBoundingClientRect();
   let localX = e.clientX - bounds.left;
-  let localY = bounds.height - (e.clientY - bounds.top);
+  let localY = e.clientY - bounds.top;
 
   if (interaction) {
     const cx = bounds.width / 2;
