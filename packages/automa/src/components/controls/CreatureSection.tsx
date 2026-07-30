@@ -13,12 +13,11 @@ function CreatureSection() {
     >
       <ControlRow label="Pattern">
         <Select
-          value={paletteBrush ?? ''}
+          value={paletteBrush}
           onChange={(e) => {
             setPaletteBrush(e.target.value as CreatureId);
           }}
         >
-          <option value="">None</option>
           {allCreatures.map((c) => (
             <option
               key={c.id}

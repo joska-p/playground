@@ -28,7 +28,7 @@ type AutomaState = {
   toolMode: BrushMode;
   showDebug: boolean;
   stateColors: string[];
-  paletteBrush: CreatureId | null;
+  paletteBrush: CreatureId | 'pixel';
 };
 
 // --- Store ---
@@ -44,7 +44,7 @@ const automaStore = createStore<AutomaState>(() => ({
   toolMode: 'draw' as const,
   showDebug: false,
   stateColors: [...DEFAULT_STATE_COLORS],
-  paletteBrush: null
+  paletteBrush: 'pixel'
 }));
 
 // --- Selectors ---
@@ -222,7 +222,7 @@ const setShowDebug = (showDebug: boolean): void => {
   automaStore.setState({ showDebug });
 };
 
-const setPaletteBrush = (id: CreatureId | null): void => {
+const setPaletteBrush = (id: CreatureId): void => {
   automaStore.setState({ paletteBrush: id });
 };
 

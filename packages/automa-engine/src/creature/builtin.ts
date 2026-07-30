@@ -1,5 +1,13 @@
 import type { Creature } from './registry';
 
+const pixel = {
+  id: 'pixel',
+  name: 'Pixel',
+  width: 1,
+  height: 1,
+  cells: [[1]]
+} as const satisfies Creature;
+
 const block = {
   id: 'block',
   name: 'Block',
@@ -271,6 +279,7 @@ const gosperGliderGun = {
 } as const satisfies Creature;
 
 export {
+  pixel,
   acorn,
   beacon,
   beehive,

@@ -15,7 +15,8 @@ import {
   piHeptomino,
   pulsar,
   rPentomino,
-  toad
+  toad,
+  pixel
 } from './builtin';
 
 type Creature = {
@@ -43,7 +44,8 @@ const allCreatures = [
   acorn,
   piHeptomino,
   bHeptomino,
-  gosperGliderGun
+  gosperGliderGun,
+  pixel
 ] as const satisfies readonly Creature[];
 
 type CreatureId = (typeof allCreatures)[number]['id'];
