@@ -9,7 +9,7 @@ const FULLSCREEN_TRIANGLE = /* glsl */ `
     vUv = pos[gl_VertexID] * 0.5 + 0.5;
     gl_Position = vec4(pos[gl_VertexID], 0.0, 1.0);
   }
-`;
+`.trim();
 
 type UniformEntry = {
   loc: WebGLUniformLocation;
@@ -31,6 +31,7 @@ function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): Prog
   gl.compileShader(vs);
 
   if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
+    console.error('Vertex shader compile error:', gl.getShaderInfoLog(vs));
     gl.deleteShader(vs);
     return null;
   }
@@ -41,6 +42,7 @@ function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): Prog
   gl.compileShader(fs);
 
   if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+    console.error('Fragment shader compile error:', gl.getShaderInfoLog(fs));
     gl.deleteShader(vs);
     gl.deleteShader(fs);
     return null;
@@ -52,6 +54,7 @@ function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): Prog
   gl.linkProgram(program);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error('Program link error:', gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     gl.deleteShader(vs);
     gl.deleteShader(fs);
@@ -94,20 +97,19 @@ export class GPGPUPipeline {
     this.emptyVao = gl.createVertexArray();
   }
 
-  compile(): boolean {
-    return this.addProgram('default', this.defaultShader);
+  compile(): void {
+    this.addProgram('default', this.defaultShader);
   }
 
-  addProgram(name: string, fragmentSource: string): boolean {
+  addProgram(name: string, fragmentSource: string): void {
     const entry = compileShader(this.gl, fragmentSource);
-    if (!entry) return false;
+    if (!entry) throw new Error(`Failed to compile shader program "${name}"`);
     this.programs.set(name, entry);
-    return true;
   }
 
   useProgram(name: string): void {
     const entry = this.programs.get(name);
-    if (!entry) return;
+    if (!entry) throw new Error(`Program "${name}" not found`);
     this.activeName = name;
     this.gl.useProgram(entry.program);
   }
@@ -116,7 +118,7 @@ export class GPGPUPipeline {
   setUniforms(name: string, value: UniformValue): void;
   setUniforms(nameOrUniforms: string | Record<string, UniformValue>, value?: UniformValue): void {
     const entry = this.activeName ? this.programs.get(this.activeName) : undefined;
-    if (!entry) return;
+    if (!entry) throw new Error('No active program');
 
     if (typeof nameOrUniforms === 'string') {
       if (value === undefined) return;
@@ -185,7 +187,7 @@ export class GPGPUPipeline {
   step(): void {
     const { gl } = this;
     const entry = this.activeName ? this.programs.get(this.activeName) : undefined;
-    if (!entry) return;
+    if (!entry) throw new Error('No active program');
 
     this.fbo.bindWrite();
 
