@@ -24,7 +24,7 @@ function CellMesh() {
   const rows = useRows();
   const brushMode = useBrushMode();
   const paletteBrushId = usePaletteBrush();
-  const creature = paletteBrushId ? creatures[paletteBrushId] : null;
+  const creature = paletteBrushId;
   const engineCreated = useRef(false);
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
   const interactionState = useInteractiveCanvas(canvasRef);

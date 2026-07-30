@@ -18,12 +18,12 @@ function CreatureSection() {
             setPaletteBrush(e.target.value as CreatureId);
           }}
         >
-          {allCreatures.map((c) => (
+          {allCreatures.map((creature) => (
             <option
-              key={c.id}
-              value={c.id}
+              key={creature.id}
+              value={creature.id}
             >
-              {c.name}
+              {creature.name}
             </option>
           ))}
         </Select>
