@@ -26,12 +26,14 @@ export class QuadPipeline {
     this.uniformBuilder = uniformBuilder;
   }
 
-  compileFragmentShader(fragmentSource: string): boolean {
+  compileFragmentShader(fragmentSource: string): void {
     const gl = this.gl;
 
     const vs = this.compileShader(gl.VERTEX_SHADER, FULLSCREEN_TRIANGLE);
+    if (!vs) throw new Error('Failed to compile vertex shader');
+
     const fs = this.compileShader(gl.FRAGMENT_SHADER, fragmentSource);
-    if (!vs || !fs) return false;
+    if (!fs) throw new Error('Failed to compile fragment shader');
 
     const program = gl.createProgram();
     gl.attachShader(program, vs);
@@ -39,8 +41,11 @@ export class QuadPipeline {
     gl.linkProgram(program);
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error('Program link error:', gl.getProgramInfoLog(program));
-      return false;
+      const log = gl.getProgramInfoLog(program);
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+      throw new Error(`Program link error: ${String(log)}`);
     }
 
     this.program = program;
@@ -60,13 +65,14 @@ export class QuadPipeline {
         }
       }
     }
-
-    return true;
   }
 
   render(mousePx?: Point2D): void {
     const gl = this.gl;
-    if (!this.program) return;
+    if (!this.program) {
+      console.warn('QuadPipeline.render() called with no compiled program');
+      return;
+    }
 
     this.nextTextureUnit = 0;
     gl.useProgram(this.program);
@@ -120,7 +126,10 @@ export class QuadPipeline {
    */
   setUniforms(uniforms: Record<string, number | number[] | WebGLTexture>): void {
     const { gl } = this;
-    if (!this.program) return;
+    if (!this.program) {
+      console.warn('QuadPipeline.setUniforms() called with no compiled program');
+      return;
+    }
     gl.useProgram(this.program);
     for (const [name, value] of Object.entries(uniforms)) {
       const entry = this.uniforms.get(name);

@@ -31,7 +31,7 @@ function createMockGL() {
     compileShader: vi.fn((shader: WebGLShader) => {
       if (!shaderParams.has(shader)) shaderParams.set(shader, new Map());
       const source = shaderSources.get(shader) ?? '';
-      const isValid = source.includes('#version');
+      const isValid = source.includes('void main');
       shaderParams.get(shader)?.set(gl.COMPILE_STATUS, isValid);
     }),
     getShaderParameter: vi.fn((shader: WebGLShader, param: number) => {
@@ -85,31 +85,26 @@ describe('QuadPipeline', () => {
     expect(pipeline).toBeDefined();
   });
 
-  it('returns true for valid fragment shader', () => {
-    const pipeline = new QuadPipeline(gl, uniformBuilder);
-    const result = pipeline.compileFragmentShader(`
-      #version 300 es
-      precision highp float;
-      in vec2 vUv;
-      out vec4 fragColor;
-      void main() {
-        fragColor = vec4(vUv, 0.0, 1.0);
-      }
-    `);
-    expect(result).toBe(true);
-  });
-
-  it('returns false for invalid fragment shader', () => {
-    const pipeline = new QuadPipeline(gl, uniformBuilder);
-    const result = pipeline.compileFragmentShader('NOT VALID GLSL');
-    expect(result).toBe(false);
-  });
-
-  it('does not throw on invalid shader', () => {
+  it('compiles a valid fragment shader', () => {
     const pipeline = new QuadPipeline(gl, uniformBuilder);
     expect(() => {
-      pipeline.compileFragmentShader('BROKEN CODE {{{');
+      pipeline.compileFragmentShader(`
+        #version 300 es
+        precision highp float;
+        in vec2 vUv;
+        out vec4 fragColor;
+        void main() {
+          fragColor = vec4(vUv, 0.0, 1.0);
+        }
+      `);
     }).not.toThrow();
+  });
+
+  it('throws on invalid fragment shader', () => {
+    const pipeline = new QuadPipeline(gl, uniformBuilder);
+    expect(() => {
+      pipeline.compileFragmentShader('NOT VALID GLSL');
+    }).toThrow();
   });
 
   it('getShaderUniforms returns expected values after compilation', () => {

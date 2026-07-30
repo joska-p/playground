@@ -31,7 +31,7 @@ void main() {
 
   float nextState = 0.0;
   if (current == 1) {
-    nextState = u_survive[neighbors] != 0 ? 1.0 / 255.0 : (u_stateCount > 2 ? 2.0 / 255.0 : 0.0);
+    nextState = u_survive[neighbors] != 0 ? 1.0 / 255.0 : u_stateCount > 2 ? 2.0 / 255.0 : 0.0;
   } else if (current > 1) {
     int maxState = u_stateCount - 1;
     nextState = float(current == maxState ? 0 : current + 1) / 255.0;

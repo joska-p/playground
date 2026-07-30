@@ -7,11 +7,15 @@ let lastInit: (() => void) | null = null;
 export const setEngine = (e: SimulationEngine | null): void => {
   const prev = engine;
   engine = e;
-  if (e && e !== prev && pendingInit) {
-    pendingInit();
-    pendingInit = null;
-  } else if (e && e !== prev && lastInit) {
-    lastInit();
+  try {
+    if (e && e !== prev && pendingInit) {
+      pendingInit();
+      pendingInit = null;
+    } else if (e && e !== prev && lastInit) {
+      lastInit();
+    }
+  } catch (err) {
+    console.error('Engine initialization callback failed:', err);
   }
 };
 
