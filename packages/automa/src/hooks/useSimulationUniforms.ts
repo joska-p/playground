@@ -1,5 +1,5 @@
 import type { Point2D } from '@repo/graphics/math/transforms';
-import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
+import type { QuadPipeline } from '@repo/graphics/webgl/createQuadPipeline';
 import { useEffect, useRef } from 'react';
 import { buildStateColorArray } from '../lib/colors';
 import { automaStore } from '../stores/automa';

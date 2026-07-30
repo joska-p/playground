@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { GPGPUPipeline } from '../webgl/GPGPUPipeline';
+import { createGPGPUPipeline, type GPGPUPipeline } from '../webgl/createGPGPUPipeline';
 
 export function useGPGPU(
   gl: WebGL2RenderingContext | null,
@@ -12,7 +12,7 @@ export function useGPGPU(
   useEffect(() => {
     if (!gl || width === 0 || height === 0) return;
 
-    const pipeline = new GPGPUPipeline(gl, width, height, simShader);
+    const pipeline = createGPGPUPipeline(gl, width, height, simShader);
     pipeline.compile();
     pipelineRef.current = pipeline;
 

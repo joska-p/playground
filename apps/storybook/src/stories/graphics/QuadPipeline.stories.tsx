@@ -3,7 +3,7 @@ import {
   createScreenToCanvas,
   createShaderUniformBuilder
 } from '@repo/graphics/math/transforms';
-import { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
+import { createQuadPipeline, type QuadPipeline } from '@repo/graphics/webgl/createQuadPipeline';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef, useState } from 'react';
 
@@ -33,7 +33,7 @@ function useWebGLPipeline(
 
     const uniformBuilder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight, dpr);
 
-    const pipeline = new QuadPipeline(gl, uniformBuilder);
+    const pipeline = createQuadPipeline(gl, uniformBuilder);
     pipeline.compileFragmentShader(fragmentSrc);
     pipelineRef.current = pipeline;
 
@@ -148,7 +148,7 @@ export const MouseUniformTest: Story = {
 
       const uniformBuilder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight, 1);
 
-      const pipeline = new QuadPipeline(gl, uniformBuilder);
+      const pipeline = createQuadPipeline(gl, uniformBuilder);
       pipeline.compileFragmentShader(MOUSE_SPOTLIGHT_FS);
       pipelineRef.current = pipeline;
 

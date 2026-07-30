@@ -1,5 +1,5 @@
 import type { Rule } from '@repo/automa-engine/rules/registry';
-import { GPGPUPipeline } from '@repo/graphics/webgl/GPGPUPipeline';
+import { createGPGPUPipeline } from '@repo/graphics/webgl/createGPGPUPipeline';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
 
@@ -10,7 +10,7 @@ export function createSimulationEngine(
   simShaderSource: string,
   paintShaderSource: string
 ) {
-  const pipeline = new GPGPUPipeline(gl, width, height, simShaderSource);
+  const pipeline = createGPGPUPipeline(gl, width, height, simShaderSource);
   pipeline.compile();
   pipeline.addProgram('paint', paintShaderSource);
 

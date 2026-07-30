@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ShaderRunner } from '../webgl/ShaderRunner';
+import { createShaderRunner, type ShaderRunner } from '../webgl/createShaderRunner';
 
 export function useShaderRunner(fragmentShader: string, dpr?: number) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -9,7 +9,7 @@ export function useShaderRunner(fragmentShader: string, dpr?: number) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const runner = new ShaderRunner(canvas, fragmentShader, dpr);
+    const runner = createShaderRunner({ canvas, fragmentShader, dpr });
     runnerRef.current = runner;
 
     const observer = new ResizeObserver(([entry]) => {

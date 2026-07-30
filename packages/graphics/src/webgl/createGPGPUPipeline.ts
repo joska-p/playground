@@ -1,4 +1,4 @@
-import { FBOManager } from './FBOManager';
+import { createFBOManager, type FBOManager } from './createFBOManager';
 
 const FULLSCREEN_TRIANGLE = /* glsl */ `
   #version 300 es
@@ -22,7 +22,7 @@ type ProgramEntry = {
   uniforms: Map<string, UniformEntry>;
 };
 
-type UniformValue = number | readonly number[] | Int32Array | Float32Array;
+export type UniformValue = number | readonly number[] | Int32Array | Float32Array;
 
 function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): ProgramEntry | null {
   const vs = gl.createShader(gl.VERTEX_SHADER);
@@ -49,6 +49,7 @@ function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): Prog
   }
 
   const program = gl.createProgram();
+
   gl.attachShader(program, vs);
   gl.attachShader(program, fs);
   gl.linkProgram(program);
@@ -82,58 +83,35 @@ function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): Prog
   return { program, uniforms };
 }
 
-export class GPGPUPipeline {
-  private gl: WebGL2RenderingContext;
-  private fbo: FBOManager;
-  private programs = new Map<string, ProgramEntry>();
-  private activeName: string | null = null;
-  private defaultShader: string;
-  private emptyVao: WebGLVertexArrayObject;
-
-  constructor(gl: WebGL2RenderingContext, width: number, height: number, defaultShader: string) {
-    this.gl = gl;
-    this.defaultShader = defaultShader;
-    this.fbo = new FBOManager(gl, width, height);
-    this.emptyVao = gl.createVertexArray();
-  }
-
-  compile(): void {
-    this.addProgram('default', this.defaultShader);
-  }
-
-  addProgram(name: string, fragmentSource: string): void {
-    const entry = compileShader(this.gl, fragmentSource);
-    if (!entry) throw new Error(`Failed to compile shader program "${name}"`);
-    this.programs.set(name, entry);
-  }
-
-  useProgram(name: string): void {
-    const entry = this.programs.get(name);
-    if (!entry) throw new Error(`Program "${name}" not found`);
-    this.activeName = name;
-    this.gl.useProgram(entry.program);
-  }
-
+export type GPGPUPipeline = {
+  readonly width: number;
+  readonly height: number;
+  readonly fbo: FBOManager;
+  compile(): void;
+  addProgram(name: string, fragmentSource: string): void;
+  useProgram(name: string): void;
   setUniforms(uniforms: Record<string, UniformValue>): void;
   setUniforms(name: string, value: UniformValue): void;
-  setUniforms(nameOrUniforms: string | Record<string, UniformValue>, value?: UniformValue): void {
-    const entry = this.activeName ? this.programs.get(this.activeName) : undefined;
-    if (!entry) throw new Error('No active program');
+  step(): void;
+  init(data: Uint8Array): void;
+  getStateTexture(): WebGLTexture;
+  resize(width: number, height: number): void;
+  destroy(): void;
+};
 
-    if (typeof nameOrUniforms === 'string') {
-      if (value === undefined) return;
-      this.setUniform(entry, nameOrUniforms, value);
-    } else {
-      for (const key of Object.keys(nameOrUniforms)) {
-        const v = nameOrUniforms[key];
-        if (v === undefined) continue;
-        this.setUniform(entry, key, v);
-      }
-    }
-  }
+export function createGPGPUPipeline(
+  gl: WebGL2RenderingContext,
+  width: number,
+  height: number,
+  defaultShader: string
+): GPGPUPipeline {
+  const fbo = createFBOManager(gl, width, height);
+  const programs = new Map<string, ProgramEntry>();
+  let activeName: string | null = null;
 
-  private setUniform(entry: ProgramEntry, name: string, value: UniformValue): void {
-    const { gl } = this;
+  const emptyVao = gl.createVertexArray();
+
+  const setUniform = (entry: ProgramEntry, name: string, value: UniformValue): void => {
     const info = entry.uniforms.get(name);
     if (!info) return;
 
@@ -182,82 +160,120 @@ export class GPGPUPipeline {
         gl.uniformMatrix4fv(loc, false, value as Float32Array | number[]);
         break;
     }
-  }
+  };
 
-  step(): void {
-    const { gl } = this;
-    const entry = this.activeName ? this.programs.get(this.activeName) : undefined;
-    if (!entry) throw new Error('No active program');
+  const addProgram = (name: string, fragmentSource: string): void => {
+    const entry = compileShader(gl, fragmentSource);
+    if (!entry) throw new Error(`Failed to compile shader program "${name}"`);
+    programs.set(name, entry);
+  };
 
-    this.fbo.bindWrite();
+  return {
+    fbo,
 
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, this.fbo.getReadTexture());
+    get width(): number {
+      return fbo.width;
+    },
 
-    const stateEntry = entry.uniforms.get('u_state');
-    if (stateEntry) {
-      gl.uniform1i(stateEntry.loc, 0);
+    get height(): number {
+      return fbo.height;
+    },
+
+    compile(): void {
+      addProgram('default', defaultShader);
+    },
+
+    addProgram,
+
+    useProgram(name: string): void {
+      const entry = programs.get(name);
+      if (!entry) throw new Error(`Program "${name}" not found`);
+      activeName = name;
+      gl.useProgram(entry.program);
+    },
+
+    setUniforms(nameOrUniforms: string | Record<string, UniformValue>, value?: UniformValue): void {
+      const entry = activeName ? programs.get(activeName) : undefined;
+      if (!entry) throw new Error('No active program');
+
+      if (typeof nameOrUniforms === 'string') {
+        if (value === undefined) return;
+        setUniform(entry, nameOrUniforms, value);
+      } else {
+        for (const key of Object.keys(nameOrUniforms)) {
+          const v = nameOrUniforms[key];
+          if (v === undefined) continue;
+          setUniform(entry, key, v);
+        }
+      }
+    },
+
+    step(): void {
+      const entry = activeName ? programs.get(activeName) : undefined;
+      if (!entry) throw new Error('No active program');
+
+      fbo.bindWrite();
+
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, fbo.getReadTexture());
+
+      const stateEntry = entry.uniforms.get('u_state');
+      if (stateEntry) {
+        gl.uniform1i(stateEntry.loc, 0);
+      }
+
+      gl.bindVertexArray(emptyVao);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      fbo.unbind();
+      fbo.swap();
+    },
+
+    init(data: Uint8Array): void {
+      const rgba = new Uint8Array(data.length * 4);
+      for (let i = 0; i < data.length; i++) {
+        const cellState = data[i] ?? 0;
+        const j = i * 4;
+        rgba[j] = cellState;
+        rgba[j + 1] = 0;
+        rgba[j + 2] = 0;
+        rgba[j + 3] = 255;
+      }
+
+      const updateTex = (tex: WebGLTexture) => {
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texSubImage2D(
+          gl.TEXTURE_2D,
+          0,
+          0,
+          0,
+          fbo.width,
+          fbo.height,
+          gl.RGBA,
+          gl.UNSIGNED_BYTE,
+          rgba
+        );
+      };
+
+      updateTex(fbo.getReadTexture());
+      updateTex(fbo.getWriteTexture());
+    },
+
+    getStateTexture(): WebGLTexture {
+      return fbo.getReadTexture();
+    },
+
+    resize(newWidth: number, newHeight: number): void {
+      fbo.resize(newWidth, newHeight);
+    },
+
+    destroy(): void {
+      fbo.destroy();
+      gl.deleteVertexArray(emptyVao);
+      for (const [, entry] of programs) {
+        gl.deleteProgram(entry.program);
+      }
+      programs.clear();
     }
-
-    gl.bindVertexArray(this.emptyVao);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-    this.fbo.unbind();
-    this.fbo.swap();
-  }
-
-  init(data: Uint8Array): void {
-    const gl = this.gl;
-    const rgba = new Uint8Array(data.length * 4);
-    for (let i = 0; i < data.length; i++) {
-      const cellState = data[i] ?? 0;
-      const j = i * 4;
-      rgba[j] = cellState;
-      rgba[j + 1] = 0;
-      rgba[j + 2] = 0;
-      rgba[j + 3] = 255;
-    }
-
-    const updateTex = (tex: WebGLTexture) => {
-      gl.bindTexture(gl.TEXTURE_2D, tex);
-      gl.texSubImage2D(
-        gl.TEXTURE_2D,
-        0,
-        0,
-        0,
-        this.fbo.width,
-        this.fbo.height,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        rgba
-      );
-    };
-
-    updateTex(this.fbo.getReadTexture());
-    updateTex(this.fbo.getWriteTexture());
-  }
-
-  getStateTexture(): WebGLTexture {
-    return this.fbo.getReadTexture();
-  }
-
-  get width(): number {
-    return this.fbo.width;
-  }
-
-  get height(): number {
-    return this.fbo.height;
-  }
-
-  resize(width: number, height: number): void {
-    this.fbo.resize(width, height);
-  }
-
-  destroy(): void {
-    this.fbo.destroy();
-    for (const [, entry] of this.programs) {
-      this.gl.deleteProgram(entry.program);
-    }
-    this.programs.clear();
-  }
+  };
 }

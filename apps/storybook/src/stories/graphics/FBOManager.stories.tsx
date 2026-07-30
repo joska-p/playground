@@ -1,4 +1,4 @@
-import { FBOManager } from '@repo/graphics/webgl/FBOManager';
+import { createFBOManager } from '@repo/graphics/webgl/createFBOManager';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef } from 'react';
 
@@ -47,7 +47,7 @@ export const FeedbackTrail: Story = {
 
       const w = 500;
       const h = 400;
-      const fbo = new FBOManager(gl, w, h);
+      const fbo = createFBOManager(gl, w, h);
 
       // Compile feedback shader
       const vs = gl.createShader(gl.VERTEX_SHADER)!;
@@ -69,6 +69,13 @@ export const FeedbackTrail: Story = {
       let time = 0;
 
       function frame() {
+        if (!gl) {
+          cancelAnimationFrame(rafRef.current);
+          console.log('gl context lost');
+          return;
+        }
+
+        gl.viewport(0, 0, w, h);
         time += 0.015;
         const px = Math.sin(time) * 0.3 + 0.5;
         const py = Math.cos(time * 0.7) * 0.3 + 0.5;

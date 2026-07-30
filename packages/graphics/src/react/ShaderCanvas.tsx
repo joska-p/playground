@@ -1,4 +1,4 @@
-import type { QuadPipeline } from '../webgl/QuadPipeline';
+import type { QuadPipeline } from '../webgl/createQuadPipeline';
 import { useFrame } from './FrameLoopContext';
 import { useShaderRunner } from './useShaderRunner';
 
