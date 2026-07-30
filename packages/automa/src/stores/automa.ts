@@ -10,7 +10,7 @@ import type { RuleId } from '@repo/automa-engine/rules/registry';
 import { rules } from '@repo/automa-engine/rules/registry';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
-import type { SimulationEngine } from '../engine/createSimulationEngine';
+import type { SimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../lib/constants';
 
 // --- Types ---

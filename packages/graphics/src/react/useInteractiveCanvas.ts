@@ -9,8 +9,7 @@ export type CanvasInteractionState = {
 };
 
 export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
-  // Store interaction state in refs to avoid React re-render thrashing on mouse move!
-  const stateRef = useRef<CanvasInteractionState>({
+  const interactionStateRef = useRef<CanvasInteractionState>({
     pan: { x: 0, y: 0 },
     zoom: 1,
     pointer: { x: 0, y: 0 },
@@ -28,8 +27,8 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
       if (e.button !== 1 && e.button !== 2) return;
       // Right or middle click for panning
       dragStart.current = { x: e.clientX, y: e.clientY };
-      panStart.current = { ...stateRef.current.pan };
-      stateRef.current.isPanning = true;
+      panStart.current = { ...interactionStateRef.current.pan };
+      interactionStateRef.current.isPanning = true;
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -39,24 +38,24 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
       if (dragStart.current) {
         const dx = e.clientX - dragStart.current.x;
         const dy = e.clientY - dragStart.current.y;
-        stateRef.current.pan = {
+        interactionStateRef.current.pan = {
           x: panStart.current.x + dx,
           y: panStart.current.y + dy
         };
       }
-      stateRef.current.pointer = pointer;
+      interactionStateRef.current.pointer = pointer;
     };
 
     const handlePointerUp = () => {
       dragStart.current = null;
-      stateRef.current.isPanning = false;
+      interactionStateRef.current.isPanning = false;
     };
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const zoomFactor = Math.exp(-e.deltaY / 500);
-      const currentZoom = stateRef.current.zoom;
-      stateRef.current.zoom = Math.max(0.1, Math.min(5, currentZoom * zoomFactor));
+      const currentZoom = interactionStateRef.current.zoom;
+      interactionStateRef.current.zoom = Math.max(0.1, Math.min(5, currentZoom * zoomFactor));
     };
 
     // Attach all event listeners natively on the canvas element
@@ -73,6 +72,5 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
     };
   }, [canvasRef]);
 
-  // Return mutable ref for render loops (0 re-renders!)
-  return stateRef;
+  return interactionStateRef;
 }

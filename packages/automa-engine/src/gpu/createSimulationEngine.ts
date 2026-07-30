@@ -1,4 +1,4 @@
-import type { Rule } from '@repo/automa-engine/rules/registry';
+import type { Rule } from '../rules/registry';
 import { createGPGPUPipeline } from '@repo/graphics/webgl/createGPGPUPipeline';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
@@ -14,7 +14,6 @@ export function createSimulationEngine(
   pipeline.compile();
   pipeline.addProgram('paint', paintShaderSource);
 
-  // Private closure state (no re-allocations during simulation steps)
   const birthBuffer = new Int32Array(9);
   const surviveBuffer = new Int32Array(9);
 

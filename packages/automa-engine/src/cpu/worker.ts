@@ -1,7 +1,7 @@
-import { WORKER_MESSAGE_STEP } from './config';
-import type { Grid } from './grid';
-import type { RuleId } from './rules/registry';
-import { rules } from './rules/registry';
+import { WORKER_MESSAGE_STEP } from '../config';
+import type { Grid } from '../grid';
+import type { RuleId } from '../rules/registry';
+import { rules } from '../rules/registry';
 import { evolveGrid } from './step';
 
 let nextGrid: Uint8Array | undefined;

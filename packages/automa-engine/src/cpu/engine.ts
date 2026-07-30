@@ -1,4 +1,4 @@
-import type { Rule } from './rules/registry';
+import type { Rule } from '../rules/registry';
 
 function countActiveNeighbors(
   current: Uint8Array,

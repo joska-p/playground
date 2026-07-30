@@ -4,19 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./engine": "./src/engine.ts",
+    "./cpu/engine": "./src/cpu/engine.ts",
+    "./cpu/worker": "./src/cpu/worker.ts",
     "./config": "./src/config.ts",
     "./grid": "./src/grid.ts",
-    "./worker": "./src/worker.ts",
     "./creature/builtin": "./src/creature/builtin.ts",
     "./creature/registry": "./src/creature/registry.ts",
-    "./rules/registry": "./src/rules/registry.ts"
+    "./rules/registry": "./src/rules/registry.ts",
+    "./gpu/createSimulationEngine": "./src/gpu/createSimulationEngine.ts",
+    "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag",
+    "./gpu/shaders/gpu-paint.frag": "./src/gpu/shaders/gpu-paint.frag"
   },
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
+  },
+  "dependencies": {
+    "@repo/graphics": "workspace:*"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",

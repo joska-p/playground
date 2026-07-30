@@ -1,18 +1,16 @@
 import { useFrame } from '@repo/graphics/react/FrameLoopContext';
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
-import { useEffect, useRef } from 'react';
-import { createSimulationEngine } from '../../engine/createSimulationEngine';
+import { useEffect } from 'react';
+import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useSimulationUniforms } from '../../hooks/useSimulationUniforms';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
-import gpuPaintShader from '../../shaders/gpu-paint.frag?raw';
-import simStepShader from '../../shaders/sim-step.frag?raw';
-import { useBrushMode, useCols, useRows, setEngine } from '../../stores/automa';
+import gpuPaintShader from '@repo/automa-engine/gpu/shaders/gpu-paint.frag?raw';
+import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
+import { useCols, useRows, setEngine } from '../../stores/automa';
 
 function CellMesh() {
-  const brushMode = useBrushMode();
-  const engineCreated = useRef(false);
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
   const interactionState = useInteractiveCanvas(canvasRef);
   const { onBeforeRenderRef } = useSimulationUniforms({
@@ -29,12 +27,10 @@ function CellMesh() {
     const gl = runner.ctx.gl;
     const engine = createSimulationEngine(gl, cols, rows, simStepShader, gpuPaintShader);
     setEngine(engine);
-    engineCreated.current = true;
 
     return () => {
       engine.destroy();
       setEngine(null);
-      engineCreated.current = false;
     };
   }, [cols, rows, runnerRef]);
 
@@ -54,8 +50,7 @@ function CellMesh() {
       style={{
         display: 'block',
         width: '100%',
-        height: '100%',
-        cursor: brushMode === 'erase' ? 'crosshair' : 'pointer'
+        height: '100%'
       }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}

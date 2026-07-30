@@ -1,7 +1,6 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
 import { useRef } from 'react';
-import type { Point2D } from '../lib/coordinates';
-import { eventToGridPoint } from '../lib/coordinates';
+import { eventToGridPoint, type Point2D } from '../lib/coordinates';
 import { automaStore, paintCell, placePattern } from '../stores/automa';
 
 type CellPaintingHandlers = {
