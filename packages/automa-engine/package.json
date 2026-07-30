@@ -12,8 +12,7 @@
     "./creature/registry": "./src/creature/registry.ts",
     "./rules/registry": "./src/rules/registry.ts",
     "./gpu/createSimulationEngine": "./src/gpu/createSimulationEngine.ts",
-    "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag",
-    "./gpu/shaders/gpu-paint.frag": "./src/gpu/shaders/gpu-paint.frag"
+    "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag"
   },
   "scripts": {
     "lint": "eslint .",

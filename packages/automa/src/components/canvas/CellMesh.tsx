@@ -6,7 +6,7 @@ import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulation
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useSimulationUniforms } from '../../hooks/useSimulationUniforms';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
-import gpuPaintShader from '@repo/automa-engine/gpu/shaders/gpu-paint.frag?raw';
+import gpuPaintShader from '../../shaders/gpu-paint.frag?raw';
 import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
 import { useCols, useRows, setEngine } from '../../stores/automa';
 

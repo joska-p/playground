@@ -18,13 +18,9 @@ export function useCellPainting(
   const activeCanvasRef = canvasRef ?? localCanvasRef;
   const isPainting = useRef(false);
 
-  const paintAtEvent = (
-    e:
-      | React.PointerEvent<HTMLCanvasElement>
-      | { clientX: number; clientY: number; shiftKey: boolean }
-  ) => {
+  const paintAtEvent = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = activeCanvasRef.current;
-    if (!canvas || e.shiftKey) return;
+    if (!canvas) return;
 
     const { cols, rows, toolMode, paletteBrush } = automaStore.getState();
 
