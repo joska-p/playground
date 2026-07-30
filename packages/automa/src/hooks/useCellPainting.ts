@@ -16,7 +16,7 @@ export function useCellPainting(
   rows: number,
   brushMode: BrushMode,
   paintCell: (col: number, row: number, value: number) => void,
-  creature: Creature | null = null,
+  creature: Creature,
   paintCreature?: (col: number, row: number, creature: Creature) => void,
   canvasRef?: React.RefObject<HTMLCanvasElement | null>,
   interactionState?: { current: { pan: Point2D; zoom: number } }
@@ -38,7 +38,7 @@ export function useCellPainting(
 
     if (col < 0 || col >= cols || row < 0 || row >= rows) return;
 
-    if (creature && paintCreature && brushMode !== 'erase') {
+    if (paintCreature && brushMode !== 'erase') {
       paintCreature(col, row, creature);
       return;
     }
