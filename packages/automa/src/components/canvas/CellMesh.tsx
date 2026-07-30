@@ -1,4 +1,3 @@
-import { creatures } from '@repo/automa-engine/creature/registry';
 import { useFrame } from '@repo/graphics/react/FrameLoopContext';
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
@@ -10,30 +9,19 @@ import { useSimulationUniforms } from '../../hooks/useSimulationUniforms';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 import gpuPaintShader from '../../shaders/gpu-paint.frag?raw';
 import simStepShader from '../../shaders/sim-step.frag?raw';
-import {
-  paintCell,
-  placePattern,
-  useBrushMode,
-  useCols,
-  usePaletteBrush,
-  useRows
-} from '../../stores/automa';
+import { useBrushMode, useCols, useRows } from '../../stores/automa';
 
 function CellMesh() {
-  const cols = useCols();
-  const rows = useRows();
   const brushMode = useBrushMode();
-  const paletteBrushId = usePaletteBrush();
-  const creature = creatures[paletteBrushId];
   const engineCreated = useRef(false);
   const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
   const interactionState = useInteractiveCanvas(canvasRef);
   const { onBeforeRenderRef } = useSimulationUniforms({
     runnerRef,
-    cols,
-    rows,
     interactionState
   });
+  const rows = useRows();
+  const cols = useCols();
 
   useEffect(() => {
     const runner = runnerRef.current;
@@ -49,10 +37,7 @@ function CellMesh() {
       setEngine(null);
       engineCreated.current = false;
     };
-    // Intentionally run once on mount — the engine is reused for its lifetime.
-    // Dimension changes are handled by init() → onEngineReady, which resizes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cols, rows, runnerRef]);
 
   useFrame((time) => {
     onBeforeRenderRef.current?.(time);
@@ -60,12 +45,6 @@ function CellMesh() {
   });
 
   const { onPointerDown, onPointerMove, onPointerUp, onContextMenu } = useCellPainting(
-    cols,
-    rows,
-    brushMode,
-    paintCell,
-    creature,
-    placePattern,
     canvasRef,
     interactionState
   );
@@ -77,7 +56,6 @@ function CellMesh() {
         display: 'block',
         width: '100%',
         height: '100%',
-        transformOrigin: 'center center',
         cursor: brushMode === 'erase' ? 'crosshair' : 'pointer'
       }}
       onPointerDown={onPointerDown}

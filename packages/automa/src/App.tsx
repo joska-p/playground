@@ -32,12 +32,7 @@ function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
       <ErrorBoundary>
         <GraphicsProvider>
           <CellMesh />
-          {showDebug && (
-            <GridLines
-              cols={cols}
-              rows={rows}
-            />
-          )}
+          {showDebug && <GridLines />}
         </GraphicsProvider>
         <ControlPanel />
       </ErrorBoundary>

@@ -3,7 +3,7 @@ import type { QuadPipeline } from '@repo/graphics/webgl/QuadPipeline';
 import { useEffect, useRef } from 'react';
 import { getEngine } from '../engine/registry';
 import { buildStateColorArray } from '../lib/colors';
-import { useStateColors } from '../stores/automa';
+import { automaStore } from '../stores/automa';
 
 type SimulationUniformsRunnerTarget = {
   ctx: {
@@ -14,23 +14,17 @@ type SimulationUniformsRunnerTarget = {
 
 type UseSimulationUniformsParams = {
   runnerRef: React.RefObject<SimulationUniformsRunnerTarget | null>;
-  cols: number;
-  rows: number;
   interactionState?: { current: { pan: Point2D; zoom: number } };
 };
 
-function useSimulationUniforms({
-  runnerRef,
-  cols,
-  rows,
-  interactionState
-}: UseSimulationUniformsParams) {
-  const stateColors = useStateColors();
-  const stateColorsArray = buildStateColorArray(stateColors);
+function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUniformsParams) {
   const onBeforeRenderRef = useRef<((time: number) => void) | null>(null);
 
   useEffect(() => {
     onBeforeRenderRef.current = (time: number) => {
+      const { cols, rows, stateColors } = automaStore.getState();
+      const stateColorsArray = buildStateColorArray(stateColors);
+
       const runner = runnerRef.current;
       if (!runner) return;
 
