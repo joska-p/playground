@@ -12,7 +12,7 @@ export const addRule = {
     return (a() + b()) * 0.5;
   },
   toMathString: (args) => `((${args[0] ?? '0.0'} + ${args[1] ?? '0.0'}) / 2)`,
-  toGLSL: (args) => `((${args[0] ?? '0.0'} + ${args[1] ?? '0.0'}) * 0.5)`,
+  toGLSL: (args) => `((${args[0] ?? '0.0'} + -${args[1] ?? '0.0'}) * 0.5)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── add\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'add',
@@ -32,7 +32,7 @@ export const multiplyRule = {
     return a() * b();
   },
   toMathString: (args) => `(${args[0] ?? '0.0'} · ${args[1] ?? '0.0'})`,
-  toGLSL: (args) => `(${args[0] ?? '0.0'} * ${args[1] ?? '0.0'})`,
+  toGLSL: (args) => `(${args[0] ?? '0.0'} * -${args[1] ?? '0.0'})`,
   toTreeView: (args, depth) =>
     `${'  '.repeat(depth)}├── multiply\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({

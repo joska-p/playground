@@ -21,7 +21,7 @@ export const terminalYRule = {
   category: 'terminal',
   evaluate: (_args, _x, y) => y,
   toMathString: () => 'y',
-  toGLSL: () => 'p.y', // Directly maps to centered Y
+  toGLSL: () => '-p.y', // Directly maps to centered Y
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── y\n`,
   buildNode: () => ({ ruleId: 'y', args: [] })
 } as const satisfies GrammarRule;

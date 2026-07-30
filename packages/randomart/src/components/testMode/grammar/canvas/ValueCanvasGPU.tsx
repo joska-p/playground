@@ -4,15 +4,15 @@ import { buildValueFragmentShader } from '../../glsl/buildValueShader';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
 import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
+import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
 
 type ValueCanvasGPUProps = {
   rule: GrammarRule;
   seed: number;
   sizePx: number;
-  fragmentShader: string;
 };
 
-export function ValueCanvasGPU({ rule, seed, fragmentShader, sizePx }: ValueCanvasGPUProps) {
+export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
   const { shader, error } = useMemo(() => {
     try {
       const node = buildPreviewNode(rule, seed);
@@ -26,14 +26,16 @@ export function ValueCanvasGPU({ rule, seed, fragmentShader, sizePx }: ValueCanv
     <Corners sizePx={sizePx}>
       <div style={{ width: sizePx, height: sizePx }}>
         {shader && (
-          <ShaderCanvas
-            fragmentShader={fragmentShader}
-            onBeforeRender={(pipeline, time) => {
-              pipeline.setUniforms({
-                uTime: time
-              });
-            }}
-          />
+          <GraphicsProvider>
+            <ShaderCanvas
+              fragmentShader={shader}
+              onBeforeRender={(pipeline, time) => {
+                pipeline.setUniforms({
+                  uTime: time
+                });
+              }}
+            />
+          </GraphicsProvider>
         )}
       </div>
       {error && (
