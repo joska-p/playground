@@ -8,7 +8,10 @@ export type CanvasInteractionState = {
   isPanning: boolean;
 };
 
-export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
+export function useInteractiveCanvas(
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
+  enabled = true
+) {
   const interactionStateRef = useRef<CanvasInteractionState>({
     pan: { x: 0, y: 0 },
     zoom: 1,
@@ -21,7 +24,7 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !enabled) return;
 
     const handlePointerDown = (e: PointerEvent) => {
       if (e.button !== 1) return;
@@ -70,7 +73,7 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
       window.removeEventListener('pointerup', handlePointerUp);
       canvas.removeEventListener('wheel', handleWheel);
     };
-  }, [canvasRef]);
+  }, [canvasRef, enabled]);
 
   return interactionStateRef;
 }

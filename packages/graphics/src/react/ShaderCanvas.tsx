@@ -1,5 +1,7 @@
 import type { QuadPipeline } from '../webgl/createQuadPipeline';
+import type { UniformValue } from '../webgl/compileShaderProgram';
 import { useFrame } from './FrameLoopContext';
+import { useInteractiveCanvas } from './useInteractiveCanvas';
 import { useShaderRunner } from './useShaderRunner';
 import type { WebGLContextAttributes } from '../webgl/createWebGLContext';
 
@@ -9,6 +11,7 @@ export type ShaderCanvasProps = {
   fragmentShader: string;
   dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
+  interactive?: boolean;
 };
 
 export function ShaderCanvas({
@@ -16,14 +19,34 @@ export function ShaderCanvas({
   onBeforeRender,
   fragmentShader,
   dpr,
-  webGLContextAttributes
+  webGLContextAttributes,
+  interactive = false
 }: ShaderCanvasProps) {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader, dpr, webGLContextAttributes });
+  const interactionState = useInteractiveCanvas(canvasRef, interactive);
 
   useFrame((time) => {
     const runner = runnerRef.current;
     if (runner) {
       onBeforeRender(runner.pipeline, time);
+      if (interactive) {
+        const interaction = interactionState.current;
+        const hasPan = runner.pipeline.hasUniform('u_panOffset');
+        const hasZoom = runner.pipeline.hasUniform('u_zoom');
+        if (hasPan || hasZoom) {
+          const values: Record<string, UniformValue> = {};
+          if (hasPan) {
+            values['u_panOffset'] = [
+              interaction.pan.x / runner.canvas.clientWidth,
+              -interaction.pan.y / runner.canvas.clientHeight
+            ];
+          }
+          if (hasZoom) {
+            values['u_zoom'] = interaction.zoom;
+          }
+          runner.pipeline.setUniforms(values);
+        }
+      }
     }
     runner?.render();
   });

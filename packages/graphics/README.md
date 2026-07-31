@@ -154,6 +154,14 @@ whichever the shader declares is bound:
 | `u_aspect`     | `uniformAspectRatio` | `float`   | `cssWidth / cssHeight`                                        |
 | `u_mouse`      | `uniformMouse`       | `vec2`    | Normalized UV in vUv space — origin bottom-left, y-up, `0..1` |
 
+`ShaderCanvas` with `interactive` additionally auto-binds two uniforms each
+frame (only when the shader declares them):
+
+| Canonical name | GLSL type | Value                                    |
+| :------------- | :-------- | :--------------------------------------- |
+| `u_panOffset`  | `vec2`    | Pan in vUv units (`pan / cssSize`, y-up) |
+| `u_zoom`       | `float`   | Wheel zoom, clamped to `0.1..5`          |
+
 The mouse value is **normalized in vUv space** — the same space as the built-in
 `vUv` (origin bottom-left, y-up). Pointer coordinates are normalized against
 the canvas box (`0..1`, top-left origin) before upload — `ShaderCanvas`
@@ -338,6 +346,22 @@ import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
 
 `dpr` and `webGLContextAttributes` are **mount-time only**: changing them re-mounts the canvas element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space (normalized, origin bottom-left, y-up) — see the [canonical uniform contract](#canonical-uniform-contract).
 
+Pass `interactive` to opt into pan (middle-drag) and zoom (wheel); the resulting state is auto-fed as `u_panOffset` + `u_zoom` each frame:
+
+```tsx
+<ShaderCanvas
+  interactive
+  fragmentShader={interactiveShaderSrc}
+  onBeforeRender={(pipeline, time) => {
+    pipeline.setUniforms({ u_time: time });
+  }}
+/>
+```
+
+The pan/zoom uniforms are only written when the shader declares them, and are
+skipped entirely when `interactive` is off. Transform vUv with them, e.g.
+`vec2 uv = (vUv + u_panOffset) / u_zoom;`.
+
 ### useShaderRunner — mount a shader with ResizeObserver
 
 ```tsx
@@ -364,19 +388,24 @@ The `runnerRef.current` is a `ShaderRunner` — see the `createShaderRunner` fac
 
 ### useInteractiveCanvas — pan/zoom/pointer state
 
-Zero-re-render mutable ref for 2D canvas interaction:
+Zero-re-render mutable ref for 2D canvas interaction. **Opt-in via the second
+`enabled` arg (default `false`)** — no listeners attach until enabled, so the
+wheel handler never hijacks page scroll otherwise:
 
 ```tsx
 import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
 
 function Canvas() {
   const canvasRef = useRef(null);
-  const state = useInteractiveCanvas(canvasRef);
+  const state = useInteractiveCanvas(canvasRef, true);
 
   // Read mutable ref in your draw loop:
   //   state.current.pan, state.current.zoom, state.current.pointer
 }
 ```
+
+Middle-drag pans and the wheel zooms (`0.1..5`). Pan deltas are in CSS pixels;
+normalize against the canvas size before uploading to a shader.
 
 ### useGPGPU — GPU compute hook
 

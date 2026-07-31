@@ -7,6 +7,7 @@ export type QuadPipeline = {
   reinitialize(fragmentSource?: string): void;
   render(mousePx?: Point2D): void;
   setUniforms(uniformValues: Record<string, UniformValue>): void;
+  hasUniform(name: string): boolean;
   updateUniformBuilder(builder: (mouseBufferPixel?: Point2D) => ShaderUniformValues): void;
   dispose(): void;
 };
@@ -84,6 +85,10 @@ export function createQuadPipeline(
         }
         setUniformValue(gl, entry, value, () => nextTextureUnit++);
       }
+    },
+
+    hasUniform(name: string): boolean {
+      return uniforms.has(name);
     },
 
     updateUniformBuilder(builder: (mouseBufferPixel?: Point2D) => ShaderUniformValues): void {
