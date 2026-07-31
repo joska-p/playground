@@ -1,12 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { createGPGPUPipeline, type GPGPUPipeline } from '../webgl/createGPGPUPipeline';
+
+export type UseGPGPUResult = {
+  pipelineRef: RefObject<GPGPUPipeline | null>;
+  getStateTexture: () => WebGLTexture | null;
+};
 
 export function useGPGPU(
   gl: WebGL2RenderingContext | null,
   width: number,
   height: number,
   simShader: string
-) {
+): UseGPGPUResult {
   const pipelineRef = useRef<GPGPUPipeline | null>(null);
 
   useEffect(() => {

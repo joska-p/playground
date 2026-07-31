@@ -1,10 +1,20 @@
-export type FBOManager = ReturnType<typeof createFBOManager>;
+export type FBOManager = {
+  readonly width: number;
+  readonly height: number;
+  resize(width: number, height: number): void;
+  bindWrite(): void;
+  unbind(): void;
+  getReadTexture(): WebGLTexture;
+  getWriteTexture(): WebGLTexture;
+  swap(): void;
+  destroy(): void;
+};
 
 export function createFBOManager(
   gl: WebGL2RenderingContext,
   initialWidth: number,
   initialHeight: number
-) {
+): FBOManager {
   let fboA: WebGLFramebuffer | null = null;
   let fboB: WebGLFramebuffer | null = null;
   let textureA: WebGLTexture | null = null;

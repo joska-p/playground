@@ -1,8 +1,13 @@
 export type FrameCallback = (time: number, delta: number) => void;
 
-export type FrameLoop = ReturnType<typeof createFrameLoop>;
+export type FrameLoop = {
+  readonly isRunning: boolean;
+  readonly subscriberCount: number;
+  subscribe(cb: FrameCallback): () => void;
+  dispose(): void;
+};
 
-export function createFrameLoop() {
+export function createFrameLoop(): FrameLoop {
   const callbacks = new Set<FrameCallback>();
   let rafId = 0;
   let running = false;

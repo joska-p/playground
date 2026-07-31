@@ -75,7 +75,7 @@ export function createGPGPUPipeline(
         const info = entry.uniforms.get(nameOrUniforms);
         if (info) {
           setUniformValue(gl, info, value);
-        } else if (import.meta.env?.DEV) {
+        } else if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
           console.warn('[graphics] unknown uniform "' + nameOrUniforms + '" in program');
         }
       } else {
@@ -85,7 +85,7 @@ export function createGPGPUPipeline(
           const info = entry.uniforms.get(key);
           if (info) {
             setUniformValue(gl, info, v);
-          } else if (import.meta.env?.DEV) {
+          } else if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
             console.warn('[graphics] unknown uniform "' + key + '" in program');
           }
         }

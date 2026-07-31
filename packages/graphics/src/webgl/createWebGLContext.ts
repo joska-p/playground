@@ -10,11 +10,24 @@ export type CreateWebGLContextConfig = {
   webGlContextAttributes?: WebGLContextAttributes | undefined;
 };
 
+export type WebGLContext = {
+  gl: WebGL2RenderingContext;
+  applyDPR(): void;
+  reinitialize(): void;
+  resize(width?: number, height?: number, dpr?: number): void;
+  readonly drawingBufferWidth: number;
+  readonly drawingBufferHeight: number;
+  viewport(): void;
+  clear(r?: number, g?: number, b?: number, a?: number): void;
+  onContextLost(handler: () => void): () => void;
+  onContextRestored(handler: () => void): () => void;
+};
+
 export function createWebGLContext({
   canvas,
   dpr,
   webGlContextAttributes
-}: CreateWebGLContextConfig) {
+}: CreateWebGLContextConfig): WebGLContext {
   let currentDpr = dpr ?? Math.min(window.devicePixelRatio, 2);
 
   const gl = canvas.getContext('webgl2', {

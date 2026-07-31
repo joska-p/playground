@@ -2,12 +2,19 @@ import type { Point2D, ShaderUniformValues } from '../math/transforms';
 import { compileShaderProgram, setUniformValue } from './createProgramManager';
 import type { UniformEntry, UniformValue } from './createProgramManager';
 
-export type QuadPipeline = ReturnType<typeof createQuadPipeline>;
+export type QuadPipeline = {
+  compileFragmentShader(fragmentSource: string): void;
+  reinitialize(fragmentSource: string): void;
+  render(mousePx?: Point2D): void;
+  setUniforms(uniformValues: Record<string, UniformValue>): void;
+  updateUniformBuilder(builder: (mouseBufferPixel?: Point2D) => ShaderUniformValues): void;
+  dispose(): void;
+};
 
 export function createQuadPipeline(
   gl: WebGL2RenderingContext,
   initialUniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues
-) {
+): QuadPipeline {
   let program: WebGLProgram | null = null;
   let uniformBuilder = initialUniformBuilder;
   let uniforms = new Map<string, UniformEntry>();
@@ -62,7 +69,7 @@ export function createQuadPipeline(
       for (const [name, value] of Object.entries(uniformValues)) {
         const entry = uniforms.get(name);
         if (entry === undefined) {
-          if (import.meta.env?.DEV) {
+          if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
             console.warn('[graphics] unknown uniform "' + name + '" in program');
           }
           continue;

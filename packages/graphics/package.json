@@ -14,6 +14,7 @@
     "./webgl/createProgramManager": "./src/webgl/createProgramManager.ts",
     "./webgl/createQuadPipeline": "./src/webgl/createQuadPipeline.ts",
     "./webgl/createShaderRunner": "./src/webgl/createShaderRunner.ts",
+    "./webgl/createWebGLContext": "./src/webgl/createWebGLContext.ts",
     "./webgl/createGPGPUPipeline": "./src/webgl/createGPGPUPipeline.ts",
     "./webgl/createFrameLoop": "./src/webgl/createFrameLoop.ts"
   },

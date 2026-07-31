@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { createShaderRunner, type ShaderRunner } from '../webgl/createShaderRunner';
 import type { WebGLContextAttributes } from '../webgl/createWebGLContext';
 
@@ -8,11 +8,16 @@ export type UseShaderRunnerProps = {
   webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
+export type UseShaderRunnerResult = {
+  canvasRef: RefObject<HTMLCanvasElement | null>;
+  runnerRef: RefObject<ShaderRunner | null>;
+};
+
 export function useShaderRunner({
   fragmentShader,
   dpr,
   webGLContextAttributes
-}: UseShaderRunnerProps) {
+}: UseShaderRunnerProps): UseShaderRunnerResult {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const runnerRef = useRef<ShaderRunner | null>(null);
 
