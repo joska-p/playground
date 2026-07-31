@@ -48,18 +48,18 @@ I re-verified every claim against the current source. Three facts about this rep
 
 ### File-ownership map (avoids two sessions editing the same file)
 
-| Session     | Owns                                                                                                                                                         | Also touches (delegated — re-read current state first)        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| S0 baseline | —                                                                                                                                                            | —                                                             |
-| S1          | `math/transforms.ts`, `math/transforms.test.ts`                                                                                                              | —                                                             |
-| S2          | `webgl/createProgramManager.ts` (new), `webgl/createQuadPipeline.ts`                                                                                         | —                                                             |
-| S3          | `webgl/createGPGPUPipeline.ts`, `react/useGPGPU.ts`, `automa-engine/src/gpu/createSimulationEngine.ts`                                                       | —                                                             |
-| S4          | `react/FrameLoopContext.tsx`, `react/useShaderRunner.ts`                                                                                                     | —                                                             |
-| S5          | `webgl/createFBOManager.ts`, `webgl/createWebGLContext.ts`, `webgl/createShaderRunner.ts`                                                                    | `webgl/createQuadPipeline.ts` (add `reinitialize`)            |
-| S6          | `automa/src/lib/coordinates.ts`, `automa/src/hooks/useSimulationUniforms.ts`, `automa/src/components/canvas/CellMesh.tsx`                                    | —                                                             |
-| S7          | `math/transforms.ts`, `react/ShaderCanvas.tsx`, `webgl/createProgramManager.ts`, storybook shaders, `art-canvas/src/shaders/modules/space/mouseAttractor.ts` | `webgl/createQuadPipeline.ts`, `webgl/createGPGPUPipeline.ts` |
-| S8          | `package.json` exports, `README.md`, `docs/reference/packages/graphics.md`, all webgl/react factory files (declared types)                                   | everything above                                              |
-| S9          | (future, not scoped) render-pass primitive, `u_state` decoupling                                                                                             | —                                                             |
+| Session     | Owns                                                                                                                        | Also touches (delegated — re-read current state first)                                                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| S0 baseline | —                                                                                                                           | —                                                                                                                      |
+| S1          | `math/transforms.ts`, `math/transforms.test.ts`                                                                             | —                                                                                                                      |
+| S2          | `webgl/createProgramManager.ts` (new), `webgl/createQuadPipeline.ts`                                                        | —                                                                                                                      |
+| S3          | `webgl/createGPGPUPipeline.ts`, `react/useGPGPU.ts`, `automa-engine/src/gpu/createSimulationEngine.ts`                      | —                                                                                                                      |
+| S4          | `react/FrameLoopContext.tsx`, `react/useShaderRunner.ts`                                                                    | —                                                                                                                      |
+| S5          | `webgl/createFBOManager.ts`, `webgl/createWebGLContext.ts`, `webgl/createShaderRunner.ts`                                   | `webgl/createQuadPipeline.ts` (add `reinitialize`), `webgl/createGPGPUPipeline.ts` (one-line known-limitation comment) |
+| S6          | `automa/src/lib/coordinates.ts`, `automa/src/hooks/useSimulationUniforms.ts`, `automa/src/components/canvas/CellMesh.tsx`   | —                                                                                                                      |
+| S7          | `math/transforms.ts`, `react/ShaderCanvas.tsx`, storybook shaders, `art-canvas/src/shaders/modules/space/mouseAttractor.ts` | `webgl/createQuadPipeline.ts`, `webgl/createGPGPUPipeline.ts`                                                          |
+| S8          | `package.json` exports, `README.md`, `docs/reference/packages/graphics.md`, all webgl/react factory files (declared types)  | everything above                                                                                                       |
+| S9          | (future, not scoped) render-pass primitive, `u_state` decoupling                                                            | —                                                                                                                      |
 
 ---
 
@@ -242,10 +242,20 @@ This session may build on that module; do not modify it.
    (`step`, `init`, `getStateTexture`, `resize`, `addProgram`, `useProgram`,
    `setUniforms`, `fbo`).
 
-## Task — call sites (exact edits)
+## Task — call sites (search first, then edit)
 
-- `react/useGPGPU.ts`: delete the `pipeline.compile()` line; cleanup `pipeline.destroy()` → `pipeline.dispose()`.
-- `automa-engine/src/gpu/createSimulationEngine.ts`: delete `pipeline.compile()` (line ~14); `pipeline.destroy()` → `pipeline.dispose()` (line ~67).
+1. **Search before editing.** Grep the monorepo for call sites on
+   `GPGPUPipeline` instances: `rg -n "\.compile\(|\.destroy\("` across
+   `packages/` and `apps/`, then check each hit to confirm it targets a
+   `useGPGPU`/`createGPGPUPipeline` pipeline (not, e.g., `FrameLoop.dispose()`
+   or other objects). Also grep for `\.destroy\(`/`.compile(` near
+   `pipeline`/`pipelineRef`.
+2. **Report before editing:** if you find any call site beyond the two listed
+   below (e.g. a storybook story or another consumer), stop and report it —
+   do not edit it yet.
+3. Exact edits (the two known sites):
+   - `react/useGPGPU.ts`: delete the `pipeline.compile()` line; cleanup `pipeline.destroy()` → `pipeline.dispose()`.
+   - `automa-engine/src/gpu/createSimulationEngine.ts`: delete `pipeline.compile()` (line ~14); `pipeline.destroy()` → `pipeline.dispose()` (line ~67).
 
 ## Constraints
 
@@ -272,6 +282,9 @@ Owns `FrameLoopContext.tsx` + `useShaderRunner.ts`. **No `useMemo`/`useCallback`
 
 Repo state: S2+S3 done (both pipelines on the shared program module; GPGPU API
 renamed). This session changes only React files.
+
+Note: this session edits the React hook `react/useShaderRunner.ts`, NOT the webgl
+factory `webgl/createShaderRunner.ts` (that's S5).
 
 IMPORTANT: the compiler is now enabled in every bundle that consumes these
 components (Vite packages and storybook via `reactCompilerPreset()`, the Astro
@@ -315,16 +328,21 @@ dead context). Fix:
    const mountPropsRef = useRef({ fragmentShader, dpr, webGLContextAttributes });
    mountPropsRef.current = { fragmentShader, dpr, webGLContextAttributes };
    ```
-2. Create-effect (deps `[]`): reads `mountPropsRef.current.*`; creates the runner,
-   wires a ResizeObserver, and returns cleanup (`observer.disconnect()`,
-   `runner.dispose()`, `runnerRef.current = null`). Document in a comment that
+2. Create-effect (deps `[]`): **declare it ABOVE the recompile-effect in source
+   order** — effects run in declaration order, so `runnerRef.current` is set
+   before the recompile effect first runs. It reads `mountPropsRef.current.*`,
+   creates the runner, wires a ResizeObserver, and returns cleanup
+   (`observer.disconnect()`, `runner.dispose()`, `runnerRef.current = null`,
+   and **reset the recompile-skip ref**). Document in a comment that
    `dpr`/`webGLContextAttributes` are **mount-time only** — changing a context's
    attributes requires a new context anyway, and honoring changes is what caused
    the churn. Do NOT JSON.stringify them.
 3. Recompile-effect (deps `[fragmentShader]`): calls
    `runnerRef.current?.pipeline.compileFragmentShader(fragmentShader)`. Skip the
    first run if it equals the mounted shader (track with a ref) to avoid a
-   double-compile on mount.
+   double-compile on mount. **Reset that skip ref inside the create-effect's
+   cleanup**, so a StrictMode dev double-mount (mount → cleanup → mount) doesn't
+   leave it stale and skip the recompile on the remount.
 4. ResizeObserver: **rAF-coalesce** resize and skip degenerate sizes:
    ```ts
    const observer = new ResizeObserver(([entry]) => {
@@ -341,7 +359,7 @@ dead context). Fix:
 ## Constraints
 
 - Do not touch useGPGPU.ts (S3 owns it), ShaderCanvas.tsx (S7), createFrameLoop.ts.
-- No useMemo/useCallback/useCallback.
+- No useMemo/useCallback.
 
 ## Verify
 
@@ -366,11 +384,15 @@ Owns the webgl lifecycle trio. Adds `reinitialize()` to the quad pipeline (deleg
 Repo state: S4 done (React lifecycle fixed). The React layer now recompiles in
 place; this session makes the webgl layer capable of surviving a GL context loss.
 
+Note: this session edits the webgl factory `webgl/createShaderRunner.ts`, NOT the
+React hook `react/useShaderRunner.ts` (that's S4).
+
 ## Read first (one codegraph call)
 - packages/graphics/src/webgl/createFBOManager.ts
 - packages/graphics/src/webgl/createWebGLContext.ts
 - packages/graphics/src/webgl/createShaderRunner.ts
-- packages/graphics/src/webgl/createQuadPipeline.ts   (for reinitialize)
+- packages/graphics/src/webgl/createQuadPipeline.ts      (for reinitialize)
+- packages/graphics/src/webgl/createGPGPUPipeline.ts     (for the known-limitation comment)
 
 ## Task 1 — createFBOManager.ts
 1. `texImage2D` allocation: pass `null` instead of `new Uint8Array(width*height*4)`
@@ -579,6 +601,11 @@ public contract and documentation.
 - packages/graphics/src/webgl/createShaderRunner.ts
 - packages/graphics/src/webgl/createWebGLContext.ts
 - packages/graphics/src/webgl/createGPGPUPipeline.ts
+- packages/graphics/src/webgl/createProgramManager.ts
+- packages/graphics/src/react/useShaderRunner.ts
+- packages/graphics/src/react/FrameLoopContext.tsx
+- packages/graphics/src/react/useGPGPU.ts
+- packages/graphics/src/react/ShaderCanvas.tsx
 - packages/graphics/package.json
 - packages/graphics/README.md (if present)
 - docs/reference/packages/graphics.md
@@ -587,9 +614,12 @@ public contract and documentation.
 Replace `export type X = ReturnType<typeof createX>` with explicit declared
 interfaces for: `QuadPipeline`, `FBOManager`, `FrameLoop`, `ShaderRunner`,
 `WebGLContext`. (`GPGPUPipeline` already has one — align the others to its style.)
-Keep the factory functions as the only constructors. The implementation return
-shape must still satisfy the interface (compile-time check via
-`satisfies`/direct assignment).
+For the React factory files (useShaderRunner, useGPGPU) declare their exported
+result shapes (`UseShaderRunnerResult`, `UseGPGPUResult`) instead of inferred
+return types, and confirm the prop types (`UseShaderRunnerProps`,
+`ShaderCanvasProps`) are explicit. Keep the factory functions as the only
+constructors. The implementation return shape must still satisfy the interface
+(compile-time check via `satisfies`/direct assignment).
 
 ## Task 2 — exports map (package.json)
 Ensure every subpath in `exports` resolves to a real file (it does today) and add
