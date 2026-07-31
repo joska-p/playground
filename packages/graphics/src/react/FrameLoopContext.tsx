@@ -1,11 +1,18 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode
+} from 'react';
 import { createFrameLoop, type FrameLoop } from '../webgl/createFrameLoop';
 
 const FrameLoopContext = createContext<FrameLoop | null>(null);
 
 function GraphicsProvider({ children }: { children: ReactNode }) {
-  const loop = createFrameLoop();
+  const [loop] = useState(() => createFrameLoop());
 
   useEffect(() => {
     return () => {
