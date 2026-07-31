@@ -88,7 +88,7 @@ keeps sending top-left normalized coords; the flip happens at upload.
 **File:** `src/webgl/createQuadPipeline.ts:25-30`
 
 ```ts
-if (program) gl.deleteProgram(program);            // old program gone first
+if (program) gl.deleteProgram(program); // old program gone first
 const compiled = compileShaderProgram(gl, fragmentSource); // throws on bad shader
 ```
 
@@ -134,7 +134,7 @@ arg recompiles from it.
        uniforms = compiled.uniforms;
 +      currentSource = fragmentSource;
      },
- 
+
 -    reinitialize(fragmentSource: string): void {
 +    reinitialize(fragmentSource?: string): void {
 +      const source = fragmentSource ?? currentSource;
@@ -177,7 +177,7 @@ luck.
 ```diff
        const entry = programs.get(targetName);
        if (!entry) throw new Error(`GPGPUPipeline: program "${targetName}" not found`);
- 
+
 +      gl.useProgram(entry.program);
        fbo.bindWrite();
 ```
@@ -190,7 +190,7 @@ luck.
 for (const cb of callbacks) {
   cb(time, delta);
 }
-rafId = requestAnimationFrame(tick);   // never reached if a cb throws
+rafId = requestAnimationFrame(tick); // never reached if a cb throws
 ```
 
 **Fix** — schedule before iterating (a mid-loop unsubscribe is safe: `stop()`
@@ -245,7 +245,7 @@ failure.
 ```diff
        const builtUniforms = uniformBuilder(mousePx);
 +      const resolution: [number, number] = [gl.drawingBufferWidth, gl.drawingBufferHeight];
- 
+
        const resEntry = uniforms.get('uniformResolution') ?? uniforms.get('u_resolution');
 -      if (resEntry) gl.uniform2f(resEntry.location, ...builtUniforms.uniformResolution);
 +      if (resEntry) gl.uniform2f(resEntry.location, ...resolution);
@@ -454,3 +454,27 @@ no-op) but null it for symmetry with `program`.
    `pnpm --filter @repo/graphics test && pnpm --filter @repo/graphics check-types`,
    then consumer typechecks (`automa`, `art-canvas`, `fracture`, `randomart-next`,
    `automa-engine`).
+
+---
+
+## Implementation Status
+
+All plan steps implemented and verified:
+
+- **Step 1** — `useShaderRunner.ts` deps `[dpr, webGLContextAttributes]`; mouse flip `[x, 1 - y]` in `transforms.ts`; doc comments + README canonical-uniform contract.
+- **Step 2** — `createQuadPipeline.ts`: compile-first swap, `currentSource` tracking, `reinitialize(fragmentSource?)`; `createShaderRunner.ts` restore path updated.
+- **Step 3** — `createGPGPUPipeline.ts` binds program in `step()`; `createFrameLoop.ts` schedules rAF before running callbacks.
+- **Step 4** — E1 createProgram guard, E2 `WebGLTexture` guard, G1 version-directive strip, E3 grid clamp, G2 drawing-buffer resolution + `Math.round`, E5 pointer clamp, E4 FBO cleanup, E8 vao null.
+- **Step 5** — `createFrameLoop.test.ts` (10 behavior-based tests) + `transforms.test.ts` mouse/grid assertions.
+
+Verification (all green):
+
+- `pnpm --filter @repo/graphics lint` — clean (0 errors, 0 warnings)
+- `pnpm --filter @repo/graphics test` — 50/50 pass
+- `pnpm --filter @repo/graphics check-types` — pass
+- Consumer typechecks — `automa`, `randomart`, `fracture`, `automa-engine`, `randomart-next`, `art-canvas`, `storybook` all pass
+
+Notes:
+
+- lib.dom types `createProgram()`/`createFramebuffer()` as non-null, so the E1/E4 guards carry `eslint-disable-next-line @typescript-eslint/no-unnecessary-condition` (the WebGL spec allows null returns).
+- The intentional `fragmentShader` omission from the runner deps carries an `eslint-disable-next-line react-hooks/exhaustive-deps` above the dep array.

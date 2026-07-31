@@ -21,44 +21,43 @@ export function useShaderRunner({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const runnerRef = useRef<ShaderRunner | null>(null);
 
-  // Snapshot of mount-time props; written inside the create-effect so it stays
-  // out of render (deps [] capture the mount-time values in the closure).
-  const mountPropsRef = useRef({ fragmentShader, dpr, webGLContextAttributes });
+  // Tracks the shader string that is currently compiled in the GPU pipeline.
+  // This avoids double-compiling on mount and safely handles React Strict Mode.
+  const compiledShaderRef = useRef<string | null>(null);
 
-  // True while the mounted shader is the one the runner compiled on creation;
-  // lets the recompile-effect skip its first run to avoid a double-compile.
-  const skipRecompileRef = useRef(false);
+  // Capture mount-time configuration for WebGL context creation.
+  // Changing context attributes or DPR requires creating a new context, so we freeze
+  // the initial values to prevent unintentional teardowns from unstable object literals.
+  const initialConfigRef = useRef({ dpr, webGLContextAttributes });
 
-  // Create-effect: MUST be declared above the recompile-effect — effects run in
-  // declaration order, so runnerRef.current is set before the recompile effect
-  // first runs. dpr/webGLContextAttributes are mount-time only: changing a
-  // context's attributes requires a new context anyway, and honoring changes is
-  // what caused the runner churn.
+  // 1. SETUP EFFECT: Manages canvas lifecycle and WebGL context creation.
+  // Runs ONLY on mount / unmount.
   useEffect(() => {
-    mountPropsRef.current = { fragmentShader, dpr, webGLContextAttributes };
-
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const runner = createShaderRunner({
-      fragmentShader: mountPropsRef.current.fragmentShader,
+      fragmentShader,
       canvas,
-      dpr: mountPropsRef.current.dpr,
-      webGLContextAttributes: mountPropsRef.current.webGLContextAttributes
+      dpr: initialConfigRef.current.dpr,
+      webGLContextAttributes: initialConfigRef.current.webGLContextAttributes
     });
+
     runnerRef.current = runner;
-    skipRecompileRef.current = true;
+    compiledShaderRef.current = fragmentShader;
 
     let rafId = 0;
     const observer = new ResizeObserver(([entry]) => {
       if (!entry) return;
       const { width, height } = entry.contentRect;
-      if (width === 0 || height === 0) return; // hidden canvas
+      if (width === 0 || height === 0) return; // Hidden canvas
+
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         runner.resize(width, height);
       });
     });
+
     observer.observe(canvas);
 
     return () => {
@@ -66,20 +65,21 @@ export function useShaderRunner({
       cancelAnimationFrame(rafId);
       runner.dispose();
       runnerRef.current = null;
-      skipRecompileRef.current = false;
+      compiledShaderRef.current = null;
     };
-  }, [dpr, fragmentShader, webGLContextAttributes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentional empty deps: Context creation is strictly once per mount.
 
-  // Recompile the fragment program in place on the existing runner — a shader
-  // edit must NOT destroy the context + GL resources (that orphans consumers
-  // that keyed effects on runnerRef). Skipped on mount to avoid the
-  // double-compile with createShaderRunner.
+  // 2. RECOMPILE EFFECT: Updates the fragment program in-place without destroying the context.
+  // Runs whenever `fragmentShader` changes.
   useEffect(() => {
-    if (skipRecompileRef.current) {
-      skipRecompileRef.current = false;
+    // If the runner isn't ready yet or the shader hasn't changed, skip compilation.
+    if (!runnerRef.current || compiledShaderRef.current === fragmentShader) {
       return;
     }
-    runnerRef.current?.pipeline.compileFragmentShader(fragmentShader);
+
+    runnerRef.current.pipeline.compileFragmentShader(fragmentShader);
+    compiledShaderRef.current = fragmentShader;
   }, [fragmentShader]);
 
   return { canvasRef, runnerRef };

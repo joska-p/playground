@@ -18,10 +18,10 @@ export function createFrameLoop(): FrameLoop {
     const delta = (now - lastTime) / 1000;
     lastTime = now;
     const time = now / 1000;
+    rafId = requestAnimationFrame(tick);
     for (const cb of callbacks) {
       cb(time, delta);
     }
-    rafId = requestAnimationFrame(tick);
   };
 
   const start = (): void => {

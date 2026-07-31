@@ -148,17 +148,18 @@ Every render pipeline auto-binds three uniforms on `render()`/`step()`. Shaders 
 declare them under the canonical `u_*` names or the legacy `uniform*` aliases —
 whichever the shader declares is bound:
 
-| Canonical name | Legacy alias         | GLSL type | Value                                           |
-| :------------- | :------------------- | :-------- | :---------------------------------------------- |
-| `u_resolution` | `uniformResolution`  | `vec2`    | Buffer pixels `[width * dpr, height * dpr]`     |
-| `u_aspect`     | `uniformAspectRatio` | `float`   | `cssWidth / cssHeight`                          |
-| `u_mouse`      | `uniformMouse`       | `vec2`    | Normalized UV — origin top-left, y-down, `0..1` |
+| Canonical name | Legacy alias         | GLSL type | Value                                                         |
+| :------------- | :------------------- | :-------- | :------------------------------------------------------------ |
+| `u_resolution` | `uniformResolution`  | `vec2`    | Buffer pixels `[width * dpr, height * dpr]`                   |
+| `u_aspect`     | `uniformAspectRatio` | `float`   | `cssWidth / cssHeight`                                        |
+| `u_mouse`      | `uniformMouse`       | `vec2`    | Normalized UV in vUv space — origin bottom-left, y-up, `0..1` |
 
-The mouse value is **normalized UV**, not buffer or CSS pixels. It is the same
-space as the built-in `vUv` — pointer coordinates are normalized before upload
-(e.g. `ShaderCanvas` divides `clientX - rect.left` by `rect.width`). Convert to
-clip space inside the shader (`vec2 ndc = u_mouse * 2.0 - 1.0;`) or via
-`createNormalizedToWebGL`.
+The mouse value is **normalized in vUv space** — the same space as the built-in
+`vUv` (origin bottom-left, y-up). Pointer coordinates are normalized against
+the canvas box (`0..1`, top-left origin) before upload — `ShaderCanvas`
+normalizes `clientX - rect.left` by `rect.width` — and converted to vUv space
+on upload (`1 - y`). Convert to clip space inside the shader
+(`vec2 ndc = u_mouse * 2.0 - 1.0;`) or via `createNormalizedToWebGL`.
 
 Custom uniforms are set with `setUniforms` and accept numbers, number arrays,
 `Float32Array`/`Int32Array`, and `WebGLTexture` values.
@@ -335,7 +336,7 @@ import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
 />;
 ```
 
-`dpr` and `webGLContextAttributes` are **mount-time only**: changing them re-mounts the canvas element with a fresh context. Pointer movement is fed to `u_mouse` as normalized UV coordinates (`0..1`, origin top-left).
+`dpr` and `webGLContextAttributes` are **mount-time only**: changing them re-mounts the canvas element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space (normalized, origin bottom-left, y-up) — see the [canonical uniform contract](#canonical-uniform-contract).
 
 ### useShaderRunner — mount a shader with ResizeObserver
 
@@ -400,7 +401,7 @@ pipelineRef.current?.step();
 │   └── transforms.ts         Curried coordinate factory functions + GLSL boilerplate generator
 ├── webgl/
 │   ├── createWebGLContext.ts Canvas setup, DPR resize, context loss handling
-│   ├── createProgramManager.ts GLSL compile/link + uniform upload helpers
+│   ├── compileShaderProgram.ts GLSL compile/link + uniform upload helpers
 │   ├── createQuadPipeline.ts Fullscreen triangle shader compiler and runner
 │   ├── createFBOManager.ts   Ping-pong framebuffers for multi-pass/feedback
 │   ├── createFrameLoop.ts    Generic requestAnimationFrame subscription manager

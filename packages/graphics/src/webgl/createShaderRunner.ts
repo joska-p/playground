@@ -37,14 +37,12 @@ export function createShaderRunner({
   const pipeline = createQuadPipeline(ctx.gl, builder);
   pipeline.compileFragmentShader(fragmentShader);
 
-  const currentSource = fragmentShader;
-
   const offContextLost = ctx.onContextLost(() => {
     // preventDefault is handled by createWebGLContext; nothing else to do on loss
   });
   const offContextRestored = ctx.onContextRestored(() => {
     ctx.reinitialize();
-    pipeline.reinitialize(currentSource);
+    pipeline.reinitialize();
   });
 
   let mousePx: Point2D = { x: 0, y: 0 };

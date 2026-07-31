@@ -4,7 +4,7 @@ import type { UniformEntry, UniformValue } from './compileShaderProgram';
 
 export type QuadPipeline = {
   compileFragmentShader(fragmentSource: string): void;
-  reinitialize(fragmentSource: string): void;
+  reinitialize(fragmentSource?: string): void;
   render(mousePx?: Point2D): void;
   setUniforms(uniformValues: Record<string, UniformValue>): void;
   updateUniformBuilder(builder: (mouseBufferPixel?: Point2D) => ShaderUniformValues): void;
@@ -16,23 +16,29 @@ export function createQuadPipeline(
   initialUniformBuilder: (mouseBufferPixel?: Point2D) => ShaderUniformValues
 ): QuadPipeline {
   let program: WebGLProgram | null = null;
+  let currentSource: string | null = null;
   let uniformBuilder = initialUniformBuilder;
   let uniforms = new Map<string, UniformEntry>();
   let nextTextureUnit = 0;
-  let vao = gl.createVertexArray();
+  let vao: WebGLVertexArrayObject | null = gl.createVertexArray();
 
   return {
     compileFragmentShader(fragmentSource: string): void {
-      if (program) gl.deleteProgram(program);
       const compiled = compileShaderProgram(gl, fragmentSource);
+      if (program) gl.deleteProgram(program);
       program = compiled.program;
       uniforms = compiled.uniforms;
+      currentSource = fragmentSource;
     },
 
-    reinitialize(fragmentSource: string): void {
+    reinitialize(fragmentSource?: string): void {
+      const source = fragmentSource ?? currentSource;
+      if (source === null) {
+        throw new Error('QuadPipeline.reinitialize() called before any shader was compiled');
+      }
       gl.deleteVertexArray(vao);
       vao = gl.createVertexArray();
-      this.compileFragmentShader(fragmentSource);
+      this.compileFragmentShader(source);
     },
 
     render(mousePx?: Point2D): void {
@@ -48,8 +54,10 @@ export function createQuadPipeline(
 
       const builtUniforms = uniformBuilder(mousePx);
 
+      const resolution: [number, number] = [gl.drawingBufferWidth, gl.drawingBufferHeight];
+
       const resEntry = uniforms.get('uniformResolution') ?? uniforms.get('u_resolution');
-      if (resEntry) gl.uniform2f(resEntry.location, ...builtUniforms.uniformResolution);
+      if (resEntry) gl.uniform2f(resEntry.location, ...resolution);
 
       const aspectEntry = uniforms.get('uniformAspectRatio') ?? uniforms.get('u_aspect');
       if (aspectEntry) gl.uniform1f(aspectEntry.location, builtUniforms.uniformAspectRatio);
@@ -88,6 +96,7 @@ export function createQuadPipeline(
         program = null;
       }
       gl.deleteVertexArray(vao);
+      vao = null;
     }
   };
 }

@@ -34,11 +34,18 @@ export function createFBOManager(
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
     const fbo = gl.createFramebuffer();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createFramebuffer() as non-null, but the WebGL spec allows null on failure
+    if (!fbo) {
+      gl.deleteTexture(texture);
+      throw new Error('Framebuffer creation failed');
+    }
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
 
     if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
+      gl.deleteTexture(texture);
+      gl.deleteFramebuffer(fbo);
       throw new Error(`Framebuffer incomplete (${String(width)}x${String(height)})`);
     }
 
@@ -57,15 +64,29 @@ export function createFBOManager(
   };
 
   const createFBOPair = (width: number, height: number): void => {
-    const [tex0, fbo0] = createFBO(width, height);
-    const [tex1, fbo1] = createFBO(width, height);
+    const created: [WebGLTexture, WebGLFramebuffer][] = [];
+    try {
+      created.push(createFBO(width, height));
+      created.push(createFBO(width, height));
 
-    textureA = tex0;
-    fboA = fbo0;
-    textureB = tex1;
-    fboB = fbo1;
-
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      const firstPair = created[0];
+      const secondPair = created[1];
+      if (!firstPair || !secondPair) {
+        throw new Error('Framebuffer pair creation failed');
+      }
+      textureA = firstPair[0];
+      fboA = firstPair[1];
+      textureB = secondPair[0];
+      fboB = secondPair[1];
+    } catch (error) {
+      for (const [texture, fbo] of created) {
+        gl.deleteTexture(texture);
+        gl.deleteFramebuffer(fbo);
+      }
+      throw error;
+    } finally {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
   };
 
   // Initial creation

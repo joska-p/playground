@@ -24,7 +24,8 @@ export type AspectFitMode = 'contain' | 'cover' | 'fill' | 'none';
  *
  * - `uniformResolution` — buffer pixels `[w*dpr, h*dpr]`
  * - `uniformAspectRatio` — cssW/cssH
- * - `uniformMouse` — normalized UV, origin top-left, y-down (0..1), same space as `vUv`
+ * - `uniformMouse` — normalized in vUv space (origin bottom-left, y-up),
+ *   matching the UV produced by the fullscreen-triangle vertex shader
  */
 export type ShaderUniformValues = {
   uniformResolution: [number, number];
@@ -208,8 +209,8 @@ export function createCanvasToGrid(
   );
   return (canvas: Point2D) => {
     const d = toData(canvas);
-    const column = Math.floor(d.x);
-    const row = Math.floor(d.y);
+    const column = Math.max(0, Math.min(cols - 1, Math.floor(d.x)));
+    const row = Math.max(0, Math.min(rows - 1, Math.floor(d.y)));
     return { column, row, index: row * cols + column };
   };
 }
@@ -231,13 +232,15 @@ export function createShaderUniformBuilder(
   devicePixelRatio: number
 ) {
   /**
-   * `mouseNormalizedUV` is normalized UV, origin top-left, y-down (0..1) —
-   * the same space as `vUv`. Convert pointer coordinates before calling.
+   * `mouseNormalizedUV` is the pointer normalized against the canvas box:
+   * origin top-left, y-down (0..1). The uploaded `uniformMouse` is converted
+   * to vUv space (origin bottom-left, y-up) so it aligns with the UV that
+   * `FULLSCREEN_TRIANGLE` produces.
    */
   return (mouseNormalizedUV?: Point2D): ShaderUniformValues => ({
     uniformResolution: [cssWidth * devicePixelRatio, cssHeight * devicePixelRatio],
     uniformAspectRatio: cssWidth / cssHeight,
-    uniformMouse: mouseNormalizedUV ? [mouseNormalizedUV.x, mouseNormalizedUV.y] : [0, 0]
+    uniformMouse: mouseNormalizedUV ? [mouseNormalizedUV.x, 1 - mouseNormalizedUV.y] : [0, 1]
   });
 }
 

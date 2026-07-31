@@ -39,8 +39,8 @@ export function createWebGLContext({
   if (!gl) throw new Error('WebGL2 not supported');
 
   const applyDPR = (): void => {
-    const w = canvas.clientWidth * currentDpr;
-    const h = canvas.clientHeight * currentDpr;
+    const w = Math.round(canvas.clientWidth * currentDpr);
+    const h = Math.round(canvas.clientHeight * currentDpr);
     canvas.width = w;
     canvas.height = h;
   };

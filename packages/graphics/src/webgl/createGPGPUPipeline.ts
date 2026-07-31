@@ -97,6 +97,7 @@ export function createGPGPUPipeline(
       const entry = programs.get(targetName);
       if (!entry) throw new Error(`GPGPUPipeline: program "${targetName}" not found`);
 
+      gl.useProgram(entry.program);
       fbo.bindWrite();
 
       gl.activeTexture(gl.TEXTURE0);

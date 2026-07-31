@@ -23,7 +23,8 @@ export type CompiledShaderProgram = {
 };
 
 function withVersionDirective(source: string): string {
-  return source.startsWith('#version 300 es') ? source : `#version 300 es\n${source}`;
+  const stripped = source.replace(/^\uFEFF/, '').replace(/^\s*#version\s+\d+\s+\w+\s*/m, '');
+  return `#version 300 es\n${stripped}`;
 }
 
 export function compileShaderProgram(
@@ -58,6 +59,12 @@ export function compileShaderProgram(
   }
 
   const program = gl.createProgram();
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createProgram() as non-null, but the WebGL spec allows null on failure
+  if (!program) {
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    throw new Error('shader "link" program creation failed');
+  }
 
   gl.attachShader(program, vs);
   gl.attachShader(program, fs);
@@ -94,7 +101,9 @@ function isWebGLTextureValue(
   gl: WebGL2RenderingContext,
   value: UniformValue
 ): value is WebGLTexture {
-  return value instanceof WebGLTexture && gl.isTexture(value);
+  return (
+    typeof WebGLTexture !== 'undefined' && value instanceof WebGLTexture && gl.isTexture(value)
+  );
 }
 
 export function setUniformValue(

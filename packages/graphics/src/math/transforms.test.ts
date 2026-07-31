@@ -229,14 +229,23 @@ describe('transforms', () => {
         canvasHeight * devicePixelRatio
       ]);
       expect(uniforms.uniformAspectRatio).toBeCloseTo(canvasWidth / canvasHeight);
-      expect(uniforms.uniformMouse).toEqual([0.5, 0.25]);
+      expect(uniforms.uniformMouse).toEqual([0.5, 0.75]);
     });
 
-    it('defaults mouse to [0,0] when not provided', () => {
+    it('converts top-left pointer UV into vUv space (y-up)', () => {
+      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
+
+      // Pointer at top-left -> vUv (0, 1); pointer at bottom-left -> vUv (0, 0).
+      expect(builder({ x: 0, y: 0 }).uniformMouse).toEqual([0, 1]);
+      expect(builder({ x: 0, y: 1 }).uniformMouse).toEqual([0, 0]);
+      expect(builder({ x: 1, y: 1 }).uniformMouse).toEqual([1, 0]);
+    });
+
+    it('defaults mouse to vUv top-left (0,1) when not provided', () => {
       const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
       const uniforms = builder();
 
-      expect(uniforms.uniformMouse).toEqual([0, 0]);
+      expect(uniforms.uniformMouse).toEqual([0, 1]);
     });
   });
 
@@ -319,6 +328,15 @@ describe('transforms', () => {
           }
         });
       }
+
+      it('clamps out-of-bounds canvas coordinates', () => {
+        const toGrid = createCanvasToGrid(cols, rows, canvasWidth, canvasHeight, 'fill');
+
+        // Past the top-left edge -> clamped to cell (0, 0).
+        expect(toGrid({ x: -100, y: -100 })).toEqual({ column: 0, row: 0, index: 0 });
+        // Past the bottom-right edge -> clamped to cell (cols-1, rows-1).
+        expect(toGrid({ x: 900, y: 700 })).toEqual({ column: 3, row: 2, index: 11 });
+      });
     });
 
     describe('createScreenToGrid', () => {
