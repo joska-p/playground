@@ -40,6 +40,10 @@ export function createWebGLContext({
 
     applyDPR,
 
+    reinitialize(): void {
+      applyDPR();
+    },
+
     resize(width?: number, height?: number, dpr?: number): void {
       if (dpr !== undefined) currentDpr = dpr;
       if (width !== undefined && height !== undefined) {

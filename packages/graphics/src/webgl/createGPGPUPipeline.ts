@@ -29,6 +29,7 @@ export function createGPGPUPipeline(
   height: number,
   defaultShader: string
 ): GPGPUPipeline {
+  // Known limitation: not rebuilt after a GL context loss (engine recreation + FBO rebuild required)
   const fbo = createFBOManager(gl, width, height);
   const programs = new Map<string, CompiledShaderProgram>();
   let activeName: string | null = null;

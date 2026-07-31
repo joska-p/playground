@@ -15,7 +15,7 @@ export type ShaderRunner = ReturnType<typeof createShaderRunner>;
 export function createShaderRunner({
   fragmentShader,
   canvas,
-  dpr = window.devicePixelRatio,
+  dpr = Math.min(window.devicePixelRatio, 2),
   webGLContextAttributes: webGlContextAttributes
 }: CreateShaderRunnerProps) {
   const ctx = createWebGLContext({ canvas, dpr, webGlContextAttributes });
@@ -25,11 +25,29 @@ export function createShaderRunner({
   const pipeline = createQuadPipeline(ctx.gl, builder);
   pipeline.compileFragmentShader(fragmentShader);
 
+  const currentSource = fragmentShader;
+
+  const offContextLost = ctx.onContextLost(() => {
+    // preventDefault is handled by createWebGLContext; nothing else to do on loss
+  });
+  const offContextRestored = ctx.onContextRestored(() => {
+    ctx.reinitialize();
+    pipeline.reinitialize(currentSource);
+  });
+
   let mousePx: Point2D = { x: 0, y: 0 };
 
   return {
     ctx,
     pipeline,
+
+    get context(): WebGL2RenderingContext {
+      return ctx.gl;
+    },
+
+    get canvas(): HTMLCanvasElement {
+      return canvas;
+    },
 
     resize(width: number, height: number, newDpr = window.devicePixelRatio): void {
       ctx.resize(width, height, newDpr);
@@ -45,6 +63,8 @@ export function createShaderRunner({
     },
 
     dispose(): void {
+      offContextLost();
+      offContextRestored();
       pipeline.dispose();
     }
   };

@@ -12,7 +12,7 @@ export function createQuadPipeline(
   let uniformBuilder = initialUniformBuilder;
   let uniforms = new Map<string, UniformEntry>();
   let nextTextureUnit = 0;
-  const vao = gl.createVertexArray();
+  let vao = gl.createVertexArray();
 
   return {
     compileFragmentShader(fragmentSource: string): void {
@@ -20,6 +20,12 @@ export function createQuadPipeline(
       const compiled = compileShaderProgram(gl, fragmentSource);
       program = compiled.program;
       uniforms = compiled.uniforms;
+    },
+
+    reinitialize(fragmentSource: string): void {
+      gl.deleteVertexArray(vao);
+      vao = gl.createVertexArray();
+      this.compileFragmentShader(fragmentSource);
     },
 
     render(mousePx?: Point2D): void {
@@ -66,10 +72,10 @@ export function createQuadPipeline(
 
     dispose(): void {
       if (program) {
-      gl.deleteProgram(program);
-      program = null;
+        gl.deleteProgram(program);
+        program = null;
+      }
+      gl.deleteVertexArray(vao);
     }
-    gl.deleteVertexArray(vao);
-  }
   };
 }

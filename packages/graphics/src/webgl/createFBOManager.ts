@@ -26,7 +26,7 @@ export function createFBOManager(
       0,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      new Uint8Array(width * height * 4)
+      null
     );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -37,6 +37,10 @@ export function createFBOManager(
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+
+    if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
+      throw new Error(`Framebuffer incomplete (${String(width)}x${String(height)})`);
+    }
 
     return [texture, fbo];
   };
