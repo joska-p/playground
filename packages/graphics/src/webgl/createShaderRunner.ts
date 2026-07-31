@@ -1,21 +1,24 @@
 import { createShaderUniformBuilder, type Point2D } from '../math/transforms';
 import { createQuadPipeline } from './createQuadPipeline';
 import { createWebGLContext } from './createWebGLContext';
+import type { WebGLContextAttributes } from './createWebGLContext';
 
-export type ShaderRunnerConfig = {
-  canvas: HTMLCanvasElement;
+export type CreateShaderRunnerProps = {
   fragmentShader: string;
+  canvas: HTMLCanvasElement;
   dpr?: number | undefined;
+  webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
 export type ShaderRunner = ReturnType<typeof createShaderRunner>;
 
 export function createShaderRunner({
-  canvas,
   fragmentShader,
-  dpr = window.devicePixelRatio
-}: ShaderRunnerConfig) {
-  const ctx = createWebGLContext({ canvas, dpr });
+  canvas,
+  dpr = window.devicePixelRatio,
+  webGLContextAttributes: webGlContextAttributes
+}: CreateShaderRunnerProps) {
+  const ctx = createWebGLContext({ canvas, dpr, webGlContextAttributes });
   const { clientWidth, clientHeight } = canvas;
   const builder = createShaderUniformBuilder(clientWidth, clientHeight, dpr);
 

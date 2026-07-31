@@ -1,21 +1,26 @@
-export type WebGLContextConfig = {
-  canvas: HTMLCanvasElement;
-  dpr?: number;
+export type WebGLContextAttributes = {
   alpha?: boolean;
   antialias?: boolean;
   premultipliedAlpha?: boolean;
 };
 
-export type WebGLContext = ReturnType<typeof createWebGLContext>;
+export type CreateWebGLContextConfig = {
+  canvas: HTMLCanvasElement;
+  dpr?: number | undefined;
+  webGlContextAttributes?: WebGLContextAttributes | undefined;
+};
 
-export function createWebGLContext(config: WebGLContextConfig) {
-  const canvas = config.canvas;
-  let currentDpr = config.dpr ?? Math.min(window.devicePixelRatio, 2);
+export function createWebGLContext({
+  canvas,
+  dpr,
+  webGlContextAttributes
+}: CreateWebGLContextConfig) {
+  let currentDpr = dpr ?? Math.min(window.devicePixelRatio, 2);
 
   const gl = canvas.getContext('webgl2', {
-    alpha: config.alpha ?? true,
-    antialias: config.antialias ?? false,
-    premultipliedAlpha: config.premultipliedAlpha ?? true
+    alpha: webGlContextAttributes?.alpha ?? true,
+    antialias: webGlContextAttributes?.antialias ?? false,
+    premultipliedAlpha: webGlContextAttributes?.premultipliedAlpha ?? true
   });
 
   if (!gl) throw new Error('WebGL2 not supported');

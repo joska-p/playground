@@ -1,19 +1,28 @@
 import type { QuadPipeline } from '../webgl/createQuadPipeline';
 import { useFrame } from './FrameLoopContext';
 import { useShaderRunner } from './useShaderRunner';
+import type { WebGLContextAttributes } from '../webgl/createWebGLContext';
 
 export type ShaderCanvasProps = {
-  fragmentShader: string;
   className?: string;
-  onBeforeRender?: (pipeline: QuadPipeline, time: number) => void;
+  onBeforeRender: (pipeline: QuadPipeline, time: number) => void;
+  fragmentShader: string;
+  dpr?: number | undefined;
+  webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
-export function ShaderCanvas({ fragmentShader, className, onBeforeRender }: ShaderCanvasProps) {
-  const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
+export function ShaderCanvas({
+  className,
+  onBeforeRender,
+  fragmentShader,
+  dpr,
+  webGLContextAttributes
+}: ShaderCanvasProps) {
+  const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader, dpr, webGLContextAttributes });
 
   useFrame((time) => {
     const runner = runnerRef.current;
-    if (onBeforeRender && runner) {
+    if (runner) {
       onBeforeRender(runner.pipeline, time);
     }
     runner?.render();
