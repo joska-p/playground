@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-# =============================================================================
-# steps/04-node.sh — fnm + Node LTS + pnpm + global packages + glab CLI
-# =============================================================================
-
 step_node_setup() {
   # --- fnm ------------------------------------------------------------------
   log "Installing fnm..."
@@ -28,10 +23,25 @@ step_node_setup() {
 
   # --- pnpm via corepack ----------------------------------------------------
   log "Enabling corepack + pnpm..."
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+  mkdir -p "$PNPM_HOME/bin"
+  export PATH="$PNPM_HOME/bin:$PNPM_HOME:$PATH"
+
   corepack enable
   corepack prepare pnpm@latest --activate
-  export PNPM_HOME="$HOME/.local/share/pnpm"
-  export PATH="$PNPM_HOME:$PATH"
+
+  # Persist PNPM & FNM PATHs to shell rc files for interactive shells
+  for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
+    if [[ -f "$rc" ]] && ! grep -q "PNPM_HOME" "$rc"; then
+      echo -e '\n# pnpm & fnm' >> "$rc"
+      echo 'export FNM_DIR="$HOME/.local/share/fnm"' >> "$rc"
+      echo 'export PATH="$FNM_DIR:$PATH"' >> "$rc"
+      echo 'eval "$(fnm env)"' >> "$rc"
+      echo 'export PNPM_HOME="$HOME/.local/share/pnpm"' >> "$rc"
+      echo 'export PATH="$PNPM_HOME/bin:$PATH"' >> "$rc"
+    fi
+  done
+
   ok "pnpm $(pnpm --version) ready."
 
   # --- Zed LSP tools --------------------------------------------------------
@@ -40,7 +50,7 @@ step_node_setup() {
   # Tailwind CSS v4 language server
   pnpm add -g @tailwindcss/language-server
 
-  # TypeScript language server (usually comes with typescript, but ensure it)
+  # TypeScript language server
   pnpm add -g typescript
 
   ok "Language servers installed."

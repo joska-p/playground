@@ -5,10 +5,7 @@
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true
     },
-    "ghcr.io/devcontainers-extra/features/ffmpeg-apt-get:1": {},
-    "ghcr.io/devcontainers/features/nvidia-cuda:3": {
-      "installToolkit": true
-    }
+    "ghcr.io/devcontainers-extra/features/ffmpeg-apt-get:1": {}
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/playground,type=bind,consistency=cached",
   "workspaceFolder": "/workspaces/playground",
