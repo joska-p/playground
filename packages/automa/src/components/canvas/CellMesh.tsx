@@ -24,7 +24,7 @@ function CellMesh() {
     const runner = runnerRef.current;
     if (!runner) return;
 
-    const gl = runner.ctx.gl;
+    const gl = runner.context;
     const engine = createSimulationEngine(gl, cols, rows, simStepShader, gpuPaintShader);
     setEngine(engine);
 

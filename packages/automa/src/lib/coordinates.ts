@@ -1,24 +1,13 @@
-import { createCanvasToData, type Point2D } from '@repo/graphics/math/transforms';
+import {
+  createCanvasToData,
+  createWorldToGrid,
+  gridToWorld,
+  type GridCell,
+  type Point2D
+} from '@repo/graphics/math/transforms';
 
-export type GridCell = {
-  column: number;
-  row: number;
-  index: number;
-};
-
-export type { Point2D };
-
-export function createWorldToGrid(cols: number, rows: number) {
-  return (p: Point2D) => ({
-    column: Math.max(0, Math.min(cols - 1, Math.floor(p.x))),
-    row: Math.max(0, Math.min(rows - 1, Math.floor(p.y))),
-    index: Math.floor(p.y) * cols + Math.floor(p.x)
-  });
-}
-
-export function gridToWorld(cell: { column: number; row: number }): Point2D {
-  return { x: cell.column + 0.5, y: cell.row + 0.5 };
-}
+export { createWorldToGrid, gridToWorld };
+export type { GridCell, Point2D };
 
 export function createCanvasToGrid(
   cols: number,
@@ -38,6 +27,8 @@ export function createCanvasToGrid(
     return {
       column: Math.floor(d.x),
       row: Math.floor(d.y),
+      // Deliberate: keep automa's unclamped index. The lib's createWorldToGrid
+      // clamps to grid bounds; automa intentionally reports out-of-bounds cells.
       index: Math.floor(d.y) * cols + Math.floor(d.x)
     };
   };

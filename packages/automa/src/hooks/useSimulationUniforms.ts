@@ -1,18 +1,11 @@
 import type { Point2D } from '@repo/graphics/math/transforms';
-import type { QuadPipeline } from '@repo/graphics/webgl/createQuadPipeline';
+import type { ShaderRunner } from '@repo/graphics/webgl/createShaderRunner';
 import { useEffect, useRef } from 'react';
 import { buildStateColorArray } from '../lib/colors';
 import { automaStore } from '../stores/automa';
 
-type SimulationUniformsRunnerTarget = {
-  ctx: {
-    gl: WebGL2RenderingContext;
-  };
-  pipeline: QuadPipeline;
-};
-
 type UseSimulationUniformsParams = {
-  runnerRef: React.RefObject<SimulationUniformsRunnerTarget | null>;
+  runnerRef: React.RefObject<ShaderRunner | null>;
   interactionState?: { current: { pan: Point2D; zoom: number } };
 };
 
@@ -29,15 +22,17 @@ function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUni
 
       const stateColorsArray = buildStateColorArray(stateColors);
       const interaction = interactionState?.current;
-      const canvas = runner.ctx.gl.canvas as HTMLCanvasElement;
 
       runner.pipeline.setUniforms({
         gridTexture: engine.getDisplayTexture(),
-        stateColors: Array.from(stateColorsArray),
+        stateColors: stateColorsArray,
         texelSize: [1 / cols, 1 / rows],
         time,
         u_panOffset: interaction
-          ? [interaction.pan.x / canvas.clientWidth, -interaction.pan.y / canvas.clientHeight]
+          ? [
+              interaction.pan.x / runner.canvas.clientWidth,
+              -interaction.pan.y / runner.canvas.clientHeight
+            ]
           : [0, 0],
         u_zoom: interaction?.zoom ?? 1
       });
