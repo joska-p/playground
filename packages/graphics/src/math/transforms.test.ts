@@ -178,6 +178,30 @@ describe('transforms', () => {
         }
       });
     }
+
+    it('maps domain corners to canvas corners under "fill"', () => {
+      const domain: DataDomainBounds = {
+        xMin: 0,
+        xMax: canvasWidth,
+        yMin: 0,
+        yMax: canvasHeight
+      };
+      const toCanvas = createDataToCanvas(domain, canvasWidth, canvasHeight, 'fill');
+      expect(toCanvas({ x: 0, y: 0 })).toEqual({ x: 0, y: 0 });
+      expect(toCanvas({ x: canvasWidth, y: canvasHeight })).toEqual({
+        x: canvasWidth,
+        y: canvasHeight
+      });
+    });
+
+    it('is identity under "none"', () => {
+      const cols = 4;
+      const rows = 3;
+      const domain: DataDomainBounds = { xMin: 0, xMax: cols, yMin: 0, yMax: rows };
+      const toCanvas = createDataToCanvas(domain, canvasWidth, canvasHeight, 'none');
+      expect(toCanvas({ x: 0, y: 0 })).toEqual({ x: 0, y: 0 });
+      expect(toCanvas({ x: cols, y: rows })).toEqual({ x: cols, y: rows });
+    });
   });
 
   describe('createScreenToBuffer and createBufferToScreen', () => {

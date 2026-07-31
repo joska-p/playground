@@ -66,6 +66,43 @@ export function createBufferToCanvas(devicePixelRatio: number) {
   });
 }
 
+type DataFit = {
+  scaleX: number;
+  scaleY: number;
+  offsetX: number;
+  offsetY: number;
+};
+
+function computeDataFit(
+  dataDomainBounds: DataDomainBounds,
+  canvasWidth: number,
+  canvasHeight: number,
+  aspectFitMode: AspectFitMode,
+  paddingFraction: number
+): DataFit {
+  if (aspectFitMode === 'none') {
+    return { scaleX: 1, scaleY: 1, offsetX: 0, offsetY: 0 };
+  }
+
+  const dataWidth = dataDomainBounds.xMax - dataDomainBounds.xMin;
+  const dataHeight = dataDomainBounds.yMax - dataDomainBounds.yMin;
+  const paddedWidth = canvasWidth * (1 - paddingFraction * 2);
+  const paddedHeight = canvasHeight * (1 - paddingFraction * 2);
+
+  const uniformScale =
+    aspectFitMode === 'contain'
+      ? Math.min(paddedWidth / dataWidth, paddedHeight / dataHeight)
+      : Math.max(paddedWidth / dataWidth, paddedHeight / dataHeight);
+
+  const scaleX = aspectFitMode === 'fill' ? paddedWidth / dataWidth : uniformScale;
+  const scaleY = aspectFitMode === 'fill' ? paddedHeight / dataHeight : uniformScale;
+
+  const offsetX = (canvasWidth - dataWidth * scaleX) / 2 - dataDomainBounds.xMin * scaleX;
+  const offsetY = (canvasHeight - dataHeight * scaleY) / 2 - dataDomainBounds.yMin * scaleY;
+
+  return { scaleX, scaleY, offsetX, offsetY };
+}
+
 export function createDataToCanvas(
   dataDomainBounds: DataDomainBounds,
   canvasWidth: number,
@@ -73,32 +110,17 @@ export function createDataToCanvas(
   aspectFitMode: AspectFitMode = 'contain',
   paddingFraction = 0
 ) {
-  const dataWidth = dataDomainBounds.xMax - dataDomainBounds.xMin;
-  const dataHeight = dataDomainBounds.yMax - dataDomainBounds.yMin;
-  const paddedWidth = canvasWidth * (1 - paddingFraction * 2);
-  const paddedHeight = canvasHeight * (1 - paddingFraction * 2);
-
-  let scale: number;
-  switch (aspectFitMode) {
-    case 'contain':
-      scale = Math.min(paddedWidth / dataWidth, paddedHeight / dataHeight);
-      break;
-    case 'cover':
-      scale = Math.max(paddedWidth / dataWidth, paddedHeight / dataHeight);
-      break;
-    case 'fill':
-    case 'none':
-    default:
-      scale = 1;
-      break;
-  }
-
-  const offsetX = (canvasWidth - dataWidth * scale) / 2 - dataDomainBounds.xMin * scale;
-  const offsetY = (canvasHeight - dataHeight * scale) / 2 - dataDomainBounds.yMin * scale;
+  const { scaleX, scaleY, offsetX, offsetY } = computeDataFit(
+    dataDomainBounds,
+    canvasWidth,
+    canvasHeight,
+    aspectFitMode,
+    paddingFraction
+  );
 
   return (vector: Point2D): Point2D => ({
-    x: vector.x * scale + offsetX,
-    y: vector.y * scale + offsetY
+    x: vector.x * scaleX + offsetX,
+    y: vector.y * scaleY + offsetY
   });
 }
 
@@ -109,32 +131,17 @@ export function createCanvasToData(
   aspectFitMode: AspectFitMode = 'contain',
   paddingFraction = 0
 ) {
-  const dataWidth = dataDomainBounds.xMax - dataDomainBounds.xMin;
-  const dataHeight = dataDomainBounds.yMax - dataDomainBounds.yMin;
-  const paddedWidth = canvasWidth * (1 - paddingFraction * 2);
-  const paddedHeight = canvasHeight * (1 - paddingFraction * 2);
-
-  let scale: number;
-  switch (aspectFitMode) {
-    case 'contain':
-      scale = Math.min(paddedWidth / dataWidth, paddedHeight / dataHeight);
-      break;
-    case 'cover':
-      scale = Math.max(paddedWidth / dataWidth, paddedHeight / dataHeight);
-      break;
-    case 'fill':
-    case 'none':
-    default:
-      scale = 1;
-      break;
-  }
-
-  const offsetX = (canvasWidth - dataWidth * scale) / 2 - dataDomainBounds.xMin * scale;
-  const offsetY = (canvasHeight - dataHeight * scale) / 2 - dataDomainBounds.yMin * scale;
+  const { scaleX, scaleY, offsetX, offsetY } = computeDataFit(
+    dataDomainBounds,
+    canvasWidth,
+    canvasHeight,
+    aspectFitMode,
+    paddingFraction
+  );
 
   return (vector: Point2D): Point2D => ({
-    x: (vector.x - offsetX) / scale,
-    y: (vector.y - offsetY) / scale
+    x: (vector.x - offsetX) / scaleX,
+    y: (vector.y - offsetY) / scaleY
   });
 }
 
