@@ -11,7 +11,6 @@ export function createSimulationEngine(
   paintShaderSource: string
 ) {
   const pipeline = createGPGPUPipeline(gl, width, height, simShaderSource);
-  pipeline.compile();
   pipeline.addProgram('paint', paintShaderSource);
 
   const birthBuffer = new Int32Array(9);
@@ -64,7 +63,7 @@ export function createSimulationEngine(
     },
 
     destroy(): void {
-      pipeline.destroy();
+      pipeline.dispose();
     }
   };
 }

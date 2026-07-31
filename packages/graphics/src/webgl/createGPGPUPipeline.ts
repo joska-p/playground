@@ -1,93 +1,17 @@
 import { createFBOManager, type FBOManager } from './createFBOManager';
+import {
+  compileShaderProgram,
+  setUniformValue,
+  type CompiledShaderProgram,
+  type UniformValue
+} from './createProgramManager';
 
-const FULLSCREEN_TRIANGLE = /* glsl */ `
-  #version 300 es
-  precision highp float;
-  out vec2 vUv;
-  void main() {
-    vec2 pos[3] = vec2[3](vec2(-1.0, -1.0), vec2(3.0, -1.0), vec2(-1.0, 3.0));
-    vUv = pos[gl_VertexID] * 0.5 + 0.5;
-    gl_Position = vec4(pos[gl_VertexID], 0.0, 1.0);
-  }
-`.trim();
-
-type UniformEntry = {
-  loc: WebGLUniformLocation;
-  type: GLenum;
-  size: number;
-};
-
-type ProgramEntry = {
-  program: WebGLProgram;
-  uniforms: Map<string, UniformEntry>;
-};
-
-export type UniformValue = number | readonly number[] | Int32Array | Float32Array;
-
-function compileShader(gl: WebGL2RenderingContext, fragmentSource: string): ProgramEntry | null {
-  const vs = gl.createShader(gl.VERTEX_SHADER);
-  if (!vs) return null;
-  gl.shaderSource(vs, FULLSCREEN_TRIANGLE);
-  gl.compileShader(vs);
-
-  if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
-    console.error('Vertex shader compile error:', gl.getShaderInfoLog(vs));
-    gl.deleteShader(vs);
-    return null;
-  }
-
-  const fs = gl.createShader(gl.FRAGMENT_SHADER);
-  if (!fs) return null;
-  gl.shaderSource(fs, fragmentSource);
-  gl.compileShader(fs);
-
-  if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
-    console.error('Fragment shader compile error:', gl.getShaderInfoLog(fs));
-    gl.deleteShader(vs);
-    gl.deleteShader(fs);
-    return null;
-  }
-
-  const program = gl.createProgram();
-
-  gl.attachShader(program, vs);
-  gl.attachShader(program, fs);
-  gl.linkProgram(program);
-
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    console.error('Program link error:', gl.getProgramInfoLog(program));
-    gl.deleteProgram(program);
-    gl.deleteShader(vs);
-    gl.deleteShader(fs);
-    return null;
-  }
-
-  const uniforms = new Map<string, UniformEntry>();
-  const numUniforms = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS) as number;
-  for (let i = 0; i < numUniforms; i++) {
-    const info = gl.getActiveUniform(program, i);
-    if (info) {
-      const loc = gl.getUniformLocation(program, info.name);
-      if (loc) {
-        const entry: UniformEntry = { loc, type: info.type, size: info.size };
-        const baseName = info.name.replace(/\[0\]$/, '');
-        uniforms.set(baseName, entry);
-        if (baseName !== info.name) uniforms.set(info.name, entry);
-      }
-    }
-  }
-
-  gl.deleteShader(vs);
-  gl.deleteShader(fs);
-
-  return { program, uniforms };
-}
+export type { UniformValue };
 
 export type GPGPUPipeline = {
   readonly width: number;
   readonly height: number;
   readonly fbo: FBOManager;
-  compile(): void;
   addProgram(name: string, fragmentSource: string): void;
   useProgram(name: string): void;
   setUniforms(uniforms: Record<string, UniformValue>): void;
@@ -96,7 +20,7 @@ export type GPGPUPipeline = {
   init(data: Uint8Array): void;
   getStateTexture(): WebGLTexture;
   resize(width: number, height: number): void;
-  destroy(): void;
+  dispose(): void;
 };
 
 export function createGPGPUPipeline(
@@ -106,67 +30,19 @@ export function createGPGPUPipeline(
   defaultShader: string
 ): GPGPUPipeline {
   const fbo = createFBOManager(gl, width, height);
-  const programs = new Map<string, ProgramEntry>();
+  const programs = new Map<string, CompiledShaderProgram>();
   let activeName: string | null = null;
 
   const emptyVao = gl.createVertexArray();
 
-  const setUniform = (entry: ProgramEntry, name: string, value: UniformValue): void => {
-    const info = entry.uniforms.get(name);
-    if (!info) return;
-
-    const loc = info.loc;
-    const type = info.type;
-
-    switch (type) {
-      case gl.FLOAT:
-        if (typeof value === 'number') gl.uniform1f(loc, value);
-        else gl.uniform1fv(loc, value as Float32Array);
-        break;
-      case gl.FLOAT_VEC2:
-        gl.uniform2fv(loc, value as Float32Array | number[]);
-        break;
-      case gl.FLOAT_VEC3:
-        gl.uniform3fv(loc, value as Float32Array | number[]);
-        break;
-      case gl.FLOAT_VEC4:
-        gl.uniform4fv(loc, value as Float32Array | number[]);
-        break;
-      case gl.INT:
-      case gl.BOOL:
-      case gl.SAMPLER_2D:
-        if (typeof value === 'number') gl.uniform1i(loc, value);
-        else gl.uniform1iv(loc, value as Int32Array);
-        break;
-      case gl.INT_VEC2:
-      case gl.BOOL_VEC2:
-        gl.uniform2iv(loc, value as Int32Array | number[]);
-        break;
-      case gl.INT_VEC3:
-      case gl.BOOL_VEC3:
-        gl.uniform3iv(loc, value as Int32Array | number[]);
-        break;
-      case gl.INT_VEC4:
-      case gl.BOOL_VEC4:
-        gl.uniform4iv(loc, value as Int32Array | number[]);
-        break;
-      case gl.FLOAT_MAT2:
-        gl.uniformMatrix2fv(loc, false, value as Float32Array | number[]);
-        break;
-      case gl.FLOAT_MAT3:
-        gl.uniformMatrix3fv(loc, false, value as Float32Array | number[]);
-        break;
-      case gl.FLOAT_MAT4:
-        gl.uniformMatrix4fv(loc, false, value as Float32Array | number[]);
-        break;
-    }
-  };
-
   const addProgram = (name: string, fragmentSource: string): void => {
-    const entry = compileShader(gl, fragmentSource);
-    if (!entry) throw new Error(`Failed to compile shader program "${name}"`);
+    const entry = compileShaderProgram(gl, fragmentSource);
+    const prior = programs.get(name);
+    if (prior) gl.deleteProgram(prior.program);
     programs.set(name, entry);
   };
+
+  addProgram('default', defaultShader);
 
   return {
     fbo,
@@ -179,38 +55,38 @@ export function createGPGPUPipeline(
       return fbo.height;
     },
 
-    compile(): void {
-      addProgram('default', defaultShader);
-    },
-
     addProgram,
 
     useProgram(name: string): void {
       const entry = programs.get(name);
-      if (!entry) throw new Error(`Program "${name}" not found`);
+      if (!entry) throw new Error(`GPGPUPipeline: program "${name}" not found`);
       activeName = name;
       gl.useProgram(entry.program);
     },
 
     setUniforms(nameOrUniforms: string | Record<string, UniformValue>, value?: UniformValue): void {
-      const entry = activeName ? programs.get(activeName) : undefined;
-      if (!entry) throw new Error('No active program');
+      const targetName = activeName ?? 'default';
+      const entry = programs.get(targetName);
+      if (!entry) throw new Error(`GPGPUPipeline: program "${targetName}" not found`);
 
       if (typeof nameOrUniforms === 'string') {
         if (value === undefined) return;
-        setUniform(entry, nameOrUniforms, value);
+        const info = entry.uniforms.get(nameOrUniforms);
+        if (info) setUniformValue(gl, info, value);
       } else {
         for (const key of Object.keys(nameOrUniforms)) {
           const v = nameOrUniforms[key];
           if (v === undefined) continue;
-          setUniform(entry, key, v);
+          const info = entry.uniforms.get(key);
+          if (info) setUniformValue(gl, info, v);
         }
       }
     },
 
     step(): void {
-      const entry = activeName ? programs.get(activeName) : undefined;
-      if (!entry) throw new Error('No active program');
+      const targetName = activeName ?? 'default';
+      const entry = programs.get(targetName);
+      if (!entry) throw new Error(`GPGPUPipeline: program "${targetName}" not found`);
 
       fbo.bindWrite();
 
@@ -219,7 +95,7 @@ export function createGPGPUPipeline(
 
       const stateEntry = entry.uniforms.get('u_state');
       if (stateEntry) {
-        gl.uniform1i(stateEntry.loc, 0);
+        gl.uniform1i(stateEntry.location, 0);
       }
 
       gl.bindVertexArray(emptyVao);
@@ -230,6 +106,12 @@ export function createGPGPUPipeline(
     },
 
     init(data: Uint8Array): void {
+      if (data.length !== fbo.width * fbo.height) {
+        throw new Error(
+          `GPGPUPipeline: init data length ${String(data.length)} does not match ${String(fbo.width)}x${String(fbo.height)} cells`
+        );
+      }
+
       const rgba = new Uint8Array(data.length * 4);
       for (let i = 0; i < data.length; i++) {
         const cellState = data[i] ?? 0;
@@ -267,7 +149,7 @@ export function createGPGPUPipeline(
       fbo.resize(newWidth, newHeight);
     },
 
-    destroy(): void {
+    dispose(): void {
       fbo.destroy();
       gl.deleteVertexArray(emptyVao);
       for (const [, entry] of programs) {

@@ -13,11 +13,10 @@ export function useGPGPU(
     if (!gl || width === 0 || height === 0) return;
 
     const pipeline = createGPGPUPipeline(gl, width, height, simShader);
-    pipeline.compile();
     pipelineRef.current = pipeline;
 
     return () => {
-      pipeline.destroy();
+      pipeline.dispose();
       pipelineRef.current = null;
     };
   }, [gl, width, height, simShader]);
