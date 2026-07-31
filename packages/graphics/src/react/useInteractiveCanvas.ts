@@ -24,7 +24,7 @@ export function useInteractiveCanvas(canvasRef: React.RefObject<HTMLCanvasElemen
     if (!canvas) return;
 
     const handlePointerDown = (e: PointerEvent) => {
-      if (e.button !== 1 && e.button !== 2) return;
+      if (e.button !== 1) return;
       // Right or middle click for panning
       dragStart.current = { x: e.clientX, y: e.clientY };
       panStart.current = { ...interactionStateRef.current.pan };
