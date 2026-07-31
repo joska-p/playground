@@ -101,7 +101,16 @@ export default defineConfig({
       }
     }
   },
-  integrations: [react(), mdx(), sitemap()],
+  integrations: [
+    react({
+      babel: {
+        compact: true,
+        plugins: [['babel-plugin-react-compiler']]
+      }
+    }),
+    mdx(),
+    sitemap()
+  ],
   markdown: {
     processor: satteri({
       features: {
