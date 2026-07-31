@@ -13,9 +13,9 @@ const keywords = project.data.tags?.join(', ').slice(1) || '';
 ---
 
 <BaseLayout
+  title={title}
   description={description}
   keywords={keywords}
-  title={title}
 >
   <div class="h-0 min-h-screen">
     <App

@@ -1,9 +1,9 @@
 ---
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { App } from '@repo/randomart/randomart';
+import { App } from '@repo/fracture/fracture';
 
-const project = await getEntry('projects', 'randomart');
+const project = await getEntry('projects', 'fracture');
 if (!project) return Astro.redirect('/404');
 
 const { title, description } = project.data;

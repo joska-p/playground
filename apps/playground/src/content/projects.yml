@@ -21,6 +21,19 @@
   featured: true
   packageDir: automa
 
+- id: fracture
+  order: 10
+  title: Fracture
+  description: Interactive fractal with WebGL rendering.
+  tags:
+    - generative
+    - three-js
+    - 3d
+    - webgl
+  iconName: three-stage
+  featured: false
+  packageDir: fracture
+
 - id: graphify
   order: 7
   title: Graphify
