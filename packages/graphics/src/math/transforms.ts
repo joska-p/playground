@@ -19,6 +19,13 @@ export type DataDomainBounds = {
 
 export type AspectFitMode = 'contain' | 'cover' | 'fill' | 'none';
 
+/**
+ * Shader uniform values produced from canvas size + mouse state.
+ *
+ * - `uniformResolution` — buffer pixels `[w*dpr, h*dpr]`
+ * - `uniformAspectRatio` — cssW/cssH
+ * - `uniformMouse` — normalized UV, origin top-left, y-down (0..1), same space as `vUv`
+ */
 export type ShaderUniformValues = {
   uniformResolution: [number, number];
   uniformAspectRatio: number;
@@ -223,10 +230,14 @@ export function createShaderUniformBuilder(
   cssHeight: number,
   devicePixelRatio: number
 ) {
-  return (mouseBufferPixel?: Point2D): ShaderUniformValues => ({
+  /**
+   * `mouseNormalizedUV` is normalized UV, origin top-left, y-down (0..1) —
+   * the same space as `vUv`. Convert pointer coordinates before calling.
+   */
+  return (mouseNormalizedUV?: Point2D): ShaderUniformValues => ({
     uniformResolution: [cssWidth * devicePixelRatio, cssHeight * devicePixelRatio],
     uniformAspectRatio: cssWidth / cssHeight,
-    uniformMouse: mouseBufferPixel ? [mouseBufferPixel.x, mouseBufferPixel.y] : [0, 0]
+    uniformMouse: mouseNormalizedUV ? [mouseNormalizedUV.x, mouseNormalizedUV.y] : [0, 0]
   });
 }
 

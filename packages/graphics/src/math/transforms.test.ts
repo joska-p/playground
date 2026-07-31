@@ -222,14 +222,14 @@ describe('transforms', () => {
   describe('createShaderUniformBuilder', () => {
     it('returns correct uniform values', () => {
       const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
-      const uniforms = builder({ x: 100, y: 200 });
+      const uniforms = builder({ x: 0.5, y: 0.25 });
 
       expect(uniforms.uniformResolution).toEqual([
         canvasWidth * devicePixelRatio,
         canvasHeight * devicePixelRatio
       ]);
       expect(uniforms.uniformAspectRatio).toBeCloseTo(canvasWidth / canvasHeight);
-      expect(uniforms.uniformMouse).toEqual([100, 200]);
+      expect(uniforms.uniformMouse).toEqual([0.5, 0.25]);
     });
 
     it('defaults mouse to [0,0] when not provided', () => {

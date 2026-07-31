@@ -73,13 +73,21 @@ export function createGPGPUPipeline(
       if (typeof nameOrUniforms === 'string') {
         if (value === undefined) return;
         const info = entry.uniforms.get(nameOrUniforms);
-        if (info) setUniformValue(gl, info, value);
+        if (info) {
+          setUniformValue(gl, info, value);
+        } else if (import.meta.env?.DEV) {
+          console.warn('[graphics] unknown uniform "' + nameOrUniforms + '" in program');
+        }
       } else {
         for (const key of Object.keys(nameOrUniforms)) {
           const v = nameOrUniforms[key];
           if (v === undefined) continue;
           const info = entry.uniforms.get(key);
-          if (info) setUniformValue(gl, info, v);
+          if (info) {
+            setUniformValue(gl, info, v);
+          } else if (import.meta.env?.DEV) {
+            console.warn('[graphics] unknown uniform "' + key + '" in program');
+          }
         }
       }
     },

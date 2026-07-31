@@ -61,7 +61,12 @@ export function createQuadPipeline(
       gl.useProgram(program);
       for (const [name, value] of Object.entries(uniformValues)) {
         const entry = uniforms.get(name);
-        if (entry === undefined) continue;
+        if (entry === undefined) {
+          if (import.meta.env?.DEV) {
+            console.warn('[graphics] unknown uniform "' + name + '" in program');
+          }
+          continue;
+        }
         setUniformValue(gl, entry, value, () => nextTextureUnit++);
       }
     },

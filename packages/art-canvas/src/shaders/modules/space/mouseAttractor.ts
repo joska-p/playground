@@ -6,7 +6,8 @@ export const mouseAttractor: ShaderModule = {
   weight: 3.0,
   code: `
     vec2 mouseAttractor(vec2 uv, vec2 mouse, float strength) {
-        vec2 dir = mouse - uv;
+        vec2 m = mouse * 2.0 - 1.0;
+        vec2 dir = m - uv;
         float dist = length(dir);
         return uv + normalize(dir) * (1.0 / (dist + 1.0)) * strength;
     }
