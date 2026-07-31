@@ -11,7 +11,7 @@
     "./react/FrameLoopContext": "./src/react/FrameLoopContext.tsx",
     "./react/useGPGPU": "./src/react/useGPGPU.ts",
     "./webgl/createFBOManager": "./src/webgl/createFBOManager.ts",
-    "./webgl/createProgramManager": "./src/webgl/createProgramManager.ts",
+    "./webgl/compileShaderProgram": "./src/webgl/compileShaderProgram.ts",
     "./webgl/createQuadPipeline": "./src/webgl/createQuadPipeline.ts",
     "./webgl/createShaderRunner": "./src/webgl/createShaderRunner.ts",
     "./webgl/createWebGLContext": "./src/webgl/createWebGLContext.ts",

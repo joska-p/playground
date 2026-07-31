@@ -13,7 +13,7 @@ function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUni
   const onBeforeRenderRef = useRef<((time: number) => void) | null>(null);
 
   useEffect(() => {
-    onBeforeRenderRef.current = (time: number) => {
+    onBeforeRenderRef.current = () => {
       const { engine, cols, rows, stateColors } = automaStore.getState();
       if (!engine) return;
 
@@ -27,7 +27,6 @@ function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUni
         gridTexture: engine.getDisplayTexture(),
         stateColors: stateColorsArray,
         texelSize: [1 / cols, 1 / rows],
-        time,
         u_panOffset: interaction
           ? [
               interaction.pan.x / runner.canvas.clientWidth,

@@ -68,7 +68,7 @@ export function useShaderRunner({
       runnerRef.current = null;
       skipRecompileRef.current = false;
     };
-  }, []);
+  }, [dpr, fragmentShader, webGLContextAttributes]);
 
   // Recompile the fragment program in place on the existing runner — a shader
   // edit must NOT destroy the context + GL resources (that orphans consumers

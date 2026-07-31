@@ -94,7 +94,7 @@ function isWebGLTextureValue(
   gl: WebGL2RenderingContext,
   value: UniformValue
 ): value is WebGLTexture {
-  return typeof value === 'object' && gl.isTexture(value);
+  return value instanceof WebGLTexture && gl.isTexture(value);
 }
 
 export function setUniformValue(

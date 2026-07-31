@@ -11,7 +11,7 @@ import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
 import { useCols, useRows, setEngine } from '../../stores/automa';
 
 function CellMesh() {
-  const { canvasRef, runnerRef } = useShaderRunner(fragmentShader);
+  const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
   const interactionState = useInteractiveCanvas(canvasRef);
   const { onBeforeRenderRef } = useSimulationUniforms({
     runnerRef,

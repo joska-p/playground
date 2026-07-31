@@ -4,7 +4,7 @@ import {
   setUniformValue,
   type CompiledShaderProgram,
   type UniformValue
-} from './createProgramManager';
+} from './compileShaderProgram';
 
 export type { UniformValue };
 

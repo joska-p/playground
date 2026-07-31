@@ -6,7 +6,6 @@ const fragmentShader = `#version 300 es
   uniform float uDivisions;
   uniform float uChroma;
   uniform float uLightness;
-  uniform float uTime;
 
   in vec2 vUv;
 
@@ -65,7 +64,6 @@ const fragmentShader = `#version 300 es
       // Define constant target properties for Lightness and Chroma
       float targetLightness = uLightness;
       float targetChroma = uChroma;
-      float t_time = uTime;
 
       // Map normalized column positions across a complete wheel cycle
       float hueRadians = normalizedId * 2.0 * PI;
