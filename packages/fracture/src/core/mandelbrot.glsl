@@ -18,10 +18,7 @@ uniform float u_hueShift;
 uniform float u_hueFrequency;
 uniform float u_chromaScale;
 
-// View — the center of the view in the complex plane, split into double-single
-// (hi, lo) pairs on the JS side (see `doubleSplit.ts`). Each is a vec2 whose
-// two float32s carry ~48 significant bits, so the image stays crisp at zoom
-// levels far beyond float32's ~24-bit limit. The zoom itself is a plain float.
+// View
 uniform vec2 u_centerRe;
 uniform vec2 u_centerIm;
 uniform float u_zoom;
@@ -29,36 +26,18 @@ in vec2 vUv;
 out vec4 fragColor;
 
 // ---------------------------------------------------------------------------
-// Double-single (DS) arithmetic
-//
-// A DS value is a pair of floats (hi, lo) that together approximate a double:
-//   value ≈ hi + lo,  |lo| ≲ 2⁻²⁴ · |hi|
-// hi carries float32's ~24 mantissa bits and lo recovers the next ~24, giving
-// ~48 significant bits (~2.8e-15 relative error — about 15 decimal digits).
-//
-// The view center arrives already split into hi/lo from JS; the per-pixel
-// offset is added on top in DS. Everything downstream (bailout, smooth
-// iteration, normals, lighting, color) reads only the .x (hi) parts, so the
-// precision win is confined to the orbit iteration, where it actually matters.
+// Double-single (DS) arithmetic (No fma, uses bitwise splitting)
 // ---------------------------------------------------------------------------
 
-// DS value from a single float.
 vec2 ds_set(float a) {
   return vec2(a, 0.0);
 }
 
-// DS value from an already split hi/lo pair (the view center from JS).
 vec2 ds_set2(float hi, float lo) {
   return vec2(hi, lo);
 }
 
-// Negate.
-vec2 ds_neg(vec2 a) {
-  return vec2(-a.x, -a.y);
-}
-
-// Error-free float addition (Dekker's TwoSum): returns (s, e) with
-// s = fl(a + b) and s + e == a + b exactly. Order-independent.
+// Standard TwoSum (order-independent)
 vec2 ds_twoSum(float a, float b) {
   float s = a + b;
   float bv = s - a;
@@ -66,58 +45,41 @@ vec2 ds_twoSum(float a, float b) {
   return vec2(s, err);
 }
 
-// DS + DS: error-carrying sum, renormalized into a fresh (hi, lo) pair.
 vec2 ds_add(vec2 a, vec2 b) {
-  vec2 s = ds_twoSum(a.x, b.x); // sum the high parts, keep the rounding error
-  s.y += a.y + b.y; // fold in both low parts
-  return ds_twoSum(s.x, s.y); // renormalize
+  vec2 s = ds_twoSum(a.x, b.x);
+  s.y += a.y + b.y;
+  return ds_twoSum(s.x, s.y);
 }
 
-// DS - DS.
 vec2 ds_sub(vec2 a, vec2 b) {
-  return ds_add(a, ds_neg(b));
+  return ds_add(a, vec2(-b.x, -b.y));
 }
 
-// Split a float into (hi, lo) with a = hi + lo exactly (Dekker), where hi
-// keeps the top 13 bits' worth of precision. Requires |a| · 8193 to stay in
-// normal float range — true for every value this shader produces.
-const float DS_SPLIT = 8193.0; // 2^13 + 1
-
+// Bitwise Dekker split: splits a float into (hi, lo) where hi has the top
+// 11 bits of the mantissa. Avoids the 8193.0 multiply and avoids `fma`.
+// Works natively in ES 3.00 on all hardware.
 vec2 ds_split(float a) {
-  float t = a * DS_SPLIT;
-  float hi = t - (t - a);
+  int bits = floatBitsToInt(a) & int(0xFFFFE000); // mask off lower 13 bits
+  float hi = intBitsToFloat(bits);
   return vec2(hi, a - hi);
 }
 
-// Error-free float product: returns (fl(a · b), a · b - fl(a · b)) exactly.
-// Uses Dekker splitting rather than `fma` because fused multiply-add is only
-// optional on some WebGL drivers.
-vec2 ds_prodErr(float a, float b) {
-  vec2 as = ds_split(a);
-  vec2 bs = ds_split(b);
-  float hi = a * b;
-  float lo = ((as.x * bs.x - hi) + as.x * bs.y + as.y * bs.x) + as.y * bs.y;
-  return vec2(hi, lo);
-}
-
-// DS * DS.
+// Exact product error using bitwise splitting.
 vec2 ds_mul(vec2 a, vec2 b) {
-  vec2 p = ds_prodErr(a.x, b.x); // leading product + exact error
-  float lo = p.y + a.x * b.y + a.y * b.x + a.y * b.y; // cross + low·low terms
-  return ds_twoSum(p.x, lo);
-}
+  vec2 as = ds_split(a.x);
+  vec2 bs = ds_split(b.x);
+  float hi = a.x * b.x;
+  float lo = ((as.x * bs.x - hi) + as.x * bs.y + as.y * bs.x) + as.y * bs.y;
 
-// Complex square in DS: (zr + i·zi)² = (zr² - zi²) + i·(2·zr·zi).
-void ds_csquare(vec2 zr, vec2 zi, out vec2 zrOut, out vec2 ziOut) {
-  vec2 zrSq = ds_mul(zr, zr);
-  vec2 ziSq = ds_mul(zi, zi);
-  vec2 zrzi = ds_mul(zr, zi);
-  zrOut = ds_sub(zrSq, ziSq);
-  ziOut = ds_mul(ds_set(2.0), zrzi);
+  // Add cross terms with the low parts of a and b
+  lo = a.y * b.x + a.x * b.y + lo;
+
+  // Renormalize
+  return ds_twoSum(hi, lo);
 }
 
 // ---------------------------------------------------------------------------
-// OKLCH → RGB (unchanged)
+// OKLCH → RGB
 // ---------------------------------------------------------------------------
 vec3 oklchToRgb(vec3 oklch) {
   float L = oklch.x;
@@ -149,42 +111,37 @@ vec3 oklchToRgb(vec3 oklch) {
 
 // ---------------------------------------------------------------------------
 // Returns (continuous height, secondary magnitude)
-// Outside → smooth iteration count
-// Inside  → convergence measure (how close the orbit got to 0)
-//
-// The orbit iteration runs in double-single; only the per-pixel offset from
-// the view center is a plain float (it is always tiny, ≤ 1.5 / u_zoom, so
-// adding it onto the DS center keeps the full ~48-bit accuracy).
 // ---------------------------------------------------------------------------
 vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
   vec2 delta = (uvCoord - 0.5) * (3.0 / u_zoom);
 
-  // c = center + delta, in DS. u_centerRe / u_centerIm carry the hi/lo split
-  // of the view center computed in float64 on the JS side.
   vec2 cr = ds_add(ds_set2(u_centerRe.x, u_centerRe.y), ds_set(delta.x));
   vec2 ci = ds_add(ds_set2(u_centerIm.x, u_centerIm.y), ds_set(delta.y));
 
-  // z = 0 + 0i (DS)
   vec2 zr = vec2(0.0, 0.0);
   vec2 zi = vec2(0.0, 0.0);
 
-  float minMod2 = 1e20; // closest approach to origin
+  float minMod2 = 1e20;
   float mod2 = 0.0;
   bool diverged = false;
   int iterationCount = 0;
 
+  // High bailout (256^2) makes smooth iteration (nu) much smoother at depth
   for (int i = 0; i < maxIter; i++) {
-    // z = z² + c — all in DS
-    vec2 zrSq, ziSq;
-    ds_csquare(zr, zi, zrSq, ziSq);
-    zr = ds_add(zrSq, cr);
-    zi = ds_add(ziSq, ci);
+    // Inlined z = z^2 + c
+    vec2 zrSq = ds_mul(zr, zr);
+    vec2 ziSq = ds_mul(zi, zi);
+    vec2 zrzi = ds_mul(zr, zi);
 
-    // Bailout & min-distance read the high parts only (float speed).
+    // 2 * zrzi: just scale the hi and lo parts, skip full ds_mul
+    zr = ds_add(ds_sub(zrSq, ziSq), cr);
+    zi = ds_add(vec2(zrzi.x * 2.0, zrzi.y * 2.0), ci);
+
+    // Bailout & min-distance (reads hi parts only)
     mod2 = zr.x * zr.x + zi.x * zi.x;
     minMod2 = min(minMod2, mod2);
 
-    if (mod2 > 4.0) {
+    if (mod2 > 65536.0) {
       diverged = true;
       iterationCount = i;
       break;
@@ -192,16 +149,21 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
   }
 
   if (diverged) {
-    // classic continuous smooth iteration (uses hi parts)
-    float log_zn = log(mod2) * 0.5; // = log(|z|)
-    float nu = log(log_zn / log(2.0)) / log(2.0);
+    // Hardware log2 is much faster than log(x)/log(2)
+    float log_zn = log2(mod2) * 0.5; // log2(|z|)
+    float nu = log2(log_zn);
     float smooth_i = float(iterationCount) + 1.0 - nu;
-    return vec2(smooth_i, length(vec2(zr.x, zi.x)));
+
+    // CHANGED: return mod2 directly instead of sqrt(mod2)
+    return vec2(smooth_i, mod2);
   } else {
-    // continuous convergence measure (uses hi parts)
-    float closest = sqrt(minMod2);
-    float conv = -log(closest + 1e-12) * u_interiorScale;
-    return vec2(conv, closest);
+    // CHANGED: skip sqrt(minMod2), adjust the log2 with a 0.5 multiplier
+    // -log2(sqrt(x)) = -0.5 * log2(x)
+    // 1e-24 is the squared equivalent of 1e-12
+    float conv = -0.5 * log2(minMod2 + 1e-24) * 0.69314718056 * u_interiorScale;
+
+    // CHANGED: return minMod2 directly instead of sqrt(minMod2)
+    return vec2(conv, minMod2);
   }
 }
 
@@ -209,30 +171,37 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
 // Main
 // ---------------------------------------------------------------------------
 void main() {
-  int maxIterations = int(u_iterationBase + log(max(1.0, u_zoom)) * u_iterationScale);
+  int maxIterations = int(u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale);
   maxIterations = min(maxIterations, int(u_iterationCap));
 
-  // Keep epsilon in UV space (roughly constant in screen pixels)
-  // 0.001–0.002 works well; you can expose it later if you want
   float pixelEps = u_pixelEps;
-  vec2 eps = vec2(pixelEps, 0.0);
 
+  // --- Evaluate the fractal ONLY ONCE per pixel ---
   vec2 data0 = getMandelbrotData(vUv, maxIterations);
   float h0 = data0.x;
-  float hX = getMandelbrotData(vUv + eps.xy, maxIterations).x;
-  float hY = getMandelbrotData(vUv + eps.yx, maxIterations).x;
 
-  // Critical part: compensate the height differences by zoom
-  // so the slope stays roughly the same in world space
+  // --- Reconstruct normals analytically via screen-space derivatives ---
+  vec2 dU = dFdx(vUv);
+  vec2 dV = dFdy(vUv);
+  float det = dU.x * dV.y - dU.y * dV.x;
+
+  float dhdu = 0.0;
+  float dhdv = 0.0;
+  if (abs(det) > 1e-9) {
+    float dhdx = dFdx(h0);
+    float dhdy = dFdy(h0);
+    dhdu = (dhdx * dV.y - dhdy * dU.y) / det;
+    dhdv = (dU.x * dhdy - dV.x * dhdx) / det;
+  }
+
   float heightScale = u_bumpHeight / max(u_zoom, 1.0);
 
   vec3 normal = normalize(vec3(
-        (h0 - hX) * heightScale,
-        (h0 - hY) * heightScale,
-        pixelEps // constant z, independent of zoom
+        -dhdu * heightScale,
+        -dhdv * heightScale,
+        pixelEps
       ));
 
-  // rest of the lighting & color stays exactly the same
   vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));
   float diffuse = max(0.0, dot(normal, lightDir));
   float lightIntensity = clamp(u_ambient + diffuse * (1.0 - u_ambient), 0.0, 1.0);
@@ -240,25 +209,20 @@ void main() {
   // -----------------------------------------------------------------
   // Color
   // -----------------------------------------------------------------
-  float baseRate = log(max(1.0, h0)) / log(float(maxIterations));
+  float baseRate = log2(max(1.0, h0)) / log2(float(maxIterations));
 
-  // Lightness (already working)
   float L = clamp(baseRate * lightIntensity, 0.0, 1.0);
 
-  // Chroma – different treatment for interior vs exterior
   float C;
-  if (data0.y < 2.0) {
-    // Interior: use the scaled height (or closest approach)
-    // This gives saturated colors that still respond to the chroma slider
-    C = clamp(h0 * 0.004 * u_chromaScale * 20.0, 0.0, 0.35);
-    // alternative that also looks good:
-    // C = clamp( (1.0 / (data0.y + 0.01)) * u_chromaScale * 0.15 , 0.0, 0.35);
+  // CHANGED: 2.0 became 4.0 (because data0.y is now squared)
+  if (data0.y < 4.0) {
+    // Interior
+    C = clamp(h0 * 0.08 * u_chromaScale, 0.0, 0.35);
   } else {
-    // Exterior: original formula
-    C = clamp(log(max(1.0, data0.y)) * u_chromaScale, 0.0, 0.3);
+    // Exterior: log2(sqrt(x)) = 0.5 * log2(x)
+    C = clamp(0.5 * log2(max(1.0, data0.y)) * 0.69314718 * u_chromaScale, 0.0, 0.3);
   }
 
-  // Hue (same for both)
   float h = mod(h0 * u_hueFrequency + u_hueShift, 6.28318530718);
 
   fragColor = vec4(oklchToRgb(vec3(L, C, h)), 1.0);
