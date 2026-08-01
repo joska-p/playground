@@ -33,7 +33,7 @@ function Scene() {
       interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
-      onBeforeRender={(pipeline, _time, view) => {
+      onBeforeRender={({ pipeline, view }) => {
         // Map the interaction view onto the complex-plane center the shader
         // expects. With the shader's convention
         //   c = (uvCoord - 0.5) · (3 / zoom) + center

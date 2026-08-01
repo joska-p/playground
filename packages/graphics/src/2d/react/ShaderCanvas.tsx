@@ -16,9 +16,11 @@ export type ShaderCanvasView = {
   canvasHeight: number;
 };
 
+export type OnBeforeRenderProps = { pipeline: QuadPipeline; time: number; view: ShaderCanvasView };
+
 export type ShaderCanvasProps = {
   className?: string;
-  onBeforeRender?: (pipeline: QuadPipeline, time: number, view: ShaderCanvasView) => void;
+  onBeforeRender?: ({ pipeline, time, view }: OnBeforeRenderProps) => void;
   fragmentShader: string;
   dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
@@ -50,12 +52,13 @@ export function ShaderCanvas({
   useFrame((time) => {
     const runner = runnerRef.current;
     if (runner) {
-      onBeforeRender?.(runner.pipeline, time, {
+      const view = {
         pan: interactionState.current.pan,
         zoom: interactionState.current.zoom,
         canvasWidth: runner.canvas.clientWidth,
         canvasHeight: runner.canvas.clientHeight
-      });
+      };
+      onBeforeRender?.({ pipeline: runner.pipeline, time, view });
       applyPanZoom(); // safe even when interactive=false (state stays at defaults)
     }
     runner?.render();

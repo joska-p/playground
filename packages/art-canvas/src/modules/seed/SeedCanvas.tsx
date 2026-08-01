@@ -13,7 +13,7 @@ function SeedCanvas() {
   return (
     <ShaderCanvas
       fragmentShader={fragmentShader}
-      onBeforeRender={(pipeline, time) => {
+      onBeforeRender={({ pipeline, time }) => {
         pipeline.setUniforms({ u_time: time });
       }}
     />

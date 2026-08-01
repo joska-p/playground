@@ -10,7 +10,7 @@ function Manual() {
   return (
     <ShaderCanvas
       fragmentShader={manual.fragmentShader}
-      onBeforeRender={(pipeline) => {
+      onBeforeRender={({ pipeline }) => {
         pipeline.setUniforms({
           uDivisions: divisions,
           uLightness: lightness,

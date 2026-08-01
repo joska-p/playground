@@ -5,7 +5,7 @@ function FoldedSpace() {
   return (
     <ShaderCanvas
       fragmentShader={foldedSpaceFragment}
-      onBeforeRender={(pipeline, time) => {
+      onBeforeRender={({ pipeline, time }) => {
         pipeline.setUniforms({ u_time: time });
       }}
     />

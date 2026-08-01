@@ -72,8 +72,8 @@ function ControlPanel() {
           min="0.0005"
           max="0.1"
           step="0.0005"
-          value={iterationCap}
-          onChange={setIterationCap}
+          value={pixelEps}
+          onChange={setPixelEps}
         />
 
         <Slider

@@ -26,7 +26,7 @@ function Atlas() {
   return (
     <ShaderCanvas
       fragmentShader={SYLLABIC_FIBONACCI_FRAGMENT}
-      onBeforeRender={(pipeline, time) => {
+      onBeforeRender={({ pipeline, time }) => {
         pipeline.setUniforms({
           uTime: time,
           uGridSize: complexity,
