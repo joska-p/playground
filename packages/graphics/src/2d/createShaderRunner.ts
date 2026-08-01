@@ -1,7 +1,9 @@
 import { createShaderUniformBuilder, type Point2D } from './transforms';
 import { createQuadPipeline, type QuadPipeline } from './createQuadPipeline';
+import { applyStandardUniforms } from '../core/standardUniforms';
 import {
   createWebGLContext,
+  defaultDevicePixelRatio,
   type WebGLContext,
   type WebGLContextAttributes
 } from '../core/createWebGLContext';
@@ -27,14 +29,18 @@ export type ShaderRunner = {
 export function createShaderRunner({
   fragmentShader,
   canvas,
-  dpr = Math.min(window.devicePixelRatio, 2),
-  webGLContextAttributes: webGlContextAttributes
+  dpr,
+  webGLContextAttributes
 }: CreateShaderRunnerProps): ShaderRunner {
-  const ctx = createWebGLContext({ canvas, dpr, webGlContextAttributes });
+  const ctx = createWebGLContext({ canvas, dpr, webGLContextAttributes });
   const { clientWidth, clientHeight } = canvas;
-  const builder = createShaderUniformBuilder(clientWidth, clientHeight, dpr);
+  let builder = createShaderUniformBuilder(
+    clientWidth,
+    clientHeight,
+    dpr ?? defaultDevicePixelRatio()
+  );
 
-  const pipeline = createQuadPipeline(ctx.gl, builder);
+  const pipeline = createQuadPipeline(ctx.gl);
   pipeline.compileFragmentShader(fragmentShader);
 
   const offContextLost = ctx.onContextLost(() => {
@@ -59,9 +65,9 @@ export function createShaderRunner({
       return canvas;
     },
 
-    resize(width: number, height: number, newDpr = window.devicePixelRatio): void {
+    resize(width: number, height: number, newDpr = defaultDevicePixelRatio()): void {
       ctx.resize(width, height, newDpr);
-      pipeline.updateUniformBuilder(createShaderUniformBuilder(width, height, newDpr));
+      builder = createShaderUniformBuilder(width, height, newDpr);
     },
 
     setMouse(pixel: Point2D): void {
@@ -69,7 +75,8 @@ export function createShaderRunner({
     },
 
     render(): void {
-      pipeline.render(mousePx);
+      applyStandardUniforms(pipeline, builder(mousePx));
+      pipeline.render();
     },
 
     dispose(): void {

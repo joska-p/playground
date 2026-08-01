@@ -2,6 +2,7 @@ import { createFBOManager, type FBOManager } from '../core/createFBOManager';
 import {
   compileShaderProgram,
   setUniformValue,
+  warnUnknownUniform,
   type CompiledShaderProgram,
   type UniformValue
 } from '../core/compileShaderProgram';
@@ -75,8 +76,8 @@ export function createGPGPUPipeline(
         const info = entry.uniforms.get(nameOrUniforms);
         if (info) {
           setUniformValue(gl, info, value);
-        } else if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
-          console.warn('[graphics] unknown uniform "' + nameOrUniforms + '" in program');
+        } else {
+          warnUnknownUniform(nameOrUniforms);
         }
       } else {
         for (const key of Object.keys(nameOrUniforms)) {
@@ -85,8 +86,8 @@ export function createGPGPUPipeline(
           const info = entry.uniforms.get(key);
           if (info) {
             setUniformValue(gl, info, v);
-          } else if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
-            console.warn('[graphics] unknown uniform "' + key + '" in program');
+          } else {
+            warnUnknownUniform(key);
           }
         }
       }

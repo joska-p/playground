@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { generateGLSLFragment } from '../core/generateGLSLFragment';
 import {
   createBufferToCanvas,
   createBufferToScreen,
@@ -13,7 +14,6 @@ import {
   createScreenToGrid,
   createShaderUniformBuilder,
   createWorldToGrid,
-  generateGLSLFragment,
   gridToWorld,
   type AspectFitMode,
   type DataDomainBounds,
@@ -63,6 +63,13 @@ describe('transforms', () => {
       const result = transform({ x: canvasWidth / 2, y: canvasHeight / 2 });
       expect(result.x).toBeCloseTo(0.5);
       expect(result.y).toBeCloseTo(0.5);
+    });
+
+    it('guards against zero-size canvas (no division by zero)', () => {
+      const transform = createCanvasToNormalized(0, 0);
+      const result = transform({ x: 100, y: 50 });
+      expect(result.x).toBe(0);
+      expect(result.y).toBe(0);
     });
   });
 
@@ -202,6 +209,16 @@ describe('transforms', () => {
       expect(toCanvas({ x: 0, y: 0 })).toEqual({ x: 0, y: 0 });
       expect(toCanvas({ x: cols, y: rows })).toEqual({ x: cols, y: rows });
     });
+
+    it('guards against zero-size domain or canvas (no division by zero)', () => {
+      const zeroDomain: DataDomainBounds = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
+      const zeroCanvas = createDataToCanvas(zeroDomain, 0, 0, 'contain');
+      expect(zeroCanvas({ x: 10, y: 10 })).toEqual({ x: 10, y: 10 });
+
+      const zeroHeight = createDataToCanvas(zeroDomain, canvasWidth, 0, 'contain');
+      expect(Number.isFinite(zeroHeight({ x: 10, y: 10 }).x)).toBe(true);
+      expect(Number.isFinite(zeroHeight({ x: 10, y: 10 }).y)).toBe(true);
+    });
   });
 
   describe('createScreenToBuffer and createBufferToScreen', () => {
@@ -224,28 +241,28 @@ describe('transforms', () => {
       const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
       const uniforms = builder({ x: 0.5, y: 0.25 });
 
-      expect(uniforms.uniformResolution).toEqual([
+      expect(uniforms.resolution).toEqual([
         canvasWidth * devicePixelRatio,
         canvasHeight * devicePixelRatio
       ]);
-      expect(uniforms.uniformAspectRatio).toBeCloseTo(canvasWidth / canvasHeight);
-      expect(uniforms.uniformMouse).toEqual([0.5, 0.75]);
+      expect(uniforms.aspectRatio).toBeCloseTo(canvasWidth / canvasHeight);
+      expect(uniforms.mouse).toEqual([0.5, 0.75]);
     });
 
     it('converts top-left pointer UV into vUv space (y-up)', () => {
       const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
 
       // Pointer at top-left -> vUv (0, 1); pointer at bottom-left -> vUv (0, 0).
-      expect(builder({ x: 0, y: 0 }).uniformMouse).toEqual([0, 1]);
-      expect(builder({ x: 0, y: 1 }).uniformMouse).toEqual([0, 0]);
-      expect(builder({ x: 1, y: 1 }).uniformMouse).toEqual([1, 0]);
+      expect(builder({ x: 0, y: 0 }).mouse).toEqual([0, 1]);
+      expect(builder({ x: 0, y: 1 }).mouse).toEqual([0, 0]);
+      expect(builder({ x: 1, y: 1 }).mouse).toEqual([1, 0]);
     });
 
     it('defaults mouse to vUv top-left (0,1) when not provided', () => {
       const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
       const uniforms = builder();
 
-      expect(uniforms.uniformMouse).toEqual([0, 1]);
+      expect(uniforms.mouse).toEqual([0, 1]);
     });
   });
 
@@ -261,9 +278,9 @@ describe('transforms', () => {
         flipVertically: true,
         correctAspectRatio: true
       });
-      expect(glsl).toContain('vec2 uv = gl_FragCoord.xy / uniformResolution;');
+      expect(glsl).toContain('vec2 uv = gl_FragCoord.xy / u_resolution;');
       expect(glsl).toContain('uv.y = 1.0 - uv.y;');
-      expect(glsl).toContain('uv.x *= uniformResolution.x / uniformResolution.y;');
+      expect(glsl).toContain('uv.x *= u_resolution.x / u_resolution.y;');
     });
 
     it('generates webgl fragment shader code', () => {

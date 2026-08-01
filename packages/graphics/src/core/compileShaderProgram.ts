@@ -106,6 +106,12 @@ function isWebGLTextureValue(
   );
 }
 
+export function warnUnknownUniform(name: string): void {
+  if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV) {
+    console.warn(`[graphics] unknown uniform "${name}" in program`);
+  }
+}
+
 export function setUniformValue(
   gl: WebGL2RenderingContext,
   entry: UniformEntry,

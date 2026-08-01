@@ -4,7 +4,7 @@ import { buildValueFragmentShader } from '../../glsl/buildValueShader';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
-import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
+import { FrameLoopProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 
 type ValueCanvasGPUProps = {
   rule: GrammarRule;
@@ -26,7 +26,7 @@ export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
     <Corners sizePx={sizePx}>
       <div style={{ width: sizePx, height: sizePx }}>
         {shader && (
-          <GraphicsProvider>
+          <FrameLoopProvider>
             <ShaderCanvas
               fragmentShader={shader}
               onBeforeRender={(pipeline, time) => {
@@ -35,7 +35,7 @@ export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
                 });
               }}
             />
-          </GraphicsProvider>
+          </FrameLoopProvider>
         )}
       </div>
       {error && (

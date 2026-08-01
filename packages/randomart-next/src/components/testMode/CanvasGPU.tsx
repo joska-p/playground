@@ -2,7 +2,7 @@ import type { Node } from '@repo/randomart-engine-next/types';
 import { useMemo } from 'react';
 import { buildValueFragmentShader } from './buildValueShader';
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
-import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
+import { FrameLoopProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 
 type CanvasGPUProps = {
   node: Node;
@@ -24,7 +24,7 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
       style={{ width: sizePx, height: sizePx }}
     >
       {shader && (
-        <GraphicsProvider>
+        <FrameLoopProvider>
           <ShaderCanvas
             fragmentShader={shader}
             onBeforeRender={(pipeline, time) => {
@@ -33,7 +33,7 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
               });
             }}
           />
-        </GraphicsProvider>
+        </FrameLoopProvider>
       )}
       {error && (
         <div className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm">

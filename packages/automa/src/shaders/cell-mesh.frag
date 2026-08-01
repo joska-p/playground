@@ -4,7 +4,7 @@ precision mediump float;
 uniform sampler2D gridTexture;
 uniform vec3 stateColors[8];
 uniform vec2 texelSize;
-uniform vec2 uniformResolution;
+uniform vec2 u_resolution;
 uniform vec2 u_panOffset;
 uniform float u_zoom;
 
@@ -18,7 +18,7 @@ void main() {
   uv -= u_panOffset;
 
   float gridAspect = texelSize.y / texelSize.x;
-  float canvasAspect = uniformResolution.x / uniformResolution.y;
+  float canvasAspect = u_resolution.x / u_resolution.y;
 
   vec2 gridSizeInUv = vec2(
     min(1.0, gridAspect / canvasAspect),

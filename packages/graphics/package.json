@@ -13,10 +13,13 @@
     "./2d/react/useInteractiveCanvas": "./src/2d/react/useInteractiveCanvas.ts",
     "./2d/react/FrameLoopContext": "./src/2d/react/FrameLoopContext.tsx",
     "./2d/react/useGPGPU": "./src/2d/react/useGPGPU.ts",
+    "./2d/react/usePanZoomUniforms": "./src/2d/react/usePanZoomUniforms.ts",
     "./core/createFBOManager": "./src/core/createFBOManager.ts",
     "./core/compileShaderProgram": "./src/core/compileShaderProgram.ts",
     "./core/createFrameLoop": "./src/core/createFrameLoop.ts",
-    "./core/createWebGLContext": "./src/core/createWebGLContext.ts"
+    "./core/createWebGLContext": "./src/core/createWebGLContext.ts",
+    "./core/generateGLSLFragment": "./src/core/generateGLSLFragment.ts",
+    "./core/standardUniforms": "./src/core/standardUniforms.ts"
   },
   "scripts": {
     "lint": "eslint .",

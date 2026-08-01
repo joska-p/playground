@@ -1,3 +1,17 @@
+import type { ShaderUniformValues } from '../core/standardUniforms';
+
+export { generateGLSLFragment } from '../core/generateGLSLFragment';
+
+/**
+ * Coordinate spaces used by this module
+ *
+ * screen     – browser viewport, origin top-left, y-down, CSS pixels
+ * canvas     – element local, origin top-left, y-down, CSS pixels
+ * normalized – 0..1 inside the canvas box, origin top-left, y-down
+ * buffer     – drawingBuffer pixels, origin top-left, y-down
+ * webgl/vUv  – 0..1 (or -1..1), origin bottom-left, y-up
+ * data       – user-defined domain (usually mathematical, y-up)
+ */
 export type Point2D = {
   x: number;
   y: number;
@@ -19,19 +33,7 @@ export type DataDomainBounds = {
 
 export type AspectFitMode = 'contain' | 'cover' | 'fill' | 'none';
 
-/**
- * Shader uniform values produced from canvas size + mouse state.
- *
- * - `uniformResolution` — buffer pixels `[w*dpr, h*dpr]`
- * - `uniformAspectRatio` — cssW/cssH
- * - `uniformMouse` — normalized in vUv space (origin bottom-left, y-up),
- *   matching the UV produced by the fullscreen-triangle vertex shader
- */
-export type ShaderUniformValues = {
-  uniformResolution: [number, number];
-  uniformAspectRatio: number;
-  uniformMouse: [number, number];
-};
+export type { ShaderUniformValues };
 
 export function createScreenToCanvas(canvasElementBounds: CanvasElementBounds) {
   return (vector: Point2D): Point2D => ({
@@ -42,8 +44,8 @@ export function createScreenToCanvas(canvasElementBounds: CanvasElementBounds) {
 
 export function createCanvasToNormalized(canvasWidth: number, canvasHeight: number) {
   return (vector: Point2D): Point2D => ({
-    x: vector.x / canvasWidth,
-    y: vector.y / canvasHeight
+    x: canvasWidth > 0 ? vector.x / canvasWidth : 0,
+    y: canvasHeight > 0 ? vector.y / canvasHeight : 0
   });
 }
 
@@ -94,6 +96,9 @@ function computeDataFit(
 
   const dataWidth = dataDomainBounds.xMax - dataDomainBounds.xMin;
   const dataHeight = dataDomainBounds.yMax - dataDomainBounds.yMin;
+  if (dataWidth <= 0 || dataHeight <= 0 || canvasWidth <= 0 || canvasHeight <= 0) {
+    return { scaleX: 1, scaleY: 1, offsetX: 0, offsetY: 0 };
+  }
   const paddedWidth = canvasWidth * (1 - paddingFraction * 2);
   const paddedHeight = canvasHeight * (1 - paddingFraction * 2);
 
@@ -233,48 +238,13 @@ export function createShaderUniformBuilder(
 ) {
   /**
    * `mouseNormalizedUV` is the pointer normalized against the canvas box:
-   * origin top-left, y-down (0..1). The uploaded `uniformMouse` is converted
+   * origin top-left, y-down (0..1). The returned `mouse` value is converted
    * to vUv space (origin bottom-left, y-up) so it aligns with the UV that
    * `FULLSCREEN_TRIANGLE` produces.
    */
   return (mouseNormalizedUV?: Point2D): ShaderUniformValues => ({
-    uniformResolution: [cssWidth * devicePixelRatio, cssHeight * devicePixelRatio],
-    uniformAspectRatio: cssWidth / cssHeight,
-    uniformMouse: mouseNormalizedUV ? [mouseNormalizedUV.x, 1 - mouseNormalizedUV.y] : [0, 1]
+    resolution: [cssWidth * devicePixelRatio, cssHeight * devicePixelRatio],
+    aspectRatio: cssHeight > 0 ? cssWidth / cssHeight : 0,
+    mouse: mouseNormalizedUV ? [mouseNormalizedUV.x, 1 - mouseNormalizedUV.y] : [0, 1]
   });
-}
-
-export function generateGLSLFragment(options?: {
-  inputSpace?: 'canvas' | 'normalized' | 'webgl';
-  flipVertically?: boolean;
-  correctAspectRatio?: boolean;
-}): string {
-  const inputSpace = options?.inputSpace ?? 'normalized';
-  const flipVertically = options?.flipVertically ?? false;
-  const correctAspectRatio = options?.correctAspectRatio ?? false;
-
-  const lines: string[] = [];
-
-  if (inputSpace === 'canvas') {
-    lines.push('vec2 uv = gl_FragCoord.xy / uniformResolution;');
-    if (flipVertically) {
-      lines.push('uv.y = 1.0 - uv.y;');
-    }
-  } else if (inputSpace === 'webgl') {
-    lines.push('vec2 uv = vUv * 2.0 - 1.0;');
-    if (flipVertically) {
-      lines.push('uv.y = -uv.y;');
-    }
-  } else {
-    lines.push('vec2 uv = vUv;');
-    if (flipVertically) {
-      lines.push('uv.y = 1.0 - uv.y;');
-    }
-  }
-
-  if (correctAspectRatio) {
-    lines.push('uv.x *= uniformResolution.x / uniformResolution.y;');
-  }
-
-  return lines.join('\n');
 }

@@ -4,7 +4,7 @@ import { createFrameLoop, type FrameLoop } from '../../core/createFrameLoop';
 
 const FrameLoopContext = createContext<FrameLoop | null>(null);
 
-function GraphicsProvider({ children }: { children: ReactNode }) {
+function FrameLoopProvider({ children }: { children: ReactNode }) {
   const [loop] = useState(() => createFrameLoop());
 
   useEffect(() => {
@@ -33,4 +33,4 @@ function useFrame(callback: (time: number, delta: number) => void): void {
   }, [loop]);
 }
 
-export { FrameLoopContext, GraphicsProvider, useFrame };
+export { FrameLoopContext, FrameLoopProvider, useFrame };

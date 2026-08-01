@@ -1,3 +1,9 @@
+export const MAX_DEVICE_PIXEL_RATIO = 2;
+
+export function defaultDevicePixelRatio(): number {
+  return Math.min(window.devicePixelRatio, MAX_DEVICE_PIXEL_RATIO);
+}
+
 export type WebGLContextAttributes = {
   alpha?: boolean;
   antialias?: boolean;
@@ -7,7 +13,7 @@ export type WebGLContextAttributes = {
 export type CreateWebGLContextConfig = {
   canvas: HTMLCanvasElement;
   dpr?: number | undefined;
-  webGlContextAttributes?: WebGLContextAttributes | undefined;
+  webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
 export type WebGLContext = {
@@ -26,14 +32,14 @@ export type WebGLContext = {
 export function createWebGLContext({
   canvas,
   dpr,
-  webGlContextAttributes
+  webGLContextAttributes
 }: CreateWebGLContextConfig): WebGLContext {
-  let currentDpr = dpr ?? Math.min(window.devicePixelRatio, 2);
+  let currentDpr = dpr ?? defaultDevicePixelRatio();
 
   const gl = canvas.getContext('webgl2', {
-    alpha: webGlContextAttributes?.alpha ?? true,
-    antialias: webGlContextAttributes?.antialias ?? false,
-    premultipliedAlpha: webGlContextAttributes?.premultipliedAlpha ?? true
+    alpha: webGLContextAttributes?.alpha ?? true,
+    antialias: webGLContextAttributes?.antialias ?? false,
+    premultipliedAlpha: webGLContextAttributes?.premultipliedAlpha ?? true
   });
 
   if (!gl) throw new Error('WebGL2 not supported');
