@@ -1,12 +1,22 @@
 import { ControlGrid, ControlPanel as Panel } from '@repo/ui/control-panel';
 import { Slider } from '@repo/ui/data-entry';
 import {
+  useInteriorScale,
+  useIterationBase,
+  useIterationCap,
+  useIterationScale,
+  usePixelEps,
   useAmbientLight,
   useBumpHeight,
   useChromaScale,
   useHueFrequency,
   useHueShift,
   useSunAngle,
+  setInteriorScale,
+  setIterationBase,
+  setIterationCap,
+  setIterationScale,
+  setPixelEps,
   setAmbientLight,
   setBumpHeight,
   setChromaScale,
@@ -16,6 +26,11 @@ import {
 } from '../stores/store';
 
 function ControlPanel() {
+  const interiorScale = useInteriorScale();
+  const iterationBase = useIterationBase();
+  const iterationCap = useIterationCap();
+  const iterationScale = useIterationScale();
+  const pixelEps = usePixelEps();
   const ambientLight = useAmbientLight();
   const bumpHeight = useBumpHeight();
   const chromaScale = useChromaScale();
@@ -25,6 +40,51 @@ function ControlPanel() {
   return (
     <Panel title="mandelbrot">
       <ControlGrid columns={2}>
+        <Slider
+          label="iteration base"
+          min="20"
+          max="200"
+          step="5"
+          value={iterationBase}
+          onChange={setIterationBase}
+        />
+
+        <Slider
+          label="iteration scale"
+          min="5"
+          max="80"
+          step="1"
+          value={iterationScale}
+          onChange={setIterationScale}
+        />
+
+        <Slider
+          label="iteration cap"
+          min="200"
+          max="3000"
+          step="50"
+          value={iterationCap}
+          onChange={setIterationCap}
+        />
+
+        <Slider
+          label="pixel eps"
+          min="0.0005"
+          max="0.1"
+          step="0.0005"
+          value={iterationCap}
+          onChange={setIterationCap}
+        />
+
+        <Slider
+          label="interior scale"
+          min="2.0"
+          max="25.0"
+          step="0.5"
+          value={interiorScale}
+          onChange={setInteriorScale}
+        />
+
         <Slider
           label="sun angle"
           min="0"

@@ -2,6 +2,11 @@ import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
 type State = {
+  iterationBase: number;
+  iterationScale: number;
+  iterationCap: number;
+  interiorScale: number;
+  pixelEps: number;
   sunAngle: number;
   bumpHeight: number;
   ambientLight: number;
@@ -13,15 +18,25 @@ type State = {
 // --- Store ---
 
 const store = createStore<State>(() => ({
+  iterationBase: 70,
+  iterationScale: 30,
+  iterationCap: 1200,
+  interiorScale: 9.0,
+  pixelEps: 0.0025,
   sunAngle: 2.35,
   bumpHeight: 15.0,
-  ambientLight: 0.01,
+  ambientLight: 0.2,
   hueShift: 0.0,
   hueFrequency: 0.1,
   chromaScale: 0.05
 }));
 
 // --- Selectors ---
+const useIterationBase = () => useStore(store, (s) => s.iterationBase);
+const useIterationScale = () => useStore(store, (s) => s.iterationScale);
+const useIterationCap = () => useStore(store, (s) => s.iterationCap);
+const useInteriorScale = () => useStore(store, (s) => s.interiorScale);
+const usePixelEps = () => useStore(store, (s) => s.pixelEps);
 const useSunAngle = () => useStore(store, (s) => s.sunAngle);
 const useBumpHeight = () => useStore(store, (s) => s.bumpHeight);
 const useAmbientLight = () => useStore(store, (s) => s.ambientLight);
@@ -30,6 +45,21 @@ const useHueFrequency = () => useStore(store, (s) => s.hueFrequency);
 const useChromaScale = () => useStore(store, (s) => s.chromaScale);
 
 // --- Actions ---
+const setIterationBase = (iterationBase: number) => {
+  store.setState({ iterationBase });
+};
+const setIterationScale = (iterationScale: number) => {
+  store.setState({ iterationScale });
+};
+const setIterationCap = (iterationCap: number) => {
+  store.setState({ iterationCap });
+};
+const setInteriorScale = (interiorScale: number) => {
+  store.setState({ interiorScale });
+};
+const setPixelEps = (pixelEps: number) => {
+  store.setState({ pixelEps });
+};
 const setSunAngle = (sunAngle: number) => {
   store.setState({ sunAngle });
 };
@@ -50,12 +80,22 @@ const setChromaScale = (chromaScale: number) => {
 };
 
 export {
+  useIterationBase,
+  useIterationScale,
+  useIterationCap,
+  useInteriorScale,
+  usePixelEps,
   useAmbientLight,
   useBumpHeight,
   useChromaScale,
   useHueFrequency,
   useHueShift,
   useSunAngle,
+  setIterationBase,
+  setIterationScale,
+  setIterationCap,
+  setInteriorScale,
+  setPixelEps,
   setAmbientLight,
   setBumpHeight,
   setChromaScale,

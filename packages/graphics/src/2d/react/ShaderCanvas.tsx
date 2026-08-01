@@ -3,11 +3,22 @@ import { useFrame } from './FrameLoopContext';
 import { useInteractiveCanvas, type InteractiveCanvasOptions } from './useInteractiveCanvas';
 import { usePanZoomUniforms } from './usePanZoomUniforms';
 import { useShaderRunner } from './useShaderRunner';
+import type { Point2D } from '../transforms';
 import type { WebGLContextAttributes } from '../../core/createWebGLContext';
+
+export type ShaderCanvasView = {
+  /** Pan in CSS pixels, y-down — the raw interaction state (not normalized). */
+  pan: Point2D;
+  /** Current zoom factor. */
+  zoom: number;
+  /** Canvas content box, CSS pixels. */
+  canvasWidth: number;
+  canvasHeight: number;
+};
 
 export type ShaderCanvasProps = {
   className?: string;
-  onBeforeRender?: (pipeline: QuadPipeline, time: number) => void;
+  onBeforeRender?: (pipeline: QuadPipeline, time: number, view: ShaderCanvasView) => void;
   fragmentShader: string;
   dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
@@ -39,7 +50,12 @@ export function ShaderCanvas({
   useFrame((time) => {
     const runner = runnerRef.current;
     if (runner) {
-      onBeforeRender?.(runner.pipeline, time);
+      onBeforeRender?.(runner.pipeline, time, {
+        pan: interactionState.current.pan,
+        zoom: interactionState.current.zoom,
+        canvasWidth: runner.canvas.clientWidth,
+        canvasHeight: runner.canvas.clientHeight
+      });
       applyPanZoom(); // safe even when interactive=false (state stays at defaults)
     }
     runner?.render();
