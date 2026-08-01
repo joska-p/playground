@@ -1,7 +1,7 @@
 import type { QuadPipeline } from '../createQuadPipeline';
-import type { UniformValue } from '../../core/compileShaderProgram';
 import { useFrame } from './FrameLoopContext';
 import { useInteractiveCanvas, type InteractiveCanvasOptions } from './useInteractiveCanvas';
+import { usePanZoomUniforms } from './usePanZoomUniforms';
 import { useShaderRunner } from './useShaderRunner';
 import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 
@@ -26,29 +26,21 @@ export function ShaderCanvas({
 }: ShaderCanvasProps) {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader, dpr, webGLContextAttributes });
   const interactionState = useInteractiveCanvas(canvasRef, interactive, interactionOptions);
+  const applyPanZoom = usePanZoomUniforms(runnerRef, interactionState);
+
+  function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    runnerRef.current?.setMouse({
+      x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
+      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height))
+    });
+  }
 
   useFrame((time) => {
     const runner = runnerRef.current;
     if (runner) {
       onBeforeRender?.(runner.pipeline, time);
-      if (interactive) {
-        const interaction = interactionState.current;
-        const hasPan = runner.pipeline.hasUniform('u_panOffset');
-        const hasZoom = runner.pipeline.hasUniform('u_zoom');
-        if (hasPan || hasZoom) {
-          const values: Record<string, UniformValue> = {};
-          if (hasPan) {
-            values['u_panOffset'] = [
-              interaction.pan.x / runner.canvas.clientWidth,
-              -interaction.pan.y / runner.canvas.clientHeight
-            ];
-          }
-          if (hasZoom) {
-            values['u_zoom'] = interaction.zoom;
-          }
-          runner.pipeline.setUniforms(values);
-        }
-      }
+      applyPanZoom(); // safe even when interactive=false (state stays at defaults)
     }
     runner?.render();
   });
@@ -58,13 +50,7 @@ export function ShaderCanvas({
       ref={canvasRef}
       className={className}
       style={{ width: '100%', height: '100%', display: 'block' }}
-      onPointerMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        runnerRef.current?.setMouse({
-          x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
-          y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height))
-        });
-      }}
+      onPointerMove={handlePointerMove}
     />
   );
 }

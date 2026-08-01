@@ -28,8 +28,8 @@ export function usePanZoomUniforms(
     const values: Record<string, UniformValue> = {};
     if (hasPan) {
       values['u_panOffset'] = [
-        interaction.pan.x / runner.canvas.clientWidth,
-        -interaction.pan.y / runner.canvas.clientHeight
+        -interaction.pan.x / runner.canvas.clientWidth,
+        interaction.pan.y / runner.canvas.clientHeight
       ];
     }
     if (hasZoom) {
