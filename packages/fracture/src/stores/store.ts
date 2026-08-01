@@ -1,7 +1,10 @@
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
+export type Renderer = 'double-single' | 'perturbation';
+
 type State = {
+  renderer: Renderer;
   iterationBase: number;
   iterationScale: number;
   iterationCap: number;
@@ -18,6 +21,7 @@ type State = {
 // --- Store ---
 
 const store = createStore<State>(() => ({
+  renderer: 'double-single',
   iterationBase: 70,
   iterationScale: 30,
   iterationCap: 1200,
@@ -32,6 +36,7 @@ const store = createStore<State>(() => ({
 }));
 
 // --- Selectors ---
+const useRenderer = () => useStore(store, (s) => s.renderer);
 const useIterationBase = () => useStore(store, (s) => s.iterationBase);
 const useIterationScale = () => useStore(store, (s) => s.iterationScale);
 const useIterationCap = () => useStore(store, (s) => s.iterationCap);
@@ -45,6 +50,9 @@ const useHueFrequency = () => useStore(store, (s) => s.hueFrequency);
 const useChromaScale = () => useStore(store, (s) => s.chromaScale);
 
 // --- Actions ---
+const setRenderer = (renderer: Renderer) => {
+  store.setState({ renderer });
+};
 const setIterationBase = (iterationBase: number) => {
   store.setState({ iterationBase });
 };
@@ -80,6 +88,7 @@ const setChromaScale = (chromaScale: number) => {
 };
 
 export {
+  useRenderer,
   useIterationBase,
   useIterationScale,
   useIterationCap,
@@ -91,6 +100,7 @@ export {
   useHueFrequency,
   useHueShift,
   useSunAngle,
+  setRenderer,
   setIterationBase,
   setIterationScale,
   setIterationCap,

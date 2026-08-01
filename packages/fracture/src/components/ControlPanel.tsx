@@ -1,6 +1,7 @@
-import { ControlGrid, ControlPanel as Panel } from '@repo/ui/control-panel';
-import { Slider } from '@repo/ui/data-entry';
+import { ControlGrid, ControlPanel as Panel, ControlRow } from '@repo/ui/control-panel';
+import { Select, Slider } from '@repo/ui/data-entry';
 import {
+  useRenderer,
   useInteriorScale,
   useIterationBase,
   useIterationCap,
@@ -12,6 +13,7 @@ import {
   useHueFrequency,
   useHueShift,
   useSunAngle,
+  setRenderer,
   setInteriorScale,
   setIterationBase,
   setIterationCap,
@@ -22,10 +24,12 @@ import {
   setChromaScale,
   setHueFrequency,
   setHueShift,
-  setSunAngle
+  setSunAngle,
+  type Renderer
 } from '../stores/store';
 
 function ControlPanel() {
+  const renderer = useRenderer();
   const interiorScale = useInteriorScale();
   const iterationBase = useIterationBase();
   const iterationCap = useIterationCap();
@@ -39,6 +43,17 @@ function ControlPanel() {
   const sunAngle = useSunAngle();
   return (
     <Panel title="mandelbrot">
+      <ControlRow label="renderer">
+        <Select
+          value={renderer}
+          onChange={(e) => {
+            setRenderer(e.target.value as Renderer);
+          }}
+        >
+          <option value="double-single">double-single</option>
+          <option value="perturbation">perturbation</option>
+        </Select>
+      </ControlRow>
       <ControlGrid columns={2}>
         <Slider
           label="iteration base"
@@ -84,7 +99,9 @@ function ControlPanel() {
           value={interiorScale}
           onChange={setInteriorScale}
         />
+      </ControlGrid>
 
+      <ControlGrid columns={2}>
         <Slider
           label="sun angle"
           min="0"

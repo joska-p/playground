@@ -1,10 +1,12 @@
 #version 300 es
 precision highp float;
 
+// Reference-orbit data texture (one RG texel per iteration: Xn = (Xr, Xi))
+uniform sampler2D u_orbit;
+uniform int u_orbitLength; // loop bound == orbit texture width
+uniform int u_referenceIterations; // reference escape index; the loop stops here
+
 // Fractal
-uniform float u_iterationBase;
-uniform float u_iterationScale;
-uniform float u_iterationCap;
 uniform float u_interiorScale;
 uniform float u_pixelEps;
 
@@ -19,64 +21,9 @@ uniform float u_hueFrequency;
 uniform float u_chromaScale;
 
 // View
-uniform vec2 u_centerRe;
-uniform vec2 u_centerIm;
 uniform float u_zoom;
 in vec2 vUv;
 out vec4 fragColor;
-
-// ---------------------------------------------------------------------------
-// Double-single (DS) arithmetic (No fma, uses bitwise splitting)
-// ---------------------------------------------------------------------------
-
-vec2 ds_set(float a) {
-  return vec2(a, 0.0);
-}
-
-vec2 ds_set2(float hi, float lo) {
-  return vec2(hi, lo);
-}
-
-// Standard TwoSum (order-independent)
-vec2 ds_twoSum(float a, float b) {
-  float s = a + b;
-  float bv = s - a;
-  float err = a - (s - bv) + (b - bv);
-  return vec2(s, err);
-}
-
-vec2 ds_add(vec2 a, vec2 b) {
-  vec2 s = ds_twoSum(a.x, b.x);
-  s.y += a.y + b.y;
-  return ds_twoSum(s.x, s.y);
-}
-
-vec2 ds_sub(vec2 a, vec2 b) {
-  return ds_add(a, vec2(-b.x, -b.y));
-}
-
-// Bitwise Dekker split: splits a float into (hi, lo) where hi has the top
-// 11 bits of the mantissa. Avoids the 8193.0 multiply and avoids `fma`.
-// Works natively in ES 3.00 on all hardware.
-vec2 ds_split(float a) {
-  int bits = floatBitsToInt(a) & int(0xFFFFE000); // mask off lower 13 bits
-  float hi = intBitsToFloat(bits);
-  return vec2(hi, a - hi);
-}
-
-// Exact product error using bitwise splitting.
-vec2 ds_mul(vec2 a, vec2 b) {
-  vec2 as = ds_split(a.x);
-  vec2 bs = ds_split(b.x);
-  float hi = a.x * b.x;
-  float lo = as.x * bs.x - hi + as.x * bs.y + as.y * bs.x + as.y * bs.y;
-
-  // Add cross terms with the low parts of a and b
-  lo = a.y * b.x + a.x * b.y + lo;
-
-  // Renormalize
-  return ds_twoSum(hi, lo);
-}
 
 // ---------------------------------------------------------------------------
 // OKLCH → RGB
@@ -112,33 +59,44 @@ vec3 oklchToRgb(vec3 oklch) {
 // ---------------------------------------------------------------------------
 // Returns (continuous height, secondary magnitude)
 // ---------------------------------------------------------------------------
-vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
-  vec2 delta = (uvCoord - 0.5) * (3.0 / u_zoom);
+vec2 getMandelbrotData(vec2 uvCoord) {
+  // Per-pixel offset from the reference point (the view center). The center
+  // itself never reaches the GPU — it lives entirely inside the orbit texture.
+  vec2 d = (uvCoord - 0.5) * (3.0 / u_zoom);
 
-  vec2 cr = ds_add(ds_set2(u_centerRe.x, u_centerRe.y), ds_set(delta.x));
-  vec2 ci = ds_add(ds_set2(u_centerIm.x, u_centerIm.y), ds_set(delta.y));
-
-  vec2 zr = vec2(0.0, 0.0);
-  vec2 zi = vec2(0.0, 0.0);
-
+  vec2 dz = vec2(0.0, 0.0);
   float minMod2 = 1e20;
   float mod2 = 0.0;
   bool diverged = false;
   int iterationCount = 0;
 
-  // High bailout (256^2) makes smooth iteration (nu) much smoother at depth
-  for (int i = 0; i < maxIter; i++) {
-    // Inlined z = z^2 + c
-    vec2 zrSq = ds_mul(zr, zr);
-    vec2 ziSq = ds_mul(zi, zi);
-    vec2 zrzi = ds_mul(zr, zi);
+  // High bailout (256²) for smoother nu, matching the double-single renderer.
+  for (int i = 0; i < u_orbitLength; i++) {
+    if (i >= u_referenceIterations) break; // no orbit data past the reference escape
 
-    // 2 * zrzi: just scale the hi and lo parts, skip full ds_mul
-    zr = ds_add(ds_sub(zrSq, ziSq), cr);
-    zi = ds_add(vec2(zrzi.x * 2.0, zrzi.y * 2.0), ci);
+    // Xᵢ (stored before the update on the CPU)
+    vec2 Xn = texelFetch(u_orbit, ivec2(i, 0), 0).rg;
 
-    // Bailout & min-distance (reads hi parts only)
-    mod2 = zr.x * zr.x + zi.x * zi.x;
+    // Perturbation recurrence (K.I. Martin):
+    //   dz_{i+1} = 2·Xᵢ·dzᵢ + dzᵢ² + d
+    float r = 2.0 * Xn.x * dz.x - 2.0 * Xn.y * dz.y + dz.x * dz.x - dz.y * dz.y + d.x;
+    float im = 2.0 * Xn.x * dz.y + 2.0 * Xn.y * dz.x + 2.0 * dz.x * dz.y + d.y;
+    dz = vec2(r, im);
+
+    // Recover the true pixel orbit at step i+1:
+    //   Z_{i+1} = X_{i+1} + dz_{i+1}
+    // When the next reference point is available we fetch it;
+    // otherwise (last step) we fall back to the just-computed Xn + dz
+    // (still accurate enough for the bail-out test).
+    vec2 zFull;
+    if (i + 1 < u_referenceIterations) {
+      vec2 Xnext = texelFetch(u_orbit, ivec2(i + 1, 0), 0).rg;
+      zFull = Xnext + dz;
+    } else {
+      zFull = Xn + dz; // last available reference point
+    }
+
+    mod2 = dot(zFull, zFull);
     minMod2 = min(minMod2, mod2);
 
     if (mod2 > 65536.0) {
@@ -154,32 +112,22 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
     float nu = log2(log_zn);
     float smooth_i = float(iterationCount) + 1.0 - nu;
 
-    // CHANGED: return mod2 directly instead of sqrt(mod2)
     return vec2(smooth_i, mod2);
   } else {
-    // CHANGED: skip sqrt(minMod2), adjust the log2 with a 0.5 multiplier
-    // -log2(sqrt(x)) = -0.5 * log2(x)
-    // 1e-24 is the squared equivalent of 1e-12
     float conv = -0.5 * log2(minMod2 + 1e-24) * 0.69314718056 * u_interiorScale;
 
-    // CHANGED: return minMod2 directly instead of sqrt(minMod2)
     return vec2(conv, minMod2);
   }
 }
 
 // ---------------------------------------------------------------------------
-// Main
+// Main (identical to the DS shader's main)
 // ---------------------------------------------------------------------------
 void main() {
-  int maxIterations = int(
-    u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale
-  );
-  maxIterations = min(maxIterations, int(u_iterationCap));
-
   float pixelEps = u_pixelEps;
 
   // --- Evaluate the fractal ONLY ONCE per pixel ---
-  vec2 data0 = getMandelbrotData(vUv, maxIterations);
+  vec2 data0 = getMandelbrotData(vUv);
   float h0 = data0.x;
 
   // --- Reconstruct normals analytically via screen-space derivatives ---
@@ -207,12 +155,11 @@ void main() {
   // -----------------------------------------------------------------
   // Color
   // -----------------------------------------------------------------
-  float baseRate = log2(max(1.0, h0)) / log2(float(maxIterations));
+  float baseRate = log2(max(1.0, h0)) / log2(float(u_orbitLength));
 
   float L = clamp(baseRate * lightIntensity, 0.0, 1.0);
 
   float C;
-  // CHANGED: 2.0 became 4.0 (because data0.y is now squared)
   if (data0.y < 4.0) {
     // Interior
     C = clamp(h0 * 0.08 * u_chromaScale, 0.0, 0.35);

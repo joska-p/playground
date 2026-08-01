@@ -41,7 +41,7 @@ vec2 ds_set2(float hi, float lo) {
 vec2 ds_twoSum(float a, float b) {
   float s = a + b;
   float bv = s - a;
-  float err = (a - (s - bv)) + (b - bv);
+  float err = a - (s - bv) + (b - bv);
   return vec2(s, err);
 }
 
@@ -69,7 +69,7 @@ vec2 ds_mul(vec2 a, vec2 b) {
   vec2 as = ds_split(a.x);
   vec2 bs = ds_split(b.x);
   float hi = a.x * b.x;
-  float lo = ((as.x * bs.x - hi) + as.x * bs.y + as.y * bs.x) + as.y * bs.y;
+  float lo = as.x * bs.x - hi + as.x * bs.y + as.y * bs.x + as.y * bs.y;
 
   // Add cross terms with the low parts of a and b
   lo = a.y * b.x + a.x * b.y + lo;
@@ -91,7 +91,7 @@ vec3 oklchToRgb(vec3 oklch) {
 
   float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
   float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  float s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+  float s_ = L - 0.0894841775 * a - 1.291485548 * b;
 
   float l = l_ * l_ * l_;
   float m = m_ * m_ * m_;
@@ -100,7 +100,7 @@ vec3 oklchToRgb(vec3 oklch) {
   vec3 linearRgb;
   linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
   linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
   vec3 lowPart = linearRgb * 12.92;
   vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
@@ -171,7 +171,9 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
 // Main
 // ---------------------------------------------------------------------------
 void main() {
-  int maxIterations = int(u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale);
+  int maxIterations = int(
+    u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale
+  );
   maxIterations = min(maxIterations, int(u_iterationCap));
 
   float pixelEps = u_pixelEps;
@@ -196,11 +198,7 @@ void main() {
 
   float heightScale = u_bumpHeight / max(u_zoom, 1.0);
 
-  vec3 normal = normalize(vec3(
-        -dhdu * heightScale,
-        -dhdv * heightScale,
-        pixelEps
-      ));
+  vec3 normal = normalize(vec3(-dhdu * heightScale, -dhdv * heightScale, pixelEps));
 
   vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));
   float diffuse = max(0.0, dot(normal, lightDir));

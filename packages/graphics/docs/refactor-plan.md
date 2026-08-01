@@ -65,12 +65,12 @@
 ## Phase 5 — Docs & tests
 
 - [x] Rewrite README: `2d/`/`core/` paths, new prop names, canonical-only uniform contract
-  (now a runner convention), renamed provider, `usePanZoomUniforms`, new blueprint tree.
+      (now a runner convention), renamed provider, `usePanZoomUniforms`, new blueprint tree.
 - [x] Add package.json exports for `core/standardUniforms`, `core/generateGLSLFragment`,
-  `2d/react/usePanZoomUniforms`.
+      `2d/react/usePanZoomUniforms`.
 - [x] Tests: standard-uniform helper, transforms guards, moved `generateGLSLFragment`.
 - [x] Verify: `pnpm --filter @repo/graphics check-types`, `test`, `lint`, then repo-wide
-  `check-types` + `lint` (28/28 packages), prettier clean.
+      `check-types` + `lint` (28/28 packages), prettier clean.
 
 ## Follow-ups found during the refactor (done)
 

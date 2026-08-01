@@ -1,6 +1,6 @@
 # Objective
 
-I want to add a new rendering pipeline to my existing WebGL2 Mandelbrot viewer using **Perturbation Theory** (specifically the K.I. Martin algorithm). This will allow arbitrary, virtually infinite zoom levels (up to 1e100 and beyond) while maintaining high FPS.
+I want to add a new rendering pipeline to my existing WebGL2 Mandelbrot viewer @packages/fracture using **Perturbation Theory** (specifically the K.I. Martin algorithm). This will allow arbitrary, virtually infinite zoom levels (up to 1e100 and beyond) while maintaining high FPS.
 
 **CRITICAL:** I already have a working renderer using Double-Single (DS) arithmetic. I do NOT want to replace it. I want both the old DS renderer and the new Perturbation renderer to coexist in the app, with a UI selector menu to switch the active canvas/pipeline.
 

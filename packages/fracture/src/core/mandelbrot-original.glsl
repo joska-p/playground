@@ -62,7 +62,7 @@ vec2 ds_neg(vec2 a) {
 vec2 ds_twoSum(float a, float b) {
   float s = a + b;
   float bv = s - a;
-  float err = (a - (s - bv)) + (b - bv);
+  float err = a - (s - bv) + (b - bv);
   return vec2(s, err);
 }
 
@@ -96,7 +96,7 @@ vec2 ds_prodErr(float a, float b) {
   vec2 as = ds_split(a);
   vec2 bs = ds_split(b);
   float hi = a * b;
-  float lo = ((as.x * bs.x - hi) + as.x * bs.y + as.y * bs.x) + as.y * bs.y;
+  float lo = as.x * bs.x - hi + as.x * bs.y + as.y * bs.x + as.y * bs.y;
   return vec2(hi, lo);
 }
 
@@ -129,7 +129,7 @@ vec3 oklchToRgb(vec3 oklch) {
 
   float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
   float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  float s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+  float s_ = L - 0.0894841775 * a - 1.291485548 * b;
 
   float l = l_ * l_ * l_;
   float m = m_ * m_ * m_;
@@ -138,7 +138,7 @@ vec3 oklchToRgb(vec3 oklch) {
   vec3 linearRgb;
   linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
   linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
   vec3 lowPart = linearRgb * 12.92;
   vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
@@ -226,11 +226,13 @@ void main() {
   // so the slope stays roughly the same in world space
   float heightScale = u_bumpHeight / max(u_zoom, 1.0);
 
-  vec3 normal = normalize(vec3(
-        (h0 - hX) * heightScale,
-        (h0 - hY) * heightScale,
-        pixelEps // constant z, independent of zoom
-      ));
+  vec3 normal = normalize(
+    vec3(
+      (h0 - hX) * heightScale,
+      (h0 - hY) * heightScale,
+      pixelEps // constant z, independent of zoom
+    )
+  );
 
   // rest of the lighting & color stays exactly the same
   vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));

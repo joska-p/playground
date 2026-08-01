@@ -26,6 +26,8 @@ export type ShaderCanvasProps = {
   webGLContextAttributes?: WebGLContextAttributes | undefined;
   interactive?: boolean;
   interactionOptions?: InteractiveCanvasOptions | undefined;
+  /** When false, the frame loop skips rendering while keeping the pipeline mounted. */
+  enabled?: boolean;
 };
 
 export function ShaderCanvas({
@@ -35,7 +37,8 @@ export function ShaderCanvas({
   dpr,
   webGLContextAttributes,
   interactive = false,
-  interactionOptions
+  interactionOptions,
+  enabled = true
 }: ShaderCanvasProps) {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader, dpr, webGLContextAttributes });
   const interactionState = useInteractiveCanvas(canvasRef, interactive, interactionOptions);
@@ -51,7 +54,7 @@ export function ShaderCanvas({
 
   useFrame((time) => {
     const runner = runnerRef.current;
-    if (runner) {
+    if (runner && enabled) {
       const view = {
         pan: interactionState.current.pan,
         zoom: interactionState.current.zoom,
@@ -61,7 +64,7 @@ export function ShaderCanvas({
       onBeforeRender?.({ pipeline: runner.pipeline, time, view });
       applyPanZoom(); // safe even when interactive=false (state stays at defaults)
     }
-    runner?.render();
+    if (enabled) runner?.render();
   });
 
   return (
