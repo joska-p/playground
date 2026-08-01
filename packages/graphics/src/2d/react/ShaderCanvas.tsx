@@ -1,7 +1,7 @@
 import type { QuadPipeline } from '../createQuadPipeline';
 import type { UniformValue } from '../../core/compileShaderProgram';
 import { useFrame } from './FrameLoopContext';
-import { useInteractiveCanvas } from './useInteractiveCanvas';
+import { useInteractiveCanvas, type InteractiveCanvasOptions } from './useInteractiveCanvas';
 import { useShaderRunner } from './useShaderRunner';
 import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 
@@ -12,6 +12,7 @@ export type ShaderCanvasProps = {
   dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
   interactive?: boolean;
+  interactionOptions?: InteractiveCanvasOptions | undefined;
 };
 
 export function ShaderCanvas({
@@ -20,10 +21,11 @@ export function ShaderCanvas({
   fragmentShader,
   dpr,
   webGLContextAttributes,
-  interactive = false
+  interactive = false,
+  interactionOptions
 }: ShaderCanvasProps) {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader, dpr, webGLContextAttributes });
-  const interactionState = useInteractiveCanvas(canvasRef, interactive);
+  const interactionState = useInteractiveCanvas(canvasRef, interactive, interactionOptions);
 
   useFrame((time) => {
     const runner = runnerRef.current;

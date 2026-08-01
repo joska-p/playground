@@ -7,6 +7,12 @@ function Scene() {
       interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
+      interactionOptions={{
+        maxZoom: 1e6,
+        zoomToCursor: true,
+        scalePanWithZoom: true,
+        zoomSpeed: 250
+      }}
     />
   );
 }
