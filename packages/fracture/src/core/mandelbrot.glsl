@@ -1,11 +1,14 @@
 #version 300 es
 precision highp float;
 
+uniform vec2 u_panOffset;
+uniform float u_zoom;
 in vec2 vUv;
 out vec4 fragColor;
 
 void main() {
-  vec2 c = (vUv - 0.5) * 3.0 - vec2(0.5, 0.0);
+  vec2 uv = (vUv - 0.5) / u_zoom + 0.5 + u_panOffset;
+  vec2 c = (uv - 0.5) * 3.0 - vec2(0.5, 0.0);
   vec2 z = vec2(0.0);
   bool diverged = false;
 

@@ -6,9 +6,6 @@ function Scene() {
     <ShaderCanvas
       interactive
       fragmentShader={fragmentShader}
-      onBeforeRender={() => {
-        return;
-      }}
       webGLContextAttributes={{ antialias: true }}
     />
   );
