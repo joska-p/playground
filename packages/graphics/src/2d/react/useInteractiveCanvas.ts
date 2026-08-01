@@ -82,15 +82,14 @@ export function useInteractiveCanvas(
       if (nextZoom === state.zoom) return;
 
       if (zoomToCursor && hasPointer) {
-        // Keep the fractal point under the cursor fixed while zooming.
         const bounds = canvas.getBoundingClientRect();
         const n = {
           x: state.pointer.x / bounds.width,
           y: state.pointer.y / bounds.height
         };
         const scale = 1 / state.zoom - 1 / nextZoom;
-        state.pan.x += (n.x - 0.5) * scale * bounds.width;
-        state.pan.y += (n.y - 0.5) * scale * bounds.height;
+        state.pan.x -= (n.x - 0.5) * scale * bounds.width;
+        state.pan.y -= (n.y - 0.5) * scale * bounds.height;
       }
       state.zoom = nextZoom;
     };
