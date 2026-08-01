@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
-import { createFrameLoop, type FrameLoop } from '../webgl/createFrameLoop';
+import { createFrameLoop, type FrameLoop } from '../../core/createFrameLoop';
 
 const FrameLoopContext = createContext<FrameLoop | null>(null);
 

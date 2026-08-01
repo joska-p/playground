@@ -1,6 +1,6 @@
-import { useFrame } from '@repo/graphics/react/FrameLoopContext';
-import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
-import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
+import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
+import { useInteractiveCanvas } from '@repo/graphics/2d/react/useInteractiveCanvas';
+import { useShaderRunner } from '@repo/graphics/2d/react/useShaderRunner';
 import { useEffect } from 'react';
 import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import { useCellPainting } from '../../hooks/useCellPainting';

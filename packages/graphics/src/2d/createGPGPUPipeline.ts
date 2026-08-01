@@ -1,10 +1,10 @@
-import { createFBOManager, type FBOManager } from './createFBOManager';
+import { createFBOManager, type FBOManager } from '../core/createFBOManager';
 import {
   compileShaderProgram,
   setUniformValue,
   type CompiledShaderProgram,
   type UniformValue
-} from './compileShaderProgram';
+} from '../core/compileShaderProgram';
 
 export type { UniformValue };
 

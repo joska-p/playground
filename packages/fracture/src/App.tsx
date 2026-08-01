@@ -1,5 +1,5 @@
 import { Scene } from './components/Scene';
-import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
+import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 
 function App() {
   return (

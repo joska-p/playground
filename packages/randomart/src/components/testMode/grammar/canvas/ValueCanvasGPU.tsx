@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { buildValueFragmentShader } from '../../glsl/buildValueShader';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
-import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
-import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
+import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 
 type ValueCanvasGPUProps = {
   rule: GrammarRule;

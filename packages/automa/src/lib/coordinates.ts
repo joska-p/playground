@@ -4,7 +4,7 @@ import {
   gridToWorld,
   type GridCell,
   type Point2D
-} from '@repo/graphics/math/transforms';
+} from '@repo/graphics/2d/transforms';
 
 export { createWorldToGrid, gridToWorld };
 export type { GridCell, Point2D };

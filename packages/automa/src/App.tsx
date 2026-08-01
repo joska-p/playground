@@ -1,5 +1,5 @@
 import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
-import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
+import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
 import { CellMesh } from './components/canvas/CellMesh.tsx';

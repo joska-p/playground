@@ -1,5 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { createGPGPUPipeline, type GPGPUPipeline } from '../webgl/createGPGPUPipeline';
+import { createGPGPUPipeline, type GPGPUPipeline } from '../createGPGPUPipeline';
 
 export type UseGPGPUResult = {
   pipelineRef: RefObject<GPGPUPipeline | null>;

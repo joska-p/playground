@@ -1,10 +1,10 @@
-import { createShaderUniformBuilder, type Point2D } from '../math/transforms';
+import { createShaderUniformBuilder, type Point2D } from './transforms';
 import { createQuadPipeline, type QuadPipeline } from './createQuadPipeline';
 import {
   createWebGLContext,
   type WebGLContext,
   type WebGLContextAttributes
-} from './createWebGLContext';
+} from '../core/createWebGLContext';
 
 export type CreateShaderRunnerProps = {
   fragmentShader: string;

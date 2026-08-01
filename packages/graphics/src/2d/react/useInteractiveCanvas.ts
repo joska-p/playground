@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import type { Point2D as Point } from '../math/transforms';
+import type { Point2D as Point } from '../transforms';
 
 export type CanvasInteractionState = {
   pan: Point;

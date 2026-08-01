@@ -1,5 +1,5 @@
 import type { Rule } from '../rules/registry';
-import { createGPGPUPipeline } from '@repo/graphics/webgl/createGPGPUPipeline';
+import { createGPGPUPipeline } from '@repo/graphics/2d/createGPGPUPipeline';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
 

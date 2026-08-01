@@ -1,6 +1,6 @@
-import type { Point2D, ShaderUniformValues } from '../math/transforms';
-import { compileShaderProgram, setUniformValue } from './compileShaderProgram';
-import type { UniformEntry, UniformValue } from './compileShaderProgram';
+import type { Point2D, ShaderUniformValues } from './transforms';
+import { compileShaderProgram, setUniformValue } from '../core/compileShaderProgram';
+import type { UniformEntry, UniformValue } from '../core/compileShaderProgram';
 
 export type QuadPipeline = {
   compileFragmentShader(fragmentSource: string): void;

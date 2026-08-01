@@ -1,6 +1,6 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { createShaderRunner, type ShaderRunner } from '../webgl/createShaderRunner';
-import type { WebGLContextAttributes } from '../webgl/createWebGLContext';
+import { createShaderRunner, type ShaderRunner } from '../createShaderRunner';
+import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 
 export type UseShaderRunnerProps = {
   fragmentShader: string;

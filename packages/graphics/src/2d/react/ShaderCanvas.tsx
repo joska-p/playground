@@ -1,9 +1,9 @@
-import type { QuadPipeline } from '../webgl/createQuadPipeline';
-import type { UniformValue } from '../webgl/compileShaderProgram';
+import type { QuadPipeline } from '../createQuadPipeline';
+import type { UniformValue } from '../../core/compileShaderProgram';
 import { useFrame } from './FrameLoopContext';
 import { useInteractiveCanvas } from './useInteractiveCanvas';
 import { useShaderRunner } from './useShaderRunner';
-import type { WebGLContextAttributes } from '../webgl/createWebGLContext';
+import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 
 export type ShaderCanvasProps = {
   className?: string;

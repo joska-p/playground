@@ -1,5 +1,5 @@
-import type { Point2D } from '@repo/graphics/math/transforms';
-import type { ShaderRunner } from '@repo/graphics/webgl/createShaderRunner';
+import type { Point2D } from '@repo/graphics/2d/transforms';
+import type { ShaderRunner } from '@repo/graphics/2d/createShaderRunner';
 import { useEffect, useRef } from 'react';
 import { buildStateColorArray } from '../lib/colors';
 import { automaStore } from '../stores/automa';

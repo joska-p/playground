@@ -1,4 +1,4 @@
-import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
+import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 import fragmentShader from '../core/mandelbrot.glsl?raw';
 
 function Scene() {

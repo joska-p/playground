@@ -1,4 +1,4 @@
-import { GraphicsProvider } from '@repo/graphics/react/FrameLoopContext';
+import { GraphicsProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 import { Atlas } from '../modules/atlas/Atlas';
 import { FoldedSpace } from '../modules/folded-space/FoldedSpace';
 import { Manual } from '../modules/manual/Manual';
