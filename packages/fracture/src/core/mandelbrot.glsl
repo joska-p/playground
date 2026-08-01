@@ -2,14 +2,14 @@
 precision highp float;
 
 // Lighting
-uniform float u_sunAngle;   // e.g. 2.35 (top-left angle)
-uniform float u_bumpHeight;   // e.g. 15.0
-uniform float u_ambient;      // e.g. 0.3
+uniform float u_sunAngle;
+uniform float u_bumpHeight;
+uniform float u_ambient;
 
 // Color & Palette
-uniform float u_hueShift;     // e.g. 0.0
-uniform float u_hueFrequency; // e.g. 0.1
-uniform float u_chromaScale;  // e.g. 0.05
+uniform float u_hueShift;
+uniform float u_hueFrequency;
+uniform float u_chromaScale;
 
 uniform vec2 u_panOffset;
 uniform float u_zoom;
@@ -17,122 +17,134 @@ in vec2 vUv;
 out vec4 fragColor;
 
 // -----------------------------------------------------------------
-// 1. OKLCH to RGB Converter (Your existing function)
+// OKLCH → RGB (unchanged)
 // -----------------------------------------------------------------
 vec3 oklchToRgb(vec3 oklch) {
-    float L = oklch.x;
-    float C = oklch.y;
-    float h = oklch.z;
+  float L = oklch.x;
+  float C = oklch.y;
+  float h = oklch.z;
 
-    float a = C * cos(h);
-    float b = C * sin(h);
+  float a = C * cos(h);
+  float b = C * sin(h);
 
-    float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-    float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-    float s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+  float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+  float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+  float s_ = L - 0.0894841775 * a - 1.2914855480 * b;
 
-    float l = l_ * l_ * l_;
-    float m = m_ * m_ * m_;
-    float s = s_ * s_ * s_;
+  float l = l_ * l_ * l_;
+  float m = m_ * m_ * m_;
+  float s = s_ * s_ * s_;
 
-    vec3 linearRgb;
-    linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
-    linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-    linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+  vec3 linearRgb;
+  linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
 
-    vec3 lowPart = linearRgb * 12.92;
-    vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
+  vec3 lowPart = linearRgb * 12.92;
+  vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
 
-    vec3 rgb = mix(highPart, lowPart, lessThanEqual(linearRgb, vec3(0.0031308)));
-    return clamp(rgb, 0.0, 1.0);
+  vec3 rgb = mix(highPart, lowPart, lessThanEqual(linearRgb, vec3(0.0031308)));
+  return clamp(rgb, 0.0, 1.0);
 }
 
 // -----------------------------------------------------------------
-// 2. Mandelbrot Helper: Returns (Smooth Iterations, Final Z Magnitude)
+// Returns (continuous height, secondary magnitude)
+// Outside → smooth iteration count
+// Inside  → convergence measure (how close the orbit got to 0)
 // -----------------------------------------------------------------
 vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
-    vec2 uv = (uvCoord - 0.5) / u_zoom + 0.5 + u_panOffset;
-    vec2 c = (uv - 0.5) * 3.0 - vec2(0.5, 0.0);
-    vec2 z = vec2(0.0);
+  vec2 uv = (uvCoord - 0.5) / u_zoom + 0.5 + u_panOffset;
+  vec2 c = (uv - 0.5) * 3.0 - vec2(0.5, 0.0);
+  vec2 z = vec2(0.0);
 
-    bool diverged = false;
-    int iterationCount = 0;
+  float minMod2 = 1e20; // closest approach to origin
+  float mod2 = 0.0;
+  bool diverged = false;
+  int iterationCount = 0;
 
-    for (int i = 0; i < maxIter; i++) {
-        vec2 zSquared = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y);
-        z = zSquared + c;
+  for (int i = 0; i < maxIter; i++) {
+    // z = z² + c
+    vec2 zSquared = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y);
+    z = zSquared + c;
 
-        if (dot(z, z) > 4.0) {
-            diverged = true;
-            iterationCount = i;
-            break;
-        }
+    mod2 = dot(z, z);
+    minMod2 = min(minMod2, mod2);
+
+    if (mod2 > 4.0) {
+      diverged = true;
+      iterationCount = i;
+      break;
     }
+  }
 
-    if (!diverged) {
-        return vec2(0.0, 0.0); // Inside the set
-    }
-
-    // Continuous smooth iteration math
-    float log_zn = log(dot(z, z)) / 2.0;
+  if (diverged) {
+    // classic continuous smooth iteration
+    float log_zn = log(mod2) * 0.5; // = log(|z|)
     float nu = log(log_zn / log(2.0)) / log(2.0);
     float smooth_i = float(iterationCount) + 1.0 - nu;
-
     return vec2(smooth_i, length(z));
+  } else {
+    // continuous convergence measure
+    float closest = sqrt(minMod2);
+    float conv = -log(closest + 1e-12) * 15.0; // 12–20 is a good range
+    return vec2(conv, closest);
+  }
 }
 
 // -----------------------------------------------------------------
-// 3. Main Shader Execution
+// Main
 // -----------------------------------------------------------------
 void main() {
-  // 1. Dynamic iteration count
   int maxIterations = int(100.0 + log(max(1.0, u_zoom)) * 50.0);
 
-  // Step size for sampling neighbor pixels
-  vec2 eps = vec2(0.001 / u_zoom, 0.0);
+  // Keep epsilon in UV space (roughly constant in screen pixels)
+  // 0.001–0.002 works well; you can expose it later if you want
+  float pixelEps = 0.0015;
+  vec2 eps = vec2(pixelEps, 0.0);
 
-  // Sample current pixel height (h0)
   vec2 data0 = getMandelbrotData(vUv, maxIterations);
   float h0 = data0.x;
-
-  if (h0 == 0.0) {
-    // Point is inside the Mandelbrot Set
-    fragColor = vec4(0.0, 0.0, 0.0, 1.0);
-    return;
-  }
-
-  // Sample neighboring heights
   float hX = getMandelbrotData(vUv + eps.xy, maxIterations).x;
   float hY = getMandelbrotData(vUv + eps.yx, maxIterations).x;
 
-  // -----------------------------------------------------------------
-  // 2. 3D Normal Mapping with Uniforms
-  // -----------------------------------------------------------------
-  // Replaced hardcoded '15.0' with u_bumpHeight
-  vec3 normal = normalize(vec3(h0 - hX, h0 - hY, eps.x * u_bumpHeight));
+  // Critical part: compensate the height differences by zoom
+  // so the slope stays roughly the same in world space
+  float heightScale = u_bumpHeight / max(u_zoom, 1.0);
 
-  // Calculate dynamic light direction from u_sunAngle
-  // (Converts 2D angle into a 3D unit vector for the sun)
+  vec3 normal = normalize(vec3(
+        (h0 - hX) * heightScale,
+        (h0 - hY) * heightScale,
+        pixelEps // constant z, independent of zoom
+      ));
+
+  // rest of the lighting & color stays exactly the same
   vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));
-
-  // Calculate diffuse & apply u_ambient
   float diffuse = max(0.0, dot(normal, lightDir));
   float lightIntensity = clamp(u_ambient + diffuse * (1.0 - u_ambient), 0.0, 1.0);
 
   // -----------------------------------------------------------------
-  // 3. OKLCH Color Space with Uniforms
+  // Color
   // -----------------------------------------------------------------
   float baseRate = log(max(1.0, h0)) / log(float(maxIterations));
 
-  // Lightness: scales directly with 3D light intensity
+  // Lightness (already working)
   float L = clamp(baseRate * lightIntensity, 0.0, 1.0);
 
-  // Chroma: multiplied by u_chromaScale (replaces hardcoded 0.05)
-  float C = clamp(log(max(1.0, data0.y)) * u_chromaScale, 0.0, 0.3);
+  // Chroma – different treatment for interior vs exterior
+  float C;
+  if (data0.y < 2.0) {
+    // Interior: use the scaled height (or closest approach)
+    // This gives saturated colors that still respond to the chroma slider
+    C = clamp(h0 * 0.004 * u_chromaScale * 20.0, 0.0, 0.35);
+    // alternative that also looks good:
+    // C = clamp( (1.0 / (data0.y + 0.01)) * u_chromaScale * 0.15 , 0.0, 0.35);
+  } else {
+    // Exterior: original formula
+    C = clamp(log(max(1.0, data0.y)) * u_chromaScale, 0.0, 0.3);
+  }
 
-  // Hue: u_hueFrequency controls cycle density, u_hueShift offsets the wheel
-  float h = mod(h0 * u_hueFrequency + u_hueShift, 2.0 * 3.14159265);
+  // Hue (same for both)
+  float h = mod(h0 * u_hueFrequency + u_hueShift, 6.28318530718);
 
-  // Convert OKLCH -> RGB output
   fragColor = vec4(oklchToRgb(vec3(L, C, h)), 1.0);
 }

@@ -33,7 +33,7 @@ function Scene() {
         });
       }}
       interactionOptions={{
-        maxZoom: 1e6,
+        maxZoom: 1e8,
         zoomToCursor: true,
         scalePanWithZoom: true,
         zoomSpeed: 250
