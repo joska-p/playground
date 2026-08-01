@@ -8,11 +8,12 @@ export interface SliderProps
   loading?: boolean;
   showTicks?: boolean;
   onChange?: (value: number) => void;
-
+  label?: string;
   ref?: Ref<HTMLInputElement>;
 }
 
 export function Slider({
+  label,
   className,
   variant,
   onChange,
@@ -42,6 +43,7 @@ export function Slider({
       aria-label="slider"
       className={cn('w-full', className)}
     >
+      {label && <span className="text-foreground text-sm">{label}</span>}
       <input
         onChange={handleChange}
         value={value}
