@@ -20,7 +20,6 @@ export function RuleCanvas({ rule, seed, resolution, t, sizePx, renderMode }: Ru
       <ValueCanvasGPU
         rule={rule}
         seed={seed}
-        t={t}
         sizePx={sizePx}
       />
     );
@@ -42,7 +41,6 @@ export function RuleCanvas({ rule, seed, resolution, t, sizePx, renderMode }: Ru
           <ValueCanvasGPU
             rule={rule}
             seed={seed}
-            t={t}
             sizePx={sizePx}
           />
         </LabeledCanvas>

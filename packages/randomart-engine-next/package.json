@@ -19,7 +19,7 @@
     "randomart": "tsx src/cli.ts",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc -b",
     "clean": "rm -rf node_modules dist .turbo"
   },
   "keywords": [

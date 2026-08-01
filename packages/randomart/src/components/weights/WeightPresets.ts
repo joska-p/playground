@@ -10,8 +10,7 @@ const organic = {
   fbm: 1.5,
   modulo: 0.1,
   'less-than': 0.1,
-  'greater-than': 0.1,
-  step: 0.1
+  'greater-than': 0.1
 } as const satisfies Preset;
 
 const geometric = {
@@ -24,8 +23,7 @@ const geometric = {
   sweep: 1.5,
   radial: 1.5,
   'less-than': 1.0,
-  'greater-than': 1.0,
-  step: 1.0
+  'greater-than': 1.0
 } as const satisfies Preset;
 
 const chaotic = {
@@ -36,7 +34,6 @@ const chaotic = {
   exp: 2.0,
   random: 1.5,
   fbm: 2.0,
-  'recaman-pattern': 1.5,
   if: 1.5,
   smoothstep: 0.2
 } as const satisfies Preset;

@@ -24,7 +24,6 @@ import {
   useIterationCap,
   useIterationScale,
   usePixelEps,
-  useRenderer,
   useSunAngle
 } from '../stores/store';
 
@@ -39,8 +38,6 @@ type Runner = {
 function PerturbationScene() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const runnerRef = useRef<Runner | null>(null);
-
-  const renderer = useRenderer();
   const iterationBase = useIterationBase();
   const iterationScale = useIterationScale();
   const iterationCap = useIterationCap();
@@ -121,11 +118,9 @@ function PerturbationScene() {
     zoomSpeed: 250
   });
 
-  const active = renderer === 'perturbation';
-
   useFrame(() => {
     const runner = runnerRef.current;
-    if (!runner || !active) return;
+    if (!runner) return;
     if (runner.canvas.clientWidth === 0 || runner.canvas.clientHeight === 0) return;
 
     const { pan, zoom } = interactionState.current;

@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc -b",
     "clean": "rm -rf node_modules dist .turbo",
     "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
     "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"

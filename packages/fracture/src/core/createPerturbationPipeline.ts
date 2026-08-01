@@ -4,7 +4,7 @@ import type { ReferenceOrbit } from './perturbationOrbit';
 export type PerturbationPipeline = QuadPipeline & {
   /** Uploads (or reuses) the reference orbit as an RG32F data texture. */
   setReferenceOrbit(orbit: ReferenceOrbit): void;
-  readonly orbitTexture: WebGLTexture | null;
+  readonly orbitTexture: WebGLTexture;
 };
 
 export function createPerturbationPipeline(gl: WebGL2RenderingContext): PerturbationPipeline {
@@ -54,7 +54,8 @@ export function createPerturbationPipeline(gl: WebGL2RenderingContext): Perturba
   return {
     ...quad,
 
-    get orbitTexture(): WebGLTexture | null {
+    get orbitTexture(): WebGLTexture {
+      if (!orbitTexture) throw new Error('PerturbationPipeline: orbit texture not initialized');
       return orbitTexture;
     },
 

@@ -2,7 +2,6 @@ import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 import fragmentShader from '../core/mandelbrot.glsl?raw';
 import { splitDouble } from '../core/doubleSplit';
 import {
-  useRenderer,
   useInteriorScale,
   useIterationBase,
   useIterationCap,
@@ -17,7 +16,6 @@ import {
 } from '../stores/store';
 
 function Scene() {
-  const renderer = useRenderer();
   const interiorScale = useInteriorScale();
   const iterationBase = useIterationBase();
   const iterationCap = useIterationCap();
@@ -35,7 +33,6 @@ function Scene() {
       interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
-      enabled={renderer === 'double-single'}
       onBeforeRender={({ pipeline, view }) => {
         // Map the interaction view onto the complex-plane center the shader
         // expects. With the shader's convention
