@@ -43,7 +43,11 @@ export function Slider({
       aria-label="slider"
       className={cn('w-full', className)}
     >
-      {label && <span className="text-foreground text-sm">{label}</span>}
+      {label && (
+        <span className="text-foreground text-sm">
+          {label}: {value}
+        </span>
+      )}
       <input
         onChange={handleChange}
         value={value}

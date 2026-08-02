@@ -22,11 +22,14 @@
   },
   "forwardPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888],
   "runArgs": ["--name", "playground", "--gpus=all"],
-  "settings": {
-    "terminal.integrated.env.linux": {
-      "NVIDIA_VISIBLE_DEVICES": "all",
-      "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.env.linux": {
+          "NVIDIA_VISIBLE_DEVICES": "all",
+          "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
+        }
+      }
     }
-  },
-  "postStartCommand": "bash .devcontainer/scripts/setup.sh && usermod --shell /bin/zsh vscode"
+  }
 }

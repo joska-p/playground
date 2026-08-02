@@ -41,6 +41,7 @@ function ControlPanel() {
   const hueFrequency = useHueFrequency();
   const hueShift = useHueShift();
   const sunAngle = useSunAngle();
+
   return (
     <Panel title="mandelbrot">
       <ControlRow label="renderer">

@@ -1,5 +1,5 @@
 import { Activity } from 'react';
-import { Scene } from './components/Scene';
+import { DoubleSplitScene } from './components/DoubleSplitScene';
 import { PerturbationScene } from './components/PerturbationScene';
 import { FrameLoopProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 import { ControlPanel } from './components/ControlPanel';
@@ -13,7 +13,7 @@ function App() {
       <div className="aspect-square landscape:h-screen portrait:w-screen">
         <FrameLoopProvider>
           <Activity mode={renderer === 'double-single' ? 'visible' : 'hidden'}>
-            {<Scene />}
+            {<DoubleSplitScene />}
           </Activity>
           <Activity mode={renderer === 'perturbation' ? 'visible' : 'hidden'}>
             <PerturbationScene />

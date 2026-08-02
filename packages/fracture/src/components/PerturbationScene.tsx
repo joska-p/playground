@@ -112,7 +112,7 @@ function PerturbationScene() {
   }, []);
 
   const interactionState = useInteractiveCanvas(canvasRef, true, {
-    maxZoom: 1e25,
+    maxZoom: 1e7,
     zoomToCursor: true,
     scalePanWithZoom: true,
     zoomSpeed: 250

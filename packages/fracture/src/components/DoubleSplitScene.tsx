@@ -15,7 +15,7 @@ import {
   useSunAngle
 } from '../stores/store';
 
-function Scene() {
+function DoubleSplitScene() {
   const interiorScale = useInteriorScale();
   const iterationBase = useIterationBase();
   const iterationCap = useIterationCap();
@@ -76,4 +76,4 @@ function Scene() {
   );
 }
 
-export { Scene };
+export { DoubleSplitScene };
