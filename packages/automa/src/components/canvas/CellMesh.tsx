@@ -1,5 +1,5 @@
 import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
-import { useInteractiveCanvas } from '@repo/graphics/2d/react/useInteractiveCanvas';
+import { usePanZoom } from '@repo/graphics/2d/react/usePanZoom';
 import { useShaderRunner } from '@repo/graphics/2d/react/useShaderRunner';
 import { useEffect } from 'react';
 import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
@@ -12,10 +12,10 @@ import { useCols, useRows, setEngine } from '../../stores/automa';
 
 function CellMesh() {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
-  const interactionState = useInteractiveCanvas(canvasRef);
+  const panZoomRef = usePanZoom(canvasRef);
   const { onBeforeRenderRef } = useSimulationUniforms({
     runnerRef,
-    interactionState
+    panZoomRef
   });
   const rows = useRows();
   const cols = useCols();
@@ -41,7 +41,7 @@ function CellMesh() {
 
   const { onPointerDown, onPointerMove, onPointerUp, onContextMenu } = useCellPainting(
     canvasRef,
-    interactionState
+    panZoomRef
   );
 
   return (

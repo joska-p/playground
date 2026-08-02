@@ -4,13 +4,7 @@ import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
 import { splitDouble } from '../core/doubleSplit';
 import { useParams } from '../stores/createParamStore';
 import { doubleSplitStore } from '../stores/doubleSplitStore';
-import {
-  setView,
-  useRenderer,
-  useResetVersion,
-  useViewPan,
-  useViewZoom
-} from '../stores/viewStore';
+import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
 
 const MAX_ZOOM = 1e11;
 
@@ -21,7 +15,6 @@ function DoubleSplitScene() {
   const isActive = renderer === 'double-single';
   const pan = useViewPan();
   const zoom = useViewZoom();
-  const resetVersion = useResetVersion();
 
   // Other renderers can zoom deeper than this one supports; clamp on activation.
   useEffect(() => {
@@ -32,12 +25,16 @@ function DoubleSplitScene() {
 
   return (
     <ShaderCanvas
-      key={isActive ? `active-${String(resetVersion)}` : 'hidden'}
-      interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
       initialView={{ pan, zoom }}
-      onViewChange={setView}
+      maxZoom={MAX_ZOOM}
+      zoomToCursor
+      scalePanWithZoom
+      zoomSpeed={250}
+      onViewChange={(view) => {
+        setView({ pan: view.pan, zoom: view.zoom });
+      }}
       onBeforeRender={({ pipeline, view }) => {
         // Map the interaction view onto the complex-plane center the shader
         // expects. With the shader's convention
@@ -70,12 +67,6 @@ function DoubleSplitScene() {
           u_centerRe: [centerReHi, centerReLo],
           u_centerIm: [centerImHi, centerImLo]
         });
-      }}
-      interactionOptions={{
-        maxZoom: MAX_ZOOM,
-        zoomToCursor: true,
-        scalePanWithZoom: true,
-        zoomSpeed: 250
       }}
     />
   );

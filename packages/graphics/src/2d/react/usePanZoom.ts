@@ -1,39 +1,35 @@
-import { useEffect, useRef } from 'react';
-import type { Point2D as Point } from '../transforms';
+import { useEffect, useRef, type RefObject } from 'react';
+import type { Point2D } from '../transforms';
 
-export type CanvasInteractionState = {
-  pan: Point;
+export type PanZoomState = {
+  pan: Point2D;
   zoom: number;
-  pointer: Point;
+  pointer: Point2D;
   isPanning: boolean;
 };
 
 export type CanvasView = {
-  pan: Point;
+  pan: Point2D;
   zoom: number;
+  canvasWidth: number;
+  canvasHeight: number;
 };
 
-export type InteractiveCanvasOptions = {
+export type PanZoomOptions = {
   minZoom?: number | undefined;
   maxZoom?: number | undefined;
   zoomToCursor?: boolean | undefined;
   scalePanWithZoom?: boolean | undefined;
   zoomSpeed?: number | undefined;
-  /**
-   * Seeds the interaction state on mount (used for view persistence across
-   * renderers and for reset). Only read once, when the hook mounts.
-   */
-  initialView?: CanvasView | undefined;
-  /** Called only when pan/zoom actually change (drag, wheel). */
+  initialView?: { pan: Point2D; zoom: number } | undefined;
   onChange?: ((view: CanvasView) => void) | undefined;
 };
 
-export function useInteractiveCanvas(
-  canvasRef: React.RefObject<HTMLCanvasElement | null>,
-  enabled = true,
-  options: InteractiveCanvasOptions = {}
-) {
-  const interactionStateRef = useRef<CanvasInteractionState>({
+export function usePanZoom(
+  canvasRef: RefObject<HTMLCanvasElement | null>,
+  options: PanZoomOptions = {}
+): RefObject<PanZoomState> {
+  const panZoomRef = useRef<PanZoomState>({
     pan: options.initialView?.pan ?? { x: 0, y: 0 },
     zoom: options.initialView?.zoom ?? 1,
     pointer: { x: 0, y: 0 },
@@ -46,8 +42,8 @@ export function useInteractiveCanvas(
     onChangeRef.current = options.onChange;
   });
 
-  const dragStart = useRef<Point | null>(null);
-  const panStart = useRef<Point>({ x: 0, y: 0 });
+  const dragStart = useRef<Point2D | null>(null);
+  const panStart = useRef<Point2D>({ x: 0, y: 0 });
 
   const minZoom = options.minZoom ?? 0.1;
   const maxZoom = options.maxZoom ?? 5;
@@ -57,16 +53,25 @@ export function useInteractiveCanvas(
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !enabled) return;
+    if (!canvas) return;
 
     let hasPointer = false;
+
+    const reportView = () => {
+      onChangeRef.current?.({
+        pan: panZoomRef.current.pan,
+        zoom: panZoomRef.current.zoom,
+        canvasWidth: canvas.clientWidth,
+        canvasHeight: canvas.clientHeight
+      });
+    };
 
     const handlePointerDown = (e: PointerEvent) => {
       if (e.button !== 1) return;
       // Middle button only for panning
       dragStart.current = { x: e.clientX, y: e.clientY };
-      panStart.current = { ...interactionStateRef.current.pan };
-      interactionStateRef.current.isPanning = true;
+      panStart.current = { ...panZoomRef.current.pan };
+      panZoomRef.current.isPanning = true;
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -76,29 +81,25 @@ export function useInteractiveCanvas(
       if (dragStart.current) {
         const dx = e.clientX - dragStart.current.x;
         const dy = e.clientY - dragStart.current.y;
-        // Scale the drag delta by 1/zoom so the fractal tracks the cursor 1:1.
-        const scale = scalePanWithZoom ? 1 / interactionStateRef.current.zoom : 1;
-        interactionStateRef.current.pan = {
+        const scale = scalePanWithZoom ? 1 / panZoomRef.current.zoom : 1;
+        panZoomRef.current.pan = {
           x: panStart.current.x + dx * scale,
           y: panStart.current.y + dy * scale
         };
-        onChangeRef.current?.({
-          pan: interactionStateRef.current.pan,
-          zoom: interactionStateRef.current.zoom
-        });
+        reportView();
       }
       hasPointer = true;
-      interactionStateRef.current.pointer = pointer;
+      panZoomRef.current.pointer = pointer;
     };
 
     const handlePointerUp = () => {
       dragStart.current = null;
-      interactionStateRef.current.isPanning = false;
+      panZoomRef.current.isPanning = false;
     };
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      const state = interactionStateRef.current;
+      const state = panZoomRef.current;
       const zoomFactor = Math.exp(-e.deltaY / zoomSpeed);
       const nextZoom = Math.max(minZoom, Math.min(maxZoom, state.zoom * zoomFactor));
       if (nextZoom === state.zoom) return;
@@ -114,12 +115,11 @@ export function useInteractiveCanvas(
         state.pan.y -= (n.y - 0.5) * scale * bounds.height;
       }
       state.zoom = nextZoom;
-      onChangeRef.current?.({ pan: state.pan, zoom: state.zoom });
+      reportView();
     };
 
-    // Attach all event listeners natively on the canvas element
     canvas.addEventListener('pointerdown', handlePointerDown);
-    window.addEventListener('pointermove', handlePointerMove); // Window allows dragging outside canvas
+    window.addEventListener('pointermove', handlePointerMove);
     window.addEventListener('pointerup', handlePointerUp);
     canvas.addEventListener('wheel', handleWheel, { passive: false });
 
@@ -129,7 +129,7 @@ export function useInteractiveCanvas(
       window.removeEventListener('pointerup', handlePointerUp);
       canvas.removeEventListener('wheel', handleWheel);
     };
-  }, [canvasRef, enabled, minZoom, maxZoom, zoomToCursor, scalePanWithZoom, zoomSpeed]);
+  }, [canvasRef, minZoom, maxZoom, zoomToCursor, scalePanWithZoom, zoomSpeed]);
 
-  return interactionStateRef;
+  return panZoomRef;
 }

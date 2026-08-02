@@ -3,13 +3,7 @@ import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 import fragmentShader from '../core/mandelbrot-original.glsl?raw';
 import { useParams } from '../stores/createParamStore';
 import { originalStore } from '../stores/originalStore';
-import {
-  setView,
-  useRenderer,
-  useResetVersion,
-  useViewPan,
-  useViewZoom
-} from '../stores/viewStore';
+import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
 
 const MAX_ZOOM = 1e6;
 
@@ -20,7 +14,6 @@ function OriginalScene() {
   const isActive = renderer === 'original';
   const pan = useViewPan();
   const zoom = useViewZoom();
-  const resetVersion = useResetVersion();
 
   // Other renderers can zoom deeper than this one supports; clamp on activation.
   useEffect(() => {
@@ -31,12 +24,15 @@ function OriginalScene() {
 
   return (
     <ShaderCanvas
-      key={isActive ? `active-${String(resetVersion)}` : 'hidden'}
-      interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
       initialView={{ pan, zoom }}
-      onViewChange={setView}
+      maxZoom={MAX_ZOOM}
+      zoomToCursor
+      scalePanWithZoom
+      onViewChange={(view) => {
+        setView({ pan: view.pan, zoom: view.zoom });
+      }}
       onBeforeRender={({ pipeline }) => {
         pipeline.setUniforms({
           u_iterationBase: params.iterationBase,
@@ -51,11 +47,6 @@ function OriginalScene() {
           u_hueFrequency: params.hueFrequency,
           u_chromaScale: params.chromaScale
         });
-      }}
-      interactionOptions={{
-        maxZoom: MAX_ZOOM,
-        zoomToCursor: true,
-        scalePanWithZoom: true
       }}
     />
   );

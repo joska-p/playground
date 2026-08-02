@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
 import { applyStandardUniforms } from '@repo/graphics/core/standardUniforms';
 import { createShaderUniformBuilder, type Point2D } from '@repo/graphics/2d/transforms';
-import { useInteractiveCanvas } from '@repo/graphics/2d/react/useInteractiveCanvas';
+import { usePanZoom, type PanZoomOptions } from '@repo/graphics/2d/react/usePanZoom';
 import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
 import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
 import {
@@ -12,13 +12,8 @@ import {
 import { computeMaxIterations, computeReferenceOrbit } from '../core/perturbationOrbit';
 import { useParams } from '../stores/createParamStore';
 import { perturbationStore } from '../stores/perturbationStore';
-import {
-  setView,
-  useRenderer,
-  useResetVersion,
-  useViewPan,
-  useViewZoom
-} from '../stores/viewStore';
+import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
+import type { View } from '../stores/viewStore';
 
 type Runner = {
   canvas: HTMLCanvasElement;
@@ -98,21 +93,25 @@ function PerturbationCanvas() {
     };
   }, []);
 
-  const interactionState = useInteractiveCanvas(canvasRef, true, {
+  const panZoomOptions: PanZoomOptions = {
     maxZoom: MAX_ZOOM,
     zoomToCursor: true,
     scalePanWithZoom: true,
     zoomSpeed: 250,
     initialView: { pan, zoom },
-    onChange: setView
-  });
+    onChange: (view: View) => {
+      setView({ pan: view.pan, zoom: view.zoom });
+    }
+  };
+
+  const panZoomRef = usePanZoom(canvasRef, panZoomOptions);
 
   useFrame(() => {
     const runner = runnerRef.current;
     if (!runner) return;
     if (runner.canvas.clientWidth === 0 || runner.canvas.clientHeight === 0) return;
 
-    const { pan, zoom } = interactionState.current;
+    const { pan, zoom } = panZoomRef.current;
 
     // Map the interaction view onto the complex-plane center the reference orbit
     // lives at (same convention as the DS shader: c = (uvCoord - 0.5)·(3/zoom) + center).
@@ -170,7 +169,6 @@ function PerturbationScene() {
   const isActive = renderer === 'perturbation';
   const pan = useViewPan();
   const zoom = useViewZoom();
-  const resetVersion = useResetVersion();
 
   // Other renderers can zoom deeper than this one supports; clamp on activation.
   useEffect(() => {
@@ -179,7 +177,7 @@ function PerturbationScene() {
     }
   }, [isActive, pan, zoom]);
 
-  return <PerturbationCanvas key={isActive ? `active-${String(resetVersion)}` : 'hidden'} />;
+  return <PerturbationCanvas />;
 }
 
 export { PerturbationScene };

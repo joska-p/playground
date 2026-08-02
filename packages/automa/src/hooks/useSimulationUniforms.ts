@@ -1,15 +1,15 @@
-import type { Point2D } from '@repo/graphics/2d/transforms';
 import type { ShaderRunner } from '@repo/graphics/2d/createShaderRunner';
 import { useEffect, useRef } from 'react';
 import { buildStateColorArray } from '../lib/colors';
 import { automaStore } from '../stores/automa';
+import type { PanZoomState } from '@repo/graphics/2d/react/usePanZoom';
 
 type UseSimulationUniformsParams = {
   runnerRef: React.RefObject<ShaderRunner | null>;
-  interactionState?: { current: { pan: Point2D; zoom: number } };
+  panZoomRef?: React.RefObject<PanZoomState | null>;
 };
 
-function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUniformsParams) {
+function useSimulationUniforms({ runnerRef, panZoomRef }: UseSimulationUniformsParams) {
   const onBeforeRenderRef = useRef<((time: number) => void) | null>(null);
 
   useEffect(() => {
@@ -21,22 +21,22 @@ function useSimulationUniforms({ runnerRef, interactionState }: UseSimulationUni
       if (!runner) return;
 
       const stateColorsArray = buildStateColorArray(stateColors);
-      const interaction = interactionState?.current;
+      const panZoomState = panZoomRef?.current;
 
       runner.pipeline.setUniforms({
         gridTexture: engine.getDisplayTexture(),
         stateColors: stateColorsArray,
         texelSize: [1 / cols, 1 / rows],
-        u_panOffset: interaction
+        u_panOffset: panZoomState
           ? [
-              interaction.pan.x / runner.canvas.clientWidth,
-              -interaction.pan.y / runner.canvas.clientHeight
+              panZoomState.pan.x / runner.canvas.clientWidth,
+              -panZoomState.pan.y / runner.canvas.clientHeight
             ]
           : [0, 0],
-        u_zoom: interaction?.zoom ?? 1
+        u_zoom: panZoomState?.zoom ?? 1
       });
     };
-  }, [runnerRef, interactionState]);
+  }, [runnerRef, panZoomRef]);
 
   return { onBeforeRenderRef };
 }
