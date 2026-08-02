@@ -41,11 +41,14 @@ export function Slider({
   return (
     <label
       aria-label="slider"
-      className={cn('w-full', className)}
+      className={cn('w-full group', className)}
     >
       {label && (
-        <span className="text-foreground text-sm">
-          {label}: {value}
+        <span className="text-foreground text-sm whitespace-nowrap flex justify-between gap-2">
+          <span className="text-foreground-dim group-hover:text-foreground  truncate text-xs">
+            {label}:{' '}
+          </span>
+          {value}
         </span>
       )}
       <input
@@ -62,7 +65,7 @@ export function Slider({
         {...props}
       />
       {showTicks && (
-        <div className="text-foreground mt-1 flex justify-between text-xs select-none">
+        <div className="text-foreground-dim mt-1 flex justify-between text-xs select-none">
           <span>{min}</span>
           <span>{Math.round((Number(min) + Number(max)) / 2)}</span>
           <span>{max}</span>

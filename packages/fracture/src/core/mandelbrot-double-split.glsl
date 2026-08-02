@@ -22,6 +22,7 @@ uniform float u_chromaScale;
 uniform vec2 u_centerRe;
 uniform vec2 u_centerIm;
 uniform float u_zoom;
+
 in vec2 vUv;
 out vec4 fragColor;
 
@@ -172,8 +173,8 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
 // ---------------------------------------------------------------------------
 void main() {
   int maxIterations = int(
-      u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale
-    );
+    u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale
+  );
   maxIterations = min(maxIterations, int(u_iterationCap));
 
   float pixelEps = u_pixelEps;

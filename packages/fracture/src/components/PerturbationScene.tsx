@@ -7,7 +7,7 @@ import { applyStandardUniforms } from '@repo/graphics/core/standardUniforms';
 import { createShaderUniformBuilder, type Point2D } from '@repo/graphics/2d/transforms';
 import { useInteractiveCanvas } from '@repo/graphics/2d/react/useInteractiveCanvas';
 import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
-import perturbationShader from '../core/perturbation.frag?raw';
+import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
 import {
   createPerturbationPipeline,
   type PerturbationPipeline

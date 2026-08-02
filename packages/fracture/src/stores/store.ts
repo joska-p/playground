@@ -1,7 +1,7 @@
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
-export type Renderer = 'double-single' | 'perturbation';
+export type Renderer = 'double-single' | 'perturbation' | 'original';
 
 type State = {
   renderer: Renderer;
@@ -21,7 +21,7 @@ type State = {
 // --- Store ---
 
 const store = createStore<State>(() => ({
-  renderer: 'double-single',
+  renderer: 'original',
   iterationBase: 70,
   iterationScale: 30,
   iterationCap: 1200,

@@ -1,6 +1,5 @@
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
-import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
-import { splitDouble } from '../core/doubleSplit';
+import fragmentShader from '../core/mandelbrot-original.glsl?raw';
 import {
   useInteriorScale,
   useIterationBase,
@@ -15,7 +14,7 @@ import {
   useSunAngle
 } from '../stores/store';
 
-function DoubleSplitScene() {
+function OriginalScene() {
   const interiorScale = useInteriorScale();
   const iterationBase = useIterationBase();
   const iterationCap = useIterationCap();
@@ -33,23 +32,7 @@ function DoubleSplitScene() {
       interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
-      onBeforeRender={({ pipeline, view }) => {
-        // Map the interaction view onto the complex-plane center the shader
-        // expects. With the shader's convention
-        //   c = (uvCoord - 0.5) · (3 / zoom) + center
-        // the center is (3·panNorm − 0.5, 3·panNorm.y), where panNorm is the
-        // pan offset normalized by the canvas size (y-up).
-        const panNormX = -view.pan.x / view.canvasWidth;
-        const panNormY = view.pan.y / view.canvasHeight;
-        const centerRe = 3.0 * panNormX - 0.5;
-        const centerIm = 3.0 * panNormY;
-
-        // Split each float64 center component into a double-single (hi, lo)
-        // pair of float32s (~48 bits) before uploading, so the GPU can keep
-        // the center exact at zoom levels far beyond float32.
-        const [centerReHi, centerReLo] = splitDouble(centerRe);
-        const [centerImHi, centerImLo] = splitDouble(centerIm);
-
+      onBeforeRender={({ pipeline }) => {
         pipeline.setUniforms({
           u_iterationBase: iterationBase,
           u_iterationScale: iterationScale,
@@ -61,19 +44,15 @@ function DoubleSplitScene() {
           u_ambient: ambientLight,
           u_hueShift: hueShift,
           u_hueFrequency: hueFrequency,
-          u_chromaScale: chromaScale,
-          u_centerRe: [centerReHi, centerReLo],
-          u_centerIm: [centerImHi, centerImLo]
+          u_chromaScale: chromaScale
         });
       }}
       interactionOptions={{
-        maxZoom: 1e11,
-        zoomToCursor: true,
-        scalePanWithZoom: true,
-        zoomSpeed: 250
+        maxZoom: 1e6,
+        zoomToCursor: true
       }}
     />
   );
 }
 
-export { DoubleSplitScene };
+export { OriginalScene };

@@ -51,6 +51,7 @@ function ControlPanel() {
             setRenderer(e.target.value as Renderer);
           }}
         >
+          <option value="original">original</option>
           <option value="double-single">double-single</option>
           <option value="perturbation">perturbation</option>
         </Select>
