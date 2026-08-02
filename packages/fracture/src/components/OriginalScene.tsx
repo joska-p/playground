@@ -49,7 +49,8 @@ function OriginalScene() {
       }}
       interactionOptions={{
         maxZoom: 1e6,
-        zoomToCursor: true
+        zoomToCursor: true,
+        scalePanWithZoom: true
       }}
     />
   );
