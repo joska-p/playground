@@ -10,14 +10,7 @@ function SeedCanvas() {
 
   const fragmentShader = generateShaderFromSeed(seed, complexity, mood, palette);
 
-  return (
-    <ShaderCanvas
-      fragmentShader={fragmentShader}
-      onBeforeRender={({ pipeline, time }) => {
-        pipeline.setUniforms({ u_time: time });
-      }}
-    />
-  );
+  return <ShaderCanvas fragmentShader={fragmentShader} />;
 }
 
 export { SeedCanvas };

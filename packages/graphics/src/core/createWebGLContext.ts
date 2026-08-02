@@ -12,7 +12,6 @@ export type WebGLContextAttributes = {
 
 export type CreateWebGLContextConfig = {
   canvas: HTMLCanvasElement;
-  dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
@@ -20,7 +19,7 @@ export type WebGLContext = {
   gl: WebGL2RenderingContext;
   applyDPR(): void;
   reinitialize(): void;
-  resize(width?: number, height?: number, dpr?: number): void;
+  resize(width?: number, height?: number): void;
   readonly drawingBufferWidth: number;
   readonly drawingBufferHeight: number;
   viewport(): void;
@@ -31,10 +30,9 @@ export type WebGLContext = {
 
 export function createWebGLContext({
   canvas,
-  dpr,
   webGLContextAttributes
 }: CreateWebGLContextConfig): WebGLContext {
-  let currentDpr = dpr ?? defaultDevicePixelRatio();
+  const currentDpr = defaultDevicePixelRatio();
 
   const gl = canvas.getContext('webgl2', {
     alpha: webGLContextAttributes?.alpha ?? true,
@@ -63,8 +61,7 @@ export function createWebGLContext({
       applyDPR();
     },
 
-    resize(width?: number, height?: number, dpr?: number): void {
-      if (dpr !== undefined) currentDpr = dpr;
+    resize(width?: number, height?: number): void {
       if (width !== undefined && height !== undefined) {
         canvas.width = Math.round(width * currentDpr);
         canvas.height = Math.round(height * currentDpr);

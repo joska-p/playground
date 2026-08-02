@@ -1,46 +1,34 @@
 import { ControlGrid, ControlPanel as Panel, ControlRow } from '@repo/ui/control-panel';
-import { Select, Slider } from '@repo/ui/data-entry';
+import { Button, Select, Slider } from '@repo/ui/data-entry';
+import { computeMaxIterations } from '../core/perturbationOrbit';
+import { setParam, useParams } from '../stores/createParamStore';
+import { paramStores } from '../stores/paramStores';
 import {
-  useRenderer,
-  useInteriorScale,
-  useIterationBase,
-  useIterationCap,
-  useIterationScale,
-  usePixelEps,
-  useAmbientLight,
-  useBumpHeight,
-  useChromaScale,
-  useHueFrequency,
-  useHueShift,
-  useSunAngle,
+  resetView,
   setRenderer,
-  setInteriorScale,
-  setIterationBase,
-  setIterationCap,
-  setIterationScale,
-  setPixelEps,
-  setAmbientLight,
-  setBumpHeight,
-  setChromaScale,
-  setHueFrequency,
-  setHueShift,
-  setSunAngle,
+  useRenderer,
+  useViewZoom,
   type Renderer
-} from '../stores/store';
+} from '../stores/viewStore';
 
 function ControlPanel() {
   const renderer = useRenderer();
-  const interiorScale = useInteriorScale();
-  const iterationBase = useIterationBase();
-  const iterationCap = useIterationCap();
-  const iterationScale = useIterationScale();
-  const pixelEps = usePixelEps();
-  const ambientLight = useAmbientLight();
-  const bumpHeight = useBumpHeight();
-  const chromaScale = useChromaScale();
-  const hueFrequency = useHueFrequency();
-  const hueShift = useHueShift();
-  const sunAngle = useSunAngle();
+  const active = paramStores[renderer];
+  const params = useParams(active);
+
+  const zoom = useViewZoom();
+
+  const iterationsAtZoom = computeMaxIterations(
+    zoom,
+    params.iterationBase,
+    params.iterationScale,
+    params.iterationCap
+  );
+  const iterationsHint = [1, 1e3, 1e6]
+    .map((z) =>
+      computeMaxIterations(z, params.iterationBase, params.iterationScale, params.iterationCap)
+    )
+    .join(' / ');
 
   return (
     <Panel title="mandelbrot">
@@ -56,32 +44,59 @@ function ControlPanel() {
           <option value="perturbation">perturbation</option>
         </Select>
       </ControlRow>
+
+      <ControlRow label="zoom">
+        <span className="text-foreground-dim text-sm">
+          {zoom >= 100 ? zoom.toExponential(2) : zoom.toFixed(3)}
+        </span>
+      </ControlRow>
+
+      <ControlRow label="iterations @ zoom">
+        <span className="text-foreground-dim text-sm">{iterationsAtZoom}</span>
+      </ControlRow>
+
+      <ControlRow label="view">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={resetView}
+        >
+          reset view
+        </Button>
+      </ControlRow>
+
       <ControlGrid columns={2}>
         <Slider
           label="iteration base"
           min="20"
           max="200"
           step="5"
-          value={iterationBase}
-          onChange={setIterationBase}
+          value={params.iterationBase}
+          onChange={(value) => {
+            setParam(active, 'iterationBase', value);
+          }}
         />
 
         <Slider
-          label="iteration scale"
+          label="iteration / octave"
           min="5"
           max="80"
           step="1"
-          value={iterationScale}
-          onChange={setIterationScale}
+          value={params.iterationScale}
+          onChange={(value) => {
+            setParam(active, 'iterationScale', value);
+          }}
         />
 
         <Slider
-          label="iteration cap"
+          label="iteration cap (perf)"
           min="200"
           max="3000"
           step="50"
-          value={iterationCap}
-          onChange={setIterationCap}
+          value={params.iterationCap}
+          onChange={(value) => {
+            setParam(active, 'iterationCap', value);
+          }}
         />
 
         <Slider
@@ -89,8 +104,10 @@ function ControlPanel() {
           min="0.0005"
           max="0.1"
           step="0.0005"
-          value={pixelEps}
-          onChange={setPixelEps}
+          value={params.pixelEps}
+          onChange={(value) => {
+            setParam(active, 'pixelEps', value);
+          }}
         />
 
         <Slider
@@ -98,10 +115,16 @@ function ControlPanel() {
           min="2.0"
           max="25.0"
           step="0.5"
-          value={interiorScale}
-          onChange={setInteriorScale}
+          value={params.interiorScale}
+          onChange={(value) => {
+            setParam(active, 'interiorScale', value);
+          }}
         />
       </ControlGrid>
+
+      <ControlRow label="iterations @ 1 / 1e3 / 1e6">
+        <span className="text-foreground-dim text-sm">{iterationsHint}</span>
+      </ControlRow>
 
       <ControlGrid columns={2}>
         <Slider
@@ -109,8 +132,10 @@ function ControlPanel() {
           min="0"
           max="6.283"
           step="0.01"
-          value={sunAngle}
-          onChange={setSunAngle}
+          value={params.sunAngle}
+          onChange={(value) => {
+            setParam(active, 'sunAngle', value);
+          }}
         />
 
         <Slider
@@ -118,8 +143,10 @@ function ControlPanel() {
           min="1.0"
           max="50.0"
           step="0.5"
-          value={bumpHeight}
-          onChange={setBumpHeight}
+          value={params.bumpHeight}
+          onChange={(value) => {
+            setParam(active, 'bumpHeight', value);
+          }}
         />
 
         <Slider
@@ -127,8 +154,10 @@ function ControlPanel() {
           min="0.0"
           max="0.8"
           step="0.01"
-          value={ambientLight}
-          onChange={setAmbientLight}
+          value={params.ambientLight}
+          onChange={(value) => {
+            setParam(active, 'ambientLight', value);
+          }}
         />
 
         <Slider
@@ -136,17 +165,21 @@ function ControlPanel() {
           min="0"
           max="6.283"
           step="0.01"
-          value={hueShift}
-          onChange={setHueShift}
+          value={params.hueShift}
+          onChange={(value) => {
+            setParam(active, 'hueShift', value);
+          }}
         />
 
         <Slider
           label="hue frequency"
           min="0.01"
           max="0.5"
-          step="0.005"
-          value={hueFrequency}
-          onChange={setHueFrequency}
+          step="0.001"
+          value={params.hueFrequency}
+          onChange={(value) => {
+            setParam(active, 'hueFrequency', value);
+          }}
         />
 
         <Slider
@@ -154,8 +187,10 @@ function ControlPanel() {
           min="0.0"
           max="0.25"
           step="0.005"
-          value={chromaScale}
-          onChange={setChromaScale}
+          value={params.chromaScale}
+          onChange={(value) => {
+            setParam(active, 'chromaScale', value);
+          }}
         />
       </ControlGrid>
     </Panel>

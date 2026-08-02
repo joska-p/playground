@@ -3,7 +3,6 @@ import { createQuadPipeline, type QuadPipeline } from './createQuadPipeline';
 import { applyStandardUniforms } from '../core/standardUniforms';
 import {
   createWebGLContext,
-  defaultDevicePixelRatio,
   type WebGLContext,
   type WebGLContextAttributes
 } from '../core/createWebGLContext';
@@ -11,7 +10,6 @@ import {
 export type CreateShaderRunnerProps = {
   fragmentShader: string;
   canvas: HTMLCanvasElement;
-  dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
@@ -20,7 +18,7 @@ export type ShaderRunner = {
   pipeline: QuadPipeline;
   readonly context: WebGL2RenderingContext;
   readonly canvas: HTMLCanvasElement;
-  resize(width: number, height: number, newDpr?: number): void;
+  resize(width: number, height: number): void;
   setMouse(pixel: Point2D): void;
   render(): void;
   dispose(): void;
@@ -29,16 +27,11 @@ export type ShaderRunner = {
 export function createShaderRunner({
   fragmentShader,
   canvas,
-  dpr,
   webGLContextAttributes
 }: CreateShaderRunnerProps): ShaderRunner {
-  const ctx = createWebGLContext({ canvas, dpr, webGLContextAttributes });
+  const ctx = createWebGLContext({ canvas, webGLContextAttributes });
   const { clientWidth, clientHeight } = canvas;
-  let builder = createShaderUniformBuilder(
-    clientWidth,
-    clientHeight,
-    dpr ?? defaultDevicePixelRatio()
-  );
+  let builder = createShaderUniformBuilder(clientWidth, clientHeight);
 
   const pipeline = createQuadPipeline(ctx.gl);
   pipeline.compileFragmentShader(fragmentShader);
@@ -65,9 +58,9 @@ export function createShaderRunner({
       return canvas;
     },
 
-    resize(width: number, height: number, newDpr = defaultDevicePixelRatio()): void {
-      ctx.resize(width, height, newDpr);
-      builder = createShaderUniformBuilder(width, height, newDpr);
+    resize(width: number, height: number): void {
+      ctx.resize(width, height);
+      builder = createShaderUniformBuilder(width, height);
     },
 
     setMouse(pixel: Point2D): void {

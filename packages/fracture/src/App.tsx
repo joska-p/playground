@@ -4,7 +4,7 @@ import { PerturbationScene } from './components/PerturbationScene';
 import { OriginalScene } from './components/OriginalScene';
 import { FrameLoopProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 import { ControlPanel } from './components/ControlPanel';
-import { useRenderer } from './stores/store';
+import { useRenderer } from './stores/viewStore';
 
 function App() {
   const renderer = useRenderer();

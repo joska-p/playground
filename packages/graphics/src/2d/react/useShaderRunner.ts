@@ -4,7 +4,6 @@ import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 
 export type UseShaderRunnerProps = {
   fragmentShader: string;
-  dpr?: number | undefined;
   webGLContextAttributes?: WebGLContextAttributes | undefined;
 };
 
@@ -15,7 +14,6 @@ export type UseShaderRunnerResult = {
 
 export function useShaderRunner({
   fragmentShader,
-  dpr,
   webGLContextAttributes
 }: UseShaderRunnerProps): UseShaderRunnerResult {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,9 +24,9 @@ export function useShaderRunner({
   const compiledShaderRef = useRef<string | null>(null);
 
   // Capture mount-time configuration for WebGL context creation.
-  // Changing context attributes or DPR requires creating a new context, so we freeze
+  // Changing context attributes requires creating a new context, so we freeze
   // the initial values to prevent unintentional teardowns from unstable object literals.
-  const initialConfigRef = useRef({ dpr, webGLContextAttributes });
+  const initialConfigRef = useRef({ webGLContextAttributes });
 
   // 1. SETUP EFFECT: Manages canvas lifecycle and WebGL context creation.
   // Runs ONLY on mount / unmount.
@@ -39,7 +37,6 @@ export function useShaderRunner({
     const runner = createShaderRunner({
       fragmentShader,
       canvas,
-      dpr: initialConfigRef.current.dpr,
       webGLContextAttributes: initialConfigRef.current.webGLContextAttributes
     });
 

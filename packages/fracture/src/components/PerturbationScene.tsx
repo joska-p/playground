@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  createWebGLContext,
-  defaultDevicePixelRatio
-} from '@repo/graphics/core/createWebGLContext';
+import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
 import { applyStandardUniforms } from '@repo/graphics/core/standardUniforms';
 import { createShaderUniformBuilder, type Point2D } from '@repo/graphics/2d/transforms';
 import { useInteractiveCanvas } from '@repo/graphics/2d/react/useInteractiveCanvas';
@@ -13,19 +10,15 @@ import {
   type PerturbationPipeline
 } from '../core/createPerturbationPipeline';
 import { computeMaxIterations, computeReferenceOrbit } from '../core/perturbationOrbit';
+import { useParams } from '../stores/createParamStore';
+import { perturbationStore } from '../stores/perturbationStore';
 import {
-  useAmbientLight,
-  useBumpHeight,
-  useChromaScale,
-  useHueFrequency,
-  useHueShift,
-  useInteriorScale,
-  useIterationBase,
-  useIterationCap,
-  useIterationScale,
-  usePixelEps,
-  useSunAngle
-} from '../stores/store';
+  setView,
+  useRenderer,
+  useResetVersion,
+  useViewPan,
+  useViewZoom
+} from '../stores/viewStore';
 
 type Runner = {
   canvas: HTMLCanvasElement;
@@ -35,20 +28,18 @@ type Runner = {
   dispose(): void;
 };
 
-function PerturbationScene() {
+const MAX_ZOOM = 1e7;
+
+// Inner canvas component: the key on it (from PerturbationScene) remounts the
+// whole runner + interaction state on activation and on reset, so the WebGL
+// context is always bound to the live canvas and initialView reseeds correctly.
+function PerturbationCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const runnerRef = useRef<Runner | null>(null);
-  const iterationBase = useIterationBase();
-  const iterationScale = useIterationScale();
-  const iterationCap = useIterationCap();
-  const interiorScale = useInteriorScale();
-  const pixelEps = usePixelEps();
-  const ambientLight = useAmbientLight();
-  const bumpHeight = useBumpHeight();
-  const chromaScale = useChromaScale();
-  const hueFrequency = useHueFrequency();
-  const hueShift = useHueShift();
-  const sunAngle = useSunAngle();
+
+  const params = useParams(perturbationStore);
+  const pan = useViewPan();
+  const zoom = useViewZoom();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -61,11 +52,7 @@ function PerturbationScene() {
     const pipeline = createPerturbationPipeline(ctx.gl);
     pipeline.compileFragmentShader(perturbationShader);
 
-    let builder = createShaderUniformBuilder(
-      canvas.clientWidth,
-      canvas.clientHeight,
-      defaultDevicePixelRatio()
-    );
+    let builder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight);
     let mousePx: Point2D = { x: 0, y: 0 };
 
     const offContextRestored = ctx.onContextRestored(() => {
@@ -98,7 +85,7 @@ function PerturbationScene() {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         ctx.resize(width, height);
-        builder = createShaderUniformBuilder(width, height, defaultDevicePixelRatio());
+        builder = createShaderUniformBuilder(width, height);
       });
     });
     observer.observe(canvas);
@@ -112,10 +99,12 @@ function PerturbationScene() {
   }, []);
 
   const interactionState = useInteractiveCanvas(canvasRef, true, {
-    maxZoom: 1e7,
+    maxZoom: MAX_ZOOM,
     zoomToCursor: true,
     scalePanWithZoom: true,
-    zoomSpeed: 250
+    zoomSpeed: 250,
+    initialView: { pan, zoom },
+    onChange: setView
   });
 
   useFrame(() => {
@@ -132,7 +121,12 @@ function PerturbationScene() {
     const centerRe = 3.0 * panNormX - 0.5;
     const centerIm = 3.0 * panNormY;
 
-    const maxIterations = computeMaxIterations(zoom, iterationBase, iterationScale, iterationCap);
+    const maxIterations = computeMaxIterations(
+      zoom,
+      params.iterationBase,
+      params.iterationScale,
+      params.iterationCap
+    );
     const orbit = computeReferenceOrbit(centerRe, centerIm, maxIterations);
     runner.pipeline.setReferenceOrbit(orbit);
 
@@ -141,14 +135,14 @@ function PerturbationScene() {
       u_orbit: runner.pipeline.orbitTexture,
       u_orbitLength: orbit.orbitLength,
       u_referenceIterations: orbit.referenceIterations,
-      u_interiorScale: interiorScale,
-      u_pixelEps: pixelEps,
-      u_sunAngle: sunAngle,
-      u_bumpHeight: bumpHeight,
-      u_ambient: ambientLight,
-      u_hueShift: hueShift,
-      u_hueFrequency: hueFrequency,
-      u_chromaScale: chromaScale
+      u_interiorScale: params.interiorScale,
+      u_pixelEps: params.pixelEps,
+      u_sunAngle: params.sunAngle,
+      u_bumpHeight: params.bumpHeight,
+      u_ambient: params.ambientLight,
+      u_hueShift: params.hueShift,
+      u_hueFrequency: params.hueFrequency,
+      u_chromaScale: params.chromaScale
     });
 
     runner.render();
@@ -169,6 +163,23 @@ function PerturbationScene() {
       onPointerMove={handlePointerMove}
     />
   );
+}
+
+function PerturbationScene() {
+  const renderer = useRenderer();
+  const isActive = renderer === 'perturbation';
+  const pan = useViewPan();
+  const zoom = useViewZoom();
+  const resetVersion = useResetVersion();
+
+  // Other renderers can zoom deeper than this one supports; clamp on activation.
+  useEffect(() => {
+    if (isActive && zoom > MAX_ZOOM) {
+      setView({ pan, zoom: MAX_ZOOM });
+    }
+  }, [isActive, pan, zoom]);
+
+  return <PerturbationCanvas key={isActive ? `active-${String(resetVersion)}` : 'hidden'} />;
 }
 
 export { PerturbationScene };

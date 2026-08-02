@@ -1,4 +1,5 @@
 import type { ShaderUniformValues } from '../core/standardUniforms';
+import { defaultDevicePixelRatio } from '../core/createWebGLContext';
 
 export { generateGLSLFragment } from '../core/generateGLSLFragment';
 
@@ -231,11 +232,8 @@ export function createScreenToGrid(
   return (screen: Point2D) => toGrid(toCanvas(screen));
 }
 
-export function createShaderUniformBuilder(
-  cssWidth: number,
-  cssHeight: number,
-  devicePixelRatio: number
-) {
+export function createShaderUniformBuilder(cssWidth: number, cssHeight: number) {
+  const dpr = defaultDevicePixelRatio();
   /**
    * `mouseNormalizedUV` is the pointer normalized against the canvas box:
    * origin top-left, y-down (0..1). The returned `mouse` value is converted
@@ -243,7 +241,7 @@ export function createShaderUniformBuilder(
    * `FULLSCREEN_TRIANGLE` produces.
    */
   return (mouseNormalizedUV?: Point2D): ShaderUniformValues => ({
-    resolution: [cssWidth * devicePixelRatio, cssHeight * devicePixelRatio],
+    resolution: [cssWidth * dpr, cssHeight * dpr],
     aspectRatio: cssHeight > 0 ? cssWidth / cssHeight : 0,
     mouse: mouseNormalizedUV ? [mouseNormalizedUV.x, 1 - mouseNormalizedUV.y] : [0, 1]
   });

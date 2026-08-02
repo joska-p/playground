@@ -140,9 +140,10 @@ const uvSetup = generateGLSLFragment({
 ```typescript
 import { createShaderUniformBuilder } from '@repo/graphics/2d/transforms';
 
-const buildUniforms = createShaderUniformBuilder(cssWidth, cssHeight, devicePixelRatio);
+const buildUniforms = createShaderUniformBuilder(cssWidth, cssHeight);
 const values = buildUniforms(mouseNormalizedUV);
 // → { resolution: [w*dpr, h*dpr], aspectRatio: w/h, mouse: [uvX, uvY] }
+// dpr is the capped device pixel ratio (`min(window.devicePixelRatio, 2)`).
 ```
 
 ### Canonical uniform contract
@@ -216,10 +217,10 @@ pipeline.dispose();
 ```typescript
 import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
 
-const ctx = createWebGLContext({ canvas, dpr: devicePixelRatio });
+const ctx = createWebGLContext({ canvas });
 ctx.viewport();
 ctx.clear(0, 0, 0, 1);
-ctx.resize(width, height, dpr);
+ctx.resize(width, height);
 ctx.onContextLost(() => {
   /* re-create resources */
 });
@@ -334,38 +335,61 @@ function MyScene() {
 
 ### ShaderCanvas — auto-animating shader component
 
-Drop-in animated shader with mouse tracking and an `onBeforeRender` callback for custom uniforms:
+Declarative wrapper: it mounts the runner, resizes with the canvas, runs a frame
+loop, auto-injects a time uniform, and draws every frame. The canvas fills its
+container by default (override with `style`).
 
 ```tsx
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 
 <ShaderCanvas
   fragmentShader={myShaderSrc}
-  onBeforeRender={(pipeline, time) => {
-    pipeline.setUniforms({ u_time: time });
-  }}
   webGLContextAttributes={{ antialias: true }}
 />;
 ```
 
-`dpr` and `webGLContextAttributes` are **mount-time only**: changing them re-mounts the canvas element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space (normalized, origin bottom-left, y-up) — see the [canonical uniform contract](#canonical-uniform-contract).
+The **time uniform** is injected automatically each frame into the shader's declared
+`u_time` (opt out with `time={false}`; pick another name with `time="uTime"`). It is
+set **before** `onBeforeRender`, so a user-set time wins. Custom per-frame uniforms go
+through `onBeforeRender`, which receives a single props object:
 
-Pass `interactive` to opt into pan (middle-drag) and zoom (wheel); the resulting state is
-auto-fed as `u_panOffset` + `u_zoom` each frame via the `usePanZoomUniforms` hook:
+```tsx
+<ShaderCanvas
+  fragmentShader={myShaderSrc}
+  onBeforeRender={({ pipeline, time }) => {
+    pipeline.setUniforms({ u_speed: 2.0, u_time: time * 0.5 });
+  }}
+/>
+```
+
+`webGLContextAttributes` is **mount-time only**: changing it re-mounts the canvas
+element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space
+(normalized, origin bottom-left, y-up) — replace the default handler with the
+`onPointerMove` prop when you need your own. See the
+[canonical uniform contract](#canonical-uniform-contract).
+
+Pass `interactive` to opt into pan (middle-drag) and zoom (wheel). The interactive
+contract unlocks `initialView` / `onViewChange` (view persistence + sync) and
+`interactionOptions` (tuning only), and its `onBeforeRender` also receives `view`:
 
 ```tsx
 <ShaderCanvas
   interactive
   fragmentShader={interactiveShaderSrc}
-  onBeforeRender={(pipeline, time) => {
-    pipeline.setUniforms({ u_time: time });
+  initialView={{ pan: { x: 0, y: 0 }, zoom: 1 }}
+  onViewChange={(view) => setStoreView(view)}
+  interactionOptions={{ maxZoom: 1e6, zoomToCursor: true }}
+  onBeforeRender={({ pipeline, view }) => {
+    pipeline.setUniforms({ u_center: centerFromView(view) });
   }}
 />
 ```
 
-The pan/zoom uniforms are only written when the shader declares them, and are
-skipped entirely when `interactive` is off. Transform vUv with them, e.g.
-`vec2 uv = (vUv + u_panOffset) / u_zoom;`.
+The pan/zoom uniforms (`u_panOffset` + `u_zoom`) are auto-fed each frame, only when the
+shader declares them, and only when `interactive` is on. Transform vUv with them, e.g.
+`vec2 uv = (vUv + u_panOffset) / u_zoom;`. For custom pipelines, handlers, or per-frame
+sequencing, compose the hooks directly (`useShaderRunner`, `useInteractiveCanvas`,
+`usePanZoomUniforms`, `useFrame`) instead — see the examples below.
 
 ### usePanZoomUniforms — interaction → uniform mapping
 
@@ -421,7 +445,7 @@ function MyCanvas() {
 }
 ```
 
-The `runnerRef.current` is a `ShaderRunner` — see the `createShaderRunner` factory above for `context`/`canvas` accessors and `dispose()`. The `dpr` and `webGLContextAttributes` options are read at mount and ignored after; editing `fragmentShader` recompiles the program in place without destroying the GL context.
+The `runnerRef.current` is a `ShaderRunner` — see the `createShaderRunner` factory above for `context`/`canvas` accessors and `dispose()`. The `webGLContextAttributes` option is read at mount and ignored after; editing `fragmentShader` recompiles the program in place without destroying the GL context.
 
 ### useInteractiveCanvas — pan/zoom/pointer state
 

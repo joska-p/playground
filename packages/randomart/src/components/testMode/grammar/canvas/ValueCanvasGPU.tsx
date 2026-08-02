@@ -29,11 +29,7 @@ export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
           <FrameLoopProvider>
             <ShaderCanvas
               fragmentShader={shader}
-              onBeforeRender={({ pipeline, time }) => {
-                pipeline.setUniforms({
-                  uTime: time
-                });
-              }}
+              time="uTime"
             />
           </FrameLoopProvider>
         )}

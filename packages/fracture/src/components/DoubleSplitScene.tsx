@@ -1,38 +1,43 @@
+import { useEffect } from 'react';
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
 import { splitDouble } from '../core/doubleSplit';
+import { useParams } from '../stores/createParamStore';
+import { doubleSplitStore } from '../stores/doubleSplitStore';
 import {
-  useInteriorScale,
-  useIterationBase,
-  useIterationCap,
-  useIterationScale,
-  usePixelEps,
-  useAmbientLight,
-  useBumpHeight,
-  useChromaScale,
-  useHueFrequency,
-  useHueShift,
-  useSunAngle
-} from '../stores/store';
+  setView,
+  useRenderer,
+  useResetVersion,
+  useViewPan,
+  useViewZoom
+} from '../stores/viewStore';
+
+const MAX_ZOOM = 1e11;
 
 function DoubleSplitScene() {
-  const interiorScale = useInteriorScale();
-  const iterationBase = useIterationBase();
-  const iterationCap = useIterationCap();
-  const iterationScale = useIterationScale();
-  const pixelEps = usePixelEps();
-  const ambientLight = useAmbientLight();
-  const bumpHeight = useBumpHeight();
-  const chromaScale = useChromaScale();
-  const hueFrequency = useHueFrequency();
-  const hueShift = useHueShift();
-  const sunAngle = useSunAngle();
+  const params = useParams(doubleSplitStore);
+
+  const renderer = useRenderer();
+  const isActive = renderer === 'double-single';
+  const pan = useViewPan();
+  const zoom = useViewZoom();
+  const resetVersion = useResetVersion();
+
+  // Other renderers can zoom deeper than this one supports; clamp on activation.
+  useEffect(() => {
+    if (isActive && zoom > MAX_ZOOM) {
+      setView({ pan, zoom: MAX_ZOOM });
+    }
+  }, [isActive, pan, zoom]);
 
   return (
     <ShaderCanvas
+      key={isActive ? `active-${String(resetVersion)}` : 'hidden'}
       interactive
       fragmentShader={fragmentShader}
       webGLContextAttributes={{ antialias: true }}
+      initialView={{ pan, zoom }}
+      onViewChange={setView}
       onBeforeRender={({ pipeline, view }) => {
         // Map the interaction view onto the complex-plane center the shader
         // expects. With the shader's convention
@@ -51,23 +56,23 @@ function DoubleSplitScene() {
         const [centerImHi, centerImLo] = splitDouble(centerIm);
 
         pipeline.setUniforms({
-          u_iterationBase: iterationBase,
-          u_iterationScale: iterationScale,
-          u_iterationCap: iterationCap,
-          u_interiorScale: interiorScale,
-          u_pixelEps: pixelEps,
-          u_sunAngle: sunAngle,
-          u_bumpHeight: bumpHeight,
-          u_ambient: ambientLight,
-          u_hueShift: hueShift,
-          u_hueFrequency: hueFrequency,
-          u_chromaScale: chromaScale,
+          u_iterationBase: params.iterationBase,
+          u_iterationScale: params.iterationScale,
+          u_iterationCap: params.iterationCap,
+          u_interiorScale: params.interiorScale,
+          u_pixelEps: params.pixelEps,
+          u_sunAngle: params.sunAngle,
+          u_bumpHeight: params.bumpHeight,
+          u_ambient: params.ambientLight,
+          u_hueShift: params.hueShift,
+          u_hueFrequency: params.hueFrequency,
+          u_chromaScale: params.chromaScale,
           u_centerRe: [centerReHi, centerReLo],
           u_centerIm: [centerImHi, centerImLo]
         });
       }}
       interactionOptions={{
-        maxZoom: 1e11,
+        maxZoom: MAX_ZOOM,
         zoomToCursor: true,
         scalePanWithZoom: true,
         zoomSpeed: 250

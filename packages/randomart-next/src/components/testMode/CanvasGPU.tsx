@@ -25,14 +25,7 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
     >
       {shader && (
         <FrameLoopProvider>
-          <ShaderCanvas
-            fragmentShader={shader}
-            onBeforeRender={({ pipeline, time }) => {
-              pipeline.setUniforms({
-                u_time: time
-              });
-            }}
-          />
+          <ShaderCanvas fragmentShader={shader} />
         </FrameLoopProvider>
       )}
       {error && (

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { defaultDevicePixelRatio } from '../core/createWebGLContext';
 import { generateGLSLFragment } from '../core/generateGLSLFragment';
 import {
   createBufferToCanvas,
@@ -238,19 +239,17 @@ describe('transforms', () => {
 
   describe('createShaderUniformBuilder', () => {
     it('returns correct uniform values', () => {
-      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
+      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight);
       const uniforms = builder({ x: 0.5, y: 0.25 });
+      const dpr = defaultDevicePixelRatio();
 
-      expect(uniforms.resolution).toEqual([
-        canvasWidth * devicePixelRatio,
-        canvasHeight * devicePixelRatio
-      ]);
+      expect(uniforms.resolution).toEqual([canvasWidth * dpr, canvasHeight * dpr]);
       expect(uniforms.aspectRatio).toBeCloseTo(canvasWidth / canvasHeight);
       expect(uniforms.mouse).toEqual([0.5, 0.75]);
     });
 
     it('converts top-left pointer UV into vUv space (y-up)', () => {
-      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
+      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight);
 
       // Pointer at top-left -> vUv (0, 1); pointer at bottom-left -> vUv (0, 0).
       expect(builder({ x: 0, y: 0 }).mouse).toEqual([0, 1]);
@@ -259,7 +258,7 @@ describe('transforms', () => {
     });
 
     it('defaults mouse to vUv top-left (0,1) when not provided', () => {
-      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight, devicePixelRatio);
+      const builder = createShaderUniformBuilder(canvasWidth, canvasHeight);
       const uniforms = builder();
 
       expect(uniforms.mouse).toEqual([0, 1]);
