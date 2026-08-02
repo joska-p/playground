@@ -1,32 +1,35 @@
+// createPerturbationPipeline.ts
 import { createQuadPipeline, type QuadPipeline } from '@repo/graphics/2d/createQuadPipeline';
 import type { ReferenceOrbit } from './perturbationOrbit';
 
 export type PerturbationPipeline = QuadPipeline & {
-  /** Uploads (or reuses) the reference orbit as an RG32F data texture. */
-  setReferenceOrbit(orbit: ReferenceOrbit): void;
+  setReferenceOrbits(primary: ReferenceOrbit, secondary: ReferenceOrbit): void;
   readonly orbitTexture: WebGLTexture;
+  readonly orbitTexture2: WebGLTexture;
 };
 
 export function createPerturbationPipeline(gl: WebGL2RenderingContext): PerturbationPipeline {
   const quad = createQuadPipeline(gl);
-  let orbitTexture: WebGLTexture | null = null;
-  let orbitWidth = 0;
-  let lastOrbit: ReferenceOrbit | null = null;
 
-  const deleteOrbitTexture = (): void => {
-    if (orbitTexture) {
-      gl.deleteTexture(orbitTexture);
-      orbitTexture = null;
-      orbitWidth = 0;
-    }
+  let tex1: WebGLTexture | null = null;
+  let tex2: WebGLTexture | null = null;
+  let width1 = 0;
+  let width2 = 0;
+  let lastPrimary: ReferenceOrbit | null = null;
+  let lastSecondary: ReferenceOrbit | null = null;
+
+  const deleteTex = (t: WebGLTexture | null) => {
+    if (t) gl.deleteTexture(t);
   };
 
-  const uploadOrbit = (orbit: ReferenceOrbit): void => {
-    if (orbit.orbitLength !== orbitWidth) {
-      deleteOrbitTexture();
+  const upload = (
+    orbit: ReferenceOrbit,
+    existing: WebGLTexture | null,
+    existingWidth: number
+  ): { tex: WebGLTexture; width: number } => {
+    if (!existing || orbit.orbitLength !== existingWidth) {
+      deleteTex(existing);
       const tex = gl.createTexture();
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createTexture() as non-null, but the WebGL spec allows null on failure
-      if (!tex) throw new Error('PerturbationPipeline: orbit texture creation failed');
       gl.bindTexture(gl.TEXTURE_2D, tex);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -43,36 +46,59 @@ export function createPerturbationPipeline(gl: WebGL2RenderingContext): Perturba
         gl.FLOAT,
         orbit.data
       );
-      orbitTexture = tex;
-      orbitWidth = orbit.orbitLength;
-    } else {
-      gl.bindTexture(gl.TEXTURE_2D, orbitTexture);
-      gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, orbit.orbitLength, 1, gl.RG, gl.FLOAT, orbit.data);
+      return { tex, width: orbit.orbitLength };
     }
+
+    gl.bindTexture(gl.TEXTURE_2D, existing);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, orbit.orbitLength, 1, gl.RG, gl.FLOAT, orbit.data);
+    return { tex: existing, width: existingWidth };
   };
 
   return {
     ...quad,
 
     get orbitTexture(): WebGLTexture {
-      if (!orbitTexture) throw new Error('PerturbationPipeline: orbit texture not initialized');
-      return orbitTexture;
+      if (!tex1) throw new Error('primary orbit texture not ready');
+      return tex1;
+    },
+    get orbitTexture2(): WebGLTexture {
+      if (!tex2) throw new Error('secondary orbit texture not ready');
+      return tex2;
     },
 
-    setReferenceOrbit(orbit: ReferenceOrbit): void {
-      lastOrbit = orbit;
-      uploadOrbit(orbit);
+    setReferenceOrbits(primary: ReferenceOrbit, secondary: ReferenceOrbit): void {
+      lastPrimary = primary;
+      lastSecondary = secondary;
+
+      const r1 = upload(primary, tex1, width1);
+      tex1 = r1.tex;
+      width1 = r1.width;
+
+      const r2 = upload(secondary, tex2, width2);
+      tex2 = r2.tex;
+      width2 = r2.width;
     },
 
     reinitialize(): void {
       quad.reinitialize();
-      if (lastOrbit) uploadOrbit(lastOrbit);
+      // force recreation on context restore
+      deleteTex(tex1);
+      tex1 = null;
+      width1 = 0;
+      deleteTex(tex2);
+      tex2 = null;
+      width2 = 0;
+      if (lastPrimary && lastSecondary) {
+        this.setReferenceOrbits(lastPrimary, lastSecondary);
+      }
     },
 
     dispose(): void {
       quad.dispose();
-      deleteOrbitTexture();
-      lastOrbit = null;
+      deleteTex(tex1);
+      deleteTex(tex2);
+      tex1 = tex2 = null;
+      lastPrimary = lastSecondary = null;
     }
   };
 }
