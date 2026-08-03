@@ -36,12 +36,13 @@ export default defineConfig({
     plugins: [
       tailwindcss(),
       visualizer({
-        template: 'sunburst',
+        template: 'network',
         emitFile: true,
         filename: 'stats.html',
         title: 'Playground client bundle',
         gzipSize: true,
-        brotliSize: true
+        brotliSize: true,
+        sourcemap: true
       })
     ],
     resolve: {
