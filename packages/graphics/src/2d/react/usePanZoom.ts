@@ -37,13 +37,9 @@ export function usePanZoom(
   });
 
   const onChangeRef = useRef(options.onChange);
-
   useEffect(() => {
     onChangeRef.current = options.onChange;
   });
-
-  const dragStart = useRef<Point2D | null>(null);
-  const panStart = useRef<Point2D>({ x: 0, y: 0 });
 
   const minZoom = options.minZoom ?? 0.1;
   const maxZoom = options.maxZoom ?? 5;
@@ -55,7 +51,19 @@ export function usePanZoom(
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    let hasPointer = false;
+    // Prevent browser default pan/zoom
+    canvas.style.touchAction = 'none';
+
+    // Cache of active pointers (pointerId → event)
+    const pointers = new Map<number, PointerEvent>();
+
+    // Single-finger / middle-button pan state
+    let dragStart: Point2D | null = null;
+    let panStart: Point2D = { x: 0, y: 0 };
+
+    // Two-finger pinch state
+    let prevPinchDist = -1;
+    let pinchMidpoint: Point2D | null = null;
 
     const reportView = () => {
       onChangeRef.current?.({
@@ -66,37 +74,121 @@ export function usePanZoom(
       });
     };
 
+    const getMidpoint = (a: PointerEvent, b: PointerEvent): Point2D => ({
+      x: (a.clientX + b.clientX) / 2,
+      y: (a.clientY + b.clientY) / 2
+    });
+
+    const getDistance = (a: PointerEvent, b: PointerEvent) =>
+      Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+
     const handlePointerDown = (e: PointerEvent) => {
-      if (e.button !== 1) return;
-      // Middle button only for panning
-      dragStart.current = { x: e.clientX, y: e.clientY };
-      panStart.current = { ...panZoomRef.current.pan };
-      panZoomRef.current.isPanning = true;
+      // Capture so we keep receiving events even if the pointer leaves the canvas
+      canvas.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, e);
+
+      if (pointers.size === 1) {
+        // Single pointer → start pan (touch or middle mouse)
+        const isMiddle = e.pointerType === 'mouse' && e.button === 1;
+        const isTouch = e.pointerType === 'touch';
+        if (isMiddle || isTouch) {
+          dragStart = { x: e.clientX, y: e.clientY };
+          panStart = { ...panZoomRef.current.pan };
+          panZoomRef.current.isPanning = true;
+        }
+      } else if (pointers.size === 2) {
+        // Second finger → start pinch, cancel any single-finger pan
+        dragStart = null;
+        panZoomRef.current.isPanning = false;
+        const [p1, p2] = [...pointers.values()];
+        prevPinchDist = getDistance(p1, p2);
+        pinchMidpoint = getMidpoint(p1, p2);
+      }
     };
 
     const handlePointerMove = (e: PointerEvent) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, e); // update cached position
+
       const bounds = canvas.getBoundingClientRect();
       const pointer = createScreenToCanvas(bounds)({ x: e.clientX, y: e.clientY });
+      panZoomRef.current.pointer = pointer;
 
-      if (dragStart.current) {
-        const dx = e.clientX - dragStart.current.x;
-        const dy = e.clientY - dragStart.current.y;
+      // ── Single-finger / middle-button pan ──────────────────────────
+      if (dragStart && pointers.size === 1) {
+        const dx = e.clientX - dragStart.x;
+        const dy = e.clientY - dragStart.y;
         const scale = scalePanWithZoom ? 1 / panZoomRef.current.zoom : 1;
         panZoomRef.current.pan = {
-          x: panStart.current.x + dx * scale,
-          y: panStart.current.y + dy * scale
+          x: panStart.x + dx * scale,
+          y: panStart.y + dy * scale
         };
         reportView();
+        return;
       }
-      hasPointer = true;
-      panZoomRef.current.pointer = pointer;
+
+      // ── Two-finger pinch + pan ─────────────────────────────────────
+      if (pointers.size === 2) {
+        const [p1, p2] = [...pointers.values()];
+        const curDist = getDistance(p1, p2);
+        const mid = getMidpoint(p1, p2);
+
+        if (prevPinchDist > 0) {
+          // Zoom factor from change in distance
+          const zoomFactor = curDist / prevPinchDist;
+          const state = panZoomRef.current;
+          const nextZoom = Math.max(minZoom, Math.min(maxZoom, state.zoom * zoomFactor));
+
+          if (nextZoom !== state.zoom) {
+            // Zoom around the midpoint of the two fingers
+            const midCanvas = createScreenToCanvas(bounds)(mid);
+            const midNorm = createCanvasToNormalized(bounds.width, bounds.height)(midCanvas);
+
+            const scale = 1 / state.zoom - 1 / nextZoom;
+            state.pan.x -= (midNorm.x - 0.5) * scale * bounds.width;
+            state.pan.y -= (midNorm.y - 0.5) * scale * bounds.height;
+            state.zoom = nextZoom;
+          }
+
+          // Also pan by the movement of the midpoint
+          if (pinchMidpoint) {
+            const dx = mid.x - pinchMidpoint.x;
+            const dy = mid.y - pinchMidpoint.y;
+            const panScale = scalePanWithZoom ? 1 / state.zoom : 1;
+            state.pan.x += dx * panScale;
+            state.pan.y += dy * panScale;
+          }
+
+          reportView();
+        }
+
+        prevPinchDist = curDist;
+        pinchMidpoint = mid;
+      }
     };
 
-    const handlePointerUp = () => {
-      dragStart.current = null;
-      panZoomRef.current.isPanning = false;
+    const handlePointerUp = (e: PointerEvent) => {
+      canvas.releasePointerCapture(e.pointerId);
+      pointers.delete(e.pointerId);
+
+      if (pointers.size < 2) {
+        prevPinchDist = -1;
+        pinchMidpoint = null;
+      }
+
+      if (pointers.size === 0) {
+        dragStart = null;
+        panZoomRef.current.isPanning = false;
+      } else if (pointers.size === 1) {
+        // One finger left → resume single-finger pan from current position
+        const remaining = [...pointers.values()][0];
+        dragStart = { x: remaining.clientX, y: remaining.clientY };
+        panStart = { ...panZoomRef.current.pan };
+        panZoomRef.current.isPanning = true;
+      }
     };
 
+    // Wheel zoom (unchanged, still works with mouse / trackpad)
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const state = panZoomRef.current;
@@ -104,7 +196,7 @@ export function usePanZoom(
       const nextZoom = Math.max(minZoom, Math.min(maxZoom, state.zoom * zoomFactor));
       if (nextZoom === state.zoom) return;
 
-      if (zoomToCursor && hasPointer) {
+      if (zoomToCursor) {
         const bounds = canvas.getBoundingClientRect();
         const pointerNormalized = createCanvasToNormalized(
           bounds.width,
@@ -119,15 +211,20 @@ export function usePanZoom(
     };
 
     canvas.addEventListener('pointerdown', handlePointerDown);
-    window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', handlePointerUp);
+    canvas.addEventListener('pointermove', handlePointerMove);
+    canvas.addEventListener('pointerup', handlePointerUp);
+    canvas.addEventListener('pointercancel', handlePointerUp);
+    canvas.addEventListener('pointerleave', handlePointerUp); // safety
     canvas.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
       canvas.removeEventListener('pointerdown', handlePointerDown);
-      window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('pointerup', handlePointerUp);
+      canvas.removeEventListener('pointermove', handlePointerMove);
+      canvas.removeEventListener('pointerup', handlePointerUp);
+      canvas.removeEventListener('pointercancel', handlePointerUp);
+      canvas.removeEventListener('pointerleave', handlePointerUp);
       canvas.removeEventListener('wheel', handleWheel);
+      canvas.style.touchAction = '';
     };
   }, [canvasRef, minZoom, maxZoom, zoomToCursor, scalePanWithZoom, zoomSpeed]);
 
