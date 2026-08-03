@@ -1,8 +1,6 @@
 ---
-type Route = { label: string; href: string; icon?: string };
-
 const baseUrl = import.meta.env.BASE_URL || '/';
-const routes: Route[] = [
+const routes = [
   {
     label: 'Github',
     href: 'https://github.com/joska-p/playground',
@@ -13,7 +11,6 @@ const routes: Route[] = [
 ];
 
 const credits = ['Astro', 'React', 'Tailwind', 'Turborepo', 'Storybook', 'TypeScript'];
-type Props = { class?: string };
 const { class: className } = Astro.props;
 ---
 
@@ -39,8 +36,8 @@ const { class: className } = Astro.props;
           PG_LAB,
         </a>
         <p class="text-muted-foreground/50 text-xs">
-          <slot>Made with creativity.</slot>
-          <a href="/stats.html">Bundle stats</a>
+          <slot>Made with creativity.</slot>{' '}
+          <a href=`${baseUrl}stats.html`>Bundle stats</a>
         </p>
       </div>
 

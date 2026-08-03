@@ -36,8 +36,12 @@ export default defineConfig({
     plugins: [
       tailwindcss(),
       visualizer({
-        template: 'treemap',
-        filename: './public/stats.html'
+        template: 'sunburst',
+        emitFile: true,
+        filename: 'stats.html',
+        title: 'Playground client bundle',
+        gzipSize: true,
+        brotliSize: true
       })
     ],
     resolve: {
@@ -89,13 +93,31 @@ export default defineConfig({
     build: {
       sourcemap: true,
       chunkSizeWarningLimit: 1200,
-      rollupOptions: {
+      rolldownOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules/three')) return 'vendor-three';
-            if (id.includes('node_modules/@react-three')) return 'vendor-r3f';
-            if (id.includes('node_modules/colorjs.io')) return 'vendor-colorjs';
-            return undefined;
+          codeSplitting: {
+            groups: [
+              {
+                name: 'vendor-react',
+                test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+                priority: 100
+              },
+              {
+                name: 'vendor-three',
+                test: /node_modules[\\/]three[\\/]/,
+                priority: 100
+              },
+              {
+                name: 'vendor-r3f',
+                test: /node_modules[\\/]@react-three[\\/]/,
+                priority: 50
+              },
+              {
+                name: 'vendor-colorjs',
+                test: /node_modules[\\/]colorjs\.io[\\/]/,
+                priority: 50
+              }
+            ]
           }
         }
       }
