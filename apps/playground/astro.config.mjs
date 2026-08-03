@@ -36,7 +36,7 @@ export default defineConfig({
     plugins: [
       tailwindcss(),
       visualizer({
-        template: 'network',
+        template: 'treemap',
         emitFile: true,
         filename: 'stats.html',
         title: 'Playground client bundle',
