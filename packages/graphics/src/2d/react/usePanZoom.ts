@@ -101,6 +101,7 @@ export function usePanZoom(
         dragStart = null;
         panZoomRef.current.isPanning = false;
         const [p1, p2] = [...pointers.values()];
+        if (!p1 || !p2) return;
         prevPinchDist = getDistance(p1, p2);
         pinchMidpoint = getMidpoint(p1, p2);
       }
@@ -130,6 +131,7 @@ export function usePanZoom(
       // ── Two-finger pinch + pan ─────────────────────────────────────
       if (pointers.size === 2) {
         const [p1, p2] = [...pointers.values()];
+        if (!p1 || !p2) return;
         const curDist = getDistance(p1, p2);
         const mid = getMidpoint(p1, p2);
 
@@ -182,6 +184,7 @@ export function usePanZoom(
       } else if (pointers.size === 1) {
         // One finger left → resume single-finger pan from current position
         const remaining = [...pointers.values()][0];
+        if (!remaining) return;
         dragStart = { x: remaining.clientX, y: remaining.clientY };
         panStart = { ...panZoomRef.current.pan };
         panZoomRef.current.isPanning = true;
