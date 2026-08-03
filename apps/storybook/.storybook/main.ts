@@ -25,29 +25,31 @@ const config: StorybookConfig = {
     config.build ??= {};
     config.build.rolldownOptions ??= {};
     config.build.rolldownOptions.output ??= {};
-    config.build.rolldownOptions.output.codeSplitting = {
-      groups: [
-        {
-          name: 'vendor-react',
-          test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
-          priority: 100
-        },
-        {
-          name: 'vendor-three',
-          test: /node_modules[\\/]three[\\/]/,
-          priority: 100
-        },
-        {
-          name: 'vendor-r3f',
-          test: /node_modules[\\/]@react-three[\\/]/,
-          priority: 50
-        },
-        {
-          name: 'vendor-colorjs',
-          test: /node_modules[\\/]colorjs\.io[\\/]/,
-          priority: 50
-        }
-      ]
+    config.build.rolldownOptions.output = {
+      codeSplitting: {
+        groups: [
+          {
+            name: 'vendor-react',
+            test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+            priority: 100
+          },
+          {
+            name: 'vendor-three',
+            test: /node_modules[\\/]three[\\/]/,
+            priority: 100
+          },
+          {
+            name: 'vendor-r3f',
+            test: /node_modules[\\/]@react-three[\\/]/,
+            priority: 50
+          },
+          {
+            name: 'vendor-colorjs',
+            test: /node_modules[\\/]colorjs\.io[\\/]/,
+            priority: 50
+          }
+        ]
+      }
     };
     return config;
   }
