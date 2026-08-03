@@ -21,7 +21,7 @@ export function usePanZoomUniforms(
     if (hasPan) {
       values['u_panOffset'] = [
         panZoomState.pan.x / runner.canvas.clientWidth,
-        panZoomState.pan.y / runner.canvas.clientHeight
+        -panZoomState.pan.y / runner.canvas.clientHeight
       ];
     }
     if (hasZoom) {

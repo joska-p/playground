@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
 import { applyStandardUniforms } from '@repo/graphics/core/standardUniforms';
-import { createShaderUniformBuilder, type Point2D } from '@repo/graphics/2d/transforms';
+import {
+  createScreenToNormalizedClamped,
+  createShaderUniformBuilder,
+  type Point2D
+} from '@repo/graphics/2d/transforms';
 import { usePanZoom, type PanZoomOptions } from '@repo/graphics/2d/react/usePanZoom';
 import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
 import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
@@ -160,7 +164,7 @@ function PerturbationCanvas() {
     // ─── FIXED CENTRE ────────────────────────────────────────────────
     // pan is stored in zoom-normalized units (because scalePanWithZoom = true).
     // The same convention is used by usePanZoomUniforms.
-    const panNormX = -pan.x / runner.canvas.clientWidth;
+    const panNormX = pan.x / runner.canvas.clientWidth;
     const panNormY = pan.y / runner.canvas.clientHeight;
 
     // Convert pan with the FIXED zoom = 1 width, not the current view scale
@@ -234,10 +238,9 @@ function PerturbationCanvas() {
 
   function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
-    runnerRef.current?.setMouse({
-      x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
-      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height))
-    });
+    runnerRef.current?.setMouse(
+      createScreenToNormalizedClamped(rect)({ x: e.clientX, y: e.clientY })
+    );
   }
 
   return (

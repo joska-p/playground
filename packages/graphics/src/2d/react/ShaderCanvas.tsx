@@ -4,7 +4,7 @@ import { useFrame } from './FrameLoopContext';
 import { usePanZoom, type CanvasView } from './usePanZoom';
 import { usePanZoomUniforms } from './usePanZoomUniforms';
 import { useShaderRunner } from './useShaderRunner';
-import type { Point2D } from '../transforms';
+import { createScreenToNormalizedClamped, type Point2D } from '../transforms';
 import type { WebGLContextAttributes } from '../../core/createWebGLContext';
 import type { PanZoomOptions } from './usePanZoom';
 
@@ -71,12 +71,11 @@ export function ShaderCanvas(props: ShaderCanvasProps) {
 
   function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
-    const mouse = {
-      x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
-      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height))
-    };
-    mouseRef.current = mouse;
-    runnerRef.current?.setMouse(mouse);
+    mouseRef.current = createScreenToNormalizedClamped(rect)({
+      x: e.clientX,
+      y: e.clientY
+    });
+    runnerRef.current?.setMouse(mouseRef.current);
   }
 
   useFrame((frameTime) => {

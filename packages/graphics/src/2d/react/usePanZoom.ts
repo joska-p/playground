@@ -1,5 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import type { Point2D } from '../transforms';
+import { createCanvasToNormalized, createScreenToCanvas, type Point2D } from '../transforms';
 
 export type PanZoomState = {
   pan: Point2D;
@@ -76,14 +76,14 @@ export function usePanZoom(
 
     const handlePointerMove = (e: PointerEvent) => {
       const bounds = canvas.getBoundingClientRect();
-      const pointer = { x: e.clientX - bounds.left, y: e.clientY - bounds.top };
+      const pointer = createScreenToCanvas(bounds)({ x: e.clientX, y: e.clientY });
 
       if (dragStart.current) {
         const dx = e.clientX - dragStart.current.x;
         const dy = e.clientY - dragStart.current.y;
         const scale = scalePanWithZoom ? 1 / panZoomRef.current.zoom : 1;
         panZoomRef.current.pan = {
-          x: panStart.current.x + dx * -scale,
+          x: panStart.current.x + dx * scale,
           y: panStart.current.y + dy * scale
         };
         reportView();
@@ -106,13 +106,13 @@ export function usePanZoom(
 
       if (zoomToCursor && hasPointer) {
         const bounds = canvas.getBoundingClientRect();
-        const n = {
-          x: state.pointer.x / bounds.width,
-          y: state.pointer.y / bounds.height
-        };
+        const pointerNormalized = createCanvasToNormalized(
+          bounds.width,
+          bounds.height
+        )(state.pointer);
         const scale = 1 / state.zoom - 1 / nextZoom;
-        state.pan.x -= (n.x - 0.5) * scale * bounds.width;
-        state.pan.y -= (n.y - 0.5) * scale * bounds.height;
+        state.pan.x -= (pointerNormalized.x - 0.5) * scale * bounds.width;
+        state.pan.y -= (pointerNormalized.y - 0.5) * scale * bounds.height;
       }
       state.zoom = nextZoom;
       reportView();

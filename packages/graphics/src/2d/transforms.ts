@@ -180,6 +180,26 @@ export function createBufferToScreen(
   };
 }
 
+export function createScreenToNormalized(canvasElementBounds: CanvasElementBounds) {
+  const screenToCanvas = createScreenToCanvas(canvasElementBounds);
+  const canvasToNormalized = createCanvasToNormalized(
+    canvasElementBounds.width,
+    canvasElementBounds.height
+  );
+  return (vector: Point2D): Point2D => canvasToNormalized(screenToCanvas(vector));
+}
+
+export function createScreenToNormalizedClamped(canvasElementBounds: CanvasElementBounds) {
+  const toNormalized = createScreenToNormalized(canvasElementBounds);
+  return (vector: Point2D): Point2D => {
+    const n = toNormalized(vector);
+    return {
+      x: Math.max(0, Math.min(1, n.x)),
+      y: Math.max(0, Math.min(1, n.y))
+    };
+  };
+}
+
 export type GridCell = {
   column: number;
   row: number;
