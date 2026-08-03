@@ -37,7 +37,6 @@ This package is built around three core architectural principles:
 | **2d/createGPGPUPipeline**      | factory   | GPU compute pipeline over an `FBOManager` — multi-program, state texture, init/step — returns a `GPGPUPipeline`                                                                                                                                                      |
 | **core/compileShaderProgram**   | factory   | GLSL compile/link helpers (`compileShaderProgram`, `setUniformValue`) shared by the shader pipelines                                                                                                                                                                 |
 | **core/standardUniforms**       | helpers   | Canonical framework-uniform contract (`u_resolution`/`u_aspect`/`u_mouse`) + `applyStandardUniforms`                                                                                                                                                                 |
-| **core/generateGLSLFragment**   | function  | GLSL UV-calculation snippet generator (shader-side counterpart to the JS transforms)                                                                                                                                                                                 |
 | **2d/react/FrameLoopContext**   | context   | `FrameLoopProvider` + `useFrame` — rAF loop distributed via React context                                                                                                                                                                                            |
 | **2d/react/useShaderRunner**    | hook      | Mount a fragment shader on a canvas with `ResizeObserver` auto-resize                                                                                                                                                                                                |
 | **2d/react/ShaderCanvas**       | component | Standalone animated shader component combining `useShaderRunner` + `useFrame` + `usePanZoomUniforms`                                                                                                                                                                 |
@@ -116,23 +115,6 @@ const dataToCanvas = createDataToCanvas(
 );
 
 const canvasPositions = dataPoints.map(dataToCanvas);
-```
-
-### GLSL fragment boilerplate
-
-`generateGLSLFragment` produces reusable UV-calculation snippets for your shaders:
-
-```typescript
-import { generateGLSLFragment } from '@repo/graphics/2d/transforms';
-
-const uvSetup = generateGLSLFragment({
-  inputSpace: 'canvas',
-  flipVertically: true,
-  correctAspectRatio: true
-});
-// → "vec2 uv = gl_FragCoord.xy / u_resolution;"
-// → "uv.y = 1.0 - uv.y;"
-// → "uv.x *= u_resolution.x / u_resolution.y;"
 ```
 
 ### Shader uniform builder

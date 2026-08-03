@@ -83,7 +83,7 @@ export function usePanZoom(
         const dy = e.clientY - dragStart.current.y;
         const scale = scalePanWithZoom ? 1 / panZoomRef.current.zoom : 1;
         panZoomRef.current.pan = {
-          x: panStart.current.x + dx * scale,
+          x: -(panStart.current.x + dx * scale),
           y: panStart.current.y + dy * scale
         };
         reportView();
