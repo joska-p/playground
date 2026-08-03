@@ -169,7 +169,10 @@ function PerturbationCanvas() {
 
     // Convert pan with the FIXED zoom = 1 width, not the current view scale
     // (see WORLD_SCALE doc comment above) — this is the pan/zoom bug fix.
-    const centerRe = panNormX * WORLD_SCALE - 0.5; // classic Mandelbrot base centre
+    // pan is a drag offset: it moves opposite the cursor (content-follows),
+    // hence the negated centerRe; y is flipped by the canvas→vUv conversion,
+    // so centerIm stays positive — matching usePanZoomUniforms.
+    const centerRe = -panNormX * WORLD_SCALE - 0.5; // classic Mandelbrot base centre
     const centerIm = panNormY * WORLD_SCALE;
 
     // Complex-plane width of the *current* view — this one correctly shrinks

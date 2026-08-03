@@ -20,8 +20,8 @@ export function usePanZoomUniforms(
     const values: Record<string, UniformValue> = {};
     if (hasPan) {
       values['u_panOffset'] = [
-        panZoomState.pan.x / runner.canvas.clientWidth,
-        -panZoomState.pan.y / runner.canvas.clientHeight
+        -panZoomState.pan.x / runner.canvas.clientWidth,
+        panZoomState.pan.y / runner.canvas.clientHeight
       ];
     }
     if (hasZoom) {

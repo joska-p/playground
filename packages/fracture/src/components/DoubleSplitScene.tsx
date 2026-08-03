@@ -39,11 +39,13 @@ function DoubleSplitScene() {
         // Map the interaction view onto the complex-plane center the shader
         // expects. With the shader's convention
         //   c = (uvCoord - 0.5) · (3 / zoom) + center
-        // the center is (3·panNorm − 0.5, 3·panNorm.y), where panNorm is the
-        // pan offset normalized by the canvas size (y-up).
+        // the center is (−3·panNormX − 0.5, 3·panNormY), where panNorm is the
+        // pan offset normalized by the canvas size. pan is a drag offset, so it
+        // must move opposite the cursor (content-follows); y is flipped by the
+        // canvas→vUv conversion, so it enters positive.
         const panNormX = view.pan.x / view.canvasWidth;
         const panNormY = view.pan.y / view.canvasHeight;
-        const centerRe = 3.0 * panNormX - 0.5;
+        const centerRe = -3.0 * panNormX - 0.5;
         const centerIm = 3.0 * panNormY;
 
         // Split each float64 center component into a double-single (hi, lo)
