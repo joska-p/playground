@@ -1,15 +1,9 @@
 import { ControlGrid, ControlPanel as Panel, ControlRow } from '@repo/ui/control-panel';
-import { Button, Select, Slider } from '@repo/ui/data-entry';
+import { Select, Slider } from '@repo/ui/data-entry';
 import { computeMaxIterations } from '../core/perturbationOrbit';
 import { setParam, useParams } from '../stores/createParamStore';
 import { paramStores } from '../stores/paramStores';
-import {
-  resetView,
-  setRenderer,
-  useRenderer,
-  useViewZoom,
-  type Renderer
-} from '../stores/viewStore';
+import { setRenderer, useRenderer, useViewZoom, type Renderer } from '../stores/viewStore';
 
 function ControlPanel() {
   const renderer = useRenderer();
@@ -53,16 +47,6 @@ function ControlPanel() {
 
       <ControlRow label="iterations @ zoom">
         <span className="text-foreground-dim text-sm">{iterationsAtZoom}</span>
-      </ControlRow>
-
-      <ControlRow label="view">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={resetView}
-        >
-          reset view
-        </Button>
       </ControlRow>
 
       <ControlGrid columns={2}>

@@ -1,8 +1,6 @@
 import type { ShaderUniformValues } from '../core/standardUniforms';
 import { defaultDevicePixelRatio } from '../core/createWebGLContext';
 
-export { generateGLSLFragment } from '../core/generateGLSLFragment';
-
 /**
  * Coordinate spaces used by this module
  *

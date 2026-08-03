@@ -18,7 +18,6 @@
     "./core/compileShaderProgram": "./src/core/compileShaderProgram.ts",
     "./core/createFrameLoop": "./src/core/createFrameLoop.ts",
     "./core/createWebGLContext": "./src/core/createWebGLContext.ts",
-    "./core/generateGLSLFragment": "./src/core/generateGLSLFragment.ts",
     "./core/standardUniforms": "./src/core/standardUniforms.ts"
   },
   "scripts": {

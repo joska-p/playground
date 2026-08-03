@@ -30,9 +30,3 @@ export const setRenderer = (renderer: Renderer) => {
 export const setView = (view: View) => {
   viewStore.setState(view);
 };
-export const resetView = () => {
-  viewStore.setState({
-    pan: { x: 0, y: 0 },
-    zoom: 1
-  });
-};

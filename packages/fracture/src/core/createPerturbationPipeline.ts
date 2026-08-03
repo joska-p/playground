@@ -11,10 +11,10 @@ export type PerturbationPipeline = QuadPipeline & {
 export function createPerturbationPipeline(gl: WebGL2RenderingContext): PerturbationPipeline {
   const quad = createQuadPipeline(gl);
 
-  let tex1: WebGLTexture | null = null;
-  let tex2: WebGLTexture | null = null;
-  let width1 = 0;
-  let width2 = 0;
+  let texture1: WebGLTexture | null = null;
+  let texture2: WebGLTexture | null = null;
+  let texture1Width = 0;
+  let texture2Width = 0;
   let lastPrimary: ReferenceOrbit | null = null;
   let lastSecondary: ReferenceOrbit | null = null;
 
@@ -58,36 +58,36 @@ export function createPerturbationPipeline(gl: WebGL2RenderingContext): Perturba
     ...quad,
 
     get orbitTexture(): WebGLTexture {
-      if (!tex1) throw new Error('primary orbit texture not ready');
-      return tex1;
+      if (!texture1) throw new Error('primary orbit texture not ready');
+      return texture1;
     },
     get orbitTexture2(): WebGLTexture {
-      if (!tex2) throw new Error('secondary orbit texture not ready');
-      return tex2;
+      if (!texture2) throw new Error('secondary orbit texture not ready');
+      return texture2;
     },
 
     setReferenceOrbits(primary: ReferenceOrbit, secondary: ReferenceOrbit): void {
       lastPrimary = primary;
       lastSecondary = secondary;
 
-      const r1 = upload(primary, tex1, width1);
-      tex1 = r1.tex;
-      width1 = r1.width;
+      const r1 = upload(primary, texture1, texture1Width);
+      texture1 = r1.tex;
+      texture1Width = r1.width;
 
-      const r2 = upload(secondary, tex2, width2);
-      tex2 = r2.tex;
-      width2 = r2.width;
+      const r2 = upload(secondary, texture2, texture2Width);
+      texture2 = r2.tex;
+      texture2Width = r2.width;
     },
 
     reinitialize(): void {
       quad.reinitialize();
       // force recreation on context restore
-      deleteTex(tex1);
-      tex1 = null;
-      width1 = 0;
-      deleteTex(tex2);
-      tex2 = null;
-      width2 = 0;
+      deleteTex(texture1);
+      texture1 = null;
+      texture1Width = 0;
+      deleteTex(texture2);
+      texture2 = null;
+      texture2Width = 0;
       if (lastPrimary && lastSecondary) {
         this.setReferenceOrbits(lastPrimary, lastSecondary);
       }
@@ -95,9 +95,9 @@ export function createPerturbationPipeline(gl: WebGL2RenderingContext): Perturba
 
     dispose(): void {
       quad.dispose();
-      deleteTex(tex1);
-      deleteTex(tex2);
-      tex1 = tex2 = null;
+      deleteTex(texture1);
+      deleteTex(texture2);
+      texture1 = texture2 = null;
       lastPrimary = lastSecondary = null;
     }
   };
