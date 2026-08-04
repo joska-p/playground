@@ -172,7 +172,8 @@ function PerturbationCanvas() {
     // pan is a drag offset: it moves opposite the cursor (content-follows),
     // hence the negated centerRe; y is flipped by the canvas→vUv conversion,
     // so centerIm stays positive — matching usePanZoomUniforms.
-    const centerRe = -panNormX * WORLD_SCALE - 0.5; // classic Mandelbrot base centre
+    const aspect = runner.canvas.clientWidth / runner.canvas.clientHeight;
+    const centerRe = -panNormX * WORLD_SCALE * aspect - 0.5;
     const centerIm = panNormY * WORLD_SCALE;
 
     // Complex-plane width of the *current* view — this one correctly shrinks

@@ -45,7 +45,8 @@ function DoubleSplitScene() {
         // canvas→vUv conversion, so it enters positive.
         const panNormX = view.pan.x / view.canvasWidth;
         const panNormY = view.pan.y / view.canvasHeight;
-        const centerRe = -3.0 * panNormX - 0.5;
+        const aspect = view.canvasWidth / view.canvasHeight;
+        const centerRe = -3.0 * aspect * panNormX - 0.5;
         const centerIm = 3.0 * panNormY;
 
         // Split each float64 center component into a double-single (hi, lo)

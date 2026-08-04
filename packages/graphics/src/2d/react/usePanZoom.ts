@@ -108,12 +108,12 @@ export function usePanZoom(
     };
 
     const handlePointerMove = (e: PointerEvent) => {
-      if (!pointers.has(e.pointerId)) return;
-      pointers.set(e.pointerId, e); // update cached position
-
       const bounds = canvas.getBoundingClientRect();
       const pointer = createScreenToCanvas(bounds)({ x: e.clientX, y: e.clientY });
       panZoomRef.current.pointer = pointer;
+
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, e); // update cached position
 
       // ── Single-finger / middle-button pan ──────────────────────────
       if (dragStart && pointers.size === 1) {

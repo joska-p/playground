@@ -30,13 +30,8 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       {
         type: 'addMany',
         destination: 'packages/{{name}}',
-        base: 'templates',
+        base: 'templates/new-package',
         templateFiles: 'templates/new-package/**/*'
-      },
-      {
-        type: 'add',
-        path: 'packages/{{name}}/.gitignore',
-        templateFile: 'templates/new-package/.gitignore.hbs'
       }
     ]
   });

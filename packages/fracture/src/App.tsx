@@ -11,19 +11,17 @@ function App() {
 
   return (
     <div className="bg-background text-foreground min-h-screen grid place-items-center relative">
-      <div className="aspect-square landscape:h-screen portrait:w-screen">
-        <FrameLoopProvider>
-          <Activity mode={renderer === 'double-single' ? 'visible' : 'hidden'}>
-            {<DoubleSplitScene />}
-          </Activity>
-          <Activity mode={renderer === 'perturbation' ? 'visible' : 'hidden'}>
-            <PerturbationScene />
-          </Activity>
-          <Activity mode={renderer === 'original' ? 'visible' : 'hidden'}>
-            <OriginalScene />
-          </Activity>
-        </FrameLoopProvider>
-      </div>
+      <FrameLoopProvider>
+        <Activity mode={renderer === 'double-single' ? 'visible' : 'hidden'}>
+          {<DoubleSplitScene />}
+        </Activity>
+        <Activity mode={renderer === 'perturbation' ? 'visible' : 'hidden'}>
+          <PerturbationScene />
+        </Activity>
+        <Activity mode={renderer === 'original' ? 'visible' : 'hidden'}>
+          <OriginalScene />
+        </Activity>
+      </FrameLoopProvider>
       <ControlPanel />
     </div>
   );

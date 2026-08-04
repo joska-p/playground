@@ -22,6 +22,7 @@ uniform float u_chromaScale;
 uniform vec2 u_centerRe;
 uniform vec2 u_centerIm;
 uniform float u_zoom;
+uniform float u_aspect;
 
 in vec2 vUv;
 out vec4 fragColor;
@@ -114,7 +115,7 @@ vec3 oklchToRgb(vec3 oklch) {
 // Returns (continuous height, secondary magnitude)
 // ---------------------------------------------------------------------------
 vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
-  vec2 delta = (uvCoord - 0.5) * (3.0 / u_zoom);
+  vec2 delta = (uvCoord - 0.5) * vec2(u_aspect, 1.0) * (3.0 / u_zoom);
 
   vec2 cr = ds_add(ds_set2(u_centerRe.x, u_centerRe.y), ds_set(delta.x));
   vec2 ci = ds_add(ds_set2(u_centerIm.x, u_centerIm.y), ds_set(delta.y));

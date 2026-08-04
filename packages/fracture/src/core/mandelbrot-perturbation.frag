@@ -26,6 +26,7 @@ uniform float u_chromaScale;
 // View
 uniform float u_zoom;
 uniform vec2 u_scale; // DS (hi, lo)
+uniform float u_aspect;
 
 in vec2 vUv;
 out vec4 fragColor;
@@ -207,6 +208,7 @@ vec2 runOrbit(sampler2D orbitTex, int orbitLen, int refIters, vec2 d_re, vec2 d_
 
 vec2 getMandelbrotData(vec2 uvCoord) {
   vec2 uvOff = uvCoord - 0.5;
+  uvOff.x *= u_aspect;
   vec2 d_re = ds_mul(u_scale, ds_set(uvOff.x));
   vec2 d_im = ds_mul(u_scale, ds_set(uvOff.y));
 

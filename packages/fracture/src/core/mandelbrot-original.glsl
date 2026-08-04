@@ -64,6 +64,7 @@ uniform float u_chromaScale; // global saturation multiplier
 // View
 uniform float u_zoom; // >1 zooms in
 uniform vec2 u_panOffset; // pan, in UV space, applied after zoom
+uniform float u_aspect; // canvas width / height, for non-square canvases
 
 // ---------- Varyings ----------
 in vec2 vUv; // screen UV in [0,1]²
@@ -121,6 +122,7 @@ vec3 oklchToRgb(vec3 oklch) {
 // ============================================================
 vec2 screenToComplex(vec2 uv) {
   vec2 centered = (uv - 0.5) / u_zoom + 0.5 + u_panOffset;
+  centered.x = (centered.x - 0.5) * u_aspect + 0.5;
   return (centered - 0.5) * 3.0 - vec2(0.5, 0.0);
 }
 
@@ -245,7 +247,7 @@ int computeMaxIterations() {
 //  fractal exactly 3 times per pixel, not 4.
 // ============================================================
 vec3 computeNormal(vec2 uv, int maxIter, float eps, float h0) {
-  float hX = getMandelbrotData(uv + vec2(eps, 0.0), maxIter).x;
+  float hX = getMandelbrotData(uv + vec2(eps / max(u_aspect, 1e-6), 0.0), maxIter).x;
   float hY = getMandelbrotData(uv + vec2(0.0, eps), maxIter).x;
 
   float heightScale = u_bumpHeight / max(u_zoom, 1.0);
