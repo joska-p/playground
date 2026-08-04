@@ -1,4 +1,4 @@
-import type { Point2D } from '../../core/coords/camera';
+import type { Camera, Point2D } from '../../core/coords/camera';
 import type { UniformEntry, UniformValue } from './compileProgram';
 
 function isWebGLTextureValue(
@@ -85,11 +85,14 @@ export function createStandardUniformValues(
   width: number,
   height: number,
   dpr: number,
-  mouse?: Point2D
+  mouse?: Point2D,
+  camera?: Camera
 ): Record<string, UniformValue> {
   return {
     u_resolution: [width * dpr, height * dpr],
     u_aspect: height > 0 ? width / height : 0,
-    u_mouse: mouse === undefined ? [0, 1] : [width > 0 ? mouse.x / width : 0, 1 - mouse.y / height]
+    u_mouse: mouse === undefined ? [0, 1] : [width > 0 ? mouse.x / width : 0, 1 - mouse.y / height],
+    u_camera: camera === undefined ? [0, 0, 1] : [camera.x, camera.y, camera.zoom],
+    u_dpr: dpr
   };
 }

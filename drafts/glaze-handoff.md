@@ -1,14 +1,20 @@
 # Glaze — Session Handoff
 
 _Read this first. It captures everything decided so far so the next session
-doesn't re-derive it. Status: **`core/` (loop + coords) and the doors
-(`cpu/` + `gpu/`) are ported and green (`check-types` + `lint` pass). Next
-step: port shapes.**_
+doesn't re-derive it. Status: **`core/` (loop + coords), the doors (`cpu/` +
+`gpu/`), and the shapes (`cpu/shapes/*` + `gpu/shapes/*`) are ported and green
+(`check-types` + `lint` pass). Next up: steps 4–5 below (README/docs, tests),
+then the `react/*` layer. Known caveat: the GPU shape GLSL was hand-reviewed
+but never compiled against a real WebGL context — runtime-verify it first
+(see [4. Suggested next steps](#4-suggested-next-steps)).**_
 
 > Session log:
 > - **S2 — core/ + doors done.** All design decisions made live below in
 >   [7. Session 2 log](#7-session-2-log--decisions-made). Don't re-litigate
 >   them.
+> - **S3 — shapes done.** See the shape decision in
+>   [7. Session 2 log](#7-session-2-log--decisions-made) (appended there per
+>   the handoff). Don't re-litigate.
 
 ---
 
@@ -50,7 +56,15 @@ Thinking doc: `drafts/unified-graphics.md` (read it for the reasoning).
 ## 3. The scaffold (created, verified)
 
 `packages/glaze/` — created with `pnpm install` run; `check-types` and `lint`
-both **pass on the empty skeleton**.
+both **pass** on the current tree (empty scaffold → then `core/` → then doors).
+
+Filled as of S3: `core/createFrameLoop.ts`, `core/coords/*` (7 files),
+`cpu/input.ts`, `cpu/createCpuDoor.ts`, `cpu/shapes/{types,paint,circle,rect,line,text,path}.ts`,
+`gpu/shader/{compileProgram,setUniforms,createProgram}.ts`, `gpu/createGpuDoor.ts`,
+`gpu/shapes/{color,circle,rect,line,text}.ts`. Still empty: `react/*`. All of
+the above are wired into the `package.json` exports map (the front door);
+`cpu/shapes/paint.ts` and `gpu/shapes/color.ts` are internal helpers and stay
+unexported.
 
 ```
 packages/glaze/
@@ -87,7 +101,16 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
 
 ## 4. Suggested next steps
 
-1. **Port `core/` first** (it's the shared foundation):
+> **Next session (S4): steps 4 + 5 first, then the `react/` layer.** Before
+> writing any new code, runtime-verify the GPU shapes: nothing in this
+> devcontainer has a browser, so the S3 GLSL (circle/rect/line/text fragment
+> shaders in `gpu/shapes/*`) was reviewed by hand but never compiled against a
+> real WebGL context. Spin up the pixelate2d Vite example or a tiny local page
+> (or a vitest + `headless-gl`-style test) and confirm each shape renders —
+> a subtle GLSL slip (e.g. SDF math, texture y-orientation) would only show at
+> runtime.
+
+1. **Port `core/` first** (it's the shared foundation): **DONE (S2).**
    - `createFrameLoop` ← `@repo/graphics/src/core/createFrameLoop.ts`
      (rAF subscribe/unsubscribe, delta time — matches graphics' clean version).
    - `coords/camera.ts` ← `@repo/pixelate2d-math/src/core/camera.ts`
@@ -98,16 +121,22 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
      (screen → canvas → normalized → UV → NDC) — this is D3.
    - Decide naming/style: curried factories (graphics) vs curried `(a)(b)(c)`
      chains (pixelate2d). Pick one; the scaffold names assume the graphics
-     style (`createXxx`).
-2. **Then the doors**: `createCpuDoor` (thin — loop + camera + plain Canvas2D,
-   maybe barely a framework), `createGpuDoor` (the shader/uniform machinery,
-   where `createProgram` is the heart).
+     style (`createXxx`). **PICKED: graphics style (`createXxx`).**
+2. **Then the doors**: **DONE (S2).** `createCpuDoor` (thin — loop + camera +
+   plain Canvas2D, maybe barely a framework), `createGpuDoor` (the
+   shader/uniform machinery, where `createProgram` is the heart).
 3. **Port shapes** from `pixelate2d-core` (CPU ones are nearly copy-paste).
+   **DONE (S3).** See [7. Session 2 log](#7-session-2-log--decisions-made) for
+   the shape-mechanism decision made on GPU.
 4. **Add a README** following `apps/playground/src/content/docs/how-to/documenting-packages.md`,
    then run `pnpm --filter @repo/playground sync-package-docs` and add the
    friendly name to `PACKAGE_NAMES` in `scripts/sync-package-readmes.mjs`.
 5. **Tests** via vitest (script already present); consider porting pixelate2d's
    test ideas for the drivers.
+6. **`react/*` layer** (last empty scaffold): `FrameLoopProvider.tsx`,
+   `useFrame.ts`, `useCamera.ts`, `CpuCanvas.tsx`, `GpuCanvas.tsx`. Follow
+   `@repo/graphics`' React layer (see `packages/graphics/src/react/`) and keep
+   `CpuCanvas`/`GpuCanvas` apart (D1). After this, the package tree is complete.
 
 ## 5. Repo conventions (quick reference)
 
@@ -120,7 +149,108 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
   factories not classes (`createX` returning plain object literals).
 - docs live in package READMEs (source of truth), synced to the Astro site.
 
-## 6. Git state (uncommitted)
+## 7. Session 2 log — decisions made
+
+These were chosen live while porting `core/` + the doors. Treat as settled
+like section 2; only revisit if a later step proves one wrong.
+
+**Naming / style**
+- Curried graphics-style factories (`createXxx(...) → (point) => point`), not
+  pixelate2d `(a)(b)(c)` chains. `Point2D` type lives in
+  `core/coords/camera.ts` (coords foundation) and is imported by the ladder
+  files — the scaffold has no separate `vec2`/`types` file.
+- Error prefix is `'Glaze: '`.
+
+**core/**
+- `createFrameLoop.ts` is a verbatim port of graphics' (time + delta in
+  seconds, auto start on first subscriber, stop at zero).
+- `camera.ts` = pixelate2d model minus `cameraMatrix` (no mat2d in glaze core):
+  `Camera`, `defaultCamera()`, `screenToWorld`/`worldToScreen`. The
+  `createWorldToScreen`/`createScreenToWorld` files are thin facades that
+  delegate to those two — one canonical impl, ladder-uniform names.
+- Space ladder (D3): screen → canvas → normalized → UV. `createNormalizedToUv`
+  is a pure y-flip (`{x, 1-y}`), **not** NDC — `createNormalizedToWebGL`'s
+  `*2-1` scaling was deliberately dropped; UV→NDC was not scaffolded.
+
+**cpu/ door**
+- `input.ts` holds the single `InputStore` (`createInputStore`, ported from
+  pixelate2d engine). It's the **shared input store for BOTH doors** — the
+  GPU door imports it from `../cpu/input` so `u_mouse` works. It lives under
+  `cpu/` because the scaffold put it there; input is shared scaffolding, not a
+  drawing abstraction, so the cross-door import is fine.
+- `createCpuDoor` = loop + camera + `context` (raw Canvas2D) + input, plus two
+  helpers: `applyCamera()` sets the Canvas2D transform so user draws in world
+  coords; `clear(color)` does an identity-transform fill then restores.
+  Resize (CSS size × dpr) happens every frame (cheap, idempotent). Rendering
+  auto-starts on first `setDraw`/`subscribe` and stops when the last leaves.
+
+**gpu/ door**
+- `shader/compileProgram.ts` = port of graphics' `compileShaderProgram`
+  (`Glaze:` prefix), incl. `FULLSCREEN_TRIANGLE`, `UniformEntry`/`UniformValue`.
+- `shader/setUniforms.ts` = `setUniformValue` (type-dispatch, port),
+  `setUniforms` (silently skips uniforms the shader doesn't declare — no DEV
+  warning), `createStandardUniformValues(width, height, dpr, mouse)` →
+  `u_resolution` (device px) / `u_aspect` / `u_mouse` (pointer normalized to
+  canvas then y-flipped to UV, like graphics' `createShaderUniformBuilder`).
+- `shader/createProgram.ts` = the heart: a fullscreen "program" (fragment +
+  uniforms). `render()` draws the fullscreen triangle; texture-unit counter
+  resets **per render**, not per `setUniforms` call (matches graphics).
+  `reinitialize()` recompiles from stored sources; `destroyed` guard so the
+  door's context-restore loop skips freed programs.
+- `createGpuDoor` = WebGL2 context (alpha/premultipliedAlpha true, antialias
+  false — graphics defaults), dpr + resize, context-loss handling
+  (preventDefault; on restore re-apply blend/viewport and recompile tracked
+  programs), core loop, `createProgram`, `renderProgram(program)` (auto-applies
+  standard uniforms from canvas size + `input.pointer`, then renders),
+  `clear(r,g,b,a)`, `setDraw`/`subscribe`, `destroy`.
+- Doors have similar shapes (`setDraw`/`subscribe`/`camera`/`destroy`) but
+  deliberately **no shared interface** (D1 — sibling doors, no god abstraction).
+
+**Next step (step 3): shapes.** CPU ones are near copy-paste from
+`pixelate2d-core/src/drivers/cpu.ts` (plain Canvas2D helpers that assume the
+door's world-space transform). GPU ones should read as a `createProgram`
+(per D2: a shape = a tiny pre-written program) — decide whether that means
+porting pixelate2d's batched `drivers/gpu.ts` tessellation verbatim or writing
+per-shape programs; the door's `createProgram`/`renderProgram` is the surface.
+**DONE (S3) — decision below.**
+
+**S3 — shapes: each shape is a `createProgram`, not a batched renderer.**
+
+- **Picked: per-shape programs** over porting pixelate2d's batched
+  `drivers/gpu.ts` verbatim. The batched driver is a second renderer with its
+  own VAO/buffer/program lifecycle that would sit *beside* `createProgram`
+  (not on it) — it reintroduces the fixed-renderer model D2's "a draw call is
+  a tiny pre-written shader" was meant to dissolve. Per-shape programs keep
+  `createGpuDoor.createProgram`/`renderProgram` as the **one** rendering
+  surface, so the uniform story holds at every level and the "wobble the
+  circle with your own shader" story (unified-graphics §8) is free. Cost:
+  each shape is a fullscreen pass (no batching) — fine for an author tool
+  (D4).
+- **Mechanics.** Each shape fragment shader derives the fragment's *world*
+  position from `vUv` + the standard uniforms, then runs an SDF test with
+  ~2-device-px anti-aliased edges. `renderProgram` now also applies
+  `u_camera` (vec3: CSS-px offset x/y + zoom) and `u_dpr` beside
+  `u_resolution`/`u_aspect`/`u_mouse` — shapes draw in world space through the
+  same surface as fullscreen passes; screen-space shaders ignore the two new
+  uniforms (backward compatible).
+- **Door surface.** `createGpuDoor` gained `drawCircle`/`drawRect`/
+  `drawLine`/`drawText` (p5 immediacy, pixelate2d-style style objects).
+  Each lazily compiles its shape program through the internal `createProgram`
+  (so it joins the context-restore recompile set) and renders through
+  `renderProgram`. Text is rasterized to an offscreen canvas and drawn as a
+  textured quad (ported `getTextTexture`; 128-entry cache, cleared on context
+  restore). Shape modules export their fragment sources (`circleFragmentSource`
+  etc.) + uniform builders, so an author can copy or extend a shape as a
+  program.
+- **CPU shapes** (`cpu/shapes/{circle,rect,line,text,path}.ts`) are plain
+  Canvas2D helpers drawing in the door's world-space transform — near
+  copy-paste from `drivers/cpu.ts`, minus the `transform`/`camera` args the
+  door already owns. Shared types + `beginShape`/`paintShape` live in
+  `cpu/shapes/{types,paint}.ts`; GPU imports the types cross-door (same
+  precedent as `input`). `line` is new (no pixelate2d equivalent): strokes
+  two points with `stroke ?? fill ?? black`.
+
+## 8. Git state (uncommitted)
 
 - `packages/glaze/` — untracked (new).
 - `packages/pixelate2d-{core,math,react}/` — untracked (new, source of ports).

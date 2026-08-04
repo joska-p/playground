@@ -5,6 +5,7 @@
 .opencode
 /docs/
 .superpowers
+A_mytempgarbagedir
 
 # Local workspace config
 .pnpm-store
