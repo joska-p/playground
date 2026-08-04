@@ -1,6 +1,6 @@
 import { formatMagnification } from '../lib/mandelbrot/view';
 
-interface HudProps {
+type HudProps = {
   zoom: number;
   cx: number;
   cy: number;

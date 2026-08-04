@@ -8,7 +8,7 @@
 
 import { VERTEX_SRC, FRAGMENT_SRC } from "./shaders"
 
-export interface LookParams {
+export type LookParams = {
   colorFreq: number
   colorOffset: number
   lightAngle: number
@@ -18,12 +18,12 @@ export interface LookParams {
   baseL: number
 }
 
-export interface FrameParams extends LookParams {
+export type FrameParams = {
   spacing: number
   refOffsetX: number
   refOffsetY: number
   maxIter: number
-}
+} & LookParams
 
 const REF_TEX_WIDTH = 2048
 

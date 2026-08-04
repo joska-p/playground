@@ -1,0 +1,179 @@
+# Architecture & Functional Specification: **Pixelate2D**
+
+**Pixelate2D** is a lightweight, functional-first 2D creative coding framework built for TypeScript and React 19. It combines an immediate-mode mental model with clean functional paradigms (currying, immutability, and closure-based state) to deliver an expressive, left-to-right readable graphics API.
+
+---
+
+## 1. Core Principles & Philosophy
+
+* **Left-to-Right Readability:** Functions flow naturally from intent/style to execution target (`drawCircle(color)(radius)(position)(driver)`).
+* **Pure & Stateless API:** No internal global drawing state (like p5's `fill()` or Canvas2D's `fillStyle`). Every style is explicitly declared per draw pipeline.
+* **Zero React Re-render Overhead:** The render loop executes through closure-based engine stores. React manages DOM lifecycle, canvas mount points, and UI overlays—never high-frequency frame state.
+* **Backend Agnostic:** The exact same curried API executes seamlessly across CPU (Canvas2D) and GPU (WebGL2) drivers.
+
+---
+
+## 2. High-Level System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           APPLICATION LAYER                             │
+├───────────────────────────────────┬─────────────────────────────────────┤
+│   Declarative React 19 Layer      │      Imperative Scripting Layer     │
+│   <CpuCanvas />, <GpuCanvas />    │      runLoop(config)(drawFn)        │
+│   useFrame, useCamera, useInput   │      Functional composition         │
+└─────────────────┬─────────────────┴──────────────────┬──────────────────┘
+                  │                                    │
+                  └─────────────────┐  ┌───────────────┘
+                                    ▼  ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                             PIXELATE2D CORE                             │
+│  State Closure  │  Curried Math  │  Input Store  │  Viewport & Camera   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                        RENDER DRIVER INTERFACE                          │
+│     clear | drawRectangle | drawCircle | drawText | drawPath            │
+├───────────────────────────────────┬─────────────────────────────────────┤
+│    CPU Driver (Canvas 2D API)     │    GPU Driver (Batching Engine)     │
+└───────────────────────────────────┴─────────────────────────────────────┘
+
+```
+
+---
+
+## 3. Module Boundaries & Clean Architecture
+
+### A. `@pixelate2d/math` (Pure Math & Primitives)
+
+* Curried math utilities for vector transformations, matrix operations, and spatial geometry.
+
+### B. `@pixelate2d/core` (Engine, Stores & Drivers)
+
+* **Curried Pipeline Functions:** Core primitives like `drawCircle`, `drawRect`, `drawText`, and `withCamera` implemented with curried argument signatures.
+* **Engine Store:** Closure-based state container managing delta time, frame rates, and context lifecycle.
+* **Input Poll Store:** Non-blocking event listeners mapping mouse, touch, and keyboard states.
+* **Render Drivers:**
+* `createCpuDriver`: Canvas2D driver.
+* `createGpuDriver`: WebGL2 dynamic batching driver.
+
+
+
+### C. `@pixelate2d/react` (React 19 Integration)
+
+* **Container Components:** Feature-packed canvas elements (`<CpuCanvas/>`, `<GpuCanvas/>`) pre-configured with resize observers, gesture listeners, pan/zoom viewports, and frame execution hooks.
+* **Composition Hooks:** Granular primitives (`useFrame`, `useCamera`, `useInput`) for custom component integration.
+
+---
+
+## 4. Curried API & DX Specification
+
+### Left-to-Right Curried Drawing Model
+
+Curried signatures strictly follow the **Style $\rightarrow$ Geometry $\rightarrow$ Target/Context $\rightarrow$ Driver** order:
+
+```typescript
+// Signature: drawCircle(color)(radius)(position)(driver)
+drawCircle('#ff0055')(25)({ x: 100, y: 150 })(driver);
+
+// Signature: drawRect(color)(dimensions)(position)(driver)
+drawRect('rgba(255, 255, 255, 0.1)')({ w: 40, h: 40 })({ x: 0, y: 0 })(driver);
+
+```
+
+### Partial Application & Composition Advantage
+
+Because the API is curried, partial application allows building domain-specific mini-libraries effortlessly:
+
+```typescript
+// Pre-configure style & radius once outside the loop
+const drawRedNode = drawCircle('rgb(220, 50, 50)')(12);
+const drawGoldNode = drawCircle('#ffd700')(8);
+
+// Inside the render loop: execute with remaining arguments (position & driver)
+export const renderGraph = (driver, nodes) => {
+  nodes.forEach((node) => {
+    const drawFn = node.isImportant ? drawGoldNode : drawRedNode;
+    drawFn(node.position)(driver);
+  });
+};
+
+```
+
+---
+
+## 5. React 19 Component & Hook Integration
+
+### Battery-Included React 19 Components
+
+```tsx
+import { GpuCanvas } from '@pixelate2d/react';
+import { drawCircle, drawText } from '@pixelate2d/core';
+
+export function ArtStudio() {
+  return (
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <GpuCanvas
+        pan
+        zoom
+        initialZoom={1.2}
+        onFrame={(driver, { deltaTime, input, camera }) => {
+          driver.clear('#0a0a0c');
+
+          // Left-to-right reading flow
+          drawCircle('#ffd700')(8)(input.getPointerWorldPos(camera))(driver);
+          drawText('Pixelate2D GPU')('#ffffff')(16)({ x: 20, y: 30 })(driver);
+        }}
+      />
+    </div>
+  );
+}
+
+```
+
+### Granular Manual Composition (Hooks)
+
+```tsx
+import { useRef } from 'react';
+import { useCanvasDriver, useFrame, useCamera } from '@pixelate2d/react';
+import { drawRect } from '@pixelate2d/core';
+
+export function CustomCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  const driver = useCanvasDriver(canvasRef, { type: 'cpu' });
+  const [camera, cameraControls] = useCamera({ zoom: 1 });
+
+  // Subscribes directly to frame ticks without triggering React component re-renders
+  useFrame(driver, ({ deltaTime }) => {
+    if (!driver) return;
+    driver.clear('#111');
+    
+    drawRect('#00ffcc')({ w: 100, h: 100 })({ x: 50, y: 50 })(driver);
+  });
+
+  return <canvas ref={canvasRef} {...cameraControls.bindGestures()} />;
+}
+
+```
+
+---
+
+## 6. Architectural Roadmap
+
+```
+Phase 1: Core Functional Foundations
+  ├── Design curried math & spatial utilities (@pixelate2d/math)
+  ├── Define driver interface contract
+  ├── Build curried drawing pipeline primitives
+  └── Build closure-based engine loop & CPU driver
+
+Phase 2: React 19 Lifecycle Bindings
+  ├── Build non-re-rendering useFrame & useInput hooks
+  ├── Create <CpuCanvas /> with built-in pan/zoom camera
+  └── Establish clean canvas teardown & resize handling
+
+Phase 3: GPU Acceleration & Parity
+  ├── Build WebGL2 dynamic batching driver
+  ├── Ensure 100% API parity with CPU driver
+  └── Deliver <GpuCanvas /> React component
+
+```

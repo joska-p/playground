@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@repo/ui/data-entry';
 import { RotateCcw, SlidersHorizontal, X } from 'lucide-react';
 
-export interface LookState {
+export type LookState = {
   maxIter: number;
   colorFreq: number;
   colorOffset: number;
@@ -13,13 +13,13 @@ export interface LookState {
   baseL: number;
 }
 
-interface ControlPanelProps {
+type ControlPanelProps = {
   look: LookState;
   onChange: (next: LookState) => void;
   onReset: () => void;
 }
 
-interface SliderRowProps {
+type SliderRowProps = {
   label: string;
   value: number;
   min: number;
@@ -59,14 +59,14 @@ function SliderRow({ label, value, min, max, step, format, onChange }: SliderRow
 
 export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
   const [open, setOpen] = useState(true);
-  const set = (patch: Partial<LookState>) => onChange({ ...look, ...patch });
+  const set = (patch: Partial<LookState>) => { onChange({ ...look, ...patch }); };
 
   if (!open) {
     return (
       <Button
         variant="secondary"
         size="icon"
-        onClick={() => setOpen(true)}
+        onClick={() => { setOpen(true); }}
         className="absolute right-4 top-4 z-10 backdrop-blur-md"
         aria-label="Open controls"
       >
@@ -80,7 +80,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-sm font-semibold">Controls</h2>
         <button
-          onClick={() => setOpen(false)}
+          onClick={() => { setOpen(false); }}
           className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           aria-label="Close controls"
         >
@@ -96,7 +96,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={400}
           step={5}
           format={(v) => `${v}%`}
-          onChange={(v) => set({ maxIter: v })}
+          onChange={(v) => { set({ maxIter: v }); }}
         />
         <div className="my-1 h-px bg-border/60" />
         <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -108,7 +108,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           min={1}
           max={40}
           step={0.5}
-          onChange={(v) => set({ colorFreq: v })}
+          onChange={(v) => { set({ colorFreq: v }); }}
         />
         <SliderRow
           label="Hue offset"
@@ -117,7 +117,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={1}
           step={0.01}
           format={(v) => v.toFixed(2)}
-          onChange={(v) => set({ colorOffset: v })}
+          onChange={(v) => { set({ colorOffset: v }); }}
         />
         <SliderRow
           label="Chroma"
@@ -126,7 +126,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={0.35}
           step={0.005}
           format={(v) => v.toFixed(3)}
-          onChange={(v) => set({ chroma: v })}
+          onChange={(v) => { set({ chroma: v }); }}
         />
         <SliderRow
           label="Lightness"
@@ -135,7 +135,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={0.95}
           step={0.01}
           format={(v) => v.toFixed(2)}
-          onChange={(v) => set({ baseL: v })}
+          onChange={(v) => { set({ baseL: v }); }}
         />
         <div className="my-1 h-px bg-border/60" />
         <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -148,7 +148,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={360}
           step={1}
           format={(v) => `${v}\u00b0`}
-          onChange={(v) => set({ lightAngle: v })}
+          onChange={(v) => { set({ lightAngle: v }); }}
         />
         <SliderRow
           label="Light height"
@@ -157,7 +157,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={3}
           step={0.05}
           format={(v) => v.toFixed(2)}
-          onChange={(v) => set({ lightHeight: v })}
+          onChange={(v) => { set({ lightHeight: v }); }}
         />
         <SliderRow
           label="Border glow"
@@ -166,7 +166,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
           max={1}
           step={0.01}
           format={(v) => v.toFixed(2)}
-          onChange={(v) => set({ glow: v })}
+          onChange={(v) => { set({ glow: v }); }}
         />
       </div>
 

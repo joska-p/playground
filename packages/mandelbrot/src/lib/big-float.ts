@@ -15,7 +15,7 @@
  * No third-party dependencies — just native BigInt.
  */
 
-export interface BigFloat {
+export type BigFloat = {
   /** Signed mantissa. The real value is `m / 2^prec`. */
   readonly m: bigint
   /** Number of fractional bits. */
@@ -62,7 +62,7 @@ export function fromNumber(value: number, prec: number): BigFloat {
 /** Convert to a JS number (may lose precision, used for display / GPU scale). */
 export function toNumber(a: BigFloat): number {
   const neg = a.m < ZERO
-  let m = neg ? -a.m : a.m
+  const m = neg ? -a.m : a.m
   // Take the top ~53 significant bits to preserve as much as possible.
   const bits = m.toString(2).length
   const drop = Math.max(0, bits - 53)

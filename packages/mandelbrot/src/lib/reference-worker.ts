@@ -7,7 +7,7 @@
  */
 
 import { computeReferenceOrbit } from "./reference-orbit"
-import * as BigFloatMod from "./big-float"
+import type * as BigFloatMod from "./big-float"
 
 // Serialize the math modules into the worker by re-declaring the functions we
 // need through a string. To avoid duplicating source, we instead build the
@@ -15,14 +15,14 @@ import * as BigFloatMod from "./big-float"
 // possible — so we run the computation on the main thread in a microtask-
 // friendly chunked loop as a fallback, and use a real worker when available.
 
-export interface OrbitRequest {
+export type OrbitRequest = {
   centerXStr: string // BigInt mantissa serialized as string
   centerYStr: string
   prec: number
   maxIter: number
 }
 
-export interface OrbitResult {
+export type OrbitResult = {
   data: Float32Array
   length: number
   escaped: boolean

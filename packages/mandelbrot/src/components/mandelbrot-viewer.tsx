@@ -316,7 +316,7 @@ export function MandelbrotViewer() {
 function toNum(a: { m: bigint; prec: number }, prec: number): number {
   // Reuse fromNumber/toNumber semantics without importing toNumber twice.
   const neg = a.m < BigInt(0);
-  let m = neg ? -a.m : a.m;
+  const m = neg ? -a.m : a.m;
   const bits = m.toString(2).length;
   const drop = Math.max(0, bits - 53);
   const top = Number(m >> BigInt(drop));

@@ -19,7 +19,7 @@ import {
   zero,
 } from "./big-float"
 
-export interface ReferenceOrbit {
+export type ReferenceOrbit = {
   /** Interleaved [x0, y0, x1, y1, ...] of the reference orbit, as float32. */
   data: Float32Array
   /** Number of stored iterations (orbit length). */
@@ -28,7 +28,7 @@ export interface ReferenceOrbit {
   escaped: boolean
 }
 
-export interface ReferenceParams {
+export type ReferenceParams = {
   centerX: BigFloat
   centerY: BigFloat
   maxIter: number

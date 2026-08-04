@@ -12,7 +12,7 @@ import { type BigFloat, add, fromNumber, toNumber, withPrec } from '../big-float
 /** Complex-plane height shown at zoom 0. Classic full view is ~3 units tall. */
 export const BASE_SPAN_Y = 3.0;
 
-export interface View {
+export type View = {
   cx: BigFloat;
   cy: BigFloat;
   /** log2 of linear magnification. */
