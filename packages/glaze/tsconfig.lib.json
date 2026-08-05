@@ -1,0 +1,9 @@
+{
+  "extends": "@repo/config-typescript/node.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM"],
+    "jsx": "react-jsx"
+  },
+  "include": ["src"],
+  "exclude": ["src/example"]
+}
