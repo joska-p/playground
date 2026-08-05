@@ -1,12 +1,17 @@
 # Glaze — Session Handoff
 
 _Read this first. It captures everything decided so far so the next session
-doesn't re-derive it. Status: **`core/` (loop + coords), the doors (`cpu/` +
-`gpu/`), and the shapes (`cpu/shapes/*` + `gpu/shapes/*`) are ported and green
-(`check-types` + `lint` pass). S4 runtime-verified the GPU shapes against a real
-WebGL2 context (storybook story + headless Chromium) and fixed a reserved-word
-GLSL slip; added the package README + synced docs and a vitest unit suite. Next
-up: step 6, the `react/*` layer.**_
+doesn't re-derive it. Status: **the package tree is complete.** `core/` (loop +
+coords), the doors (`cpu/` + `gpu/`), the shapes, and the `react/*` layer are
+all ported and green (`check-types` + `lint` + vitest). S4 runtime-verified the
+GPU shapes against a real WebGL2 context (storybook story + headless Chromium)
+and fixed a reserved-word GLSL slip. S5 implemented the React layer
+(`FrameLoopProvider`, `useFrame`, `useCamera`, `CpuCanvas`, `GpuCanvas`) and
+finished the README/docs. Nothing left in the scaffold. **Only open item: a
+runtime demo/proof of the react/* layer. S6 tried storybook stories for it and
+dropped them — storybook-based verification proved unreliable in this
+devcontainer. New plan: serve a Vite example app from the lib instead (see the
+S6 log + the S7 recipe).**_
 
 > Session log:
 > - **S2 — core/ + doors done.** All design decisions made live below in
@@ -16,6 +21,10 @@ up: step 6, the `react/*` layer.**_
 >   [7. Session 2 log](#7-session-2-log--decisions-made) (appended there per
 >   the handoff). Don't re-litigate.
 > - **S4 — runtime verification, README/docs, tests done.** Log appended in
+>   [7. Session 2 log](#7-session-2-log--decisions-made). Don't re-derive.
+> - **S5 — react/* layer done. Package tree complete.** Log appended in
+>   [7. Session 2 log](#7-session-2-log--decisions-made). Don't re-derive.
+> - **S6 — storybook attempt for react/* dropped.** Log appended in
 >   [7. Session 2 log](#7-session-2-log--decisions-made). Don't re-derive.
 
 ---
@@ -137,6 +146,9 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
    `useFrame.ts`, `useCamera.ts`, `CpuCanvas.tsx`, `GpuCanvas.tsx`. Follow
    `@repo/graphics`' React layer (see `packages/graphics/src/react/`) and keep
    `CpuCanvas`/`GpuCanvas` apart (D1). After this, the package tree is complete.
+    **DONE (S5)** — see the log below. The only remaining follow-up is a
+    runtime demo/proof of the react components — see the S6 log for why the
+    storybook route was abandoned and the S7 recipe for the example app.
 
 ## 5. Repo conventions (quick reference)
 
@@ -285,6 +297,81 @@ per-shape programs; the door's `createProgram`/`renderProgram` is the surface.
 - **Still empty: `react/*` (step 6).** Re-verification recipe lives in
   `apps/storybook/src/stories/glaze/` (story + pixel-probe helper); a scratch
   runner was `/tmp/opencode/glaze-verify.mjs`.
+
+**S5 — react/* layer done. Package tree complete.**
+(Don't re-derive; decisions below are settled.)
+
+- **Implemented the 5 react/ modules** (replaced the stubs, no parallel files):
+  - `FrameLoopProvider.tsx` — `createFrameLoop` (glaze's core) as a context
+    value; loop disposed on unmount. Graphics-style.
+  - `useFrame.ts` — subscribes to `FrameLoopContext` via the latest-closure ref
+    pattern (graphics' `useFrame`). Independent of the doors' internal loops;
+    it's for app-level frame hooks, not canvas rendering.
+  - `useCamera.ts` — `useCamera()` returns `[Camera, CameraControls]`, pixelate2d
+    model (identical camera type to glaze's). Controls: `panTo`/`zoomTo` (with
+    focal-point zoom via `screenToWorld`)`/`reset`/`update`, `bindGestures`
+    (pointer-drag pan), `attachWheel` (non-passive wheel zoom so
+    `preventDefault` works). Exposes a plain `createCamera` factory
+    (repo: factories not classes) that `useCamera` wraps in `useState` — pure
+    logic, tested without React.
+  - `CpuCanvas.tsx` / `GpuCanvas.tsx` — **separate components (D1)**; prop shape
+    is honestly duplicated, no shared abstraction. Props: `onFrame`
+    (door's `setDraw`, `null` stops), `onDoor` (hands the live door out —
+    GPU authors need it for `createProgram`/`renderProgram`), `camera` +
+    `cameraControls` (caller-owned pair from `useCamera`), `initialCamera`,
+    `pan`/`zoom` (**default true** — D3), `dpr`, `className`/`style`, `children`
+    (overlay). Door is created on mount and destroyed on unmount; the same
+    `camera` object the door renders through is mutated by gestures.
+- **Tests: 50 total** (was 33). Added: `createCamera` (12 — defaults, clamp,
+  focal-point invariant, gestures, non-passive wheel), `useFrame` provider
+  integration (3 — time/delta, latest closure, no-provider no-op), `CpuCanvas`
+  lifecycle (2 — door create/drive/destroy + stop-on-null). Gotchas:
+  happy-dom has **no Canvas2D context** (getContext returns null) → the
+  CpuCanvas test stubs `HTMLCanvasElement.prototype.getContext` with a no-op
+  Proxy. `exactOptionalPropertyTypes` rejects explicit `{ dpr: undefined }` →
+  spread `...(dpr !== undefined ? { dpr } : {})`.
+- **README + docs**: react section rewritten with the export table + a
+  `CpuCanvas` snippet; `node ./scripts/sync-package-readmes.mjs` re-synced
+  `apps/playground/src/content/docs/reference/packages/glaze.md`.
+- **Verification**: `check-types` + `lint` + vitest green for `@repo/glaze`
+  (50 tests); `check-types` + `lint` green for `@repo/storybook`.
+- **No runtime story for react/* yet — deferred to the next session** (the
+  components are unproven in a real browser). The S4 storybook dev server is up
+  with its **Storybook MCP addon at `http://localhost:6006/mcp`**
+  (addon-mcp 0.7.0): `preview-stories`, `run-story-tests`,
+  `list-all-documentation`, `get-documentation`, `get-changed-stories`,
+  `get-stories-by-component` — a browser-free way to add/verify a
+  `CpuCanvas`/`GpuCanvas` story without the Xvfb/SwiftShader recipe. A react
+  story can reuse the S4 `gpuShapes.ts` pixel-probe helper via `onDoor`.
+
+**S6 — storybook attempt for react/*: written, then dropped. Pivot to an
+in-lib example app.**
+(Don't re-derive; the stories are gone. This records why, so S7 doesn't repeat it.)
+
+- **Wrote 4 react/* stories** in `apps/storybook/src/stories/glaze/`
+  (`SurfacePainting.{CpuSurface,GpuSurface}` — declarative `onFrame`, static
+  scene, pixel-probe proof via `verifyCpuSurface`/`verifyGpuShapes` stashed on
+  `window.__glazeReact`; `ProgrammaticRendering.{GpuShader,CpuAnimated}` —
+  imperative `onDoor` + `createProgram`/`renderProgram` (custom plasma shader)
+  and `useCamera`/`useFrame`/`FrameLoopProvider`; helpers
+  `cpuSurface.ts` + `reactProof.ts`). `check-types` + `lint` green for both
+  `@repo/glaze` and `@repo/storybook`; `@repo/glaze` vitest still 50/50.
+- **They were never runtime-verified — and the MCP path proved unreliable.**
+  `run-story-tests` (addon-mcp) hung with no output for 5+ min (the
+  addon-vitest browser runner can't get a WebGL2 context in this devcontainer —
+  same wall the S4 log hit). A direct Playwright re-run of the S4 recipe
+  (Xvfb + `--use-angle=swiftshader --enable-unsafe-swiftshader`) also failed to
+  launch (`Missing X server` / X-auth — `xvfb-run -a` was the intended fix).
+  **User decision: storybook is not a reliable vehicle here.**
+- **Removed all 4 stories + the two helpers** (they were the only S6 additions;
+  the S4 `GpuShapes.stories.tsx` + `gpuShapes.ts` proof was left in place).
+  `@repo/storybook` `check-types` + `lint` still green after removal.
+- **New plan (S7): serve a Vite example app from the lib itself**
+  (`packages/glaze/example/`) showcasing the react layer's primary use cases and
+  owning its own runtime proof — see `drafts/glaze-s7-example-app.md` for the
+  full session prompt/recipe. The example app should reuse the S4 pixel-probe
+  approach (`gpuShapes.ts`, CPU `getImageData`) so verification can run headless
+  under the known-good Xvfb+SwiftShader recipe, independent of Storybook.
 
 ## 8. Git state (uncommitted)
 

@@ -122,11 +122,42 @@ barrels. All modules export named functions/factories only.
 | `line` | `@repo/glaze/gpu/shapes/line` | `lineFragmentSource` + `lineUniforms`. |
 | `text` | `@repo/glaze/gpu/shapes/text` | `textFragmentSource`, `createTextRasterizer`, `textUniforms`. |
 
-### react/ — React door (scaffolded, not yet implemented)
+### react/ — React door
 
-`FrameLoopProvider`, `useFrame`, `useCamera`, `CpuCanvas`, `GpuCanvas` — the
-React layer modeled on `@repo/graphics/src/react/`, keeping `CpuCanvas` and
-`GpuCanvas` apart (CPU/GPU remain sibling doors).
+| Export | Path | Description |
+| --- | --- | --- |
+| `FrameLoopProvider` | `@repo/glaze/react/FrameLoopProvider` | Provides a shared rAF loop via context (auto start/stop, disposed on unmount). |
+| `useFrame` | `@repo/glaze/react/useFrame` | Subscribe a callback to the provider loop; the latest closure is always used, so inline callbacks are safe. |
+| `useCamera` | `@repo/glaze/react/useCamera` | `[Camera, CameraControls]` — a mutable pan/zoom camera with pointer-drag + wheel-zoom gestures and imperative controls. Also exports `createCamera` (factory, no React). |
+| `CpuCanvas` | `@repo/glaze/react/CpuCanvas` | Canvas2D door as a component: `onFrame` draw, `onDoor`, built-in camera + gestures, overlay children. |
+| `GpuCanvas` | `@repo/glaze/react/GpuCanvas` | WebGL2 door as a component — same props as `CpuCanvas`. |
+
+`CpuCanvas` and `GpuCanvas` are separate components (CPU/GPU remain sibling
+doors). Both wrap the doors' lifecycle: the door is created on mount and
+destroyed on unmount, pan/zoom gestures drive the same `camera` object the door
+renders through, and `onDoor` hands you the live door so you can call
+`createProgram`/`renderProgram` (GPU) or `clear`/`applyCamera` (CPU).
+
+```tsx
+import { useRef } from 'react';
+import { CpuCanvas, type CpuDoor } from '@repo/glaze/react/CpuCanvas';
+
+export function Sketch() {
+  const doorRef = useRef<CpuDoor | null>(null);
+  return (
+    <CpuCanvas
+      style={{ width: 400, height: 300 }}
+      onDoor={(door) => {
+        doorRef.current = door;
+      }}
+      onFrame={() => {
+        doorRef.current?.clear('#0d1015');
+        doorRef.current?.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
+      }}
+    />
+  );
+}
+```
 
 ## Architecture
 
