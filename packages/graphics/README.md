@@ -108,10 +108,10 @@ const bufferToScreen = createBufferToScreen(canvasBounds, devicePixelRatio);
 import { createDataToCanvas } from '@repo/graphics/2d/transforms';
 
 const dataToCanvas = createDataToCanvas(
-  { xMin: -100, xMax: 100, yMin: -50, yMax: 50 },
-  canvasDimensions,
-  'contain',
-  0.05 // 5% padding
+        { xMin: -100, xMax: 100, yMin: -50, yMax: 50 },
+        canvasDimensions,
+        'contain',
+        0.05 // 5% padding
 );
 
 const canvasPositions = dataPoints.map(dataToCanvas);
@@ -182,9 +182,9 @@ pipeline.compileFragmentShader(myFragmentSrc);
 
 // Custom uniforms (numbers, arrays, textures):
 pipeline.setUniforms({
-  u_time: performance.now() / 1000,
-  u_color: [1.0, 0.4, 0.1],
-  u_texture: myWebGLTexture
+        u_time: performance.now() / 1000,
+        u_color: [1.0, 0.4, 0.1],
+        u_texture: myWebGLTexture
 });
 
 // Draw one frame:
@@ -204,10 +204,10 @@ ctx.viewport();
 ctx.clear(0, 0, 0, 1);
 ctx.resize(width, height);
 ctx.onContextLost(() => {
-  /* re-create resources */
+        /* re-create resources */
 });
 ctx.onContextRestored(() => {
-  /* re-upload */
+        /* re-upload */
 });
 ```
 
@@ -237,7 +237,7 @@ import { createFrameLoop } from '@repo/graphics/core/createFrameLoop';
 
 const loop = createFrameLoop();
 const unsubscribe = loop.subscribe((time, delta) => {
-  // time in seconds, delta in seconds
+        // time in seconds, delta in seconds
 });
 unsubscribe(); // auto-stops when no subscribers
 loop.dispose();
@@ -301,17 +301,17 @@ Wrap your tree with `FrameLoopProvider` and subscribe to the animation loop with
 import { FrameLoopProvider, useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
 
 function Root() {
-  return (
-    <FrameLoopProvider>
-      <MyScene />
-    </FrameLoopProvider>
-  );
+        return (
+                <FrameLoopProvider>
+                        <MyScene />
+                </FrameLoopProvider>
+        );
 }
 
 function MyScene() {
-  useFrame((time, delta) => {
-    // Called every rAF — stable callback ref, no stale closures
-  });
+        useFrame((time, delta) => {
+                // Called every rAF — stable callback ref, no stale closures
+        });
 }
 ```
 
@@ -326,8 +326,8 @@ declares them. The canvas fills its container by default (override with `style`)
 import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 
 <ShaderCanvas
-  fragmentShader={myShaderSrc}
-  webGLContextAttributes={{ antialias: true }}
+        fragmentShader={myShaderSrc}
+        webGLContextAttributes={{ antialias: true }}
 />;
 ```
 
@@ -339,14 +339,14 @@ frame time, the mouse, and the current view:
 
 ```tsx
 <ShaderCanvas
-  fragmentShader={myShaderSrc}
-  onBeforeRender={({ pipeline, time, mouse, view }) => {
-    pipeline.setUniforms({
-      u_speed: 2.0,
-      u_time: time * 0.5,
-      u_screen: [mouse.x, mouse.y]
-    });
-  }}
+        fragmentShader={myShaderSrc}
+        onBeforeRender={({ pipeline, time, mouse, view }) => {
+                pipeline.setUniforms({
+                        u_speed: 2.0,
+                        u_time: time * 0.5,
+                        u_screen: [mouse.x, mouse.y]
+                });
+        }}
 />
 ```
 
@@ -359,14 +359,14 @@ seeding (`initialView`), and view sync (`onViewChange`) are all top-level props:
 
 ```tsx
 <ShaderCanvas
-  fragmentShader={interactiveShaderSrc}
-  initialView={{ pan: { x: 0, y: 0 }, zoom: 1 }}
-  maxZoom={1e6}
-  zoomToCursor
-  onViewChange={(view) => setStoreView({ pan: view.pan, zoom: view.zoom })}
-  onBeforeRender={({ pipeline, view }) => {
-    pipeline.setUniforms({ u_center: centerFromView(view) });
-  }}
+        fragmentShader={interactiveShaderSrc}
+        initialView={{ pan: { x: 0, y: 0 }, zoom: 1 }}
+        maxZoom={1e6}
+        zoomToCursor
+        onViewChange={(view) => setStoreView({ pan: view.pan, zoom: view.zoom })}
+        onBeforeRender={({ pipeline, view }) => {
+                pipeline.setUniforms({ u_center: centerFromView(view) });
+        }}
 />
 ```
 
@@ -388,21 +388,21 @@ the uniforms each frame:
 import { usePanZoomUniforms } from '@repo/graphics/2d/react/usePanZoomUniforms';
 
 function MyCanvas() {
-  const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
-  const interaction = usePanZoom(canvasRef);
-  const applyPanZoom = usePanZoomUniforms(runnerRef, interaction);
+        const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
+        const interaction = usePanZoom(canvasRef);
+        const applyPanZoom = usePanZoomUniforms(runnerRef, interaction);
 
-  useFrame(() => {
-    applyPanZoom();
-    runnerRef.current?.render();
-  });
+        useFrame(() => {
+                applyPanZoom();
+                runnerRef.current?.render();
+        });
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', height: '100%' }}
-    />
-  );
+        return (
+                <canvas
+                        ref={canvasRef}
+                        style={{ width: '100%', height: '100%' }}
+                />
+        );
 }
 ```
 
@@ -416,19 +416,19 @@ canvas size on upload — `u_panOffset = [-pan.x / width, pan.y / height]`. Use
 import { useShaderRunner } from '@repo/graphics/2d/react/useShaderRunner';
 
 function MyCanvas() {
-  const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
+        const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
 
-  useEffect(() => {
-    const id = setInterval(() => runnerRef.current?.render(), 16);
-    return () => clearInterval(id);
-  }, []);
+        useEffect(() => {
+                const id = setInterval(() => runnerRef.current?.render(), 16);
+                return () => clearInterval(id);
+        }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', height: '100%' }}
-    />
-  );
+        return (
+                <canvas
+                        ref={canvasRef}
+                        style={{ width: '100%', height: '100%' }}
+                />
+        );
 }
 ```
 
@@ -444,11 +444,11 @@ against the canvas size before uploading to a shader:
 import { usePanZoom } from '@repo/graphics/2d/react/usePanZoom';
 
 function Canvas() {
-  const canvasRef = useRef(null);
-  const state = usePanZoom(canvasRef);
+        const canvasRef = useRef(null);
+        const state = usePanZoom(canvasRef);
 
-  // Read mutable ref in your draw loop:
-  //   state.current.pan, state.current.zoom, state.current.pointer
+        // Read mutable ref in your draw loop:
+        //   state.current.pan, state.current.zoom, state.current.pointer
 }
 ```
 

@@ -41,12 +41,16 @@ void main() {
 }
 `.trim();
 
-export function circleUniforms(center: Point2D, radius: number, style: DrawStyle): Record<string, UniformValue> {
-  return {
-    u_center: [center.x, center.y],
-    u_radius: radius,
-    u_fill: style.fill === undefined ? [0, 0, 0, 0] : colorArray(style.fill),
-    u_stroke: style.stroke === undefined ? [0, 0, 0, 0] : colorArray(style.stroke),
-    u_strokeWidth: style.lineWidth ?? 1
-  };
+export function circleUniforms(
+        center: Point2D,
+        radius: number,
+        style: DrawStyle
+): Record<string, UniformValue> {
+        return {
+                u_center: [center.x, center.y],
+                u_radius: radius,
+                u_fill: style.fill === undefined ? [0, 0, 0, 0] : colorArray(style.fill),
+                u_stroke: style.stroke === undefined ? [0, 0, 0, 0] : colorArray(style.stroke),
+                u_strokeWidth: style.lineWidth ?? 1
+        };
 }

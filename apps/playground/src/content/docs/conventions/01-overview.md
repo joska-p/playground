@@ -3,8 +3,8 @@ title: Conventions — Overview
 description: Cross-cutting coding rules used across the project — naming, structure, and patterns.
 featured: true
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # Conventions

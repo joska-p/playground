@@ -1,10 +1,10 @@
 ---
-title: "TypeScript Config"
-description: "Shared TypeScript configurations for the monorepo — strictest base, browser app, and Node tooling, all extending `@tsconfig/strictest`."
-category: "reference"
+title: 'TypeScript Config'
+description: 'Shared TypeScript configurations for the monorepo — strictest base, browser app, and Node tooling, all extending `@tsconfig/strictest`.'
+category: 'reference'
 tags:
-  - reference
-  - config-typescript
+        - reference
+        - config-typescript
 order: 20
 ---
 
@@ -24,8 +24,8 @@ package type and override only what you need.
 
 ```json
 {
-  "extends": "@tsconfig/strictest/tsconfig.json",
-  "files": []
+        "extends": "@tsconfig/strictest/tsconfig.json",
+        "files": []
 }
 ```
 
@@ -38,17 +38,17 @@ to include.
 
 ```json
 {
-  "extends": "./base.json",
-  "compilerOptions": {
-    "target": "es2023",
-    "lib": ["ES2023", "DOM"],
-    "module": "esnext",
-    "jsx": "react-jsx",
-    "moduleResolution": "bundler",
-    "verbatimModuleSyntax": true,
-    "noEmit": true
-  },
-  "include": ["src"]
+        "extends": "./base.json",
+        "compilerOptions": {
+                "target": "es2023",
+                "lib": ["ES2023", "DOM"],
+                "module": "esnext",
+                "jsx": "react-jsx",
+                "moduleResolution": "bundler",
+                "verbatimModuleSyntax": true,
+                "noEmit": true
+        },
+        "include": ["src"]
 }
 ```
 
@@ -62,16 +62,16 @@ For Vite + React packages. Key choices:
 
 ```json
 {
-  "extends": "./base.json",
-  "compilerOptions": {
-    "target": "es2023",
-    "lib": ["ES2023"],
-    "types": ["node"],
-    "moduleResolution": "bundler",
-    "verbatimModuleSyntax": true,
-    "noEmit": true
-  },
-  "include": ["vite.config.ts"]
+        "extends": "./base.json",
+        "compilerOptions": {
+                "target": "es2023",
+                "lib": ["ES2023"],
+                "types": ["node"],
+                "moduleResolution": "bundler",
+                "verbatimModuleSyntax": true,
+                "noEmit": true
+        },
+        "include": ["vite.config.ts"]
 }
 ```
 
@@ -84,8 +84,7 @@ In any package's `tsconfig.json`:
 
 ```json
 {
-  "extends": "@repo/config-typescript/app.json",
-  "include": ["src"]
+        "extends": "@repo/config-typescript/app.json",
+        "include": ["src"]
 }
 ```
-

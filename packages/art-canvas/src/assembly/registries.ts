@@ -21,34 +21,34 @@ import { SinglePassTemplate } from '../shaders/templates/SinglePassTemplate';
 import type { ShaderModule, ShaderTemplate } from '../shaders/types';
 
 export const PREAMBLE_REGISTRY: Record<string, string> = {
-  noise2d: noisePreamble,
-  fbm: fbmPreamble
+        noise2d: noisePreamble,
+        fbm: fbmPreamble
 };
 
 export const SPACE_REGISTRY: ShaderModule[] = [
-  domainWarp,
-  flowField,
-  rotate2d,
-  repeatSpace,
-  polarCoords,
-  mouseAttractor,
-  twirl,
-  kaleidoscope
+        domainWarp,
+        flowField,
+        rotate2d,
+        repeatSpace,
+        polarCoords,
+        mouseAttractor,
+        twirl,
+        kaleidoscope
 ];
 
 export const SHAPE_REGISTRY: ShaderModule[] = [
-  voronoiModule,
-  noiseField,
-  sdBox,
-  circleSdf,
-  truchet,
-  lineSdf
+        voronoiModule,
+        noiseField,
+        sdBox,
+        circleSdf,
+        truchet,
+        lineSdf
 ];
 
 export const TEMPLATE_REGISTRY: ShaderTemplate[] = [
-  ClassicTemplate,
-  DirectNoiseTemplate,
-  SinglePassTemplate
+        ClassicTemplate,
+        DirectNoiseTemplate,
+        SinglePassTemplate
 ];
 
 export const EFFECT_REGISTRY: ShaderModule[] = [posterize];

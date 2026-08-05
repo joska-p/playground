@@ -3,7 +3,7 @@ import type { Engine, RenderDriver } from '@repo/pixelate2d-core';
 const engines = new WeakMap<RenderDriver, Engine>();
 
 export function registerEngine(driver: RenderDriver, engine: Engine): void {
-  engines.set(driver, engine);
+        engines.set(driver, engine);
 }
 
 /**
@@ -11,6 +11,6 @@ export function registerEngine(driver: RenderDriver, engine: Engine): void {
  * the React layer. Lets hooks like `useFrame` accept the driver directly.
  */
 export function getEngine(target: Engine | RenderDriver): Engine | undefined {
-  if ('kind' in target) return engines.get(target);
-  return target;
+        if ('kind' in target) return engines.get(target);
+        return target;
 }

@@ -7,19 +7,22 @@ import { getEngine } from '../utils/engine-registry';
  * either an engine or a driver returned by `useCanvasDriver`. The latest
  * callback is always used, so inline closures are safe.
  */
-export function useFrame(target: Engine | RenderDriver | null, callback: FrameCallback | null): void {
-  const callbackRef = useRef(callback);
+export function useFrame(
+        target: Engine | RenderDriver | null,
+        callback: FrameCallback | null
+): void {
+        const callbackRef = useRef(callback);
 
-  useEffect(() => {
-    callbackRef.current = callback;
-  });
+        useEffect(() => {
+                callbackRef.current = callback;
+        });
 
-  const engine = target ? getEngine(target) : undefined;
+        const engine = target ? getEngine(target) : undefined;
 
-  useEffect(() => {
-    if (!engine) return;
-    return engine.subscribe((driver, context) => {
-      callbackRef.current?.(driver, context);
-    });
-  }, [engine]);
+        useEffect(() => {
+                if (!engine) return;
+                return engine.subscribe((driver, context) => {
+                        callbackRef.current?.(driver, context);
+                });
+        }, [engine]);
 }

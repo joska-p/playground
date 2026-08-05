@@ -12,15 +12,15 @@ import { triangularRule } from './triangular';
 
 // Define the initial rules as a const array for type inference
 const initialRules = [
-  recamanRule,
-  fibonacciRule,
-  primesRule,
-  triangularRule,
-  collatzRule,
-  lookAndSayRule,
-  padovanRule,
-  squareNumbersRule,
-  sternDiatomicRule
+        recamanRule,
+        fibonacciRule,
+        primesRule,
+        triangularRule,
+        collatzRule,
+        lookAndSayRule,
+        padovanRule,
+        squareNumbersRule,
+        sternDiatomicRule
 ] as const;
 
 // Extract union types for RuleId and RuleName
@@ -32,7 +32,7 @@ const allRules: SequenceRule[] = [...initialRules];
 
 // Function to register a new rule
 export function registerRule(rule: SequenceRule) {
-  allRules.push(rule);
+        allRules.push(rule);
 }
 
 // Export the mutable array and types

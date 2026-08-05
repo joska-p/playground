@@ -4,10 +4,10 @@ description: Hallucination collective.
 date: 2026-06-28
 draft: false
 tags:
-  - log
-  - math
-  - complex-systems
-  - philosophy
+        - log
+        - math
+        - complex-systems
+        - philosophy
 ---
 
 ## 1. La Graine (Note originale, il y a quelques années)

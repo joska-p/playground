@@ -8,12 +8,12 @@ export { defaultFallbackVariants, fallbackIconColor } from './default-fallback/v
 export type { DefaultFallbackVariants, FallbackIconColor } from './default-fallback/variants';
 
 export {
-  Dialog,
-  DialogActions,
-  DialogBody,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle
+        Dialog,
+        DialogActions,
+        DialogBody,
+        DialogDescription,
+        DialogFooter,
+        DialogTitle
 } from './dialog/Dialog';
 export type { DialogProps } from './dialog/Dialog';
 

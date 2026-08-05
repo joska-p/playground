@@ -14,16 +14,16 @@ const SAMPLES_TS = path.join(TS_OBJECTS, 'samples.ts');
 const FEATURES_TS = path.join(TS_OBJECTS, 'features.ts');
 
 export const CONSTANTS = {
-  BASE_DIR,
-  DATA_DIR,
-  RAW_DIR,
-  RAW_DIR_SUBSET,
-  DATASET_DIR,
-  JSON_DIR,
-  IMG_DIR,
-  SAMPLES,
-  FEATURES,
-  FEATURES_TS,
-  TS_OBJECTS,
-  SAMPLES_TS
+        BASE_DIR,
+        DATA_DIR,
+        RAW_DIR,
+        RAW_DIR_SUBSET,
+        DATASET_DIR,
+        JSON_DIR,
+        IMG_DIR,
+        SAMPLES,
+        FEATURES,
+        FEATURES_TS,
+        TS_OBJECTS,
+        SAMPLES_TS
 };

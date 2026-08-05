@@ -1,28 +1,28 @@
 export type GlslFunction = {
-  id: string;
-  glsl: string;
-  dependencies?: string[];
+        id: string;
+        glsl: string;
+        dependencies?: string[];
 };
 
 const random2d = {
-  id: 'random2d',
-  glsl: `float random2d(vec2 co) {
+        id: 'random2d',
+        glsl: `float random2d(vec2 co) {
   float dot_ = dot(co, vec2(12.9898, 78.233));
   return fract(sin(dot_) * 43758.5453);
 }`
 } as const satisfies GlslFunction;
 
 const hash1 = {
-  id: 'hash1',
-  glsl: `float hash1(float n) {
+        id: 'hash1',
+        glsl: `float hash1(float n) {
   return fract(sin(n * 127.1) * 43758.5453);
 }`
 } as const satisfies GlslFunction;
 
 const smoothNoise = {
-  id: 'smoothNoise',
-  dependencies: ['hash1'],
-  glsl: `float smoothNoise(float t) {
+        id: 'smoothNoise',
+        dependencies: ['hash1'],
+        glsl: `float smoothNoise(float t) {
   float i = floor(t);
   float f = fract(t);
   float u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
@@ -31,16 +31,16 @@ const smoothNoise = {
 } as const satisfies GlslFunction;
 
 const smoothNoise2 = {
-  id: 'smoothNoise2',
-  dependencies: ['smoothNoise'],
-  glsl: `vec2 smoothNoise2(float t) {
+        id: 'smoothNoise2',
+        dependencies: ['smoothNoise'],
+        glsl: `vec2 smoothNoise2(float t) {
   return vec2(smoothNoise(t), smoothNoise(t + 31.71));
 }`
 } as const satisfies GlslFunction;
 
 const pseudoRecaman = {
-  id: 'pseudoRecaman',
-  glsl: `float pseudoRecaman(vec2 coords) {
+        id: 'pseudoRecaman',
+        glsl: `float pseudoRecaman(vec2 coords) {
   float d = length(coords);
   float continuousStep = clamp(d * 15.0, 1.0, 15.0);
   int lowStep = int(floor(continuousStep));
@@ -69,9 +69,9 @@ const pseudoRecaman = {
 } as const satisfies GlslFunction;
 
 const fbmNoise = {
-  id: 'fbmNoise',
-  dependencies: ['random2d'],
-  glsl: `float fbmNoise(vec2 p) {
+        id: 'fbmNoise',
+        dependencies: ['random2d'],
+        glsl: `float fbmNoise(vec2 p) {
   float value = 0.0;
   float amplitude = 0.5;
   for (int i = 0; i < 5; i++) {
@@ -84,12 +84,12 @@ const fbmNoise = {
 } as const satisfies GlslFunction;
 
 export const glslFunctions = [
-  random2d,
-  hash1,
-  smoothNoise,
-  smoothNoise2,
-  pseudoRecaman,
-  fbmNoise
+        random2d,
+        hash1,
+        smoothNoise,
+        smoothNoise2,
+        pseudoRecaman,
+        fbmNoise
 ] as const satisfies GlslFunction[];
 
 export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
@@ -97,39 +97,39 @@ export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 export function resolveGlslDeps(requiredIds: string[]): string {
-  const visited = new Set<string>();
-  const resolving = new Set<string>();
-  const path: string[] = [];
-  const ordered: GlslFunction[] = [];
+        const visited = new Set<string>();
+        const resolving = new Set<string>();
+        const path: string[] = [];
+        const ordered: GlslFunction[] = [];
 
-  function resolve(id: string) {
-    if (visited.has(id)) return;
-    if (resolving.has(id)) {
-      const cycleStart = path.indexOf(id);
-      const cycle = path.slice(cycleStart).concat(id);
-      throw new Error(`Dependency cycle detected: ${cycle.join(' → ')}`);
-    }
-    resolving.add(id);
-    path.push(id);
-    const fn = functionById.get(id);
-    if (!fn) {
-      path.pop();
-      resolving.delete(id);
-      visited.add(id);
-      return;
-    }
-    for (const dep of fn.dependencies ?? []) {
-      resolve(dep);
-    }
-    path.pop();
-    resolving.delete(id);
-    visited.add(id);
-    ordered.push(fn);
-  }
+        function resolve(id: string) {
+                if (visited.has(id)) return;
+                if (resolving.has(id)) {
+                        const cycleStart = path.indexOf(id);
+                        const cycle = path.slice(cycleStart).concat(id);
+                        throw new Error(`Dependency cycle detected: ${cycle.join(' → ')}`);
+                }
+                resolving.add(id);
+                path.push(id);
+                const fn = functionById.get(id);
+                if (!fn) {
+                        path.pop();
+                        resolving.delete(id);
+                        visited.add(id);
+                        return;
+                }
+                for (const dep of fn.dependencies ?? []) {
+                        resolve(dep);
+                }
+                path.pop();
+                resolving.delete(id);
+                visited.add(id);
+                ordered.push(fn);
+        }
 
-  for (const id of requiredIds) {
-    resolve(id);
-  }
+        for (const id of requiredIds) {
+                resolve(id);
+        }
 
-  return ordered.map((f) => f.glsl).join('\n\n');
+        return ordered.map((f) => f.glsl).join('\n\n');
 }

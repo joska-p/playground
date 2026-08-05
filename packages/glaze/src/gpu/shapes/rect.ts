@@ -47,11 +47,11 @@ void main() {
 `.trim();
 
 export function rectUniforms(rect: Rect, style: DrawStyle): Record<string, UniformValue> {
-  return {
-    u_position: [rect.x, rect.y],
-    u_size: [rect.w, rect.h],
-    u_fill: style.fill === undefined ? [0, 0, 0, 0] : colorArray(style.fill),
-    u_stroke: style.stroke === undefined ? [0, 0, 0, 0] : colorArray(style.stroke),
-    u_strokeWidth: style.lineWidth ?? 1
-  };
+        return {
+                u_position: [rect.x, rect.y],
+                u_size: [rect.w, rect.h],
+                u_fill: style.fill === undefined ? [0, 0, 0, 0] : colorArray(style.fill),
+                u_stroke: style.stroke === undefined ? [0, 0, 0, 0] : colorArray(style.stroke),
+                u_strokeWidth: style.lineWidth ?? 1
+        };
 }

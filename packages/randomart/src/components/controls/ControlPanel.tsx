@@ -9,56 +9,56 @@ import { DisplaySection } from './DisplaySection';
 import { GrammarSection } from './GrammarSection';
 
 const modeOptions = [
-  { value: 'play', label: 'Play' },
-  { value: 'test', label: 'Test' }
+        { value: 'play', label: 'Play' },
+        { value: 'test', label: 'Test' }
 ] as const;
 
 function ModeSelect() {
-  const mode = useMode();
+        const mode = useMode();
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setMode(e.target.value as Mode);
-  };
+        const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+                setMode(e.target.value as Mode);
+        };
 
-  return (
-    <select
-      value={mode}
-      onChange={handleOnChange}
-    >
-      {modeOptions.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
-  );
+        return (
+                <select
+                        value={mode}
+                        onChange={handleOnChange}
+                >
+                        {modeOptions.map((option) => (
+                                <option
+                                        key={option.value}
+                                        value={option.value}
+                                >
+                                        {option.label}
+                                </option>
+                        ))}
+                </select>
+        );
 }
 
 function PlayModeControlPanel() {
-  return (
-    <>
-      <ControlSection title="config">
-        <ConfigSection />
-        <DisplaySection />
-      </ControlSection>
-      <GrammarSection />
-      <AnimationSection />
-    </>
-  );
+        return (
+                <>
+                        <ControlSection title="config">
+                                <ConfigSection />
+                                <DisplaySection />
+                        </ControlSection>
+                        <GrammarSection />
+                        <AnimationSection />
+                </>
+        );
 }
 
 function ControlPanel() {
-  const mode = useMode();
+        const mode = useMode();
 
-  return (
-    <Panel title={<ModeSelect />}>
-      {mode === 'play' ? <PlayModeControlPanel /> : null}{' '}
-      {mode === 'test' ? <TestModeControls /> : null}
-    </Panel>
-  );
+        return (
+                <Panel title={<ModeSelect />}>
+                        {mode === 'play' ? <PlayModeControlPanel /> : null}{' '}
+                        {mode === 'test' ? <TestModeControls /> : null}
+                </Panel>
+        );
 }
 
 export { ControlPanel };

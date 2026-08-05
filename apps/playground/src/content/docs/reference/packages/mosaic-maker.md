@@ -1,13 +1,12 @@
 ---
-title: "Mosaic Maker"
-description: "A procedural engine that breathes color palettes into ordered grids of SVG shapes — each tile a small geometry, each mosaic a composition that never repeats the same way twice."
-category: "reference"
+title: 'Mosaic Maker'
+description: 'A procedural engine that breathes color palettes into ordered grids of SVG shapes — each tile a small geometry, each mosaic a composition that never repeats the same way twice.'
+category: 'reference'
 tags:
-  - reference
-  - mosaic-maker
+        - reference
+        - mosaic-maker
 order: 20
 ---
-
 
 # @repo/mosaic-maker
 
@@ -49,7 +48,7 @@ pnpm add @repo/mosaic-maker
 import { MosaicMaker } from '@repo/mosaic-maker';
 
 export default function Patterns() {
-  return <MosaicMaker />;
+        return <MosaicMaker />;
 }
 ```
 
@@ -183,17 +182,17 @@ Each tile in `TILE_REGISTRY.ts` is a `TileDefinition` containing an array of
 
 ```ts
 type Shape =
-  | { type: 'circle'; cx: number; cy: number; r: number; colorIndex: number }
-  | {
-      type: 'rect';
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-      colorIndex: number;
-    }
-  | { type: 'path'; d: string; colorIndex: number }
-  | { type: 'polygon'; points: string; colorIndex: number };
+        | { type: 'circle'; cx: number; cy: number; r: number; colorIndex: number }
+        | {
+                  type: 'rect';
+                  x: number;
+                  y: number;
+                  width: number;
+                  height: number;
+                  colorIndex: number;
+          }
+        | { type: 'path'; d: string; colorIndex: number }
+        | { type: 'polygon'; points: string; colorIndex: number };
 ```
 
 `colorIndex` maps into the 5-element `--color-N` array. Tiles use subsets of
@@ -235,9 +234,9 @@ fetchPalettes()
 
 ```ts
 type Palette = {
-  '--color-0': '#333333';
-  '--color-1': '#555555';
-  // ... up to --color-4
+        '--color-0': '#333333';
+        '--color-1': '#555555';
+        // ... up to --color-4
 };
 ```
 
@@ -254,13 +253,13 @@ detail, not a public API:
 
 ```ts
 type MosaicState = {
-  mosaicRef: RefObject<HTMLDivElement | null>;
-  paletteStock: Palette[]; // full fetched list
-  currentPalettesIndex: number; // window start in paletteStock
-  currentPalette: Palette; // actively displayed
-  currentPalettes: Palette[]; // window of 33
-  tileSet: TileSet; // active tile names
-  tiles: TileInstance[]; // current rendered tiles
+        mosaicRef: RefObject<HTMLDivElement | null>;
+        paletteStock: Palette[]; // full fetched list
+        currentPalettesIndex: number; // window start in paletteStock
+        currentPalette: Palette; // actively displayed
+        currentPalettes: Palette[]; // window of 33
+        tileSet: TileSet; // active tile names
+        tiles: TileInstance[]; // current rendered tiles
 };
 ```
 
@@ -302,4 +301,3 @@ use `transition-all duration-500` for smooth cross-fades.
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

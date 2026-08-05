@@ -8,50 +8,52 @@ const allTags = await getCollection('tags');
 const allProjects = await getCollection('projects');
 
 const groups = allTags
-  .filter((tag) => tag.data.iconName !== undefined)
-  .map((tag) => ({
-    id: tag.id,
-    label: tag.data.title,
-    description: tag.data.description,
-    iconName: tag.data.iconName!,
-    count: allProjects.filter((p) => p.data.tags[0].id === tag.id).length
-  }))
-  .filter((g) => g.count > 0);
+        .filter((tag) => tag.data.iconName !== undefined)
+        .map((tag) => ({
+                id: tag.id,
+                label: tag.data.title,
+                description: tag.data.description,
+                iconName: tag.data.iconName!,
+                count: allProjects.filter((p) => p.data.tags[0].id === tag.id).length
+        }))
+        .filter((g) => g.count > 0);
 ---
 
 <section
-  aria-label="Experiment categories"
-  class="px-5 py-10 sm:px-6 lg:py-14"
+        aria-label="Experiment categories"
+        class="px-5 py-10 sm:px-6 lg:py-14"
 >
-  <div class="mx-auto max-w-6xl space-y-6">
-    <header class="flex items-center gap-3">
-      <span class="text-muted-foreground text-sm tracking-widest uppercase">experiments</span>
-      <span class="text-muted-foreground/60 ml-auto text-sm">
-        {groups.length}&nbsp;categories
-      </span>
-    </header>
+        <div class="mx-auto max-w-6xl space-y-6">
+                <header class="flex items-center gap-3">
+                        <span class="text-muted-foreground text-sm tracking-widest uppercase"
+                                >experiments</span
+                        >
+                        <span class="text-muted-foreground/60 ml-auto text-sm">
+                                {groups.length}&nbsp;categories
+                        </span>
+                </header>
 
-    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-      {
-        groups.map((group) => {
-          const { id, label, description, iconName, count } = group;
-          const link = `${baseUrl}projects/${id}/`;
-          const cardStyle = {
-            '--variant-color': `var(--tags-${id})`
-          } as CSSProperties;
-          return (
-            <CategoryCard
-              count={count}
-              description={description}
-              href={link}
-              iconName={iconName}
-              id={id}
-              label={label}
-              style={cardStyle}
-            />
-          );
-        })
-      }
-    </div>
-  </div>
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                        {
+                                groups.map((group) => {
+                                        const { id, label, description, iconName, count } = group;
+                                        const link = `${baseUrl}projects/${id}/`;
+                                        const cardStyle = {
+                                                '--variant-color': `var(--tags-${id})`
+                                        } as CSSProperties;
+                                        return (
+                                                <CategoryCard
+                                                        count={count}
+                                                        description={description}
+                                                        href={link}
+                                                        iconName={iconName}
+                                                        id={id}
+                                                        label={label}
+                                                        style={cardStyle}
+                                                />
+                                        );
+                                })
+                        }
+                </div>
+        </div>
 </section>

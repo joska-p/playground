@@ -2,8 +2,8 @@
 title: Imports & Exports
 description: Public API via package.json exports, named exports only, and the no-root-barrel rule.
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # Imports & Exports
@@ -40,14 +40,14 @@ categories, for example:
 
 ```json
 {
-  "./navigation": {
-    "types": "./src/components/navigation/index.ts",
-    "default": "./src/components/navigation/index.ts"
-  },
-  "./feedback": {
-    "types": "./src/components/feedback/index.ts",
-    "default": "./src/components/feedback/index.ts"
-  }
+        "./navigation": {
+                "types": "./src/components/navigation/index.ts",
+                "default": "./src/components/navigation/index.ts"
+        },
+        "./feedback": {
+                "types": "./src/components/feedback/index.ts",
+                "default": "./src/components/feedback/index.ts"
+        }
 }
 ```
 

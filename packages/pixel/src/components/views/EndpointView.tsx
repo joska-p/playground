@@ -6,50 +6,52 @@ import { OverviewView } from './OverviewView';
 import { PipelineView } from './PipelineView';
 
 type EndpointViewProps = {
-  activeEndpoint: EndpointId;
-  sourceData: ImageData | null;
-  paramValues: Record<string, number>;
-  onParamChange: (id: string, key: string, value: number) => void;
+        activeEndpoint: EndpointId;
+        sourceData: ImageData | null;
+        paramValues: Record<string, number>;
+        onParamChange: (id: string, key: string, value: number) => void;
 };
 
 function EndpointView({
-  activeEndpoint,
-  sourceData,
-  paramValues,
-  onParamChange
+        activeEndpoint,
+        sourceData,
+        paramValues,
+        onParamChange
 }: EndpointViewProps) {
-  if (activeEndpoint.kind === 'overview') {
-    return <OverviewView sourceData={sourceData} />;
-  }
+        if (activeEndpoint.kind === 'overview') {
+                return <OverviewView sourceData={sourceData} />;
+        }
 
-  if (activeEndpoint.kind === 'pipeline') {
-    return (
-      <PipelineView
-        id={activeEndpoint.id}
-        sourceData={sourceData}
-      />
-    );
-  }
+        if (activeEndpoint.kind === 'pipeline') {
+                return (
+                        <PipelineView
+                                id={activeEndpoint.id}
+                                sourceData={sourceData}
+                        />
+                );
+        }
 
-  if (activeEndpoint.kind === 'internals') {
-    return <InternalsView id={activeEndpoint.id} />;
-  }
+        if (activeEndpoint.kind === 'internals') {
+                return <InternalsView id={activeEndpoint.id} />;
+        }
 
-  const manip = findManipById(activeEndpoint.id);
-  if (!manip) {
-    return (
-      <div className="text-muted-foreground py-12 text-center text-sm">Endpoint not found</div>
-    );
-  }
+        const manip = findManipById(activeEndpoint.id);
+        if (!manip) {
+                return (
+                        <div className="text-muted-foreground py-12 text-center text-sm">
+                                Endpoint not found
+                        </div>
+                );
+        }
 
-  return (
-    <ManipView
-      manip={manip}
-      sourceData={sourceData}
-      paramValues={paramValues}
-      onParamChange={onParamChange}
-    />
-  );
+        return (
+                <ManipView
+                        manip={manip}
+                        sourceData={sourceData}
+                        paramValues={paramValues}
+                        onParamChange={onParamChange}
+                />
+        );
 }
 
 export { EndpointView };

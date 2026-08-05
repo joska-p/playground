@@ -46,13 +46,13 @@ Create a new fragment shader: `perturbation.frag`. It should use the same lighti
 - Let `d` be the pixel's offset from the reference center: `d = (vUv - 0.5) * (3.0 / zoom)`.
 - Initial delta: `dz = vec2(0.0, 0.0)`.
 - Loop equation (standard `highp float`):
-  ```glsl
-  // Xn is complex (Xnr, Xni)
-  // dz is complex (dzr, dzi)
-  float r = Xnr * Xnr - Xni * Xni + dzr * dzr - dzi * dzi + d.x;
-  float i = 2.0 * Xnr * Xni + 2.0 * dzr * dzi + d.y;
-  dz = vec2(r, i);
-  ```
+     ```glsl
+     // Xn is complex (Xnr, Xni)
+     // dz is complex (dzr, dzi)
+     float r = Xnr * Xnr - Xni * Xni + dzr * dzr - dzi * dzi + d.x;
+     float i = 2.0 * Xnr * Xni + 2.0 * dzr * dzi + d.y;
+     dz = vec2(r, i);
+     ```
 - **Bailout:** Check if `dot(dz, dz) > 4.0`. If it escapes, calculate smooth iteration just like the old shader, but using `dz` and the current iteration count.
 
 ## 5. Pipeline Integration

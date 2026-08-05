@@ -7,17 +7,17 @@ import { HeroSection } from './HeroSection';
 import { RegionGrid } from './RegionGrid';
 
 export function AtlasLanding() {
-  return (
-    <div className="bg-background text-foreground min-h-screen font-mono">
-      <SvgExportPanel>
-        <EdgeFieldOriginal />
-      </SvgExportPanel>
-      <AtlasNav />
-      <HeroSection />
-      <RegionGrid />
-      <FieldNotes />
-      <CartographerStats />
-      <AtlasFooter />
-    </div>
-  );
+        return (
+                <div className="bg-background text-foreground min-h-screen font-mono">
+                        <SvgExportPanel>
+                                <EdgeFieldOriginal />
+                        </SvgExportPanel>
+                        <AtlasNav />
+                        <HeroSection />
+                        <RegionGrid />
+                        <FieldNotes />
+                        <CartographerStats />
+                        <AtlasFooter />
+                </div>
+        );
 }

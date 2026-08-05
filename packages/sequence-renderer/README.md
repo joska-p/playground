@@ -53,7 +53,7 @@ pnpm add @repo/sequence-renderer
 import { App } from '@repo/sequence-renderer';
 
 export default function Page() {
-  return <App />;
+        return <App />;
 }
 ```
 

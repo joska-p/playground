@@ -9,30 +9,22 @@
  * per-pixel delta against this stored orbit.
  */
 
-import {
-  type BigFloat,
-  add,
-  sub,
-  mul,
-  mulInt,
-  toNumber,
-  zero,
-} from "./big-float"
+import { type BigFloat, add, sub, mul, mulInt, toNumber, zero } from './big-float';
 
 export type ReferenceOrbit = {
-  /** Interleaved [x0, y0, x1, y1, ...] of the reference orbit, as float32. */
-  data: Float32Array
-  /** Number of stored iterations (orbit length). */
-  length: number
-  /** Whether the reference escaped before hitting maxIter. */
-  escaped: boolean
-}
+        /** Interleaved [x0, y0, x1, y1, ...] of the reference orbit, as float32. */
+        data: Float32Array;
+        /** Number of stored iterations (orbit length). */
+        length: number;
+        /** Whether the reference escaped before hitting maxIter. */
+        escaped: boolean;
+};
 
 export type ReferenceParams = {
-  centerX: BigFloat
-  centerY: BigFloat
-  maxIter: number
-}
+        centerX: BigFloat;
+        centerY: BigFloat;
+        maxIter: number;
+};
 
 /**
  * Compute the reference orbit. `C` is the center; Z starts at 0.
@@ -40,49 +32,49 @@ export type ReferenceParams = {
  * values as long as possible before diverging.
  */
 export function computeReferenceOrbit({
-  centerX,
-  centerY,
-  maxIter,
+        centerX,
+        centerY,
+        maxIter
 }: ReferenceParams): ReferenceOrbit {
-  const prec = centerX.prec
-  const data = new Float32Array(maxIter * 2)
+        const prec = centerX.prec;
+        const data = new Float32Array(maxIter * 2);
 
-  let zx = zero(prec)
-  let zy = zero(prec)
+        let zx = zero(prec);
+        let zy = zero(prec);
 
-  let n = 0
-  let escaped = false
+        let n = 0;
+        let escaped = false;
 
-  for (; n < maxIter; n++) {
-    // Store current Z_n as floats.
-    const fx = toNumber(zx)
-    const fy = toNumber(zy)
-    data[n * 2] = fx
-    data[n * 2 + 1] = fy
+        for (; n < maxIter; n++) {
+                // Store current Z_n as floats.
+                const fx = toNumber(zx);
+                const fy = toNumber(zy);
+                data[n * 2] = fx;
+                data[n * 2 + 1] = fy;
 
-    // Escape check on the cheap float copy.
-    if (fx * fx + fy * fy > 1e12) {
-      escaped = true
-      n++
-      break
-    }
+                // Escape check on the cheap float copy.
+                if (fx * fx + fy * fy > 1e12) {
+                        escaped = true;
+                        n++;
+                        break;
+                }
 
-    // Z = Z^2 + C  (all in BigFloat).
-    // Z^2 = (x^2 - y^2) + i(2xy)
-    const x2 = mul(zx, zx)
-    const y2 = mul(zy, zy)
-    const xy = mul(zx, zy)
+                // Z = Z^2 + C  (all in BigFloat).
+                // Z^2 = (x^2 - y^2) + i(2xy)
+                const x2 = mul(zx, zx);
+                const y2 = mul(zy, zy);
+                const xy = mul(zx, zy);
 
-    const nextX = add(sub(x2, y2), centerX)
-    const nextY = add(mulInt(xy, 2), centerY)
+                const nextX = add(sub(x2, y2), centerX);
+                const nextY = add(mulInt(xy, 2), centerY);
 
-    zx = nextX
-    zy = nextY
-  }
+                zx = nextX;
+                zy = nextY;
+        }
 
-  return {
-    data: data.subarray(0, n * 2),
-    length: n,
-    escaped,
-  }
+        return {
+                data: data.subarray(0, n * 2),
+                length: n,
+                escaped
+        };
 }

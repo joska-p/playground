@@ -2,8 +2,8 @@
 title: State Initialization
 description: Initializing state with usable defaults so components render coherently.
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # State Initialization

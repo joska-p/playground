@@ -12,14 +12,14 @@ const textEncoder = new TextEncoder();
 
 /** FNV-1a 32-bit hash of a string (proper UTF-8 encoding). */
 function fnv1a(text: string): number {
-  let hash = 0x811c9dc5;
-  const bytes = textEncoder.encode(text);
-  for (const byte of bytes) {
-    hash ^= byte;
-    // 32-bit FNV prime multiply, done with shifts to stay in 32-bit range.
-    hash = Math.imul(hash, 0x01000193);
-  }
-  return hash >>> 0;
+        let hash = 0x811c9dc5;
+        const bytes = textEncoder.encode(text);
+        for (const byte of bytes) {
+                hash ^= byte;
+                // 32-bit FNV prime multiply, done with shifts to stay in 32-bit range.
+                hash = Math.imul(hash, 0x01000193);
+        }
+        return hash >>> 0;
 }
 
 /**
@@ -30,37 +30,37 @@ function fnv1a(text: string): number {
  * seed string, matching the reproducibility requirement of hash visualization.
  */
 export class SeededRandom {
-  private state: number;
+        private state: number;
 
-  constructor(seed: string) {
-    // Mix the FNV hash a little so short seeds still spread across the state.
-    this.state = (fnv1a(seed) ^ 0x9e3779b9) >>> 0;
-    if (this.state === 0) this.state = 0x1;
-  }
+        constructor(seed: string) {
+                // Mix the FNV hash a little so short seeds still spread across the state.
+                this.state = (fnv1a(seed) ^ 0x9e3779b9) >>> 0;
+                if (this.state === 0) this.state = 0x1;
+        }
 
-  /** mulberry32 step -> float in [0, 1). */
-  next(): number {
-    this.state = (this.state + 0x6d2b79f5) >>> 0;
-    let t = this.state;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  }
+        /** mulberry32 step -> float in [0, 1). */
+        next(): number {
+                this.state = (this.state + 0x6d2b79f5) >>> 0;
+                let t = this.state;
+                t = Math.imul(t ^ (t >>> 15), t | 1);
+                t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        }
 
-  /** Integer in [0, n). */
-  nextInt(n: number): number {
-    return Math.floor(this.next() * n);
-  }
+        /** Integer in [0, n). */
+        nextInt(n: number): number {
+                return Math.floor(this.next() * n);
+        }
 
-  /** Integer in [0, 255]. */
-  nextByte(): number {
-    return this.nextInt(256);
-  }
+        /** Integer in [0, 255]. */
+        nextByte(): number {
+                return this.nextInt(256);
+        }
 
-  /** Float in [min, max). */
-  nextRange(min: number, max: number): number {
-    return min + this.next() * (max - min);
-  }
+        /** Float in [min, max). */
+        nextRange(min: number, max: number): number {
+                return min + this.next() * (max - min);
+        }
 }
 
 /**
@@ -70,8 +70,8 @@ export class SeededRandom {
  * R/G/B channels; the channel RNGs provide per-channel variation.
  */
 export type DualRng = {
-  structure: SeededRandom;
-  channels: [SeededRandom, SeededRandom, SeededRandom];
+        structure: SeededRandom;
+        channels: [SeededRandom, SeededRandom, SeededRandom];
 };
 
 /**
@@ -82,14 +82,14 @@ export type DualRng = {
  * within a single seed.
  */
 export function createDualRng(seedText: string, maxDepth: number): DualRng {
-  return {
-    structure: new SeededRandom(`${seedText}_struct_${String(maxDepth)}`),
-    channels: [
-      new SeededRandom(`${seedText}_red`),
-      new SeededRandom(`${seedText}_green`),
-      new SeededRandom(`${seedText}_blue`)
-    ]
-  };
+        return {
+                structure: new SeededRandom(`${seedText}_struct_${String(maxDepth)}`),
+                channels: [
+                        new SeededRandom(`${seedText}_red`),
+                        new SeededRandom(`${seedText}_green`),
+                        new SeededRandom(`${seedText}_blue`)
+                ]
+        };
 }
 
 /**
@@ -100,8 +100,8 @@ export function createDualRng(seedText: string, maxDepth: number): DualRng {
  * tree is built as separate instances.
  */
 export function createCorrelatedRng(seedText: string): DualRng {
-  const rng = new SeededRandom(`${seedText}_rgb`);
-  return { structure: rng, channels: [rng, rng, rng] };
+        const rng = new SeededRandom(`${seedText}_rgb`);
+        return { structure: rng, channels: [rng, rng, rng] };
 }
 
 /**
@@ -112,12 +112,12 @@ export function createCorrelatedRng(seedText: string): DualRng {
  * RNG stream used for tree generation.
  */
 export function seededShuffle<T>(arr: readonly T[], seedText: string): T[] {
-  const result = [...arr];
-  let s = fnv1a(seedText);
-  for (let i = result.length - 1; i > 0; i--) {
-    s = (Math.imul(s, 1103515245) + 12345) >>> 0;
-    const j = s % (i + 1);
-    [result[i], result[j]] = [result[j]!, result[i]!];
-  }
-  return result;
+        const result = [...arr];
+        let s = fnv1a(seedText);
+        for (let i = result.length - 1; i > 0; i--) {
+                s = (Math.imul(s, 1103515245) + 12345) >>> 0;
+                const j = s % (i + 1);
+                [result[i], result[j]] = [result[j]!, result[i]!];
+        }
+        return result;
 }

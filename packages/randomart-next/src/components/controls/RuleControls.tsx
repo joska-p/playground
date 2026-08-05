@@ -9,46 +9,46 @@ import { useCorrelatedRGB, useSelectedRuleId } from '../../stores/randomart/sele
 const RULE_GROUPS = listRuleGroups();
 
 function RuleControls() {
-  const selectedRuleId = useSelectedRuleId();
-  const correlatedRGB = useCorrelatedRGB();
+        const selectedRuleId = useSelectedRuleId();
+        const correlatedRGB = useCorrelatedRGB();
 
-  return (
-    <ControlGrid columns={3}>
-      <Checkbox
-        label="linked"
-        labelClassName={cn({ 'line-through': !correlatedRGB })}
-        checked={correlatedRGB}
-        variant="primary"
-        onChange={() => {
-          setCorrelatedRGB(!correlatedRGB);
-        }}
-      />
+        return (
+                <ControlGrid columns={3}>
+                        <Checkbox
+                                label="linked"
+                                labelClassName={cn({ 'line-through': !correlatedRGB })}
+                                checked={correlatedRGB}
+                                variant="primary"
+                                onChange={() => {
+                                        setCorrelatedRGB(!correlatedRGB);
+                                }}
+                        />
 
-      <Select
-        wrapperClassName="col-span-2"
-        value={selectedRuleId}
-        onChange={(e) => {
-          selectRule(e.target.value as RuleId);
-        }}
-      >
-        {RULE_GROUPS.map((group) => (
-          <optgroup
-            key={group.label}
-            label={group.label}
-          >
-            {group.rules.map((rule) => (
-              <option
-                key={rule.id}
-                value={rule.id}
-              >
-                {rule.label}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      </Select>
-    </ControlGrid>
-  );
+                        <Select
+                                wrapperClassName="col-span-2"
+                                value={selectedRuleId}
+                                onChange={(e) => {
+                                        selectRule(e.target.value as RuleId);
+                                }}
+                        >
+                                {RULE_GROUPS.map((group) => (
+                                        <optgroup
+                                                key={group.label}
+                                                label={group.label}
+                                        >
+                                                {group.rules.map((rule) => (
+                                                        <option
+                                                                key={rule.id}
+                                                                value={rule.id}
+                                                        >
+                                                                {rule.label}
+                                                        </option>
+                                                ))}
+                                        </optgroup>
+                                ))}
+                        </Select>
+                </ControlGrid>
+        );
 }
 
 export { RuleControls };

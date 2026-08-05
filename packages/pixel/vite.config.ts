@@ -4,14 +4,14 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
-  resolve: {
-    tsconfigPaths: true
-  },
-  build: { sourcemap: true },
-  test: {
-    environment: 'happy-dom',
-    include: ['src/**/*.test.ts'],
-    setupFiles: ['./vitest.setup.ts']
-  }
+        plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
+        resolve: {
+                tsconfigPaths: true
+        },
+        build: { sourcemap: true },
+        test: {
+                environment: 'happy-dom',
+                include: ['src/**/*.test.ts'],
+                setupFiles: ['./vitest.setup.ts']
+        }
 });

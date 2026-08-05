@@ -7,6 +7,6 @@ import { getEngine } from '../utils/engine-registry';
  * re-render.
  */
 export function useInput(target: Engine | RenderDriver | null): InputStore | null {
-  if (!target) return null;
-  return getEngine(target)?.input ?? null;
+        if (!target) return null;
+        return getEngine(target)?.input ?? null;
 }

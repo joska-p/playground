@@ -38,32 +38,32 @@ COMPONENT: [ComponentName]
 **1. Default Story**
 
 - **Do**: Show the most common real usage
-  ```pseudo
-  Default:
-    props: { label: "Save Changes", variant: "primary", size: "md" }
-  ```
+     ```pseudo
+     Default:
+       props: { label: "Save Changes", variant: "primary", size: "md" }
+     ```
 - **Don't**: Use unrealistic props
-  ```pseudo
-  Default:
-    props: { label: "Lorem ipsum dolor sit amet...", variant: "ghost", size: "xl" } // Bad
-  ```
+     ```pseudo
+     Default:
+       props: { label: "Lorem ipsum dolor sit amet...", variant: "ghost", size: "xl" } // Bad
+     ```
 
 **2. Variants Story**
 
 - **Do**: Show all variants together for easy comparison
-  ```pseudo
-  Variants:
-    Render multiple buttons side by side: primary, secondary, ghost, destructive
-  ```
+     ```pseudo
+     Variants:
+       Render multiple buttons side by side: primary, secondary, ghost, destructive
+     ```
 - **Don't**: Create one story per variant (too fragmented)
 
 **3. States Story**
 
 - **Do**:
-  ```pseudo
-  States:
-    Show: Default | Disabled | Loading | Error
-  ```
+     ```pseudo
+     States:
+       Show: Default | Disabled | Loading | Error
+     ```
 - **Don't**: Only show disabled state in a separate story while hiding it from main view
 
 **4. Naming**

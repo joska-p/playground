@@ -6,15 +6,15 @@ import { PlaybackSection } from './PlaybackSection';
 import { RuleSection } from './RuleSection';
 
 function ControlPanel() {
-  return (
-    <Panel title="controls">
-      <PlaybackSection />
-      <EditSection />
-      <CreatureSection />
-      <RuleSection />
-      <DebugSection />
-    </Panel>
-  );
+        return (
+                <Panel title="controls">
+                        <PlaybackSection />
+                        <EditSection />
+                        <CreatureSection />
+                        <RuleSection />
+                        <DebugSection />
+                </Panel>
+        );
 }
 
 export { ControlPanel };

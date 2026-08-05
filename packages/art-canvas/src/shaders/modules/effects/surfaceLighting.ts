@@ -1,10 +1,10 @@
 import type { ShaderModule } from '../../types';
 
 export const surfaceLighting: ShaderModule = {
-  name: 'surfaceLighting',
-  category: 'effects',
-  weight: 1.0,
-  code: `
+        name: 'surfaceLighting',
+        category: 'effects',
+        weight: 1.0,
+        code: `
     vec3 calculateNormal(vec2 uv, float dist) {
         vec2 eps = vec2(0.005, 0.0);
         float dx = dist - length(uv + eps.xy);
@@ -12,6 +12,6 @@ export const surfaceLighting: ShaderModule = {
         return normalize(vec3(dx, dy, 0.03));
     }
   `,
-  getCall: ({ uv, dist }) =>
-    `vec3 normal = calculateNormal(${uv ?? 'vec2(0.0)'}, ${dist ?? 'dist'});`
+        getCall: ({ uv, dist }) =>
+                `vec3 normal = calculateNormal(${uv ?? 'vec2(0.0)'}, ${dist ?? 'dist'});`
 };

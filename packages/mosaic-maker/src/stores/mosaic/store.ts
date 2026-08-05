@@ -4,14 +4,14 @@ import { initialTileSet } from '../../core/initialTileSet';
 import type { MosaicState } from './types';
 
 const mosaicStore = create<MosaicState>(() => ({
-  mosaicRef: { current: null },
-  paletteStock: [initialPalette],
-  currentPalettesIndex: 0,
-  currentPalette: initialPalette,
-  currentPalettes: [initialPalette],
-  tileSet: [...initialTileSet],
-  tiles: [],
-  isPalettesLoading: true
+        mosaicRef: { current: null },
+        paletteStock: [initialPalette],
+        currentPalettesIndex: 0,
+        currentPalette: initialPalette,
+        currentPalettes: [initialPalette],
+        tileSet: [...initialTileSet],
+        tiles: [],
+        isPalettesLoading: true
 }));
 
 export { mosaicStore };

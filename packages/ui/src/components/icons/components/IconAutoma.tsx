@@ -10,35 +10,35 @@ const startX = (80 - totalW) / 2;
 const startY = (60 - totalH) / 2;
 
 const grid = [
-  [0, 0, 1, 0, 0, 0, 1, 0],
-  [0, 0, 0, 1, 0, 1, 0, 0],
-  [0, 0, 1, 1, 1, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 1, 1, 0, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0]
+        [0, 0, 1, 0, 0, 0, 1, 0],
+        [0, 0, 0, 1, 0, 1, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 1, 1, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 export const IconAutoma = createIcon({
-  name: 'automa',
-  viewBox: '0 0 80 60',
-  children: (
-    <>
-      {grid.map((row, r) =>
-        row.map((cell, c) =>
-          cell ? (
-            <rect
-              key={`${String(r)}-${String(c)}`}
-              x={startX + c * (size + gap)}
-              y={startY + r * (size + gap)}
-              width={size}
-              height={size}
-              rx={1.5}
-              fill="currentColor"
-              opacity={0.5 + (r % 3) * 0.15}
-            />
-          ) : null
+        name: 'automa',
+        viewBox: '0 0 80 60',
+        children: (
+                <>
+                        {grid.map((row, r) =>
+                                row.map((cell, c) =>
+                                        cell ? (
+                                                <rect
+                                                        key={`${String(r)}-${String(c)}`}
+                                                        x={startX + c * (size + gap)}
+                                                        y={startY + r * (size + gap)}
+                                                        width={size}
+                                                        height={size}
+                                                        rx={1.5}
+                                                        fill="currentColor"
+                                                        opacity={0.5 + (r % 3) * 0.15}
+                                                />
+                                        ) : null
+                                )
+                        )}
+                </>
         )
-      )}
-    </>
-  )
 });

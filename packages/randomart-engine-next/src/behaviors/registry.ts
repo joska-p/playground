@@ -1,134 +1,134 @@
 import {
-  auroraFlowBehavior,
-  colorDriftBehavior,
-  edgeDetectBehavior,
-  filmGrainBehavior,
-  hueShiftBehavior,
-  iridescentSheenBehavior,
-  neonGlowPulseBehavior,
-  neonReactivePulseBehavior,
-  paletteCycleBehavior,
-  rgbGlitchSplitBehavior,
-  scanLinesBehavior,
-  spectralShiftBehavior,
-  thermalRadianceBehavior,
-  thermalVisionBehavior,
-  vignetteBehavior
+        auroraFlowBehavior,
+        colorDriftBehavior,
+        edgeDetectBehavior,
+        filmGrainBehavior,
+        hueShiftBehavior,
+        iridescentSheenBehavior,
+        neonGlowPulseBehavior,
+        neonReactivePulseBehavior,
+        paletteCycleBehavior,
+        rgbGlitchSplitBehavior,
+        scanLinesBehavior,
+        spectralShiftBehavior,
+        thermalRadianceBehavior,
+        thermalVisionBehavior,
+        vignetteBehavior
 } from './color.js';
 import {
-  cosmicMaelstromBehavior,
-  crystalFacetBehavior,
-  cyberChromaGlitchBehavior,
-  domainWarpBehavior,
-  glitchBlocksBehavior,
-  gravityLensBehavior,
-  gravityWellBehavior,
-  kaleidoscopeBehavior,
-  liquidMetalBehavior,
-  mirrorTileBehavior,
-  mouseProximityBehavior,
-  noiseCrawlBehavior,
-  pixelationBehavior,
-  plasmaFluidBehavior,
-  quantumTessellationBehavior,
-  rotateBehavior,
-  spiralGalaxyBehavior,
-  swirlBehavior,
-  tunnelBehavior,
-  voronoiBehavior,
-  waveInterferenceBehavior
+        cosmicMaelstromBehavior,
+        crystalFacetBehavior,
+        cyberChromaGlitchBehavior,
+        domainWarpBehavior,
+        glitchBlocksBehavior,
+        gravityLensBehavior,
+        gravityWellBehavior,
+        kaleidoscopeBehavior,
+        liquidMetalBehavior,
+        mirrorTileBehavior,
+        mouseProximityBehavior,
+        noiseCrawlBehavior,
+        pixelationBehavior,
+        plasmaFluidBehavior,
+        quantumTessellationBehavior,
+        rotateBehavior,
+        spiralGalaxyBehavior,
+        swirlBehavior,
+        tunnelBehavior,
+        voronoiBehavior,
+        waveInterferenceBehavior
 } from './spatial.js';
 
 export type BehaviorKind = 'spatial' | 'color';
 
 export type ApplyCodeContext = {
-  time: string;
-  speed: string;
-  spatial: string;
-  color: string;
+        time: string;
+        speed: string;
+        spatial: string;
+        color: string;
 };
 
 export type Behavior = {
-  readonly id: string;
-  readonly label: string;
-  readonly glslFunction?: string;
-  readonly kind: BehaviorKind;
-  readonly applyCode: (ctx: ApplyCodeContext) => string;
-  readonly noiseDependencies?: readonly string[];
+        readonly id: string;
+        readonly label: string;
+        readonly glslFunction?: string;
+        readonly kind: BehaviorKind;
+        readonly applyCode: (ctx: ApplyCodeContext) => string;
+        readonly noiseDependencies?: readonly string[];
 };
 
 export const BEHAVIORS = {
-  // ── Spatial ──
-  rotate: rotateBehavior,
-  swirl: swirlBehavior,
-  kaleidoscope: kaleidoscopeBehavior,
-  'domain-warp': domainWarpBehavior,
-  'mirror-tile': mirrorTileBehavior,
-  tunnel: tunnelBehavior,
-  'noise-crawl': noiseCrawlBehavior,
-  'mouse-proximity': mouseProximityBehavior,
-  pixelation: pixelationBehavior,
-  voronoi: voronoiBehavior,
-  'spiral-galaxy': spiralGalaxyBehavior,
-  'gravity-lens': gravityLensBehavior,
-  'wave-interference': waveInterferenceBehavior,
-  'crystal-facet': crystalFacetBehavior,
-  'glitch-blocks': glitchBlocksBehavior,
-  'liquid-metal': liquidMetalBehavior,
-  'cosmic-maelstrom': cosmicMaelstromBehavior,
-  'quantum-tessellation': quantumTessellationBehavior,
-  'gravity-well': gravityWellBehavior,
-  'plasma-fluid': plasmaFluidBehavior,
-  'cyber-chroma-glitch': cyberChromaGlitchBehavior,
-  // ── Color ──
-  'hue-shift': hueShiftBehavior,
-  'color-drift': colorDriftBehavior,
-  'edge-detect': edgeDetectBehavior,
-  vignette: vignetteBehavior,
-  'film-grain': filmGrainBehavior,
-  'scan-lines': scanLinesBehavior,
-  'spectral-shift': spectralShiftBehavior,
-  'iridescent-sheen': iridescentSheenBehavior,
-  'thermal-radiance': thermalRadianceBehavior,
-  'neon-reactive': neonReactivePulseBehavior,
-  'palette-cycle': paletteCycleBehavior,
-  'neon-glow-pulse': neonGlowPulseBehavior,
-  'rgb-glitch-split': rgbGlitchSplitBehavior,
-  'aurora-flow': auroraFlowBehavior,
-  'thermal-vision': thermalVisionBehavior
+        // ── Spatial ──
+        rotate: rotateBehavior,
+        swirl: swirlBehavior,
+        kaleidoscope: kaleidoscopeBehavior,
+        'domain-warp': domainWarpBehavior,
+        'mirror-tile': mirrorTileBehavior,
+        tunnel: tunnelBehavior,
+        'noise-crawl': noiseCrawlBehavior,
+        'mouse-proximity': mouseProximityBehavior,
+        pixelation: pixelationBehavior,
+        voronoi: voronoiBehavior,
+        'spiral-galaxy': spiralGalaxyBehavior,
+        'gravity-lens': gravityLensBehavior,
+        'wave-interference': waveInterferenceBehavior,
+        'crystal-facet': crystalFacetBehavior,
+        'glitch-blocks': glitchBlocksBehavior,
+        'liquid-metal': liquidMetalBehavior,
+        'cosmic-maelstrom': cosmicMaelstromBehavior,
+        'quantum-tessellation': quantumTessellationBehavior,
+        'gravity-well': gravityWellBehavior,
+        'plasma-fluid': plasmaFluidBehavior,
+        'cyber-chroma-glitch': cyberChromaGlitchBehavior,
+        // ── Color ──
+        'hue-shift': hueShiftBehavior,
+        'color-drift': colorDriftBehavior,
+        'edge-detect': edgeDetectBehavior,
+        vignette: vignetteBehavior,
+        'film-grain': filmGrainBehavior,
+        'scan-lines': scanLinesBehavior,
+        'spectral-shift': spectralShiftBehavior,
+        'iridescent-sheen': iridescentSheenBehavior,
+        'thermal-radiance': thermalRadianceBehavior,
+        'neon-reactive': neonReactivePulseBehavior,
+        'palette-cycle': paletteCycleBehavior,
+        'neon-glow-pulse': neonGlowPulseBehavior,
+        'rgb-glitch-split': rgbGlitchSplitBehavior,
+        'aurora-flow': auroraFlowBehavior,
+        'thermal-vision': thermalVisionBehavior
 } satisfies Record<string, Behavior>;
 
 export type BehaviorId = keyof typeof BEHAVIORS;
 
 export function getBehavior(id: BehaviorId): Behavior {
-  return BEHAVIORS[id];
+        return BEHAVIORS[id];
 }
 
 const KIND_ORDER: Behavior['kind'][] = ['spatial', 'color'];
 
 const KIND_LABELS: Record<Behavior['kind'], string> = {
-  spatial: 'Spatial',
-  color: 'Color'
+        spatial: 'Spatial',
+        color: 'Color'
 };
 
 export type BehaviorGroup = {
-  label: string;
-  behaviors: { id: BehaviorId; label: string }[];
+        label: string;
+        behaviors: { id: BehaviorId; label: string }[];
 };
 
 export function getBehaviorKinds(): BehaviorGroup[] {
-  const grouped = new Map<BehaviorKind, { id: BehaviorId; label: string }[]>();
+        const grouped = new Map<BehaviorKind, { id: BehaviorId; label: string }[]>();
 
-  for (const kind of KIND_ORDER) {
-    grouped.set(kind, []);
-  }
+        for (const kind of KIND_ORDER) {
+                grouped.set(kind, []);
+        }
 
-  for (const [id, b] of Object.entries(BEHAVIORS) as [BehaviorId, Behavior][]) {
-    grouped.get(b.kind)!.push({ id, label: b.label });
-  }
+        for (const [id, b] of Object.entries(BEHAVIORS) as [BehaviorId, Behavior][]) {
+                grouped.get(b.kind)!.push({ id, label: b.label });
+        }
 
-  return KIND_ORDER.map((k) => ({
-    label: KIND_LABELS[k],
-    behaviors: grouped.get(k)!
-  }));
+        return KIND_ORDER.map((k) => ({
+                label: KIND_LABELS[k],
+                behaviors: grouped.get(k)!
+        }));
 }

@@ -1,13 +1,12 @@
 ---
-title: "Pixelate2d Core"
-description: "The backend-agnostic heart of Pixelate2D — curried drawing pipelines, a closure-based engine loop, an input poll store, and CPU + GPU render drivers behind one interface."
-category: "reference"
+title: 'Pixelate2d Core'
+description: 'The backend-agnostic heart of Pixelate2D — curried drawing pipelines, a closure-based engine loop, an input poll store, and CPU + GPU render drivers behind one interface.'
+category: 'reference'
 tags:
-  - reference
-  - pixelate2d-core
+        - reference
+        - pixelate2d-core
 order: 20
 ---
-
 
 # @repo/pixelate2d-core
 
@@ -24,9 +23,9 @@ import { runLoop, drawCircle, drawRect, drawText } from '@repo/pixelate2d-core';
 const drawGoldNode = drawCircle('#ffd700')(8);
 
 const stop = runLoop({ canvas, kind: 'cpu' })((driver, { input, camera }) => {
-  driver.clear('#0a0a0c');
-  drawGoldNode(input.getPointerWorldPos(camera))(driver);
-  drawText('Pixelate2D')('#ffffff')(16)({ x: 20, y: 30 })(driver);
+        driver.clear('#0a0a0c');
+        drawGoldNode(input.getPointerWorldPos(camera))(driver);
+        drawText('Pixelate2D')('#ffffff')(16)({ x: 20, y: 30 })(driver);
 });
 // stop() tears the loop down
 ```
@@ -41,7 +40,15 @@ wraps this same core.
 import { createEngine, runLoop, createEngineStore } from '@repo/pixelate2d-core';
 import { createInputStore } from '@repo/pixelate2d-core';
 import { createCpuDriver, createGpuDriver } from '@repo/pixelate2d-core';
-import { drawCircle, drawRect, drawLine, drawText, fillPath, strokePath, withCamera } from '@repo/pixelate2d-core';
+import {
+        drawCircle,
+        drawRect,
+        drawLine,
+        drawText,
+        fillPath,
+        strokePath,
+        withCamera
+} from '@repo/pixelate2d-core';
 import { parseColor } from '@repo/pixelate2d-core';
 import type { RenderDriver, FrameContext, FrameCallback } from '@repo/pixelate2d-core';
 ```
@@ -83,4 +90,3 @@ render callback written against `RenderDriver` runs unchanged on Canvas2D
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

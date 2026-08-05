@@ -24,45 +24,45 @@ const checksumPath = resolve(__dirname, '../../data/processed-checksum');
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function fileChecksum(path: string): string {
-  return createHash('sha256').update(readFileSync(path)).digest('hex');
+        return createHash('sha256').update(readFileSync(path)).digest('hex');
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 function main() {
-  if (!existsSync(inputPath)) {
-    console.error(`Input not found: ${inputPath}`);
-    process.exit(1);
-  }
+        if (!existsSync(inputPath)) {
+                console.error(`Input not found: ${inputPath}`);
+                process.exit(1);
+        }
 
-  const inputChecksum = fileChecksum(inputPath);
-  if (existsSync(checksumPath) && existsSync(outputPath)) {
-    const cached = readFileSync(checksumPath, 'utf-8').trim();
-    if (cached === inputChecksum) {
-      console.log('Input unchanged — skipping pipeline');
-      return;
-    }
-  }
+        const inputChecksum = fileChecksum(inputPath);
+        if (existsSync(checksumPath) && existsSync(outputPath)) {
+                const cached = readFileSync(checksumPath, 'utf-8').trim();
+                if (cached === inputChecksum) {
+                        console.log('Input unchanged — skipping pipeline');
+                        return;
+                }
+        }
 
-  const raw = JSON.parse(readFileSync(inputPath, 'utf-8')) as RawGraph;
-  const { result, stats } = runPipeline(raw);
+        const raw = JSON.parse(readFileSync(inputPath, 'utf-8')) as RawGraph;
+        const { result, stats } = runPipeline(raw);
 
-  // Print pipeline stats
-  for (const line of stats) {
-    console.log(line);
-  }
+        // Print pipeline stats
+        for (const line of stats) {
+                console.log(line);
+        }
 
-  // Write output
-  const payload = JSON.stringify(result);
-  writeFileSync(outputPath, payload, 'utf-8');
-  writeFileSync(checksumPath, inputChecksum, 'utf-8');
+        // Write output
+        const payload = JSON.stringify(result);
+        writeFileSync(outputPath, payload, 'utf-8');
+        writeFileSync(checksumPath, inputChecksum, 'utf-8');
 
-  const bytes = Buffer.byteLength(payload, 'utf-8');
-  console.log(`Written ${outputPath}`);
-  console.log(`  Nodes:       ${result.nodes.length}`);
-  console.log(`  Links:       ${result.links.length}`);
-  console.log(`  Communities: ${result.communities.length}`);
-  console.log(`  Size:        ${(bytes / 1024 / 1024).toFixed(2)} MB`);
+        const bytes = Buffer.byteLength(payload, 'utf-8');
+        console.log(`Written ${outputPath}`);
+        console.log(`  Nodes:       ${result.nodes.length}`);
+        console.log(`  Links:       ${result.links.length}`);
+        console.log(`  Communities: ${result.communities.length}`);
+        console.log(`  Size:        ${(bytes / 1024 / 1024).toFixed(2)} MB`);
 }
 
 main();

@@ -11,16 +11,20 @@ export const defaultCamera = (): Camera => ({ x: 0, y: 0, zoom: 1 });
 
 /** World → screen transform for a camera. */
 export const cameraMatrix = (camera: Camera): Mat2D =>
-  compose2d(translation2d(camera.x, camera.y), scaling2d(camera.zoom));
+        compose2d(translation2d(camera.x, camera.y), scaling2d(camera.zoom));
 
 /** Screen → world: `world = (screen - (x, y)) / zoom`. */
-export const screenToWorld = (camera: Camera) => (screen: Vec2): Vec2 => ({
-  x: (screen.x - camera.x) / camera.zoom,
-  y: (screen.y - camera.y) / camera.zoom,
-});
+export const screenToWorld =
+        (camera: Camera) =>
+        (screen: Vec2): Vec2 => ({
+                x: (screen.x - camera.x) / camera.zoom,
+                y: (screen.y - camera.y) / camera.zoom
+        });
 
 /** World → screen. */
-export const worldToScreen = (camera: Camera) => (world: Vec2): Vec2 => ({
-  x: world.x * camera.zoom + camera.x,
-  y: world.y * camera.zoom + camera.y,
-});
+export const worldToScreen =
+        (camera: Camera) =>
+        (world: Vec2): Vec2 => ({
+                x: world.x * camera.zoom + camera.x,
+                y: world.y * camera.zoom + camera.y
+        });

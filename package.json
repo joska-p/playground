@@ -1,34 +1,34 @@
 {
-  "name": "playground",
-  "private": true,
-  "scripts": {
-    "sync-package-docs": "node ./scripts/sync-package-readmes.mjs",
-    "deploy": "pnpm build && mkdir -p ./apps/playground/dist/storybook && cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/",
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "lint-fix": "turbo run lint-fix",
-    "format": "prettier --write .",
-    "check-types": "turbo run check-types",
-    "gen": "turbo gen",
-    "graphify": "graphify update",
-    "clean": "turbo clean && turbo run clean && rm -rf node_modules && find . -name node_modules -type d -prune -exec rm -rf {} +",
-    "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
-    "gen:new-package": "turbo gen run new-package",
-    "gen:project-pages": "turbo gen run project-pages"
-  },
-  "devDependencies": {
-    "@turbo/gen": "catalog:",
-    "@types/node": "catalog:",
-    "prettier": "catalog:",
-    "prettier-plugin-astro": "catalog:",
-    "prettier-plugin-embed": "catalog:",
-    "prettier-plugin-glsl": "catalog:",
-    "prettier-plugin-organize-imports": "catalog:",
-    "prettier-plugin-tailwindcss": "catalog:",
-    "turbo": "catalog:",
-    "typescript": "catalog:",
-    "yaml": "catalog:"
-  },
-  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
+        "name": "playground",
+        "private": true,
+        "scripts": {
+                "sync-package-docs": "node ./scripts/sync-package-readmes.mjs",
+                "deploy": "pnpm build && mkdir -p ./apps/playground/dist/storybook && cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/",
+                "build": "turbo run build",
+                "dev": "turbo run dev",
+                "lint": "turbo run lint",
+                "lint-fix": "turbo run lint-fix",
+                "format": "prettier --write .",
+                "check-types": "turbo run check-types",
+                "gen": "turbo gen",
+                "graphify": "graphify update",
+                "clean": "turbo clean && turbo run clean && rm -rf node_modules && find . -name node_modules -type d -prune -exec rm -rf {} +",
+                "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
+                "gen:new-package": "turbo gen run new-package",
+                "gen:project-pages": "turbo gen run project-pages"
+        },
+        "devDependencies": {
+                "@turbo/gen": "catalog:",
+                "@types/node": "catalog:",
+                "prettier": "catalog:",
+                "prettier-plugin-astro": "catalog:",
+                "prettier-plugin-embed": "catalog:",
+                "prettier-plugin-glsl": "catalog:",
+                "prettier-plugin-organize-imports": "catalog:",
+                "prettier-plugin-tailwindcss": "catalog:",
+                "turbo": "catalog:",
+                "typescript": "catalog:",
+                "yaml": "catalog:"
+        },
+        "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }

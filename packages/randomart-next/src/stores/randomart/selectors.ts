@@ -4,57 +4,61 @@ import { randomartStore } from './store';
 
 // --- Mode Selectors ---
 export function useMode() {
-  return useStore(randomartStore, (s) => s.mode);
+        return useStore(randomartStore, (s) => s.mode);
 }
 
 // --- Direct Configuration Selectors ---
 export function useSeedText() {
-  return useStore(randomartStore, (s) => s.seedText);
+        return useStore(randomartStore, (s) => s.seedText);
 }
 export function useMaxDepth() {
-  return useStore(randomartStore, (s) => s.maxDepth);
+        return useStore(randomartStore, (s) => s.maxDepth);
 }
 export function useSelectedRuleId() {
-  return useStore(randomartStore, (s) => s.selectedRuleId);
+        return useStore(randomartStore, (s) => s.selectedRuleId);
 }
 export function useCustomOperators() {
-  return useStore(randomartStore, (s) => s.customOperatorIds);
+        return useStore(randomartStore, (s) => s.customOperatorIds);
 }
 export function useMinDepth() {
-  return useStore(randomartStore, (s) => s.minDepth);
+        return useStore(randomartStore, (s) => s.minDepth);
 }
 export function useActiveChannel() {
-  return useStore(randomartStore, (s) => s.activeChannel);
+        return useStore(randomartStore, (s) => s.activeChannel);
 }
 export function useRunning() {
-  return useStore(randomartStore, (s) => s.running);
+        return useStore(randomartStore, (s) => s.running);
 }
 export function useAnimationSpeed() {
-  return useStore(randomartStore, (s) => s.animationSpeed);
+        return useStore(randomartStore, (s) => s.animationSpeed);
 }
 export function useActiveBehaviorIds() {
-  return useStore(randomartStore, (s) => s.activeBehaviorIds);
+        return useStore(randomartStore, (s) => s.activeBehaviorIds);
 }
 export function useColorSpace() {
-  return useStore(randomartStore, (s) => s.colorSpace);
+        return useStore(randomartStore, (s) => s.colorSpace);
 }
 export function useCorrelatedRGB() {
-  return useStore(randomartStore, (s) => s.correlatedRGB);
+        return useStore(randomartStore, (s) => s.correlatedRGB);
 }
 
 // --- Raw Channel Selectors ---
 export function useTreeR(): Node {
-  return useStore(randomartStore, (s) => s.treeR);
+        return useStore(randomartStore, (s) => s.treeR);
 }
 export function useTreeG(): Node {
-  return useStore(randomartStore, (s) => s.treeG);
+        return useStore(randomartStore, (s) => s.treeG);
 }
 export function useTreeB(): Node {
-  return useStore(randomartStore, (s) => s.treeB);
+        return useStore(randomartStore, (s) => s.treeB);
 }
 
 export function useSelectedTree(): Node {
-  return useStore(randomartStore, (s) => {
-    return s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
-  });
+        return useStore(randomartStore, (s) => {
+                return s.activeChannel === 'red'
+                        ? s.treeR
+                        : s.activeChannel === 'green'
+                          ? s.treeG
+                          : s.treeB;
+        });
 }

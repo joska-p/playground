@@ -17,29 +17,29 @@ Three packages (`automa`, `graph-viz`, `pixel`) each invented their own version 
 ```typescript
 // @repo/worker-pool
 export class WorkerPool<TTask, TResult> {
-  constructor(config: WorkerPoolConfig<TTask, TResult>);
-  run(task: TTask): Promise<TResult>;
-  teardown(): void;
+        constructor(config: WorkerPoolConfig<TTask, TResult>);
+        run(task: TTask): Promise<TResult>;
+        teardown(): void;
 }
 
 export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
 
 export type WorkerPoolConfig<TTask, TResult> = {
-  /** Creates a fresh Worker. Consumer chooses URL, blob, inline import, etc. */
-  workerFactory: () => Worker;
-  /** Max pool size. Default: min(hardwareConcurrency, 4). */
-  maxPoolSize?: number;
-  /** Serialise the typed task into a postMessage payload + optional transferables. */
-  serialize: (task: TTask) => { message: unknown; transfer?: Transferable[] };
-  /** Extract a typed result from the worker's response message. */
-  deserialize: (event: MessageEvent) => WorkerResult<TResult>;
+        /** Creates a fresh Worker. Consumer chooses URL, blob, inline import, etc. */
+        workerFactory: () => Worker;
+        /** Max pool size. Default: min(hardwareConcurrency, 4). */
+        maxPoolSize?: number;
+        /** Serialise the typed task into a postMessage payload + optional transferables. */
+        serialize: (task: TTask) => { message: unknown; transfer?: Transferable[] };
+        /** Extract a typed result from the worker's response message. */
+        deserialize: (event: MessageEvent) => WorkerResult<TResult>;
 };
 
 // @repo/worker-pool/mock
 export class MockWorkerPool<TTask, TResult> {
-  constructor(handler: (task: TTask) => TResult);
-  run(task: TTask): Promise<TResult>;
-  teardown(): void;
+        constructor(handler: (task: TTask) => TResult);
+        run(task: TTask): Promise<TResult>;
+        teardown(): void;
 }
 ```
 
@@ -79,9 +79,9 @@ import { WorkerPool } from '@repo/worker-pool';
 
 // Worker that doubles numbers
 const pool = new WorkerPool<number, number>({
-  workerFactory: () => new Worker(new URL('./doubler', import.meta.url)),
-  serialize: (n) => ({ message: n }),
-  deserialize: (event) => ({ ok: true, value: event.data })
+        workerFactory: () => new Worker(new URL('./doubler', import.meta.url)),
+        serialize: (n) => ({ message: n }),
+        deserialize: (event) => ({ ok: true, value: event.data })
 });
 
 const result = await pool.run(21); // 42
@@ -100,33 +100,33 @@ type Task = { image: ImageData; steps: Step[]; maxPixels?: number };
 type Result = ImageData[];
 
 const pool = new WorkerPool<Task, Result>({
-  workerFactory: () => new PipelineWorker(), // Vite ?worker&inline
-  maxPoolSize: Math.min(navigator.hardwareConcurrency ?? 2, 4),
+        workerFactory: () => new PipelineWorker(), // Vite ?worker&inline
+        maxPoolSize: Math.min(navigator.hardwareConcurrency ?? 2, 4),
 
-  serialize: (task) => {
-    // Clone the pixel buffer so the transfer doesn't neuter the caller's copy
-    const copy = new ImageData(
-      new Uint8ClampedArray(task.image.data),
-      task.image.width,
-      task.image.height
-    );
-    return {
-      message: {
-        sourceImageData: copy,
-        steps: task.steps,
-        maximumPixels: task.maxPixels
-      },
-      transfer: [copy.data.buffer]
-    };
-  },
+        serialize: (task) => {
+                // Clone the pixel buffer so the transfer doesn't neuter the caller's copy
+                const copy = new ImageData(
+                        new Uint8ClampedArray(task.image.data),
+                        task.image.width,
+                        task.image.height
+                );
+                return {
+                        message: {
+                                sourceImageData: copy,
+                                steps: task.steps,
+                                maximumPixels: task.maxPixels
+                        },
+                        transfer: [copy.data.buffer]
+                };
+        },
 
-  deserialize: (event) => {
-    const data = event.data;
-    if ('error' in data) {
-      return { ok: false, error: new Error(data.error) };
-    }
-    return { ok: true, value: data as ImageData[] };
-  }
+        deserialize: (event) => {
+                const data = event.data;
+                if ('error' in data) {
+                        return { ok: false, error: new Error(data.error) };
+                }
+                return { ok: true, value: data as ImageData[] };
+        }
 });
 ```
 
@@ -139,34 +139,34 @@ import { WorkerPool } from '@repo/worker-pool';
 import { WORKER_MESSAGE_STEP } from '@repo/automa/core/config';
 
 type StepRequest = {
-  type: typeof WORKER_MESSAGE_STEP;
-  grid: Uint8Array;
-  cols: number;
-  rows: number;
-  ruleId: string;
+        type: typeof WORKER_MESSAGE_STEP;
+        grid: Uint8Array;
+        cols: number;
+        rows: number;
+        ruleId: string;
 };
 
 type StepResponse = {
-  type: typeof WORKER_MESSAGE_STEP;
-  grid: Uint8Array;
+        type: typeof WORKER_MESSAGE_STEP;
+        grid: Uint8Array;
 };
 
 const pool = new WorkerPool<StepRequest, StepResponse>({
-  workerFactory: () =>
-    new Worker(new URL('../../core/worker', import.meta.url), {
-      type: 'module'
-    }),
-  maxPoolSize: 1, // single dedicated worker
+        workerFactory: () =>
+                new Worker(new URL('../../core/worker', import.meta.url), {
+                        type: 'module'
+                }),
+        maxPoolSize: 1, // single dedicated worker
 
-  serialize: (task) => ({
-    message: task satisfies StepRequest,
-    transfer: [task.grid.buffer] // transfer ownership to worker
-  }),
+        serialize: (task) => ({
+                message: task satisfies StepRequest,
+                transfer: [task.grid.buffer] // transfer ownership to worker
+        }),
 
-  deserialize: (event) => ({
-    ok: true,
-    value: event.data as StepResponse // worker returns transferred-back buffer
-  })
+        deserialize: (event) => ({
+                ok: true,
+                value: event.data as StepResponse // worker returns transferred-back buffer
+        })
 });
 ```
 
@@ -196,9 +196,9 @@ type GraphData = { nodes: number };
 type Positions = Float32Array;
 
 function runSimulation(data: GraphData): Positions {
-  const positions = new Float32Array(data.nodes * 3);
-  // ... force-directed layout logic ...
-  return positions;
+        const positions = new Float32Array(data.nodes * 3);
+        // ... force-directed layout logic ...
+        return positions;
 }
 
 const mock = new MockWorkerPool<GraphData, Positions>(runSimulation);

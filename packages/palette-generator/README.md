@@ -65,7 +65,7 @@ pnpm add @repo/palette-generator
 import { PaletteGenerator } from '@repo/palette-generator';
 
 export default function Palettes() {
-  return <PaletteGenerator />;
+        return <PaletteGenerator />;
 }
 ```
 

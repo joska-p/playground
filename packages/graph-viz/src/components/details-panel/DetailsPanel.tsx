@@ -4,20 +4,20 @@ import { GraphOverview } from './graph-overview/GraphOverview';
 import { NodeDetails } from './node-details/NodeDetails';
 
 function DetailsPanel() {
-  const nodes = useNodes();
-  const selectedNodeIdx = useSelectedNodeIdx();
-  const selectedNode = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
+        const nodes = useNodes();
+        const selectedNodeIdx = useSelectedNodeIdx();
+        const selectedNode = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
 
-  if (selectedNode && selectedNodeIdx !== null) {
-    return (
-      <NodeDetails
-        node={selectedNode}
-        idx={selectedNodeIdx}
-      />
-    );
-  }
+        if (selectedNode && selectedNodeIdx !== null) {
+                return (
+                        <NodeDetails
+                                node={selectedNode}
+                                idx={selectedNodeIdx}
+                        />
+                );
+        }
 
-  return <GraphOverview />;
+        return <GraphOverview />;
 }
 
 export { DetailsPanel };

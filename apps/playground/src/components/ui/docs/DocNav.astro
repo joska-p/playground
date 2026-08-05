@@ -5,19 +5,21 @@ const currentPath = Astro.url.pathname;
 ---
 
 <aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
-  <nav
-    aria-label="Documentation navigation"
-    class="min-h-full flex-1 overflow-y-auto p-3"
-  >
-    <div class="space-y-5 py-1">
-      {
-        ['how-to', 'explanation', 'reference', 'conventions'].map((categoryName) => (
-          <NavCategory
-            categoryName={categoryName}
-            currentPath={currentPath}
-          />
-        ))
-      }
-    </div>
-  </nav>
+        <nav
+                aria-label="Documentation navigation"
+                class="min-h-full flex-1 overflow-y-auto p-3"
+        >
+                <div class="space-y-5 py-1">
+                        {
+                                ['how-to', 'explanation', 'reference', 'conventions'].map(
+                                        (categoryName) => (
+                                                <NavCategory
+                                                        categoryName={categoryName}
+                                                        currentPath={currentPath}
+                                                />
+                                        )
+                                )
+                        }
+                </div>
+        </nav>
 </aside>

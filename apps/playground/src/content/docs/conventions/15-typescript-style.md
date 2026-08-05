@@ -2,8 +2,8 @@
 title: TypeScript Style
 description: type over interface, and three patterns for handling absence.
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # TypeScript Style
@@ -40,8 +40,8 @@ type Failure = { success: false; error: string };
 type Result<T> = Success<T> | Failure;
 
 function fetchConfig(id: string): Result<{ theme: string; zoom: number }> {
-  if (!id) return { success: false, error: 'Missing ID' };
-  return { success: true, data: { theme: 'gruvbox', zoom: 1 } };
+        if (!id) return { success: false, error: 'Missing ID' };
+        return { success: true, data: { theme: 'gruvbox', zoom: 1 } };
 }
 ```
 
@@ -68,8 +68,8 @@ normal state to branch on, it's a bug:
 
 ```ts
 function assertExists<T>(value: T | null | undefined, message = 'Value must exist'): T {
-  if (value === null || value === undefined) throw new Error(message);
-  return value;
+        if (value === null || value === undefined) throw new Error(message);
+        return value;
 }
 
 const canvas = assertExists(document.getElementById('canvas'), 'Canvas element missing from DOM');

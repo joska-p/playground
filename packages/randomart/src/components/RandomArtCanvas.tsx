@@ -5,25 +5,25 @@ import { FloatingInspector } from './inspector/FloatingInspector';
 import { FloatingWeightPanel } from './weights/FloatingWeightPanel';
 
 export function RandomArtCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const treeR = useTreeR();
-  const treeG = useTreeG();
-  const treeB = useTreeB();
-  const running = useRunning();
+        const canvasRef = useRef<HTMLCanvasElement>(null);
+        const treeR = useTreeR();
+        const treeG = useTreeG();
+        const treeB = useTreeB();
+        const running = useRunning();
 
-  useWebGLRenderer(canvasRef, { treeR, treeG, treeB }, running);
+        useWebGLRenderer(canvasRef, { treeR, treeG, treeB }, running);
 
-  return (
-    <>
-      <FloatingInspector />
-      <FloatingWeightPanel />
+        return (
+                <>
+                        <FloatingInspector />
+                        <FloatingWeightPanel />
 
-      <div className="relative mx-auto flex aspect-square h-screen items-center justify-center overflow-hidden p-4">
-        <canvas
-          ref={canvasRef}
-          className="rounded-sm"
-        />
-      </div>
-    </>
-  );
+                        <div className="relative mx-auto flex aspect-square h-screen items-center justify-center overflow-hidden p-4">
+                                <canvas
+                                        ref={canvasRef}
+                                        className="rounded-sm"
+                                />
+                        </div>
+                </>
+        );
 }

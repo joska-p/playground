@@ -59,7 +59,7 @@ pnpm add @repo/three-stage
 import App from '@repo/three-stage';
 
 export default function Page() {
-  return <App />;
+        return <App />;
 }
 ```
 

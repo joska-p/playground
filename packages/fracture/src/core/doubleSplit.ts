@@ -12,7 +12,7 @@
  * representable), so the only rounding introduced is on the residual.
  */
 export function splitDouble(value: number): [number, number] {
-  const hi = Math.fround(value);
-  const lo = Math.fround(value - hi);
-  return [hi, lo];
+        const hi = Math.fround(value);
+        const lo = Math.fround(value - hi);
+        return [hi, lo];
 }

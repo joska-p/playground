@@ -21,9 +21,9 @@ Add grid-domain factories to `@repo/graphics/math/transforms.ts` so that any con
 ```ts
 // Discrete grid cell — the result of worldToGrid / screenToGrid
 type GridCell = {
-  column: number;
-  row: number;
-  index: number;
+        column: number;
+        row: number;
+        index: number;
 };
 
 // Continuous world → discrete cell (floor-based binning)
@@ -34,19 +34,19 @@ function gridToWorld(cell: { column: number; row: number }): Point2D;
 
 // Canvas pixel → grid cell (Y-flip + aspect-fit + floor)
 function createCanvasToGrid(
-  cols: number,
-  rows: number,
-  canvasWidth: number,
-  canvasHeight: number,
-  fit?: AspectFitMode // default 'contain'
+        cols: number,
+        rows: number,
+        canvasWidth: number,
+        canvasHeight: number,
+        fit?: AspectFitMode // default 'contain'
 ): (canvas: Point2D) => GridCell;
 
 // Screen event → grid cell (composes createScreenToCanvas + createCanvasToGrid)
 function createScreenToGrid(
-  canvasBounds: CanvasElementBounds,
-  cols: number,
-  rows: number,
-  fit?: AspectFitMode
+        canvasBounds: CanvasElementBounds,
+        cols: number,
+        rows: number,
+        fit?: AspectFitMode
 ): (screen: Point2D) => GridCell;
 ```
 
@@ -54,24 +54,24 @@ function createScreenToGrid(
 
 ```ts
 function createCanvasToGrid(
-  cols: number,
-  rows: number,
-  canvasWidth: number,
-  canvasHeight: number,
-  fit: AspectFitMode = 'contain'
+        cols: number,
+        rows: number,
+        canvasWidth: number,
+        canvasHeight: number,
+        fit: AspectFitMode = 'contain'
 ): (canvas: Point2D) => GridCell {
-  const toData = createCanvasToData(
-    { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
-    canvasWidth,
-    canvasHeight,
-    fit
-  );
-  return (canvas: Point2D) => {
-    const d = toData(canvas);
-    const column = Math.floor(d.x);
-    const row = Math.floor(d.y);
-    return { column, row, index: row * cols + column };
-  };
+        const toData = createCanvasToData(
+                { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+                canvasWidth,
+                canvasHeight,
+                fit
+        );
+        return (canvas: Point2D) => {
+                const d = toData(canvas);
+                const column = Math.floor(d.x);
+                const row = Math.floor(d.y);
+                return { column, row, index: row * cols + column };
+        };
 }
 ```
 
@@ -82,14 +82,14 @@ consistently with the rest of the library.
 
 ```ts
 function createScreenToGrid(
-  canvasBounds: CanvasElementBounds,
-  cols: number,
-  rows: number,
-  fit: AspectFitMode = 'contain'
+        canvasBounds: CanvasElementBounds,
+        cols: number,
+        rows: number,
+        fit: AspectFitMode = 'contain'
 ): (screen: Point2D) => GridCell {
-  const toCanvas = createScreenToCanvas(canvasBounds);
-  const toGrid = createCanvasToGrid(cols, rows, canvasBounds.width, canvasBounds.height, fit);
-  return (screen: Point2D) => toGrid(toCanvas(screen));
+        const toCanvas = createScreenToCanvas(canvasBounds);
+        const toGrid = createCanvasToGrid(cols, rows, canvasBounds.width, canvasBounds.height, fit);
+        return (screen: Point2D) => toGrid(toCanvas(screen));
 }
 ```
 
@@ -157,10 +157,10 @@ Replace with:
 
 ```ts
 import {
-  createScreenToGrid,
-  gridToWorld as centralGridToWorld,
-  type GridCell,
-  type Point2D
+        createScreenToGrid,
+        gridToWorld as centralGridToWorld,
+        type GridCell,
+        type Point2D
 } from '@repo/graphics/math/transforms';
 
 export type { GridCell, Point2D };
@@ -169,30 +169,30 @@ export type { GridCell, Point2D };
 export { centralGridToWorld as gridToWorld };
 
 export function createCanvasToGrid(
-  cols: number,
-  rows: number,
-  boundsWidth: number,
-  boundsHeight: number,
-  fit: 'fill' | 'contain' | 'cover' = 'contain'
+        cols: number,
+        rows: number,
+        boundsWidth: number,
+        boundsHeight: number,
+        fit: 'fill' | 'contain' | 'cover' = 'contain'
 ) {
-  if (fit === 'fill') {
-    // Simple 1:1 — each canvas pixel maps to (x * cols/width, y * rows/height)
-    // This is what automa actually needs: no aspect preservation, just direct mapping.
-  }
-  // ...
+        if (fit === 'fill') {
+                // Simple 1:1 — each canvas pixel maps to (x * cols/width, y * rows/height)
+                // This is what automa actually needs: no aspect preservation, just direct mapping.
+        }
+        // ...
 }
 
 export function eventToGridPoint(
-  e: { clientX: number; clientY: number },
-  canvas: HTMLCanvasElement,
-  cols: number,
-  rows: number
+        e: { clientX: number; clientY: number },
+        canvas: HTMLCanvasElement,
+        cols: number,
+        rows: number
 ): GridCell {
-  const bounds = canvas.getBoundingClientRect();
-  const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height, 'fill');
-  // Central lib uses Y-down. GL uses Y-up. Flip here.
-  const localY = bounds.height - (e.clientY - bounds.top);
-  return toGrid({ x: e.clientX - bounds.left, y: localY });
+        const bounds = canvas.getBoundingClientRect();
+        const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height, 'fill');
+        // Central lib uses Y-down. GL uses Y-up. Flip here.
+        const localY = bounds.height - (e.clientY - bounds.top);
+        return toGrid({ x: e.clientX - bounds.left, y: localY });
 }
 ```
 
@@ -213,9 +213,9 @@ Implementation sketch:
 
 ```ts
 import {
-  createCanvasToData,
-  createScreenToCanvas,
-  type Point2D
+        createCanvasToData,
+        createScreenToCanvas,
+        type Point2D
 } from '@repo/graphics/math/transforms';
 
 // Keep these exports for backward compat
@@ -223,53 +223,53 @@ export type GridCell = { column: number; row: number; index: number };
 export type { Point2D };
 
 export function createWorldToGrid(cols: number, rows: number) {
-  return (p: Point2D) => ({
-    column: Math.max(0, Math.min(cols - 1, Math.floor(p.x))),
-    row: Math.max(0, Math.min(rows - 1, Math.floor(p.y))),
-    index: Math.floor(p.y) * cols + Math.floor(p.x)
-  });
+        return (p: Point2D) => ({
+                column: Math.max(0, Math.min(cols - 1, Math.floor(p.x))),
+                row: Math.max(0, Math.min(rows - 1, Math.floor(p.y))),
+                index: Math.floor(p.y) * cols + Math.floor(p.x)
+        });
 }
 
 export function gridToWorld(cell: { column: number; row: number }): Point2D {
-  return { x: cell.column + 0.5, y: cell.row + 0.5 };
+        return { x: cell.column + 0.5, y: cell.row + 0.5 };
 }
 
 export function createCanvasToGrid(
-  cols: number,
-  rows: number,
-  boundsWidth: number,
-  boundsHeight: number,
-  fit: 'fill' | 'contain' | 'cover' = 'contain'
+        cols: number,
+        rows: number,
+        boundsWidth: number,
+        boundsHeight: number,
+        fit: 'fill' | 'contain' | 'cover' = 'contain'
 ) {
-  // Delegate to the central Data transform (it handles the fit modes).
-  // Note: canvas Y is down, grid Y is up — that flip happens in eventToGridPoint.
-  const toData = createCanvasToData(
-    { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
-    boundsWidth,
-    boundsHeight,
-    fit
-  );
-  return (p: Point2D) => {
-    const d = toData(p);
-    return {
-      column: Math.floor(d.x),
-      row: Math.floor(d.y),
-      index: Math.floor(d.y) * cols + Math.floor(d.x)
-    };
-  };
+        // Delegate to the central Data transform (it handles the fit modes).
+        // Note: canvas Y is down, grid Y is up — that flip happens in eventToGridPoint.
+        const toData = createCanvasToData(
+                { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+                boundsWidth,
+                boundsHeight,
+                fit
+        );
+        return (p: Point2D) => {
+                const d = toData(p);
+                return {
+                        column: Math.floor(d.x),
+                        row: Math.floor(d.y),
+                        index: Math.floor(d.y) * cols + Math.floor(d.x)
+                };
+        };
 }
 
 export function eventToGridPoint(
-  e: { clientX: number; clientY: number },
-  canvas: HTMLCanvasElement,
-  cols: number,
-  rows: number
+        e: { clientX: number; clientY: number },
+        canvas: HTMLCanvasElement,
+        cols: number,
+        rows: number
 ) {
-  const bounds = canvas.getBoundingClientRect();
-  const localX = e.clientX - bounds.left;
-  const localY = bounds.height - (e.clientY - bounds.top); // Y-flip: GL convention
-  const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
-  return toGrid({ x: localX, y: localY });
+        const bounds = canvas.getBoundingClientRect();
+        const localX = e.clientX - bounds.left;
+        const localY = bounds.height - (e.clientY - bounds.top); // Y-flip: GL convention
+        const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
+        return toGrid({ x: localX, y: localY });
 }
 ```
 
@@ -335,12 +335,12 @@ uniform vec2 u_panOffset;
 uniform float u_zoom;
 
 void main() {
-  vec2 uv = vUv;
-  // Apply zoom (zoom > 1 = zoom in, anchored at center)
-  uv = (uv - 0.5) / u_zoom + 0.5;
-  // Apply pan
-  uv -= u_panOffset;
-  // ... rest of the shader (aspect correction, texture lookup)
+        vec2 uv = vUv;
+        // Apply zoom (zoom > 1 = zoom in, anchored at center)
+        uv = (uv - 0.5) / u_zoom + 0.5;
+        // Apply pan
+        uv -= u_panOffset;
+        // ... rest of the shader (aspect correction, texture lookup)
 }
 ```
 
@@ -366,14 +366,17 @@ In `CellMesh.tsx`, read `interactionState.current.pan` and
 const interactionState = useInteractiveCanvas(canvasRef);
 
 useFrame((time) => {
-  const { pan, zoom } = interactionState.current;
-  runner.pipeline.setUniforms({
-    u_panOffset: [pan.x / runner.ctx.drawingBufferWidth, pan.y / runner.ctx.drawingBufferHeight],
-    u_zoom: zoom,
-    gridTexture: engine.getDisplayTexture()
-    // ... other uniforms
-  });
-  runner.render();
+        const { pan, zoom } = interactionState.current;
+        runner.pipeline.setUniforms({
+                u_panOffset: [
+                        pan.x / runner.ctx.drawingBufferWidth,
+                        pan.y / runner.ctx.drawingBufferHeight
+                ],
+                u_zoom: zoom,
+                gridTexture: engine.getDisplayTexture()
+                // ... other uniforms
+        });
+        runner.render();
 });
 ```
 
@@ -386,26 +389,26 @@ Add an optional `interaction` parameter:
 
 ```ts
 export function eventToGridPoint(
-  e: { clientX: number; clientY: number },
-  canvas: HTMLCanvasElement,
-  cols: number,
-  rows: number,
-  interaction?: { pan: Point2D; zoom: number }
+        e: { clientX: number; clientY: number },
+        canvas: HTMLCanvasElement,
+        cols: number,
+        rows: number,
+        interaction?: { pan: Point2D; zoom: number }
 ) {
-  const bounds = canvas.getBoundingClientRect();
-  let localX = e.clientX - bounds.left;
-  let localY = bounds.height - (e.clientY - bounds.top);
+        const bounds = canvas.getBoundingClientRect();
+        let localX = e.clientX - bounds.left;
+        let localY = bounds.height - (e.clientY - bounds.top);
 
-  // Reverse the display transform to get the logical grid coordinate
-  if (interaction) {
-    const cx = bounds.width / 2;
-    const cy = bounds.height / 2;
-    localX = (localX - cx) / interaction.zoom + cx + interaction.pan.x;
-    localY = (localY - cy) / interaction.zoom + cy + interaction.pan.y;
-  }
+        // Reverse the display transform to get the logical grid coordinate
+        if (interaction) {
+                const cx = bounds.width / 2;
+                const cy = bounds.height / 2;
+                localX = (localX - cx) / interaction.zoom + cx + interaction.pan.x;
+                localY = (localY - cy) / interaction.zoom + cy + interaction.pan.y;
+        }
 
-  const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
-  return toGrid({ x: localX, y: localY });
+        const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
+        return toGrid({ x: localX, y: localY });
 }
 ```
 
@@ -437,14 +440,14 @@ const interactionState = useInteractiveCanvas(canvasRef);
 
 // Pass interactionState to useCellPainting
 const { onPointerDown, onPointerMove, onPointerUp, onContextMenu } = useCellPainting(
-  cols,
-  rows,
-  brushMode,
-  paintCell,
-  creature,
-  placePattern,
-  canvasRef,
-  interactionState
+        cols,
+        rows,
+        brushMode,
+        paintCell,
+        creature,
+        placePattern,
+        canvasRef,
+        interactionState
 );
 
 // Pass pan/zoom as uniforms onBeforeRender

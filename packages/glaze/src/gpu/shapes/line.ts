@@ -37,11 +37,15 @@ void main() {
 }
 `.trim();
 
-export function lineUniforms(a: Point2D, b: Point2D, style: DrawStyle): Record<string, UniformValue> {
-  return {
-    u_a: [a.x, a.y],
-    u_b: [b.x, b.y],
-    u_width: style.lineWidth ?? 1,
-    u_color: colorArray(style.stroke ?? style.fill ?? '#000000')
-  };
+export function lineUniforms(
+        a: Point2D,
+        b: Point2D,
+        style: DrawStyle
+): Record<string, UniformValue> {
+        return {
+                u_a: [a.x, a.y],
+                u_b: [b.x, b.y],
+                u_width: style.lineWidth ?? 1,
+                u_color: colorArray(style.stroke ?? style.fill ?? '#000000')
+        };
 }

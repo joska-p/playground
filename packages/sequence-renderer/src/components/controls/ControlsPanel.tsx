@@ -4,13 +4,13 @@ import { SequenceSection } from './SequenceSection';
 import { ViewportSection } from './ViewportSection';
 
 function ControlsPanel() {
-  return (
-    <ControlPanel>
-      <SequenceSection />
-      <ViewportSection />
-      <LayerStackEditor />
-    </ControlPanel>
-  );
+        return (
+                <ControlPanel>
+                        <SequenceSection />
+                        <ViewportSection />
+                        <LayerStackEditor />
+                </ControlPanel>
+        );
 }
 
 export { ControlsPanel };

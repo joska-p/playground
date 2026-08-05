@@ -1,22 +1,22 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
 export type ContextSensitiveOptions = {
-  /** Name of the symbol this rule matches. */
-  readonly name: string;
-  /** Name of the symbol that must immediately precede the matched symbol (ignoring brackets). */
-  readonly leftContext?: string;
-  /** Name of the symbol that must immediately follow the matched symbol (ignoring brackets). */
-  readonly rightContext?: string;
-  /**
-   * The word to produce when this rule fires.
-   * For parametric context-sensitive rules, use `parametricRule` instead.
-   */
-  readonly produce: Word;
-  /**
-   * Names of symbols to skip when scanning for context neighbors.
-   * Defaults to ['[', ']'] — the Prusinkiewicz standard.
-   */
-  readonly ignoreBrackets?: boolean;
+        /** Name of the symbol this rule matches. */
+        readonly name: string;
+        /** Name of the symbol that must immediately precede the matched symbol (ignoring brackets). */
+        readonly leftContext?: string;
+        /** Name of the symbol that must immediately follow the matched symbol (ignoring brackets). */
+        readonly rightContext?: string;
+        /**
+         * The word to produce when this rule fires.
+         * For parametric context-sensitive rules, use `parametricRule` instead.
+         */
+        readonly produce: Word;
+        /**
+         * Names of symbols to skip when scanning for context neighbors.
+         * Defaults to ['[', ']'] — the Prusinkiewicz standard.
+         */
+        readonly ignoreBrackets?: boolean;
 };
 
 const DEFAULT_IGNORED = new Set(['[', ']']);
@@ -26,11 +26,11 @@ const DEFAULT_IGNORED = new Set(['[', ']']);
  * Returns null when no such neighbor exists.
  */
 function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string>): LSymbol | null {
-  for (let i = index - 1; i >= 0; i--) {
-    const sym = word[i];
-    if (sym && !ignored.has(sym.name)) return sym;
-  }
-  return null;
+        for (let i = index - 1; i >= 0; i--) {
+                const sym = word[i];
+                if (sym && !ignored.has(sym.name)) return sym;
+        }
+        return null;
 }
 
 /**
@@ -38,15 +38,15 @@ function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string
  * Returns null when no such neighbor exists.
  */
 function findRightNeighbor(
-  word: Word,
-  index: number,
-  ignored: ReadonlySet<string>
+        word: Word,
+        index: number,
+        ignored: ReadonlySet<string>
 ): LSymbol | null {
-  for (let i = index + 1; i < word.length; i++) {
-    const sym = word[i];
-    if (sym && !ignored.has(sym.name)) return sym;
-  }
-  return null;
+        for (let i = index + 1; i < word.length; i++) {
+                const sym = word[i];
+                if (sym && !ignored.has(sym.name)) return sym;
+        }
+        return null;
 }
 
 /**
@@ -62,27 +62,31 @@ function findRightNeighbor(
  * })
  */
 export function contextSensitiveRule(options: ContextSensitiveOptions): Rule {
-  const ignored: ReadonlySet<string> =
-    options.ignoreBrackets === false ? new Set() : DEFAULT_IGNORED;
+        const ignored: ReadonlySet<string> =
+                options.ignoreBrackets === false ? new Set() : DEFAULT_IGNORED;
 
-  return {
-    match(sym: LSymbol, context: Context): boolean {
-      if (sym.name !== options.name) return false;
+        return {
+                match(sym: LSymbol, context: Context): boolean {
+                        if (sym.name !== options.name) return false;
 
-      if (options.leftContext !== undefined) {
-        const left = findLeftNeighbor(context.word, context.index, ignored);
-        if (left?.name !== options.leftContext) return false;
-      }
+                        if (options.leftContext !== undefined) {
+                                const left = findLeftNeighbor(context.word, context.index, ignored);
+                                if (left?.name !== options.leftContext) return false;
+                        }
 
-      if (options.rightContext !== undefined) {
-        const right = findRightNeighbor(context.word, context.index, ignored);
-        if (right?.name !== options.rightContext) return false;
-      }
+                        if (options.rightContext !== undefined) {
+                                const right = findRightNeighbor(
+                                        context.word,
+                                        context.index,
+                                        ignored
+                                );
+                                if (right?.name !== options.rightContext) return false;
+                        }
 
-      return true;
-    },
-    apply(): Word {
-      return options.produce;
-    }
-  };
+                        return true;
+                },
+                apply(): Word {
+                        return options.produce;
+                }
+        };
 }

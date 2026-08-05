@@ -12,12 +12,12 @@ State lives on the GPU. The grid is uploaded once, then transformed in-place by 
 import { App } from '@repo/automa/automa';
 
 function Page() {
-  return (
-    <App
-      rows={300}
-      cols={400}
-    />
-  );
+        return (
+                <App
+                        rows={300}
+                        cols={400}
+                />
+        );
 }
 ```
 

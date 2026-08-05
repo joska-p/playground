@@ -2,8 +2,8 @@
 title: Zod Schemas
 description: Co-locating schemas and deriving types with z.infer.
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # Zod Schemas

@@ -6,37 +6,37 @@ import { devtools } from 'zustand/middleware';
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
-  const mode = 'play';
-  const seedText = "De deux choses lune l'autre c'est le soleil";
-  const maxDepth = 8;
-  const enabledRuleIds = getAllRules().map((rule) => rule.id as RuleId);
-  const ruleWeights = getInitialWeights();
-  const trees = generateTrees({
-    seedText,
-    maxDepth,
-    enabledRuleIds,
-    correlated: false,
-    ruleWeights
-  });
+        const mode = 'play';
+        const seedText = "De deux choses lune l'autre c'est le soleil";
+        const maxDepth = 8;
+        const enabledRuleIds = getAllRules().map((rule) => rule.id as RuleId);
+        const ruleWeights = getInitialWeights();
+        const trees = generateTrees({
+                seedText,
+                maxDepth,
+                enabledRuleIds,
+                correlated: false,
+                ruleWeights
+        });
 
-  return {
-    mode,
-    seedText,
-    activeChannel: 'red',
-    maxDepth,
-    enabledRuleIds,
-    ruleWeights,
-    ...trees,
-    running: false,
-    time: 0,
-    animationSpeed: 0.3,
-    correlatedRGB: false,
-    activeAnimationBehaviorIds: ['hue-shift']
-  };
+        return {
+                mode,
+                seedText,
+                activeChannel: 'red',
+                maxDepth,
+                enabledRuleIds,
+                ruleWeights,
+                ...trees,
+                running: false,
+                time: 0,
+                animationSpeed: 0.3,
+                correlatedRGB: false,
+                activeAnimationBehaviorIds: ['hue-shift']
+        };
 }
 
 export const randomartStore = createStore<RandomartState>()(
-  devtools(() => generateInitial(), { name: 'RandomartStore' })
+        devtools(() => generateInitial(), { name: 'RandomartStore' })
 );
 
 /**
@@ -44,29 +44,29 @@ export const randomartStore = createStore<RandomartState>()(
  * recalculates the generative math trees within the exact same atomic state transition.
  */
 export function updateTreeConfig(
-  updater: (state: RandomartState) => Partial<RandomartState>,
-  actionName?: string
+        updater: (state: RandomartState) => Partial<RandomartState>,
+        actionName?: string
 ): void {
-  const currentState = randomartStore.getState();
-  const partialNext = updater(currentState);
+        const currentState = randomartStore.getState();
+        const partialNext = updater(currentState);
 
-  // Create an integrated next state frame to calculate next trees cleanly
-  const nextState = { ...currentState, ...partialNext };
+        // Create an integrated next state frame to calculate next trees cleanly
+        const nextState = { ...currentState, ...partialNext };
 
-  const recalculatedTrees = generateTrees({
-    seedText: nextState.seedText,
-    maxDepth: nextState.maxDepth,
-    enabledRuleIds: nextState.enabledRuleIds,
-    correlated: nextState.correlatedRGB,
-    ruleWeights: nextState.ruleWeights
-  });
+        const recalculatedTrees = generateTrees({
+                seedText: nextState.seedText,
+                maxDepth: nextState.maxDepth,
+                enabledRuleIds: nextState.enabledRuleIds,
+                correlated: nextState.correlatedRGB,
+                ruleWeights: nextState.ruleWeights
+        });
 
-  randomartStore.setState(
-    {
-      ...partialNext,
-      ...recalculatedTrees
-    },
-    false,
-    actionName ?? 'config/updateTreeConfig'
-  );
+        randomartStore.setState(
+                {
+                        ...partialNext,
+                        ...recalculatedTrees
+                },
+                false,
+                actionName ?? 'config/updateTreeConfig'
+        );
 }

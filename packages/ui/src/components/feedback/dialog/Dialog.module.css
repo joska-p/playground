@@ -1,29 +1,29 @@
 .modal {
-  @starting-style {
-    opacity: 0;
-    transform: scale(0.96) translateY(10px);
-  }
-  animation: dialogIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        @starting-style {
+                opacity: 0;
+                transform: scale(0.96) translateY(10px);
+        }
+        animation: dialogIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modal::backdrop {
-  background: oklch(0 0 0 / 0.6);
-  backdrop-filter: blur(4px);
-  @starting-style {
-    opacity: 0;
-  }
-  animation: fadeIn 0.25s ease;
+        background: oklch(0 0 0 / 0.6);
+        backdrop-filter: blur(4px);
+        @starting-style {
+                opacity: 0;
+        }
+        animation: fadeIn 0.25s ease;
 }
 
 @keyframes dialogIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(10px);
-  }
+        from {
+                opacity: 0;
+                transform: scale(0.96) translateY(10px);
+        }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+        from {
+                opacity: 0;
+        }
 }

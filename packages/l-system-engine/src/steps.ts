@@ -7,30 +7,30 @@ import type { Context, ExpandOptions, Grammar, Word } from './types';
  * Unmatched symbols are kept or removed according to `grammar.unmatchedSymbol`.
  */
 function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
-  const next: Word[number][] = [];
-  const keep = grammar.unmatchedSymbol !== 'remove';
+        const next: Word[number][] = [];
+        const keep = grammar.unmatchedSymbol !== 'remove';
 
-  for (let i = 0; i < word.length; i++) {
-    const sym = word[i];
-    if (!sym) continue;
-    const context: Context = { word, index: i, random };
+        for (let i = 0; i < word.length; i++) {
+                const sym = word[i];
+                if (!sym) continue;
+                const context: Context = { word, index: i, random };
 
-    let matched = false;
-    for (const rule of grammar.rules) {
-      if (rule.match(sym, context)) {
-        const replacement = rule.apply(sym, context);
-        next.push(...replacement);
-        matched = true;
-        break;
-      }
-    }
+                let matched = false;
+                for (const rule of grammar.rules) {
+                        if (rule.match(sym, context)) {
+                                const replacement = rule.apply(sym, context);
+                                next.push(...replacement);
+                                matched = true;
+                                break;
+                        }
+                }
 
-    if (!matched && keep) {
-      next.push(sym);
-    }
-  }
+                if (!matched && keep) {
+                        next.push(sym);
+                }
+        }
 
-  return next;
+        return next;
 }
 
 /**
@@ -45,19 +45,19 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
  * const iteration1 = iter.next().value; // after one rewrite
  */
 export function steps(grammar: Grammar, options?: ExpandOptions): Iterator<Word, Word> {
-  const seed = options?.seed ?? (Math.random() * 2 ** 32) | 0;
-  const random = createRandom(seed);
-  let current: Word = grammar.axiom;
-  let started = false;
+        const seed = options?.seed ?? (Math.random() * 2 ** 32) | 0;
+        const random = createRandom(seed);
+        let current: Word = grammar.axiom;
+        let started = false;
 
-  return {
-    next(): IteratorResult<Word> {
-      if (!started) {
-        started = true;
-        return { value: current, done: false };
-      }
-      current = rewrite(current, grammar, random);
-      return { value: current, done: false };
-    }
-  };
+        return {
+                next(): IteratorResult<Word> {
+                        if (!started) {
+                                started = true;
+                                return { value: current, done: false };
+                        }
+                        current = rewrite(current, grammar, random);
+                        return { value: current, done: false };
+                }
+        };
 }

@@ -1,13 +1,12 @@
 ---
-title: "Pixelate2d Math"
-description: "Pure, curried math for 2D creative coding — vectors, affine transforms, and a pan/zoom camera model with zero DOM, zero React, zero side effects."
-category: "reference"
+title: 'Pixelate2d Math'
+description: 'Pure, curried math for 2D creative coding — vectors, affine transforms, and a pan/zoom camera model with zero DOM, zero React, zero side effects.'
+category: 'reference'
 tags:
-  - reference
-  - pixelate2d-math
+        - reference
+        - pixelate2d-math
 order: 20
 ---
-
 
 # @repo/pixelate2d-math
 
@@ -28,12 +27,40 @@ const rotated = apply2d(rotation2d(Math.PI / 2))({ x: 1, y: 0 });
 
 ```typescript
 import {
-  vec, addVec, subVec, mulVec, lenVec, distVec, normVec, dotVec, lerpVec,
-  identity2d, mat2d, translation2d, rotation2d, scaling2d, compose2d,
-  multiply2d, apply2d, invert2d, toMat3,
-  defaultCamera, cameraMatrix, screenToWorld, worldToScreen,
-  clamp, lerp, pointInRect, pointInCircle, rectsOverlap,
-  type Vec2, type Size, type Rect, type Circle, type Mat2D, type Camera,
+        vec,
+        addVec,
+        subVec,
+        mulVec,
+        lenVec,
+        distVec,
+        normVec,
+        dotVec,
+        lerpVec,
+        identity2d,
+        mat2d,
+        translation2d,
+        rotation2d,
+        scaling2d,
+        compose2d,
+        multiply2d,
+        apply2d,
+        invert2d,
+        toMat3,
+        defaultCamera,
+        cameraMatrix,
+        screenToWorld,
+        worldToScreen,
+        clamp,
+        lerp,
+        pointInRect,
+        pointInCircle,
+        rectsOverlap,
+        type Vec2,
+        type Size,
+        type Rect,
+        type Circle,
+        type Mat2D,
+        type Camera
 } from '@repo/pixelate2d-math';
 ```
 
@@ -54,4 +81,3 @@ directions for input picking.
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

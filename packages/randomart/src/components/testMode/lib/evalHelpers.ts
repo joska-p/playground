@@ -16,11 +16,11 @@ export const GLSL_ARGS: string[] = ['x', 'y', 't'];
 
 /** Builds the same preview node for a rule+seed pair used by both CPU and GPU renderers. */
 export function buildPreviewNode(rule: GrammarRule, seed: number) {
-  const rng = new SeededRandom(String(seed));
-  return rule.buildNode(rng, () => ({ ruleId: 'x', args: [] }));
+        const rng = new SeededRandom(String(seed));
+        return rule.buildNode(rng, () => ({ ruleId: 'x', args: [] }));
 }
 
 /** Default (x, y, 0.5) argument getters used by the CPU evaluator. */
 export function makeDefaultEvalArgs(x: number, y: number): (() => number)[] {
-  return [() => x, () => y, () => 0.5];
+        return [() => x, () => y, () => 0.5];
 }

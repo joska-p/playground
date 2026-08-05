@@ -1,66 +1,66 @@
 ---
 interface Route {
-  label: string;
-  href: string;
+        label: string;
+        href: string;
 }
 
 interface Props {
-  routes: Route[];
-  currentPath: string;
-  baseUrl: string;
+        routes: Route[];
+        currentPath: string;
+        baseUrl: string;
 }
 
 const { routes, currentPath, baseUrl } = Astro.props;
 
 const isActive = (href: string): boolean => {
-  if (href === baseUrl) {
-    return currentPath === href || currentPath === href + '/';
-  }
-  return currentPath.startsWith(href);
+        if (href === baseUrl) {
+                return currentPath === href || currentPath === href + '/';
+        }
+        return currentPath.startsWith(href);
 };
 ---
 
 <div
-  class="border-border bg-background/95 pointer-events-none absolute inset-x-0 top-full -z-10 flex origin-top -translate-y-4 flex-col gap-4 border-b px-6 py-8 opacity-0 shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_30%,transparent),0_30px_60px_-20px_color-mix(in_oklch,var(--glow-color)_28%,transparent),0_25px_50px_-12px_rgb(0_0_0/0.35)] backdrop-blur-xl transition-all duration-300 data-[open=true]:pointer-events-auto data-[open=true]:translate-y-0 data-[open=true]:opacity-100 md:hidden"
-  data-open="false"
-  id="mobile-menu"
+        class="border-border bg-background/95 pointer-events-none absolute inset-x-0 top-full -z-10 flex origin-top -translate-y-4 flex-col gap-4 border-b px-6 py-8 opacity-0 shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_30%,transparent),0_30px_60px_-20px_color-mix(in_oklch,var(--glow-color)_28%,transparent),0_25px_50px_-12px_rgb(0_0_0/0.35)] backdrop-blur-xl transition-all duration-300 data-[open=true]:pointer-events-auto data-[open=true]:translate-y-0 data-[open=true]:opacity-100 md:hidden"
+        data-open="false"
+        id="mobile-menu"
 >
-  <nav
-    aria-label="Mobile navigation"
-    class="flex flex-col gap-2"
-  >
-    {
-      routes.map((route) => {
-        const active = isActive(route.href);
-        return (
-          <a
-            aria-current={active ? 'page' : undefined}
-            class="text-foreground-muted `data-active:text-(--glow-color) pointer-events-auto flex items-center rounded-xl px-4 py-3 text-sm font-bold uppercase transition-all active:scale-95 data-active:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] data-active:shadow-[0_0_18px_-4px_var(--glow-color)]"
-            data-active={active ? '' : undefined}
-            href={route.href}
-          >
-            {route.label}
-          </a>
-        );
-      })
-    }
-  </nav>
+        <nav
+                aria-label="Mobile navigation"
+                class="flex flex-col gap-2"
+        >
+                {
+                        routes.map((route) => {
+                                const active = isActive(route.href);
+                                return (
+                                        <a
+                                                aria-current={active ? 'page' : undefined}
+                                                class="text-foreground-muted `data-active:text-(--glow-color) pointer-events-auto flex items-center rounded-xl px-4 py-3 text-sm font-bold uppercase transition-all active:scale-95 data-active:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] data-active:shadow-[0_0_18px_-4px_var(--glow-color)]"
+                                                data-active={active ? '' : undefined}
+                                                href={route.href}
+                                        >
+                                                {route.label}
+                                        </a>
+                                );
+                        })
+                }
+        </nav>
 
-  <div class="border-border mt-4 flex gap-4 border-t pt-4">
-    <a
-      class="text-foreground-muted pointer-events-auto flex items-center gap-2 text-xs hover:text-(--glow-color)"
-      href="https://gitlab.com/joska-p/playground"
-      rel="noopener noreferrer"
-      target="_blank"
-      >GitLab</a
-    >
+        <div class="border-border mt-4 flex gap-4 border-t pt-4">
+                <a
+                        class="text-foreground-muted pointer-events-auto flex items-center gap-2 text-xs hover:text-(--glow-color)"
+                        href="https://gitlab.com/joska-p/playground"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        >GitLab</a
+                >
 
-    <a
-      class="text-foreground-muted pointer-events-auto flex items-center gap-2 text-xs hover:text-(--glow-color)"
-      href="https://github.com/joska-p/playground"
-      rel="noopener noreferrer"
-      target="_blank"
-      >GitHub</a
-    >
-  </div>
+                <a
+                        class="text-foreground-muted pointer-events-auto flex items-center gap-2 text-xs hover:text-(--glow-color)"
+                        href="https://github.com/joska-p/playground"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        >GitHub</a
+                >
+        </div>
 </div>

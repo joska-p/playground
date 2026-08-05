@@ -1,22 +1,22 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./base.json",
-  "compilerOptions": {
-    "tsBuildInfoFile": "./.turbo/tsconfig.node.tsbuildinfo",
-    "target": "es2023",
-    "lib": ["ES2023"],
-    "types": ["node"],
-    "skipLibCheck": true,
-    "noEmit": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
-  },
-  "include": ["vite.config.ts"]
+        "$schema": "https://json.schemastore.org/tsconfig",
+        "extends": "./base.json",
+        "compilerOptions": {
+                "tsBuildInfoFile": "./.turbo/tsconfig.node.tsbuildinfo",
+                "target": "es2023",
+                "lib": ["ES2023"],
+                "types": ["node"],
+                "skipLibCheck": true,
+                "noEmit": true,
+                "moduleResolution": "bundler",
+                "allowImportingTsExtensions": true,
+                "verbatimModuleSyntax": true,
+                "moduleDetection": "force",
+                "noUnusedLocals": true,
+                "noUnusedParameters": true,
+                "erasableSyntaxOnly": true,
+                "noFallthroughCasesInSwitch": true,
+                "noUncheckedIndexedAccess": true
+        },
+        "include": ["vite.config.ts"]
 }

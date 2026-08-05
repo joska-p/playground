@@ -188,7 +188,7 @@ luck.
 
 ```ts
 for (const cb of callbacks) {
-  cb(time, delta);
+        cb(time, delta);
 }
 rafId = requestAnimationFrame(tick); // never reached if a cb throws
 ```

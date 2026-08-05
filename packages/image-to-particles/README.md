@@ -51,7 +51,7 @@ pnpm add @repo/image-to-particles
 import { ImageToParticles } from '@repo/image-to-particles';
 
 export default function MyParticles() {
-  return <ImageToParticles />;
+        return <ImageToParticles />;
 }
 ```
 

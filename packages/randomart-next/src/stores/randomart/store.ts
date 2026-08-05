@@ -5,68 +5,68 @@ import { generateTrees } from './adapter';
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
-  const mode = 'play';
-  const seedText = "De deux choses lune l'autre c'est le soleil";
-  const preset = getRule(DEFAULT_RULE_ID);
-  const selectedRuleId = DEFAULT_RULE_ID;
-  const minDepth = preset.minDepth;
-  const maxDepth = preset.maxDepth;
+        const mode = 'play';
+        const seedText = "De deux choses lune l'autre c'est le soleil";
+        const preset = getRule(DEFAULT_RULE_ID);
+        const selectedRuleId = DEFAULT_RULE_ID;
+        const minDepth = preset.minDepth;
+        const maxDepth = preset.maxDepth;
 
-  const trees = generateTrees({
-    seedText,
-    selectedRuleId,
-    customOperatorIds: null,
-    minDepth,
-    maxDepth,
-    correlated: false
-  });
+        const trees = generateTrees({
+                seedText,
+                selectedRuleId,
+                customOperatorIds: null,
+                minDepth,
+                maxDepth,
+                correlated: false
+        });
 
-  return {
-    mode,
-    seedText,
-    activeChannel: 'red',
-    selectedRuleId,
-    customOperatorIds: null,
-    minDepth,
-    maxDepth,
-    ...trees,
-    running: false,
-    time: 0,
-    animationSpeed: 0.3,
-    activeBehaviorIds: ['hue-shift'],
-    colorSpace: 'srgb',
-    correlatedRGB: false
-  };
+        return {
+                mode,
+                seedText,
+                activeChannel: 'red',
+                selectedRuleId,
+                customOperatorIds: null,
+                minDepth,
+                maxDepth,
+                ...trees,
+                running: false,
+                time: 0,
+                animationSpeed: 0.3,
+                activeBehaviorIds: ['hue-shift'],
+                colorSpace: 'srgb',
+                correlatedRGB: false
+        };
 }
 
 export const randomartStore = createStore<RandomartState>()(
-  devtools(() => generateInitial(), { name: 'RandomartStore' })
+        devtools(() => generateInitial(), { name: 'RandomartStore' })
 );
 
 export function updateTreeConfig(
-  updater: (state: RandomartState) => Partial<RandomartState>,
-  actionName?: string
+        updater: (state: RandomartState) => Partial<RandomartState>,
+        actionName?: string
 ): void {
-  const currentState = randomartStore.getState();
-  const partialNext = updater(currentState);
+        const currentState = randomartStore.getState();
+        const partialNext = updater(currentState);
 
-  const nextState = { ...currentState, ...partialNext };
+        const nextState = { ...currentState, ...partialNext };
 
-  const recalculatedTrees = generateTrees({
-    seedText: nextState.seedText,
-    selectedRuleId: nextState.selectedRuleId,
-    customOperatorIds: nextState.customOperatorIds,
-    minDepth: nextState.minDepth,
-    maxDepth: nextState.maxDepth,
-    correlated: nextState.correlatedRGB
-  });
+        const recalculatedTrees = generateTrees({
+                seedText: nextState.seedText,
+                selectedRuleId: nextState.selectedRuleId,
+                customOperatorIds: nextState.customOperatorIds,
+                minDepth: nextState.minDepth,
+                maxDepth: nextState.maxDepth,
+                correlated: nextState.correlatedRGB
+        });
 
-  randomartStore.setState(
-    {
-      ...partialNext,
-      ...recalculatedTrees
-    },
-    false,
-    actionName ?? 'config/updateTreeConfig'
-  );
+        randomartStore.setState(
+                {
+                        ...partialNext,
+                        ...recalculatedTrees
+                },
+                false,
+                actionName ?? 'config/updateTreeConfig'
+        );
 }

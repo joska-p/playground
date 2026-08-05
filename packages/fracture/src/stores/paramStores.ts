@@ -6,7 +6,7 @@ import { doubleSplitStore } from './doubleSplitStore';
 import { perturbationStore } from './perturbationStore';
 
 export const paramStores: Record<Renderer, StoreApi<RendererParams>> = {
-  'double-single': doubleSplitStore,
-  perturbation: perturbationStore,
-  original: originalStore
+        'double-single': doubleSplitStore,
+        perturbation: perturbationStore,
+        original: originalStore
 };

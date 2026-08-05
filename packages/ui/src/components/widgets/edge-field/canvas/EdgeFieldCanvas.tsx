@@ -133,31 +133,31 @@ void main() {
 `;
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
-  const shader = gl.createShader(type);
-  if (!shader) throw new Error('Failed to create shader');
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    const info = gl.getShaderInfoLog(shader);
-    gl.deleteShader(shader);
-    throw new Error(`Shader compile error: ${info}`);
-  }
-  return shader;
+        const shader = gl.createShader(type);
+        if (!shader) throw new Error('Failed to create shader');
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                const info = gl.getShaderInfoLog(shader);
+                gl.deleteShader(shader);
+                throw new Error(`Shader compile error: ${info}`);
+        }
+        return shader;
 }
 
 function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
-  const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SRC);
-  const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SRC);
-  const program = gl.createProgram();
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    const info = gl.getProgramInfoLog(program);
-    gl.deleteProgram(program);
-    throw new Error(`Program link error: ${info}`);
-  }
-  return program;
+        const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SRC);
+        const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SRC);
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                const info = gl.getProgramInfoLog(program);
+                gl.deleteProgram(program);
+                throw new Error(`Program link error: ${info}`);
+        }
+        return program;
 }
 
 // Colors as 0-1 RGB triples. Swap these for anything --glow-color resolves
@@ -171,102 +171,102 @@ const COLOR_HOT: [number, number, number] = [0.55, 0.85, 0.62];
 const MAX_DPR = 1.5;
 
 export function EdgeFieldCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+        const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+        useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
 
-    const gl = canvas.getContext('webgl2', {
-      alpha: true,
-      antialias: false,
-      premultipliedAlpha: true
-    });
-    if (!gl) {
-      console.warn('EdgeFieldCanvas: WebGL2 unavailable, skipping render.');
-      return;
-    }
+                const gl = canvas.getContext('webgl2', {
+                        alpha: true,
+                        antialias: false,
+                        premultipliedAlpha: true
+                });
+                if (!gl) {
+                        console.warn('EdgeFieldCanvas: WebGL2 unavailable, skipping render.');
+                        return;
+                }
 
-    const program = createProgram(gl);
-    gl.useProgram(program);
+                const program = createProgram(gl);
+                gl.useProgram(program);
 
-    const uniforms = {
-      resolution: gl.getUniformLocation(program, 'u_resolution'),
-      time: gl.getUniformLocation(program, 'u_time'),
-      mouse: gl.getUniformLocation(program, 'u_mouse'),
-      seed: gl.getUniformLocation(program, 'u_seed'),
-      scale: gl.getUniformLocation(program, 'u_scale'),
-      bands: gl.getUniformLocation(program, 'u_bands'),
-      colorCold: gl.getUniformLocation(program, 'u_colorCold'),
-      colorHot: gl.getUniformLocation(program, 'u_colorHot'),
-      hotRadius: gl.getUniformLocation(program, 'u_hotRadius')
-    };
+                const uniforms = {
+                        resolution: gl.getUniformLocation(program, 'u_resolution'),
+                        time: gl.getUniformLocation(program, 'u_time'),
+                        mouse: gl.getUniformLocation(program, 'u_mouse'),
+                        seed: gl.getUniformLocation(program, 'u_seed'),
+                        scale: gl.getUniformLocation(program, 'u_scale'),
+                        bands: gl.getUniformLocation(program, 'u_bands'),
+                        colorCold: gl.getUniformLocation(program, 'u_colorCold'),
+                        colorHot: gl.getUniformLocation(program, 'u_colorHot'),
+                        hotRadius: gl.getUniformLocation(program, 'u_hotRadius')
+                };
 
-    gl.uniform3fv(uniforms.colorCold, COLOR_COLD);
-    gl.uniform3fv(uniforms.colorHot, COLOR_HOT);
-    gl.uniform1f(uniforms.seed, 11.0);
-    gl.uniform1f(uniforms.scale, 6.0);
-    gl.uniform1f(uniforms.bands, 8.0);
-    gl.uniform1f(uniforms.hotRadius, 440.0);
+                gl.uniform3fv(uniforms.colorCold, COLOR_COLD);
+                gl.uniform3fv(uniforms.colorHot, COLOR_HOT);
+                gl.uniform1f(uniforms.seed, 11.0);
+                gl.uniform1f(uniforms.scale, 6.0);
+                gl.uniform1f(uniforms.bands, 8.0);
+                gl.uniform1f(uniforms.hotRadius, 440.0);
 
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+                gl.enable(gl.BLEND);
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    const mouse = { x: -9999, y: -9999 };
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+                const mouse = { x: -9999, y: -9999 };
+                const handleMouseMove = (e: MouseEvent) => {
+                        mouse.x = e.clientX;
+                        mouse.y = e.clientY;
+                };
+                window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
-      const width = Math.floor(window.innerWidth * dpr);
-      const height = Math.floor(window.innerHeight * dpr);
-      if (canvas!.width !== width || canvas!.height !== height) {
-        canvas!.width = width;
-        canvas!.height = height;
-        gl!.viewport(0, 0, width, height);
-      }
-    }
-    resize();
-    window.addEventListener('resize', resize);
+                function resize() {
+                        const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+                        const width = Math.floor(window.innerWidth * dpr);
+                        const height = Math.floor(window.innerHeight * dpr);
+                        if (canvas!.width !== width || canvas!.height !== height) {
+                                canvas!.width = width;
+                                canvas!.height = height;
+                                gl!.viewport(0, 0, width, height);
+                        }
+                }
+                resize();
+                window.addEventListener('resize', resize);
 
-    let rafId: number;
-    const start = performance.now();
-    function frame(now: number) {
-      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
-      gl!.uniform2f(uniforms.resolution, canvas!.width, canvas!.height);
-      gl!.uniform1f(uniforms.time, (now - start) / 1000);
-      gl!.uniform2f(uniforms.mouse, mouse.x * dpr, mouse.y * dpr);
+                let rafId: number;
+                const start = performance.now();
+                function frame(now: number) {
+                        const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+                        gl!.uniform2f(uniforms.resolution, canvas!.width, canvas!.height);
+                        gl!.uniform1f(uniforms.time, (now - start) / 1000);
+                        gl!.uniform2f(uniforms.mouse, mouse.x * dpr, mouse.y * dpr);
 
-      gl!.clear(gl!.COLOR_BUFFER_BIT);
-      gl!.drawArrays(gl!.TRIANGLES, 0, 3);
+                        gl!.clear(gl!.COLOR_BUFFER_BIT);
+                        gl!.drawArrays(gl!.TRIANGLES, 0, 3);
 
-      rafId = requestAnimationFrame(frame);
-    }
-    rafId = requestAnimationFrame(frame);
+                        rafId = requestAnimationFrame(frame);
+                }
+                rafId = requestAnimationFrame(frame);
 
-    const handleContextLost = (e: Event) => {
-      e.preventDefault();
-      cancelAnimationFrame(rafId);
-    };
-    canvas.addEventListener('webglcontextlost', handleContextLost);
+                const handleContextLost = (e: Event) => {
+                        e.preventDefault();
+                        cancelAnimationFrame(rafId);
+                };
+                canvas.addEventListener('webglcontextlost', handleContextLost);
 
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', resize);
-      canvas.removeEventListener('webglcontextlost', handleContextLost);
-      gl.deleteProgram(program);
-    };
-  }, []);
+                return () => {
+                        cancelAnimationFrame(rafId);
+                        window.removeEventListener('mousemove', handleMouseMove);
+                        window.removeEventListener('resize', resize);
+                        canvas.removeEventListener('webglcontextlost', handleContextLost);
+                        gl.deleteProgram(program);
+                };
+        }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none fixed inset-0 h-screen w-screen"
-      aria-hidden="true"
-    />
-  );
+        return (
+                <canvas
+                        ref={canvasRef}
+                        className="pointer-events-none fixed inset-0 h-screen w-screen"
+                        aria-hidden="true"
+                />
+        );
 }

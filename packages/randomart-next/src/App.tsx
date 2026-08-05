@@ -5,16 +5,16 @@ import { TestMode } from './components/testMode/TestMode';
 import { useMode } from './stores/randomart/selectors';
 
 function App() {
-  const mode = useMode();
+        const mode = useMode();
 
-  return (
-    <div className="relative h-screen overflow-hidden">
-      <ErrorBoundary>
-        {mode === 'test' ? <TestMode /> : <RandomArtCanvas />}
-        <ControlPanel />
-      </ErrorBoundary>
-    </div>
-  );
+        return (
+                <div className="relative h-screen overflow-hidden">
+                        <ErrorBoundary>
+                                {mode === 'test' ? <TestMode /> : <RandomArtCanvas />}
+                                <ControlPanel />
+                        </ErrorBoundary>
+                </div>
+        );
 }
 
 export { App };

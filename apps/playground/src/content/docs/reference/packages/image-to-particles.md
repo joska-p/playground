@@ -1,13 +1,12 @@
 ---
-title: "Image to Particles"
-description: "An image disintegrates into thousands of particles that tumble from the top of the canvas, drift under gravity, and spring back to their origin — turning a photograph into a moment of organized collapse and recovery."
-category: "reference"
+title: 'Image to Particles'
+description: 'An image disintegrates into thousands of particles that tumble from the top of the canvas, drift under gravity, and spring back to their origin — turning a photograph into a moment of organized collapse and recovery.'
+category: 'reference'
 tags:
-  - reference
-  - image-to-particles
+        - reference
+        - image-to-particles
 order: 20
 ---
-
 
 # @repo/image-to-particles
 
@@ -51,7 +50,7 @@ pnpm add @repo/image-to-particles
 import { ImageToParticles } from '@repo/image-to-particles';
 
 export default function MyParticles() {
-  return <ImageToParticles />;
+        return <ImageToParticles />;
 }
 ```
 
@@ -151,4 +150,3 @@ On image load, the system:
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

@@ -7,33 +7,37 @@ import { useEffect, useState } from 'react';
  * values into React at UI frequency to display them.
  */
 export function LiveStatus({ input }: { input: InputStore | null }) {
-  const [, setTick] = useState(0);
+        const [, setTick] = useState(0);
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTick((tick) => tick + 1);
-    }, 100);
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+        useEffect(() => {
+                const id = setInterval(() => {
+                        setTick((tick) => tick + 1);
+                }, 100);
+                return () => {
+                        clearInterval(id);
+                };
+        }, []);
 
-  if (!input) {
-    return <p className="font-mono text-xs text-neutral-600">engine not mounted</p>;
-  }
+        if (!input) {
+                return <p className="font-mono text-xs text-neutral-600">engine not mounted</p>;
+        }
 
-  const keys = ['W', 'A', 'S', 'D'].map((key) => (input.isKeyDown(`Key${key}`) ? key : '·')).join('');
+        const keys = ['W', 'A', 'S', 'D']
+                .map((key) => (input.isKeyDown(`Key${key}`) ? key : '·'))
+                .join('');
 
-  return (
-    <dl className="grid grid-cols-2 gap-x-2 gap-y-1 font-mono text-xs">
-      <dt className="text-neutral-500">pointer</dt>
-      <dd className="text-right text-neutral-200">
-        {input.pointer.x.toFixed(0)}, {input.pointer.y.toFixed(0)}
-      </dd>
-      <dt className="text-neutral-500">mouse</dt>
-      <dd className="text-right text-neutral-200">{input.mouseDown ? 'down' : 'up'}</dd>
-      <dt className="text-neutral-500">WASD</dt>
-      <dd className="text-right text-neutral-200">{keys}</dd>
-    </dl>
-  );
+        return (
+                <dl className="grid grid-cols-2 gap-x-2 gap-y-1 font-mono text-xs">
+                        <dt className="text-neutral-500">pointer</dt>
+                        <dd className="text-right text-neutral-200">
+                                {input.pointer.x.toFixed(0)}, {input.pointer.y.toFixed(0)}
+                        </dd>
+                        <dt className="text-neutral-500">mouse</dt>
+                        <dd className="text-right text-neutral-200">
+                                {input.mouseDown ? 'down' : 'up'}
+                        </dd>
+                        <dt className="text-neutral-500">WASD</dt>
+                        <dd className="text-right text-neutral-200">{keys}</dd>
+                </dl>
+        );
 }

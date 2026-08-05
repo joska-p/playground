@@ -79,36 +79,36 @@ out vec4 fragColor; // final pixel colour
 //  standard OKLab → linear sRGB → sRGB-gamma transform.
 // ============================================================
 vec3 oklchToRgb(vec3 oklch) {
-  float L = oklch.x; // Lightness  ∈ [0,1]
-  float C = oklch.y; // Chroma
-  float H = oklch.z; // Hue (radians)
+        float L = oklch.x; // Lightness  ∈ [0,1]
+        float C = oklch.y; // Chroma
+        float H = oklch.z; // Hue (radians)
 
-  // OKLab a/b axes from polar (C, H)
-  float a = C * cos(H);
-  float b = C * sin(H);
+        // OKLab a/b axes from polar (C, H)
+        float a = C * cos(H);
+        float b = C * sin(H);
 
-  // OKLab → LMS (long/medium/short cone responses)
-  float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-  float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  float s_ = L - 0.0894841775 * a - 1.291485548 * b;
+        // OKLab → LMS (long/medium/short cone responses)
+        float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+        float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+        float s_ = L - 0.0894841775 * a - 1.291485548 * b;
 
-  // Non-linearity: cube the LMS values
-  float l = l_ * l_ * l_;
-  float m = m_ * m_ * m_;
-  float s = s_ * s_ * s_;
+        // Non-linearity: cube the LMS values
+        float l = l_ * l_ * l_;
+        float m = m_ * m_ * m_;
+        float s = s_ * s_ * s_;
 
-  // LMS → linear sRGB
-  vec3 linearRgb;
-  linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
-  linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-  linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
+        // LMS → linear sRGB
+        vec3 linearRgb;
+        linearRgb.r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+        linearRgb.g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+        linearRgb.b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
-  // Linear sRGB → gamma-encoded sRGB (piecewise sRGB transfer function)
-  vec3 lowPart = linearRgb * 12.92;
-  vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
-  vec3 rgb = mix(highPart, lowPart, lessThanEqual(linearRgb, vec3(0.0031308)));
+        // Linear sRGB → gamma-encoded sRGB (piecewise sRGB transfer function)
+        vec3 lowPart = linearRgb * 12.92;
+        vec3 highPart = 1.055 * pow(max(linearRgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055;
+        vec3 rgb = mix(highPart, lowPart, lessThanEqual(linearRgb, vec3(0.0031308)));
 
-  return clamp(rgb, 0.0, 1.0);
+        return clamp(rgb, 0.0, 1.0);
 }
 
 // ============================================================
@@ -121,9 +121,9 @@ vec3 oklchToRgb(vec3 oklch) {
 //  so they behave intuitively when the user interacts.
 // ============================================================
 vec2 screenToComplex(vec2 uv) {
-  vec2 centered = (uv - 0.5) / u_zoom + 0.5 + u_panOffset;
-  centered.x = (centered.x - 0.5) * u_aspect + 0.5;
-  return (centered - 0.5) * 3.0 - vec2(0.5, 0.0);
+        vec2 centered = (uv - 0.5) / u_zoom + 0.5 + u_panOffset;
+        centered.x = (centered.x - 0.5) * u_aspect + 0.5;
+        return (centered - 0.5) * 3.0 - vec2(0.5, 0.0);
 }
 
 // ============================================================
@@ -132,7 +132,7 @@ vec2 screenToComplex(vec2 uv) {
 //  (x + yi)² = (x² − y²) + 2xy i,  then add c.
 // ============================================================
 vec2 iterateMandelbrot(vec2 z, vec2 c) {
-  return vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
+        return vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
 }
 
 // ============================================================
@@ -149,10 +149,10 @@ vec2 iterateMandelbrot(vec2 z, vec2 c) {
 //    y = |z| at escape           (used to drive chroma)
 // ============================================================
 vec2 computeExteriorData(int iterationCount, vec2 z, float mod2) {
-  float logMagnitude = 0.5 * log(mod2); // = log(|z|)
-  float nu = log(logMagnitude / LN_2) / LN_2;
-  float smoothIter = float(iterationCount) + 1.0 - nu;
-  return vec2(smoothIter, length(z));
+        float logMagnitude = 0.5 * log(mod2); // = log(|z|)
+        float nu = log(logMagnitude / LN_2) / LN_2;
+        float smoothIter = float(iterationCount) + 1.0 - nu;
+        return vec2(smoothIter, length(z));
 }
 
 // ============================================================
@@ -171,10 +171,10 @@ vec2 computeExteriorData(int iterationCount, vec2 z, float mod2) {
 //    y = closest approach to 0 (used to drive chroma)
 // ============================================================
 vec2 computeInteriorData(float minMod2) {
-  float closest = sqrt(minMod2);
-  // +1e-12 guards against log(0) for the exact centre point
-  float conv = -log(closest + 1e-12) * INTERIOR_INTENSITY * u_interiorScale;
-  return vec2(conv, closest);
+        float closest = sqrt(minMod2);
+        // +1e-12 guards against log(0) for the exact centre point
+        float conv = -log(closest + 1e-12) * INTERIOR_INTENSITY * u_interiorScale;
+        return vec2(conv, closest);
 }
 
 // ============================================================
@@ -185,31 +185,31 @@ vec2 computeInteriorData(float minMod2) {
 //  interior height formula based on whether |z| escaped.
 // ============================================================
 vec2 getMandelbrotData(vec2 uv, int maxIter) {
-  vec2 c = screenToComplex(uv);
-  vec2 z = vec2(0.0);
+        vec2 c = screenToComplex(uv);
+        vec2 z = vec2(0.0);
 
-  float minMod2 = 1e20; // smallest |z|² seen during the orbit
-  float mod2 = 0.0; // current |z|²
-  bool escaped = false;
-  int escapeIter = 0;
+        float minMod2 = 1e20; // smallest |z|² seen during the orbit
+        float mod2 = 0.0; // current |z|²
+        bool escaped = false;
+        int escapeIter = 0;
 
-  for (int i = 0; i < maxIter; i++) {
-    z = iterateMandelbrot(z, c);
+        for (int i = 0; i < maxIter; i++) {
+                z = iterateMandelbrot(z, c);
 
-    mod2 = dot(z, z);
-    minMod2 = min(minMod2, mod2);
+                mod2 = dot(z, z);
+                minMod2 = min(minMod2, mod2);
 
-    if (mod2 > ESCAPE_RADIUS_SQ) {
-      escaped = true;
-      escapeIter = i;
-      break;
-    }
-  }
+                if (mod2 > ESCAPE_RADIUS_SQ) {
+                        escaped = true;
+                        escapeIter = i;
+                        break;
+                }
+        }
 
-  if (escaped) {
-    return computeExteriorData(escapeIter, z, mod2);
-  }
-  return computeInteriorData(minMod2);
+        if (escaped) {
+                return computeExteriorData(escapeIter, z, mod2);
+        }
+        return computeInteriorData(minMod2);
 }
 
 // ============================================================
@@ -224,9 +224,9 @@ vec2 getMandelbrotData(vec2 uv, int maxIter) {
 //  purely as a growth rate controlled by u_iterationScale.
 // ============================================================
 int computeMaxIterations() {
-  float logZoom = log2(max(1.0, u_zoom));
-  int iterations = int(u_iterationBase + logZoom * INV_LN_2 * u_iterationScale);
-  return min(iterations, int(u_iterationCap));
+        float logZoom = log2(max(1.0, u_zoom));
+        int iterations = int(u_iterationBase + logZoom * INV_LN_2 * u_iterationScale);
+        return min(iterations, int(u_iterationCap));
 }
 
 // ============================================================
@@ -247,18 +247,18 @@ int computeMaxIterations() {
 //  fractal exactly 3 times per pixel, not 4.
 // ============================================================
 vec3 computeNormal(vec2 uv, int maxIter, float eps, float h0) {
-  float hX = getMandelbrotData(uv + vec2(eps / max(u_aspect, 1e-6), 0.0), maxIter).x;
-  float hY = getMandelbrotData(uv + vec2(0.0, eps), maxIter).x;
+        float hX = getMandelbrotData(uv + vec2(eps / max(u_aspect, 1e-6), 0.0), maxIter).x;
+        float hY = getMandelbrotData(uv + vec2(0.0, eps), maxIter).x;
 
-  float heightScale = u_bumpHeight / max(u_zoom, 1.0);
+        float heightScale = u_bumpHeight / max(u_zoom, 1.0);
 
-  return normalize(
-    vec3(
-      (h0 - hX) * heightScale,
-      (h0 - hY) * heightScale,
-      eps // z-component is constant in pixel space
-    )
-  );
+        return normalize(
+                vec3(
+                        (h0 - hX) * heightScale,
+                        (h0 - hY) * heightScale,
+                        eps // z-component is constant in pixel space
+                )
+        );
 }
 
 // ============================================================
@@ -269,9 +269,9 @@ vec3 computeNormal(vec2 uv, int maxIter, float eps, float h0) {
 //  so ambient acts as the floor and full sun is the ceiling.
 // ============================================================
 float computeLightIntensity(vec3 normal) {
-  vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));
-  float diffuse = max(0.0, dot(normal, lightDir));
-  return clamp(u_ambient + diffuse * (1.0 - u_ambient), 0.0, 1.0);
+        vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));
+        float diffuse = max(0.0, dot(normal, lightDir));
+        return clamp(u_ambient + diffuse * (1.0 - u_ambient), 0.0, 1.0);
 }
 
 // ============================================================
@@ -289,48 +289,48 @@ float computeLightIntensity(vec3 normal) {
 //      use log(|z|) to keep distant escapers from saturating.
 // ============================================================
 vec3 computeColor(vec2 mandelbrotData, int maxIter, float lightIntensity) {
-  float height = mandelbrotData.x;
-  float magnitude = mandelbrotData.y;
+        float height = mandelbrotData.x;
+        float magnitude = mandelbrotData.y;
 
-  // Normalise height by maxIter so the brightness curve is
-  // roughly zoom-independent (otherwise deeper zoom = brighter).
-  float baseRate = log(max(1.0, height)) / log(float(maxIter));
+        // Normalise height by maxIter so the brightness curve is
+        // roughly zoom-independent (otherwise deeper zoom = brighter).
+        float baseRate = log(max(1.0, height)) / log(float(maxIter));
 
-  // --- Lightness ---
-  float L = clamp(baseRate * lightIntensity, 0.0, 1.0);
+        // --- Lightness ---
+        float L = clamp(baseRate * lightIntensity, 0.0, 1.0);
 
-  // --- Chroma (interior vs exterior) ---
-  float C;
-  if (magnitude < 2.0) {
-    // Interior: height-driven, gentle ramp
-    C = clamp(height * INTERIOR_CHROMA_RATE * u_chromaScale, 0.0, INTERIOR_MAX_CHROMA);
-  } else {
-    // Exterior: logarithmic so far-escapers don't blow out
-    C = clamp(log(max(1.0, magnitude)) * u_chromaScale, 0.0, EXTERIOR_MAX_CHROMA);
-  }
+        // --- Chroma (interior vs exterior) ---
+        float C;
+        if (magnitude < 2.0) {
+                // Interior: height-driven, gentle ramp
+                C = clamp(height * INTERIOR_CHROMA_RATE * u_chromaScale, 0.0, INTERIOR_MAX_CHROMA);
+        } else {
+                // Exterior: logarithmic so far-escapers don't blow out
+                C = clamp(log(max(1.0, magnitude)) * u_chromaScale, 0.0, EXTERIOR_MAX_CHROMA);
+        }
 
-  // --- Hue (shared by both regions) ---
-  float H = mod(height * u_hueFrequency + u_hueShift, TWO_PI);
+        // --- Hue (shared by both regions) ---
+        float H = mod(height * u_hueFrequency + u_hueShift, TWO_PI);
 
-  return oklchToRgb(vec3(L, C, H));
+        return oklchToRgb(vec3(L, C, H));
 }
 
 // ============================================================
 //  Entry point
 // ============================================================
 void main() {
-  int maxIter = computeMaxIterations();
-  float eps = u_pixelEps;
+        int maxIter = computeMaxIterations();
+        float eps = u_pixelEps;
 
-  // 1. Evaluate the fractal field for this pixel
-  vec2 mandelbrotData = getMandelbrotData(vUv, maxIter);
+        // 1. Evaluate the fractal field for this pixel
+        vec2 mandelbrotData = getMandelbrotData(vUv, maxIter);
 
-  // 2. Build a normal from neighbouring samples and light it
-  vec3 normal = computeNormal(vUv, maxIter, eps, mandelbrotData.x);
-  float lightIntensity = computeLightIntensity(normal);
+        // 2. Build a normal from neighbouring samples and light it
+        vec3 normal = computeNormal(vUv, maxIter, eps, mandelbrotData.x);
+        float lightIntensity = computeLightIntensity(normal);
 
-  // 3. Map fractal + lighting to an OKLCH colour
-  vec3 color = computeColor(mandelbrotData, maxIter, lightIntensity);
+        // 3. Map fractal + lighting to an OKLCH colour
+        vec3 color = computeColor(mandelbrotData, maxIter, lightIntensity);
 
-  fragColor = vec4(color, 1.0);
+        fragColor = vec4(color, 1.0);
 }

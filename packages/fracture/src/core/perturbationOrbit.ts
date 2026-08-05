@@ -24,17 +24,17 @@
  * future work.
  */
 export type ReferenceOrbit = {
-  /** Interleaved float32 pairs [X0r, X0i, X1r, X1i, ...] — one RG texel per iteration. */
-  data: Float32Array;
-  /** Texture width / loop bound: total iterations the orbit was computed for. */
-  orbitLength: number;
-  /**
-   * Number of valid texels.  When the reference escapes we now also store the
-   * escaping value itself, so referenceIterations = escapeIndex + 2 and the
-   * shader can always form Z = X_{i+1} + dz exactly while data is available.
-   * When the reference never escapes, referenceIterations == orbitLength.
-   */
-  referenceIterations: number;
+        /** Interleaved float32 pairs [X0r, X0i, X1r, X1i, ...] — one RG texel per iteration. */
+        data: Float32Array;
+        /** Texture width / loop bound: total iterations the orbit was computed for. */
+        orbitLength: number;
+        /**
+         * Number of valid texels.  When the reference escapes we now also store the
+         * escaping value itself, so referenceIterations = escapeIndex + 2 and the
+         * shader can always form Z = X_{i+1} + dz exactly while data is available.
+         * When the reference never escapes, referenceIterations == orbitLength.
+         */
+        referenceIterations: number;
 };
 
 /**
@@ -42,13 +42,13 @@ export type ReferenceOrbit = {
  * CPU orbit texture and the shader's loop never disagree on the iteration count.
  */
 export function computeMaxIterations(
-  zoom: number,
-  iterationBase: number,
-  iterationScale: number,
-  iterationCap: number
+        zoom: number,
+        iterationBase: number,
+        iterationScale: number,
+        iterationCap: number
 ): number {
-  const n = iterationBase + Math.log2(Math.max(1, zoom)) * 1.44269504089 * iterationScale;
-  return Math.min(Math.floor(n), iterationCap);
+        const n = iterationBase + Math.log2(Math.max(1, zoom)) * 1.44269504089 * iterationScale;
+        return Math.min(Math.floor(n), iterationCap);
 }
 
 /**
@@ -67,59 +67,59 @@ export function computeMaxIterations(
  * step and zFull = X_{e+1} + dz is exact.
  */
 export function computeReferenceOrbit(
-  centerRe: number,
-  centerIm: number,
-  maxIterations: number,
-  bailoutSquared = 65536.0
+        centerRe: number,
+        centerIm: number,
+        maxIterations: number,
+        bailoutSquared = 65536.0
 ): ReferenceOrbit {
-  // Allocate one extra slot so we can always store the escaping value.
-  const capacity = maxIterations + 1;
-  const data = new Float32Array(capacity * 2);
+        // Allocate one extra slot so we can always store the escaping value.
+        const capacity = maxIterations + 1;
+        const data = new Float32Array(capacity * 2);
 
-  let zr = 0.0;
-  let zi = 0.0;
-  let referenceIterations = maxIterations; // default: never escaped
+        let zr = 0.0;
+        let zi = 0.0;
+        let referenceIterations = maxIterations; // default: never escaped
 
-  // Store X₀
-  data[0] = 0.0;
-  data[1] = 0.0;
+        // Store X₀
+        data[0] = 0.0;
+        data[1] = 0.0;
 
-  for (let i = 0; i < maxIterations; i++) {
-    // Advance: X_{i+1} = Xᵢ² + C
-    const nextZr = zr * zr - zi * zi + centerRe;
-    const nextZi = 2.0 * zr * zi + centerIm;
+        for (let i = 0; i < maxIterations; i++) {
+                // Advance: X_{i+1} = Xᵢ² + C
+                const nextZr = zr * zr - zi * zi + centerRe;
+                const nextZi = 2.0 * zr * zi + centerIm;
 
-    // Always store the newly computed value (even if it has already escaped).
-    // Slot index = i+1
-    data[(i + 1) * 2] = nextZr;
-    data[(i + 1) * 2 + 1] = nextZi;
+                // Always store the newly computed value (even if it has already escaped).
+                // Slot index = i+1
+                data[(i + 1) * 2] = nextZr;
+                data[(i + 1) * 2 + 1] = nextZi;
 
-    zr = nextZr;
-    zi = nextZi;
+                zr = nextZr;
+                zi = nextZi;
 
-    if (zr * zr + zi * zi > bailoutSquared) {
-      // We have stored X₀ … X_{i+1}.  The escape happened on the transition
-      // from X_i → X_{i+1}.  referenceIterations = i+2 means the shader may
-      // legally fetch texel (i+1) when reconstructing zFull for step i.
-      referenceIterations = i + 2;
-      break;
-    }
-  }
+                if (zr * zr + zi * zi > bailoutSquared) {
+                        // We have stored X₀ … X_{i+1}.  The escape happened on the transition
+                        // from X_i → X_{i+1}.  referenceIterations = i+2 means the shader may
+                        // legally fetch texel (i+1) when reconstructing zFull for step i.
+                        referenceIterations = i + 2;
+                        break;
+                }
+        }
 
-  // orbitLength is the texture width the shader will bind.
-  // We never need more than referenceIterations texels, but we keep the
-  // original maxIterations as an upper bound for the loop guard.
-  const orbitLength = Math.min(capacity, Math.max(referenceIterations, maxIterations));
+        // orbitLength is the texture width the shader will bind.
+        // We never need more than referenceIterations texels, but we keep the
+        // original maxIterations as an upper bound for the loop guard.
+        const orbitLength = Math.min(capacity, Math.max(referenceIterations, maxIterations));
 
-  // If we never escaped, referenceIterations stays at maxIterations and the
-  // last stored value is X_maxIterations (index maxIterations).
-  // The returned data view can be trimmed to the actually used length.
-  const used = Math.min(orbitLength, referenceIterations);
-  return {
-    data: data.subarray(0, used * 2),
-    orbitLength: used,
-    referenceIterations: used
-  };
+        // If we never escaped, referenceIterations stays at maxIterations and the
+        // last stored value is X_maxIterations (index maxIterations).
+        // The returned data view can be trimmed to the actually used length.
+        const used = Math.min(orbitLength, referenceIterations);
+        return {
+                data: data.subarray(0, used * 2),
+                orbitLength: used,
+                referenceIterations: used
+        };
 }
 
 /**
@@ -129,15 +129,15 @@ export function computeReferenceOrbit(
  * glitch-prone location.
  */
 export function computeSecondaryOrbit(
-  centerRe: number,
-  centerIm: number,
-  scale: number, // 3 / zoom
-  maxIterations: number,
-  bailoutSquared = 65536.0
+        centerRe: number,
+        centerIm: number,
+        scale: number, // 3 / zoom
+        maxIterations: number,
+        bailoutSquared = 65536.0
 ): ReferenceOrbit {
-  // ~2.5 pixels offset, rotated so it is not axis-aligned
-  const offset = scale * 2.5;
-  const re = centerRe + offset * 0.7;
-  const im = centerIm + offset * 0.7;
-  return computeReferenceOrbit(re, im, maxIterations, bailoutSquared);
+        // ~2.5 pixels offset, rotated so it is not axis-aligned
+        const offset = scale * 2.5;
+        const re = centerRe + offset * 0.7;
+        const im = centerIm + offset * 0.7;
+        return computeReferenceOrbit(re, im, maxIterations, bailoutSquared);
 }

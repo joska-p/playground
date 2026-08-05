@@ -3,7 +3,7 @@ title: Architecture
 description: The mental model behind every package in this repo — layers, the definition/registry pattern, and how state flows from data to pixels.
 featured: true
 tags:
-  - explanation
+        - explanation
 ---
 
 # Architecture
@@ -115,19 +115,19 @@ internal shape:
 - The `create()` call is **never exported**. Components never import the
   store directly.
 - **Getter hooks** select a single slice of state:
-  ```ts
-  export function useSteps(): number {
-    return store((s) => s.steps);
-  }
-  ```
+     ```ts
+     export function useSteps(): number {
+             return store((s) => s.steps);
+     }
+     ```
 - **Setters** are plain functions (no `use` prefix) that read and write via
   `getState()` / `setState()`:
-  ```ts
-  export function setSteps({ steps }: { steps: number }): void {
-    const state = store.getState();
-    // clamp, derive, setState
-  }
-  ```
+     ```ts
+     export function setSteps({ steps }: { steps: number }): void {
+             const state = store.getState();
+             // clamp, derive, setState
+     }
+     ```
 - Fine-grained selectors prevent cascade re-renders — a component
   subscribes to exactly the slice it uses, nothing more.
 

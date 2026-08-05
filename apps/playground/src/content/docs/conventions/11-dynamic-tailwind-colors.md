@@ -2,8 +2,8 @@
 title: Dynamic Tailwind Colors
 description: Applying dynamic colors via CSS variables and the Tailwind v4 shorthand.
 tags:
-  - conventions
-  - reference
+        - conventions
+        - reference
 ---
 
 # Dynamic Tailwind Colors

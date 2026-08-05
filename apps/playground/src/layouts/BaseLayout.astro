@@ -9,10 +9,10 @@ import { Image } from 'astro:assets';
 const baseUrl = import.meta.env.BASE_URL || '';
 
 const {
-  title,
-  description = 'A creative and technical playground: generative art, mathematics, data visualization, and frontend tutorials.',
-  keywords = 'Generative Art, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathematics, Frontend',
-  ogImage
+        title,
+        description = 'A creative and technical playground: generative art, mathematics, data visualization, and frontend tutorials.',
+        keywords = 'Generative Art, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathematics, Frontend',
+        ogImage
 } = Astro.props;
 
 const siteTitle = title ? `${title} — Playground` : 'Playground — Generative Art & Dev Notes';
@@ -24,175 +24,175 @@ const { className } = Astro.props;
 
 <!-- Theme must be is:inline to run before first paint (prevents flash) -->
 <script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-  const applyTheme = (theme) => {
-    const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
-    root.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  };
-  applyTheme(getThemePreference());
+        const getThemePreference = () => {
+                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                        return localStorage.getItem('theme');
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        const applyTheme = (theme) => {
+                const root = document.documentElement;
+                root.classList.toggle('dark', theme === 'dark');
+                root.dataset.theme = theme;
+                localStorage.setItem('theme', theme);
+        };
+        applyTheme(getThemePreference());
 </script>
 
 <html
-  data-theme="dark"
-  lang="en"
+        data-theme="dark"
+        lang="en"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      content="width=device-width"
-      name="viewport"
-    />
-    <meta
-      content="#000000"
-      media="(prefers-color-scheme: dark)"
-      name="theme-color"
-    />
-    <meta
-      content="#ffffff"
-      media="(prefers-color-scheme: light)"
-      name="theme-color"
-    />
-    <link
-      href={`${baseUrl}favicon.ico`}
-      rel="icon"
-      sizes="32x32"
-    />
-    <link
-      href={`${baseUrl}favicon-16x16.png`}
-      rel="icon"
-      sizes="16x16"
-      type="image/png"
-    />
-    <link
-      href={`${baseUrl}favicon-32x32.png`}
-      rel="icon"
-      sizes="32x32"
-      type="image/png"
-    />
-    <link
-      href={`${baseUrl}apple-touch-icon.png`}
-      rel="apple-touch-icon"
-      sizes="180x180"
-    />
-    <link
-      href={`${baseUrl}site.webmanifest`}
-      rel="manifest"
-    />
-    <link
-      href={`${baseUrl}sitemap-index.xml`}
-      rel="sitemap"
-    />
-    <meta
-      content="noindex"
-      name="robots"
-    />
-    <meta
-      content={Astro.generator}
-      name="generator"
-    />
+        <head>
+                <meta charset="UTF-8" />
+                <meta
+                        content="width=device-width"
+                        name="viewport"
+                />
+                <meta
+                        content="#000000"
+                        media="(prefers-color-scheme: dark)"
+                        name="theme-color"
+                />
+                <meta
+                        content="#ffffff"
+                        media="(prefers-color-scheme: light)"
+                        name="theme-color"
+                />
+                <link
+                        href={`${baseUrl}favicon.ico`}
+                        rel="icon"
+                        sizes="32x32"
+                />
+                <link
+                        href={`${baseUrl}favicon-16x16.png`}
+                        rel="icon"
+                        sizes="16x16"
+                        type="image/png"
+                />
+                <link
+                        href={`${baseUrl}favicon-32x32.png`}
+                        rel="icon"
+                        sizes="32x32"
+                        type="image/png"
+                />
+                <link
+                        href={`${baseUrl}apple-touch-icon.png`}
+                        rel="apple-touch-icon"
+                        sizes="180x180"
+                />
+                <link
+                        href={`${baseUrl}site.webmanifest`}
+                        rel="manifest"
+                />
+                <link
+                        href={`${baseUrl}sitemap-index.xml`}
+                        rel="sitemap"
+                />
+                <meta
+                        content="noindex"
+                        name="robots"
+                />
+                <meta
+                        content={Astro.generator}
+                        name="generator"
+                />
 
-    <title>{siteTitle}</title>
-    <meta
-      content={description}
-      name="description"
-    />
-    <meta
-      content={keywords}
-      name="keywords"
-    />
-    <link
-      href={canonicalURL}
-      rel="canonical"
-    />
-    <meta
-      content="joska"
-      name="author"
-    />
+                <title>{siteTitle}</title>
+                <meta
+                        content={description}
+                        name="description"
+                />
+                <meta
+                        content={keywords}
+                        name="keywords"
+                />
+                <link
+                        href={canonicalURL}
+                        rel="canonical"
+                />
+                <meta
+                        content="joska"
+                        name="author"
+                />
 
-    <meta
-      content="website"
-      property="og:type"
-    />
-    <meta
-      content={canonicalURL}
-      property="og:url"
-    />
-    <meta
-      content={siteTitle}
-      property="og:title"
-    />
-    <meta
-      content={description}
-      property="og:description"
-    />
-    <meta
-      content={ogImageURL}
-      property="og:image"
-    />
-    <meta
-      content="1200"
-      property="og:image:width"
-    />
-    <meta
-      content="630"
-      property="og:image:height"
-    />
-    <meta
-      content={description}
-      property="og:image:alt"
-    />
-    <meta
-      content="en_US"
-      property="og:locale"
-    />
+                <meta
+                        content="website"
+                        property="og:type"
+                />
+                <meta
+                        content={canonicalURL}
+                        property="og:url"
+                />
+                <meta
+                        content={siteTitle}
+                        property="og:title"
+                />
+                <meta
+                        content={description}
+                        property="og:description"
+                />
+                <meta
+                        content={ogImageURL}
+                        property="og:image"
+                />
+                <meta
+                        content="1200"
+                        property="og:image:width"
+                />
+                <meta
+                        content="630"
+                        property="og:image:height"
+                />
+                <meta
+                        content={description}
+                        property="og:image:alt"
+                />
+                <meta
+                        content="en_US"
+                        property="og:locale"
+                />
 
-    <meta
-      content="summary_large_image"
-      name="twitter:card"
-    />
-    <meta
-      content={canonicalURL}
-      name="twitter:url"
-    />
-    <meta
-      content={siteTitle}
-      name="twitter:title"
-    />
-    <meta
-      content={description}
-      name="twitter:description"
-    />
-    <meta
-      content={ogImageURL}
-      name="twitter:image"
-    />
+                <meta
+                        content="summary_large_image"
+                        name="twitter:card"
+                />
+                <meta
+                        content={canonicalURL}
+                        name="twitter:url"
+                />
+                <meta
+                        content={siteTitle}
+                        name="twitter:title"
+                />
+                <meta
+                        content={description}
+                        name="twitter:description"
+                />
+                <meta
+                        content={ogImageURL}
+                        name="twitter:image"
+                />
 
-    <Font cssVariable="--font-jetbrains-mono" />
-  </head>
-  <body
-    class="bg-background text-foreground relative min-h-screen"
-    id="home"
-  >
-    <Image
-      src={edgeFiledImage}
-      alt=""
-      class="fixed top-0 left-0 h-full w-full object-cover opacity-30"
-      loading="lazy"
-    />
-    <BackgroundCanvas />
-    <Navbar />
-    <main
-      class:list={className}
-      id="main"
-    >
-      <slot />
-    </main>
-  </body>
+                <Font cssVariable="--font-jetbrains-mono" />
+        </head>
+        <body
+                class="bg-background text-foreground relative min-h-screen"
+                id="home"
+        >
+                <Image
+                        src={edgeFiledImage}
+                        alt=""
+                        class="fixed top-0 left-0 h-full w-full object-cover opacity-30"
+                        loading="lazy"
+                />
+                <BackgroundCanvas />
+                <Navbar />
+                <main
+                        class:list={className}
+                        id="main"
+                >
+                        <slot />
+                </main>
+        </body>
 </html>

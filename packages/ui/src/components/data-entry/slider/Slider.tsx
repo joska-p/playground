@@ -4,73 +4,73 @@ import { Spinner } from '../../widgets/spinner/Spinner';
 import { sliderVariants, type SliderVariants } from './variants';
 
 export interface SliderProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'>, SliderVariants {
-  loading?: boolean;
-  showTicks?: boolean;
-  onChange?: (value: number) => void;
-  label?: string;
-  ref?: Ref<HTMLInputElement>;
+        extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'>, SliderVariants {
+        loading?: boolean;
+        showTicks?: boolean;
+        onChange?: (value: number) => void;
+        label?: string;
+        ref?: Ref<HTMLInputElement>;
 }
 
 export function Slider({
-  label,
-  className,
-  variant,
-  onChange,
-  value,
-  showTicks = true,
-  loading = false,
-  disabled = false,
-  min = 0,
-  max = 100,
-  step = 1,
-  ref,
-  ...props
+        label,
+        className,
+        variant,
+        onChange,
+        value,
+        showTicks = true,
+        loading = false,
+        disabled = false,
+        min = 0,
+        max = 100,
+        step = 1,
+        ref,
+        ...props
 }: SliderProps) {
-  if (loading)
-    return (
-      <div className={cn('flex items-center justify-center')}>
-        <Spinner />
-      </div>
-    );
+        if (loading)
+                return (
+                        <div className={cn('flex items-center justify-center')}>
+                                <Spinner />
+                        </div>
+                );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(Number(e.target.value));
-  };
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange?.(Number(e.target.value));
+        };
 
-  return (
-    <label
-      aria-label="slider"
-      className={cn('w-full group', className)}
-    >
-      {label && (
-        <span className="text-foreground text-sm whitespace-nowrap flex justify-between gap-2">
-          <span className="text-foreground-dim group-hover:text-foreground  truncate text-xs">
-            {label}:{' '}
-          </span>
-          {value}
-        </span>
-      )}
-      <input
-        onChange={handleChange}
-        value={value}
-        ref={ref}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        disabled={disabled || loading}
-        aria-busy={loading}
-        className={cn(sliderVariants({ variant }))}
-        {...props}
-      />
-      {showTicks && (
-        <div className="text-foreground-dim mt-1 flex justify-between text-xs select-none">
-          <span>{min}</span>
-          <span>{Math.round((Number(min) + Number(max)) / 2)}</span>
-          <span>{max}</span>
-        </div>
-      )}
-    </label>
-  );
+        return (
+                <label
+                        aria-label="slider"
+                        className={cn('w-full group', className)}
+                >
+                        {label && (
+                                <span className="text-foreground text-sm whitespace-nowrap flex justify-between gap-2">
+                                        <span className="text-foreground-dim group-hover:text-foreground  truncate text-xs">
+                                                {label}:{' '}
+                                        </span>
+                                        {value}
+                                </span>
+                        )}
+                        <input
+                                onChange={handleChange}
+                                value={value}
+                                ref={ref}
+                                type="range"
+                                min={min}
+                                max={max}
+                                step={step}
+                                disabled={disabled || loading}
+                                aria-busy={loading}
+                                className={cn(sliderVariants({ variant }))}
+                                {...props}
+                        />
+                        {showTicks && (
+                                <div className="text-foreground-dim mt-1 flex justify-between text-xs select-none">
+                                        <span>{min}</span>
+                                        <span>{Math.round((Number(min) + Number(max)) / 2)}</span>
+                                        <span>{max}</span>
+                                </div>
+                        )}
+                </label>
+        );
 }

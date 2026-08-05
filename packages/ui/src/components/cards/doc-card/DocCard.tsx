@@ -7,11 +7,11 @@ import { CardLink } from '../shared/CardLink';
 import { CardTitle } from '../shared/CardTitle';
 
 export type DocCardProps = {
-  ref?: Ref<HTMLAnchorElement>;
-  title: string;
-  description?: string;
-  type?: string;
-  iconName?: IconName;
+        ref?: Ref<HTMLAnchorElement>;
+        title: string;
+        description?: string;
+        type?: string;
+        iconName?: IconName;
 } & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
@@ -21,63 +21,66 @@ export type DocCardProps = {
  * color comes in separately through CardLink's `accent`.
  */
 function DocCard({
-  ref,
-  title,
-  description,
-  type = 'reference',
-  iconName,
-  className,
-  ...props
+        ref,
+        title,
+        description,
+        type = 'reference',
+        iconName,
+        className,
+        ...props
 }: DocCardProps) {
-  return (
-    <CardLink
-      ref={ref}
-      data-variant="doc"
-      className={className}
-      {...props}
-    >
-      {/* Folded-corner triangle decoration */}
-      <span
-        className="pointer-events-none absolute top-0 right-0 h-0 w-0 opacity-50 transition-opacity duration-200 group-hover:opacity-100"
-        style={{
-          borderWidth: '0 28px 28px 0',
-          borderStyle: 'solid',
-          borderColor: 'transparent var(--variant-color) transparent transparent'
-        }}
-        aria-hidden="true"
-      />
+        return (
+                <CardLink
+                        ref={ref}
+                        data-variant="doc"
+                        className={className}
+                        {...props}
+                >
+                        {/* Folded-corner triangle decoration */}
+                        <span
+                                className="pointer-events-none absolute top-0 right-0 h-0 w-0 opacity-50 transition-opacity duration-200 group-hover:opacity-100"
+                                style={{
+                                        borderWidth: '0 28px 28px 0',
+                                        borderStyle: 'solid',
+                                        borderColor:
+                                                'transparent var(--variant-color) transparent transparent'
+                                }}
+                                aria-hidden="true"
+                        />
 
-      <CardBody className="flex-1 flex-col gap-4">
-        {/* Type badge */}
-        <div
-          className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold text-(--variant-color) uppercase"
-          style={{
-            background: 'color-mix(in srgb, var(--variant-color) 12%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--variant-color) 25%, transparent)'
-          }}
-        >
-          {iconName && (
-            <Icon
-              name={iconName}
-              className="h-4 w-4"
-            />
-          )}
-          <span>{type}</span>
-        </div>
+                        <CardBody className="flex-1 flex-col gap-4">
+                                {/* Type badge */}
+                                <div
+                                        className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold text-(--variant-color) uppercase"
+                                        style={{
+                                                background: 'color-mix(in srgb, var(--variant-color) 12%, transparent)',
+                                                border: '1px solid color-mix(in srgb, var(--variant-color) 25%, transparent)'
+                                        }}
+                                >
+                                        {iconName && (
+                                                <Icon
+                                                        name={iconName}
+                                                        className="h-4 w-4"
+                                                />
+                                        )}
+                                        <span>{type}</span>
+                                </div>
 
-        <CardTitle>{title}</CardTitle>
-        {description && (
-          <CardDescription className="line-clamp-2 flex-1">{description}</CardDescription>
-        )}
-      </CardBody>
+                                <CardTitle>{title}</CardTitle>
+                                {description && (
+                                        <CardDescription className="line-clamp-2 flex-1">
+                                                {description}
+                                        </CardDescription>
+                                )}
+                        </CardBody>
 
-      {/* Arrow icon on hover */}
-      <Icon
-        name="arrow-diagonal"
-        className="absolute right-5 bottom-5 h-4 w-4 text-(--variant-color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-      />
-    </CardLink>
-  );
+                        {/* Arrow icon on hover */}
+                        <Icon
+                                name="arrow-diagonal"
+                                className="absolute right-5 bottom-5 h-4 w-4 text-(--variant-color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                        />
+                </CardLink>
+        );
 }
 
 export { DocCard };

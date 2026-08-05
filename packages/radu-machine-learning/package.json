@@ -1,47 +1,47 @@
 {
-  "name": "@repo/radu-machine-learning",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "exports": {
-    "./radu-machine-learning": "./src/App.tsx",
-    "./styles": "./src/styles/styles.css"
-  },
-  "scripts": {
-    "dev": "vite --host",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "preview": "vite preview --host",
-    "check-types": "tsc -b",
-    "clean": "rm -rf node_modules dist .turbo",
-    "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
-    "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"
-  },
-  "dependencies": {
-    "@repo/ui": "workspace:*",
-    "zustand": "catalog:"
-  },
-  "peerDependencies": {
-    "react": "catalog:",
-    "react-dom": "catalog:"
-  },
-  "devDependencies": {
-    "@babel/core": "catalog:",
-    "@repo/config-eslint": "workspace:*",
-    "@repo/config-typescript": "workspace:*",
-    "@rolldown/plugin-babel": "catalog:",
-    "@tailwindcss/vite": "catalog:",
-    "@types/babel__core": "catalog:",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
-    "babel-plugin-react-compiler": "catalog:",
-    "eslint": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:"
-  }
+        "name": "@repo/radu-machine-learning",
+        "private": true,
+        "version": "0.0.0",
+        "type": "module",
+        "exports": {
+                "./radu-machine-learning": "./src/App.tsx",
+                "./styles": "./src/styles/styles.css"
+        },
+        "scripts": {
+                "dev": "vite --host",
+                "lint": "eslint .",
+                "lint-fix": "eslint . --fix",
+                "preview": "vite preview --host",
+                "check-types": "tsc -b",
+                "clean": "rm -rf node_modules dist .turbo",
+                "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
+                "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"
+        },
+        "dependencies": {
+                "@repo/ui": "workspace:*",
+                "zustand": "catalog:"
+        },
+        "peerDependencies": {
+                "react": "catalog:",
+                "react-dom": "catalog:"
+        },
+        "devDependencies": {
+                "@babel/core": "catalog:",
+                "@repo/config-eslint": "workspace:*",
+                "@repo/config-typescript": "workspace:*",
+                "@rolldown/plugin-babel": "catalog:",
+                "@tailwindcss/vite": "catalog:",
+                "@types/babel__core": "catalog:",
+                "@types/node": "catalog:",
+                "@types/react": "catalog:",
+                "@types/react-dom": "catalog:",
+                "@vitejs/plugin-react": "catalog:",
+                "babel-plugin-react-compiler": "catalog:",
+                "eslint": "catalog:",
+                "react": "catalog:",
+                "react-dom": "catalog:",
+                "tailwindcss": "catalog:",
+                "typescript": "catalog:",
+                "vite": "catalog:"
+        }
 }

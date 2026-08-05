@@ -22,54 +22,70 @@ void main() {
 `.trim();
 
 const SAMPLE_POINTS = [
-  { x: 150, y: 150 },
-  { x: 250, y: 80 },
-  { x: 320, y: 200 }
+        { x: 150, y: 150 },
+        { x: 250, y: 80 },
+        { x: 320, y: 200 }
 ] as const;
 
 export function ProgramGpu() {
-  const [door, setDoor] = useState<GpuDoor | null>(null);
+        const [door, setDoor] = useState<GpuDoor | null>(null);
 
-  useEffect(() => {
-    if (!door) return;
-    const sample = (ctx: GpuFrameContext): Record<string, Sample> => {
-      const result: Record<string, Sample> = {};
-      for (const [index, point] of SAMPLE_POINTS.entries()) {
-        result[`p${String(index)}`] = readGpuPixel(door.gl, ctx.height, ctx.dpr, point.x, point.y);
-      }
-      return result;
-    };
-    let frameA: Record<string, Sample> | null = null;
-    return door.subscribe((ctx) => {
-      if (ctx.frameCount === 30) {
-        frameA = sample(ctx);
-        stashProof('programGpu', { frameA, frameB: null, changed: false, maxDelta: 0 });
-      }
-      if (ctx.frameCount === 46 && frameA) {
-        const frameB = sample(ctx);
-        let maxDelta = 0;
-        for (const [index] of SAMPLE_POINTS.entries()) {
-          const a = frameA[`p${String(index)}`] ?? [0, 0, 0, 0];
-          const b = frameB[`p${String(index)}`] ?? [0, 0, 0, 0];
-          const delta =
-            Math.abs(a[0] - b[0]) +
-            Math.abs(a[1] - b[1]) +
-            Math.abs(a[2] - b[2]) +
-            Math.abs(a[3] - b[3]);
-          maxDelta = Math.max(maxDelta, delta);
-        }
-        stashProof('programGpu', { frameA, frameB, changed: maxDelta > 15, maxDelta });
-      }
-    });
-  }, [door]);
+        useEffect(() => {
+                if (!door) return;
+                const sample = (ctx: GpuFrameContext): Record<string, Sample> => {
+                        const result: Record<string, Sample> = {};
+                        for (const [index, point] of SAMPLE_POINTS.entries()) {
+                                result[`p${String(index)}`] = readGpuPixel(
+                                        door.gl,
+                                        ctx.height,
+                                        ctx.dpr,
+                                        point.x,
+                                        point.y
+                                );
+                        }
+                        return result;
+                };
+                let frameA: Record<string, Sample> | null = null;
+                return door.subscribe((ctx) => {
+                        if (ctx.frameCount === 30) {
+                                frameA = sample(ctx);
+                                stashProof('programGpu', {
+                                        frameA,
+                                        frameB: null,
+                                        changed: false,
+                                        maxDelta: 0
+                                });
+                        }
+                        if (ctx.frameCount === 46 && frameA) {
+                                const frameB = sample(ctx);
+                                let maxDelta = 0;
+                                for (const [index] of SAMPLE_POINTS.entries()) {
+                                        const a = frameA[`p${String(index)}`] ?? [0, 0, 0, 0];
+                                        const b = frameB[`p${String(index)}`] ?? [0, 0, 0, 0];
+                                        const delta =
+                                                Math.abs(a[0] - b[0]) +
+                                                Math.abs(a[1] - b[1]) +
+                                                Math.abs(a[2] - b[2]) +
+                                                Math.abs(a[3] - b[3]);
+                                        maxDelta = Math.max(maxDelta, delta);
+                                }
+                                stashProof('programGpu', {
+                                        frameA,
+                                        frameB,
+                                        changed: maxDelta > 15,
+                                        maxDelta
+                                });
+                        }
+                });
+        }, [door]);
 
-  return (
-    <div className="h-75 w-100">
-      <GpuCanvas
-        fragmentShader={plasmaFragmentSource}
-        onDoor={setDoor}
-        className="h-full w-full"
-      />
-    </div>
-  );
+        return (
+                <div className="h-75 w-100">
+                        <GpuCanvas
+                                fragmentShader={plasmaFragmentSource}
+                                onDoor={setDoor}
+                                className="h-full w-full"
+                        />
+                </div>
+        );
 }

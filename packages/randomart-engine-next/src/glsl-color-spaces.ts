@@ -52,39 +52,39 @@ vec3 hslToSrgb(vec3 hsl) {
 }`;
 
 const COLOR_SPACE_GLSL: Record<string, string> = {
-  oklch: OKLCH_TO_SRGB_GLSL,
-  oklab: OKLAB_TO_SRGB_GLSL,
-  hsl: HSL_TO_SRGB_GLSL
+        oklch: OKLCH_TO_SRGB_GLSL,
+        oklab: OKLAB_TO_SRGB_GLSL,
+        hsl: HSL_TO_SRGB_GLSL
 };
 
 export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorSpaceId): string {
-  switch (colorSpace) {
-    case 'oklch':
-      return `\
+        switch (colorSpace) {
+                case 'oklch':
+                        return `\
   vec3 _cs_raw = ${rawExpr};
   float _L = clamp(_cs_raw.x * 0.5 + 0.5, 0.0, 1.0);
   float _C = abs(_cs_raw.y) * 0.4;
   float _H = (_cs_raw.z * 0.5 + 0.5) * 6.28318;
   vec3 color = oklchToSrgb(vec3(_L, _C, _H));`;
-    case 'oklab':
-      return `\
+                case 'oklab':
+                        return `\
   vec3 _cs_raw = ${rawExpr};
   float _L = clamp(_cs_raw.x * 0.5 + 0.5, 0.0, 1.0);
   float _a = _cs_raw.y * 0.4;
   float _b = _cs_raw.z * 0.4;
   vec3 color = oklabToSrgb(vec3(_L, _a, _b));`;
-    case 'hsl':
-      return `\
+                case 'hsl':
+                        return `\
   vec3 _cs_raw = ${rawExpr};
   float _H = (_cs_raw.x * 0.5 + 0.5) * 360.0;
   float _S = abs(_cs_raw.y) * 100.0;
   float _L = clamp(_cs_raw.z * 0.5 + 0.5, 0.0, 1.0) * 100.0;
   vec3 color = hslToSrgb(vec3(_H, _S, _L));`;
-    default:
-      return `  vec3 color = ${rawExpr};`;
-  }
+                default:
+                        return `  vec3 color = ${rawExpr};`;
+        }
 }
 
 export function getColorSpaceGlslFunction(colorSpace: ColorSpaceId): string {
-  return COLOR_SPACE_GLSL[colorSpace] ?? '';
+        return COLOR_SPACE_GLSL[colorSpace] ?? '';
 }

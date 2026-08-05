@@ -2,7 +2,7 @@
 title: Scaffolding Packages
 description: Generate new Vite + React packages with a single command.
 tags:
-  - how-to
+        - how-to
 featured: true
 ---
 
@@ -82,7 +82,7 @@ import { StrictMode } from 'react';
 ---
 
 <StrictMode>
-  <Demo client:only="react" />
+        <Demo client:only="react" />
 </StrictMode>
 ```
 

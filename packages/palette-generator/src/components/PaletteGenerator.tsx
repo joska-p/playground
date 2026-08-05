@@ -3,17 +3,17 @@ import { Controls } from './controls/Controls';
 import { Display } from './display/Display';
 
 function PaletteGenerator() {
-  return (
-    <Sidebar className="min-h-dvh">
-      <Sidebar.Panel className="flex flex-col gap-3 p-3">
-        <Controls />
-      </Sidebar.Panel>
+        return (
+                <Sidebar className="min-h-dvh">
+                        <Sidebar.Panel className="flex flex-col gap-3 p-3">
+                                <Controls />
+                        </Sidebar.Panel>
 
-      <Sidebar.Main className="p-3">
-        <Display />
-      </Sidebar.Main>
-    </Sidebar>
-  );
+                        <Sidebar.Main className="p-3">
+                                <Display />
+                        </Sidebar.Main>
+                </Sidebar>
+        );
 }
 
 export { PaletteGenerator };
