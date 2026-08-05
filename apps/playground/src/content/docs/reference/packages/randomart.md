@@ -1,12 +1,13 @@
 ---
-title: 'Randomart'
-description: 'A React window into expression-tree art — type a seed phrase, watch a mathematical landscape grow, and inspect the grammar that shaped it.'
-category: 'reference'
+title: "Randomart"
+description: "A React window into expression-tree art — type a seed phrase, watch a mathematical landscape grow, and inspect the grammar that shaped it."
+category: "reference"
 tags:
   - reference
   - randomart
 order: 20
 ---
+
 
 # @repo/randomart
 
@@ -228,3 +229,4 @@ The GPU render pipeline:
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

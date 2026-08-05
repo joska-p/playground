@@ -1,12 +1,13 @@
 ---
-title: 'L-system engine'
-description: 'A grammar-agnostic L-system rewriting engine — pure symbol rewriting with no knowledge of angles, turtles, or rendering. Feed it a grammar, get a sequence of symbols back.'
-category: 'reference'
+title: "L-system engine"
+description: "A grammar-agnostic L-system rewriting engine — pure symbol rewriting with no knowledge of angles, turtles, or rendering. Feed it a grammar, get a sequence of symbols back."
+category: "reference"
 tags:
   - reference
   - l-system-engine
 order: 20
 ---
+
 
 # @repo/l-system-engine
 
@@ -389,3 +390,4 @@ Follows SemVer. See [CHANGELOG.md].
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

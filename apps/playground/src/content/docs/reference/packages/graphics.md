@@ -1,12 +1,13 @@
 ---
-title: 'Graphics lib'
-description: 'A zero-dependency, React-first generative graphics library that bridges custom GLSL engines with WebGL2 — replacing heavy 3D engines with tiny, decoupled modules for coordinate mapping, shader execution, framebuffer management, GPU compute (GPGPU), and render-loop orchestration.'
-category: 'reference'
+title: "Graphics lib"
+description: "A zero-dependency, React-first generative graphics library that bridges custom GLSL engines with WebGL2 — replacing heavy 3D engines with tiny, decoupled modules for coordinate mapping, shader execution, framebuffer management, GPU compute (GPGPU), and render-loop orchestration."
+category: "reference"
 tags:
   - reference
   - graphics
 order: 20
 ---
+
 
 # @repo/graphics
 
@@ -24,21 +25,23 @@ This package is built around three core architectural principles:
 
 ## Module Overview
 
-| Module / Export                | Kind      | Purpose                                                                                                                                                                                                                                                   |
-| :----------------------------- | :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **math/transforms**            | functions | Curried coordinate transforms (`screenToCanvas`, `canvasToNormalized`, `normalizedToWebGL`, `canvasToBuffer`, `bufferToCanvas`, `dataToCanvas`, `canvasToData`, `screenToBuffer`, `bufferToScreen`), `createShaderUniformBuilder`, `generateGLSLFragment` |
-| **webgl/createWebGLContext**   | factory   | Canvas setup, DPR-aware resize, viewport management, context loss handling — returns a `WebGLContext`                                                                                                                                                     |
-| **webgl/createQuadPipeline**   | factory   | Fullscreen triangle shader runner — compile GLSL, bind uniforms (auto + custom), draw — returns a `QuadPipeline`                                                                                                                                          |
-| **webgl/createFBOManager**     | factory   | Ping-pong framebuffers for multi-pass rendering and feedback loops — returns an `FBOManager`                                                                                                                                                              |
-| **webgl/createFrameLoop**      | factory   | `requestAnimationFrame` loop with subscribe/unsubscribe, delta time — returns a `FrameLoop`                                                                                                                                                               |
-| **webgl/createShaderRunner**   | factory   | Convenience composition of `WebGLContext` + `QuadPipeline` with resize and mouse support — returns a `ShaderRunner`                                                                                                                                       |
-| **webgl/createGPGPUPipeline**  | factory   | GPU compute pipeline over an `FBOManager` — multi-program, state texture, init/step — returns a `GPGPUPipeline`                                                                                                                                           |
-| **webgl/compileShaderProgram** | factory   | GLSL compile/link helpers (`compileShaderProgram`, `setUniformValue`) shared by the shader pipelines                                                                                                                                                      |
-| **react/FrameLoopContext**     | context   | `GraphicsProvider` + `useFrame` — rAF loop distributed via React context                                                                                                                                                                                  |
-| **react/useShaderRunner**      | hook      | Mount a fragment shader on a canvas with `ResizeObserver` auto-resize                                                                                                                                                                                     |
-| **react/ShaderCanvas**         | component | Standalone animated shader component combining `useShaderRunner` + `useFrame`                                                                                                                                                                             |
-| **react/useInteractiveCanvas** | hook      | Pan/zoom/pointer state for 2D canvases (zero re-renders, mutable ref)                                                                                                                                                                                     |
-| **react/useGPGPU**             | hook      | React wrapper around `GPGPUPipeline` — sim shader → state texture                                                                                                                                                                                         |
+| Module / Export                 | Kind      | Purpose                                                                                                                                                                                                                                                              |
+| :------------------------------ | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **2d/transforms**               | functions | Curried coordinate transforms (`screenToCanvas`, `canvasToNormalized`, `normalizedToWebGL`, `canvasToBuffer`, `bufferToCanvas`, `dataToCanvas`, `canvasToData`, `screenToBuffer`, `bufferToScreen`), `createShaderUniformBuilder`, re-exports `generateGLSLFragment` |
+| **core/createWebGLContext**     | factory   | Canvas setup, DPR-aware resize, viewport management, context loss handling — returns a `WebGLContext`                                                                                                                                                                |
+| **2d/createQuadPipeline**       | factory   | Generic fullscreen triangle shader runner — compile GLSL, bind uniforms, draw — returns a `QuadPipeline`                                                                                                                                                             |
+| **core/createFBOManager**       | factory   | Ping-pong framebuffers for multi-pass rendering and feedback loops — returns an `FBOManager`                                                                                                                                                                         |
+| **core/createFrameLoop**        | factory   | `requestAnimationFrame` loop with subscribe/unsubscribe, delta time — returns a `FrameLoop`                                                                                                                                                                          |
+| **2d/createShaderRunner**       | factory   | Convenience composition of `WebGLContext` + `QuadPipeline` with standard-uniform injection, resize and mouse support — returns a `ShaderRunner`                                                                                                                      |
+| **2d/createGPGPUPipeline**      | factory   | GPU compute pipeline over an `FBOManager` — multi-program, state texture, init/step — returns a `GPGPUPipeline`                                                                                                                                                      |
+| **core/compileShaderProgram**   | factory   | GLSL compile/link helpers (`compileShaderProgram`, `setUniformValue`) shared by the shader pipelines                                                                                                                                                                 |
+| **core/standardUniforms**       | helpers   | Canonical framework-uniform contract (`u_resolution`/`u_aspect`/`u_mouse`) + `applyStandardUniforms`                                                                                                                                                                 |
+| **2d/react/FrameLoopContext**   | context   | `FrameLoopProvider` + `useFrame` — rAF loop distributed via React context                                                                                                                                                                                            |
+| **2d/react/useShaderRunner**    | hook      | Mount a fragment shader on a canvas with `ResizeObserver` auto-resize                                                                                                                                                                                                |
+| **2d/react/ShaderCanvas**       | component | Standalone animated shader component combining `useShaderRunner` + `useFrame` + `usePanZoomUniforms`                                                                                                                                                                 |
+| **2d/react/usePanZoom**         | hook      | Pan/zoom state for 2D canvases (zero re-renders, mutable ref)                                                                                                                                                                                                        |
+| **2d/react/usePanZoomUniforms** | hook      | Maps pan/zoom interaction state to `u_panOffset` / `u_zoom` uniforms                                                                                                                                                                                                 |
+| **2d/react/useGPGPU**           | hook      | React wrapper around `GPGPUPipeline` — sim shader → state texture                                                                                                                                                                                                    |
 
 ---
 
@@ -71,7 +74,7 @@ All transformations adhere to strict domain definitions — preventing Y-axis fl
 Transformations are curried — pre-configure your conversion pipeline once and pass pure single-argument functions into render loops:
 
 ```typescript
-import { createScreenToCanvas, createCanvasToBuffer } from '@repo/graphics/math/transforms';
+import { createScreenToCanvas, createCanvasToBuffer } from '@repo/graphics/2d/transforms';
 
 const screenToCanvas = createScreenToCanvas(canvasElementBounds);
 const canvasToBuffer = createCanvasToBuffer(devicePixelRatio);
@@ -85,7 +88,7 @@ const bufferPoint = canvasToBuffer(canvasPoint);
 Shorthand for common two-stage pipelines:
 
 ```typescript
-import { createScreenToBuffer, createBufferToScreen } from '@repo/graphics/math/transforms';
+import { createScreenToBuffer, createBufferToScreen } from '@repo/graphics/2d/transforms';
 
 const screenToBuffer = createScreenToBuffer(canvasBounds, devicePixelRatio);
 const bufferToScreen = createBufferToScreen(canvasBounds, devicePixelRatio);
@@ -101,7 +104,7 @@ const bufferToScreen = createBufferToScreen(canvasBounds, devicePixelRatio);
 - `'none'` — Raw 1:1 mapping, no scaling.
 
 ```typescript
-import { createDataToCanvas } from '@repo/graphics/math/transforms';
+import { createDataToCanvas } from '@repo/graphics/2d/transforms';
 
 const dataToCanvas = createDataToCanvas(
   { xMin: -100, xMax: 100, yMin: -50, yMax: 50 },
@@ -113,47 +116,34 @@ const dataToCanvas = createDataToCanvas(
 const canvasPositions = dataPoints.map(dataToCanvas);
 ```
 
-### GLSL fragment boilerplate
-
-`generateGLSLFragment` produces reusable UV-calculation snippets for your shaders:
-
-```typescript
-import { generateGLSLFragment } from '@repo/graphics/math/transforms';
-
-const uvSetup = generateGLSLFragment({
-  inputSpace: 'canvas',
-  flipVertically: true,
-  correctAspectRatio: true
-});
-// → "vec2 uv = gl_FragCoord.xy / uniformResolution;"
-// → "uv.y = 1.0 - uv.y;"
-// → "uv.x *= uniformResolution.x / uniformResolution.y;"
-```
-
 ### Shader uniform builder
 
 ```typescript
-import { createShaderUniformBuilder } from '@repo/graphics/math/transforms';
+import { createShaderUniformBuilder } from '@repo/graphics/2d/transforms';
 
-const buildUniforms = createShaderUniformBuilder(cssWidth, cssHeight, devicePixelRatio);
-const uniforms = buildUniforms(mouseNormalizedUV);
-// → { uniformResolution: [w*dpr, h*dpr], uniformAspectRatio: w/h, uniformMouse: [uvX, uvY] }
+const buildUniforms = createShaderUniformBuilder(cssWidth, cssHeight);
+const values = buildUniforms(mouseNormalizedUV);
+// → { resolution: [w*dpr, h*dpr], aspectRatio: w/h, mouse: [uvX, uvY] }
+// dpr is the capped device pixel ratio (`min(window.devicePixelRatio, 2)`).
 ```
 
 ### Canonical uniform contract
 
-Every render pipeline auto-binds three uniforms on `render()`/`step()`. Shaders may
-declare them under the canonical `u_*` names or the legacy `uniform*` aliases —
-whichever the shader declares is bound:
+`ShaderRunner.render()` injects three framework uniforms each frame — but only when
+the shader declares them (checked via `hasUniform`). The names are **canonical**; the
+legacy `uniformResolution`/`uniformAspectRatio`/`uniformMouse` aliases were removed.
 
-| Canonical name | Legacy alias         | GLSL type | Value                                                         |
-| :------------- | :------------------- | :-------- | :------------------------------------------------------------ |
-| `u_resolution` | `uniformResolution`  | `vec2`    | Buffer pixels `[width * dpr, height * dpr]`                   |
-| `u_aspect`     | `uniformAspectRatio` | `float`   | `cssWidth / cssHeight`                                        |
-| `u_mouse`      | `uniformMouse`       | `vec2`    | Normalized UV in vUv space — origin bottom-left, y-up, `0..1` |
+| Canonical name | GLSL type | Value                                                         |
+| :------------- | :-------- | :------------------------------------------------------------ |
+| `u_resolution` | `vec2`    | Buffer pixels `[width * dpr, height * dpr]`                   |
+| `u_aspect`     | `float`   | `cssWidth / cssHeight`                                        |
+| `u_mouse`      | `vec2`    | Normalized UV in vUv space — origin bottom-left, y-up, `0..1` |
 
-`ShaderCanvas` with `interactive` additionally auto-binds two uniforms each
-frame (only when the shader declares them):
+The values come from `createShaderUniformBuilder` (canvas size + normalized pointer).
+`applyStandardUniforms` (in `core/standardUniforms`) maps the builder's
+`{ resolution, aspectRatio, mouse }` onto the canonical `u_*` names and applies them via
+`pipeline.setUniforms` before the draw call. `ShaderCanvas` additionally auto-binds two
+uniforms each frame (only when the shader declares them):
 
 | Canonical name | GLSL type | Value                                    |
 | :------------- | :-------- | :--------------------------------------- |
@@ -176,20 +166,18 @@ Custom uniforms are set with `setUniforms` and accept numbers, number arrays,
 
 ### createQuadPipeline — fullscreen fragment shader runner
 
-Compiles a fragment shader (with auto `#version 300 es` injection) against a built-in fullscreen triangle vertex shader, introspects uniforms, and auto-binds the [canonical uniforms](#canonical-uniform-contract). Custom uniforms can be set via `setUniforms`:
+A **generic** fullscreen-triangle pipeline: compiles a fragment shader (with auto
+`#version 300 es` injection), introspects uniforms, and draws. It knows nothing about
+framework uniforms — those are injected by `createShaderRunner` (see the
+[canonical uniform contract](#canonical-uniform-contract)):
 
 ```typescript
-import { createQuadPipeline } from '@repo/graphics/webgl/createQuadPipeline';
-import { createShaderUniformBuilder } from '@repo/graphics/math/transforms';
+import { createQuadPipeline } from '@repo/graphics/2d/createQuadPipeline';
 
 const gl = canvas.getContext('webgl2');
-const builder = createShaderUniformBuilder(width, height, dpr);
-const pipeline = createQuadPipeline(gl, builder);
+const pipeline = createQuadPipeline(gl);
 
 pipeline.compileFragmentShader(myFragmentSrc);
-
-// Auto uniforms (u_resolution/u_aspect/u_mouse) are bound on render():
-pipeline.render(mouseNormalizedUV);
 
 // Custom uniforms (numbers, arrays, textures):
 pipeline.setUniforms({
@@ -198,8 +186,8 @@ pipeline.setUniforms({
   u_texture: myWebGLTexture
 });
 
-// Update builder after resize:
-pipeline.updateUniformBuilder(createShaderUniformBuilder(newW, newH, dpr));
+// Draw one frame:
+pipeline.render();
 
 // Free GL resources:
 pipeline.dispose();
@@ -208,12 +196,12 @@ pipeline.dispose();
 ### createWebGLContext — canvas lifecycle
 
 ```typescript
-import { createWebGLContext } from '@repo/graphics/webgl/createWebGLContext';
+import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
 
-const ctx = createWebGLContext({ canvas, dpr: devicePixelRatio });
+const ctx = createWebGLContext({ canvas });
 ctx.viewport();
 ctx.clear(0, 0, 0, 1);
-ctx.resize(width, height, dpr);
+ctx.resize(width, height);
 ctx.onContextLost(() => {
   /* re-create resources */
 });
@@ -227,7 +215,7 @@ Access the raw GL object via `ctx.gl`, and the buffer size via `ctx.drawingBuffe
 ### createFBOManager — ping-pong framebuffers
 
 ```typescript
-import { createFBOManager } from '@repo/graphics/webgl/createFBOManager';
+import { createFBOManager } from '@repo/graphics/core/createFBOManager';
 
 const fbo = createFBOManager(gl, width, height);
 
@@ -244,7 +232,7 @@ const writeTex = fbo.getWriteTexture(); // current frame's target
 ### createFrameLoop — rAF subscription
 
 ```typescript
-import { createFrameLoop } from '@repo/graphics/webgl/createFrameLoop';
+import { createFrameLoop } from '@repo/graphics/core/createFrameLoop';
 
 const loop = createFrameLoop();
 const unsubscribe = loop.subscribe((time, delta) => {
@@ -259,7 +247,7 @@ loop.dispose();
 Combines `createWebGLContext` + `createQuadPipeline` for the common case:
 
 ```typescript
-import { createShaderRunner } from '@repo/graphics/webgl/createShaderRunner';
+import { createShaderRunner } from '@repo/graphics/2d/createShaderRunner';
 
 const runner = createShaderRunner({ canvas, fragmentShader: fragmentShaderSrc });
 runner.render(); // draw one frame
@@ -281,7 +269,7 @@ runner.dispose();
 Runs a simulation shader against a state texture in a feedback loop via an `FBOManager`. Supports multiple named programs:
 
 ```typescript
-import { createGPGPUPipeline } from '@repo/graphics/webgl/createGPGPUPipeline';
+import { createGPGPUPipeline } from '@repo/graphics/2d/createGPGPUPipeline';
 
 const gpu = createGPGPUPipeline(gl, width, height, simFragmentSrc);
 
@@ -304,18 +292,18 @@ gpu.dispose();
 
 ## React Integration
 
-### GraphicsProvider & useFrame — frame loop context
+### FrameLoopProvider & useFrame — frame loop context
 
-Wrap your tree with `GraphicsProvider` and subscribe to the animation loop with `useFrame`:
+Wrap your tree with `FrameLoopProvider` and subscribe to the animation loop with `useFrame`:
 
 ```tsx
-import { GraphicsProvider, useFrame } from '@repo/graphics/react/FrameLoopContext';
+import { FrameLoopProvider, useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
 
 function Root() {
   return (
-    <GraphicsProvider>
+    <FrameLoopProvider>
       <MyScene />
-    </GraphicsProvider>
+    </FrameLoopProvider>
   );
 }
 
@@ -328,42 +316,103 @@ function MyScene() {
 
 ### ShaderCanvas — auto-animating shader component
 
-Drop-in animated shader with mouse tracking and an `onBeforeRender` callback for custom uniforms:
+Declarative wrapper: it mounts the runner, resizes with the canvas, runs a frame
+loop, and draws every frame. Pan (middle-drag) and zoom (wheel) are **always on**;
+the `u_panOffset` / `u_zoom` uniforms are auto-fed each frame only when the shader
+declares them. The canvas fills its container by default (override with `style`).
 
 ```tsx
-import { ShaderCanvas } from '@repo/graphics/react/ShaderCanvas';
+import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
 
 <ShaderCanvas
   fragmentShader={myShaderSrc}
-  onBeforeRender={(pipeline, time) => {
-    pipeline.setUniforms({ u_time: time });
-  }}
   webGLContextAttributes={{ antialias: true }}
 />;
 ```
 
-`dpr` and `webGLContextAttributes` are **mount-time only**: changing them re-mounts the canvas element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space (normalized, origin bottom-left, y-up) — see the [canonical uniform contract](#canonical-uniform-contract).
-
-Pass `interactive` to opt into pan (middle-drag) and zoom (wheel); the resulting state is auto-fed as `u_panOffset` + `u_zoom` each frame:
+The **time uniform** is injected automatically each frame into the shader's declared
+`u_time` (opt out with `time={false}`; pick another name with `time="uTime"`). It is
+set **before** `onBeforeRender`, so a user-set time wins. Custom per-frame uniforms go
+through `onBeforeRender`, which receives a single props object with the pipeline, the
+frame time, the mouse, and the current view:
 
 ```tsx
 <ShaderCanvas
-  interactive
-  fragmentShader={interactiveShaderSrc}
-  onBeforeRender={(pipeline, time) => {
-    pipeline.setUniforms({ u_time: time });
+  fragmentShader={myShaderSrc}
+  onBeforeRender={({ pipeline, time, mouse, view }) => {
+    pipeline.setUniforms({
+      u_speed: 2.0,
+      u_time: time * 0.5,
+      u_screen: [mouse.x, mouse.y]
+    });
   }}
 />
 ```
 
-The pan/zoom uniforms are only written when the shader declares them, and are
-skipped entirely when `interactive` is off. Transform vUv with them, e.g.
-`vec2 uv = (vUv + u_panOffset) / u_zoom;`.
+The callback payload is all in **CSS space, y-down**: `view.pan` is in CSS pixels,
+`mouse` is normalized `0..1` against the canvas box, and `view.zoom` is the wheel
+zoom. The framework applies the flip to vUv space at the uniform boundary (`u_mouse`
+is `1 - mouse.y`; `u_panOffset = [-pan.x / width, pan.y / height]`). Pan/zoom tuning
+knobs (`minZoom`, `maxZoom`, `zoomToCursor`, `scalePanWithZoom`, `zoomSpeed`), view
+seeding (`initialView`), and view sync (`onViewChange`) are all top-level props:
+
+```tsx
+<ShaderCanvas
+  fragmentShader={interactiveShaderSrc}
+  initialView={{ pan: { x: 0, y: 0 }, zoom: 1 }}
+  maxZoom={1e6}
+  zoomToCursor
+  onViewChange={(view) => setStoreView({ pan: view.pan, zoom: view.zoom })}
+  onBeforeRender={({ pipeline, view }) => {
+    pipeline.setUniforms({ u_center: centerFromView(view) });
+  }}
+/>
+```
+
+Transform vUv with the pan/zoom uniforms, e.g. `vec2 uv = (vUv + u_panOffset) / u_zoom;`.
+`webGLContextAttributes` is **mount-time only**: changing it re-mounts the canvas
+element with a fresh context. Pointer movement is fed to `u_mouse` in vUv space
+(normalized, origin bottom-left, y-up) — replace the default handler with the
+`onPointerMove` prop when you need your own. For custom pipelines, handlers, or per-frame
+sequencing, compose the hooks directly (`useShaderRunner`, `usePanZoom`,
+`usePanZoomUniforms`, `useFrame`) instead — see the examples below.
+
+### usePanZoomUniforms — pan/zoom → uniform mapping
+
+The `u_panOffset` / `u_zoom` convention used by `ShaderCanvas` lives here, so it can be
+reused without the component. It returns an apply-function that maps pan/zoom state onto
+the uniforms each frame:
+
+```tsx
+import { usePanZoomUniforms } from '@repo/graphics/2d/react/usePanZoomUniforms';
+
+function MyCanvas() {
+  const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
+  const interaction = usePanZoom(canvasRef);
+  const applyPanZoom = usePanZoomUniforms(runnerRef, interaction);
+
+  useFrame(() => {
+    applyPanZoom();
+    runnerRef.current?.render();
+  });
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ width: '100%', height: '100%' }}
+    />
+  );
+}
+```
+
+Pan is stored in CSS pixels (top-left origin, y-down); it is normalized against the
+canvas size on upload — `u_panOffset = [-pan.x / width, pan.y / height]`. Use
+`usePanZoom` for the raw state (zero-re-render, ref-based).
 
 ### useShaderRunner — mount a shader with ResizeObserver
 
 ```tsx
-import { useShaderRunner } from '@repo/graphics/react/useShaderRunner';
+import { useShaderRunner } from '@repo/graphics/2d/react/useShaderRunner';
 
 function MyCanvas() {
   const { canvasRef, runnerRef } = useShaderRunner({ fragmentShader });
@@ -382,33 +431,30 @@ function MyCanvas() {
 }
 ```
 
-The `runnerRef.current` is a `ShaderRunner` — see the `createShaderRunner` factory above for `context`/`canvas` accessors and `dispose()`. The `dpr` and `webGLContextAttributes` options are read at mount and ignored after; editing `fragmentShader` recompiles the program in place without destroying the GL context.
+The `runnerRef.current` is a `ShaderRunner` — see the `createShaderRunner` factory above for `context`/`canvas` accessors and `dispose()`. The `webGLContextAttributes` option is read at mount and ignored after; editing `fragmentShader` recompiles the program in place without destroying the GL context.
 
-### useInteractiveCanvas — pan/zoom/pointer state
+### usePanZoom — pan/zoom state
 
-Zero-re-render mutable ref for 2D canvas interaction. **Opt-in via the second
-`enabled` arg (default `false`)** — no listeners attach until enabled, so the
-wheel handler never hijacks page scroll otherwise:
+Zero-re-render mutable ref for 2D canvas pan/zoom. Middle-drag pans and the wheel zooms
+(`0.1..5`). Pan and pointer are CSS pixels relative to the canvas, y-down; normalize
+against the canvas size before uploading to a shader:
 
 ```tsx
-import { useInteractiveCanvas } from '@repo/graphics/react/useInteractiveCanvas';
+import { usePanZoom } from '@repo/graphics/2d/react/usePanZoom';
 
 function Canvas() {
   const canvasRef = useRef(null);
-  const state = useInteractiveCanvas(canvasRef, true);
+  const state = usePanZoom(canvasRef);
 
   // Read mutable ref in your draw loop:
   //   state.current.pan, state.current.zoom, state.current.pointer
 }
 ```
 
-Middle-drag pans and the wheel zooms (`0.1..5`). Pan deltas are in CSS pixels;
-normalize against the canvas size before uploading to a shader.
-
 ### useGPGPU — GPU compute hook
 
 ```tsx
-import { useGPGPU } from '@repo/graphics/react/useGPGPU';
+import { useGPGPU } from '@repo/graphics/2d/react/useGPGPU';
 
 const gl = canvas.getContext('webgl2');
 const { pipelineRef, getStateTexture } = useGPGPU(gl, 256, 256, simShader);
@@ -424,22 +470,25 @@ pipelineRef.current?.step();
 
 ```
 @repo/graphics/src/
-├── math/
-│   └── transforms.ts         Curried coordinate factory functions + GLSL boilerplate generator
-├── webgl/
-│   ├── createWebGLContext.ts Canvas setup, DPR resize, context loss handling
-│   ├── compileShaderProgram.ts GLSL compile/link + uniform upload helpers
-│   ├── createQuadPipeline.ts Fullscreen triangle shader compiler and runner
-│   ├── createFBOManager.ts   Ping-pong framebuffers for multi-pass/feedback
-│   ├── createFrameLoop.ts    Generic requestAnimationFrame subscription manager
-│   ├── createShaderRunner.ts Convenience: createWebGLContext + createQuadPipeline
-│   └── createGPGPUPipeline.ts GPU compute pipeline over createFBOManager (simulation)
-└── react/
-    ├── FrameLoopContext.tsx   GraphicsProvider + useFrame (rAF via React context)
-    ├── useShaderRunner.ts     Hook: mount a fragment shader with ResizeObserver
-    ├── ShaderCanvas.tsx       Animated shader component with onBeforeRender
-    ├── useInteractiveCanvas.ts Hook: pan/zoom/pointer state for 2D canvases
-    └── useGPGPU.ts            Hook: GPGPU simulation pipeline → state texture
+├── 2d/
+│   ├── transforms.ts           Curried coordinate factories + shader uniform builder
+│   ├── createQuadPipeline.ts   Generic fullscreen triangle shader runner
+│   ├── createShaderRunner.ts   Convenience: WebGLContext + QuadPipeline + standard uniforms
+│   ├── createGPGPUPipeline.ts  GPU compute pipeline over createFBOManager (simulation)
+│   └── react/
+│       ├── FrameLoopContext.tsx   FrameLoopProvider + useFrame (rAF via React context)
+│       ├── useShaderRunner.ts     Hook: mount a fragment shader with ResizeObserver
+│       ├── ShaderCanvas.tsx       Thin animated shader component composing the hooks
+│       ├── usePanZoom.ts Hook: pan/zoom state for 2D canvases
+│       ├── usePanZoomUniforms.ts  Hook: interaction state → u_panOffset/u_zoom
+│       └── useGPGPU.ts            Hook: GPGPU simulation pipeline → state texture
+└── core/
+    ├── createWebGLContext.ts   Canvas setup, DPR resize, context loss handling
+    ├── compileShaderProgram.ts GLSL compile/link + uniform upload helpers
+    ├── createFBOManager.ts     Ping-pong framebuffers for multi-pass/feedback
+    ├── createFrameLoop.ts      Generic requestAnimationFrame subscription manager
+    ├── standardUniforms.ts     Canonical uniform contract (u_resolution/u_aspect/u_mouse)
+    └── generateGLSLFragment.ts GLSL UV-calculation snippet generator
 ```
 
 ---
@@ -448,8 +497,10 @@ pipelineRef.current?.step();
 
 - **Zero Runtime Dependencies:** The math layer must remain 100% pure TypeScript with zero external dependencies.
 - **Separation of Concerns:** React hooks rely on WebGL modules, but WebGL modules must never rely on React. Math modules rely on nothing.
-- **Factories, Not Classes:** WebGL objects are created by factory functions (`createQuadPipeline`, etc.) returning plain object literals typed by a declared interface. Closures own private state — no `class` keyword anywhere in `webgl/`.
+- **Factories, Not Classes:** WebGL objects are created by factory functions (`createQuadPipeline`, etc.) returning plain object literals typed by a declared interface. Closures own private state — no `class` keyword anywhere in `core/` or `2d/`.
+- **Canonical Uniform Names Only:** framework uniforms are `u_resolution`/`u_aspect`/`u_mouse` — no legacy `uniform*` aliases.
 
 ---
 
 *Part of [Creative Playground*](https://joska-p.github.io/playground)
+

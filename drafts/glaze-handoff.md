@@ -3,10 +3,10 @@
 _Read this first. It captures everything decided so far so the next session
 doesn't re-derive it. Status: **`core/` (loop + coords), the doors (`cpu/` +
 `gpu/`), and the shapes (`cpu/shapes/*` + `gpu/shapes/*`) are ported and green
-(`check-types` + `lint` pass). Next up: steps 4–5 below (README/docs, tests),
-then the `react/*` layer. Known caveat: the GPU shape GLSL was hand-reviewed
-but never compiled against a real WebGL context — runtime-verify it first
-(see [4. Suggested next steps](#4-suggested-next-steps)).**_
+(`check-types` + `lint` pass). S4 runtime-verified the GPU shapes against a real
+WebGL2 context (storybook story + headless Chromium) and fixed a reserved-word
+GLSL slip; added the package README + synced docs and a vitest unit suite. Next
+up: step 6, the `react/*` layer.**_
 
 > Session log:
 > - **S2 — core/ + doors done.** All design decisions made live below in
@@ -15,6 +15,8 @@ but never compiled against a real WebGL context — runtime-verify it first
 > - **S3 — shapes done.** See the shape decision in
 >   [7. Session 2 log](#7-session-2-log--decisions-made) (appended there per
 >   the handoff). Don't re-litigate.
+> - **S4 — runtime verification, README/docs, tests done.** Log appended in
+>   [7. Session 2 log](#7-session-2-log--decisions-made). Don't re-derive.
 
 ---
 
@@ -101,14 +103,10 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
 
 ## 4. Suggested next steps
 
-> **Next session (S4): steps 4 + 5 first, then the `react/` layer.** Before
-> writing any new code, runtime-verify the GPU shapes: nothing in this
-> devcontainer has a browser, so the S3 GLSL (circle/rect/line/text fragment
-> shaders in `gpu/shapes/*`) was reviewed by hand but never compiled against a
-> real WebGL context. Spin up the pixelate2d Vite example or a tiny local page
-> (or a vitest + `headless-gl`-style test) and confirm each shape renders —
-> a subtle GLSL slip (e.g. SDF math, texture y-orientation) would only show at
-> runtime.
+> **Next session (S5): the `react/` layer (step 6) — the last empty scaffold.**
+> The S3 GLSL was runtime-verified in S4 (see log below) and the 
+> "compiled never against a real WebGL context" caveat is cleared, so no
+> re-verification is required unless the shaders change.
 
 1. **Port `core/` first** (it's the shared foundation): **DONE (S2).**
    - `createFrameLoop` ← `@repo/graphics/src/core/createFrameLoop.ts`
@@ -131,8 +129,10 @@ on GPU, `shapes/` sits beside `shader/` so a shape reads as a `createProgram`
 4. **Add a README** following `apps/playground/src/content/docs/how-to/documenting-packages.md`,
    then run `pnpm --filter @repo/playground sync-package-docs` and add the
    friendly name to `PACKAGE_NAMES` in `scripts/sync-package-readmes.mjs`.
+   **DONE (S4).** README written; `glaze: 'Glaze'` added; docs synced via
+   `node ./scripts/sync-package-readmes.mjs`.
 5. **Tests** via vitest (script already present); consider porting pixelate2d's
-   test ideas for the drivers.
+   test ideas for the drivers. **DONE (S4)** — 33 tests, see the log below.
 6. **`react/*` layer** (last empty scaffold): `FrameLoopProvider.tsx`,
    `useFrame.ts`, `useCamera.ts`, `CpuCanvas.tsx`, `GpuCanvas.tsx`. Follow
    `@repo/graphics`' React layer (see `packages/graphics/src/react/`) and keep
@@ -249,6 +249,42 @@ per-shape programs; the door's `createProgram`/`renderProgram` is the surface.
   `cpu/shapes/{types,paint}.ts`; GPU imports the types cross-door (same
   precedent as `input`). `line` is new (no pixelate2d equivalent): strokes
   two points with `stroke ?? fill ?? black`.
+
+**S4 — runtime verification, README/docs, unit tests.**
+(Don't re-derive; re-run only if the shaders change.)
+
+- **Runtime-verified the GPU shapes against a real WebGL2 context** (the
+  "subtle GLSL slip" caveat from [4. Suggested next steps](#4-suggested-next-steps)).
+  No browser in the devcontainer, so: `apps/storybook` gained a
+  `@repo/glaze` devDep + `stories/glaze/GpuShapes.stories.tsx` — a story
+  (`id glaze-gpushapes--shapes`) that renders all four shapes and, inside the
+  frame callback, `readPixels`-samples each one and stashes the results on
+  `window.__glazeGpu`. It was driven with Playwright chromium (cached at
+  `~/.cache/ms-playwright/chromium-1228`) against the storybook dev server
+  under Xvfb — **SwiftShader ANGLE needs an X display** (headless shells have
+  no WebGL; full chromium `--use-angle=swiftshader --enable-unsafe-swiftshader`
+  fails with `xcb_connect` without `DISPLAY`). All four shapes pass: exact
+  colors read back at the sampled pixels (circle `#e11d48`, rect `#16a34a`,
+  line `#3b82f6`), text >20 glyph pixels.
+- **Found & fixed one real GLSL slip: `half` is a reserved GLSL ES 3.00
+  keyword** — `float half` in `gpu/shapes/{circle,rect}.ts` (AA edge) was
+  renamed to `strokeHalf`. Would have failed at runtime compile only.
+- **README + docs**: `packages/glaze/README.md` written per
+  `documenting-packages.md`; `glaze: 'Glaze'` added to `PACKAGE_NAMES` in
+  `scripts/sync-package-readmes.mjs`; `node ./scripts/sync-package-readmes.mjs`
+  regenerated `apps/playground/src/content/docs/reference/packages/glaze.md`
+  (sync is a root-level script — `pnpm --filter @repo/playground
+  sync-package-docs` has no such script; use `pnpm sync-package-docs`).
+- **Tests**: vitest (happy-dom env via `vitest.config.js`, mirroring
+  `@repo/graphics`). 33 unit tests: `createFrameLoop`, coords ladder + camera,
+  `createInputStore`, `parseColor`/`colorArray`, and the shape uniform
+  builders. `check-types` + `lint` green for both `@repo/glaze` and
+  `@repo/storybook`. Gotcha: strict config means
+  `Record<string, UniformValue>` returns must be read with bracket access
+  (`uniforms['u_stroke']`), not dot access.
+- **Still empty: `react/*` (step 6).** Re-verification recipe lives in
+  `apps/storybook/src/stories/glaze/` (story + pixel-probe helper); a scratch
+  runner was `/tmp/opencode/glaze-verify.mjs`.
 
 ## 8. Git state (uncommitted)
 

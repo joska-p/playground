@@ -1,7 +1,7 @@
 ---
-title: 'automa'
-description: 'An interactive cellular automaton — paint life onto a GPU-driven grid, watch it evolve under pluggable rules.'
-category: 'reference'
+title: "automa"
+description: "An interactive cellular automaton — paint life onto a GPU-driven grid, watch it evolve under pluggable rules."
+category: "reference"
 tags:
   - reference
   - automa
@@ -36,3 +36,4 @@ See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the full data flow and responsibi
 ```
 pnpm dev --filter @repo/automa
 ```
+

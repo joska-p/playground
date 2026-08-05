@@ -1,21 +1,21 @@
 ---
-title: "Fracture"
+title: "Mandelbrot"
 description: "Scaffolded demo showcasing Zustand + Zod."
 category: "reference"
 tags:
   - reference
-  - fracture
+  - mandelbrot
 order: 20
 ---
 
-# @repo/fracture
+# @repo/mandelbrot
 
 ---
 
 ## Quick Start
 
 ```bash
-pnpm --filter @repo/fracture dev
+pnpm --filter @repo/mandelbrot dev
 ```
 
 ## Adding to the Playground

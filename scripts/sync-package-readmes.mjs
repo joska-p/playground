@@ -32,7 +32,8 @@ const PACKAGE_NAMES = {
   'real-life': 'Real Life',
   'config-eslint': 'ESLint Config',
   'config-typescript': 'TypeScript Config',
-  graphics: 'Graphics lib'
+  graphics: 'Graphics lib',
+  glaze: 'Glaze'
 };
 
 function kebabToTitle(name) {

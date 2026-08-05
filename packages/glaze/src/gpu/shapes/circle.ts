@@ -31,9 +31,9 @@ float coverage(float sd) {
 void main() {
   vec2 w = world();
   float sd = length(w - u_center) - u_radius;
-  float half = u_strokeWidth * 0.5;
+  float strokeHalf = u_strokeWidth * 0.5;
   float aFill = u_fill.a > 0.0 ? coverage(sd) : 0.0;
-  float aStroke = u_stroke.a > 0.0 ? coverage(sd - half) * (1.0 - coverage(sd + half)) : 0.0;
+  float aStroke = u_stroke.a > 0.0 ? coverage(sd - strokeHalf) * (1.0 - coverage(sd + strokeHalf)) : 0.0;
   float A = aStroke + aFill * (1.0 - aStroke);
   vec3 C = u_stroke.rgb * aStroke + u_fill.rgb * aFill * (1.0 - aStroke);
   if (A > 0.0) C /= A;
