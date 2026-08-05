@@ -20,6 +20,7 @@
     "./cpu/shapes/path": "./src/cpu/shapes/path.ts",
     "./cpu/shapes/types": "./src/cpu/shapes/types.ts",
     "./gpu/createGpuDoor": "./src/gpu/createGpuDoor.ts",
+    "./gpu/createGpuPass": "./src/gpu/createGpuPass.ts",
     "./gpu/shader/compileProgram": "./src/gpu/shader/compileProgram.ts",
     "./gpu/shader/setUniforms": "./src/gpu/shader/setUniforms.ts",
     "./gpu/shader/createProgram": "./src/gpu/shader/createProgram.ts",

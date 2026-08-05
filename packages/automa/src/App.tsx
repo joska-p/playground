@@ -1,5 +1,4 @@
 import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
-import { FrameLoopProvider } from '@repo/graphics/2d/react/FrameLoopContext';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
 import { CellMesh } from './components/canvas/CellMesh.tsx';
@@ -30,10 +29,8 @@ function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
   return (
     <div className="relative h-screen overflow-hidden">
       <ErrorBoundary>
-        <FrameLoopProvider>
-          <CellMesh />
-          {showDebug && <GridLines />}
-        </FrameLoopProvider>
+        <CellMesh />
+        {showDebug && <GridLines />}
         <ControlPanel />
       </ErrorBoundary>
     </div>

@@ -1,5 +1,5 @@
 import type { Rule } from '../rules/registry';
-import { createGPGPUPipeline } from '@repo/graphics/2d/createGPGPUPipeline';
+import { createGpuPass } from '@repo/glaze/gpu/createGpuPass';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
 
@@ -10,8 +10,9 @@ export function createSimulationEngine(
   simShaderSource: string,
   paintShaderSource: string
 ) {
-  const pipeline = createGPGPUPipeline(gl, width, height, simShaderSource);
-  pipeline.addProgram('paint', paintShaderSource);
+  const pass = createGpuPass(gl, width, height);
+  pass.addProgram('default', simShaderSource);
+  pass.addProgram('paint', paintShaderSource);
 
   const birthBuffer = new Int32Array(9);
   const surviveBuffer = new Int32Array(9);
@@ -23,47 +24,47 @@ export function createSimulationEngine(
         surviveBuffer[i] = rule.survive[i] ? 1 : 0;
       }
 
-      pipeline.useProgram('default');
-      pipeline.setUniforms({
-        u_gridSize: [pipeline.width, pipeline.height],
+      pass.useProgram('default');
+      pass.setUniforms({
+        u_gridSize: [pass.width, pass.height],
         u_birth: birthBuffer,
         u_survive: surviveBuffer,
         u_stateCount: rule.stateCount
       });
-      pipeline.step();
+      pass.step();
     },
 
     paint(col: number, row: number, value: number): void {
-      pipeline.useProgram('paint');
-      pipeline.setUniforms({
+      pass.useProgram('paint');
+      pass.setUniforms({
         u_targetCell: [col, row],
         u_value: value
       });
-      pipeline.step();
+      pass.step();
     },
 
     init(data: Uint8Array): void {
-      pipeline.init(data);
+      pass.init(data);
     },
 
     getDisplayTexture(): WebGLTexture {
-      return pipeline.getStateTexture();
+      return pass.getTexture();
     },
 
     get width() {
-      return pipeline.width;
+      return pass.width;
     },
 
     get height() {
-      return pipeline.height;
+      return pass.height;
     },
 
     resize(width: number, height: number): void {
-      pipeline.resize(width, height);
+      pass.resize(width, height);
     },
 
     destroy(): void {
-      pipeline.dispose();
+      pass.destroy();
     }
   };
 }

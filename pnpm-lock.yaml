@@ -518,9 +518,9 @@ importers:
       '@repo/automa-engine':
         specifier: workspace:*
         version: link:../automa-engine
-      '@repo/graphics':
+      '@repo/glaze':
         specifier: workspace:*
-        version: link:../graphics
+        version: link:../glaze
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
@@ -582,9 +582,9 @@ importers:
 
   packages/automa-engine:
     dependencies:
-      '@repo/graphics':
+      '@repo/glaze':
         specifier: workspace:*
-        version: link:../graphics
+        version: link:../glaze
     devDependencies:
       '@repo/config-eslint':
         specifier: workspace:*

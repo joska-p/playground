@@ -15,9 +15,9 @@
     "check-types": "tsc -b"
   },
   "dependencies": {
-    "@repo/graphics": "workspace:*",
-    "@repo/ui": "workspace:*",
     "@repo/automa-engine": "workspace:*",
+    "@repo/glaze": "workspace:*",
+    "@repo/ui": "workspace:*",
     "zustand": "catalog:"
   },
   "peerDependencies": {

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { PassGpu } from './demos/PassGpu';
 import { ProgramCpu } from './demos/ProgramCpu';
 import { ProgramGpu } from './demos/ProgramGpu';
 import { SurfaceCpu } from './demos/SurfaceCpu';
@@ -50,6 +51,9 @@ export function App() {
         </Panel>
         <Panel mode="Programmatic" backend="GPU" caption="imperative · onDoor + createProgram/renderProgram · plasma shader">
           <ProgramGpu />
+        </Panel>
+        <Panel mode="GpuPass Compute" backend="GPU" caption="ping-pong FBO · createGpuPass stepping Life · pan/zoom camera">
+          <PassGpu />
         </Panel>
       </main>
     </div>

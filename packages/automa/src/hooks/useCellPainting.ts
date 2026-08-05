@@ -1,6 +1,6 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
 import { useRef } from 'react';
-import { eventToGridPoint, type Point2D } from '../lib/coordinates';
+import { eventToGridPoint, type Camera } from '../lib/coordinates';
 import { automaStore, paintCell, placePattern } from '../stores/automa';
 
 type CellPaintingHandlers = {
@@ -12,7 +12,7 @@ type CellPaintingHandlers = {
 
 export function useCellPainting(
   canvasRef?: React.RefObject<HTMLCanvasElement | null>,
-  interactionState?: { current: { pan: Point2D; zoom: number } }
+  interactionState?: { current: Camera }
 ): CellPaintingHandlers {
   const localCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const activeCanvasRef = canvasRef ?? localCanvasRef;
