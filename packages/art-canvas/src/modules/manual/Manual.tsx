@@ -1,4 +1,4 @@
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { manual } from './manual';
 import { useChroma, useDivisions, useLightness } from './store';
 
@@ -8,16 +8,13 @@ function Manual() {
   const chroma = useChroma();
 
   return (
-    <ShaderCanvas
+    <GpuCanvas
       fragmentShader={manual.fragmentShader}
-      time={false}
-      onBeforeRender={({ pipeline }) => {
-        pipeline.setUniforms({
-          uDivisions: divisions,
-          uLightness: lightness,
-          uChroma: chroma
-        });
-      }}
+      uniforms={() => ({
+        uDivisions: divisions,
+        uLightness: lightness,
+        uChroma: chroma
+      })}
     />
   );
 }

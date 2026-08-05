@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { GpuDoor, GpuFrameContext } from '@repo/glaze/gpu/createGpuDoor';
-import type { Program } from '@repo/glaze/gpu/shader/createProgram';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import { useFrame } from '@repo/glaze/react/useFrame';
 import { readGpuPixel } from '../proof/sample';
 import { stashProof, type Sample } from '../proof/types';
 
@@ -31,22 +29,6 @@ const SAMPLE_POINTS = [
 
 export function ProgramGpu() {
   const [door, setDoor] = useState<GpuDoor | null>(null);
-  const programRef = useRef<Program | null>(null);
-  const timeRef = useRef(0);
-
-  useFrame((time) => {
-    timeRef.current = time;
-  });
-
-  useEffect(() => {
-    if (!door) return;
-    const program = door.createProgram(plasmaFragmentSource);
-    programRef.current = program;
-    return () => {
-      program.destroy();
-      programRef.current = null;
-    };
-  }, [door]);
 
   useEffect(() => {
     if (!door) return;
@@ -59,10 +41,6 @@ export function ProgramGpu() {
     };
     let frameA: Record<string, Sample> | null = null;
     return door.subscribe((ctx) => {
-      const program = programRef.current;
-      if (!program) return;
-      program.setUniforms({ u_time: timeRef.current });
-      door.renderProgram(program);
       if (ctx.frameCount === 30) {
         frameA = sample(ctx);
         stashProof('programGpu', { frameA, frameB: null, changed: false, maxDelta: 0 });
@@ -73,7 +51,11 @@ export function ProgramGpu() {
         for (const [index] of SAMPLE_POINTS.entries()) {
           const a = frameA[`p${String(index)}`] ?? [0, 0, 0, 0];
           const b = frameB[`p${String(index)}`] ?? [0, 0, 0, 0];
-          const delta = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) + Math.abs(a[3] - b[3]);
+          const delta =
+            Math.abs(a[0] - b[0]) +
+            Math.abs(a[1] - b[1]) +
+            Math.abs(a[2] - b[2]) +
+            Math.abs(a[3] - b[3]);
           maxDelta = Math.max(maxDelta, delta);
         }
         stashProof('programGpu', { frameA, frameB, changed: maxDelta > 15, maxDelta });
@@ -82,8 +64,12 @@ export function ProgramGpu() {
   }, [door]);
 
   return (
-    <div className="h-[300px] w-[400px]">
-      <GpuCanvas onDoor={setDoor} className="h-full w-full" />
+    <div className="h-75 w-100">
+      <GpuCanvas
+        fragmentShader={plasmaFragmentSource}
+        onDoor={setDoor}
+        className="h-full w-full"
+      />
     </div>
   );
 }

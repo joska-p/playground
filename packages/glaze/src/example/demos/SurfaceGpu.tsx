@@ -16,16 +16,26 @@ export function SurfaceGpu() {
       { x: SCENE.rect.x, y: SCENE.rect.y, w: SCENE.rect.w, h: SCENE.rect.h },
       { fill: SCENE.rect.fill }
     );
-    door.drawLine(SCENE.line.a, SCENE.line.b, { stroke: SCENE.line.stroke, lineWidth: SCENE.line.lineWidth });
-    door.drawText(SCENE.text.text, SCENE.text.position, { fill: SCENE.text.fill, fontSize: SCENE.text.fontSize });
+    door.drawLine(SCENE.line.a, SCENE.line.b, {
+      stroke: SCENE.line.stroke,
+      lineWidth: SCENE.line.lineWidth
+    });
+    door.drawText(SCENE.text.text, SCENE.text.position, {
+      fill: SCENE.text.fill,
+      fontSize: SCENE.text.fontSize
+    });
     if (ctx.frameCount === 3) {
       stashProof('surfaceGpu', verifyGpuShapes(door, ctx.height, ctx.dpr));
     }
   };
 
   return (
-    <div className="h-[300px] w-[400px]">
-      <GpuCanvas onDoor={setDoor} onFrame={onFrame} className="h-full w-full" />
+    <div className="h-75 w-100">
+      <GpuCanvas
+        onDoor={setDoor}
+        onFrame={onFrame}
+        className="h-full w-full"
+      />
     </div>
   );
 }

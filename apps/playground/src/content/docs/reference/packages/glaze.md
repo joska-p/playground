@@ -136,13 +136,37 @@ barrels. All modules export named functions/factories only.
 | `useFrame` | `@repo/glaze/react/useFrame` | Subscribe a callback to the provider loop; the latest closure is always used, so inline callbacks are safe. |
 | `useCamera` | `@repo/glaze/react/useCamera` | `[Camera, CameraControls]` — a mutable pan/zoom camera with pointer-drag + wheel-zoom gestures and imperative controls. Also exports `createCamera` (factory, no React). |
 | `CpuCanvas` | `@repo/glaze/react/CpuCanvas` | Canvas2D door as a component: `onFrame` draw, `onDoor`, built-in camera + gestures, overlay children. |
-| `GpuCanvas` | `@repo/glaze/react/GpuCanvas` | WebGL2 door as a component — same props as `CpuCanvas`. |
+| `GpuCanvas` | `@repo/glaze/react/GpuCanvas` | WebGL2 door as a component — same props as `CpuCanvas` plus `fragmentShader`/`uniforms` for a declarative shader pass. |
 
 `CpuCanvas` and `GpuCanvas` are separate components (CPU/GPU remain sibling
 doors). Both wrap the doors' lifecycle: the door is created on mount and
 destroyed on unmount, pan/zoom gestures drive the same `camera` object the door
-renders through, and `onDoor` hands you the live door so you can call
-`createProgram`/`renderProgram` (GPU) or `clear`/`applyCamera` (CPU).
+renders through, and `onDoor` hands you the live door for imperative access
+(`createProgram`/`renderProgram` on GPU, `clear`/`applyCamera` on CPU). On GPU
+the program path is declarative: pass `fragmentShader` and `uniforms` and
+`GpuCanvas` compiles the program (joining the context-restore set), applies the
+standard uniforms plus your per-frame ones, and renders it every frame.
+
+```tsx
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
+export function Sketch() {
+  return (
+    <GpuCanvas
+      style={{ width: 400, height: 300 }}
+      fragmentShader={`
+        precision highp float;
+        in vec2 vUv;
+        out vec4 out_color;
+        void main() {
+          out_color = vec4(vUv, 0.5, 1.0);
+        }
+      `}
+      uniforms={({ time }) => ({ u_time: time })}
+    />
+  );
+}
+```
 
 ```tsx
 import { useRef } from 'react';
@@ -210,9 +234,9 @@ y down).
 
 `renderProgram` applies `u_resolution` (device px), `u_aspect`, `u_mouse`
 (pointer normalized to canvas, y-flipped to UV), `u_camera` (vec3: CSS-px offset
-x/y + zoom), and `u_dpr` beside any program-specific uniforms. Screen-space
-shaders ignore `u_camera`/`u_dpr` — backward compatible with the graphics
-uniform contract.
+x/y + zoom), `u_dpr`, and `u_time` (seconds since the loop started) beside any
+program-specific uniforms. Screen-space shaders ignore
+`u_camera`/`u_dpr` — backward compatible with the graphics uniform contract.
 
 ## Patterns & Gotchas
 

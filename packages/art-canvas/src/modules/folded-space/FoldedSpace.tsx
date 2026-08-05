@@ -1,8 +1,8 @@
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { foldedSpaceFragment } from './foldedSpace';
 
 function FoldedSpace() {
-  return <ShaderCanvas fragmentShader={foldedSpaceFragment} />;
+  return <GpuCanvas fragmentShader={foldedSpaceFragment} />;
 }
 
 export { FoldedSpace };

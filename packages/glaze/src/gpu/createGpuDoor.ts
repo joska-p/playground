@@ -61,6 +61,7 @@ export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
   let draw: GpuDraw | null = null;
   let textRasterizer: TextRasterizer | null = null;
   let frameCount = 0;
+  let currentTime = 0;
   let cssWidth = 0;
   let cssHeight = 0;
   let lost = false;
@@ -91,7 +92,7 @@ export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
 
   const renderProgram = (program: Program): void => {
     if (lost) return;
-    program.setUniforms(createStandardUniformValues(cssWidth, cssHeight, dpr, input.pointer, camera));
+    program.setUniforms(createStandardUniformValues(cssWidth, cssHeight, dpr, input.pointer, camera, currentTime));
     program.render();
   };
 
@@ -126,6 +127,7 @@ export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
   const onFrame: FrameCallback = (time, deltaTime): void => {
     resize();
     frameCount++;
+    currentTime = time;
     const frameContext: GpuFrameContext = {
       time,
       deltaTime,

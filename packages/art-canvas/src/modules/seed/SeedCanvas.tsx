@@ -1,4 +1,4 @@
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { generateShaderFromSeed } from '../../assembly/from-seed';
 import { useComplexity, useMood, usePalette, useSeed } from './store';
 
@@ -10,7 +10,7 @@ function SeedCanvas() {
 
   const fragmentShader = generateShaderFromSeed(seed, complexity, mood, palette);
 
-  return <ShaderCanvas fragmentShader={fragmentShader} />;
+  return <GpuCanvas fragmentShader={fragmentShader} />;
 }
 
 export { SeedCanvas };

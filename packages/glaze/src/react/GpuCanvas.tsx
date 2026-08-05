@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { createGpuDoor, type GpuDoor, type GpuDraw } from '../gpu/createGpuDoor';
+import { createGpuDoor, type GpuDoor, type GpuDraw, type GpuFrameContext } from '../gpu/createGpuDoor';
+import type { UniformValue } from '../gpu/shader/compileProgram';
+import type { Program } from '../gpu/shader/createProgram';
 import type { Camera } from '../core/coords/camera';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 
 export type GpuCanvasProps = {
+  /** Fragment shader compiled into a program and rendered every frame (standard uniforms auto-set). */
+  fragmentShader?: string;
+  /** Per-frame uniforms merged with the standard set (standard uniforms win on name clash). */
+  uniforms?: (context: GpuFrameContext) => Record<string, UniformValue>;
   onFrame?: GpuDraw | null;
   onDoor?: (door: GpuDoor | null) => void;
   camera?: Camera;
@@ -18,6 +24,8 @@ export type GpuCanvasProps = {
 };
 
 export function GpuCanvas({
+  fragmentShader,
+  uniforms,
   onFrame,
   onDoor,
   camera: externalCamera,
@@ -35,6 +43,12 @@ export function GpuCanvas({
   const camera = externalCamera ?? internalCamera;
   const controls = cameraControls ?? internalControls;
   const [door, setDoor] = useState<GpuDoor | null>(null);
+  const programRef = useRef<Program | null>(null);
+  const uniformsRef = useRef(uniforms);
+
+  useEffect(() => {
+    uniformsRef.current = uniforms;
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,7 +63,28 @@ export function GpuCanvas({
   }, []);
 
   useEffect(() => {
-    door?.setDraw(onFrame ?? null);
+    if (!door || !fragmentShader) return;
+    const program = door.createProgram(fragmentShader);
+    programRef.current = program;
+    return () => {
+      program.destroy();
+      programRef.current = null;
+    };
+  }, [door, fragmentShader]);
+
+  useEffect(() => {
+    door?.setDraw(
+      onFrame ?? fragmentShader
+        ? (ctx) => {
+            const program = programRef.current;
+            if (program) {
+              program.setUniforms(uniformsRef.current ? uniformsRef.current(ctx) : {});
+              door.renderProgram(program);
+            }
+            onFrame?.(ctx);
+          }
+        : null
+    );
   });
 
   useEffect(() => {

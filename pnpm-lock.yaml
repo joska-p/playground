@@ -451,9 +451,9 @@ importers:
 
   packages/art-canvas:
     dependencies:
-      '@repo/graphics':
+      '@repo/glaze':
         specifier: workspace:*
-        version: link:../graphics
+        version: link:../glaze
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui

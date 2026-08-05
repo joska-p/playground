@@ -1,4 +1,4 @@
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import {
   useComplexity,
   useGlitch,
@@ -24,19 +24,16 @@ function Atlas() {
   const seedOffset = Math.abs(hash % 1000);
 
   return (
-    <ShaderCanvas
+    <GpuCanvas
       fragmentShader={SYLLABIC_FIBONACCI_FRAGMENT}
-      time="uTime"
-      onBeforeRender={({ pipeline }) => {
-        pipeline.setUniforms({
-          uGridSize: complexity,
-          uModulo: modulo,
-          uSymbolType: symbolType,
-          uPalette: palette,
-          uGlitch: glitch,
-          uSeedOffset: seedOffset
-        });
-      }}
+      uniforms={() => ({
+        uGridSize: complexity,
+        uModulo: modulo,
+        uSymbolType: symbolType,
+        uPalette: palette,
+        uGlitch: glitch,
+        uSeedOffset: seedOffset
+      })}
     />
   );
 }

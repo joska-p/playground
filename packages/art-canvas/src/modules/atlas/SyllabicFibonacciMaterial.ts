@@ -3,7 +3,7 @@
 export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
   precision highp float;
 
-  uniform float uTime;
+  uniform float u_time;
   uniform float uGridSize;
   uniform float uModulo;
   uniform float uSymbolType;
@@ -77,7 +77,7 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
 
     // Coordinate system glitch offsets driven by parameter
     if (uGlitch > 0.02) {
-        float glitchLine = step(0.97 - (uGlitch * 0.02), sin(uv.y * 60.0 + uTime * 12.0));
+        float glitchLine = step(0.97 - (uGlitch * 0.02), sin(uv.y * 60.0 + u_time * 12.0));
         uv.x += glitchLine * sin(uv.y * 180.0) * 0.04 * uGlitch;
     }
 
