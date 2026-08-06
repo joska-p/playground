@@ -14,7 +14,7 @@ import { useCamera, type CameraControls, type CameraOptions } from './useCamera'
 export type UseGpuCanvasOptions = {
         fragmentShader?: string | undefined;
         uniforms?: ((context: GpuFrameContext) => Record<string, UniformValue>) | undefined;
-        onFrame?: GpuDraw | undefined;
+        onFrame?: GpuDraw | null | undefined;
         /**
          * Called with the runtime when it becomes ready, and with `null` when
          * it is destroyed. Treat it like a ref callback.
