@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { GpuDoor, GpuFrameContext } from '@repo/glaze/gpu/createGpuDoor';
+import type { GpuRuntime, GpuFrameContext } from '@repo/glaze/gpu/createGpuRuntime';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { readGpuPixel } from '../proof/sample';
 import { stashProof, type Sample } from '../proof/types';
@@ -28,15 +28,15 @@ const SAMPLE_POINTS = [
 ] as const;
 
 export function ProgramGpu() {
-        const [door, setDoor] = useState<GpuDoor | null>(null);
+        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
 
         useEffect(() => {
-                if (!door) return;
+                if (!runtime) return;
                 const sample = (ctx: GpuFrameContext): Record<string, Sample> => {
                         const result: Record<string, Sample> = {};
                         for (const [index, point] of SAMPLE_POINTS.entries()) {
                                 result[`p${String(index)}`] = readGpuPixel(
-                                        door.gl,
+                                        runtime.gl,
                                         ctx.height,
                                         ctx.dpr,
                                         point.x,
@@ -46,7 +46,7 @@ export function ProgramGpu() {
                         return result;
                 };
                 let frameA: Record<string, Sample> | null = null;
-                return door.subscribe((ctx) => {
+                return runtime.subscribe((ctx) => {
                         if (ctx.frameCount === 30) {
                                 frameA = sample(ctx);
                                 stashProof('programGpu', {
@@ -77,13 +77,13 @@ export function ProgramGpu() {
                                 });
                         }
                 });
-        }, [door]);
+        }, [runtime]);
 
         return (
                 <div className="h-75 w-100">
                         <GpuCanvas
                                 fragmentShader={plasmaFragmentSource}
-                                onDoor={setDoor}
+                                onRuntime={setRuntime}
                                 className="h-full w-full"
                         />
                 </div>

@@ -1,4 +1,4 @@
-import type { CpuDoor } from '@repo/glaze/cpu/createCpuDoor';
+import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
 import { readCpuPixel } from './sample';
 import type { Sample, SurfaceProof } from './types';
 
@@ -10,7 +10,7 @@ const isBlue = (pixel: Sample): boolean =>
         pixel[2] > 150 && pixel[2] > pixel[0] + 50 && pixel[2] > pixel[1] + 50;
 const isDark = (pixel: Sample): boolean => pixel[0] < 40 && pixel[1] < 40 && pixel[2] < 40;
 
-export function verifyCpuShapes(door: CpuDoor, dpr: number): SurfaceProof {
+export function verifyCpuShapes(door: CpuRuntime, dpr: number): SurfaceProof {
         const sample = (x: number, y: number): Sample => readCpuPixel(door, x, y, dpr);
 
         const circleCenter = sample(200, 150);

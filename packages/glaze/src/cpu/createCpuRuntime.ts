@@ -2,7 +2,7 @@ import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera } from '../core/coords/camera';
 import { createInputStore, type InputStore } from './input';
 
-export type CpuDoorConfig = {
+export type CpuRuntimeConfig = {
         canvas: HTMLCanvasElement;
         camera?: Camera;
         dpr?: number;
@@ -21,7 +21,7 @@ export type CpuFrameContext = {
 
 export type CpuDraw = (context: CpuFrameContext) => void;
 
-export type CpuDoor = {
+export type CpuRuntime = {
         readonly canvas: HTMLCanvasElement;
         readonly context: CanvasRenderingContext2D;
         readonly camera: Camera;
@@ -34,7 +34,7 @@ export type CpuDoor = {
         destroy(): void;
 };
 
-export function createCpuDoor(config: CpuDoorConfig): CpuDoor {
+export function createCpuRuntime(config: CpuRuntimeConfig): CpuRuntime {
         const canvas = config.canvas;
         const context = canvas.getContext('2d');
         if (!context) throw new Error('Glaze: Canvas2D context unavailable');
@@ -96,7 +96,6 @@ export function createCpuDoor(config: CpuDoorConfig): CpuDoor {
 
         const startRendering = (): void => {
                 if (rendererAttached) return;
-                input.attach(canvas);
                 unsubscribeRenderer = loop.subscribe(onFrame);
                 rendererAttached = true;
         };
@@ -105,7 +104,6 @@ export function createCpuDoor(config: CpuDoorConfig): CpuDoor {
                 if (!rendererAttached) return;
                 unsubscribeRenderer?.();
                 unsubscribeRenderer = null;
-                input.detach();
                 rendererAttached = false;
         };
 

@@ -16,7 +16,7 @@ import {
         type TextRasterizer
 } from './shapes/text';
 
-export type GpuDoorConfig = {
+export type GpuRuntimeConfig = {
         canvas: HTMLCanvasElement;
         camera?: Camera;
         dpr?: number;
@@ -35,7 +35,7 @@ export type GpuFrameContext = {
 
 export type GpuDraw = (context: GpuFrameContext) => void;
 
-export type GpuDoor = {
+export type GpuRuntime = {
         readonly canvas: HTMLCanvasElement;
         readonly gl: WebGL2RenderingContext;
         readonly camera: Camera;
@@ -53,7 +53,7 @@ export type GpuDoor = {
         destroy(): void;
 };
 
-export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
+export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         const canvas = config.canvas;
         const gl = canvas.getContext('webgl2', {
                 alpha: true,
@@ -166,7 +166,6 @@ export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
 
         const startRendering = (): void => {
                 if (rendererAttached) return;
-                input.attach(canvas);
                 unsubscribeRenderer = loop.subscribe(onFrame);
                 rendererAttached = true;
         };
@@ -175,7 +174,6 @@ export function createGpuDoor(config: GpuDoorConfig): GpuDoor {
                 if (!rendererAttached) return;
                 unsubscribeRenderer?.();
                 unsubscribeRenderer = null;
-                input.detach();
                 rendererAttached = false;
         };
 

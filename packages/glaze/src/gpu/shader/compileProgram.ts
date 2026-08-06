@@ -32,54 +32,54 @@ export function compileProgram(
         fragmentSource: string,
         vertexSource: string = FULLSCREEN_TRIANGLE
 ): CompiledShaderProgram {
-        const vs = gl.createShader(gl.VERTEX_SHADER);
-        if (!vs) throw new Error('Glaze: shader "vertex" creation failed');
-        gl.shaderSource(vs, withVersionDirective(vertexSource));
-        gl.compileShader(vs);
+        const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+        if (!vertexShader) throw new Error('Glaze: shader "vertex" creation failed');
+        gl.shaderSource(vertexShader, withVersionDirective(vertexSource));
+        gl.compileShader(vertexShader);
 
-        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
-                const log = gl.getShaderInfoLog(vs);
-                gl.deleteShader(vs);
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+                const log = gl.getShaderInfoLog(vertexShader);
+                gl.deleteShader(vertexShader);
                 throw new Error(`Glaze: shader "vertex" compile failed: ${String(log)}`);
         }
 
-        const fs = gl.createShader(gl.FRAGMENT_SHADER);
-        if (!fs) {
-                gl.deleteShader(vs);
+        const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        if (!fragmentShader) {
+                gl.deleteShader(vertexShader);
                 throw new Error('Glaze: shader "fragment" creation failed');
         }
-        gl.shaderSource(fs, withVersionDirective(fragmentSource));
-        gl.compileShader(fs);
+        gl.shaderSource(fragmentShader, withVersionDirective(fragmentSource));
+        gl.compileShader(fragmentShader);
 
-        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
-                const log = gl.getShaderInfoLog(fs);
-                gl.deleteShader(vs);
-                gl.deleteShader(fs);
+        if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+                const log = gl.getShaderInfoLog(fragmentShader);
+                gl.deleteShader(vertexShader);
+                gl.deleteShader(fragmentShader);
                 throw new Error(`Glaze: shader "fragment" compile failed: ${String(log)}`);
         }
 
         const program = gl.createProgram();
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createProgram() as non-null, but the WebGL spec allows null on failure
         if (!program) {
-                gl.deleteShader(vs);
-                gl.deleteShader(fs);
+                gl.deleteShader(vertexShader);
+                gl.deleteShader(fragmentShader);
                 throw new Error('Glaze: shader "link" program creation failed');
         }
 
-        gl.attachShader(program, vs);
-        gl.attachShader(program, fs);
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
         gl.linkProgram(program);
 
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
                 const log = gl.getProgramInfoLog(program);
                 gl.deleteProgram(program);
-                gl.deleteShader(vs);
-                gl.deleteShader(fs);
+                gl.deleteShader(vertexShader);
+                gl.deleteShader(fragmentShader);
                 throw new Error(`Glaze: shader "link" compile failed: ${String(log)}`);
         }
 
-        gl.deleteShader(vs);
-        gl.deleteShader(fs);
+        gl.deleteShader(vertexShader);
+        gl.deleteShader(fragmentShader);
 
         const uniforms = new Map<string, UniformEntry>();
         const numUniforms = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS) as number;

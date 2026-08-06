@@ -2,6 +2,7 @@
         "extends": "@repo/config-typescript/node.json",
         "compilerOptions": {
                 "lib": ["ES2023", "DOM"],
+                "types": ["node", "vite/client"],
                 "jsx": "react-jsx"
         },
         "include": ["src"],

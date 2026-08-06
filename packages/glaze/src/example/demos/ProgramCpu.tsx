@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CpuDoor } from '@repo/glaze/cpu/createCpuDoor';
+import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import type { Point2D } from '@repo/glaze/core/coords/camera';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
@@ -17,7 +17,7 @@ const RADIUS = 24;
 const SPEED = 8;
 
 export function ProgramCpu() {
-        const [door, setDoor] = useState<CpuDoor | null>(null);
+        const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
         const [camera, controls] = useCamera({ zoom: 1 });
         const phaseRef = useRef(0);
 
@@ -26,20 +26,20 @@ export function ProgramCpu() {
         });
 
         useEffect(() => {
-                if (!door) return;
+                if (!runtime) return;
                 let frame20: { position: Point2D; sample: Sample; ok: boolean } | null = null;
-                return door.subscribe((ctx) => {
+                return runtime.subscribe((ctx) => {
                         const angle = phaseRef.current;
                         const position: Point2D = {
                                 x: CENTER.x + ORBIT * Math.cos(angle),
                                 y: CENTER.y + ORBIT * Math.sin(angle)
                         };
-                        door.clear('#0f172a');
-                        door.applyCamera();
-                        drawCircle(door.context, { fill: '#e11d48' }, position, RADIUS);
-                        drawCircle(door.context, { fill: '#38bdf8' }, CENTER, 5);
+                        runtime.clear('#0f172a');
+                        runtime.applyCamera();
+                        drawCircle(runtime.context, { fill: '#e11d48' }, position, RADIUS);
+                        drawCircle(runtime.context, { fill: '#38bdf8' }, CENTER, 5);
                         if (ctx.frameCount === 20) {
-                                const sample = readCpuPixel(door, position.x, position.y, ctx.dpr);
+                                const sample = readCpuPixel(runtime, position.x, position.y, ctx.dpr);
                                 frame20 = { position, sample, ok: isRed(sample) };
                                 stashProof('programCpu', {
                                         frame20: { sample, ok: isRed(sample) },
@@ -48,12 +48,12 @@ export function ProgramCpu() {
                         }
                         if (ctx.frameCount === 36 && frame20) {
                                 const left = readCpuPixel(
-                                        door,
+                                        runtime,
                                         frame20.position.x,
                                         frame20.position.y,
                                         ctx.dpr
                                 );
-                                const present = readCpuPixel(door, position.x, position.y, ctx.dpr);
+                                const present = readCpuPixel(runtime, position.x, position.y, ctx.dpr);
                                 stashProof('programCpu', {
                                         frame20: { sample: frame20.sample, ok: frame20.ok },
                                         frame36: {
@@ -64,12 +64,12 @@ export function ProgramCpu() {
                                 });
                         }
                 });
-        }, [door]);
+        }, [runtime]);
 
         return (
                 <div className="h-[300px] w-[400px]">
                         <CpuCanvas
-                                onDoor={setDoor}
+                                onRuntime={setRuntime}
                                 camera={camera}
                                 cameraControls={controls}
                                 className="h-full w-full"

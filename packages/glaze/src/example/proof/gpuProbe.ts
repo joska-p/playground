@@ -1,4 +1,4 @@
-import type { GpuDoor } from '@repo/glaze/gpu/createGpuDoor';
+import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 import { readGpuPixel } from './sample';
 import type { Sample, SurfaceProof } from './types';
 
@@ -10,7 +10,7 @@ const isBlue = (pixel: Sample): boolean =>
         pixel[2] > 150 && pixel[2] > pixel[0] + 50 && pixel[2] > pixel[1] + 50;
 const isDark = (pixel: Sample): boolean => pixel[0] < 40 && pixel[1] < 40 && pixel[2] < 40;
 
-export function verifyGpuShapes(door: GpuDoor, height: number, dpr: number): SurfaceProof {
+export function verifyGpuShapes(door: GpuRuntime, height: number, dpr: number): SurfaceProof {
         const gl = door.gl;
         const sample = (x: number, y: number): Sample => readGpuPixel(gl, height, dpr, x, y);
 

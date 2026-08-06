@@ -1,23 +1,22 @@
-import {
-        useEffect,
-        useEffectEvent,
-        useRef,
-        useState,
-        type CSSProperties,
-        type ReactNode
-} from 'react';
-import { createCpuDoor, type CpuDoor, type CpuDraw } from '../cpu/createCpuDoor';
+import { type CSSProperties, type ReactNode, type RefObject } from 'react';
+import { type CpuRuntime, type CpuDraw } from '../cpu/createCpuRuntime';
 import type { Camera } from '../core/coords/camera';
-import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
+import type { CameraControls, CameraOptions } from './useCamera';
+import type { PointerHandlers } from './interaction';
+import { useCanvasInteraction } from './useCanvasInteraction';
+import { useCpuCanvas } from './useCpuCanvas';
 
 export type CpuCanvasProps = {
         onFrame?: CpuDraw | null;
-        onDoor?: (door: CpuDoor | null) => void;
+        onRuntime?: (runtime: CpuRuntime | null) => void;
         camera?: Camera;
         cameraControls?: CameraControls;
         initialCamera?: CameraOptions;
         pan?: boolean;
         zoom?: boolean;
+        panButton?: number | number[];
+        pointerHandlers?: PointerHandlers;
+        canvasRef?: RefObject<HTMLCanvasElement | null>;
         dpr?: number;
         className?: string;
         style?: CSSProperties;
@@ -26,68 +25,47 @@ export type CpuCanvasProps = {
 
 export function CpuCanvas({
         onFrame,
-        onDoor,
+        onRuntime,
         camera: externalCamera,
         cameraControls,
         initialCamera,
         pan = true,
         zoom = true,
+        panButton,
+        pointerHandlers,
+        canvasRef: externalCanvasRef,
         dpr,
         className,
         style,
         children
 }: CpuCanvasProps) {
-        const canvasRef = useRef<HTMLCanvasElement | null>(null);
-        const [internalCamera, internalControls] = useCamera(initialCamera);
-        const camera = externalCamera ?? internalCamera;
-        const controls = cameraControls ?? internalControls;
-        const [door, setDoor] = useState<CpuDoor | null>(null);
-        const onFrameRef = useRef(onFrame);
-
-        // Synchronisation de la ref pour le callback
-        useEffect(() => {
-                onFrameRef.current = onFrame;
+        const { runtime, canvasRef, camera, controls, frameRef } = useCpuCanvas({
+                onFrame,
+                onRuntime,
+                camera: externalCamera,
+                cameraControls,
+                initialCamera,
+                dpr,
+                canvasRef: externalCanvasRef
         });
 
-        // Action d'initialisation non-réactive au montage (React 19)
-        const initDoor = useEffectEvent((canvas: HTMLCanvasElement) => {
-                return createCpuDoor({ canvas, camera, ...(dpr !== undefined ? { dpr } : {}) });
-        });
+        const target = canvasRef;
+        const interaction = {
+                camera,
+                controls,
+                input: runtime?.input ?? null,
+                getFrame: () => frameRef.current
+        };
+        const options = {
+                pan,
+                zoom,
+                panButton,
+                pointerHandlers
+        };
 
-        // Initialisation et nettoyage unique du CpuDoor
-        useEffect(() => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
+        useCanvasInteraction(target, interaction, options);
 
-                const instance = initDoor(canvas);
-                setDoor(instance);
-
-                return () => {
-                        instance.destroy();
-                        setDoor(null);
-                };
-        }, []);
-
-        // Transmission de la boucle de rendu
-        useEffect(() => {
-                door?.setDraw(onFrame ? (ctx) => onFrameRef.current?.(ctx) : null);
-        });
-
-        // Notification du door au parent
-        useEffect(() => {
-                onDoor?.(door);
-                return () => onDoor?.(null);
-        }, [door, onDoor]);
-
-        // Gestes : Pan
-        const gestures = pan ? controls.bindGestures({ pan: true }) : undefined;
-
-        // Gestes : Zoom (évenement DOM non-passif)
-        useEffect(() => {
-                const canvas = canvasRef.current;
-                if (!canvas || !zoom) return;
-                return controls.attachWheel(canvas);
-        }, [controls, zoom]);
+        const touchAction = pan || zoom || pointerHandlers ? 'none' : 'auto';
 
         return (
                 <div
@@ -96,12 +74,11 @@ export function CpuCanvas({
                 >
                         <canvas
                                 ref={canvasRef}
-                                {...gestures}
                                 style={{
                                         width: '100%',
                                         height: '100%',
                                         display: 'block',
-                                        touchAction: pan || zoom ? 'none' : 'auto'
+                                        touchAction
                                 }}
                         />
                         {children}

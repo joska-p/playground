@@ -20,3 +20,23 @@ export const worldToScreen =
                 x: world.x * camera.zoom + camera.x,
                 y: world.y * camera.zoom + camera.y
         });
+
+export type ZoomBounds = {
+        minZoom: number;
+        maxZoom: number;
+};
+
+export const clamp =
+        (min: number, max: number) =>
+        (value: number): number =>
+                Math.max(min, Math.min(max, value));
+
+export const zoomAt =
+        (camera: Camera, bounds: ZoomBounds) =>
+        (focalPoint: Point2D, nextZoom: number): void => {
+                const zoom = clamp(bounds.minZoom, bounds.maxZoom)(nextZoom);
+                const world = screenToWorld(camera)(focalPoint);
+                camera.x = focalPoint.x - world.x * zoom;
+                camera.y = focalPoint.y - world.y * zoom;
+                camera.zoom = zoom;
+        };

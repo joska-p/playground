@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuDoor } from '@repo/glaze/gpu/createGpuDoor';
+import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 import type { UniformValue } from '@repo/glaze/gpu/shader/compileProgram';
 import { createGpuPass, type GpuPass } from '@repo/glaze/gpu/createGpuPass';
 
@@ -88,12 +88,12 @@ function seedSoup(): Uint8Array {
 }
 
 export function PassGpu() {
-        const [door, setDoor] = useState<GpuDoor | null>(null);
+        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
         const passRef = useRef<GpuPass | null>(null);
 
         useEffect(() => {
-                if (!door) return;
-                const pass = createGpuPass(door.gl, GRID, GRID);
+                if (!runtime) return;
+                const pass = createGpuPass(runtime.gl, GRID, GRID);
                 pass.addProgram('sim', simFragmentSource);
                 pass.init(seedSoup());
                 passRef.current = pass;
@@ -101,13 +101,13 @@ export function PassGpu() {
                         pass.destroy();
                         passRef.current = null;
                 };
-        }, [door]);
+        }, [runtime]);
 
         return (
                 <div className="h-75 w-100">
                         <GpuCanvas
                                 fragmentShader={displayFragmentSource}
-                                onDoor={setDoor}
+                                onRuntime={setRuntime}
                                 className="h-full w-full"
                                 uniforms={(): Record<string, UniformValue> => {
                                         const pass = passRef.current;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import { screenToWorld, type Camera, type Point2D } from '../core/coords/camera';
+import { clamp, zoomAt, type Camera, type Point2D, type ZoomBounds } from '../core/coords/camera';
 
 export type CameraOptions = {
         zoom?: number;
@@ -21,6 +21,12 @@ export type CameraControls = {
         zoomTo(zoom: number, focalPoint?: Point2D): void;
         reset(): void;
         update(partial: Partial<Camera>): void;
+
+        /**
+         * Low-level helpers for custom surfaces that do not use the
+         * CpuCanvas / GpuCanvas interaction system.
+         * Prefer createInteractionController for new code.
+         */
         bindGestures(options?: { pan?: boolean }): GestureHandlers;
         attachWheel(target: HTMLElement): () => void;
 };
@@ -38,18 +44,6 @@ type WheelEventLike = {
         target: EventTarget | null;
 };
 
-const clampZoom =
-        (min: number, max: number) =>
-        (zoom: number): number =>
-                Math.max(min, Math.min(max, zoom));
-
-function zoomAt(camera: Camera, focalPoint: Point2D, nextZoom: number): void {
-        const world = screenToWorld(camera)(focalPoint);
-        camera.x = focalPoint.x - world.x * nextZoom;
-        camera.y = focalPoint.y - world.y * nextZoom;
-        camera.zoom = nextZoom;
-}
-
 function createCameraControls(
         camera: Camera,
         minZoom: number,
@@ -57,63 +51,70 @@ function createCameraControls(
         initial: Camera
 ): CameraControls {
         const dragging = { active: false };
-        const clamp = clampZoom(minZoom, maxZoom);
+        const bounds: ZoomBounds = { minZoom, maxZoom };
+        const focalZoom = zoomAt(camera, bounds);
 
         const handleWheel = (event: WheelEventLike): void => {
                 event.preventDefault();
                 const target = event.target;
                 if (!(target instanceof HTMLElement)) return;
+
                 const rect = target.getBoundingClientRect();
-                const focalPoint = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-                zoomAt(camera, focalPoint, clamp(camera.zoom * Math.exp(-event.deltaY * 0.002)));
+                const focalPoint = {
+                        x: event.clientX - rect.left,
+                        y: event.clientY - rect.top
+                };
+                focalZoom(focalPoint, camera.zoom * Math.exp(-event.deltaY * 0.002));
         };
 
         return {
-                panTo(position: Point2D): void {
+                panTo(position) {
                         camera.x = position.x;
                         camera.y = position.y;
                 },
 
-                zoomTo(zoom: number, focalPoint?: Point2D): void {
-                        const next = clamp(zoom);
-                        if (focalPoint) zoomAt(camera, focalPoint, next);
-                        else camera.zoom = next;
+                zoomTo(zoom, focalPoint) {
+                        if (focalPoint) {
+                                focalZoom(focalPoint, zoom);
+                        } else {
+                                camera.zoom = clamp(minZoom, maxZoom)(zoom);
+                        }
                 },
 
-                reset(): void {
+                reset() {
                         camera.x = initial.x;
                         camera.y = initial.y;
                         camera.zoom = initial.zoom;
                 },
 
-                update(partial: Partial<Camera>): void {
+                update(partial) {
                         Object.assign(camera, partial);
                 },
 
-                bindGestures(options: { pan?: boolean } = {}): GestureHandlers {
+                bindGestures(options = {}) {
                         const pan = options.pan ?? true;
                         return {
-                                onPointerDown(event: ReactPointerEvent<HTMLCanvasElement>): void {
+                                onPointerDown(event) {
                                         if (!pan) return;
                                         dragging.active = true;
                                         event.currentTarget.setPointerCapture(event.pointerId);
                                 },
-                                onPointerMove(event: ReactPointerEvent<HTMLCanvasElement>): void {
+                                onPointerMove(event) {
                                         if (!dragging.active) return;
                                         camera.x += event.movementX;
                                         camera.y += event.movementY;
                                 },
-                                onPointerUp(): void {
+                                onPointerUp() {
                                         dragging.active = false;
                                 },
-                                onPointerCancel(): void {
+                                onPointerCancel() {
                                         dragging.active = false;
                                 }
                         };
                 },
 
-                attachWheel(target: HTMLElement): () => void {
-                        const listener = (event: WheelEvent): void => {
+                attachWheel(target) {
+                        const listener = (event: WheelEvent) => {
                                 handleWheel(event);
                         };
                         target.addEventListener('wheel', listener, { passive: false });
@@ -130,14 +131,14 @@ export function createCamera(options: CameraOptions = {}): CameraHandle {
                 y: options.pan?.y ?? 0,
                 zoom: options.zoom ?? 1
         };
+
         const controls = createCameraControls(
                 camera,
                 options.minZoom ?? 0.05,
                 options.maxZoom ?? 64,
-                {
-                        ...camera
-                }
+                { ...camera }
         );
+
         return { camera, controls };
 }
 
