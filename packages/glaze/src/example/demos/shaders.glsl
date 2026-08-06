@@ -72,12 +72,18 @@ vec3 getTopoColor(float height) {
 }
 
 void main() {
-    // 1. Normalized Screen Coordinates
-    vec2 st = gl_FragCoord.xy / u_resolution.xy - 0.5;
-    st.x *= u_aspect;
+    // 1. Normalized, centered screen coordinates (0.5 = canvas center), aspect-corrected.
+    vec2 screenNdc = gl_FragCoord.xy / u_resolution.xy - 0.5;
+    screenNdc.x *= u_aspect;
 
-    // 2. Camera Transform (Matches JS screenToWorld exact formula: (screen - camera) / zoom)
-    vec2 uv = (st - u_camera.xy) / u_camera.z;
+    // 2. Camera Transform. u_camera.xy is a CSS-pixel offset (y-down, like JS camera.x/y),
+    // but gl_FragCoord is y-up, so convert to this centered space and flip Y.
+    // Matches the JS screenToWorld formula: (screen - camera) / zoom.
+    vec2 cameraPan = vec2(
+        u_camera.x * u_dpr / u_resolution.x - 0.5,
+        0.5 - u_camera.y * u_dpr / u_resolution.y
+    );
+    vec2 uv = (screenNdc - cameraPan) / u_camera.z;
 
     // 3. Generate Heightmap using FBM Noise
     // We add u_time only to slowly shift the underlying terrain seed over time (animation)

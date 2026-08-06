@@ -137,6 +137,7 @@ export function createInteractionController(options: InteractionControllerOption
         };
 
         const onContextMenu = (event: MouseEvent): void => {
+                if (options.pan && matchesPanButton(2, options.panButton)) event.preventDefault();
                 options.handlers.onContextMenu?.(event, buildContext(options.getContext()));
         };
 

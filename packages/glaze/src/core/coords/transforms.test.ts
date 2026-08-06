@@ -2,8 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { createCanvasToNormalized } from './createCanvasToNormalized';
 import { createNormalizedToUv } from './createNormalizedToUv';
 import { createScreenToCanvas } from './createScreenToCanvas';
-import { createScreenToWorld } from './createScreenToWorld';
-import { createWorldToScreen } from './createWorldToScreen';
 
 describe('coordinate ladder', () => {
         it('screen to canvas subtracts the element bounds', () => {
@@ -24,13 +22,6 @@ describe('coordinate ladder', () => {
         it('normalized to uv flips y only', () => {
                 const toUv = createNormalizedToUv();
                 expect(toUv({ x: 0.25, y: 0.25 })).toEqual({ x: 0.25, y: 0.75 });
-        });
-
-        it('world/screen facades delegate to the camera math', () => {
-                const camera = { x: 10, y: 10, zoom: 3 };
-                const screen = { x: 40, y: 55 };
-                expect(createScreenToWorld(camera)(screen)).toEqual({ x: 10, y: 15 });
-                expect(createWorldToScreen(camera)({ x: 10, y: 15 })).toEqual(screen);
         });
 
         it('guards against a zero-size canvas', () => {

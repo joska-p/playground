@@ -51,7 +51,7 @@ uniform vec3 u_camera;
 uniform float u_dpr;
 
 void main() {
-  vec2 pan = u_camera.xy * u_dpr / u_resolution;
+  vec2 pan = vec2(u_camera.x * u_dpr / u_resolution.x, 1.0 - u_camera.y * u_dpr / u_resolution.y);
   vec2 uv = (vUv - pan) / u_camera.z;
   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
     out_color = vec4(0.02, 0.03, 0.05, 1.0);
