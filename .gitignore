@@ -6,6 +6,7 @@
 /docs/
 .superpowers
 A_mytempgarbagedir
+session*.md
 
 # Local workspace config
 .pnpm-store
