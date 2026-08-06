@@ -47,7 +47,7 @@ pnpm add @repo/radu-machine-learning
 import { RaduMachineLearning } from '@repo/radu-machine-learning';
 
 export default function Page() {
-        return <RaduMachineLearning />;
+    return <RaduMachineLearning />;
 }
 ```
 
@@ -124,15 +124,15 @@ choice to keep the viewer focused on the data itself.
 type Paths = number[][][]; // Array of strokes, each is an array of [x, y] points
 
 type Drawing = {
-        id: number; // Auto-incremented, matches SVG filename
-        label: string; // e.g., "car", "house", "dog"
-        paths: Paths;
+    id: number; // Auto-incremented, matches SVG filename
+    label: string; // e.g., "car", "house", "dog"
+    paths: Paths;
 };
 
 type Sample = {
-        student_id: string; // Timestamp-based ID
-        student_name: string; // e.g., "Radu"
-        drawings: Drawing[];
+    student_id: string; // Timestamp-based ID
+    student_name: string; // e.g., "Radu"
+    drawings: Drawing[];
 };
 ```
 

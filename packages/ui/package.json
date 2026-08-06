@@ -1,62 +1,62 @@
 {
-        "name": "@repo/ui",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./ui": "./src/App.tsx",
-                "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
-                "./styles": "./src/styles/styles.css",
-                "./data-entry": "./src/components/data-entry/index.ts",
-                "./data-display": "./src/components/data-display/index.ts",
-                "./navigation": "./src/components/navigation/index.ts",
-                "./feedback": "./src/components/feedback/index.ts",
-                "./control-panel": "./src/components/control-panel/index.ts",
-                "./widgets": "./src/components/widgets/index.ts",
-                "./cards": "./src/components/cards/index.ts",
-                "./icons": "./src/components/icons/index.ts",
-                "./button": "./src/components/data-entry/button/Button.tsx",
-                "./card": "./src/components/data-display/card/Card.tsx",
-                "./dialog": "./src/components/feedback/dialog/Dialog.tsx",
-                "./sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",
-                "./hooks/*": "./src/hooks/*.ts",
-                "./lib/*": "./src/lib/*.ts",
-                "./theme/*": "./src/theme/*.ts"
-        },
-        "scripts": {
-                "dev": "vite",
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "preview": "vite preview --host",
-                "check-types": "tsc -b"
-        },
-        "dependencies": {
-                "lucide-react": "^1.23.0",
-                "class-variance-authority": "catalog:",
-                "clsx": "catalog:",
-                "tailwind-merge": "catalog:"
-        },
-        "peerDependencies": {
-                "react": "catalog:",
-                "react-dom": "catalog:"
-        },
-        "devDependencies": {
-                "@babel/core": "catalog:",
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@rolldown/plugin-babel": "catalog:",
-                "@tailwindcss/vite": "catalog:",
-                "@types/babel__core": "catalog:",
-                "@types/node": "catalog:",
-                "@types/react": "catalog:",
-                "@types/react-dom": "catalog:",
-                "@vitejs/plugin-react": "catalog:",
-                "babel-plugin-react-compiler": "catalog:",
-                "eslint": "catalog:",
-                "react": "catalog:",
-                "react-dom": "catalog:",
-                "tailwindcss": "catalog:",
-                "typescript": "catalog:",
-                "vite": "catalog:"
-        }
+    "name": "@repo/ui",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./ui": "./src/App.tsx",
+        "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
+        "./styles": "./src/styles/styles.css",
+        "./data-entry": "./src/components/data-entry/index.ts",
+        "./data-display": "./src/components/data-display/index.ts",
+        "./navigation": "./src/components/navigation/index.ts",
+        "./feedback": "./src/components/feedback/index.ts",
+        "./control-panel": "./src/components/control-panel/index.ts",
+        "./widgets": "./src/components/widgets/index.ts",
+        "./cards": "./src/components/cards/index.ts",
+        "./icons": "./src/components/icons/index.ts",
+        "./button": "./src/components/data-entry/button/Button.tsx",
+        "./card": "./src/components/data-display/card/Card.tsx",
+        "./dialog": "./src/components/feedback/dialog/Dialog.tsx",
+        "./sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",
+        "./hooks/*": "./src/hooks/*.ts",
+        "./lib/*": "./src/lib/*.ts",
+        "./theme/*": "./src/theme/*.ts"
+    },
+    "scripts": {
+        "dev": "vite",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "preview": "vite preview --host",
+        "check-types": "tsc -b"
+    },
+    "dependencies": {
+        "lucide-react": "^1.23.0",
+        "class-variance-authority": "catalog:",
+        "clsx": "catalog:",
+        "tailwind-merge": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    },
+    "devDependencies": {
+        "@babel/core": "catalog:",
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@rolldown/plugin-babel": "catalog:",
+        "@tailwindcss/vite": "catalog:",
+        "@types/babel__core": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "babel-plugin-react-compiler": "catalog:",
+        "eslint": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:"
+    }
 }

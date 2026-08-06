@@ -1,9 +1,9 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
 export type StochasticProduction = {
-        /** Relative probability of this production being chosen. Must sum to 1.0. */
-        readonly weight: number;
-        readonly produce: Word;
+    /** Relative probability of this production being chosen. Must sum to 1.0. */
+    readonly weight: number;
+    readonly produce: Word;
 };
 
 /** @internal Brand attached to stochastic rules for validate() introspection. */
@@ -11,7 +11,7 @@ export const STOCHASTIC_PRODUCTIONS_KEY = '__stochasticProductions';
 
 /** @internal Branded type that validate() uses to introspect stochastic rules. */
 export type StochasticRule = {
-        readonly [STOCHASTIC_PRODUCTIONS_KEY]: readonly StochasticProduction[];
+    readonly [STOCHASTIC_PRODUCTIONS_KEY]: readonly StochasticProduction[];
 } & Rule;
 
 /**
@@ -29,26 +29,26 @@ export type StochasticRule = {
  * ])
  */
 export function stochasticRule(
-        name: string,
-        productions: readonly StochasticProduction[]
+    name: string,
+    productions: readonly StochasticProduction[]
 ): StochasticRule {
-        return {
-                [STOCHASTIC_PRODUCTIONS_KEY]: productions,
+    return {
+        [STOCHASTIC_PRODUCTIONS_KEY]: productions,
 
-                match(sym: LSymbol): boolean {
-                        return sym.name === name;
-                },
-                apply(_sym: LSymbol, context: Context): Word {
-                        const r = context.random();
-                        let cumulative = 0;
-                        for (const production of productions) {
-                                cumulative += production.weight;
-                                if (r < cumulative) {
-                                        return production.produce;
-                                }
-                        }
-                        // Floating-point rounding guard: return the last production.
-                        return productions[productions.length - 1]?.produce ?? [];
+        match(sym: LSymbol): boolean {
+            return sym.name === name;
+        },
+        apply(_sym: LSymbol, context: Context): Word {
+            const r = context.random();
+            let cumulative = 0;
+            for (const production of productions) {
+                cumulative += production.weight;
+                if (r < cumulative) {
+                    return production.produce;
                 }
-        };
+            }
+            // Floating-point rounding guard: return the last production.
+            return productions[productions.length - 1]?.produce ?? [];
+        }
+    };
 }

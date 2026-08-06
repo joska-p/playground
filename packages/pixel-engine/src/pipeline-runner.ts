@@ -6,58 +6,58 @@ import { dispatchStep } from './step-dispatcher';
 import type { PipelineContext } from './types';
 
 function buildAutoDownscaleStep({
-        source,
-        steps,
-        maximumPixels
+    source,
+    steps,
+    maximumPixels
 }: {
-        source: PixelData;
-        steps: Step[];
-        maximumPixels: number;
+    source: PixelData;
+    steps: Step[];
+    maximumPixels: number;
 }) {
-        if (
-                steps.some((step) => step.id === 'resize') ||
-                source.width * source.height <= maximumPixels
-        ) {
-                return null;
-        }
+    if (
+        steps.some((step) => step.id === 'resize') ||
+        source.width * source.height <= maximumPixels
+    ) {
+        return null;
+    }
 
-        return {
-                id: 'resize' as const,
-                options: { maximumPixels }
-        };
+    return {
+        id: 'resize' as const,
+        options: { maximumPixels }
+    };
 }
 
 export function runPipeline({
+    source,
+    steps,
+    context
+}: {
+    source: PixelData;
+    steps: Step[];
+    context: PipelineContext;
+}): PixelData[] {
+    const downscale = buildAutoDownscaleStep({
         source,
         steps,
-        context
-}: {
-        source: PixelData;
-        steps: Step[];
-        context: PipelineContext;
-}): PixelData[] {
-        const downscale = buildAutoDownscaleStep({
-                source,
-                steps,
-                maximumPixels: context.maximumPixels
-        });
+        maximumPixels: context.maximumPixels
+    });
 
-        if (downscale) {
-                console.warn(
-                        `[pixel-engine] Auto-scaling source image to within ${String(downscale.options.maximumPixels)} pixels.`
-                );
-        }
+    if (downscale) {
+        console.warn(
+            `[pixel-engine] Auto-scaling source image to within ${String(downscale.options.maximumPixels)} pixels.`
+        );
+    }
 
-        const effectiveSteps = downscale ? [downscale, ...steps] : steps;
-        const snapshots: PixelData[] = [];
-        const manager = new BufferManager(source);
-        const scheduler = new FusionScheduler();
+    const effectiveSteps = downscale ? [downscale, ...steps] : steps;
+    const snapshots: PixelData[] = [];
+    const manager = new BufferManager(source);
+    const scheduler = new FusionScheduler();
 
-        for (const step of effectiveSteps) {
-                dispatchStep({ step, context, bufferManager: manager, scheduler });
-                scheduler.flush(manager);
-                snapshots.push(manager.snapshot());
-        }
+    for (const step of effectiveSteps) {
+        dispatchStep({ step, context, bufferManager: manager, scheduler });
+        scheduler.flush(manager);
+        snapshots.push(manager.snapshot());
+    }
 
-        return snapshots;
+    return snapshots;
 }

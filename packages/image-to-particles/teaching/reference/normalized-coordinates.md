@@ -9,15 +9,15 @@ Design in unitless proportions; map to pixels at render time. One sketch works a
 ```javascript
 // Position
 function nx(v) {
-        return v * width;
+    return v * width;
 } // 0.5 → center x
 function ny(v) {
-        return v * height;
+    return v * height;
 } // 0.5 → center y
 
 // Size — use min(w,h) so circles stay round
 function nd(v) {
-        return v * min(width, height);
+    return v * min(width, height);
 }
 ```
 

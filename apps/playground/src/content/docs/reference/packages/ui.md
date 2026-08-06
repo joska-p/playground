@@ -3,8 +3,8 @@ title: 'UI Components'
 description: 'UI Components package'
 category: 'reference'
 tags:
-        - reference
-        - ui
+    - reference
+    - ui
 order: 20
 ---
 

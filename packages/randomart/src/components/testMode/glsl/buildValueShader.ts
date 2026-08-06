@@ -22,14 +22,14 @@ export const VALUE_VERTEX_SHADER = /* glsl */ `
 `.trim();
 
 export function buildValueFragmentShader(rule: GrammarRule, node: ExpressionNode): string {
-        const expression = rule.toGLSL(GLSL_ARGS, node);
-        const noiseFunctions = resolveGlslDeps(rule.noiseDependencies ?? []);
+    const expression = rule.toGLSL(GLSL_ARGS, node);
+    const noiseFunctions = resolveGlslDeps(rule.noiseDependencies ?? []);
 
-        return /* glsl */ `#version 300 es
+    return /* glsl */ `#version 300 es
 precision highp float;
 
 in vec2 vUv;
-uniform float uT;
+uniform float u_time;
 ${colormapGLSL()}
 
 ${noiseFunctions}
@@ -40,7 +40,7 @@ void main() {
   vec2 p = vUv * 2.0 - 1.0;
   float x = p.x;
   float y = p.y;
-  float t = uT;
+  float t = u_time;
   float value = ${expression};
   vec3 color = valueToColor(value);
   fragColor = vec4(color, 1.0);

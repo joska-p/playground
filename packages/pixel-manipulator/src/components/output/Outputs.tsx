@@ -7,76 +7,71 @@ import { OutputCard } from './OutputCard';
 import { ProcessingOverlay } from './ProcessingOverlay';
 
 function Outputs() {
-        const imageSource = useImageSource();
-        const outputs = useOutputs();
-        const [mode, setMode] = useState<'grid' | 'compare'>('grid');
-        const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(undefined);
+    const imageSource = useImageSource();
+    const outputs = useOutputs();
+    const [mode, setMode] = useState<'grid' | 'compare'>('grid');
+    const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(undefined);
 
-        const hasComparableContent = imageSource && outputs.length > 0;
+    const hasComparableContent = imageSource && outputs.length > 0;
 
-        const activeOutputId =
-                selectedOutputId && outputs.some((o) => o.id === selectedOutputId)
-                        ? selectedOutputId
-                        : outputs[0]?.id;
+    const activeOutputId =
+        selectedOutputId && outputs.some((o) => o.id === selectedOutputId)
+            ? selectedOutputId
+            : outputs[0]?.id;
 
-        const selectedOutput = outputs.find((o) => o.id === activeOutputId);
+    const selectedOutput = outputs.find((o) => o.id === activeOutputId);
 
-        if (!imageSource || outputs.length === 0) {
-                return <EmptyState message="Upload an image to begin" />;
-        }
+    if (!imageSource || outputs.length === 0) {
+        return <EmptyState message="Upload an image to begin" />;
+    }
 
-        return (
-                <div className="relative">
-                        {hasComparableContent && (
-                                <div className="flex justify-end p-4 pb-0">
-                                        <CompareToggle
-                                                mode={mode}
-                                                onChange={setMode}
-                                        />
-                                </div>
-                        )}
-
-                        {mode === 'compare' && selectedOutput && (
-                                <div className="px-4 pt-4">
-                                        <CompareSlider
-                                                source={imageSource.imageData}
-                                                result={selectedOutput.imageData}
-                                        />
-                                </div>
-                        )}
-
-                        <ul className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
-                                <li key={imageSource.id}>
-                                        <OutputCard
-                                                output={imageSource}
-                                                index={0}
-                                                isSource
-                                        />
-                                </li>
-                                {outputs.map((output, index) => (
-                                        <li key={output.id}>
-                                                <OutputCard
-                                                        output={output}
-                                                        index={index + 1}
-                                                        isSelected={
-                                                                mode === 'compare' &&
-                                                                activeOutputId === output.id
-                                                        }
-                                                        {...(mode === 'compare' && {
-                                                                onSelect: () => {
-                                                                        setSelectedOutputId(
-                                                                                output.id
-                                                                        );
-                                                                }
-                                                        })}
-                                                />
-                                        </li>
-                                ))}
-                        </ul>
-
-                        <ProcessingOverlay />
+    return (
+        <div className="relative">
+            {hasComparableContent && (
+                <div className="flex justify-end p-4 pb-0">
+                    <CompareToggle
+                        mode={mode}
+                        onChange={setMode}
+                    />
                 </div>
-        );
+            )}
+
+            {mode === 'compare' && selectedOutput && (
+                <div className="px-4 pt-4">
+                    <CompareSlider
+                        source={imageSource.imageData}
+                        result={selectedOutput.imageData}
+                    />
+                </div>
+            )}
+
+            <ul className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
+                <li key={imageSource.id}>
+                    <OutputCard
+                        output={imageSource}
+                        index={0}
+                        isSource
+                    />
+                </li>
+                {outputs.map((output, index) => (
+                    <li key={output.id}>
+                        <OutputCard
+                            output={output}
+                            index={index + 1}
+                            isSelected={mode === 'compare' && activeOutputId === output.id}
+                            {...(mode === 'compare' && {
+                                onSelect: () => {
+                                    setSelectedOutputId(output.id);
+                                }
+                            })}
+                        />
+                    </li>
+                ))}
+            </ul>
+
+            <ProcessingOverlay />
+        </div>
+    );
 }
 
 export { Outputs };

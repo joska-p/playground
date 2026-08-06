@@ -5,5 +5,5 @@
 @source '../../node_modules/@repo/ui';
 
 body {
-        @apply bg-background text-foreground;
+    @apply bg-background text-foreground;
 }

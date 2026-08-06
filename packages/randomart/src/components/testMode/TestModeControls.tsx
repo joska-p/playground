@@ -4,14 +4,14 @@ import { SearchSection } from './controls/SearchSection';
 import { SeedSection } from './controls/SeedSection';
 
 function TestModeControls() {
-        return (
-                <>
-                        <SearchSection />
-                        <SeedSection />
-                        <RenderSection />
-                        <ConfigSection />
-                </>
-        );
+    return (
+        <>
+            <SearchSection />
+            <SeedSection />
+            <RenderSection />
+            <ConfigSection />
+        </>
+    );
 }
 
 export { TestModeControls };

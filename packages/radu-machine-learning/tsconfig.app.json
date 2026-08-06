@@ -1,5 +1,5 @@
 {
-        "extends": "@repo/config-typescript/app.json",
-        "include": ["src"],
-        "exclude": ["src/scripts"]
+    "extends": "@repo/config-typescript/app.json",
+    "include": ["src"],
+    "exclude": ["src/scripts"]
 }

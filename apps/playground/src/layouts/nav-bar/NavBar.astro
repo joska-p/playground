@@ -9,36 +9,36 @@ const baseUrl = import.meta.env.BASE_URL || '/';
 
 type Route = { label: string; href: string };
 const routes: Route[] = [
-        { label: '~/home', href: `${baseUrl}#home` },
-        { label: '~/discoveries', href: `${baseUrl}#discoveries` },
-        { label: '~/notes', href: `${baseUrl}#notes` },
-        { label: '~/docs', href: `${baseUrl}#documents` }
+    { label: '~/home', href: `${baseUrl}#home` },
+    { label: '~/discoveries', href: `${baseUrl}#discoveries` },
+    { label: '~/notes', href: `${baseUrl}#notes` },
+    { label: '~/docs', href: `${baseUrl}#documents` }
 ];
 ---
 
 <header class="pointer-events-none sticky top-0 z-50 mx-auto max-w-3xl min-w-fit md:top-4 md:px-6">
-        <div
-                class="border-border bg-surface/40 relative z-30 mx-auto flex h-14 max-w-7xl items-center justify-between border-b px-4 shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_22%,transparent),0_1px_28px_-10px_color-mix(in_oklch,var(--glow-color)_35%,transparent)] backdrop-blur-md transition-all duration-300 md:rounded-full md:border md:hover:border-[color-mix(in_oklch,var(--glow-color)_35%,transparent)] md:hover:shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_45%,transparent),0_4px_44px_-10px_color-mix(in_oklch,var(--glow-color)_55%,transparent),0_0_2px_0_color-mix(in_oklch,var(--glow-color)_40%,transparent)]"
-        >
-                <NavLogo href={baseUrl} />
-                <NavLinks
-                        baseUrl={baseUrl}
-                        currentPath={currentPath}
-                        routes={routes}
-                />
-                <NavActions />
-        </div>
-
-        <MobileMenu
-                baseUrl={baseUrl}
-                currentPath={currentPath}
-                routes={routes}
+    <div
+        class="border-border bg-surface/40 relative z-30 mx-auto flex h-14 max-w-7xl items-center justify-between border-b px-4 shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_22%,transparent),0_1px_28px_-10px_color-mix(in_oklch,var(--glow-color)_35%,transparent)] backdrop-blur-md transition-all duration-300 md:rounded-full md:border md:hover:border-[color-mix(in_oklch,var(--glow-color)_35%,transparent)] md:hover:shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_45%,transparent),0_4px_44px_-10px_color-mix(in_oklch,var(--glow-color)_55%,transparent),0_0_2px_0_color-mix(in_oklch,var(--glow-color)_40%,transparent)]"
+    >
+        <NavLogo href={baseUrl} />
+        <NavLinks
+            baseUrl={baseUrl}
+            currentPath={currentPath}
+            routes={routes}
         />
+        <NavActions />
+    </div>
+
+    <MobileMenu
+        baseUrl={baseUrl}
+        currentPath={currentPath}
+        routes={routes}
+    />
 </header>
 
 <!-- Bundled scripts: Astro deduplicates these automatically -->
 <script>
-        import './scripts/theme.js';
-        import './scripts/mobileMenu.js';
-        import './scripts/smartNavbar.js';
+    import './scripts/theme.js';
+    import './scripts/mobileMenu.js';
+    import './scripts/smartNavbar.js';
 </script>

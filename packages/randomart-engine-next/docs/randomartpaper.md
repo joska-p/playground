@@ -60,9 +60,9 @@ is a
 
 function hy which has, properties:
 
--    1. Image-generation: finite length, to an output tmage hy(v) of fived size. hy maps an © of arbitrary
+-   1.  Image-generation: finite length, to an output tmage hy(v) of fived size. hy maps an © of arbitrary
 
--    2. Ease of computation: given h and an input hy (x) 1s easy to compute.
+-   2.  Ease of computation: given h and an input hy (x) 1s easy to compute.
 
 In order for HVAs to be useful for secure applications, we illustrate a variety of desired properties for HVAs. A.
 
@@ -92,11 +92,11 @@ This review is based on the Handbook of Applied Cryp- tography [10].
 
 - Compression: h maps an input z of arbitrary fi- nite length, to an output h(x) of fixed bit length n.
 
--    2. Base of computation: given h aud an input «, h(x) is easy to compute.
+-   2.  Base of computation: given h aud an input «, h(x) is easy to compute.
 
 - Three most desired properties:
 
--    1. Preimage resistance: for any pre-specified out- put y, it is computationally infeasible to find the fuput such that h(x) = y.
+-   1.  Preimage resistance: for any pre-specified out- put y, it is computationally infeasible to find the fuput such that h(x) = y.
 
 - ro 2nd-preimage resistance: given any input x, it is computationally infeasible to find an input such that h(z’) = h(x).
 
@@ -108,7 +108,7 @@ This review is based on the Handbook of Applied Cryp- tography [10].
 
 We define two images I; and Is to be near, denoted as I ~ I, if the two images are perceptually indistinguish- able.
 
--    1. Near preimage resistance: for any pre-specified out- put image y, the input z such that it is computationally infeasible to find
+-   1.  Near preimage resistance: for any pre-specified out- put image y, the input z such that it is computationally infeasible to find
 
 - ro Near it’s computationally infeasible to find / such that ~ resistance: given any input z,
 
@@ -162,7 +162,7 @@ for humans to
 
 We suggest two ways for testing the regularity of an image automatically.
 
--    1. We can use a compression algorithm to compress the image. If the image is chaotic, such as white noise, the compression factor will be very small since al- most every pixel is random. Therefore we can show that an image is regular if the compression factor is above a certain threshold.
+-   1.  We can use a compression algorithm to compress the image. If the image is chaotic, such as white noise, the compression factor will be very small since al- most every pixel is random. Therefore we can show that an image is regular if the compression factor is above a certain threshold.
 
 compare or recall it.
 

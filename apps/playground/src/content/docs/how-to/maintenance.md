@@ -2,7 +2,7 @@
 title: Project Maintenance
 description: Clean build artifacts and reset your local environment.
 tags:
-        - how-to
+    - how-to
 featured: true
 ---
 

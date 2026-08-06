@@ -5,24 +5,24 @@ import Footer from '../../layouts/Footer.astro';
 import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
-        const notes = await getCollection('notes');
+    const notes = await getCollection('notes');
 
-        return notes.map((note) => {
-                return {
-                        params: {
-                                slug: note.id
-                        },
-                        props: {
-                                note
-                        }
-                };
-        });
+    return notes.map((note) => {
+        return {
+            params: {
+                slug: note.id
+            },
+            props: {
+                note
+            }
+        };
+    });
 }
 
 const { note } = Astro.props;
 
 if (!note) {
-        return Astro.redirect('/404');
+    return Astro.redirect('/404');
 }
 
 const { Content } = await render(note);
@@ -32,32 +32,32 @@ const tagEntry = allTags.find((tag) => tag.id === mainTag);
 
 const date = new Date(note.data.date);
 const formattedDate = date.toLocaleDateString('fr-FR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
 } as const);
 ---
 
 <BaseLayout
-        katex={true}
-        title={note.data.title}
+    katex={true}
+    title={note.data.title}
 >
-        <Hero
-                badgeText={formattedDate}
-                description={note.data.description ?? ''}
-                highlight={tagEntry?.data.title ?? mainTag}
-                title={note.data.title}
-                variant="ghost"
-        />
+    <Hero
+        badgeText={formattedDate}
+        description={note.data.description ?? ''}
+        highlight={tagEntry?.data.title ?? mainTag}
+        title={note.data.title}
+        variant="ghost"
+    />
 
-        <article
-                class="prose prose-playground bg-surface/5 text-foreground t mx-auto max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-xs"
-        >
-                <Content />
-        </article>
+    <article
+        class="prose prose-playground bg-surface/5 text-foreground t mx-auto max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-xs"
+    >
+        <Content />
+    </article>
 
-        <Footer>
-                <span slot="default">Crafted with creativity.</span>
-        </Footer>
+    <Footer>
+        <span slot="default">Crafted with creativity.</span>
+    </Footer>
 </BaseLayout>

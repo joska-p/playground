@@ -2,7 +2,7 @@ import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 
 export type CardTitleProps = {
-        ref?: Ref<HTMLHeadingElement>;
+    ref?: Ref<HTMLHeadingElement>;
 } & ComponentProps<'h3'>;
 
 /**
@@ -15,13 +15,13 @@ export type CardTitleProps = {
  * this component.
  */
 export function CardTitle({ ref, className, children, ...props }: CardTitleProps) {
-        return (
-                <h3
-                        ref={ref}
-                        className={cn('text-card-foreground font-semibold', className)}
-                        {...props}
-                >
-                        {children}
-                </h3>
-        );
+    return (
+        <h3
+            ref={ref}
+            className={cn('text-card-foreground font-semibold', className)}
+            {...props}
+        >
+            {children}
+        </h3>
+    );
 }

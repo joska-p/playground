@@ -2,8 +2,8 @@
 title: Factory & Creator Functions
 description: Verb-first naming prefixes and filename casing conventions.
 tags:
-        - conventions
-        - reference
+    - conventions
+    - reference
 ---
 
 # Factory & Creator Functions

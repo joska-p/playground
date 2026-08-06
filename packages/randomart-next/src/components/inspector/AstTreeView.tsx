@@ -2,16 +2,16 @@ import { toTreeView } from '@repo/randomart-engine-next/format';
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function AstTreeView() {
-        const selectedTree = useSelectedTree();
+    const selectedTree = useSelectedTree();
 
-        return (
-                <div className="flex flex-1 flex-col gap-2">
-                        <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-                                Abstract Syntax Tree (AST)
-                        </h4>
-                        <pre className="bg-background text-utility-3 overflow-x-auto rounded-sm p-4 text-xs leading-normal whitespace-pre shadow-inner">
-                                {toTreeView(selectedTree)}
-                        </pre>
-                </div>
-        );
+    return (
+        <div className="flex flex-1 flex-col gap-2">
+            <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                Abstract Syntax Tree (AST)
+            </h4>
+            <pre className="bg-background text-utility-3 overflow-x-auto rounded-sm p-4 text-xs leading-normal whitespace-pre shadow-inner">
+                {toTreeView(selectedTree)}
+            </pre>
+        </div>
+    );
 }

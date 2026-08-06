@@ -9,36 +9,34 @@ import { initGraphData } from './stores/content/actions';
 const parseResult = graphDataSchema.safeParse(rawData);
 
 if (parseResult.success) {
-        initGraphData(parseResult.data);
+    initGraphData(parseResult.data);
 }
 
 function App() {
-        if (!parseResult.success) {
-                return (
-                        <div role="alert">
-                                <p>Invalid graph data:</p>
-                                <pre className="text-xs whitespace-pre-wrap">
-                                        {parseResult.error.toString()}
-                                </pre>
-                        </div>
-                );
-        }
-
+    if (!parseResult.success) {
         return (
-                <Sidebar
-                        position="right"
-                        className="min-h-screen"
-                >
-                        <Sidebar.Main>
-                                <GraphCanvas />
-                        </Sidebar.Main>
-
-                        <Sidebar.Panel className="w-100 space-y-4 p-4">
-                                <DetailsPanel />
-                                <FilterControls />
-                        </Sidebar.Panel>
-                </Sidebar>
+            <div role="alert">
+                <p>Invalid graph data:</p>
+                <pre className="text-xs whitespace-pre-wrap">{parseResult.error.toString()}</pre>
+            </div>
         );
+    }
+
+    return (
+        <Sidebar
+            position="right"
+            className="min-h-screen"
+        >
+            <Sidebar.Main>
+                <GraphCanvas />
+            </Sidebar.Main>
+
+            <Sidebar.Panel className="w-100 space-y-4 p-4">
+                <DetailsPanel />
+                <FilterControls />
+            </Sidebar.Panel>
+        </Sidebar>
+    );
 }
 
 export { App };

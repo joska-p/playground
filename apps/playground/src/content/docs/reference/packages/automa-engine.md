@@ -3,8 +3,8 @@ title: 'Automa Engine'
 description: 'A pure simulation engine that turns birth/survive lookup tables into evolving grids — a generic `evolve` function that knows nothing about rendering, only about neighbour counts and state transitions.'
 category: 'reference'
 tags:
-        - reference
-        - automa-engine
+    - reference
+    - automa-engine
 order: 20
 ---
 
@@ -82,11 +82,11 @@ Rules are plain data objects — no custom `if/else` per rule type.
 
 ```ts
 type Rule = {
-        id: string;
-        name: string;
-        stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
-        birth: readonly boolean[]; // length 9, index = neighbor count
-        survive: readonly boolean[]; // length 9, index = neighbor count
+    id: string;
+    name: string;
+    stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
+    birth: readonly boolean[]; // length 9, index = neighbor count
+    survive: readonly boolean[]; // length 9, index = neighbor count
 };
 ```
 

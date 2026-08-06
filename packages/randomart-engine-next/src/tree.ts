@@ -6,228 +6,227 @@ import type { SeededRandom } from './prng.js';
 import { createCorrelatedRng, createDualRng, seededShuffle } from './prng.js';
 
 export type Node = {
-        readonly type: OperatorId;
-        readonly args: Record<string, Node | number>;
+    readonly type: OperatorId;
+    readonly args: Record<string, Node | number>;
 };
 
 type PoolEntry = {
-        type: OperatorId;
-        arity: number;
-        weight: number;
+    type: OperatorId;
+    arity: number;
+    weight: number;
 };
 
 export const DEFAULT_TERMINALS = [
-        { type: 'x', arity: 0, weight: 1.0 },
-        { type: 'y', arity: 0, weight: 1.0 },
-        { type: 'const', arity: 0, weight: 0.5 }
+    { type: 'x', arity: 0, weight: 1.0 },
+    { type: 'y', arity: 0, weight: 1.0 },
+    { type: 'const', arity: 0, weight: 0.5 }
 ] as const satisfies readonly PoolEntry[];
 
 const operatorToPoolEntry = (id: OperatorId): PoolEntry => ({
-        type: id,
-        arity: getOperator(id).arity,
-        weight: id === 'const' ? 0.5 : 1.0
+    type: id,
+    arity: getOperator(id).arity,
+    weight: id === 'const' ? 0.5 : 1.0
 });
 
 function buildOperatorPool(
-        rng: SeededRandom,
-        operators: readonly PoolEntry[],
-        structuralProbability: number
+    rng: SeededRandom,
+    operators: readonly PoolEntry[],
+    structuralProbability: number
 ): PoolEntry[] {
-        const pool: PoolEntry[] = [];
-        for (const operator of operators) {
-                if (operator.arity === 0 || rng.next() < structuralProbability) {
-                        pool.push(operator);
-                }
+    const pool: PoolEntry[] = [];
+    for (const operator of operators) {
+        if (operator.arity === 0 || rng.next() < structuralProbability) {
+            pool.push(operator);
         }
-        return pool;
+    }
+    return pool;
 }
 
 function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
-        const totalWeight = pool.reduce((sum, operator) => sum + operator.weight, 0);
-        let threshold = rng.next() * totalWeight;
-        for (const operator of pool) {
-                threshold -= operator.weight;
-                if (threshold <= 0) return operator;
-        }
-        return pool[pool.length - 1]!;
+    const totalWeight = pool.reduce((sum, operator) => sum + operator.weight, 0);
+    let threshold = rng.next() * totalWeight;
+    for (const operator of pool) {
+        threshold -= operator.weight;
+        if (threshold <= 0) return operator;
+    }
+    return pool[pool.length - 1]!;
 }
 
 export type BuildTreeProps = {
-        rule: Rule;
-        maxDepth: number;
-        pickRng: (depth: number) => SeededRandom;
-        currentDepth?: number;
-        seedText?: string;
+    rule: Rule;
+    maxDepth: number;
+    pickRng: (depth: number) => SeededRandom;
+    currentDepth?: number;
+    seedText?: string;
 };
 
 export function buildTree({
-        rule,
-        maxDepth,
-        pickRng,
-        currentDepth = 0,
-        seedText = 'randomseed'
+    rule,
+    maxDepth,
+    pickRng,
+    currentDepth = 0,
+    seedText = 'randomseed'
 }: BuildTreeProps): Node {
-        const rng = pickRng(currentDepth);
-        const forceTerminal = currentDepth >= maxDepth;
-        const forceOperator = currentDepth < rule.minDepth;
+    const rng = pickRng(currentDepth);
+    const forceTerminal = currentDepth >= maxDepth;
+    const forceOperator = currentDepth < rule.minDepth;
 
-        const poolEntriesFromRule = [...rule.operatorIds].map(operatorToPoolEntry);
-        const hasTerminals = poolEntriesFromRule.some((entry) => entry.arity === 0);
-        const poolEntriesWithTerminals = hasTerminals
-                ? poolEntriesFromRule
-                : [...poolEntriesFromRule, ...DEFAULT_TERMINALS];
-        const shuffledPoolEntries = seededShuffle(
-                poolEntriesWithTerminals,
-                `${seedText}_depth_${currentDepth}`
-        );
+    const poolEntriesFromRule = [...rule.operatorIds].map(operatorToPoolEntry);
+    const hasTerminals = poolEntriesFromRule.some((entry) => entry.arity === 0);
+    const poolEntriesWithTerminals = hasTerminals
+        ? poolEntriesFromRule
+        : [...poolEntriesFromRule, ...DEFAULT_TERMINALS];
+    const shuffledPoolEntries = seededShuffle(
+        poolEntriesWithTerminals,
+        `${seedText}_depth_${currentDepth}`
+    );
 
-        let pool: PoolEntry[];
+    let pool: PoolEntry[];
 
-        if (forceTerminal) {
-                pool = shuffledPoolEntries.filter((operator) => operator.arity === 0);
-                if (pool.length === 0) pool = [...DEFAULT_TERMINALS];
-        } else if (forceOperator) {
-                pool = shuffledPoolEntries.filter((operator) => operator.arity > 0);
-                if (pool.length === 0) pool = [...shuffledPoolEntries];
+    if (forceTerminal) {
+        pool = shuffledPoolEntries.filter((operator) => operator.arity === 0);
+        if (pool.length === 0) pool = [...DEFAULT_TERMINALS];
+    } else if (forceOperator) {
+        pool = shuffledPoolEntries.filter((operator) => operator.arity > 0);
+        if (pool.length === 0) pool = [...shuffledPoolEntries];
+    } else {
+        const structuralProbability = 1 - currentDepth / maxDepth;
+        pool = buildOperatorPool(rng, shuffledPoolEntries, structuralProbability);
+    }
+
+    const pick = weightedRandomPick(rng, pool);
+    const operator = getOperator(pick.type);
+    const args: Record<string, Node | number> = {};
+
+    // Construct arguments uniformly by iterating over declared operator argument slot tags
+    for (const argName of operator.argNames) {
+        if (pick.type === 'const' && argName === 'value') {
+            args[argName] = Number(rng.nextRange(-1, 1).toFixed(4));
         } else {
-                const structuralProbability = 1 - currentDepth / maxDepth;
-                pool = buildOperatorPool(rng, shuffledPoolEntries, structuralProbability);
+            args[argName] = buildTree({
+                rule,
+                maxDepth,
+                pickRng,
+                currentDepth: currentDepth + 1
+            });
         }
+    }
 
-        const pick = weightedRandomPick(rng, pool);
-        const operator = getOperator(pick.type);
-        const args: Record<string, Node | number> = {};
-
-        // Construct arguments uniformly by iterating over declared operator argument slot tags
-        for (const argName of operator.argNames) {
-                if (pick.type === 'const' && argName === 'value') {
-                        args[argName] = Number(rng.nextRange(-1, 1).toFixed(4));
-                } else {
-                        args[argName] = buildTree({
-                                rule,
-                                maxDepth,
-                                pickRng,
-                                currentDepth: currentDepth + 1
-                        });
-                }
-        }
-
-        return { type: pick.type, args };
+    return { type: pick.type, args };
 }
 
 export function evaluate(node: Node, x: number, y: number, t = 0): number {
-        const operator = getOperator(node.type);
-        const ctx = { x, y, t };
-        const resolvedArgs: Record<string, number> = {};
+    const operator = getOperator(node.type);
+    const ctx = { x, y, t };
+    const resolvedArgs: Record<string, number> = {};
 
-        for (const name of operator.argNames) {
-                const value = node.args[name];
-                resolvedArgs[name] = typeof value === 'number' ? value : evaluate(value!, x, y, t);
-        }
+    for (const name of operator.argNames) {
+        const value = node.args[name];
+        resolvedArgs[name] = typeof value === 'number' ? value : evaluate(value!, x, y, t);
+    }
 
-        return operator.evaluate({ args: resolvedArgs, ctx });
+    return operator.evaluate({ args: resolvedArgs, ctx });
 }
 
 export function toGLSL(node: Node, coordVar = 'p'): string {
-        const op = getOperator(node.type);
-        const resolvedArgs: Record<string, string> = {};
+    const op = getOperator(node.type);
+    const resolvedArgs: Record<string, string> = {};
 
-        for (const name of op.argNames) {
-                const val = node.args[name];
-                resolvedArgs[name] =
-                        typeof val === 'number' ? val.toFixed(4) : toGLSL(val!, coordVar);
-        }
+    for (const name of op.argNames) {
+        const val = node.args[name];
+        resolvedArgs[name] = typeof val === 'number' ? val.toFixed(4) : toGLSL(val!, coordVar);
+    }
 
-        return op.toGLSL({ args: resolvedArgs, coordVar });
+    return op.toGLSL({ args: resolvedArgs, coordVar });
 }
 
 export function toStructuredView(node: Node): TreeView {
-        const operator = getOperator(node.type);
-        const value = node.args['value'];
-        const hasValue = typeof value === 'number';
-        const label = hasValue ? `const(${value})` : node.type;
+    const operator = getOperator(node.type);
+    const value = node.args['value'];
+    const hasValue = typeof value === 'number';
+    const label = hasValue ? `const(${value})` : node.type;
 
-        const treeView: TreeView = { label, type: node.type };
-        if (hasValue) {
-                treeView.value = value;
+    const treeView: TreeView = { label, type: node.type };
+    if (hasValue) {
+        treeView.value = value;
+    }
+
+    const childrenViews: TreeView[] = [];
+    for (const name of operator.argNames) {
+        const child = node.args[name];
+        if (child && typeof child !== 'number') {
+            childrenViews.push(toStructuredView(child));
         }
+    }
 
-        const childrenViews: TreeView[] = [];
-        for (const name of operator.argNames) {
-                const child = node.args[name];
-                if (child && typeof child !== 'number') {
-                        childrenViews.push(toStructuredView(child));
-                }
-        }
+    if (childrenViews.length > 0) {
+        treeView.children = childrenViews;
+    }
 
-        if (childrenViews.length > 0) {
-                treeView.children = childrenViews;
-        }
-
-        return treeView;
+    return treeView;
 }
 
 const STRUCTURE_RNG_DEPTH = 3;
 
 export type BuildChannelTreesProps = {
-        seedText: string;
-        rule: Rule;
-        correlated?: boolean;
+    seedText: string;
+    rule: Rule;
+    correlated?: boolean;
 };
 
 export function buildChannelTrees({ seedText, rule, correlated = false }: BuildChannelTreesProps): {
-        treeR: Node;
-        treeG: Node;
-        treeB: Node;
+    treeR: Node;
+    treeG: Node;
+    treeB: Node;
 } {
-        const pickRng =
-                (structure: SeededRandom, channel: SeededRandom) =>
-                (depth: number): SeededRandom =>
-                        depth < STRUCTURE_RNG_DEPTH ? structure : channel;
+    const pickRng =
+        (structure: SeededRandom, channel: SeededRandom) =>
+        (depth: number): SeededRandom =>
+            depth < STRUCTURE_RNG_DEPTH ? structure : channel;
 
-        if (correlated) {
-                const { structure, channels } = createCorrelatedRng(seedText);
-                return {
-                        treeR: buildTree({
-                                rule,
-                                maxDepth: rule.maxDepth,
-                                pickRng: pickRng(structure, channels[0]),
-                                seedText
-                        }),
-                        treeG: buildTree({
-                                rule,
-                                maxDepth: rule.maxDepth,
-                                pickRng: pickRng(structure, channels[1]),
-                                seedText
-                        }),
-                        treeB: buildTree({
-                                rule,
-                                maxDepth: rule.maxDepth,
-                                pickRng: pickRng(structure, channels[2]),
-                                seedText
-                        })
-                };
-        }
-
-        const { structure, channels } = createDualRng(seedText, rule.maxDepth);
+    if (correlated) {
+        const { structure, channels } = createCorrelatedRng(seedText);
         return {
-                treeR: buildTree({
-                        rule,
-                        maxDepth: rule.maxDepth,
-                        pickRng: pickRng(structure, channels[0]),
-                        seedText
-                }),
-                treeG: buildTree({
-                        rule,
-                        maxDepth: rule.maxDepth,
-                        pickRng: pickRng(structure, channels[1]),
-                        seedText
-                }),
-                treeB: buildTree({
-                        rule,
-                        maxDepth: rule.maxDepth,
-                        pickRng: pickRng(structure, channels[2]),
-                        seedText
-                })
+            treeR: buildTree({
+                rule,
+                maxDepth: rule.maxDepth,
+                pickRng: pickRng(structure, channels[0]),
+                seedText
+            }),
+            treeG: buildTree({
+                rule,
+                maxDepth: rule.maxDepth,
+                pickRng: pickRng(structure, channels[1]),
+                seedText
+            }),
+            treeB: buildTree({
+                rule,
+                maxDepth: rule.maxDepth,
+                pickRng: pickRng(structure, channels[2]),
+                seedText
+            })
         };
+    }
+
+    const { structure, channels } = createDualRng(seedText, rule.maxDepth);
+    return {
+        treeR: buildTree({
+            rule,
+            maxDepth: rule.maxDepth,
+            pickRng: pickRng(structure, channels[0]),
+            seedText
+        }),
+        treeG: buildTree({
+            rule,
+            maxDepth: rule.maxDepth,
+            pickRng: pickRng(structure, channels[1]),
+            seedText
+        }),
+        treeB: buildTree({
+            rule,
+            maxDepth: rule.maxDepth,
+            pickRng: pickRng(structure, channels[2]),
+            seedText
+        })
+    };
 }

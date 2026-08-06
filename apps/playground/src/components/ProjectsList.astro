@@ -9,42 +9,38 @@ const allProjects = await getCollection('projects');
 const sortedProjects = allProjects.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 function stringToSeed(str: string): number {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = (hash << 5) - hash + char;
-                hash = hash & hash;
-        }
-        return Math.abs(hash);
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash = hash & hash;
+    }
+    return Math.abs(hash);
 }
 ---
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
-        {
-                sortedProjects.map((project) => {
-                        const mainTag = project.data.tags[0].id;
-                        return (
-                                <a
-                                        href={`${projectsBaseUrl}${project.id}/#main`}
-                                        title={project.data.title}
-                                >
-                                        <SciFiCard
-                                                cardId={toCanadianSyllabics
-                                                        .fromHash(project.data.tags[0].id)
-                                                        .substring(0, 8)}
-                                                cardTitle={project.data.title}
-                                                classification={project.data.description}
-                                                color={`var(--tags-${mainTag})`}
-                                                density={toBraille
-                                                        .fromHash(project.data.description)
-                                                        .substring(0, 8)}
-                                                resolution={toOgham
-                                                        .fromHash(project.data.title)
-                                                        .substring(0, 8)}
-                                                seed={stringToSeed(project.data.title)}
-                                        />
-                                </a>
-                        );
-                })
-        }
+    {
+        sortedProjects.map((project) => {
+            const mainTag = project.data.tags[0].id;
+            return (
+                <a
+                    href={`${projectsBaseUrl}${project.id}/#main`}
+                    title={project.data.title}
+                >
+                    <SciFiCard
+                        cardId={toCanadianSyllabics
+                            .fromHash(project.data.tags[0].id)
+                            .substring(0, 8)}
+                        cardTitle={project.data.title}
+                        classification={project.data.description}
+                        color={`var(--tags-${mainTag})`}
+                        density={toBraille.fromHash(project.data.description).substring(0, 8)}
+                        resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
+                        seed={stringToSeed(project.data.title)}
+                    />
+                </a>
+            );
+        })
+    }
 </div>

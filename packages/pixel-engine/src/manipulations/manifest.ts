@@ -21,37 +21,37 @@ import { rotate90Cw } from './whole/rotate-90cw';
 // ─── Single Source of Truth ─────────────────────────────────────────────────
 
 export const ALL_MANIPULATIONS = [
-        brightness,
-        contrast,
-        grayscale,
-        sepia,
-        invert,
-        saturation,
-        hueRotate,
-        opacity,
-        threshold,
-        boxBlur,
-        gaussianBlur,
-        sharpen,
-        edgeDetect,
-        histogramEqualize,
-        flipHorizontal,
-        flipVertical,
-        resize,
-        rotate90Cw
+    brightness,
+    contrast,
+    grayscale,
+    sepia,
+    invert,
+    saturation,
+    hueRotate,
+    opacity,
+    threshold,
+    boxBlur,
+    gaussianBlur,
+    sharpen,
+    edgeDetect,
+    histogramEqualize,
+    flipHorizontal,
+    flipVertical,
+    resize,
+    rotate90Cw
 ] as const satisfies readonly ManipulationDefinition[];
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
 type ManipulationLookup = {
-        [
-                Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation['id']
-        ]: Manipulation['options'];
+    [
+        Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation['id']
+    ]: Manipulation['options'];
 };
 
 export type Step = {
-        [Identifier in keyof ManipulationLookup]: {
-                id: Identifier;
-                options?: ManipulationLookup[Identifier];
-        };
+    [Identifier in keyof ManipulationLookup]: {
+        id: Identifier;
+        options?: ManipulationLookup[Identifier];
+    };
 }[keyof ManipulationLookup];

@@ -3,8 +3,8 @@ title: 'Pixel Manipulator'
 description: 'A fluent pipeline that chains small, testable pixel transforms into a single loop pass — turning raw image data into something alive, one callback at a time.'
 category: 'reference'
 tags:
-        - reference
-        - pixel-manipulator
+    - reference
+    - pixel-manipulator
 order: 20
 ---
 
@@ -117,16 +117,16 @@ All transformations read from a source `ImageData` and produce a **new**
 type RGBA = { r: number; g: number; b: number; a: number };
 
 type PixelContext = {
-        r;
-        g;
-        b;
-        a: number; // current pixel value (may be modified by earlier callbacks)
-        x;
-        y: number; // pixel position
-        index: number; // byte offset in Uint8ClampedArray
-        width;
-        height: number;
-        sourceData: Uint8ClampedArray; // original unmodified data (for neighbour reads)
+    r;
+    g;
+    b;
+    a: number; // current pixel value (may be modified by earlier callbacks)
+    x;
+    y: number; // pixel position
+    index: number; // byte offset in Uint8ClampedArray
+    width;
+    height: number;
+    sourceData: Uint8ClampedArray; // original unmodified data (for neighbour reads)
 };
 
 type PixelCallback = (ctx: PixelContext) => RGBA;
@@ -172,9 +172,9 @@ for debugging or building a visual history of the pipeline:
 
 ```ts
 const [original, grayed, brightened] = manipulate(source)
-        .apply(grayscale())
-        .apply(brightness(1.3))
-        .toArray();
+    .apply(grayscale())
+    .apply(brightness(1.3))
+    .toArray();
 ```
 
 ## Authoring Custom Manipulations
@@ -187,13 +187,13 @@ pipeline handles the rest:
 import type { PixelCallback } from '@repo/pixel-manipulator';
 
 const tint =
-        (hue: number): PixelCallback =>
-        ({ r, g, b, a }) => ({
-                r: Math.min(255, r + hue),
-                g,
-                b: Math.max(0, b - hue),
-                a
-        });
+    (hue: number): PixelCallback =>
+    ({ r, g, b, a }) => ({
+        r: Math.min(255, r + hue),
+        g,
+        b: Math.max(0, b - hue),
+        a
+    });
 
 manipulate(source).apply(grayscale()).apply(tint(30)).toImageData();
 ```
@@ -234,7 +234,7 @@ with preset support, and canvases showing the result of each pipeline step:
 import { ImageManipulator } from '@repo/pixel-manipulator';
 
 function App() {
-        return <ImageManipulator />;
+    return <ImageManipulator />;
 }
 ```
 

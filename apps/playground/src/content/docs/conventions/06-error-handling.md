@@ -2,8 +2,8 @@
 title: Error Handling
 description: Using the shared ErrorBoundary and never silently swallowing errors.
 tags:
-        - conventions
-        - reference
+    - conventions
+    - reference
 ---
 
 # Error Handling

@@ -2,7 +2,7 @@ import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 
 export type CardDescriptionProps = {
-        ref?: Ref<HTMLParagraphElement>;
+    ref?: Ref<HTMLParagraphElement>;
 } & ComponentProps<'p'>;
 
 /**
@@ -14,13 +14,13 @@ export type CardDescriptionProps = {
  * built-in clamp.
  */
 export function CardDescription({ ref, className, children, ...props }: CardDescriptionProps) {
-        return (
-                <p
-                        ref={ref}
-                        className={cn('text-muted-foreground text-sm', className)}
-                        {...props}
-                >
-                        {children}
-                </p>
-        );
+    return (
+        <p
+            ref={ref}
+            className={cn('text-muted-foreground text-sm', className)}
+            {...props}
+        >
+            {children}
+        </p>
+    );
 }

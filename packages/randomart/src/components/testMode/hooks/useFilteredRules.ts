@@ -6,14 +6,14 @@ import type { GrammarRule } from '@repo/randomart-engine/types';
  * call site, so there's no need to hand-roll useMemo here.
  */
 export function useFilteredRules(
-        rules: GrammarRule[],
-        query: string,
-        category: string
+    rules: GrammarRule[],
+    query: string,
+    category: string
 ): GrammarRule[] {
-        return rules.filter((rule) => {
-                if (category !== 'all' && rule.category !== category) return false;
-                if (!query) return true;
-                const q = query.toLowerCase();
-                return rule.name.toLowerCase().includes(q) || rule.id.toLowerCase().includes(q);
-        });
+    return rules.filter((rule) => {
+        if (category !== 'all' && rule.category !== category) return false;
+        if (!query) return true;
+        const q = query.toLowerCase();
+        return rule.name.toLowerCase().includes(q) || rule.id.toLowerCase().includes(q);
+    });
 }

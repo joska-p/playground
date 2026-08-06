@@ -1,25 +1,25 @@
 {
-        "name": "@repo/sequence-engine",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./engine": "./src/engine.ts",
-                "./rules": "./src/rules/registry.ts",
-                "./rules/types": "./src/rules/types.ts",
-                "./rules/recaman": "./src/rules/recaman.ts"
-        },
-        "scripts": {
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "devDependencies": {
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@types/node": "catalog:",
-                "eslint": "catalog:",
-                "typescript": "catalog:"
-        }
+    "name": "@repo/sequence-engine",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./engine": "./src/engine.ts",
+        "./rules": "./src/rules/registry.ts",
+        "./rules/types": "./src/rules/types.ts",
+        "./rules/recaman": "./src/rules/recaman.ts"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "devDependencies": {
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:"
+    }
 }

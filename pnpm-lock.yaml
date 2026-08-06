@@ -1486,9 +1486,9 @@ importers:
 
   packages/randomart:
     dependencies:
-      '@repo/graphics':
+      '@repo/glaze':
         specifier: workspace:*
-        version: link:../graphics
+        version: link:../glaze
       '@repo/randomart-engine':
         specifier: workspace:*
         version: link:../randomart-engine
@@ -1596,9 +1596,9 @@ importers:
 
   packages/randomart-next:
     dependencies:
-      '@repo/graphics':
+      '@repo/glaze':
         specifier: workspace:*
-        version: link:../graphics
+        version: link:../glaze
       '@repo/randomart-engine-next':
         specifier: workspace:*
         version: link:../randomart-engine-next

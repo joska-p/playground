@@ -8,58 +8,58 @@ const dummy = new THREE.Object3D();
 const tmpColor = new THREE.Color();
 
 function getNodeSize(node: GraphNode): number {
-        const degree = node.inDegree + node.outDegree;
-        return Math.log(degree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase;
+    const degree = node.inDegree + node.outDegree;
+    return Math.log(degree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase;
 }
 
 export function writeInstanceData(
-        mesh: THREE.InstancedMesh,
-        nodes: GraphNode[],
-        globalIndices: number[],
-        visibleCommunities: Set<number>,
-        selectedNodeIdx: number | null
+    mesh: THREE.InstancedMesh,
+    nodes: GraphNode[],
+    globalIndices: number[],
+    visibleCommunities: Set<number>,
+    selectedNodeIdx: number | null
 ): void {
-        let localIdx = 0;
-        for (const globalIdx of globalIndices) {
-                if (!nodes[globalIdx]) throw new Error(`Node at index ${globalIdx} is undefined`);
+    let localIdx = 0;
+    for (const globalIdx of globalIndices) {
+        if (!nodes[globalIdx]) throw new Error(`Node at index ${globalIdx} is undefined`);
 
-                const node = nodes[globalIdx];
-                const isVisible = visibleCommunities.has(node.community);
-                const scale = isVisible ? getNodeSize(node) : CONFIG.nodes.hiddenScale;
+        const node = nodes[globalIdx];
+        const isVisible = visibleCommunities.has(node.community);
+        const scale = isVisible ? getNodeSize(node) : CONFIG.nodes.hiddenScale;
 
-                dummy.position.set(node.x, node.y, node.z);
-                dummy.scale.setScalar(scale);
-                dummy.updateMatrix();
-                mesh.setMatrixAt(localIdx, dummy.matrix);
+        dummy.position.set(node.x, node.y, node.z);
+        dummy.scale.setScalar(scale);
+        dummy.updateMatrix();
+        mesh.setMatrixAt(localIdx, dummy.matrix);
 
-                if (!isVisible) {
-                        tmpColor.copy(DIM_COLOR);
-                } else {
-                        tmpColor.set(node.color);
-                        if (globalIdx === selectedNodeIdx) {
-                                tmpColor.lerp(HIGHLIGHT_COLOR, CONFIG.nodes.highlightLerp);
-                        }
-                }
-                mesh.setColorAt(localIdx, tmpColor);
-                localIdx++;
+        if (!isVisible) {
+            tmpColor.copy(DIM_COLOR);
+        } else {
+            tmpColor.set(node.color);
+            if (globalIdx === selectedNodeIdx) {
+                tmpColor.lerp(HIGHLIGHT_COLOR, CONFIG.nodes.highlightLerp);
+            }
         }
+        mesh.setColorAt(localIdx, tmpColor);
+        localIdx++;
+    }
 
-        mesh.instanceMatrix.needsUpdate = true;
-        if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-        mesh.computeBoundingSphere();
+    mesh.instanceMatrix.needsUpdate = true;
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    mesh.computeBoundingSphere();
 }
 
 export function splitNodeIndices(nodes: GraphNode[]): {
-        codeToGlobal: number[];
-        docToGlobal: number[];
+    codeToGlobal: number[];
+    docToGlobal: number[];
 } {
-        const codeToGlobal: number[] = [];
-        const docToGlobal: number[] = [];
+    const codeToGlobal: number[] = [];
+    const docToGlobal: number[] = [];
 
-        nodes.forEach((n, globalIdx) => {
-                if (n.file_type === 'code') codeToGlobal.push(globalIdx);
-                else docToGlobal.push(globalIdx);
-        });
+    nodes.forEach((n, globalIdx) => {
+        if (n.file_type === 'code') codeToGlobal.push(globalIdx);
+        else docToGlobal.push(globalIdx);
+    });
 
-        return { codeToGlobal, docToGlobal };
+    return { codeToGlobal, docToGlobal };
 }

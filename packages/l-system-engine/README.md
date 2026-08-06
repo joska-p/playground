@@ -44,16 +44,10 @@ pnpm add @repo/l-system-engine
 import { deterministicRule, expand, symbol } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbol('F')],
-        rules: [
-                deterministicRule('F', [
-                        symbol('F'),
-                        symbol('+'),
-                        symbol('F'),
-                        symbol('-'),
-                        symbol('F')
-                ])
-        ]
+    axiom: [symbol('F')],
+    rules: [
+        deterministicRule('F', [symbol('F'), symbol('+'), symbol('F'), symbol('-'), symbol('F')])
+    ]
 };
 
 const word = expand(grammar, 3);
@@ -128,20 +122,20 @@ const word = expand(grammar, 3);
 import { deterministicRule, expand, symbol } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbol('F')],
-        rules: [
-                deterministicRule('F', [
-                        symbol('F'),
-                        symbol('+'),
-                        symbol('F'),
-                        symbol('-'),
-                        symbol('F'),
-                        symbol('-'),
-                        symbol('F'),
-                        symbol('+'),
-                        symbol('F')
-                ])
-        ]
+    axiom: [symbol('F')],
+    rules: [
+        deterministicRule('F', [
+            symbol('F'),
+            symbol('+'),
+            symbol('F'),
+            symbol('-'),
+            symbol('F'),
+            symbol('-'),
+            symbol('F'),
+            symbol('+'),
+            symbol('F')
+        ])
+    ]
 };
 
 expand(grammar, 0); // [F]          — 1 symbol
@@ -155,13 +149,13 @@ expand(grammar, 2); //               49 symbols
 import { expand, stochasticRule, symbol } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbol('F')],
-        rules: [
-                stochasticRule('F', [
-                        { weight: 0.7, produce: [symbol('F'), symbol('F')] },
-                        { weight: 0.3, produce: [symbol('F')] }
-                ])
-        ]
+    axiom: [symbol('F')],
+    rules: [
+        stochasticRule('F', [
+            { weight: 0.7, produce: [symbol('F'), symbol('F')] },
+            { weight: 0.3, produce: [symbol('F')] }
+        ])
+    ]
 };
 
 // Reproducible — same seed → same word every time
@@ -174,12 +168,12 @@ expand(grammar, 5, { seed: 42 });
 import { contextSensitiveRule, deterministicRule, expand, symbol } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbol('b'), symbol('a'), symbol('a'), symbol('a')],
-        rules: [
-                // an 'a' immediately after a 'b' becomes 'b'
-                contextSensitiveRule({ name: 'a', leftContext: 'b', produce: [symbol('b')] }),
-                deterministicRule('b', [symbol('b')])
-        ]
+    axiom: [symbol('b'), symbol('a'), symbol('a'), symbol('a')],
+    rules: [
+        // an 'a' immediately after a 'b' becomes 'b'
+        contextSensitiveRule({ name: 'a', leftContext: 'b', produce: [symbol('b')] }),
+        deterministicRule('b', [symbol('b')])
+    ]
 };
 
 // Iteration 0: b a a a
@@ -196,23 +190,23 @@ Bracket symbols `[` and `]` are skipped during context lookup by default (Prusin
 import { expand, parametricRule, symbol } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbol('F', 1.0)],
-        rules: [
-                parametricRule({
-                        name: 'F',
-                        guard: ([length]) => length > 0.01,
-                        produce: ([length = 0]) => [
-                                symbol('F', length * 0.5),
-                                symbol('+'),
-                                symbol('F', length * 0.5)
-                        ]
-                }),
-                parametricRule({
-                        name: 'F',
-                        guard: ([length]) => length <= 0.01,
-                        produce: ([length = 0]) => [symbol('F', length)] // base case — stop
-                })
-        ]
+    axiom: [symbol('F', 1.0)],
+    rules: [
+        parametricRule({
+            name: 'F',
+            guard: ([length]) => length > 0.01,
+            produce: ([length = 0]) => [
+                symbol('F', length * 0.5),
+                symbol('+'),
+                symbol('F', length * 0.5)
+            ]
+        }),
+        parametricRule({
+            name: 'F',
+            guard: ([length]) => length <= 0.01,
+            produce: ([length = 0]) => [symbol('F', length)] // base case — stop
+        })
+    ]
 };
 
 // F(1.0) → F(0.5)+F(0.5) → F(0.25)+F(0.25)+F(0.25)+F(0.25) → …
@@ -224,20 +218,20 @@ const grammar = {
 import { deterministicRule, expand, symbolWithMeta } from '@repo/l-system-engine';
 
 const grammar = {
-        axiom: [symbolWithMeta('F', { shader: 'trunk' })],
-        rules: [
-                deterministicRule('F', [
-                        symbolWithMeta('F', { shader: 'trunk' }),
-                        symbolWithMeta('F', { shader: 'twig' })
-                ])
-        ]
+    axiom: [symbolWithMeta('F', { shader: 'trunk' })],
+    rules: [
+        deterministicRule('F', [
+            symbolWithMeta('F', { shader: 'trunk' }),
+            symbolWithMeta('F', { shader: 'twig' })
+        ])
+    ]
 };
 
 // In the renderer (outside the engine):
 const word = expand(grammar, 3);
 for (const sym of word) {
-        const shaderKey = sym.metadata?.['shader'] ?? 'default';
-        // select shader program, draw…
+    const shaderKey = sym.metadata?.['shader'] ?? 'default';
+    // select shader program, draw…
 }
 ```
 
@@ -252,8 +246,8 @@ const iter = steps(grammar, { seed: 42 });
 
 // On each animation frame:
 function onFrame() {
-        const { value: word } = iter.next();
-        render(word);
+    const { value: word } = iter.next();
+    render(word);
 }
 ```
 
@@ -265,12 +259,12 @@ The engine is open for extension. Implement the `Rule` interface directly and pa
 import type { Context, LSymbol, Rule, Word } from '@repo/l-system-engine';
 
 const myRule: Rule = {
-        match(sym: LSymbol, context: Context): boolean {
-                return sym.name === 'F' && context.index % 2 === 0;
-        },
-        apply(sym: LSymbol, _context: Context): Word {
-                return [sym, sym]; // duplicate every other F
-        }
+    match(sym: LSymbol, context: Context): boolean {
+        return sym.name === 'F' && context.index % 2 === 0;
+    },
+    apply(sym: LSymbol, _context: Context): Word {
+        return [sym, sym]; // duplicate every other F
+    }
 };
 
 const grammar = { axiom, rules: [myRule, ...otherRules] };
@@ -300,9 +294,9 @@ By default, symbols with no matching rule are kept (`unmatchedSymbol: 'keep'`). 
 
 ```ts
 const grammar = {
-        axiom,
-        rules,
-        unmatchedSymbol: 'remove'
+    axiom,
+    rules,
+    unmatchedSymbol: 'remove'
 };
 ```
 
@@ -324,7 +318,7 @@ import { validate } from '@repo/l-system-engine';
 
 const errors = validate(grammar);
 if (errors.length > 0) {
-        console.error(errors); // [{ code: 'STOCHASTIC_WEIGHT_SUM', message: '...' }]
+    console.error(errors); // [{ code: 'STOCHASTIC_WEIGHT_SUM', message: '...' }]
 }
 ```
 

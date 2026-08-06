@@ -4,7 +4,7 @@ import type { Grammar, ValidationError } from './types';
 const WEIGHT_SUM_TOLERANCE = 0.001;
 
 function isStochasticRule(rule: object): rule is StochasticRule {
-        return STOCHASTIC_PRODUCTIONS_KEY in rule;
+    return STOCHASTIC_PRODUCTIONS_KEY in rule;
 }
 
 /**
@@ -15,23 +15,23 @@ function isStochasticRule(rule: object): rule is StochasticRule {
  * - Stochastic rule weights sum to 1.0 (±0.001 tolerance).
  */
 export function validate(grammar: Grammar): ValidationError[] {
-        const errors: ValidationError[] = [];
+    const errors: ValidationError[] = [];
 
-        for (let i = 0; i < grammar.rules.length; i++) {
-                const rule = grammar.rules[i];
-                if (!rule) continue;
+    for (let i = 0; i < grammar.rules.length; i++) {
+        const rule = grammar.rules[i];
+        if (!rule) continue;
 
-                if (isStochasticRule(rule)) {
-                        const productions = rule[STOCHASTIC_PRODUCTIONS_KEY];
-                        const sum = productions.reduce((acc, p) => acc + p.weight, 0);
-                        if (Math.abs(sum - 1) > WEIGHT_SUM_TOLERANCE) {
-                                errors.push({
-                                        code: 'STOCHASTIC_WEIGHT_SUM',
-                                        message: `Rule at index ${i.toString()}: stochastic weights sum to ${sum.toFixed(4)} but must sum to 1.0 (±${WEIGHT_SUM_TOLERANCE.toString()}).`
-                                });
-                        }
-                }
+        if (isStochasticRule(rule)) {
+            const productions = rule[STOCHASTIC_PRODUCTIONS_KEY];
+            const sum = productions.reduce((acc, p) => acc + p.weight, 0);
+            if (Math.abs(sum - 1) > WEIGHT_SUM_TOLERANCE) {
+                errors.push({
+                    code: 'STOCHASTIC_WEIGHT_SUM',
+                    message: `Rule at index ${i.toString()}: stochastic weights sum to ${sum.toFixed(4)} but must sum to 1.0 (±${WEIGHT_SUM_TOLERANCE.toString()}).`
+                });
+            }
         }
+    }
 
-        return errors;
+    return errors;
 }

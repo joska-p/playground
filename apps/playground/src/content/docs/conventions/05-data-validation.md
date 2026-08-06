@@ -2,8 +2,8 @@
 title: Data Validation
 description: Validating external data with Zod at the entry point.
 tags:
-        - conventions
-        - reference
+    - conventions
+    - reference
 ---
 
 # Data Validation

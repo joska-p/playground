@@ -14,103 +14,103 @@ void main() {
 `;
 
 export type UniformLocs = {
-        time: WebGLUniformLocation | null;
-        animSpeed: WebGLUniformLocation | null;
-        resolution: WebGLUniformLocation | null;
-        mouse: WebGLUniformLocation | null;
+    time: WebGLUniformLocation | null;
+    animSpeed: WebGLUniformLocation | null;
+    resolution: WebGLUniformLocation | null;
+    mouse: WebGLUniformLocation | null;
 };
 
 /**
  * Owns shader compilation and the resulting WebGLProgram lifecycle.
  */
 export function useShaderProgram(
-        glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
-        bitmapSize: BitmapSize,
-        trees: {
-                treeR: ExpressionNode;
-                treeG: ExpressionNode;
-                treeB: ExpressionNode;
-        },
-        behaviors: AnimationBehavior[],
-        onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
+    glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
+    bitmapSize: BitmapSize,
+    trees: {
+        treeR: ExpressionNode;
+        treeG: ExpressionNode;
+        treeB: ExpressionNode;
+    },
+    behaviors: AnimationBehavior[],
+    onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
 ) {
-        const programRef = useRef<WebGLProgram | null>(null);
-        const uniformLocsRef = useRef<UniformLocs>({
-                time: null,
-                animSpeed: null,
-                resolution: null,
-                mouse: null
-        });
+    const programRef = useRef<WebGLProgram | null>(null);
+    const uniformLocsRef = useRef<UniformLocs>({
+        time: null,
+        animSpeed: null,
+        resolution: null,
+        mouse: null
+    });
 
-        useEffect(() => {
-                const gl = glRef.current;
-                if (!gl) return;
+    useEffect(() => {
+        const gl = glRef.current;
+        if (!gl) return;
 
-                // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
-                // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
-                const fragmentShaderSource = compileToGLSL(
-                        trees.treeR,
-                        trees.treeG,
-                        trees.treeB,
-                        behaviors
-                );
+        // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
+        // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
+        const fragmentShaderSource = compileToGLSL(
+            trees.treeR,
+            trees.treeG,
+            trees.treeB,
+            behaviors
+        );
 
-                let program: WebGLProgram | null = null;
-                try {
-                        program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentShaderSource);
-                } catch (error) {
-                        console.error('Shader program generation failed:', error);
-                        return;
-                }
+        let program: WebGLProgram | null = null;
+        try {
+            program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentShaderSource);
+        } catch (error) {
+            console.error('Shader program generation failed:', error);
+            return;
+        }
 
-                // Clean up old program
-                const oldProgram = programRef.current;
-                if (oldProgram) {
-                        gl.deleteProgram(oldProgram);
-                }
+        // Clean up old program
+        const oldProgram = programRef.current;
+        if (oldProgram) {
+            gl.deleteProgram(oldProgram);
+        }
 
-                programRef.current = program;
-                gl.useProgram(program);
+        programRef.current = program;
+        gl.useProgram(program);
 
-                // Bind position attribute
-                const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
-                gl.enableVertexAttribArray(positionAttributeLocation);
-                gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+        // Bind position attribute
+        const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
+        gl.enableVertexAttribArray(positionAttributeLocation);
+        gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-                // Cache uniform locations
-                const locs: UniformLocs = {
-                        time: gl.getUniformLocation(program, 'u_time'),
-                        animSpeed: gl.getUniformLocation(program, 'u_animSpeed'),
-                        resolution: gl.getUniformLocation(program, 'u_resolution'),
-                        mouse: gl.getUniformLocation(program, 'u_mouse')
+        // Cache uniform locations
+        const locs: UniformLocs = {
+            time: gl.getUniformLocation(program, 'u_time'),
+            animSpeed: gl.getUniformLocation(program, 'u_animSpeed'),
+            resolution: gl.getUniformLocation(program, 'u_resolution'),
+            mouse: gl.getUniformLocation(program, 'u_mouse')
+        };
+        uniformLocsRef.current = locs;
+
+        // Update resolution uniform
+        const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+        if (resolutionLocation) {
+            gl.uniform2f(resolutionLocation, bitmapSize.width, bitmapSize.height);
+        }
+
+        if (onReady) {
+            onReady(gl, locs);
+        }
+
+        return () => {
+            if (programRef.current === program) {
+                gl.deleteProgram(program);
+                programRef.current = null;
+                uniformLocsRef.current = {
+                    time: null,
+                    animSpeed: null,
+                    resolution: null,
+                    mouse: null
                 };
-                uniformLocsRef.current = locs;
+            }
+        };
+    }, [glRef, bitmapSize, trees, behaviors, onReady]);
 
-                // Update resolution uniform
-                const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
-                if (resolutionLocation) {
-                        gl.uniform2f(resolutionLocation, bitmapSize.width, bitmapSize.height);
-                }
-
-                if (onReady) {
-                        onReady(gl, locs);
-                }
-
-                return () => {
-                        if (programRef.current === program) {
-                                gl.deleteProgram(program);
-                                programRef.current = null;
-                                uniformLocsRef.current = {
-                                        time: null,
-                                        animSpeed: null,
-                                        resolution: null,
-                                        mouse: null
-                                };
-                        }
-                };
-        }, [glRef, bitmapSize, trees, behaviors, onReady]);
-
-        return { programRef, uniformLocsRef };
+    return { programRef, uniformLocsRef };
 }
 
 // ---------------------------------------------------------------------------
@@ -118,39 +118,39 @@ export function useShaderProgram(
 // ---------------------------------------------------------------------------
 
 function createShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
-        const shader = gl.createShader(type);
-        if (!shader) throw new Error('Failed to create shader');
-        gl.shaderSource(shader, source);
-        gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                const info = gl.getShaderInfoLog(shader);
-                gl.deleteShader(shader);
-                throw new Error('Shader compile error: ' + String(info));
-        }
-        return shader;
+    const shader = gl.createShader(type);
+    if (!shader) throw new Error('Failed to create shader');
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        const info = gl.getShaderInfoLog(shader);
+        gl.deleteShader(shader);
+        throw new Error('Shader compile error: ' + String(info));
+    }
+    return shader;
 }
 
 function createProgram(
-        gl: WebGL2RenderingContext,
-        vsSource: string,
-        fsSource: string
+    gl: WebGL2RenderingContext,
+    vsSource: string,
+    fsSource: string
 ): WebGLProgram {
-        const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
-        const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
-        const program = gl.createProgram();
-        gl.attachShader(program, vs);
-        gl.attachShader(program, fs);
-        gl.linkProgram(program);
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-                const info = gl.getProgramInfoLog(program);
-                gl.deleteProgram(program);
-                gl.deleteShader(vs);
-                gl.deleteShader(fs);
-                throw new Error('Program link error: ' + String(info));
-        }
-        gl.detachShader(program, vs);
-        gl.detachShader(program, fs);
+    const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+    const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        const info = gl.getProgramInfoLog(program);
+        gl.deleteProgram(program);
         gl.deleteShader(vs);
         gl.deleteShader(fs);
-        return program;
+        throw new Error('Program link error: ' + String(info));
+    }
+    gl.detachShader(program, vs);
+    gl.detachShader(program, fs);
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    return program;
 }

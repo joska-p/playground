@@ -1,36 +1,36 @@
 {
-        "name": "@repo/randomart-engine",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./animation/behaviors": "./src/animation/behaviors.ts",
-                "./compile/compileToGLSL": "./src/compile/compileToGLSL.ts",
-                "./compile/glslLibrary": "./src/compile/glslLibrary.ts",
-                "./format/treePrinter": "./src/format/treePrinter.ts",
-                "./grammar/registry": "./src/grammar/registry.ts",
-                "./random/SeededRandom": "./src/random/SeededRandom.ts",
-                "./render/cpu-renderer": "./src/render/cpu-renderer.ts",
-                "./tree/build": "./src/tree/build.ts",
-                "./tree/evaluate": "./src/tree/evaluate.ts",
-                "./tree/generate": "./src/tree/generate.ts",
-                "./types": "./src/types.ts",
-                "./png": "./src/png-export.ts"
-        },
-        "scripts": {
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "dependencies": {
-                "fast-png": "catalog:"
-        },
-        "devDependencies": {
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@types/node": "catalog:",
-                "eslint": "catalog:",
-                "typescript": "catalog:"
-        }
+    "name": "@repo/randomart-engine",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./animation/behaviors": "./src/animation/behaviors.ts",
+        "./compile/compileToGLSL": "./src/compile/compileToGLSL.ts",
+        "./compile/glslLibrary": "./src/compile/glslLibrary.ts",
+        "./format/treePrinter": "./src/format/treePrinter.ts",
+        "./grammar/registry": "./src/grammar/registry.ts",
+        "./random/SeededRandom": "./src/random/SeededRandom.ts",
+        "./render/cpu-renderer": "./src/render/cpu-renderer.ts",
+        "./tree/build": "./src/tree/build.ts",
+        "./tree/evaluate": "./src/tree/evaluate.ts",
+        "./tree/generate": "./src/tree/generate.ts",
+        "./types": "./src/types.ts",
+        "./png": "./src/png-export.ts"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "dependencies": {
+        "fast-png": "catalog:"
+    },
+    "devDependencies": {
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:"
+    }
 }

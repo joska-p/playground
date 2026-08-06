@@ -52,7 +52,7 @@ pnpm add @repo/l-system
 import { App } from '@repo/l-system';
 
 export default function Page() {
-        return <App />;
+    return <App />;
 }
 ```
 

@@ -1,50 +1,50 @@
 {
-        "name": "@repo/l-system",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./l-system": "./src/App.tsx",
-                "./styles": "./src/styles/styles.css"
-        },
-        "scripts": {
-                "dev": "vite --host",
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "preview": "vite preview --host",
-                "check-types": "tsc -b"
-        },
-        "dependencies": {
-                "@react-three/drei": "catalog:",
-                "@react-three/fiber": "catalog:",
-                "@repo/l-system-engine": "workspace:*",
-                "@repo/ui": "workspace:*",
-                "@types/three": "catalog:",
-                "leva": "catalog:",
-                "three": "catalog:",
-                "zustand": "catalog:"
-        },
-        "peerDependencies": {
-                "react": "catalog:",
-                "react-dom": "catalog:"
-        },
-        "devDependencies": {
-                "@babel/core": "catalog:",
-                "eslint": "catalog:",
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@rolldown/plugin-babel": "catalog:",
-                "@tailwindcss/vite": "catalog:",
-                "@types/babel__core": "catalog:",
-                "@types/node": "catalog:",
-                "@types/react": "catalog:",
-                "@types/react-dom": "catalog:",
-                "@vitejs/plugin-react": "catalog:",
-                "babel-plugin-react-compiler": "catalog:",
-                "react": "catalog:",
-                "react-dom": "catalog:",
-                "tailwindcss": "catalog:",
-                "typescript": "catalog:",
-                "vite": "catalog:"
-        }
+    "name": "@repo/l-system",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./l-system": "./src/App.tsx",
+        "./styles": "./src/styles/styles.css"
+    },
+    "scripts": {
+        "dev": "vite --host",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "preview": "vite preview --host",
+        "check-types": "tsc -b"
+    },
+    "dependencies": {
+        "@react-three/drei": "catalog:",
+        "@react-three/fiber": "catalog:",
+        "@repo/l-system-engine": "workspace:*",
+        "@repo/ui": "workspace:*",
+        "@types/three": "catalog:",
+        "leva": "catalog:",
+        "three": "catalog:",
+        "zustand": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    },
+    "devDependencies": {
+        "@babel/core": "catalog:",
+        "eslint": "catalog:",
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@rolldown/plugin-babel": "catalog:",
+        "@tailwindcss/vite": "catalog:",
+        "@types/babel__core": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "babel-plugin-react-compiler": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:"
+    }
 }

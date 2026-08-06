@@ -93,13 +93,13 @@ Two decoupled primitives, both pure logic:
 import { createRule } from './create-rule';
 
 export const myRule = createRule({
-        id: 'my-rule',
-        name: 'My Rule',
-        description: 'What it does',
-        maxSteps: 500,
-        getNext: ({ index, current, sequence, seen }) => {
-                // return next value
-        }
+    id: 'my-rule',
+    name: 'My Rule',
+    description: 'What it does',
+    maxSteps: 500,
+    getNext: ({ index, current, sequence, seen }) => {
+        // return next value
+    }
 });
 ```
 

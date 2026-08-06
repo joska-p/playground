@@ -2,29 +2,29 @@ import { useEffect, useRef } from 'react';
 import { putImageData } from '../../core/image-data';
 
 type OutputProps = {
-        imageData: ImageData;
+    imageData: ImageData;
 };
 
 function Output({ imageData }: OutputProps) {
-        const ref = useRef<HTMLCanvasElement>(null);
+    const ref = useRef<HTMLCanvasElement>(null);
 
-        useEffect(() => {
-                if (!ref.current) return;
+    useEffect(() => {
+        if (!ref.current) return;
 
-                putImageData(ref.current, imageData);
-        }, [imageData]);
+        putImageData(ref.current, imageData);
+    }, [imageData]);
 
-        const width = imageData.width;
-        const height = imageData.height;
+    const width = imageData.width;
+    const height = imageData.height;
 
-        return (
-                <canvas
-                        ref={ref}
-                        width={width}
-                        height={height}
-                        className="max-h-full max-w-full"
-                />
-        );
+    return (
+        <canvas
+            ref={ref}
+            width={width}
+            height={height}
+            className="max-h-full max-w-full"
+        />
+    );
 }
 
 export { Output };

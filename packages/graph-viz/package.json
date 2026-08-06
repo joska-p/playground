@@ -1,55 +1,55 @@
 {
-        "name": "@repo/graph-viz",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./graph-viz": "./src/App.tsx",
-                "./styles": "./src/styles/global.css"
-        },
-        "scripts": {
-                "dev": "vite --host",
-                "prepare-data": "tsx src/core/pipeline/prepare.ts",
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "preview": "vite preview --host",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "dependencies": {
-                "@react-three/drei": "catalog:",
-                "@react-three/fiber": "catalog:",
-                "@repo/ui": "workspace:*",
-                "three": "catalog:",
-                "zod": "catalog:",
-                "zustand": "catalog:"
-        },
-        "peerDependencies": {
-                "react": "catalog:",
-                "react-dom": "catalog:"
-        },
-        "devDependencies": {
-                "@babel/core": "catalog:",
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@rolldown/plugin-babel": "catalog:",
-                "@tailwindcss/vite": "catalog:",
-                "@tsconfig/strictest": "catalog:",
-                "@types/babel__core": "catalog:",
-                "@types/d3-force": "^3.0.10",
-                "@types/node": "catalog:",
-                "@types/react": "catalog:",
-                "@types/react-dom": "catalog:",
-                "@types/three": "catalog:",
-                "@vitejs/plugin-react": "catalog:",
-                "babel-plugin-react-compiler": "catalog:",
-                "d3-force-3d": "^3.0.6",
-                "eslint": "catalog:",
-                "react": "catalog:",
-                "react-dom": "catalog:",
-                "tailwindcss": "catalog:",
-                "tsx": "^4.22.4",
-                "typescript": "catalog:",
-                "vite": "catalog:"
-        }
+    "name": "@repo/graph-viz",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./graph-viz": "./src/App.tsx",
+        "./styles": "./src/styles/global.css"
+    },
+    "scripts": {
+        "dev": "vite --host",
+        "prepare-data": "tsx src/core/pipeline/prepare.ts",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "preview": "vite preview --host",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "dependencies": {
+        "@react-three/drei": "catalog:",
+        "@react-three/fiber": "catalog:",
+        "@repo/ui": "workspace:*",
+        "three": "catalog:",
+        "zod": "catalog:",
+        "zustand": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    },
+    "devDependencies": {
+        "@babel/core": "catalog:",
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@rolldown/plugin-babel": "catalog:",
+        "@tailwindcss/vite": "catalog:",
+        "@tsconfig/strictest": "catalog:",
+        "@types/babel__core": "catalog:",
+        "@types/d3-force": "^3.0.10",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@types/three": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "babel-plugin-react-compiler": "catalog:",
+        "d3-force-3d": "^3.0.6",
+        "eslint": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "tailwindcss": "catalog:",
+        "tsx": "^4.22.4",
+        "typescript": "catalog:",
+        "vite": "catalog:"
+    }
 }

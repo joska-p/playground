@@ -3,37 +3,37 @@ import { cn } from '../../../lib/cn';
 import { labelVariants, type LabelVariants } from './variants';
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, LabelVariants {
-        /** Shows a colored "*" after the label text. */
-        required?: boolean;
-        ref?: Ref<HTMLLabelElement>;
+    /** Shows a colored "*" after the label text. */
+    required?: boolean;
+    ref?: Ref<HTMLLabelElement>;
 }
 
 export function Label({
-        className,
-        variant,
-        size,
-        disabled = false,
-        required,
-        children,
-        ref,
-        ...props
+    className,
+    variant,
+    size,
+    disabled = false,
+    required,
+    children,
+    ref,
+    ...props
 }: LabelProps) {
-        return (
-                <label
-                        ref={ref}
-                        className={cn(labelVariants({ variant, size, disabled }), className)}
-                        aria-disabled={disabled ?? undefined}
-                        {...props}
+    return (
+        <label
+            ref={ref}
+            className={cn(labelVariants({ variant, size, disabled }), className)}
+            aria-disabled={disabled ?? undefined}
+            {...props}
+        >
+            {children}
+            {required && (
+                <span
+                    className="text-destructive"
+                    aria-hidden="true"
                 >
-                        {children}
-                        {required && (
-                                <span
-                                        className="text-destructive"
-                                        aria-hidden="true"
-                                >
-                                        *
-                                </span>
-                        )}
-                </label>
-        );
+                    *
+                </span>
+            )}
+        </label>
+    );
 }

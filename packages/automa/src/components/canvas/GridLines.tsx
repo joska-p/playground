@@ -1,17 +1,17 @@
 import { useCols, useRows } from '../../stores/automa';
 
 function GridLines() {
-        const cols = useCols();
-        const rows = useRows();
+    const cols = useCols();
+    const rows = useRows();
 
-        return (
-                <div
-                        aria-hidden="true"
-                        style={{
-                                position: 'absolute',
-                                inset: 0,
-                                pointerEvents: 'none',
-                                backgroundImage: `
+    return (
+        <div
+            aria-hidden="true"
+            style={{
+                position: 'absolute',
+                inset: 0,
+                pointerEvents: 'none',
+                backgroundImage: `
           repeating-linear-gradient(
             to right,
             rgba(255,255,255,0.15) 0px,
@@ -27,9 +27,9 @@ function GridLines() {
             transparent calc(100% / ${String(rows)})
           )
         `
-                        }}
-                />
-        );
+            }}
+        />
+    );
 }
 
 export { GridLines };

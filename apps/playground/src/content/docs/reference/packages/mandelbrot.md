@@ -3,8 +3,8 @@ title: 'Mandelbrot'
 description: 'Scaffolded demo showcasing Zustand + Zod.'
 category: 'reference'
 tags:
-        - reference
-        - mandelbrot
+    - reference
+    - mandelbrot
 order: 20
 ---
 

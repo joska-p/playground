@@ -3,10 +3,10 @@ import type { Theme } from '../hooks/useThemeState';
 import { ThemeContext } from './useTheme';
 
 export interface ThemeProviderProps {
-        theme: Theme;
-        setTheme: (theme: Theme) => void;
-        toggleTheme: () => void;
-        children: ReactNode;
+    theme: Theme;
+    setTheme: (theme: Theme) => void;
+    toggleTheme: () => void;
+    children: ReactNode;
 }
 
 /**
@@ -17,9 +17,9 @@ export interface ThemeProviderProps {
  * that never render it still get the dark theme for free.
  */
 export function ThemeProvider({ theme, setTheme, toggleTheme, children }: ThemeProviderProps) {
-        return (
-                <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
-                        {children}
-                </ThemeContext.Provider>
-        );
+    return (
+        <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
 }

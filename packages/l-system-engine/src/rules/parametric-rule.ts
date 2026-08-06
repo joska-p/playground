@@ -1,17 +1,17 @@
 import type { LSymbol, Parameter, Rule, Word } from '../types';
 
 export type ParametricOptions = {
-        /** Name of the symbol this rule matches. */
-        readonly name: string;
-        /**
-         * Optional guard predicate evaluated against the symbol's parameters.
-         * The rule only fires when the guard returns true (or when omitted).
-         */
-        readonly guard?: (params: readonly Parameter[]) => boolean;
-        /**
-         * Produces a replacement word from the matched symbol's parameters.
-         */
-        readonly produce: (params: readonly Parameter[]) => Word;
+    /** Name of the symbol this rule matches. */
+    readonly name: string;
+    /**
+     * Optional guard predicate evaluated against the symbol's parameters.
+     * The rule only fires when the guard returns true (or when omitted).
+     */
+    readonly guard?: (params: readonly Parameter[]) => boolean;
+    /**
+     * Produces a replacement word from the matched symbol's parameters.
+     */
+    readonly produce: (params: readonly Parameter[]) => Word;
 };
 
 /**
@@ -27,14 +27,14 @@ export type ParametricOptions = {
  * })
  */
 export function parametricRule(options: ParametricOptions): Rule {
-        return {
-                match(sym: LSymbol): boolean {
-                        if (sym.name !== options.name) return false;
-                        if (options.guard !== undefined && !options.guard(sym.params)) return false;
-                        return true;
-                },
-                apply(sym: LSymbol): Word {
-                        return options.produce(sym.params);
-                }
-        };
+    return {
+        match(sym: LSymbol): boolean {
+            if (sym.name !== options.name) return false;
+            if (options.guard !== undefined && !options.guard(sym.params)) return false;
+            return true;
+        },
+        apply(sym: LSymbol): Word {
+            return options.produce(sym.params);
+        }
+    };
 }

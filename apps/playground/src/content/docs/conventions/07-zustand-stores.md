@@ -2,8 +2,8 @@
 title: Zustand Stores
 description: Store structure, naming, async orchestration, and when/how to split a growing store.
 tags:
-        - conventions
-        - reference
+    - conventions
+    - reference
 ---
 
 # Zustand Stores
@@ -21,14 +21,14 @@ tags:
 - Single-component UI state → `useState`. Promote to Zustand only when consumed by multiple unrelated components.
 - Raw store named `camelCase[Domain]Store` — never imported in components.
 - Async orchestration in `actions.ts` as a plain async function using `getState()`/`setState()`. No thunk middleware:
-     ```typescript
-     // actions.ts
-     export async function fetchAndSetNodes() {
-             const { filters } = nodesStore.getState();
-             const data = await fetchNodes(filters);
-             nodesStore.setState({ nodes: data });
-     }
-     ```
+    ```typescript
+    // actions.ts
+    export async function fetchAndSetNodes() {
+        const { filters } = nodesStore.getState();
+        const data = await fetchNodes(filters);
+        nodesStore.setState({ nodes: data });
+    }
+    ```
 - Domain coupling test: if an action in one domain reads from another domain's store, merge those domains. Conversely, don't hesitate to split a store into multiple domains if they are truly independent.
 
 ## Splitting a growing store (guideline)

@@ -2,7 +2,7 @@
 title: Documenting a Package
 description: How to write package documentation — the README is the single source of truth.
 tags:
-        - how-to
+    - how-to
 ---
 
 # Documenting a Package

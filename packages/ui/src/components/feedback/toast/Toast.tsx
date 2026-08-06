@@ -7,99 +7,92 @@ import styles from './Toast.module.css';
 import { ToastContext } from './useToast';
 
 const iconMap: Record<string, ReactNode> = {
-        default: <Circle className="h-3.5 w-3.5" />,
-        primary: <Info className="h-3.5 w-3.5" />,
-        secondary: <CheckCircle2 className="h-3.5 w-3.5" />,
-        accent: <Info className="h-3.5 w-3.5" />,
-        warning: <TriangleAlert className="h-3.5 w-3.5" />,
-        destructive: <XCircle className="h-3.5 w-3.5" />
+    default: <Circle className="h-3.5 w-3.5" />,
+    primary: <Info className="h-3.5 w-3.5" />,
+    secondary: <CheckCircle2 className="h-3.5 w-3.5" />,
+    accent: <Info className="h-3.5 w-3.5" />,
+    warning: <TriangleAlert className="h-3.5 w-3.5" />,
+    destructive: <XCircle className="h-3.5 w-3.5" />
 };
 
 const iconColor: Record<string, string> = {
-        default: 'text-foreground-dim',
-        primary: 'text-primary',
-        secondary: 'text-secondary',
-        accent: 'text-accent',
-        warning: 'text-warning',
-        destructive: 'text-destructive'
+    default: 'text-foreground-dim',
+    primary: 'text-primary',
+    secondary: 'text-secondary',
+    accent: 'text-accent',
+    warning: 'text-warning',
+    destructive: 'text-destructive'
 };
 
 export function ToastViewport({
-        toasts,
-        onDismiss
+    toasts,
+    onDismiss
 }: {
-        toasts: ToastItem[];
-        onDismiss: (id: number) => void;
+    toasts: ToastItem[];
+    onDismiss: (id: number) => void;
 }) {
-        if (typeof document === 'undefined') return null;
+    if (typeof document === 'undefined') return null;
 
-        return createPortal(
-                <div className="fixed right-4 bottom-4 z-9999 flex flex-col gap-2">
-                        {toasts.map((toast) => {
-                                const key = toast.variant ?? 'default';
-                                return (
-                                        <div
-                                                key={toast.id}
-                                                className={cn(
-                                                        styles['item'],
-                                                        'bg-surface-raised w-72 rounded-lg p-4',
-                                                        toast.exiting && styles['itemExit']
-                                                )}
-                                                style={{ boxShadow: 'var(--shadow-lg)' }}
-                                                role="status"
-                                        >
-                                                <div className="flex gap-3">
-                                                        <span
-                                                                className={cn(
-                                                                        'mt-0.5 text-xs',
-                                                                        iconColor[key]
-                                                                )}
-                                                        >
-                                                                {iconMap[key]}
-                                                        </span>
-                                                        <div className="flex-1">
-                                                                <p className="text-foreground text-sm font-medium">
-                                                                        {toast.title}
-                                                                </p>
-                                                                {toast.description && (
-                                                                        <p className="text-foreground-muted mt-1 text-xs">
-                                                                                {toast.description}
-                                                                        </p>
-                                                                )}
-                                                        </div>
-                                                        <button
-                                                                onClick={() => {
-                                                                        onDismiss(toast.id);
-                                                                }}
-                                                                aria-label="Dismiss notification"
-                                                                className="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"
-                                                        >
-                                                                <X className="h-3.5 w-3.5" />
-                                                        </button>
-                                                </div>
-                                        </div>
-                                );
-                        })}
-                </div>,
-                document.body
-        );
+    return createPortal(
+        <div className="fixed right-4 bottom-4 z-9999 flex flex-col gap-2">
+            {toasts.map((toast) => {
+                const key = toast.variant ?? 'default';
+                return (
+                    <div
+                        key={toast.id}
+                        className={cn(
+                            styles['item'],
+                            'bg-surface-raised w-72 rounded-lg p-4',
+                            toast.exiting && styles['itemExit']
+                        )}
+                        style={{ boxShadow: 'var(--shadow-lg)' }}
+                        role="status"
+                    >
+                        <div className="flex gap-3">
+                            <span className={cn('mt-0.5 text-xs', iconColor[key])}>
+                                {iconMap[key]}
+                            </span>
+                            <div className="flex-1">
+                                <p className="text-foreground text-sm font-medium">{toast.title}</p>
+                                {toast.description && (
+                                    <p className="text-foreground-muted mt-1 text-xs">
+                                        {toast.description}
+                                    </p>
+                                )}
+                            </div>
+                            <button
+                                onClick={() => {
+                                    onDismiss(toast.id);
+                                }}
+                                aria-label="Dismiss notification"
+                                className="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"
+                            >
+                                <X className="h-3.5 w-3.5" />
+                            </button>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>,
+        document.body
+    );
 }
 
 export interface ToastProviderProps {
-        toasts: ToastItem[];
-        toast: (options: ToastOptions) => number;
-        dismiss: (id: number) => void;
-        children: ReactNode;
+    toasts: ToastItem[];
+    toast: (options: ToastOptions) => number;
+    dismiss: (id: number) => void;
+    children: ReactNode;
 }
 
 export function ToastProvider({ toasts, toast, dismiss, children }: ToastProviderProps) {
-        return (
-                <ToastContext.Provider value={{ toast, dismiss }}>
-                        {children}
-                        <ToastViewport
-                                toasts={toasts}
-                                onDismiss={dismiss}
-                        />
-                </ToastContext.Provider>
-        );
+    return (
+        <ToastContext.Provider value={{ toast, dismiss }}>
+            {children}
+            <ToastViewport
+                toasts={toasts}
+                onDismiss={dismiss}
+            />
+        </ToastContext.Provider>
+    );
 }

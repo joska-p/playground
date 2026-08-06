@@ -4,56 +4,56 @@ import { randomartStore, updateTreeConfig } from '../store';
 import type { Mode } from '../types';
 
 export function setMode(mode: Mode): void {
-        randomartStore.setState({ mode }, false, 'config/setMode');
+    randomartStore.setState({ mode }, false, 'config/setMode');
 }
 
 export function setSeedText(seedText: string): void {
-        updateTreeConfig(() => ({ seedText }), 'config/setSeedText');
+    updateTreeConfig(() => ({ seedText }), 'config/setSeedText');
 }
 
 export function setMaxDepth(maxDepth: number): void {
-        updateTreeConfig(() => ({ maxDepth }), 'config/setMaxDepth');
+    updateTreeConfig(() => ({ maxDepth }), 'config/setMaxDepth');
 }
 
 export function setMinDepth(minDepth: number): void {
-        updateTreeConfig(() => ({ minDepth }), 'config/setMinDepth');
+    updateTreeConfig(() => ({ minDepth }), 'config/setMinDepth');
 }
 
 export function setAnimationSpeed(speed: number): void {
-        randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
+    randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
 }
 
 export function setColorSpace(colorSpace: ColorSpaceId): void {
-        randomartStore.setState({ colorSpace }, false, 'config/setColorSpace');
+    randomartStore.setState({ colorSpace }, false, 'config/setColorSpace');
 }
 
 export function setCorrelatedRGB(correlatedRGB: boolean): void {
-        updateTreeConfig(() => ({ correlatedRGB }), 'display/setCorrelatedRGB');
+    updateTreeConfig(() => ({ correlatedRGB }), 'display/setCorrelatedRGB');
 }
 
 export function selectRule(ruleId: RuleId): void {
-        const rule = getRule(ruleId);
-        updateTreeConfig(
-                () => ({
-                        selectedRuleId: ruleId,
-                        customOperatorIds: null,
-                        minDepth: rule.minDepth,
-                        maxDepth: rule.maxDepth
-                }),
-                `config/selectRule (${ruleId})`
-        );
+    const rule = getRule(ruleId);
+    updateTreeConfig(
+        () => ({
+            selectedRuleId: ruleId,
+            customOperatorIds: null,
+            minDepth: rule.minDepth,
+            maxDepth: rule.maxDepth
+        }),
+        `config/selectRule (${ruleId})`
+    );
 }
 
 export function toggleOperator(operatorId: OperatorId): void {
-        updateTreeConfig((state) => {
-                const rule = getRule(state.selectedRuleId);
-                const base = state.customOperatorIds ?? rule.operatorIds;
-                const isCurrentlyEnabled = base.includes(operatorId);
+    updateTreeConfig((state) => {
+        const rule = getRule(state.selectedRuleId);
+        const base = state.customOperatorIds ?? rule.operatorIds;
+        const isCurrentlyEnabled = base.includes(operatorId);
 
-                const nextOperatorIds = isCurrentlyEnabled
-                        ? base.filter((id) => id !== operatorId)
-                        : [...base, operatorId];
+        const nextOperatorIds = isCurrentlyEnabled
+            ? base.filter((id) => id !== operatorId)
+            : [...base, operatorId];
 
-                return { customOperatorIds: nextOperatorIds };
-        }, `config/toggleOperator (${operatorId})`);
+        return { customOperatorIds: nextOperatorIds };
+    }, `config/toggleOperator (${operatorId})`);
 }

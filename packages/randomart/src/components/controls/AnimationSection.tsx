@@ -5,33 +5,29 @@ import { toggleAnimationBehavior } from '../../stores/randomart/actions/animatio
 import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';
 
 function AnimationSection() {
-        const activeIds = useActiveAnimationBehaviorIds();
+    const activeIds = useActiveAnimationBehaviorIds();
 
-        return (
-                <ControlSection
-                        title="animation"
-                        defaultOpen={false}
-                >
-                        <ControlGrid columns={2}>
-                                {animationRegistry.map((behavior) => (
-                                        <Button
-                                                size="sm"
-                                                key={`animation-${behavior.id}`}
-                                                variant={
-                                                        activeIds.includes(behavior.id)
-                                                                ? 'accent'
-                                                                : 'default'
-                                                }
-                                                onClick={() => {
-                                                        toggleAnimationBehavior(behavior.id);
-                                                }}
-                                        >
-                                                {behavior.name}
-                                        </Button>
-                                ))}
-                        </ControlGrid>
-                </ControlSection>
-        );
+    return (
+        <ControlSection
+            title="animation"
+            defaultOpen={false}
+        >
+            <ControlGrid columns={2}>
+                {animationRegistry.map((behavior) => (
+                    <Button
+                        size="sm"
+                        key={`animation-${behavior.id}`}
+                        variant={activeIds.includes(behavior.id) ? 'accent' : 'default'}
+                        onClick={() => {
+                            toggleAnimationBehavior(behavior.id);
+                        }}
+                    >
+                        {behavior.name}
+                    </Button>
+                ))}
+            </ControlGrid>
+        </ControlSection>
+    );
 }
 
 export { AnimationSection };

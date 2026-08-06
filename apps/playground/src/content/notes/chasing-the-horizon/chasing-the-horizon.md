@@ -4,10 +4,10 @@ description: A cosmic journey.
 date: 2026-07-06
 draft: false
 tags:
-        - log
-        - math
-        - complex-systems
-        - philosophy
+    - log
+    - math
+    - complex-systems
+    - philosophy
 ---
 
 ## Captain's Log: Stardate 2026.07.06

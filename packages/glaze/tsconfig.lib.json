@@ -1,10 +1,10 @@
 {
-        "extends": "@repo/config-typescript/node.json",
-        "compilerOptions": {
-                "lib": ["ES2023", "DOM"],
-                "types": ["node", "vite/client"],
-                "jsx": "react-jsx"
-        },
-        "include": ["src"],
-        "exclude": ["src/example"]
+    "extends": "@repo/config-typescript/node.json",
+    "compilerOptions": {
+        "lib": ["ES2023", "DOM"],
+        "types": ["node", "vite/client"],
+        "jsx": "react-jsx"
+    },
+    "include": ["src"],
+    "exclude": ["src/example"]
 }

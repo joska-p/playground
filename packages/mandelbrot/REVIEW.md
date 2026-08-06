@@ -52,14 +52,14 @@ Yes. This is called **perturbation theory**, and it works like this:
 2. For every other pixel `c`, don't iterate `z² + c` from scratch. Instead track only the
    tiny **difference** `δ` between the pixel and the reference:
 
-      ```
-      δ₀ = 0
-      repeat:
-          δ = 2·Z·δ + δ² + δc        (δc = c_pixel − c_reference)
-      ```
+    ```
+    δ₀ = 0
+    repeat:
+        δ = 2·Z·δ + δ² + δc        (δc = c_pixel − c_reference)
+    ```
 
-      This recurrence is mathematically identical to the real one, but every value in it is
-      **small** — so it fits in fast GPU floats, and stays accurate even at extreme zoom.
+    This recurrence is mathematically identical to the real one, but every value in it is
+    **small** — so it fits in fast GPU floats, and stays accurate even at extreme zoom.
 
 That split is the entire architecture of this app:
 
@@ -110,12 +110,12 @@ Concretely, a frame looks like this:
    reference point, the iteration budget), and calls `renderer.render(...)`.
 3. **The GPU draws one full-screen triangle.** For every pixel, the fragment shader runs
    the perturbation loop above, plus:
-      - **Rebasing** — every so often it "re-locks" the delta back onto the reference so tiny
-        float errors never accumulate into glitchy blobs (a well-known Mandelbrot trick).
-      - **The derivative** `dz/dc` — gives a _distance estimate_ (the crisp glowing border)
-        and a _surface normal_ (the embossed 3-D lighting).
-      - **Colouring** — a smooth (fractional) iteration count is mapped through OKLCH
-        (perceptual colour) entirely inside the shader, then converted to sRGB.
+    - **Rebasing** — every so often it "re-locks" the delta back onto the reference so tiny
+      float errors never accumulate into glitchy blobs (a well-known Mandelbrot trick).
+    - **The derivative** `dz/dc` — gives a _distance estimate_ (the crisp glowing border)
+      and a _surface normal_ (the embossed 3-D lighting).
+    - **Colouring** — a smooth (fractional) iteration count is mapped through OKLCH
+      (perceptual colour) entirely inside the shader, then converted to sRGB.
 4. **The reference is not recomputed every frame.** Only when you've moved "far" from the
    last reference point (see 1.6).
 

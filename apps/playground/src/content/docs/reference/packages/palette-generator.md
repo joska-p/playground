@@ -3,8 +3,8 @@ title: 'Palette Generator'
 description: 'A color-picking experience that renders four color spaces as interactive canvases — tap a pixel, pick a base color, apply a harmony rule, and watch a palette accumulate in the display.'
 category: 'reference'
 tags:
-        - reference
-        - palette-generator
+    - reference
+    - palette-generator
 order: 20
 ---
 
@@ -64,7 +64,7 @@ pnpm add @repo/palette-generator
 import { PaletteGenerator } from '@repo/palette-generator';
 
 export default function Palettes() {
-        return <PaletteGenerator />;
+    return <PaletteGenerator />;
 }
 ```
 

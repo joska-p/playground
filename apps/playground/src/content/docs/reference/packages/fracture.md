@@ -3,8 +3,8 @@ title: 'Fracture'
 description: 'Scaffolded demo showcasing Zustand + Zod.'
 category: 'reference'
 tags:
-        - reference
-        - fracture
+    - reference
+    - fracture
 order: 20
 ---
 

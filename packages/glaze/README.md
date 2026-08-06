@@ -29,14 +29,14 @@ import { drawText } from '@repo/glaze/cpu/shapes/text';
 const runtime = createCpuRuntime({ canvas });
 
 runtime.setDraw(({ time }) => {
-        runtime.clear('#0d1015');
-        drawCircle(
-                runtime.context,
-                { fill: '#e11d48' },
-                { x: 200, y: 150 + Math.sin(time * 2) * 30 },
-                60
-        );
-        drawText(runtime.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
+    runtime.clear('#0d1015');
+    drawCircle(
+        runtime.context,
+        { fill: '#e11d48' },
+        { x: 200, y: 150 + Math.sin(time * 2) * 30 },
+        60
+    );
+    drawText(runtime.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
 });
 ```
 
@@ -52,27 +52,24 @@ import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 
 export function Sketch() {
-        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
 
-        return (
-                <GpuCanvas
-                        onRuntime={setRuntime}
-                        onFrame={() => {
-                                if (!runtime) return;
-                                runtime.clear(0.05, 0.07, 0.09, 1);
-                                runtime.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
-                                runtime.drawRect(
-                                        { x: 30, y: 30, w: 120, h: 90 },
-                                        { fill: '#16a34a' }
-                                );
-                                runtime.drawLine(
-                                        { x: 30, y: 260 },
-                                        { x: 200, y: 260 },
-                                        { stroke: '#3b82f6', lineWidth: 8 }
-                                );
-                        }}
-                />
-        );
+    return (
+        <GpuCanvas
+            onRuntime={setRuntime}
+            onFrame={() => {
+                if (!runtime) return;
+                runtime.clear(0.05, 0.07, 0.09, 1);
+                runtime.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
+                runtime.drawRect({ x: 30, y: 30, w: 120, h: 90 }, { fill: '#16a34a' });
+                runtime.drawLine(
+                    { x: 30, y: 260 },
+                    { x: 200, y: 260 },
+                    { stroke: '#3b82f6', lineWidth: 8 }
+                );
+            }}
+        />
+    );
 }
 ```
 
@@ -86,10 +83,10 @@ For shader art you never touch the runtime: pass a fragment shader to `GpuCanvas
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
 export function Plasma() {
-        return (
-                <GpuCanvas
-                        style={{ width: 400, height: 300 }}
-                        fragmentShader={`precision highp float;
+    return (
+        <GpuCanvas
+            style={{ width: 400, height: 300 }}
+            fragmentShader={`precision highp float;
 in vec2 vUv;
 out vec4 out_color;
 uniform vec2 u_resolution;
@@ -99,8 +96,8 @@ void main() {
   float wave = 0.5 + 0.5 * sin(length(p) * 5.0 - u_time * 4.0);
   out_color = vec4(mix(vec3(0.08, 0.05, 0.16), vec3(1.0, 0.35, 0.18), wave), 1.0);
 }`}
-                />
-        );
+        />
+    );
 }
 ```
 
@@ -118,58 +115,58 @@ const runtime = createGpuRuntime({ canvas });
 const buffer = createStateBuffer(runtime.gl, 96, 96);
 
 buffer.addProgram(
-        'sim',
-        /* glsl */ `
-                precision highp float;
-                in vec2 vUv;
-                out vec4 fragColor;
-                uniform sampler2D u_state;
-                uniform vec2 u_gridSize;
+    'sim',
+    /* glsl */ `
+        precision highp float;
+        in vec2 vUv;
+        out vec4 fragColor;
+        uniform sampler2D u_state;
+        uniform vec2 u_gridSize;
 
-                ivec2 wrap(ivec2 c) {
-                        return ivec2(mod(vec2(c) + u_gridSize, u_gridSize));
+        ivec2 wrap(ivec2 c) {
+            return ivec2(mod(vec2(c) + u_gridSize, u_gridSize));
+        }
+        int cellAt(ivec2 c) {
+            return int(texelFetch(u_state, wrap(c), 0).r * 255.0 + 0.5);
+        }
+        void main() {
+            ivec2 coord = ivec2(gl_FragCoord.xy);
+            int alive = cellAt(coord);
+            int n = 0;
+            for (int dy = -1; dy <= 1; dy++)
+                for (int dx = -1; dx <= 1; dx++) {
+                    if (dx == 0 && dy == 0) continue;
+                    n += cellAt(coord + ivec2(dx, dy));
                 }
-                int cellAt(ivec2 c) {
-                        return int(texelFetch(u_state, wrap(c), 0).r * 255.0 + 0.5);
-                }
-                void main() {
-                        ivec2 coord = ivec2(gl_FragCoord.xy);
-                        int alive = cellAt(coord);
-                        int n = 0;
-                        for (int dy = -1; dy <= 1; dy++)
-                                for (int dx = -1; dx <= 1; dx++) {
-                                        if (dx == 0 && dy == 0) continue;
-                                        n += cellAt(coord + ivec2(dx, dy));
-                                }
-                        float next =
-                                alive == 1 && (n == 2 || n == 3) || alive == 0 && n == 3
-                                        ? 1.0 / 255.0
-                                        : 0.0;
-                        fragColor = vec4(next, 0.0, 0.0, 1.0);
-                }
-        `
+            float next =
+                alive == 1 && (n == 2 || n == 3) || alive == 0 && n == 3
+                    ? 1.0 / 255.0
+                    : 0.0;
+            fragColor = vec4(next, 0.0, 0.0, 1.0);
+        }
+    `
 );
 
 buffer.init(cells); // one byte per cell: 0 or 1
 
 const display = runtime.createProgram(/* glsl */ `
-        precision highp float;
-        in vec2 vUv;
-        out vec4 out_color;
-        uniform sampler2D u_state;
-        void main() {
-                float alive = texture(u_state, vUv).r;
-                out_color = vec4(mix(vec3(0.05, 0.07, 0.12), vec3(0.96, 0.6, 0.22), alive), 1.0);
-        }
+    precision highp float;
+    in vec2 vUv;
+    out vec4 out_color;
+    uniform sampler2D u_state;
+    void main() {
+        float alive = texture(u_state, vUv).r;
+        out_color = vec4(mix(vec3(0.05, 0.07, 0.12), vec3(0.96, 0.6, 0.22), alive), 1.0);
+    }
 `);
 
 runtime.setDraw(() => {
-        buffer.useProgram('sim');
-        buffer.setUniforms({ u_gridSize: [96, 96] });
-        buffer.step(); // one generation, then swap the ping-pong pair
-        runtime.clear(0, 0, 0, 1);
-        display.setUniforms({ u_state: buffer.getTexture() });
-        runtime.renderProgram(display);
+    buffer.useProgram('sim');
+    buffer.setUniforms({ u_gridSize: [96, 96] });
+    buffer.step(); // one generation, then swap the ping-pong pair
+    runtime.clear(0, 0, 0, 1);
+    display.setUniforms({ u_state: buffer.getTexture() });
+    runtime.renderProgram(display);
 });
 ```
 
@@ -187,22 +184,22 @@ import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { useCamera } from '@repo/glaze/react/useCamera';
 
 export function Crosshair() {
-        const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
-        const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
+    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
 
-        return (
-                <CpuCanvas
-                        onRuntime={setRuntime}
-                        camera={camera}
-                        cameraControls={controls}
-                        onFrame={({ input }) => {
-                                if (!runtime) return;
-                                runtime.clear('#0d1015');
-                                const world = input.getPointerWorldPos(camera);
-                                drawCircle(runtime.context, { fill: '#38bdf8' }, world, 12);
-                        }}
-                />
-        );
+    return (
+        <CpuCanvas
+            onRuntime={setRuntime}
+            camera={camera}
+            cameraControls={controls}
+            onFrame={({ input }) => {
+                if (!runtime) return;
+                runtime.clear('#0d1015');
+                const world = input.getPointerWorldPos(camera);
+                drawCircle(runtime.context, { fill: '#38bdf8' }, world, 12);
+            }}
+        />
+    );
 }
 ```
 
@@ -218,18 +215,18 @@ import { FrameLoopProvider } from '@repo/glaze/react/FrameLoopProvider';
 import { useFrame } from '@repo/glaze/react/useFrame';
 
 function FpsHud() {
-        const [fps, setFps] = useState(0);
-        useFrame((_time, delta) => setFps(delta > 0 ? Math.round(1 / delta) : 0));
-        return <span>{fps} fps</span>;
+    const [fps, setFps] = useState(0);
+    useFrame((_time, delta) => setFps(delta > 0 ? Math.round(1 / delta) : 0));
+    return <span>{fps} fps</span>;
 }
 
 export function App() {
-        return (
-                <FrameLoopProvider>
-                        <FpsHud />
-                        <Sketch />
-                </FrameLoopProvider>
-        );
+    return (
+        <FrameLoopProvider>
+            <FpsHud />
+            <Sketch />
+        </FrameLoopProvider>
+    );
 }
 ```
 

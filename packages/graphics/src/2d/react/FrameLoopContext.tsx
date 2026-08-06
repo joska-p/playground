@@ -5,32 +5,32 @@ import { createFrameLoop, type FrameLoop } from '../../core/createFrameLoop';
 const FrameLoopContext = createContext<FrameLoop | null>(null);
 
 function FrameLoopProvider({ children }: { children: ReactNode }) {
-        const [loop] = useState(() => createFrameLoop());
+    const [loop] = useState(() => createFrameLoop());
 
-        useEffect(() => {
-                return () => {
-                        loop.dispose();
-                };
-        }, [loop]);
+    useEffect(() => {
+        return () => {
+            loop.dispose();
+        };
+    }, [loop]);
 
-        return <FrameLoopContext value={loop}>{children}</FrameLoopContext>;
+    return <FrameLoopContext value={loop}>{children}</FrameLoopContext>;
 }
 
 function useFrame(callback: (time: number, delta: number) => void): void {
-        const loop = useContext(FrameLoopContext);
-        const ref = useRef(callback);
+    const loop = useContext(FrameLoopContext);
+    const ref = useRef(callback);
 
-        useEffect(() => {
-                ref.current = callback;
-        });
+    useEffect(() => {
+        ref.current = callback;
+    });
 
-        useEffect(() => {
-                if (!loop) return;
-                const cb = (time: number, delta: number) => {
-                        ref.current(time, delta);
-                };
-                return loop.subscribe(cb);
-        }, [loop]);
+    useEffect(() => {
+        if (!loop) return;
+        const cb = (time: number, delta: number) => {
+            ref.current(time, delta);
+        };
+        return loop.subscribe(cb);
+    }, [loop]);
 }
 
 export { FrameLoopContext, FrameLoopProvider, useFrame };

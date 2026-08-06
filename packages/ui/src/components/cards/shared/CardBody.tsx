@@ -2,7 +2,7 @@ import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 
 export type CardBodyProps = {
-        ref?: Ref<HTMLDivElement>;
+    ref?: Ref<HTMLDivElement>;
 } & ComponentProps<'div'>;
 
 /**
@@ -14,13 +14,13 @@ export type CardBodyProps = {
  * defaults cleanly.
  */
 export function CardBody({ ref, className, children, ...props }: CardBodyProps) {
-        return (
-                <div
-                        ref={ref}
-                        className={cn('flex flex-col gap-4 p-4', className)}
-                        {...props}
-                >
-                        {children}
-                </div>
-        );
+    return (
+        <div
+            ref={ref}
+            className={cn('flex flex-col gap-4 p-4', className)}
+            {...props}
+        >
+            {children}
+        </div>
+    );
 }

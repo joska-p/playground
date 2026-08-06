@@ -12,28 +12,28 @@ export type Path = Point[];
 export type Label = 'car' | 'fish' | 'house' | 'tree' | 'bicycle' | 'guitar' | 'pencil' | 'clock';
 
 export type RawSample = {
-        session: number;
-        student: string;
-        drawings: Record<Label, Path[]>;
+    session: number;
+    student: string;
+    drawings: Record<Label, Path[]>;
 };
 
 export type Sample = {
-        readonly id: number;
-        readonly label: Label;
-        readonly student_id: number;
-        readonly student_name: string;
+    readonly id: number;
+    readonly label: Label;
+    readonly student_id: number;
+    readonly student_name: string;
 };
 
 export type Drawing = {
-        id: number;
-        label: Label;
-        point?: Point;
+    id: number;
+    label: Label;
+    point?: Point;
 };
 
 export type Student = {
-        id: number;
-        name: string;
-        drawings: Drawing[];
+    id: number;
+    name: string;
+    drawings: Drawing[];
 };
 
 export type Students = Record<Student['id'], Student>;
@@ -44,10 +44,10 @@ export type Students = Record<Student['id'], Student>;
 
 // Point is guaranteed to exist on each feature sample
 export type FeatureSample = Sample & {
-        point: Point;
+    point: Point;
 };
 
 export type Features = {
-        readonly featureNames: readonly ['Path Count', 'Point Count'];
-        readonly samples: FeatureSample[];
+    readonly featureNames: readonly ['Path Count', 'Point Count'];
+    readonly samples: FeatureSample[];
 };

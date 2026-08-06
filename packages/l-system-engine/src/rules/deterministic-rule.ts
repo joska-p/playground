@@ -7,12 +7,12 @@ import type { LSymbol, Rule, Word } from '../types';
  * deterministicRule('F', [symbol('F'), symbol('+'), symbol('F')])
  */
 export function deterministicRule(name: string, production: Word): Rule {
-        return {
-                match(sym: LSymbol): boolean {
-                        return sym.name === name;
-                },
-                apply(): Word {
-                        return production;
-                }
-        };
+    return {
+        match(sym: LSymbol): boolean {
+            return sym.name === name;
+        },
+        apply(): Word {
+            return production;
+        }
+    };
 }

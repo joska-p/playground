@@ -10,51 +10,51 @@ import { OperatorControls } from './OperatorControls';
 import { PlaybackControls } from './PlaybackControls';
 
 const modeOptions = [
-        { value: 'play', label: 'Play' },
-        { value: 'test', label: 'Test' }
+    { value: 'play', label: 'Play' },
+    { value: 'test', label: 'Test' }
 ] as const;
 
 function ModeSelect() {
-        const mode = useMode();
+    const mode = useMode();
 
-        const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-                setMode(e.target.value as Mode);
-        };
+    const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setMode(e.target.value as Mode);
+    };
 
-        return (
-                <select
-                        value={mode}
-                        onChange={handleOnChange}
+    return (
+        <select
+            value={mode}
+            onChange={handleOnChange}
+        >
+            {modeOptions.map((option) => (
+                <option
+                    key={option.value}
+                    value={option.value}
                 >
-                        {modeOptions.map((option) => (
-                                <option
-                                        key={option.value}
-                                        value={option.value}
-                                >
-                                        {option.label}
-                                </option>
-                        ))}
-                </select>
-        );
+                    {option.label}
+                </option>
+            ))}
+        </select>
+    );
 }
 
 function PlayModeControlPanel() {
-        return (
-                <>
-                        <ConfigControls />
-                        <ActionControls />
-                        <PlaybackControls />
-                        <DepthControls />
-                        <OperatorControls />
-                        <BehaviorControls />
-                </>
-        );
+    return (
+        <>
+            <ConfigControls />
+            <ActionControls />
+            <PlaybackControls />
+            <DepthControls />
+            <OperatorControls />
+            <BehaviorControls />
+        </>
+    );
 }
 
 function ControlPanel() {
-        const mode = useMode();
+    const mode = useMode();
 
-        return <Panel title={<ModeSelect />}>{mode === 'play' && <PlayModeControlPanel />}</Panel>;
+    return <Panel title={<ModeSelect />}>{mode === 'play' && <PlayModeControlPanel />}</Panel>;
 }
 
 export { ControlPanel };

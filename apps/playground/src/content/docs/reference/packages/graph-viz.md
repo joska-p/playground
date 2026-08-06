@@ -3,8 +3,8 @@ title: 'Graph Visualization'
 description: 'A codebase rendered as a galaxy — files become spheres and boxes floating in 3D space, their dependency edges drawn as luminous threads, community clusters glowing in twenty-four palette colours.'
 category: 'reference'
 tags:
-        - reference
-        - graph-viz
+    - reference
+    - graph-viz
 order: 20
 ---
 
@@ -55,7 +55,7 @@ pnpm add @repo/graph-viz
 import { App } from '@repo/graph-viz';
 
 export default function Page() {
-        return <App />;
+    return <App />;
 }
 ```
 

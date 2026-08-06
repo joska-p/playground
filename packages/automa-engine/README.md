@@ -83,11 +83,11 @@ Rules are plain data objects — no custom `if/else` per rule type.
 
 ```ts
 type Rule = {
-        id: string;
-        name: string;
-        stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
-        birth: readonly boolean[]; // length 9, index = neighbor count
-        survive: readonly boolean[]; // length 9, index = neighbor count
+    id: string;
+    name: string;
+    stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
+    birth: readonly boolean[]; // length 9, index = neighbor count
+    survive: readonly boolean[]; // length 9, index = neighbor count
 };
 ```
 

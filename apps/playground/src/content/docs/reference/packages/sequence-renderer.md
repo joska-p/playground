@@ -3,8 +3,8 @@ title: 'Sequence Renderer'
 description: 'A canvas that unfurls mathematical sequences into visible form — Fourier epicycles tracing harmonic paths, layers stacking like transparencies on a light table, and a viewport you can orbit with two fingers.'
 category: 'reference'
 tags:
-        - reference
-        - sequence-renderer
+    - reference
+    - sequence-renderer
 order: 20
 ---
 
@@ -52,7 +52,7 @@ pnpm add @repo/sequence-renderer
 import { App } from '@repo/sequence-renderer';
 
 export default function Page() {
-        return <App />;
+    return <App />;
 }
 ```
 

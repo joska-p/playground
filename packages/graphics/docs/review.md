@@ -62,8 +62,8 @@ You already feel this: “I don’t see the point of using ShaderCanvas without 
 ```ts
 // usePanZoomUniforms
 values['u_panOffset'] = [
-        -interaction.pan.x / runner.canvas.clientWidth,
-        interaction.pan.y / runner.canvas.clientHeight // Y is not flipped the same way
+    -interaction.pan.x / runner.canvas.clientWidth,
+    interaction.pan.y / runner.canvas.clientHeight // Y is not flipped the same way
 ];
 ```
 

@@ -1,14 +1,14 @@
 .panelActive {
-        @starting-style {
-                opacity: 0;
-                transform: translateY(4px);
-        }
-        animation: tabIn 0.2s ease;
+    @starting-style {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    animation: tabIn 0.2s ease;
 }
 
 @keyframes tabIn {
-        from {
-                opacity: 0;
-                transform: translateY(4px);
-        }
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
 }

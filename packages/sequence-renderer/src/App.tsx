@@ -6,14 +6,14 @@ import { register } from './modules/fourier';
 register();
 
 function App() {
-        return (
-                <div className="relative h-screen overflow-hidden">
-                        <ErrorBoundary>
-                                <SequenceCanvas />
-                                <ControlsPanel />
-                        </ErrorBoundary>
-                </div>
-        );
+    return (
+        <div className="relative h-screen overflow-hidden">
+            <ErrorBoundary>
+                <SequenceCanvas />
+                <ControlsPanel />
+            </ErrorBoundary>
+        </div>
+    );
 }
 
 export { App };

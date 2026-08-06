@@ -8,44 +8,40 @@ import { useLabelsVisible, useVisibleCommunities } from '../../stores/view/selec
 const { labels } = CONFIG;
 
 function CommunityLabels() {
-        const communities = useCommunities();
-        const labelsVisible = useLabelsVisible();
-        const visibleCommunities = useVisibleCommunities();
+    const communities = useCommunities();
+    const labelsVisible = useLabelsVisible();
+    const visibleCommunities = useVisibleCommunities();
 
-        const labelElements = useMemo(() => {
-                if (!labelsVisible) return [];
+    const labelElements = useMemo(() => {
+        if (!labelsVisible) return [];
 
-                return communities
-                        .filter((c) => visibleCommunities.has(c.id))
-                        .map((c) => {
-                                const color = new THREE.Color(c.color);
-                                color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
+        return communities
+            .filter((c) => visibleCommunities.has(c.id))
+            .map((c) => {
+                const color = new THREE.Color(c.color);
+                color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
 
-                                return (
-                                        <Billboard
-                                                key={c.id}
-                                                position={[
-                                                        c.centroid.x,
-                                                        c.centroid.y + labels.offsetY,
-                                                        c.centroid.z
-                                                ]}
-                                        >
-                                                <Text
-                                                        fontSize={labels.fontSize}
-                                                        color={color.getStyle()}
-                                                        anchorX="center"
-                                                        anchorY="bottom"
-                                                        outlineWidth={labels.outlineWidth}
-                                                        outlineColor={labels.outlineColor}
-                                                >
-                                                        {c.name}
-                                                </Text>
-                                        </Billboard>
-                                );
-                        });
-        }, [communities, labelsVisible, visibleCommunities]);
+                return (
+                    <Billboard
+                        key={c.id}
+                        position={[c.centroid.x, c.centroid.y + labels.offsetY, c.centroid.z]}
+                    >
+                        <Text
+                            fontSize={labels.fontSize}
+                            color={color.getStyle()}
+                            anchorX="center"
+                            anchorY="bottom"
+                            outlineWidth={labels.outlineWidth}
+                            outlineColor={labels.outlineColor}
+                        >
+                            {c.name}
+                        </Text>
+                    </Billboard>
+                );
+            });
+    }, [communities, labelsVisible, visibleCommunities]);
 
-        return <>{labelElements}</>;
+    return <>{labelElements}</>;
 }
 
 export { CommunityLabels };

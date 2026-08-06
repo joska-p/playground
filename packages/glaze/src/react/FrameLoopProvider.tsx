@@ -5,13 +5,13 @@ import { createFrameLoop, type FrameLoop } from '../core/createFrameLoop';
 export const FrameLoopContext = createContext<FrameLoop | null>(null);
 
 export function FrameLoopProvider({ children }: { children: ReactNode }) {
-        const [loop] = useState(() => createFrameLoop());
+    const [loop] = useState(() => createFrameLoop());
 
-        useEffect(() => {
-                return () => {
-                        loop.dispose();
-                };
-        }, [loop]);
+    useEffect(() => {
+        return () => {
+            loop.dispose();
+        };
+    }, [loop]);
 
-        return <FrameLoopContext value={loop}>{children}</FrameLoopContext>;
+    return <FrameLoopContext value={loop}>{children}</FrameLoopContext>;
 }

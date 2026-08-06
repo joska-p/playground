@@ -10,23 +10,23 @@ const sortedDocs = allDocs.sort((a, b) => a.data.title.localeCompare(b.data.titl
 ---
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
-        {
-                sortedDocs.map((doc) => {
-                        const mainTag = doc.data.tags[0].id;
-                        const cardStyle = {
-                                '--variant-color': `var(--tags-${mainTag})`
-                        } as CSSProperties;
-                        const docUrl = `${docsBaseUrl}${doc.id}/#main`;
-                        return (
-                                <DocCard
-                                        description={doc.data.description ?? ''}
-                                        href={docUrl}
-                                        iconName="bluesky"
-                                        style={cardStyle}
-                                        title={doc.data.title}
-                                        type={doc.data.tags[0].id}
-                                />
-                        );
-                })
-        }
+    {
+        sortedDocs.map((doc) => {
+            const mainTag = doc.data.tags[0].id;
+            const cardStyle = {
+                '--variant-color': `var(--tags-${mainTag})`
+            } as CSSProperties;
+            const docUrl = `${docsBaseUrl}${doc.id}/#main`;
+            return (
+                <DocCard
+                    description={doc.data.description ?? ''}
+                    href={docUrl}
+                    iconName="bluesky"
+                    style={cardStyle}
+                    title={doc.data.title}
+                    type={doc.data.tags[0].id}
+                />
+            );
+        })
+    }
 </div>

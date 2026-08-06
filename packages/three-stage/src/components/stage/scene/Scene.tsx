@@ -7,42 +7,42 @@ import { SpotLight } from '../lighting/SpotLight';
 import { Sample } from '../sample/Sample';
 
 const cameraOptions = {
-        position: [-15, 10, 20],
-        fov: 60
+    position: [-15, 10, 20],
+    fov: 60
 } as const;
 
 function Scene() {
-        return (
-                <>
-                        <Canvas
-                                camera={cameraOptions}
-                                shadows
-                                className="h-dvh w-full"
-                        >
-                                <mesh
-                                        rotation={[-Math.PI / 2, 0, 0]}
-                                        receiveShadow
-                                >
-                                        <planeGeometry args={[20, 20]} />
-                                        <meshStandardMaterial />
-                                </mesh>
-                                <axesHelper args={[10]} />
-                                <GizmoHelper
-                                        alignment="bottom-left"
-                                        margin={[80, 80]}
-                                >
-                                        <GizmoViewport />
-                                </GizmoHelper>
-                                <gridHelper args={[20, 20, 0xff22aa, 0x55ccff]} />
-                                <OrbitControls />
-                                <Sample />
-                                <AmbientLight />
-                                <PointLight />
-                                <DirectionalLight />
-                                <SpotLight />
-                        </Canvas>
-                </>
-        );
+    return (
+        <>
+            <Canvas
+                camera={cameraOptions}
+                shadows
+                className="h-dvh w-full"
+            >
+                <mesh
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    receiveShadow
+                >
+                    <planeGeometry args={[20, 20]} />
+                    <meshStandardMaterial />
+                </mesh>
+                <axesHelper args={[10]} />
+                <GizmoHelper
+                    alignment="bottom-left"
+                    margin={[80, 80]}
+                >
+                    <GizmoViewport />
+                </GizmoHelper>
+                <gridHelper args={[20, 20, 0xff22aa, 0x55ccff]} />
+                <OrbitControls />
+                <Sample />
+                <AmbientLight />
+                <PointLight />
+                <DirectionalLight />
+                <SpotLight />
+            </Canvas>
+        </>
+    );
 }
 
 export { Scene };

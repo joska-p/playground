@@ -20,21 +20,21 @@ export const VALUE_VERTEX_SHADER = /* glsl */ `
 `.trim();
 
 export function buildValueFragmentShader(node: Node): string {
-        const expression = toGLSL(node);
+    const expression = toGLSL(node);
 
-        return /* glsl */ `
-                precision highp float;
-                in vec2 vUv;
-                uniform float u_time;
-                out vec4 fragColor;
+    return /* glsl */ `
+        precision highp float;
+        in vec2 vUv;
+        uniform float u_time;
+        out vec4 fragColor;
 
-                void main() {
-                        vec2 p = vUv * 2.0 - 1.0;
-                        float x = p.x;
-                        float y = p.y;
-                        float value = ${expression};
-                        float gray = clamp(value, -1.0, 1.0) * 0.5 + 0.5;
-                        fragColor = vec4(gray, gray, gray, 1.0);
-                }
-        `;
+        void main() {
+            vec2 p = vUv * 2.0 - 1.0;
+            float x = p.x;
+            float y = p.y;
+            float value = ${expression};
+            float gray = clamp(value, -1.0, 1.0) * 0.5 + 0.5;
+            fragColor = vec4(gray, gray, gray, 1.0);
+        }
+    `;
 }

@@ -3,8 +3,8 @@ title: 'ESLint Config'
 description: 'Shared ESLint configuration for the monorepo — strict TypeScript checking, import discipline, and React hooks, all wired up through a single factory function.'
 category: 'reference'
 tags:
-        - reference
-        - config-eslint
+    - reference
+    - config-eslint
 order: 20
 ---
 

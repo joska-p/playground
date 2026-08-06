@@ -7,17 +7,17 @@ import { useInputMode } from '../stores/ui/store';
 import { ControlsPanel } from './controls/ControlsPanel';
 
 export function ArtCanvas() {
-        const inputMode = useInputMode();
+    const inputMode = useInputMode();
 
-        return (
-                <>
-                        <ControlsPanel />
-                        <FrameLoopProvider>
-                                {inputMode === 'seed' && <SeedCanvas />}
-                                {inputMode === 'folded-space' && <FoldedSpace />}
-                                {inputMode === 'atlas' && <Atlas />}
-                                {inputMode === 'manual' && <Manual />}
-                        </FrameLoopProvider>
-                </>
-        );
+    return (
+        <>
+            <ControlsPanel />
+            <FrameLoopProvider>
+                {inputMode === 'seed' && <SeedCanvas />}
+                {inputMode === 'folded-space' && <FoldedSpace />}
+                {inputMode === 'atlas' && <Atlas />}
+                {inputMode === 'manual' && <Manual />}
+            </FrameLoopProvider>
+        </>
+    );
 }

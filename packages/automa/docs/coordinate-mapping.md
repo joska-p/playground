@@ -143,26 +143,26 @@ Grid is just `Data` with integer binning. Add a factory that composes
 
 ```ts
 function createScreenToGrid(
-        canvasBounds: CanvasElementBounds,
-        cols: number,
-        rows: number,
-        fit?: AspectFitMode
+    canvasBounds: CanvasElementBounds,
+    cols: number,
+    rows: number,
+    fit?: AspectFitMode
 ) {
-        const toCanvas = createScreenToCanvas(canvasBounds);
-        const toData = createCanvasToData(
-                { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
-                canvasBounds.width,
-                canvasBounds.height,
-                fit
-        );
-        return (screen: Point2D) => {
-                const d = toData(toCanvas(screen));
-                return {
-                        column: Math.floor(d.x),
-                        row: Math.floor(d.y),
-                        index: Math.floor(d.y) * cols + Math.floor(d.x)
-                };
+    const toCanvas = createScreenToCanvas(canvasBounds);
+    const toData = createCanvasToData(
+        { xMin: 0, xMax: cols, yMin: 0, yMax: rows },
+        canvasBounds.width,
+        canvasBounds.height,
+        fit
+    );
+    return (screen: Point2D) => {
+        const d = toData(toCanvas(screen));
+        return {
+            column: Math.floor(d.x),
+            row: Math.floor(d.y),
+            index: Math.floor(d.y) * cols + Math.floor(d.x)
         };
+    };
 }
 ```
 

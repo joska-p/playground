@@ -1,31 +1,31 @@
 {
-        "name": "@repo/palette-engine",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./colorSpaces": "./src/colorSpaces.ts",
-                "./generatePalette": "./src/generatePalette.ts",
-                "./rules/analogous": "./src/rules/analogous.ts",
-                "./rules/complementary": "./src/rules/complementary.ts",
-                "./rules/monochromatic": "./src/rules/monochromatic.ts",
-                "./rules/triadic": "./src/rules/triadic.ts",
-                "./types": "./src/types.ts"
-        },
-        "scripts": {
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "dependencies": {
-                "colorjs.io": "catalog:"
-        },
-        "devDependencies": {
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@types/node": "catalog:",
-                "eslint": "catalog:",
-                "typescript": "catalog:"
-        }
+    "name": "@repo/palette-engine",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./colorSpaces": "./src/colorSpaces.ts",
+        "./generatePalette": "./src/generatePalette.ts",
+        "./rules/analogous": "./src/rules/analogous.ts",
+        "./rules/complementary": "./src/rules/complementary.ts",
+        "./rules/monochromatic": "./src/rules/monochromatic.ts",
+        "./rules/triadic": "./src/rules/triadic.ts",
+        "./types": "./src/types.ts"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "dependencies": {
+        "colorjs.io": "catalog:"
+    },
+    "devDependencies": {
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:"
+    }
 }

@@ -1,41 +1,41 @@
 {
-        "name": "@repo/randomart-engine-next",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./types": "./src/types.ts",
-                "./tree": "./src/tree.ts",
-                "./prng": "./src/prng.ts",
-                "./format": "./src/format.ts",
-                "./compileToGLSL": "./src/compileToGLSL.ts",
-                "./glsl-library": "./src/glsl-library.ts",
-                "./glsl-color-spaces": "./src/glsl-color-spaces.ts",
-                "./operators": "./src/grammar/operators/registry.ts",
-                "./rules": "./src/grammar/rules/registry.ts",
-                "./behaviors": "./src/behaviors/registry.ts"
-        },
-        "scripts": {
-                "randomart": "tsx src/cli.ts",
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "keywords": [
-                "randomart",
-                "hash-visualization",
-                "drunken-bishop",
-                "identicon",
-                "png"
-        ],
-        "license": "MIT",
-        "devDependencies": {
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@types/node": "catalog:",
-                "eslint": "catalog:",
-                "typescript": "catalog:",
-                "tsx": "catalog:"
-        }
+    "name": "@repo/randomart-engine-next",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./types": "./src/types.ts",
+        "./tree": "./src/tree.ts",
+        "./prng": "./src/prng.ts",
+        "./format": "./src/format.ts",
+        "./compileToGLSL": "./src/compileToGLSL.ts",
+        "./glsl-library": "./src/glsl-library.ts",
+        "./glsl-color-spaces": "./src/glsl-color-spaces.ts",
+        "./operators": "./src/grammar/operators/registry.ts",
+        "./rules": "./src/grammar/rules/registry.ts",
+        "./behaviors": "./src/behaviors/registry.ts"
+    },
+    "scripts": {
+        "randomart": "tsx src/cli.ts",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "keywords": [
+        "randomart",
+        "hash-visualization",
+        "drunken-bishop",
+        "identicon",
+        "png"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:",
+        "tsx": "catalog:"
+    }
 }

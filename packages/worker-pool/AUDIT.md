@@ -20,8 +20,8 @@
 - **Type of Smell:** N/A
 - **Complexity Score:** N/A
 - **Architectural Observation:** Two type exports:
-     - `WorkerResult<T>` — a clean discriminated union (`{ ok: true; value: T } | { ok: false; error: Error }`).
-     - `WorkerPoolConfig<TTask, TResult>` — three required hook functions (`workerFactory`, `serialize`, `deserialize`) and one optional config (`maxPoolSize`). Minimal surface area, no overloads, no conditional types branching on string literals.
+    - `WorkerResult<T>` — a clean discriminated union (`{ ok: true; value: T } | { ok: false; error: Error }`).
+    - `WorkerPoolConfig<TTask, TResult>` — three required hook functions (`workerFactory`, `serialize`, `deserialize`) and one optional config (`maxPoolSize`). Minimal surface area, no overloads, no conditional types branching on string literals.
 - **Impact on Strictness:** None.
 
 ---
@@ -41,8 +41,8 @@
 - **Complexity Score:** Low
 - **Architectural Observation:** Tests are well-organized in vertical-slice "cycles" mirroring the TDD plan. The `createFakeWorker()` helper (lines 9–35) builds a minimal mock `Worker` using `vi.fn()` and closure-based callback capture. It is clean and appropriate but requires one type-level escape hatch and triggers linter relaxations.
 - **Impact on Strictness:**
-     - **Line 21:** `as unknown as Worker` — a double type assertion to treat the mock object as a `Worker` without implementing the full DOM interface. This is the standard pattern for fake Workers in tests, but it bypasses TypeScript strictness at the module boundary.
-     - **`eslint.config.js`** (see below) disables three rules for `**/*.test.ts` files to accommodate this pattern.
+    - **Line 21:** `as unknown as Worker` — a double type assertion to treat the mock object as a `Worker` without implementing the full DOM interface. This is the standard pattern for fake Workers in tests, but it bypasses TypeScript strictness at the module boundary.
+    - **`eslint.config.js`** (see below) disables three rules for `**/*.test.ts` files to accommodate this pattern.
 
 ---
 
@@ -51,11 +51,11 @@
 - **Type of Smell:** Linter Workaround / Config Loosening
 - **Complexity Score:** Low
 - **Architectural Observation:** The ESLint config inherits the monorepo's hyper-strict base config and then relaxes three rules for test files:
-     1. `@typescript-eslint/no-unsafe-assignment` — 'off' — needed because mock objects (`vi.fn()` return values, cast objects) don't carry the exact types the base config expects.
-     2. `@typescript-eslint/unbound-method` — 'off' — vi.fn() mocks are passed as event handlers, triggering this rule.
-     3. `@typescript-eslint/no-floating-promises` — 'off' — test setup often has intentionally floating promises (e.g., `p2.catch(() => undefined)` on line 379).
+    1.  `@typescript-eslint/no-unsafe-assignment` — 'off' — needed because mock objects (`vi.fn()` return values, cast objects) don't carry the exact types the base config expects.
+    2.  `@typescript-eslint/unbound-method` — 'off' — vi.fn() mocks are passed as event handlers, triggering this rule.
+    3.  `@typescript-eslint/no-floating-promises` — 'off' — test setup often has intentionally floating promises (e.g., `p2.catch(() => undefined)` on line 379).
 
-     These are narrow, well-justified relaxations. The `eslint.config.js` is only 16 lines and does not engage in broad rule disabling. **No universal-function smell.**
+    These are narrow, well-justified relaxations. The `eslint.config.js` is only 16 lines and does not engage in broad rule disabling. **No universal-function smell.**
 
 - **Impact on Strictness:** Three rules disabled for all test files — small blast radius, but means test code is not checked for unsafe assignments, unbound methods, or floating promises anywhere in the test suite.
 

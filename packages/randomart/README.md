@@ -48,7 +48,7 @@ pnpm add @repo/randomart
 import { RandomArtCanvas } from '@repo/randomart';
 
 export default function Art() {
-        return <RandomArtCanvas />;
+    return <RandomArtCanvas />;
 }
 ```
 

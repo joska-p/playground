@@ -2,8 +2,8 @@
 title: Package src/ Structure
 description: The directory layout a package tends to follow inside src/.
 tags:
-        - conventions
-        - reference
+    - conventions
+    - reference
 ---
 
 # Package `src/` Structure

@@ -3,96 +3,96 @@ import { Icon } from '@repo/ui/icons';
 ---
 
 <div class="flex items-center gap-2">
-        <!-- Social links (desktop only) -->
-        <div class="hidden items-center gap-2 md:flex">
-                <a
-                        aria-label="GitHub"
-                        class="bg-surface-raised/50 text-foreground-muted hover:bg-surface hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
-                        href="https://github.com/joska-p/playground"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                >
-                        <Icon
-                                className="h-3.5 w-3.5"
-                                name="github"
-                        />
-                </a>
-        </div>
-
-        <!-- Theme toggle -->
-        <button
-                aria-label="Toggle theme"
-                class="bg-surface-raised/50 text-foreground-muted hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
-                id="theme-toggle"
+    <!-- Social links (desktop only) -->
+    <div class="hidden items-center gap-2 md:flex">
+        <a
+            aria-label="GitHub"
+            class="bg-surface-raised/50 text-foreground-muted hover:bg-surface hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
+            href="https://github.com/joska-p/playground"
+            rel="noopener noreferrer"
+            target="_blank"
         >
-                <svg
-                        fill="none"
-                        height="14"
-                        id="icon-sun"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="14"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                        <circle
-                                cx="12"
-                                cy="12"
-                                r="4"
-                        ></circle>
-                        <path
-                                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
-                                stroke-dasharray="none"
-                        ></path>
-                </svg>
-                <svg
-                        fill="none"
-                        height="14"
-                        id="icon-moon"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="14"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path>
-                </svg>
-        </button>
+            <Icon
+                className="h-3.5 w-3.5"
+                name="github"
+            />
+        </a>
+    </div>
 
-        <!-- Mobile burger button -->
-        <button
-                aria-expanded="false"
-                aria-label="Toggle menu"
-                class="bg-surface-raised/50 text-foreground-muted pointer-events-auto flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 hover:shadow-[0_0_16px_-4px_var(--glow-color)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97] md:hidden"
-                id="mobile-menu-toggle"
+    <!-- Theme toggle -->
+    <button
+        aria-label="Toggle theme"
+        class="bg-surface-raised/50 text-foreground-muted hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
+        id="theme-toggle"
+    >
+        <svg
+            fill="none"
+            height="14"
+            id="icon-sun"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
         >
-                <span
-                        class="h-0.5 w-4 rounded-full bg-current transition-transform duration-300"
-                        id="burger-top"
-                ></span>
-                <span
-                        class="h-0.5 w-4 rounded-full bg-current transition-all duration-300"
-                        id="burger-bottom"
-                ></span>
-        </button>
+            <circle
+                cx="12"
+                cy="12"
+                r="4"
+            ></circle>
+            <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                stroke-dasharray="none"
+            ></path>
+        </svg>
+        <svg
+            fill="none"
+            height="14"
+            id="icon-moon"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path>
+        </svg>
+    </button>
 
-        <style>
-                html[data-theme='dark'] #icon-moon {
-                        display: none;
-                }
-                html[data-theme='light'] #icon-sun {
-                        display: none;
-                }
+    <!-- Mobile burger button -->
+    <button
+        aria-expanded="false"
+        aria-label="Toggle menu"
+        class="bg-surface-raised/50 text-foreground-muted pointer-events-auto flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 hover:shadow-[0_0_16px_-4px_var(--glow-color)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97] md:hidden"
+        id="mobile-menu-toggle"
+    >
+        <span
+            class="h-0.5 w-4 rounded-full bg-current transition-transform duration-300"
+            id="burger-top"
+        ></span>
+        <span
+            class="h-0.5 w-4 rounded-full bg-current transition-all duration-300"
+            id="burger-bottom"
+        ></span>
+    </button>
 
-                #mobile-menu-toggle[aria-expanded='true'] #burger-top {
-                        transform: translateY(4px) rotate(45deg);
-                }
-                #mobile-menu-toggle[aria-expanded='true'] #burger-bottom {
-                        transform: translateY(-4px) rotate(-45deg);
-                }
-        </style>
+    <style>
+        html[data-theme='dark'] #icon-moon {
+            display: none;
+        }
+        html[data-theme='light'] #icon-sun {
+            display: none;
+        }
+
+        #mobile-menu-toggle[aria-expanded='true'] #burger-top {
+            transform: translateY(4px) rotate(45deg);
+        }
+        #mobile-menu-toggle[aria-expanded='true'] #burger-bottom {
+            transform: translateY(-4px) rotate(-45deg);
+        }
+    </style>
 </div>

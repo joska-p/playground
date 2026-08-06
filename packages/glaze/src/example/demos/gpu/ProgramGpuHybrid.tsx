@@ -66,56 +66,56 @@ void main() {
 
 /** Mulberry32 seeded PRNG so the starting soup is reproducible. */
 function mulberry32(seed: number): () => number {
-        let a = seed;
-        return () => {
-                a |= 0;
-                a = (a + 0x6d2b79f5) | 0;
-                let t = Math.imul(a ^ (a >>> 15), 1 | a);
-                t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        };
+    let a = seed;
+    return () => {
+        a |= 0;
+        a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
 }
 
 function seedSoup(): Uint8Array {
-        const cells = new Uint8Array(GRID * GRID);
-        const random = mulberry32(0x1f0caffe);
-        for (let i = 0; i < cells.length; i++) {
-                cells[i] = random() < 0.18 ? 1 : 0;
-        }
-        return cells;
+    const cells = new Uint8Array(GRID * GRID);
+    const random = mulberry32(0x1f0caffe);
+    for (let i = 0; i < cells.length; i++) {
+        cells[i] = random() < 0.18 ? 1 : 0;
+    }
+    return cells;
 }
 
 export function ProgramGpuHybrid() {
-        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
-        const bufferRef = useRef<StateBuffer | null>(null);
+    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const bufferRef = useRef<StateBuffer | null>(null);
 
-        useEffect(() => {
-                if (!runtime) return;
-                const buffer = createStateBuffer(runtime.gl, GRID, GRID);
-                buffer.addProgram('sim', simFragmentSource);
-                buffer.init(seedSoup());
-                bufferRef.current = buffer;
-                return () => {
-                        buffer.destroy();
-                        bufferRef.current = null;
-                };
-        }, [runtime]);
+    useEffect(() => {
+        if (!runtime) return;
+        const buffer = createStateBuffer(runtime.gl, GRID, GRID);
+        buffer.addProgram('sim', simFragmentSource);
+        buffer.init(seedSoup());
+        bufferRef.current = buffer;
+        return () => {
+            buffer.destroy();
+            bufferRef.current = null;
+        };
+    }, [runtime]);
 
-        return (
-                <div className="h-75 w-100">
-                        <GpuCanvas
-                                fragmentShader={displayFragmentSource}
-                                onRuntime={setRuntime}
-                                className="h-full w-full"
-                                uniforms={(): Record<string, UniformValue> => {
-                                        const buffer = bufferRef.current;
-                                        if (!buffer) return {};
-                                        // Advance the simulation, then hand the freshly written state to the display.
-                                        buffer.useProgram('sim');
-                                        buffer.step();
-                                        return { u_state: buffer.getTexture() };
-                                }}
-                        />
-                </div>
-        );
+    return (
+        <div className="h-75 w-100">
+            <GpuCanvas
+                fragmentShader={displayFragmentSource}
+                onRuntime={setRuntime}
+                className="h-full w-full"
+                uniforms={(): Record<string, UniformValue> => {
+                    const buffer = bufferRef.current;
+                    if (!buffer) return {};
+                    // Advance the simulation, then hand the freshly written state to the display.
+                    buffer.useProgram('sim');
+                    buffer.step();
+                    return { u_state: buffer.getTexture() };
+                }}
+            />
+        </div>
+    );
 }

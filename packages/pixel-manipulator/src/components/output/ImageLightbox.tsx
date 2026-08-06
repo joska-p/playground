@@ -2,37 +2,37 @@ import { useEscapeKey } from '../../hooks/useEscapeKey';
 import { Output } from './Output';
 
 type ImageLightboxProps = {
-        imageData: ImageData;
-        onClose: () => void;
+    imageData: ImageData;
+    onClose: () => void;
 };
 
 function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
-        useEscapeKey(onClose);
+    useEscapeKey(onClose);
 
-        return (
-                <div
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-                        onClick={onClose}
-                        role="dialog"
-                        aria-modal="true"
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+        >
+            <div
+                className="relative max-h-[90vh] max-w-[90vw]"
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+            >
+                <button
+                    onClick={onClose}
+                    className="bg-background text-foreground hover:bg-muted absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full shadow-md"
+                    aria-label="Close"
                 >
-                        <div
-                                className="relative max-h-[90vh] max-w-[90vw]"
-                                onClick={(e) => {
-                                        e.stopPropagation();
-                                }}
-                        >
-                                <button
-                                        onClick={onClose}
-                                        className="bg-background text-foreground hover:bg-muted absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full shadow-md"
-                                        aria-label="Close"
-                                >
-                                        ✕
-                                </button>
-                                <Output imageData={imageData} />
-                        </div>
-                </div>
-        );
+                    ✕
+                </button>
+                <Output imageData={imageData} />
+            </div>
+        </div>
+    );
 }
 
 export { ImageLightbox };

@@ -3,8 +3,8 @@ title: 'Sequence Engine'
 description: 'A pure engine that turns mathematical rules into numbered sequences — each rule a function, each sequence a `number[]`, no DOM, no rendering, no opinions about what comes next.'
 category: 'reference'
 tags:
-        - reference
-        - sequence-engine
+    - reference
+    - sequence-engine
 order: 20
 ---
 
@@ -92,13 +92,13 @@ Two decoupled primitives, both pure logic:
 import { createRule } from './create-rule';
 
 export const myRule = createRule({
-        id: 'my-rule',
-        name: 'My Rule',
-        description: 'What it does',
-        maxSteps: 500,
-        getNext: ({ index, current, sequence, seen }) => {
-                // return next value
-        }
+    id: 'my-rule',
+    name: 'My Rule',
+    description: 'What it does',
+    maxSteps: 500,
+    getNext: ({ index, current, sequence, seen }) => {
+        // return next value
+    }
 });
 ```
 

@@ -11,106 +11,106 @@ import type { PanZoomOptions } from './usePanZoom';
 export type { CanvasView };
 
 export type OnBeforeRenderProps = {
-        pipeline: QuadPipeline;
-        time: number;
-        mouse: Point2D;
-        view: CanvasView;
+    pipeline: QuadPipeline;
+    time: number;
+    mouse: Point2D;
+    view: CanvasView;
 };
 
 export type ShaderCanvasProps = {
-        className?: string;
-        style?: CSSProperties | undefined;
-        fragmentShader: string;
-        webGLContextAttributes?: WebGLContextAttributes | undefined;
-        time?: boolean | string;
-        onPointerMove?: ((event: React.PointerEvent<HTMLCanvasElement>) => void) | undefined;
-        initialView?: { pan: Point2D; zoom: number } | undefined;
-        onViewChange?: ((view: CanvasView) => void) | undefined;
-        minZoom?: number | undefined;
-        maxZoom?: number | undefined;
-        zoomToCursor?: boolean | undefined;
-        scalePanWithZoom?: boolean | undefined;
-        zoomSpeed?: number | undefined;
-        onBeforeRender?: ((props: OnBeforeRenderProps) => void) | undefined;
+    className?: string;
+    style?: CSSProperties | undefined;
+    fragmentShader: string;
+    webGLContextAttributes?: WebGLContextAttributes | undefined;
+    time?: boolean | string;
+    onPointerMove?: ((event: React.PointerEvent<HTMLCanvasElement>) => void) | undefined;
+    initialView?: { pan: Point2D; zoom: number } | undefined;
+    onViewChange?: ((view: CanvasView) => void) | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    zoomToCursor?: boolean | undefined;
+    scalePanWithZoom?: boolean | undefined;
+    zoomSpeed?: number | undefined;
+    onBeforeRender?: ((props: OnBeforeRenderProps) => void) | undefined;
 };
 
 export function ShaderCanvas(props: ShaderCanvasProps) {
-        const {
-                className,
-                style,
-                fragmentShader,
-                webGLContextAttributes,
-                time = true,
-                onPointerMove,
-                initialView,
-                onViewChange,
-                minZoom,
-                maxZoom,
-                zoomToCursor,
-                scalePanWithZoom,
-                zoomSpeed
-        } = props;
+    const {
+        className,
+        style,
+        fragmentShader,
+        webGLContextAttributes,
+        time = true,
+        onPointerMove,
+        initialView,
+        onViewChange,
+        minZoom,
+        maxZoom,
+        zoomToCursor,
+        scalePanWithZoom,
+        zoomSpeed
+    } = props;
 
-        const { canvasRef, runnerRef } = useShaderRunner({
-                fragmentShader,
-                webGLContextAttributes
+    const { canvasRef, runnerRef } = useShaderRunner({
+        fragmentShader,
+        webGLContextAttributes
+    });
+
+    const panZoomOptions: PanZoomOptions = {
+        initialView,
+        onChange: onViewChange,
+        minZoom,
+        maxZoom,
+        zoomToCursor,
+        scalePanWithZoom,
+        zoomSpeed
+    };
+
+    const panZoomRef = usePanZoom(canvasRef, panZoomOptions);
+    const applyPanZoom = usePanZoomUniforms(runnerRef, panZoomRef);
+
+    const timeName = time === false ? null : typeof time === 'string' ? time : 'u_time';
+    const mouseRef = useRef<Point2D>({ x: 0, y: 0 });
+
+    function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        mouseRef.current = createScreenToNormalizedClamped(rect)({
+            x: e.clientX,
+            y: e.clientY
         });
+        runnerRef.current?.setMouse(mouseRef.current);
+    }
 
-        const panZoomOptions: PanZoomOptions = {
-                initialView,
-                onChange: onViewChange,
-                minZoom,
-                maxZoom,
-                zoomToCursor,
-                scalePanWithZoom,
-                zoomSpeed
-        };
+    useFrame((frameTime) => {
+        const runner = runnerRef.current;
+        if (!runner) return;
 
-        const panZoomRef = usePanZoom(canvasRef, panZoomOptions);
-        const applyPanZoom = usePanZoomUniforms(runnerRef, panZoomRef);
-
-        const timeName = time === false ? null : typeof time === 'string' ? time : 'u_time';
-        const mouseRef = useRef<Point2D>({ x: 0, y: 0 });
-
-        function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
-                const rect = e.currentTarget.getBoundingClientRect();
-                mouseRef.current = createScreenToNormalizedClamped(rect)({
-                        x: e.clientX,
-                        y: e.clientY
-                });
-                runnerRef.current?.setMouse(mouseRef.current);
+        if (timeName && runner.pipeline.hasUniform(timeName)) {
+            runner.pipeline.setUniforms({ [timeName]: frameTime });
         }
 
-        useFrame((frameTime) => {
-                const runner = runnerRef.current;
-                if (!runner) return;
-
-                if (timeName && runner.pipeline.hasUniform(timeName)) {
-                        runner.pipeline.setUniforms({ [timeName]: frameTime });
-                }
-
-                props.onBeforeRender?.({
-                        pipeline: runner.pipeline,
-                        time: frameTime,
-                        mouse: mouseRef.current,
-                        view: {
-                                pan: panZoomRef.current.pan,
-                                zoom: panZoomRef.current.zoom,
-                                canvasWidth: runner.canvas.clientWidth,
-                                canvasHeight: runner.canvas.clientHeight
-                        }
-                });
-
-                applyPanZoom();
-                runner.render();
+        props.onBeforeRender?.({
+            pipeline: runner.pipeline,
+            time: frameTime,
+            mouse: mouseRef.current,
+            view: {
+                pan: panZoomRef.current.pan,
+                zoom: panZoomRef.current.zoom,
+                canvasWidth: runner.canvas.clientWidth,
+                canvasHeight: runner.canvas.clientHeight
+            }
         });
 
-        return (
-                <canvas
-                        ref={canvasRef}
-                        className={className}
-                        style={{ width: '100%', height: '100%', display: 'block', ...style }}
-                        onPointerMove={onPointerMove ?? handlePointerMove}
-                />
-        );
+        applyPanZoom();
+        runner.render();
+    });
+
+    return (
+        <canvas
+            ref={canvasRef}
+            className={className}
+            style={{ width: '100%', height: '100%', display: 'block', ...style }}
+            onPointerMove={onPointerMove ?? handlePointerMove}
+        />
+    );
 }

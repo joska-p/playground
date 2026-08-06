@@ -12,35 +12,35 @@ const RADIUS = 24;
 const SPEED = 8;
 
 export function SurfaceCpuHybrid() {
-        const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
-        const [camera, controls] = useCamera({ zoom: 1 });
-        const phaseRef = useRef(0);
+    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [camera, controls] = useCamera({ zoom: 1 });
+    const phaseRef = useRef(0);
 
-        useFrame((time) => {
-                phaseRef.current = time * SPEED;
-        });
+    useFrame((time) => {
+        phaseRef.current = time * SPEED;
+    });
 
-        const onFrame: CpuDraw = () => {
-                if (!runtime) return;
-                const position: Point2D = {
-                        x: CENTER.x + ORBIT * Math.cos(phaseRef.current),
-                        y: CENTER.y + ORBIT * Math.sin(phaseRef.current)
-                };
-                runtime.clear('#0f172a');
-                runtime.applyCamera();
-                drawCircle(runtime.context, { fill: '#e11d48' }, position, RADIUS);
-                drawCircle(runtime.context, { fill: '#38bdf8' }, CENTER, 5);
+    const onFrame: CpuDraw = () => {
+        if (!runtime) return;
+        const position: Point2D = {
+            x: CENTER.x + ORBIT * Math.cos(phaseRef.current),
+            y: CENTER.y + ORBIT * Math.sin(phaseRef.current)
         };
+        runtime.clear('#0f172a');
+        runtime.applyCamera();
+        drawCircle(runtime.context, { fill: '#e11d48' }, position, RADIUS);
+        drawCircle(runtime.context, { fill: '#38bdf8' }, CENTER, 5);
+    };
 
-        return (
-                <div className="h-75 w-100">
-                        <CpuCanvas
-                                onRuntime={setRuntime}
-                                onFrame={onFrame}
-                                camera={camera}
-                                cameraControls={controls}
-                                className="h-full w-full"
-                        />
-                </div>
-        );
+    return (
+        <div className="h-75 w-100">
+            <CpuCanvas
+                onRuntime={setRuntime}
+                onFrame={onFrame}
+                camera={camera}
+                cameraControls={controls}
+                className="h-full w-full"
+            />
+        </div>
+    );
 }

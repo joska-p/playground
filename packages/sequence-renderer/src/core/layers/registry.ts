@@ -11,26 +11,26 @@ import { drawRecamanArcs } from './drawRecamanArcs';
 import { drawStemPlot } from './drawStemPlot';
 
 const layers: VisualLayer[] = [
-        drawBaseline,
-        drawPlottedNumbers,
-        drawFactorWaves,
-        drawRecamanArcs,
-        drawConnectionLines,
-        drawRadialSpokes,
-        drawMountain,
-        drawBarChart,
-        drawStemPlot,
-        drawFourierEpicycles
+    drawBaseline,
+    drawPlottedNumbers,
+    drawFactorWaves,
+    drawRecamanArcs,
+    drawConnectionLines,
+    drawRadialSpokes,
+    drawMountain,
+    drawBarChart,
+    drawStemPlot,
+    drawFourierEpicycles
 ];
 
 const layerMap = new Map<string, VisualLayer>(layers.map((layer) => [layer.id, layer]));
 
 function getAllLayers(): VisualLayer[] {
-        return layers;
+    return layers;
 }
 
 function getLayer(id: string): VisualLayer | undefined {
-        return layerMap.get(id);
+    return layerMap.get(id);
 }
 
 export { getAllLayers, getLayer };

@@ -5,20 +5,20 @@ import { useSequenceSequence } from '../stores/sequence/selectors';
 import { useLayersConfig, useViewport } from '../stores/ui/selectors';
 
 function SequenceCanvas() {
-        const canvasRef = useRef<HTMLCanvasElement>(null);
-        const sequence = useSequenceSequence();
-        const layers = useLayersConfig();
-        const viewport = useViewport();
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const sequence = useSequenceSequence();
+    const layers = useLayersConfig();
+    const viewport = useViewport();
 
-        useCanvasRenderer(canvasRef, sequence, layers, viewport);
-        useCanvasInteraction(canvasRef);
+    useCanvasRenderer(canvasRef, sequence, layers, viewport);
+    useCanvasInteraction(canvasRef);
 
-        return (
-                <canvas
-                        ref={canvasRef}
-                        className="h-full w-full cursor-grab active:cursor-grabbing"
-                />
-        );
+    return (
+        <canvas
+            ref={canvasRef}
+            className="h-full w-full cursor-grab active:cursor-grabbing"
+        />
+    );
 }
 
 export { SequenceCanvas };

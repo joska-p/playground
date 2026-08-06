@@ -41,8 +41,8 @@ pnpm add @repo/pixel
 import { pixel } from '@repo/pixel';
 
 const results = await pixel.run({
-        sourceImageData: imageData,
-        steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }]
+    sourceImageData: imageData,
+    steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }]
 });
 // results[0] = grayscale, results[1] = brightness
 ```
@@ -76,8 +76,8 @@ const results = await pixel.run({
 import { pixel } from '@repo/pixel';
 
 const snapshots = await pixel.run({
-        sourceImageData: imageData,
-        steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }]
+    sourceImageData: imageData,
+    steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }]
 });
 ```
 
@@ -172,12 +172,12 @@ import { pixel } from '@repo/pixel';
 
 // These 3 operations run in ONE pixel loop:
 const result = await pixel.run({
-        sourceImageData: source,
-        steps: [
-                { id: 'grayscale' },
-                { id: 'brightness', options: { value: 1.2 } },
-                { id: 'contrast', options: { value: 1.1 } }
-        ]
+    sourceImageData: source,
+    steps: [
+        { id: 'grayscale' },
+        { id: 'brightness', options: { value: 1.2 } },
+        { id: 'contrast', options: { value: 1.1 } }
+    ]
 }); // still produces 3 intermediate snapshots
 ```
 

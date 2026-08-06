@@ -22,11 +22,11 @@
 - **Type of Smell:** React 19 / React Compiler Friction & Duplicated Math
 - **Complexity Score:** Medium
 - **Architectural Observation:** The component uses `useMemo` (line 14) and `useEffect` (line 16) for the canvas render pipeline. With React Compiler active (configured via `babel-plugin-react-compiler` in `vite.config.ts`), the manual `useMemo` on `config` is redundant — the compiler would memoize the derived value automatically. The `useEffect` for the pixel paint loop is the correct pattern (side effect into DOM), so no change needed there. More significantly, the pixel-to-axis-range mapping math (lines 28-29):
-     ```
-     const x = xAxis.min + (px / size) * (xAxis.max - xAxis.min);
-     const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min);
-     ```
-     is an **exact duplicate** of the same mapping in `ColorSpaceControls.tsx` (lines 28-29). This is the one clear instance of preferred duplication over abstraction in this package — the math is simple and the contexts differ (pointer event vs. pixel loop), so the duplication is arguably correct per creative-coding philosophy. However, if the axis mapping ever changes (e.g., non-linear steps), it must be updated in two places.
+    ```
+    const x = xAxis.min + (px / size) * (xAxis.max - xAxis.min);
+    const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min);
+    ```
+    is an **exact duplicate** of the same mapping in `ColorSpaceControls.tsx` (lines 28-29). This is the one clear instance of preferred duplication over abstraction in this package — the math is simple and the contexts differ (pointer event vs. pixel loop), so the duplication is arguably correct per creative-coding philosophy. However, if the axis mapping ever changes (e.g., non-linear steps), it must be updated in two places.
 - **Impact on Strictness:** None.
 
 ---
@@ -45,8 +45,8 @@
 - **Type of Smell:** Weak React Keys
 - **Complexity Score:** Low
 - **Architectural Observation:** Two key-generation patterns risk runtime duplicates:
-     1. **Line 16:** `paletteId = palette.colors.join()` — If two palettes have the same sequence of colors (same rule applied to the same base color), they produce identical keys, causing React to skip re-rendering the second palette or produce a console warning.
-     2. **Line 24:** `color.to('lch').toString()` — Two different colors that serialize to the same LCH string (possible with precision truncation or different input spaces mapping to the same LCH coords) would collide. Using array index (or a counter/uuid) would be more robust.
+    1.  **Line 16:** `paletteId = palette.colors.join()` — If two palettes have the same sequence of colors (same rule applied to the same base color), they produce identical keys, causing React to skip re-rendering the second palette or produce a console warning.
+    2.  **Line 24:** `color.to('lch').toString()` — Two different colors that serialize to the same LCH string (possible with precision truncation or different input spaces mapping to the same LCH coords) would collide. Using array index (or a counter/uuid) would be more robust.
 - **Impact on Strictness:** None.
 
 ---

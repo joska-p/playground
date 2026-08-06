@@ -1,37 +1,37 @@
 {
-        "$schema": "https://v2-10-7.turborepo.dev/schema.json",
-        "ui": "stream-with-experimental-timestamps",
-        "tasks": {
-                "build": {
-                        "dependsOn": ["^build"],
-                        "inputs": ["$TURBO_DEFAULT$", ".env*"],
-                        "outputs": [".astro/**", "dist/**", "storybook-static/**"]
-                },
-                "test": {
-                        "outputs": ["coverage/**", "playwright-report/**"]
-                },
-                "lint": {
-                        "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"],
-                        "outputs": [".eslintcache"]
-                },
-                "lint-fix": {
-                        "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"]
-                },
-                "check-types": {
-                        "inputs": [
-                                "src/**",
-                                "tsconfig.json",
-                                "tsconfig.app.json",
-                                "tsconfig.node.json",
-                                "tsconfig.worker.json"
-                        ]
-                },
-                "dev": {
-                        "cache": false,
-                        "persistent": true
-                },
-                "clean": {
-                        "cache": false
-                }
+    "$schema": "https://v2-10-7.turborepo.dev/schema.json",
+    "ui": "stream-with-experimental-timestamps",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": [".astro/**", "dist/**", "storybook-static/**"]
+        },
+        "test": {
+            "outputs": ["coverage/**", "playwright-report/**"]
+        },
+        "lint": {
+            "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"],
+            "outputs": [".eslintcache"]
+        },
+        "lint-fix": {
+            "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"]
+        },
+        "check-types": {
+            "inputs": [
+                "src/**",
+                "tsconfig.json",
+                "tsconfig.app.json",
+                "tsconfig.node.json",
+                "tsconfig.worker.json"
+            ]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "clean": {
+            "cache": false
         }
+    }
 }

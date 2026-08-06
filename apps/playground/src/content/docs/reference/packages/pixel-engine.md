@@ -3,8 +3,8 @@ title: 'Pixel Engine'
 description: 'The bare-metal core — a pure TypeScript image pipeline that translates raw pixel arrays through fused transforms, tiled convolutions, and geometry-bending global operations without touching a single line of framework code.'
 category: 'reference'
 tags:
-        - reference
-        - pixel-engine
+    - reference
+    - pixel-engine
 order: 20
 ---
 

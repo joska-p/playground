@@ -44,62 +44,62 @@ import { IconWrench } from './components/IconWrench';
 import { IconX } from './components/IconX';
 
 export const iconMap = {
-        'arrow-diagonal': IconArrowDiagonal,
-        'arrow-right': IconArrowRight,
-        'arrow-left': IconArrowLeft,
-        automa: IconAutoma,
-        bluesky: IconBluesky,
-        book: IconBook,
-        box: IconBox,
-        'chevron-down': IconChevronDown,
-        close: IconClose,
-        code: IconCode,
-        color: IconColor,
-        'data-viz': IconDataViz,
-        discord: IconDiscord,
-        documentation: IconDocumentation,
-        flame: IconFlame,
-        generative: IconGenerative,
-        github: IconGithub,
-        gitlab: IconGitlab,
-        graphify: IconGraphify,
-        grid: IconGrid,
-        'grid-3x3': IconGrid3x3,
-        hamburger: IconHamburger,
-        home: IconHome,
-        image: IconImage,
-        'image-down': IconImageDown,
-        'pixel-manipulator': IconPixelManipulator,
-        infinity: IconInfinity,
-        lightbulb: IconLightbulb,
-        mosaic: IconMosaic,
-        palette: IconPalette,
-        palettes: IconPalettes,
-        particles: IconParticles,
-        'pie-chart': IconPieChart,
-        pipeline: IconPipeline,
-        random: IconRandom,
-        sequences: IconSequences,
-        simulation: IconSimulation,
-        social: IconSocial,
-        sparkles: IconSparkles,
-        spinner: IconSpinner,
-        storybook: IconStorybook,
-        'three-stage': IconThreeStage,
-        wrench: IconWrench,
-        x: IconX
+    'arrow-diagonal': IconArrowDiagonal,
+    'arrow-right': IconArrowRight,
+    'arrow-left': IconArrowLeft,
+    automa: IconAutoma,
+    bluesky: IconBluesky,
+    book: IconBook,
+    box: IconBox,
+    'chevron-down': IconChevronDown,
+    close: IconClose,
+    code: IconCode,
+    color: IconColor,
+    'data-viz': IconDataViz,
+    discord: IconDiscord,
+    documentation: IconDocumentation,
+    flame: IconFlame,
+    generative: IconGenerative,
+    github: IconGithub,
+    gitlab: IconGitlab,
+    graphify: IconGraphify,
+    grid: IconGrid,
+    'grid-3x3': IconGrid3x3,
+    hamburger: IconHamburger,
+    home: IconHome,
+    image: IconImage,
+    'image-down': IconImageDown,
+    'pixel-manipulator': IconPixelManipulator,
+    infinity: IconInfinity,
+    lightbulb: IconLightbulb,
+    mosaic: IconMosaic,
+    palette: IconPalette,
+    palettes: IconPalettes,
+    particles: IconParticles,
+    'pie-chart': IconPieChart,
+    pipeline: IconPipeline,
+    random: IconRandom,
+    sequences: IconSequences,
+    simulation: IconSimulation,
+    social: IconSocial,
+    sparkles: IconSparkles,
+    spinner: IconSpinner,
+    storybook: IconStorybook,
+    'three-stage': IconThreeStage,
+    wrench: IconWrench,
+    x: IconX
 } as const;
 
 export type IconName = keyof typeof iconMap;
 export interface IconEntry {
-        name: IconName;
-        label: (typeof iconMap)[IconName];
+    name: IconName;
+    label: (typeof iconMap)[IconName];
 }
 
 // a runtime tuple Zod can consume, typed to match IconName exactly
 export const iconNames = Object.keys(iconMap) as [IconName, ...IconName[]];
 
 export const iconArray = Object.entries(iconMap).map(([name]) => ({
-        name,
-        label: name.replace(/-/g, ' ')
+    name,
+    label: name.replace(/-/g, ' ')
 }));

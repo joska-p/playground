@@ -56,7 +56,7 @@ pnpm add @repo/graph-viz
 import { App } from '@repo/graph-viz';
 
 export default function Page() {
-        return <App />;
+    return <App />;
 }
 ```
 

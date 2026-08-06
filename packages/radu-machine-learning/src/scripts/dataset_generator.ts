@@ -12,38 +12,38 @@ fs.mkdirSync(CONSTANTS.TS_OBJECTS, { recursive: true });
 const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR_SUBSET);
 
 const totalDrawings = fileNames.reduce((total, fileName) => {
-        const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
-        const { drawings } = JSON.parse(fileContent) as RawSample;
-        return total + Object.keys(drawings).length;
+    const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
+    const { drawings } = JSON.parse(fileContent) as RawSample;
+    return total + Object.keys(drawings).length;
 }, 0);
 
 const samples: Sample[] = [];
 let id = 1;
 
 fileNames.forEach((fileName) => {
-        const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
-        const { session, student, drawings } = JSON.parse(fileContent) as RawSample;
+    const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
+    const { session, student, drawings } = JSON.parse(fileContent) as RawSample;
 
-        for (const [label, paths] of Object.entries(drawings)) {
-                samples.push({
-                        id,
-                        label: label as Label,
-                        student_name: student,
-                        student_id: session
-                });
+    for (const [label, paths] of Object.entries(drawings)) {
+        samples.push({
+            id,
+            label: label as Label,
+            student_name: student,
+            student_id: session
+        });
 
-                fs.writeFileSync(
-                        path.join(CONSTANTS.JSON_DIR, `${String(id)}.json`),
-                        JSON.stringify(paths)
-                );
+        fs.writeFileSync(
+            path.join(CONSTANTS.JSON_DIR, `${String(id)}.json`),
+            JSON.stringify(paths)
+        );
 
-                const svgPath = path.join(CONSTANTS.IMG_DIR, `${String(id)}.svg`);
-                const svgContent = generateSVG({ paths });
-                fs.writeFileSync(svgPath, svgContent);
+        const svgPath = path.join(CONSTANTS.IMG_DIR, `${String(id)}.svg`);
+        const svgContent = generateSVG({ paths });
+        fs.writeFileSync(svgPath, svgContent);
 
-                printProgress({ count: id, max: totalDrawings });
-                id++;
-        }
+        printProgress({ count: id, max: totalDrawings });
+        id++;
+    }
 });
 
 // Save the raw JSON data if needed
@@ -51,6 +51,6 @@ fs.writeFileSync(CONSTANTS.SAMPLES, JSON.stringify(samples));
 
 // 2. Write the perfectly pre-grouped data directly to your TS file!
 fs.writeFileSync(
-        CONSTANTS.SAMPLES_TS,
-        `import type { Sample } from '../../../core/types'; export const samples = ${JSON.stringify(samples)} as const satisfies Sample[];`
+    CONSTANTS.SAMPLES_TS,
+    `import type { Sample } from '../../../core/types'; export const samples = ${JSON.stringify(samples)} as const satisfies Sample[];`
 );

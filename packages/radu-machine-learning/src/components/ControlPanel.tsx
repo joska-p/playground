@@ -3,12 +3,12 @@ import { Chart } from './chart/Chart';
 import { Sketchpad } from './Sketchpad';
 
 function ControlPanel() {
-        return (
-                <Panel size="lg">
-                        <Sketchpad />
-                        <Chart />
-                </Panel>
-        );
+    return (
+        <Panel size="lg">
+            <Sketchpad />
+            <Chart />
+        </Panel>
+    );
 }
 
 export { ControlPanel };

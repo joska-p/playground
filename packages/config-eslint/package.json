@@ -1,22 +1,22 @@
 {
-        "name": "@repo/config-eslint",
-        "type": "module",
-        "private": true,
-        "exports": {
-                ".": {
-                        "import": "./index.js",
-                        "types": "./index.d.ts"
-                }
-        },
-        "peerDependencies": {
-                "eslint": "catalog:"
-        },
-        "devDependencies": {
-                "@eslint/js": "catalog:",
-                "eslint-plugin-import-x": "catalog:",
-                "eslint-plugin-react-hooks": "catalog:",
-                "eslint-plugin-react-refresh": "catalog:",
-                "globals": "catalog:",
-                "typescript-eslint": "catalog:"
+    "name": "@repo/config-eslint",
+    "type": "module",
+    "private": true,
+    "exports": {
+        ".": {
+            "import": "./index.js",
+            "types": "./index.d.ts"
         }
+    },
+    "peerDependencies": {
+        "eslint": "catalog:"
+    },
+    "devDependencies": {
+        "@eslint/js": "catalog:",
+        "eslint-plugin-import-x": "catalog:",
+        "eslint-plugin-react-hooks": "catalog:",
+        "eslint-plugin-react-refresh": "catalog:",
+        "globals": "catalog:",
+        "typescript-eslint": "catalog:"
+    }
 }

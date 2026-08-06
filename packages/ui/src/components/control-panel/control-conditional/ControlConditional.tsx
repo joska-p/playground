@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 
 export interface ControlConditionalProps {
-        when: boolean;
-        className?: string;
-        children: ReactNode;
+    when: boolean;
+    className?: string;
+    children: ReactNode;
 }
 
 /**
@@ -19,16 +19,16 @@ export interface ControlConditionalProps {
  * opacity) collapses to zero — no measuring, no JS, no layout jump.
  */
 export function ControlConditional({ when, className, children }: ControlConditionalProps) {
-        return (
-                <div
-                        aria-hidden={!when}
-                        className={cn(
-                                'grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none',
-                                when ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
-                                className
-                        )}
-                >
-                        <div className="flex flex-col gap-3 overflow-hidden">{children}</div>
-                </div>
-        );
+    return (
+        <div
+            aria-hidden={!when}
+            className={cn(
+                'grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none',
+                when ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+                className
+            )}
+        >
+            <div className="flex flex-col gap-3 overflow-hidden">{children}</div>
+        </div>
+    );
 }

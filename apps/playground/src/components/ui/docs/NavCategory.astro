@@ -5,8 +5,8 @@ const baseUrl = import.meta.env.BASE_URL || '/';
 const docsBaseUrl = `${baseUrl}docs/`;
 
 type Props = {
-        categoryName: string;
-        currentPath: string;
+    categoryName: string;
+    currentPath: string;
 };
 
 const { categoryName, currentPath } = Astro.props;
@@ -16,89 +16,84 @@ const docs = await getCollection('docs', ({ data }) => data.tags[0].id === categ
 
 // Check if this category contains the currently active article to auto-open it
 const hasActiveArticle = docs.some((category) => {
-        const docUrl = `${docsBaseUrl}${category.id}/`;
-        return currentPath === docUrl || currentPath === docUrl.slice(0, -1);
+    const docUrl = `${docsBaseUrl}${category.id}/`;
+    return currentPath === docUrl || currentPath === docUrl.slice(0, -1);
 });
 ---
 
 <details
-        class="group/category select-none"
-        open={hasActiveArticle}
+    class="group/category select-none"
+    open={hasActiveArticle}
 >
-        <summary
-                class="mb-1.5 flex cursor-pointer list-none items-center justify-between gap-2 px-2 py-1 outline-none [&::-webkit-details-marker]:hidden"
+    <summary
+        class="mb-1.5 flex cursor-pointer list-none items-center justify-between gap-2 px-2 py-1 outline-none [&::-webkit-details-marker]:hidden"
+    >
+        <div
+            class="flex items-center gap-2"
+            style={{
+                '--variant-color': `var(--tags-${category[0].id}, var(--color-primary))`
+            }}
         >
-                <div
-                        class="flex items-center gap-2"
-                        style={{
-                                '--variant-color': `var(--tags-${category[0].id}, var(--color-primary))`
-                        }}
-                >
-                        <Icon
-                                aria-hidden="true"
-                                className="h-4 w-4 shrink-0 text-(--variant-color)"
-                                name={category[0].data.iconName ?? 'bluesky'}
-                        />
-                        <span class="text-muted-foreground/50 text-[9px] font-bold uppercase">
-                                {category[0].data.title}
-                        </span>
-                </div>
+            <Icon
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 text-(--variant-color)"
+                name={category[0].data.iconName ?? 'bluesky'}
+            />
+            <span class="text-muted-foreground/50 text-[9px] font-bold uppercase">
+                {category[0].data.title}
+            </span>
+        </div>
 
-                <svg
-                        class="text-muted-foreground/40 h-2.5 w-2.5 transition-transform duration-200 group-open/category:rotate-90"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.5"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                        <path
-                                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                        ></path>
-                </svg>
-        </summary>
+        <svg
+            class="text-muted-foreground/40 h-2.5 w-2.5 transition-transform duration-200 group-open/category:rotate-90"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            ></path>
+        </svg>
+    </summary>
 
-        <ul class="space-y-0.5 pl-1.5">
-                {
-                        docs.map((doc) => {
-                                const docUrl = `${docsBaseUrl}${doc.id}/`;
-                                const isActive =
-                                        currentPath === docUrl ||
-                                        currentPath === docUrl.slice(0, -1);
+    <ul class="space-y-0.5 pl-1.5">
+        {
+            docs.map((doc) => {
+                const docUrl = `${docsBaseUrl}${doc.id}/`;
+                const isActive = currentPath === docUrl || currentPath === docUrl.slice(0, -1);
 
-                                return (
-                                        <li>
-                                                <a
-                                                        aria-current={isActive ? 'page' : undefined}
-                                                        class:list={[
-                                                                'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
-                                                                {
-                                                                        'bg-primary/10 text-primary font-semibold':
-                                                                                isActive,
-                                                                        'text-muted-foreground hover:bg-muted hover:text-foreground':
-                                                                                !isActive
-                                                                }
-                                                        ]}
-                                                        href={docUrl}
-                                                >
-                                                        <span
-                                                                class:list={[
-                                                                        'h-1 w-1 shrink-0 rounded-full transition-colors',
-                                                                        {
-                                                                                'bg-primary':
-                                                                                        isActive,
-                                                                                'bg-border group-hover:bg-muted-foreground/50':
-                                                                                        !isActive
-                                                                        }
-                                                                ]}
-                                                        />
-                                                        {doc.data.title}
-                                                </a>
-                                        </li>
-                                );
-                        })
-                }
-        </ul>
+                return (
+                    <li>
+                        <a
+                            aria-current={isActive ? 'page' : undefined}
+                            class:list={[
+                                'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
+                                {
+                                    'bg-primary/10 text-primary font-semibold': isActive,
+                                    'text-muted-foreground hover:bg-muted hover:text-foreground':
+                                        !isActive
+                                }
+                            ]}
+                            href={docUrl}
+                        >
+                            <span
+                                class:list={[
+                                    'h-1 w-1 shrink-0 rounded-full transition-colors',
+                                    {
+                                        'bg-primary': isActive,
+                                        'bg-border group-hover:bg-muted-foreground/50': !isActive
+                                    }
+                                ]}
+                            />
+                            {doc.data.title}
+                        </a>
+                    </li>
+                );
+            })
+        }
+    </ul>
 </details>

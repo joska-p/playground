@@ -3,8 +3,8 @@ title: 'PaletteEngine'
 description: 'A pure engine that maps a base color to harmonious palettes — four color spaces, four harmony rules, no UI, no rendering, no opinions about how the result should be shown.'
 category: 'reference'
 tags:
-        - reference
-        - palette-engine
+    - reference
+    - palette-engine
 order: 20
 ---
 

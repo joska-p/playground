@@ -1,33 +1,33 @@
 {
-        "name": "@repo/automa-engine",
-        "private": true,
-        "version": "0.0.0",
-        "type": "module",
-        "exports": {
-                "./cpu/engine": "./src/cpu/engine.ts",
-                "./cpu/worker": "./src/cpu/worker.ts",
-                "./config": "./src/config.ts",
-                "./grid": "./src/grid.ts",
-                "./creature/builtin": "./src/creature/builtin.ts",
-                "./creature/registry": "./src/creature/registry.ts",
-                "./rules/registry": "./src/rules/registry.ts",
-                "./gpu/createSimulationEngine": "./src/gpu/createSimulationEngine.ts",
-                "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag"
-        },
-        "scripts": {
-                "lint": "eslint .",
-                "lint-fix": "eslint . --fix",
-                "check-types": "tsc -b",
-                "clean": "rm -rf node_modules dist .turbo"
-        },
-        "dependencies": {
-                "@repo/glaze": "workspace:*"
-        },
-        "devDependencies": {
-                "@repo/config-eslint": "workspace:*",
-                "@repo/config-typescript": "workspace:*",
-                "@types/node": "catalog:",
-                "eslint": "catalog:",
-                "typescript": "catalog:"
-        }
+    "name": "@repo/automa-engine",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        "./cpu/engine": "./src/cpu/engine.ts",
+        "./cpu/worker": "./src/cpu/worker.ts",
+        "./config": "./src/config.ts",
+        "./grid": "./src/grid.ts",
+        "./creature/builtin": "./src/creature/builtin.ts",
+        "./creature/registry": "./src/creature/registry.ts",
+        "./rules/registry": "./src/rules/registry.ts",
+        "./gpu/createSimulationEngine": "./src/gpu/createSimulationEngine.ts",
+        "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo"
+    },
+    "dependencies": {
+        "@repo/glaze": "workspace:*"
+    },
+    "devDependencies": {
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@types/node": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:"
+    }
 }

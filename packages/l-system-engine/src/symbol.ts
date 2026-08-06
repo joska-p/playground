@@ -8,7 +8,7 @@ import type { LSymbol, Parameter } from './types';
  * symbol('F', 1.0)     // { name: 'F', params: [1.0] }
  */
 export function symbol(name: string, ...params: Parameter[]): LSymbol {
-        return { name, params };
+    return { name, params };
 }
 
 /**
@@ -19,9 +19,9 @@ export function symbol(name: string, ...params: Parameter[]): LSymbol {
  * symbolWithMeta('F', { shader: 'bark-thick', roughness: 0.8 }, 1.0)
  */
 export function symbolWithMeta(
-        name: string,
-        metadata: Readonly<Record<string, unknown>>,
-        ...params: Parameter[]
+    name: string,
+    metadata: Readonly<Record<string, unknown>>,
+    ...params: Parameter[]
 ): LSymbol {
-        return { name, params, metadata };
+    return { name, params, metadata };
 }

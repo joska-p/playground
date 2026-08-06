@@ -53,7 +53,7 @@ pnpm add @repo/art-canvas
 import App from '@repo/art-canvas';
 
 export default function Artwork() {
-        return <App />;
+    return <App />;
 }
 ```
 

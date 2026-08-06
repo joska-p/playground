@@ -4,22 +4,22 @@ import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuDeclarative() {
-        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
 
-        const onFrame: GpuDraw = () => {
-                if (!runtime) return;
-                drawSceneGpu(runtime);
-        };
+    const onFrame: GpuDraw = () => {
+        if (!runtime) return;
+        drawSceneGpu(runtime);
+    };
 
-        return (
-                <div className="h-75 w-100">
-                        <GpuCanvas
-                                pan={true}
-                                zoom={true}
-                                onRuntime={setRuntime}
-                                onFrame={onFrame}
-                                className="h-full w-full"
-                        />
-                </div>
-        );
+    return (
+        <div className="h-75 w-100">
+            <GpuCanvas
+                pan={true}
+                zoom={true}
+                onRuntime={setRuntime}
+                onFrame={onFrame}
+                className="h-full w-full"
+            />
+        </div>
+    );
 }

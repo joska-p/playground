@@ -1,7 +1,7 @@
 {
-        "extends": "@repo/config-typescript/app.json",
-        "compilerOptions": {
-                "tsBuildInfoFile": "./.turbo/tsconfig.app.tsbuildinfo"
-        },
-        "include": ["src/example"]
+    "extends": "@repo/config-typescript/app.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./.turbo/tsconfig.app.tsbuildinfo"
+    },
+    "include": ["src/example"]
 }

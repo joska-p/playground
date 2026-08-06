@@ -7,28 +7,28 @@ import { FrameLoopContext } from './FrameLoopProvider';
  * (a development warning is emitted).
  */
 export function useFrame(callback: (time: number, delta: number) => void): void {
-        const loop = useContext(FrameLoopContext);
-        const callbackRef = useRef(callback);
+    const loop = useContext(FrameLoopContext);
+    const callbackRef = useRef(callback);
 
-        useEffect(() => {
-                callbackRef.current = callback;
-        });
+    useEffect(() => {
+        callbackRef.current = callback;
+    });
 
-        useEffect(() => {
-                if (!loop) {
-                        if (!import.meta.env.PROD) {
-                                console.warn(
-                                        'useFrame() called outside <FrameLoopProvider>. ' +
-                                                'The callback will never be invoked.'
-                                );
-                        }
-                        return;
-                }
+    useEffect(() => {
+        if (!loop) {
+            if (!import.meta.env.PROD) {
+                console.warn(
+                    'useFrame() called outside <FrameLoopProvider>. ' +
+                        'The callback will never be invoked.'
+                );
+            }
+            return;
+        }
 
-                const handler = (time: number, delta: number) => {
-                        callbackRef.current(time, delta);
-                };
+        const handler = (time: number, delta: number) => {
+            callbackRef.current(time, delta);
+        };
 
-                return loop.subscribe(handler);
-        }, [loop]);
+        return loop.subscribe(handler);
+    }, [loop]);
 }
