@@ -2,12 +2,9 @@ import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera, type Point2D } from '../core/coords/camera';
 import { createInputStore, type InputStore } from '../cpu/input';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
+import { createShapeBatcher } from './batch/createShapeBatcher';
 import { createProgram as createShaderProgram, type Program } from './shader/createProgram';
-import type { UniformValue } from './shader/compileProgram';
 import { createStandardUniformValues } from './shader/setUniforms';
-import { circleFragmentSource, circleUniforms } from './shapes/circle';
-import { lineFragmentSource, lineUniforms } from './shapes/line';
-import { rectFragmentSource, rectUniforms } from './shapes/rect';
 import {
         createTextRasterizer,
         DEFAULT_FONT_FAMILY,
@@ -57,7 +54,7 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         const canvas = config.canvas;
         const gl = canvas.getContext('webgl2', {
                 alpha: true,
-                antialias: false,
+                antialias: true,
                 premultipliedAlpha: true
         });
         if (!gl) throw new Error('Glaze: WebGL2 not supported');
@@ -68,9 +65,9 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         const loop = createFrameLoop();
         const programs = new Set<Program>();
         const subscribers = new Set<GpuDraw>();
-        const shapePrograms = new Map<string, Program>();
         let draw: GpuDraw | null = null;
         let textRasterizer: TextRasterizer | null = null;
+        let textProgram: Program | null = null;
         let frameCount = 0;
         let currentTime = 0;
         let cssWidth = 0;
@@ -95,13 +92,20 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         };
 
+        const flushBatch = (): void => {
+                if (lost) return;
+                batch.flush();
+        };
+
         const clear = (r = 0, g = 0, b = 0, a = 1): void => {
+                flushBatch();
                 if (lost) return;
                 gl.clearColor(r, g, b, a);
                 gl.clear(gl.COLOR_BUFFER_BIT);
         };
 
         const renderProgram = (program: Program): void => {
+                flushBatch();
                 if (lost) return;
                 program.setUniforms(
                         createStandardUniformValues(
@@ -116,19 +120,12 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 program.render();
         };
 
-        const getShapeProgram = (key: string, fragmentSource: string): Program => {
-                const cached = shapePrograms.get(key);
-                if (cached) return cached;
-                const program = createShaderProgram(gl, fragmentSource);
-                programs.add(program);
-                shapePrograms.set(key, program);
-                return program;
-        };
-
-        const renderShape = (program: Program, uniforms: Record<string, UniformValue>): void => {
-                if (lost) return;
-                program.setUniforms(uniforms);
-                renderProgram(program);
+        const getTextProgram = (): Program => {
+                if (textProgram === null) {
+                        textProgram = createShaderProgram(gl, textFragmentSource);
+                        programs.add(textProgram);
+                }
+                return textProgram;
         };
 
         const onContextLost = (event: Event): void => {
@@ -141,6 +138,7 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 configureState();
                 resize();
                 textRasterizer?.clear();
+                batch.reinitialize();
                 for (const program of programs) program.reinitialize();
         };
 
@@ -161,6 +159,7 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 const current = draw;
                 if (current) current(frameContext);
                 for (const subscriber of subscribers) subscriber(frameContext);
+                flushBatch();
                 input.endFrame();
         };
 
@@ -176,6 +175,12 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 unsubscribeRenderer = null;
                 rendererAttached = false;
         };
+
+        const batch = createShapeBatcher({
+                gl,
+                camera,
+                getViewport: () => ({ width: cssWidth, height: cssHeight })
+        });
 
         configureState();
         resize();
@@ -201,37 +206,30 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                 renderProgram,
 
                 drawCircle(center: Point2D, radius: number, style: DrawStyle): void {
-                        renderShape(
-                                getShapeProgram('circle', circleFragmentSource),
-                                circleUniforms(center, radius, style)
-                        );
+                        if (lost) return;
+                        batch.drawCircle(center, radius, style);
                 },
 
                 drawRect(rect: Rect, style: DrawStyle): void {
-                        renderShape(
-                                getShapeProgram('rect', rectFragmentSource),
-                                rectUniforms(rect, style)
-                        );
+                        if (lost) return;
+                        batch.drawRect(rect, style);
                 },
 
                 drawLine(a: Point2D, b: Point2D, style: DrawStyle): void {
-                        if (a.x === b.x && a.y === b.y) return;
-                        renderShape(
-                                getShapeProgram('line', lineFragmentSource),
-                                lineUniforms(a, b, style)
-                        );
+                        if (lost) return;
+                        batch.drawLine(a, b, style);
                 },
 
                 drawText(text: string, position: Point2D, style: TextStyle): void {
                         if (lost || text.length === 0) return;
+                        flushBatch();
                         const rasterizer = (textRasterizer ??= createTextRasterizer(gl));
                         const size = style.fontSize ?? 16;
                         const font = `${String(size)}px ${style.fontFamily ?? DEFAULT_FONT_FAMILY}`;
                         const { texture, width, height } = rasterizer.get(text, font, size);
-                        renderShape(
-                                getShapeProgram('text', textFragmentSource),
-                                textUniforms(position, width, height, size, texture, style)
-                        );
+                        const program = getTextProgram();
+                        program.setUniforms(textUniforms(position, width, height, size, texture, style));
+                        renderProgram(program);
                 },
 
                 clear,
@@ -259,7 +257,8 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
                         canvas.removeEventListener('webglcontextrestored', onContextRestored);
                         for (const program of programs) program.destroy();
                         programs.clear();
-                        shapePrograms.clear();
+                        textProgram = null;
+                        batch.destroy();
                         textRasterizer?.destroy();
                         textRasterizer = null;
                         subscribers.clear();

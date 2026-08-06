@@ -4,7 +4,7 @@
 
 ## What it is
 
-`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 there is no difference between the two: `drawCircle` _is_ a tiny compiled program.
+`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 the two speak the same language: shapes are tessellated and drawn through a shader, and custom programs are fullscreen passes.
 
 It ships as two sibling runtimes over a shared foundation:
 
@@ -237,11 +237,11 @@ export function App() {
 
 ## Notes & gotchas
 
-- **A shape is a program.** No batched renderer — each GPU shape is a fullscreen pass. Right-sized for an author tool.
-- **Draw in world space.** CPU shapes assume the runtime's transform is applied (it is, before every frame); GPU shape shaders recover world position from `vUv` + `u_camera`/`u_dpr` with ~2-device-px anti-aliased SDF edges.
+- **Shapes are batched.** GPU shapes are tessellated on the CPU into one dynamic vertex buffer and drawn in a single draw call per frame (flushed on `clear()`, before custom programs/text, and at the end of the frame). A fullscreen pass is reserved for custom programs.
+- **Draw in world space.** CPU shapes assume the runtime's transform is applied (it is, before every frame); GPU shapes are tessellated in world space and projected through the camera matrix, with GPU MSAA anti-aliased edges.
 - **`half` is reserved in GLSL ES 3.00.** Using `half` / `hvec2/3/4` as an identifier only fails at compile time.
 - **Text is a texture.** Glyphs are rasterized to an offscreen canvas (2× supersampled, 128-entry LRU cache) and uploaded with `UNPACK_FLIP_Y`.
-- **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including shape programs and the text cache) on restore.
+- **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including the shape batcher and the text cache) on restore.
 - **CPU and GPU stay siblings.** There is deliberately no shared renderer abstraction — duplicate over abstract.
 - **Factories, not classes; named exports only, no barrel files; errors prefixed `Glaze:`.**
 
