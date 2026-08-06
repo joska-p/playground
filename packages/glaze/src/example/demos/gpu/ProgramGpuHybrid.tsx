@@ -6,7 +6,6 @@ import { createStateBuffer, type StateBuffer } from '@repo/glaze/gpu/createState
 
 const GRID = 96;
 
-// Conway's Game of Life stepping into a ping-pong texture pair.
 const simFragmentSource = /* glsl */ `
 precision highp float;
 in vec2 vUv;
@@ -40,8 +39,7 @@ void main() {
 }
 `.trim();
 
-// Display shader samples the pass texture through the built-in pan/zoom
-// camera (`u_camera` is auto-set by glaze each frame).
+// Display shader samples the pass texture through the built-in pan/zoom camera.
 const displayFragmentSource = /* glsl */ `
 precision highp float;
 in vec2 vUv;
@@ -87,7 +85,7 @@ function seedSoup(): Uint8Array {
         return cells;
 }
 
-export function StateBufferGpu() {
+export function ProgramGpuHybrid() {
         const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
         const bufferRef = useRef<StateBuffer | null>(null);
 

@@ -32,6 +32,11 @@ function createStateBufferTargets(
 
         const createTarget = (width: number, height: number): [WebGLTexture, WebGLFramebuffer] => {
                 const texture = gl.createTexture();
+                // even with WebGL2, createTexture can return null if the context is lost or if there are insufficient resources.
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (!texture) {
+                        throw new Error('Glaze: StateBuffer texture creation failed');
+                }
 
                 gl.bindTexture(gl.TEXTURE_2D, texture);
                 gl.texImage2D(
@@ -51,7 +56,8 @@ function createStateBufferTargets(
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
                 const fbo = gl.createFramebuffer();
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createFramebuffer() as non-null, but the WebGL spec allows null on failure
+                // even with WebGL2, createFramebuffer can return null if the context is lost or if there are insufficient resources.
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 if (!fbo) {
                         gl.deleteTexture(texture);
                         throw new Error('Glaze: StateBuffer framebuffer creation failed');
@@ -118,7 +124,8 @@ function createStateBufferTargets(
 
                 bindWrite(): void {
                         const fbo = framebuffers[writeIndex()];
-                        if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
+                        if (!fbo)
+                                throw new Error('Glaze: StateBuffer write target not initialized');
                         gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
                         gl.viewport(0, 0, currentWidth, currentHeight);
                 },
@@ -129,7 +136,8 @@ function createStateBufferTargets(
 
                 getReadTexture(): WebGLTexture {
                         const texture = textures[readIndex()];
-                        if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
+                        if (!texture)
+                                throw new Error('Glaze: StateBuffer read target not initialized');
                         return texture;
                 },
 
