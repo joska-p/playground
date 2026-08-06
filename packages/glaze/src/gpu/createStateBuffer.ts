@@ -4,9 +4,9 @@ import type { UniformValue } from './shader/compileProgram';
 /**
  * Ping-pong render targets: two RGBA8 textures each attached to their own
  * framebuffer. `step()` renders into the write target while sampling the read
- * target, then swaps them so the result becomes the input of the next pass.
+ * target, then swaps them so the result becomes the input of the next step.
  */
-export type GpuPassTargets = {
+export type StateBufferTargets = {
         readonly width: number;
         readonly height: number;
         bindWrite(): void;
@@ -19,11 +19,11 @@ export type GpuPassTargets = {
         destroy(): void;
 };
 
-function createGpuPassTargets(
+function createStateBufferTargets(
         gl: WebGL2RenderingContext,
         initialWidth: number,
         initialHeight: number
-): GpuPassTargets {
+): StateBufferTargets {
         let pingPong = 0;
         let currentWidth = initialWidth;
         let currentHeight = initialHeight;
@@ -54,7 +54,7 @@ function createGpuPassTargets(
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createFramebuffer() as non-null, but the WebGL spec allows null on failure
                 if (!fbo) {
                         gl.deleteTexture(texture);
-                        throw new Error('Glaze: GpuPass framebuffer creation failed');
+                        throw new Error('Glaze: StateBuffer framebuffer creation failed');
                 }
 
                 gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
@@ -70,7 +70,7 @@ function createGpuPassTargets(
                         gl.deleteTexture(texture);
                         gl.deleteFramebuffer(fbo);
                         throw new Error(
-                                `Glaze: GpuPass framebuffer incomplete (${String(width)}x${String(height)})`
+                                `Glaze: StateBuffer framebuffer incomplete (${String(width)}x${String(height)})`
                         );
                 }
 
@@ -118,7 +118,7 @@ function createGpuPassTargets(
 
                 bindWrite(): void {
                         const fbo = framebuffers[writeIndex()];
-                        if (!fbo) throw new Error('Glaze: GpuPass write target not initialized');
+                        if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
                         gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
                         gl.viewport(0, 0, currentWidth, currentHeight);
                 },
@@ -129,14 +129,14 @@ function createGpuPassTargets(
 
                 getReadTexture(): WebGLTexture {
                         const texture = textures[readIndex()];
-                        if (!texture) throw new Error('Glaze: GpuPass read target not initialized');
+                        if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
                         return texture;
                 },
 
                 getWriteTexture(): WebGLTexture {
                         const texture = textures[writeIndex()];
                         if (!texture)
-                                throw new Error('Glaze: GpuPass write target not initialized');
+                                throw new Error('Glaze: StateBuffer write target not initialized');
                         return texture;
                 },
 
@@ -147,7 +147,7 @@ function createGpuPassTargets(
                 init(data: Uint8Array): void {
                         if (data.length !== currentWidth * currentHeight) {
                                 throw new Error(
-                                        `Glaze: GpuPass init data length ${String(data.length)} does not match ${String(currentWidth)}x${String(currentHeight)} cells`
+                                        `Glaze: StateBuffer init data length ${String(data.length)} does not match ${String(currentWidth)}x${String(currentHeight)} cells`
                                 );
                         }
 
@@ -193,16 +193,18 @@ function createGpuPassTargets(
 }
 
 /**
- * A GPGPU pass: a set of fullscreen-triangle programs that step a ping-pong
- * texture pair, sampling the previous state via the `u_state` sampler (bound
- * to texture unit 0) and writing the result into the framebuffer target.
+ * A GPU state buffer: a ping-pong texture pair holding evolving state, plus
+ * the fullscreen-triangle programs that step it. Each `step()` renders the
+ * active program into the write target while sampling the previous state via
+ * the `u_state` sampler (bound to texture unit 0), then swaps the pair.
  *
- * The typical flow is `useProgram(name)` → `setUniforms(values)` → `step()`.
+ * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)`
+ * → `step()`, reading the live state back with `getTexture()`.
  */
-export type GpuPass = {
+export type StateBuffer = {
         readonly width: number;
         readonly height: number;
-        readonly targets: GpuPassTargets;
+        readonly targets: StateBufferTargets;
         addProgram(name: string, fragmentSource: string): void;
         useProgram(name: string): void;
         setUniforms(values: Record<string, UniformValue>): void;
@@ -213,8 +215,12 @@ export type GpuPass = {
         destroy(): void;
 };
 
-export function createGpuPass(gl: WebGL2RenderingContext, width: number, height: number): GpuPass {
-        const targets = createGpuPassTargets(gl, width, height);
+export function createStateBuffer(
+        gl: WebGL2RenderingContext,
+        width: number,
+        height: number
+): StateBuffer {
+        const targets = createStateBufferTargets(gl, width, height);
         const programs = new Map<string, Program>();
         let activeName: string | null = null;
 
@@ -222,7 +228,7 @@ export function createGpuPass(gl: WebGL2RenderingContext, width: number, height:
                 const program = programs.get(activeName ?? 'default');
                 if (!program)
                         throw new Error(
-                                `Glaze: GpuPass program "${activeName ?? 'default'}" not found`
+                                `Glaze: StateBuffer program "${activeName ?? 'default'}" not found`
                         );
                 return program;
         };
@@ -246,7 +252,7 @@ export function createGpuPass(gl: WebGL2RenderingContext, width: number, height:
 
                 useProgram(name: string): void {
                         if (!programs.has(name))
-                                throw new Error(`Glaze: GpuPass program "${name}" not found`);
+                                throw new Error(`Glaze: StateBuffer program "${name}" not found`);
                         activeName = name;
                 },
 

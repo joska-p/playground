@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 import type { UniformValue } from '@repo/glaze/gpu/shader/compileProgram';
-import { createGpuPass, type GpuPass } from '@repo/glaze/gpu/createGpuPass';
+import { createStateBuffer, type StateBuffer } from '@repo/glaze/gpu/createStateBuffer';
 
 const GRID = 96;
 
@@ -87,19 +87,19 @@ function seedSoup(): Uint8Array {
         return cells;
 }
 
-export function PassGpu() {
+export function StateBufferGpu() {
         const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
-        const passRef = useRef<GpuPass | null>(null);
+        const bufferRef = useRef<StateBuffer | null>(null);
 
         useEffect(() => {
                 if (!runtime) return;
-                const pass = createGpuPass(runtime.gl, GRID, GRID);
-                pass.addProgram('sim', simFragmentSource);
-                pass.init(seedSoup());
-                passRef.current = pass;
+                const buffer = createStateBuffer(runtime.gl, GRID, GRID);
+                buffer.addProgram('sim', simFragmentSource);
+                buffer.init(seedSoup());
+                bufferRef.current = buffer;
                 return () => {
-                        pass.destroy();
-                        passRef.current = null;
+                        buffer.destroy();
+                        bufferRef.current = null;
                 };
         }, [runtime]);
 
@@ -110,12 +110,12 @@ export function PassGpu() {
                                 onRuntime={setRuntime}
                                 className="h-full w-full"
                                 uniforms={(): Record<string, UniformValue> => {
-                                        const pass = passRef.current;
-                                        if (!pass) return {};
+                                        const buffer = bufferRef.current;
+                                        if (!buffer) return {};
                                         // Advance the simulation, then hand the freshly written state to the display.
-                                        pass.useProgram('sim');
-                                        pass.step();
-                                        return { u_state: pass.getTexture() };
+                                        buffer.useProgram('sim');
+                                        buffer.step();
+                                        return { u_state: buffer.getTexture() };
                                 }}
                         />
                 </div>

@@ -1,5 +1,5 @@
 import type { Rule } from '../rules/registry';
-import { createGpuPass } from '@repo/glaze/gpu/createGpuPass';
+import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
 
@@ -10,9 +10,9 @@ export function createSimulationEngine(
         simShaderSource: string,
         paintShaderSource: string
 ) {
-        const pass = createGpuPass(gl, width, height);
-        pass.addProgram('default', simShaderSource);
-        pass.addProgram('paint', paintShaderSource);
+        const buffer = createStateBuffer(gl, width, height);
+        buffer.addProgram('default', simShaderSource);
+        buffer.addProgram('paint', paintShaderSource);
 
         const birthBuffer = new Int32Array(9);
         const surviveBuffer = new Int32Array(9);
@@ -24,47 +24,47 @@ export function createSimulationEngine(
                                 surviveBuffer[i] = rule.survive[i] ? 1 : 0;
                         }
 
-                        pass.useProgram('default');
-                        pass.setUniforms({
-                                u_gridSize: [pass.width, pass.height],
+                        buffer.useProgram('default');
+                        buffer.setUniforms({
+                                u_gridSize: [buffer.width, buffer.height],
                                 u_birth: birthBuffer,
                                 u_survive: surviveBuffer,
                                 u_stateCount: rule.stateCount
                         });
-                        pass.step();
+                        buffer.step();
                 },
 
                 paint(col: number, row: number, value: number): void {
-                        pass.useProgram('paint');
-                        pass.setUniforms({
+                        buffer.useProgram('paint');
+                        buffer.setUniforms({
                                 u_targetCell: [col, row],
                                 u_value: value
                         });
-                        pass.step();
+                        buffer.step();
                 },
 
                 init(data: Uint8Array): void {
-                        pass.init(data);
+                        buffer.init(data);
                 },
 
                 getDisplayTexture(): WebGLTexture {
-                        return pass.getTexture();
+                        return buffer.getTexture();
                 },
 
                 get width() {
-                        return pass.width;
+                        return buffer.width;
                 },
 
                 get height() {
-                        return pass.height;
+                        return buffer.height;
                 },
 
                 resize(width: number, height: number): void {
-                        pass.resize(width, height);
+                        buffer.resize(width, height);
                 },
 
                 destroy(): void {
-                        pass.destroy();
+                        buffer.destroy();
                 }
         };
 }

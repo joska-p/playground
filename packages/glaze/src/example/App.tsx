@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { PassGpu } from './demos/PassGpu';
+import { StateBufferGpu } from './demos/StateBufferGpu';
 import { ProgramCpu } from './demos/ProgramCpu';
 import { ProgramGpu } from './demos/ProgramGpu';
 import { SurfaceCpu } from './demos/SurfaceCpu';
@@ -79,11 +79,11 @@ export function App() {
                                         <ProgramGpu />
                                 </Panel>
                                 <Panel
-                                        mode="GpuPass Compute"
+                                        mode="StateBuffer Compute"
                                         backend="GPU"
-                                        caption="ping-pong FBO · createGpuPass stepping Life · pan/zoom camera"
+                                        caption="ping-pong FBO · createStateBuffer stepping Life · pan/zoom camera"
                                 >
-                                        <PassGpu />
+                                        <StateBufferGpu />
                                 </Panel>
                         </main>
                 </div>

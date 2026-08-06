@@ -1,262 +1,244 @@
 # @repo/glaze
 
-> p5-style drawing immediacy and three.js-style shader freedom, in one package —
-> a WebGL2 canvas where every shape is a fragment shader, with a sibling Canvas2D
-> door and a shared coordinate/camera foundation.
+> p5-style drawing immediacy and three.js-style shader freedom, in one package.
 
----
+## What it is
 
-## Purpose
+`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 there is no difference between the two: `drawCircle` *is* a tiny compiled program.
 
-`@repo/glaze` unifies two overlapping graphics libraries in this repo
-(`@repo/graphics` — shader toolkit, and the `@repo/pixelate2d-*` line —
-immediate-mode drawing) into a single coherent package. Drawing primitives
-(`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, while a shape on
-the canvas and a shader on the canvas are the **same mechanism**: a "program" is
-a fragment shader plus uniforms, applied to a region.
+It ships as two sibling runtimes over a shared foundation:
 
-The library's first job is to kill coordinate-mapping pain: pan, zoom, and
-mouse-relative-to-canvas are handled once, so you never think about coordinate
-math again.
+- `createCpuRuntime` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
+- `createGpuRuntime` — WebGL2, the same drawing model. Shapes plus custom programs (`createProgram` / `renderProgram`), and `createStateBuffer` for GPGPU simulation on a ping-pong texture pair.
 
-## Design
+Both expose the same skeleton: a frame loop, a camera, and an input store, handed to you every frame as a context object (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`). Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
 
-| Decision          | Choice                                                                                                                                                      |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CPU/GPU           | Two sibling doors, `cpu/` and `gpu/`. CPU is first-class, **not** a fallback. No shared renderer abstraction.                                               |
-| Drawing model     | Assembly = draw calls, authorship = shaders. On GPU a built-in shape **is** a `createProgram` (a tiny pre-written fragment shader), not a batched renderer. |
-| Expression layers | One shared foundation (`core/` = frame loop + camera/coords) under both doors.                                                                              |
-| Audience          | The author — one person. No compatibility debt.                                                                                                             |
-| Naming            | Curried `createXxx` factories (graphics style), named exports, no barrel files.                                                                             |
+The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the camera object and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
 
-## Quick Start
+## Use cases
 
-```bash
-pnpm add @repo/glaze
-```
+### Animated scene on plain Canvas2D
 
-Draw with the CPU door (plain Canvas2D):
+No React, no shaders — a canvas, a loop, and shapes.
 
 ```ts
-import { createCpuDoor } from '@repo/glaze/cpu/createCpuDoor';
+import { createCpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
+import { drawText } from '@repo/glaze/cpu/shapes/text';
 
-const door = createCpuDoor({ canvas });
-door.setDraw(() => {
-        door.clear('#0d1015');
-        door.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
-        door.drawRect({ x: 30, y: 30, w: 120, h: 90 }, { fill: '#16a34a' });
-        door.drawText('glaze', { x: 20, y: 40 }, { fill: '#f8fafc', fontSize: 24 });
+const runtime = createCpuRuntime({ canvas });
+
+runtime.setDraw(({ time }) => {
+        runtime.clear('#0d1015');
+        drawCircle(
+                runtime.context,
+                { fill: '#e11d48' },
+                { x: 200, y: 150 + Math.sin(time * 2) * 30 },
+                60
+        );
+        drawText(runtime.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
 });
 ```
 
-Or the GPU door — same draw calls, WebGL2 under the hood:
+`setDraw` starts the rAF loop; `runtime.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin.
 
-```ts
-import { createGpuDoor } from '@repo/glaze/gpu/createGpuDoor';
+### Shapes on a GPU canvas (React)
 
-const door = createGpuDoor({ canvas });
-door.setDraw(() => {
-        door.clear(0.05, 0.07, 0.09, 1);
-        door.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
-        door.drawLine({ x: 30, y: 260 }, { x: 200, y: 260 }, { stroke: '#3b82f6', lineWidth: 8 });
-});
+Same draw calls as the CPU runtime — WebGL2 under the hood.
+
+```tsx
+import { useState } from 'react';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+
+export function Sketch() {
+        const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+
+        return (
+                <GpuCanvas
+                        onRuntime={setRuntime}
+                        onFrame={() => {
+                                if (!runtime) return;
+                                runtime.clear(0.05, 0.07, 0.09, 1);
+                                runtime.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
+                                runtime.drawRect(
+                                        { x: 30, y: 30, w: 120, h: 90 },
+                                        { fill: '#16a34a' }
+                                );
+                                runtime.drawLine(
+                                        { x: 30, y: 260 },
+                                        { x: 200, y: 260 },
+                                        { stroke: '#3b82f6', lineWidth: 8 }
+                                );
+                        }}
+                />
+        );
+}
 ```
 
-Author your own shader as a program and render it through the same surface:
+`onRuntime` hands you the live runtime (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
 
-```ts
-const program = door.createProgram(/* glsl */ `
-        precision highp float;
-        in vec2 vUv;
-        out vec4 out_color;
-        uniform vec2 u_resolution;
-        void main() {
-                out_color = vec4(vUv, 0.5, 1.0);
-        }
-`);
-// each frame:
-door.clear(0, 0, 0, 1);
-door.renderProgram(program);
-```
+### A fullscreen shader (declarative)
 
-## Exports
-
-The front door is the `package.json` `exports` map — one subpath per module, no
-barrels. All modules export named functions/factories only.
-
-### core/ — shared foundation
-
-| Export                     | Path                                               | Description                                                                    |
-| -------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `createFrameLoop`          | `@repo/glaze/core/createFrameLoop`                 | rAF loop with subscribe/unsubscribe, time + delta in seconds, auto start/stop. |
-| `camera`                   | `@repo/glaze/core/coords/camera`                   | `Camera = { x, y, zoom }`, `defaultCamera`, `screenToWorld`/`worldToScreen`.   |
-| `createScreenToCanvas`     | `@repo/glaze/core/coords/createScreenToCanvas`     | Curried: screen → canvas (subtract element bounds).                            |
-| `createCanvasToNormalized` | `@repo/glaze/core/coords/createCanvasToNormalized` | Curried: canvas → normalized (0–1, top-left origin).                           |
-| `createNormalizedToUv`     | `@repo/glaze/core/coords/createNormalizedToUv`     | Pure y-flip (normalized → UV, bottom-left origin). Not NDC.                    |
-| `createWorldToScreen`      | `@repo/glaze/core/coords/createWorldToScreen`      | Facade over `camera.worldToScreen`.                                            |
-| `createScreenToWorld`      | `@repo/glaze/core/coords/createScreenToWorld`      | Facade over `camera.screenToWorld`.                                            |
-
-### cpu/ — CPU door (Canvas2D)
-
-| Export             | Path                            | Description                                                                        |
-| ------------------ | ------------------------------- | ---------------------------------------------------------------------------------- |
-| `createCpuDoor`    | `@repo/glaze/cpu/createCpuDoor` | Loop + camera + raw Canvas2D + input; `setDraw`/`subscribe`/`clear`/`applyCamera`. |
-| `createInputStore` | `@repo/glaze/cpu/input`         | Poll-based input store (shared by both doors).                                     |
-| `drawCircle`       | `@repo/glaze/cpu/shapes/circle` | `drawCircle(context, style, center, radius)`.                                      |
-| `drawRect`         | `@repo/glaze/cpu/shapes/rect`   | `drawRect(context, style, rect)`.                                                  |
-| `drawLine`         | `@repo/glaze/cpu/shapes/line`   | `drawLine(context, style, a, b)` — stroke ?? fill ?? black.                        |
-| `drawText`         | `@repo/glaze/cpu/shapes/text`   | `drawText(context, style, text, position)`.                                        |
-| `drawPath`         | `@repo/glaze/cpu/shapes/path`   | `drawPath(context, style, points, options?)` — fill + stroke, closed or open.      |
-| `types`            | `@repo/glaze/cpu/shapes/types`  | `Color`, `Rect`, `DrawStyle`, `TextStyle`, `PathOptions`.                          |
-
-### gpu/ — GPU door (WebGL2)
-
-| Export           | Path                                    | Description                                                                                                              |
-| ---------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `createGpuDoor`  | `@repo/glaze/gpu/createGpuDoor`         | WebGL2 door: program lifecycle, standard uniforms, context-loss handling, `drawCircle`/`drawRect`/`drawLine`/`drawText`. |
-| `compileProgram` | `@repo/glaze/gpu/shader/compileProgram` | GLSL compile/link + uniform introspection; exports `FULLSCREEN_TRIANGLE`.                                                |
-| `setUniforms`    | `@repo/glaze/gpu/shader/setUniforms`    | Type-dispatch uniform setters + `createStandardUniformValues`.                                                           |
-| `createProgram`  | `@repo/glaze/gpu/shader/createProgram`  | The heart: a program = fragment shader + uniforms, drawn as a fullscreen triangle.                                       |
-| `circle`         | `@repo/glaze/gpu/shapes/circle`         | `circleFragmentSource` + `circleUniforms`.                                                                               |
-| `rect`           | `@repo/glaze/gpu/shapes/rect`           | `rectFragmentSource` + `rectUniforms`.                                                                                   |
-| `line`           | `@repo/glaze/gpu/shapes/line`           | `lineFragmentSource` + `lineUniforms`.                                                                                   |
-| `text`           | `@repo/glaze/gpu/shapes/text`           | `textFragmentSource`, `createTextRasterizer`, `textUniforms`.                                                            |
-
-### react/ — React door
-
-| Export              | Path                                  | Description                                                                                                                                                              |
-| ------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `FrameLoopProvider` | `@repo/glaze/react/FrameLoopProvider` | Provides a shared rAF loop via context (auto start/stop, disposed on unmount).                                                                                           |
-| `useFrame`          | `@repo/glaze/react/useFrame`          | Subscribe a callback to the provider loop; the latest closure is always used, so inline callbacks are safe.                                                              |
-| `useCamera`         | `@repo/glaze/react/useCamera`         | `[Camera, CameraControls]` — a mutable pan/zoom camera with pointer-drag + wheel-zoom gestures and imperative controls. Also exports `createCamera` (factory, no React). |
-| `CpuCanvas`         | `@repo/glaze/react/CpuCanvas`         | Canvas2D door as a component: `onFrame` draw, `onDoor`, built-in camera + gestures, overlay children.                                                                    |
-| `GpuCanvas`         | `@repo/glaze/react/GpuCanvas`         | WebGL2 door as a component — same props as `CpuCanvas` plus `fragmentShader`/`uniforms` for a declarative shader pass.                                                   |
-
-`CpuCanvas` and `GpuCanvas` are separate components (CPU/GPU remain sibling
-doors). Both wrap the doors' lifecycle: the door is created on mount and
-destroyed on unmount, pan/zoom gestures drive the same `camera` object the door
-renders through, and `onDoor` hands you the live door for imperative access
-(`createProgram`/`renderProgram` on GPU, `clear`/`applyCamera` on CPU). On GPU
-the program path is declarative: pass `fragmentShader` and `uniforms` and
-`GpuCanvas` compiles the program (joining the context-restore set), applies the
-standard uniforms plus your per-frame ones, and renders it every frame.
+For shader art you never touch the runtime: pass a fragment shader to `GpuCanvas` and it compiles it on mount, recompiles on context restore or source change, and renders it every frame.
 
 ```tsx
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
-export function Sketch() {
+export function Plasma() {
         return (
                 <GpuCanvas
                         style={{ width: 400, height: 300 }}
-                        fragmentShader={`
+                        fragmentShader={`precision highp float;
+in vec2 vUv;
+out vec4 out_color;
+uniform vec2 u_resolution;
+uniform float u_time;
+void main() {
+  vec2 p = (vUv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0);
+  float wave = 0.5 + 0.5 * sin(length(p) * 5.0 - u_time * 4.0);
+  out_color = vec4(mix(vec3(0.08, 0.05, 0.16), vec3(1.0, 0.35, 0.18), wave), 1.0);
+}`}
+                />
+        );
+}
+```
+
+The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `runtime.createProgram(source)` and `runtime.renderProgram(program)` from `onRuntime`.
+
+### A GPGPU simulation (state buffer)
+
+`createStateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps. Seed it with `init()` and read the live state back with `getTexture()`. This is Conway's Game of Life in miniature.
+
+```ts
+import { createGpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
+
+const runtime = createGpuRuntime({ canvas });
+const buffer = createStateBuffer(runtime.gl, 96, 96);
+
+buffer.addProgram('sim', /* glsl */ `
+        precision highp float;
+        in vec2 vUv;
+        out vec4 fragColor;
+        uniform sampler2D u_state;
+        uniform vec2 u_gridSize;
+
+        ivec2 wrap(ivec2 c) {
+                return ivec2(mod(vec2(c) + u_gridSize, u_gridSize));
+        }
+        int cellAt(ivec2 c) {
+                return int(texelFetch(u_state, wrap(c), 0).r * 255.0 + 0.5);
+        }
+        void main() {
+                ivec2 coord = ivec2(gl_FragCoord.xy);
+                int alive = cellAt(coord);
+                int n = 0;
+                for (int dy = -1; dy <= 1; dy++)
+                for (int dx = -1; dx <= 1; dx++) {
+                        if (dx == 0 && dy == 0) continue;
+                        n += cellAt(coord + ivec2(dx, dy));
+                }
+                float next = (alive == 1 && (n == 2 || n == 3)) || (alive == 0 && n == 3)
+                        ? 1.0 / 255.0 : 0.0;
+                fragColor = vec4(next, 0.0, 0.0, 1.0);
+        }
+`);
+
+buffer.init(cells); // one byte per cell: 0 or 1
+
+const display = runtime.createProgram(/* glsl */ `
         precision highp float;
         in vec2 vUv;
         out vec4 out_color;
+        uniform sampler2D u_state;
         void main() {
-          out_color = vec4(vUv, 0.5, 1.0);
+                float alive = texture(u_state, vUv).r;
+                out_color = vec4(mix(vec3(0.05, 0.07, 0.12), vec3(0.96, 0.6, 0.22), alive), 1.0);
         }
-      `}
-                        uniforms={({ time }) => ({ u_time: time })}
-                />
-        );
-}
+`);
+
+runtime.setDraw(() => {
+        buffer.useProgram('sim');
+        buffer.setUniforms({ u_gridSize: [96, 96] });
+        buffer.step(); // one generation, then swap the ping-pong pair
+        runtime.clear(0, 0, 0, 1);
+        display.setUniforms({ u_state: buffer.getTexture() });
+        runtime.renderProgram(display);
+});
 ```
+
+A pass is reusable: `addProgram` several shaders and switch between them with `useProgram(name)`.
+
+### An interactive canvas (pan/zoom + input)
+
+`CpuCanvas` and `GpuCanvas` wire pointer-drag pan and wheel zoom to a camera by default. Take control of that camera with `useCamera`:
 
 ```tsx
-import { useRef } from 'react';
-import { CpuCanvas, type CpuDoor } from '@repo/glaze/react/CpuCanvas';
+import { useState } from 'react';
+import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
+import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
+import { useCamera } from '@repo/glaze/react/useCamera';
 
-export function Sketch() {
-        const doorRef = useRef<CpuDoor | null>(null);
+export function Crosshair() {
+        const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+        const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
+
         return (
                 <CpuCanvas
-                        style={{ width: 400, height: 300 }}
-                        onDoor={(door) => {
-                                doorRef.current = door;
-                        }}
-                        onFrame={() => {
-                                doorRef.current?.clear('#0d1015');
-                                doorRef.current?.drawCircle({ x: 200, y: 150 }, 60, {
-                                        fill: '#e11d48'
-                                });
+                        onRuntime={setRuntime}
+                        camera={camera}
+                        cameraControls={controls}
+                        onFrame={({ input }) => {
+                                if (!runtime) return;
+                                runtime.clear('#0d1015');
+                                const world = input.getPointerWorldPos(camera);
+                                drawCircle(runtime.context, { fill: '#38bdf8' }, world, 12);
                         }}
                 />
         );
 }
 ```
 
-## Architecture
+The shared input store tracks the pointer (position + delta), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`, cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to world coordinates, so the crosshair stays glued to the cursor under pan/zoom. `controls` adds `panTo`, `zoomTo`, and `reset`.
 
-```
-packages/glaze/src/
-├── core/                    # the ONLY shared foundation
-│   ├── createFrameLoop.ts   # rAF subscribe/unsubscribe, delta time
-│   └── coords/              # Camera + curried space-ladder factories
-├── cpu/                     # CPU DOOR — thin Canvas2D
-│   ├── createCpuDoor.ts
-│   ├── input.ts             # shared input store (both doors import it)
-│   └── shapes/              # drawCircle/rect/line/text/path + types
-├── gpu/                     # GPU DOOR — shader machinery
-│   ├── createGpuDoor.ts
-│   ├── shader/              # compileProgram, setUniforms, createProgram
-│   └── shapes/              # per-shape fragment shaders + uniform builders
-└── react/                   # React door (CpuCanvas/GpuCanvas kept apart)
-```
+### One loop for everything else
 
-`core/` is the only shared code. `cpu/` and `gpu/` are sibling doors — each owns
-its loop, shapes, and input wiring; there is deliberately **no shared
-`RenderDriver` abstraction** (duplicate over abstract). On GPU, `shapes/` sits
-beside `shader/` so a shape reads as a `createProgram` — the same mechanism as a
-fullscreen pass.
+`FrameLoopProvider` + `useFrame` run non-canvas logic on the same tick — e.g. an HUD that doesn't need a canvas.
 
-### Coordinate spaces
+```tsx
+import { useState } from 'react';
+import { FrameLoopProvider } from '@repo/glaze/react/FrameLoopProvider';
+import { useFrame } from '@repo/glaze/react/useFrame';
 
-The space ladder runs: **screen → canvas → normalized → UV**. Shaders on the GPU
-door additionally recover a fragment's _world_ position from `vUv` + the
-standard uniforms:
+function FpsHud() {
+        const [fps, setFps] = useState(0);
+        useFrame((_time, delta) => setFps(delta > 0 ? Math.round(1 / delta) : 0));
+        return <span>{fps} fps</span>;
+}
 
-```
-vec2 frag = vUv * u_resolution;                       // device px, origin bottom-left
-vec2 device = vec2(frag.x, u_resolution.y - frag.y);  // y-flip → top-left
-vec2 css = device / u_dpr;                            // CSS px, y down
-return (css - u_camera.xy) / u_camera.z;              // world px
+export function App() {
+        return (
+                <FrameLoopProvider>
+                        <FpsHud />
+                        <Sketch />
+                </FrameLoopProvider>
+        );
+}
 ```
 
-Draw calls are made in **world space**; the door applies the camera. The default
-camera is `{ x: 0, y: 0, zoom: 1 }`, so world px == CSS px (top-left origin,
-y down).
+`useFrame` always calls the latest closure, so inline callbacks are safe; the loop starts on the first subscriber and stops when the last one leaves.
 
-### Standard uniforms
+## Notes & gotchas
 
-`renderProgram` applies `u_resolution` (device px), `u_aspect`, `u_mouse`
-(pointer normalized to canvas, y-flipped to UV), `u_camera` (vec3: CSS-px offset
-x/y + zoom), `u_dpr`, and `u_time` (seconds since the loop started) beside any
-program-specific uniforms. Screen-space shaders ignore
-`u_camera`/`u_dpr` — backward compatible with the graphics uniform contract.
-
-## Patterns & Gotchas
-
-- **A shape is a program.** On GPU, `drawCircle` lazily compiles its shape
-  program through the door's internal `createProgram` (joining the
-  context-restore recompile set) and renders it via `renderProgram`. There is no
-  batched renderer — each shape is a fullscreen pass. Fine for an author tool.
-- **Shapes draw in world space.** `cpu/` shapes assume the door's Canvas2D
-  transform is applied (`applyCamera()`); `gpu/` shape shaders derive world
-  position from `vUv` + `u_camera`/`u_dpr` and run an SDF test with ~2-device-px
-  anti-aliased edges.
-- **`half` is reserved in GLSL ES 3.00.** Do not use `half` (or `hvec2/3/4`) as
-  an identifier in fragment sources — it only fails at compile time.
-- **Texture y-orientation.** Text is rasterized to an offscreen canvas (2×
-  supersampled, 128-entry LRU cache) and uploaded with default
-  `UNPACK_FLIP_Y`; the quad's UVs match so glyphs render upright.
-- **Context loss.** The door calls `preventDefault()` on `webglcontextlost`,
-  re-applies blend/viewport and recompiles tracked programs (including shape
-  programs and the text cache) on `webglcontextrestored`.
-- **Shared input store.** `createInputStore` lives under `cpu/input` but is
-  imported by the GPU door too — input is shared scaffolding, not a drawing
-  abstraction.
-- **No comments, no barrels, factories not classes.** Follow `createXxx` naming;
-  errors are prefixed `Glaze: `.
+- **A shape is a program.** No batched renderer — each GPU shape is a fullscreen pass. Right-sized for an author tool.
+- **Draw in world space.** CPU shapes assume the runtime's transform is applied (it is, before every frame); GPU shape shaders recover world position from `vUv` + `u_camera`/`u_dpr` with ~2-device-px anti-aliased SDF edges.
+- **`half` is reserved in GLSL ES 3.00.** Using `half` / `hvec2/3/4` as an identifier only fails at compile time.
+- **Text is a texture.** Glyphs are rasterized to an offscreen canvas (2× supersampled, 128-entry LRU cache) and uploaded with `UNPACK_FLIP_Y`.
+- **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including shape programs and the text cache) on restore.
+- **CPU and GPU stay siblings.** There is deliberately no shared renderer abstraction — duplicate over abstract.
+- **Factories, not classes; named exports only, no barrel files; errors prefixed `Glaze:`.**
 
 ## Testing
 
