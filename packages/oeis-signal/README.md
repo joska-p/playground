@@ -7,51 +7,186 @@ and conventions. When the code changes, keep it in sync.
 
 ---
 
-## Quick Start
+# seq-signal
 
-```bash
-pnpm --filter @repo/oeis-signal dev
-```
+Personal composable signal + visualization package for integer sequences.
 
-## Exports
+## Philosophy
 
-| Export | Path | Description |
-| ------ | ---- | ----------- |
-| `@repo/oeis-signal` | `./src/App.tsx` | Local dev wrapper rendering `Demo` |
-| `@repo/oeis-signal/Demo` | `./src/components/Demo.tsx` | The public demo component |
-| `@repo/oeis-signal/styles` | `./src/styles/global.css` | Tailwind v4 + `@repo/ui/gruvbox-theme` |
+- A **sequence** is treated as a **signal** (lazy, on-demand stream of numbers).
+- Everything is a black-box **Module**.
+- Modules live in a registry.
+- Visualization layers and middle transforms can be plugged onto any signal.
+- Generators and viz live in the **same package** (they are tightly related) but are kept in separate TypeScript projects/configs because viz needs DOM/canvas.
 
-## Architecture
+## Package structure
 
 ```
 src/
-├── App.tsx                # local dev wrapper (also the root export)
-├── components/
-│   └── Demo.tsx           # public component
-├── demo.schema.ts         # Zod schema for form input
-├── demoStore.ts           # Zustand store + getter/setter functions
-├── main.tsx               # React DOM entry for the dev app
-└── styles/
-    └── global.css         # theme entry
+  core/           # types, registry, signal helpers (no DOM)
+  modules/        # individual sequence modules
+  middle/         # transforms (window, clamp, partial sums…) – later
+  viz/            # canvas / WebGL layers – separate tsconfig
 ```
 
-## State Management
+- `core` + `modules` → clean, testable, no browser APIs
+- `viz` → has its own `tsconfig.viz.json` that includes DOM/canvas lib
 
-`demoStore.ts` owns the `DemoStore` privately. Components consume it through the
-exported getter hooks (`useDemoCount`, `useDemoLastMessage`,
-`useDemoSubmissions`) and setter functions (`addDemoSubmission`, `resetDemo`) —
-never the store itself.
+## Core concepts
 
-## Runtime Validation
+- **Module**: black box that can create a `Signal` given a budget.
+- **Signal**: lazy pull-based sequence (can be materialized to an array when needed).
+- **Budget**: hard limit so stateful modules cannot explode.
+- **Registry**: collection of all available modules.
 
-`demo.schema.ts` validates form input with Zod. `Demo` parses before writing to
-the store and surfaces the first issue as inline helper text.
+## First goal
 
-## Conventions
-
-This package follows [project conventions](/docs/conventions/01-overview.md):
-named exports only, no barrel files, tabs for indentation.
+Implement the absolute simplest module (`naturals` = n) end-to-end so the scaffolding is proven.
 
 ---
 
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+**Scaffolding + first code**
+
+Here is a clean, minimal starting point focused only on the core + the simplest module.
+
+### 1. `src/core/types.ts`
+
+```ts
+/** Budget / safety limit when creating a signal */
+export type Budget = {
+    maxTerms: number;
+};
+
+/** A lazy signal you can pull from */
+export interface Signal {
+    /** Pull the next term. Returns { value, done } */
+    next(): IteratorResult<number>;
+
+    /** Convenience: materialize up to `count` terms (or until done) */
+    take(count: number): number[];
+
+    /** Optional: how many terms have already been produced */
+    readonly produced: number;
+}
+
+/** Black-box module */
+export interface Module {
+    readonly id: string;
+    readonly name: string;
+    readonly description: string;
+
+    /** Create a fresh signal limited by the given budget */
+    createSignal(budget: Budget): Signal;
+}
+```
+
+### 2. `src/core/create-simple-signal.ts`
+
+(helper for pure closed-form sequences)
+
+```ts
+import type { Budget, Signal } from './types';
+
+/**
+ * Creates a simple lazy signal from a pure function a(n).
+ * Perfect for sequences like n, n², triangular numbers, etc.
+ */
+export function createSimpleSignal(fn: (n: number) => number, budget: Budget): Signal {
+    let n = 0;
+    let produced = 0;
+
+    return {
+        get produced() {
+            return produced;
+        },
+
+        next(): IteratorResult<number> {
+            if (produced >= budget.maxTerms) {
+                return { value: undefined, done: true };
+            }
+            const value = fn(n);
+            n += 1;
+            produced += 1;
+            return { value, done: false };
+        },
+
+        take(count: number): number[] {
+            const result: number[] = [];
+            const limit = Math.min(count, budget.maxTerms - produced);
+            for (let i = 0; i < limit; i++) {
+                const { value, done } = this.next();
+                if (done) break;
+                result.push(value!);
+            }
+            return result;
+        }
+    };
+}
+```
+
+### 3. `src/modules/naturals.ts`
+
+(the simplest possible sequence: a(n) = n)
+
+```ts
+import { createSimpleSignal } from '../core/create-simple-signal';
+import type { Budget, Module } from '../core/types';
+
+export const naturalsModule: Module = {
+    id: 'naturals',
+    name: 'Natural numbers',
+    description: 'a(n) = n  (0, 1, 2, 3, …)',
+
+    createSignal(budget: Budget) {
+        return createSimpleSignal((n) => n, budget);
+    }
+};
+```
+
+### 4. `src/core/registry.ts`
+
+```ts
+import type { Module } from './types';
+import { naturalsModule } from '../modules/naturals';
+
+const modules: Module[] = [naturalsModule];
+
+export function getModule(id: string): Module | undefined {
+    return modules.find((m) => m.id === id);
+}
+
+export function getAllModules(): readonly Module[] {
+    return modules;
+}
+
+export function registerModule(module: Module): void {
+    if (modules.some((m) => m.id === module.id)) {
+        throw new Error(`Module with id "${module.id}" already registered`);
+    }
+    modules.push(module);
+}
+```
+
+### 5. `src/index.ts` (public API)
+
+```ts
+export type { Budget, Signal, Module } from './core/types';
+export { createSimpleSignal } from './core/create-simple-signal';
+export { getModule, getAllModules, registerModule } from './core/registry';
+export { naturalsModule } from './modules/naturals';
+```
+
+---
+
+### Quick usage example (for your own tests)
+
+```ts
+import { getModule } from './index';
+
+const mod = getModule('naturals')!;
+const signal = mod.createSignal({ maxTerms: 10 });
+
+console.log(signal.take(5)); // [0, 1, 2, 3, 4]
+console.log(signal.take(3)); // [5, 6, 7]
+console.log(signal.next()); // { value: 8, done: false }
+```
