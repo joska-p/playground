@@ -30,7 +30,12 @@ export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
     return (
         <Corners sizePx={sizePx}>
             <div style={{ width: sizePx, height: sizePx }}>
-                                {shader && <GpuCanvas fragmentShader={shader} />}
+                {shader && (
+                    <GpuCanvas
+                        className="h-full w-full"
+                        fragmentShader={shader}
+                    />
+                )}
             </div>
             {error && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400">

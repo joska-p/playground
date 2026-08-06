@@ -28,7 +28,12 @@ export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
             className="relative"
             style={{ width: sizePx, height: sizePx }}
         >
-            {shader && <GpuCanvas fragmentShader={shader} />}
+            {shader && (
+                <GpuCanvas
+                    className="h-full w-full"
+                    fragmentShader={shader}
+                />
+            )}
             {error && (
                 <div className="bg-surface text-destructive-foreground absolute inset-0 flex items-center justify-center p-1 text-center text-sm">
                     {error}

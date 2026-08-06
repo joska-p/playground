@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import fragmentShader from '../core/mandelbrot-original.glsl?raw';
+import { fractalParamsUniforms } from '../core/fractalUniforms';
+import { useFractureView } from '../core/useFractureView';
 import { useParams } from '../stores/createParamStore';
 import { originalStore } from '../stores/originalStore';
 import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
@@ -22,31 +24,30 @@ function OriginalScene() {
         }
     }, [isActive, pan, zoom]);
 
+    const { camera, controls, pointerHandlers, syncView } = useFractureView({
+        initialView: { pan, zoom },
+        maxZoom: MAX_ZOOM
+    });
+
     return (
-        <ShaderCanvas
+        <GpuCanvas
+            className="h-full w-full"
             fragmentShader={fragmentShader}
-            webGLContextAttributes={{ antialias: true }}
-            initialView={{ pan, zoom }}
-            maxZoom={MAX_ZOOM}
-            zoomToCursor
-            scalePanWithZoom
-            onViewChange={(view) => {
-                setView({ pan: view.pan, zoom: view.zoom });
-            }}
-            onBeforeRender={({ pipeline }) => {
-                pipeline.setUniforms({
-                    u_iterationBase: params.iterationBase,
-                    u_iterationScale: params.iterationScale,
-                    u_iterationCap: params.iterationCap,
-                    u_interiorScale: params.interiorScale,
-                    u_pixelEps: params.pixelEps,
-                    u_sunAngle: params.sunAngle,
-                    u_bumpHeight: params.bumpHeight,
-                    u_ambient: params.ambientLight,
-                    u_hueShift: params.hueShift,
-                    u_hueFrequency: params.hueFrequency,
-                    u_chromaScale: params.chromaScale
-                });
+            camera={camera}
+            cameraControls={controls}
+            pointerHandlers={pointerHandlers}
+            uniforms={({ camera: view, width, height }) => {
+                syncView();
+                // pan is stored zoom-normalized; normalize by canvas size into UV
+                // space. The shader applies u_panOffset after zoom, and a drag
+                // offset moves content opposite the cursor, so x is negated.
+                const panNormX = view.x / view.zoom / width;
+                const panNormY = view.y / view.zoom / height;
+                return {
+                    u_zoom: view.zoom,
+                    u_panOffset: [-panNormX, panNormY],
+                    ...fractalParamsUniforms(params)
+                };
             }}
         />
     );

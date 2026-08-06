@@ -1,6 +1,6 @@
 import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
-import { createGpuDoor } from '@repo/glaze/gpu/createGpuDoor';
+import { createGpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 import { useCamera } from '@repo/glaze/react/useCamera';
 import { useEffect, useRef } from 'react';
 import { useCellPainting } from '../../hooks/useCellPainting';
@@ -20,12 +20,18 @@ function CellMesh() {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const door = createGpuDoor({ canvas, camera });
-        const program = door.createProgram(fragmentShader);
-        const engine = createSimulationEngine(door.gl, cols, rows, simStepShader, gpuPaintShader);
+        const runtime = createGpuRuntime({ canvas, camera });
+        const program = runtime.createProgram(fragmentShader);
+        const engine = createSimulationEngine(
+            runtime.gl,
+            cols,
+            rows,
+            simStepShader,
+            gpuPaintShader
+        );
         setEngine(engine);
 
-        const unsubscribe = door.subscribe(() => {
+        const unsubscribe = runtime.subscribe(() => {
             const { engine: current, stateColors } = automaStore.getState();
             if (!current) return;
             program.setUniforms({
@@ -33,14 +39,14 @@ function CellMesh() {
                 stateColors: buildStateColorArray(stateColors),
                 texelSize: [1 / current.width, 1 / current.height]
             });
-            door.renderProgram(program);
+            runtime.renderProgram(program);
         });
 
         return () => {
             unsubscribe();
             engine.destroy();
             program.destroy();
-            door.destroy();
+            runtime.destroy();
             setEngine(null);
         };
     }, [camera, canvasRef, cols, rows]);

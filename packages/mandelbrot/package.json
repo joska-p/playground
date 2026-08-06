@@ -9,10 +9,7 @@
     },
     "scripts": {
         "dev": "vite --host",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
-        "check-types": "tsc -b"
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@repo/ui": "workspace:*",

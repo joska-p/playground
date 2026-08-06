@@ -10,6 +10,7 @@
         "lint-fix": "turbo run lint-fix",
         "format": "prettier --write .",
         "check-types": "turbo run check-types",
+        "fallow": "fallow",
         "gen": "turbo gen",
         "graphify": "graphify update",
         "clean": "turbo clean && turbo run clean && rm -rf node_modules && find . -name node_modules -type d -prune -exec rm -rf {} +",
@@ -30,5 +31,8 @@
         "typescript": "catalog:",
         "yaml": "catalog:"
     },
-    "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
+    "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
+    "dependencies": {
+        "fallow": "^3.14.0"
+    }
 }

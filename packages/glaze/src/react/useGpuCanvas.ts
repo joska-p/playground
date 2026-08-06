@@ -61,12 +61,7 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
 
     const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
     const programRef = useRef<Program | null>(null);
-    const uniformsRef = useRef(uniforms);
     const frameRef = useRef<FrameSnapshot | null>(null);
-
-    useEffect(() => {
-        uniformsRef.current = uniforms;
-    });
 
     const createRuntime = useEffectEvent((canvas: HTMLCanvasElement) => {
         return createGpuRuntime({
@@ -116,7 +111,7 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
 
         const program = programRef.current;
         if (program) {
-            program.setUniforms(uniformsRef.current ? uniformsRef.current(ctx) : {});
+            program.setUniforms(uniforms ? uniforms(ctx) : {});
             if (runtime) runtime.renderProgram(program);
         }
 

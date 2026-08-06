@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 import { useStore } from 'zustand';
-import type { Point2D } from '@repo/graphics/2d/transforms';
+import type { Point2D } from '@repo/glaze/core/coords/camera';
 
 export type Renderer = 'double-single' | 'perturbation' | 'original';
 

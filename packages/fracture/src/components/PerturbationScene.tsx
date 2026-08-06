@@ -1,42 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { createWebGLContext } from '@repo/graphics/core/createWebGLContext';
-import { applyStandardUniforms } from '@repo/graphics/core/standardUniforms';
-import {
-    createScreenToNormalizedClamped,
-    createShaderUniformBuilder,
-    type Point2D
-} from '@repo/graphics/2d/transforms';
-import { usePanZoom, type PanZoomOptions } from '@repo/graphics/2d/react/usePanZoom';
-import { useFrame } from '@repo/graphics/2d/react/FrameLoopContext';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
-import {
-    createPerturbationPipeline,
-    type PerturbationPipeline
-} from '../core/createPerturbationPipeline';
+import { createOrbitTextures, type OrbitTextures } from '../core/createOrbitTextures';
 import {
     computeMaxIterations,
     computeReferenceOrbit,
     computeSecondaryOrbit,
     type ReferenceOrbit
 } from '../core/perturbationOrbit';
+import { fractalParamsUniforms } from '../core/fractalUniforms';
+import { useFractureView } from '../core/useFractureView';
 import { useParams } from '../stores/createParamStore';
 import { perturbationStore } from '../stores/perturbationStore';
 import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
-import type { View } from '../stores/viewStore';
 
 type Orbits = {
     primary: ReferenceOrbit;
     secondary: ReferenceOrbit;
-};
-
-type Runner = {
-    canvas: HTMLCanvasElement;
-    pipeline: PerturbationPipeline;
-    /** Last orbits computed for the current view; null until the first frame runs. */
-    orbits: Orbits | null;
-    setMouse(pixel: Point2D): void;
-    render(): void;
-    dispose(): void;
 };
 
 /**
@@ -49,7 +29,7 @@ const MAX_ZOOM = 1e15;
 /**
  * Complex-plane width of the view at zoom = 1.
  *
- * `pan` (from usePanZoom with `scalePanWithZoom: true`) is accumulated in
+ * `pan` (stored zoom-normalized, see useFractureView) is accumulated in
  * "zoom-normalized" units: every drag increment is pre-divided by the zoom
  * level *at the time of that drag*, so the stored value is already
  * zoom-independent. Converting it to a complex-plane offset must therefore
@@ -67,196 +47,9 @@ function splitDS(x: number): [number, number] {
     return [hi, lo];
 }
 
-// Inner canvas component: the key on it (from PerturbationScene) remounts the
-// whole runner + interaction state on activation and on reset, so the WebGL
-// context is always bound to the live canvas and initialView reseeds correctly.
-function PerturbationCanvas() {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const runnerRef = useRef<Runner | null>(null);
-
-    // NaN sentinels guarantee the first frame always computes an orbit.
-    const lastCenterRe = useRef(NaN);
-    const lastCenterIm = useRef(NaN);
-    const lastZoom = useRef(NaN);
-
-    const params = useParams(perturbationStore);
-    const pan = useViewPan();
-    const zoom = useViewZoom();
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-
-        const ctx = createWebGLContext({
-            canvas,
-            webGLContextAttributes: { antialias: true }
-        });
-        const pipeline = createPerturbationPipeline(ctx.gl);
-        pipeline.compileFragmentShader(perturbationShader);
-
-        let builder = createShaderUniformBuilder(canvas.clientWidth, canvas.clientHeight);
-        let mousePx: Point2D = { x: 0, y: 0 };
-
-        const offContextRestored = ctx.onContextRestored(() => {
-            ctx.reinitialize();
-            pipeline.reinitialize();
-        });
-
-        const runner: Runner = {
-            canvas,
-            pipeline,
-            orbits: null,
-            setMouse(pixel: Point2D): void {
-                mousePx = pixel;
-            },
-            render(): void {
-                applyStandardUniforms(pipeline, builder(mousePx));
-                pipeline.render();
-            },
-            dispose(): void {
-                offContextRestored();
-                pipeline.dispose();
-            }
-        };
-        runnerRef.current = runner;
-
-        let rafId = 0;
-        const observer = new ResizeObserver(([entry]) => {
-            if (!entry) return;
-            const { width, height } = entry.contentRect;
-            if (width === 0 || height === 0) return; // Hidden canvas
-            cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                ctx.resize(width, height);
-                builder = createShaderUniformBuilder(width, height);
-            });
-        });
-        observer.observe(canvas);
-
-        return () => {
-            observer.disconnect();
-            cancelAnimationFrame(rafId);
-            runner.dispose();
-            runnerRef.current = null;
-        };
-    }, []);
-
-    const panZoomOptions: PanZoomOptions = {
-        maxZoom: MAX_ZOOM,
-        zoomToCursor: true,
-        scalePanWithZoom: true,
-        zoomSpeed: 250,
-        initialView: { pan, zoom },
-        onChange: (view: View) => {
-            setView({ pan: view.pan, zoom: view.zoom });
-        }
-    };
-
-    const panZoomRef = usePanZoom(canvasRef, panZoomOptions);
-
-    useFrame(() => {
-        const runner = runnerRef.current;
-        if (!runner) return;
-        if (runner.canvas.clientWidth === 0 || runner.canvas.clientHeight === 0) return;
-
-        const { pan, zoom } = panZoomRef.current;
-
-        // ─── FIXED CENTRE ────────────────────────────────────────────────
-        // pan is stored in zoom-normalized units (because scalePanWithZoom = true).
-        // The same convention is used by usePanZoomUniforms.
-        const panNormX = pan.x / runner.canvas.clientWidth;
-        const panNormY = pan.y / runner.canvas.clientHeight;
-
-        // Convert pan with the FIXED zoom = 1 width, not the current view scale
-        // (see WORLD_SCALE doc comment above) — this is the pan/zoom bug fix.
-        // pan is a drag offset: it moves opposite the cursor (content-follows),
-        // hence the negated centerRe; y is flipped by the canvas→vUv conversion,
-        // so centerIm stays positive — matching usePanZoomUniforms.
-        const aspect = runner.canvas.clientWidth / runner.canvas.clientHeight;
-        const centerRe = -panNormX * WORLD_SCALE * aspect - 0.5;
-        const centerIm = panNormY * WORLD_SCALE;
-
-        // Complex-plane width of the *current* view — this one correctly shrinks
-        // with zoom and drives the per-pixel delta / reference orbit spacing.
-        const viewScale = WORLD_SCALE / zoom;
-        // ────────────────────────────────────────────────────────────────
-
-        const viewChanged =
-            centerRe !== lastCenterRe.current ||
-            centerIm !== lastCenterIm.current ||
-            zoom !== lastZoom.current;
-
-        if (viewChanged) {
-            const maxIterations = computeMaxIterations(
-                zoom,
-                params.iterationBase,
-                params.iterationScale,
-                params.iterationCap
-            );
-
-            // Primary at the exact view centre
-            const primary = computeReferenceOrbit(centerRe, centerIm, maxIterations);
-
-            // Secondary a few pixels away (still useful for the current view)
-            const secondary = computeSecondaryOrbit(centerRe, centerIm, viewScale, maxIterations);
-
-            runner.pipeline.setReferenceOrbits(primary, secondary);
-            runner.orbits = { primary, secondary };
-
-            lastCenterRe.current = centerRe;
-            lastCenterIm.current = centerIm;
-            lastZoom.current = zoom;
-        }
-
-        // Always true after the block above on the very first frame (NaN sentinels
-        // guarantee viewChanged), so this is a type-safety guard, not a real skip.
-        if (!runner.orbits) return;
-        const { primary, secondary } = runner.orbits;
-
-        const [scaleHi, scaleLo] = splitDS(viewScale);
-
-        runner.pipeline.setUniforms({
-            u_zoom: zoom,
-            u_scale: [scaleHi, scaleLo],
-
-            u_orbit: runner.pipeline.orbitTexture,
-            u_orbitLength: primary.orbitLength,
-            u_referenceIterations: primary.referenceIterations,
-
-            u_orbit2: runner.pipeline.orbitTexture2,
-            u_orbitLength2: secondary.orbitLength,
-            u_referenceIterations2: secondary.referenceIterations,
-
-            u_interiorScale: params.interiorScale,
-            u_pixelEps: params.pixelEps,
-            u_sunAngle: params.sunAngle,
-            u_bumpHeight: params.bumpHeight,
-            u_ambient: params.ambientLight,
-            u_hueShift: params.hueShift,
-            u_hueFrequency: params.hueFrequency,
-            u_chromaScale: params.chromaScale
-        });
-
-        runner.render();
-    });
-
-    function handlePointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
-        const rect = e.currentTarget.getBoundingClientRect();
-        runnerRef.current?.setMouse(
-            createScreenToNormalizedClamped(rect)({ x: e.clientX, y: e.clientY })
-        );
-    }
-
-    return (
-        <canvas
-            ref={canvasRef}
-            style={{ width: '100%', height: '100%', display: 'block' }}
-            onPointerMove={handlePointerMove}
-        />
-    );
-}
-
 function PerturbationScene() {
+    const params = useParams(perturbationStore);
+
     const renderer = useRenderer();
     const isActive = renderer === 'perturbation';
     const pan = useViewPan();
@@ -269,7 +62,148 @@ function PerturbationScene() {
         }
     }, [isActive, pan, zoom]);
 
-    return <PerturbationCanvas />;
+    const { camera, controls, pointerHandlers, syncView } = useFractureView({
+        initialView: { pan, zoom },
+        maxZoom: MAX_ZOOM
+    });
+
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const texturesRef = useRef<OrbitTextures | null>(null);
+    const orbitsRef = useRef<Orbits | null>(null);
+
+    // NaN sentinels guarantee the first visible frame always computes an orbit.
+    const lastCenterRe = useRef(NaN);
+    const lastCenterIm = useRef(NaN);
+    const lastZoom = useRef(NaN);
+
+    // Dispose the raw-GL textures with the component; the glaze runtime owns
+    // its own resources and cleans those up when the canvas unmounts.
+    useEffect(() => {
+        return () => {
+            texturesRef.current?.dispose();
+            texturesRef.current = null;
+            orbitsRef.current = null;
+        };
+    }, []);
+
+    // Glaze reinitializes its programs on context restore, but our raw-GL orbit
+    // textures are dead afterwards; recreate and re-upload the last orbits.
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const onRestored = () => {
+            const orbits = orbitsRef.current;
+            if (orbits) {
+                texturesRef.current?.dispose();
+                texturesRef.current?.upload(orbits.primary, orbits.secondary);
+            }
+        };
+        canvas.addEventListener('webglcontextrestored', onRestored);
+        return () => {
+            canvas.removeEventListener('webglcontextrestored', onRestored);
+        };
+    }, [canvasRef]);
+
+    return (
+        <GpuCanvas
+            className="h-full w-full"
+            fragmentShader={perturbationShader}
+            camera={camera}
+            cameraControls={controls}
+            pointerHandlers={pointerHandlers}
+            canvasRef={canvasRef}
+            uniforms={({ camera: view, width, height }) => {
+                syncView();
+
+                // Hidden scenes (Activity mode="hidden") report 0 size; skip the
+                // expensive reference-orbit math until the canvas is visible.
+                const canvas = canvasRef.current;
+                if (!canvas || canvas.clientWidth === 0 || canvas.clientHeight === 0) {
+                    return {};
+                }
+
+                // Lazily bind the orbit textures to the glaze-owned GL context
+                // (the first frame runs only once the runtime is live).
+                if (!texturesRef.current) {
+                    const gl = canvas.getContext('webgl2');
+                    if (!gl) return {};
+                    texturesRef.current = createOrbitTextures(gl);
+                }
+
+                // ─── FIXED CENTRE ────────────────────────────────────────────────
+                // pan is stored in zoom-normalized units (see useFractureView).
+                const panNormX = view.x / view.zoom / width;
+                const panNormY = view.y / view.zoom / height;
+
+                // Convert pan with the FIXED zoom = 1 width, not the current view
+                // scale (see WORLD_SCALE doc comment above) — the pan/zoom fix.
+                // pan is a drag offset: it moves opposite the cursor
+                // (content-follows), hence the negated centerRe; y is flipped by
+                // the canvas→vUv conversion, so centerIm stays positive.
+                const aspect = width / height;
+                const centerRe = -panNormX * WORLD_SCALE * aspect - 0.5;
+                const centerIm = panNormY * WORLD_SCALE;
+
+                // Complex-plane width of the *current* view — this one correctly
+                // shrinks with zoom and drives the per-pixel delta / reference
+                // orbit spacing.
+                const viewScale = WORLD_SCALE / view.zoom;
+                // ────────────────────────────────────────────────────────────────
+
+                const viewChanged =
+                    centerRe !== lastCenterRe.current ||
+                    centerIm !== lastCenterIm.current ||
+                    view.zoom !== lastZoom.current;
+
+                if (viewChanged) {
+                    const maxIterations = computeMaxIterations(
+                        view.zoom,
+                        params.iterationBase,
+                        params.iterationScale,
+                        params.iterationCap
+                    );
+
+                    // Primary at the exact view centre
+                    const primary = computeReferenceOrbit(centerRe, centerIm, maxIterations);
+
+                    // Secondary a few pixels away (still useful for the current view)
+                    const secondary = computeSecondaryOrbit(
+                        centerRe,
+                        centerIm,
+                        viewScale,
+                        maxIterations
+                    );
+
+                    texturesRef.current.upload(primary, secondary);
+                    orbitsRef.current = { primary, secondary };
+
+                    lastCenterRe.current = centerRe;
+                    lastCenterIm.current = centerIm;
+                    lastZoom.current = view.zoom;
+                }
+
+                if (!orbitsRef.current) return {};
+                const { primary, secondary } = orbitsRef.current;
+
+                const [scaleHi, scaleLo] = splitDS(viewScale);
+
+                return {
+                    u_zoom: view.zoom,
+                    u_scale: [scaleHi, scaleLo],
+
+                    u_orbit: texturesRef.current.tex1,
+                    u_orbitLength: primary.orbitLength,
+                    u_referenceIterations: primary.referenceIterations,
+
+                    u_orbit2: texturesRef.current.tex2,
+                    u_orbitLength2: secondary.orbitLength,
+                    u_referenceIterations2: secondary.referenceIterations,
+
+                    ...fractalParamsUniforms(params)
+                };
+            }}
+        />
+    );
 }
 
 export { PerturbationScene };

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { ShaderCanvas } from '@repo/graphics/2d/react/ShaderCanvas';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
 import { splitDouble } from '../core/doubleSplit';
+import { fractalParamsUniforms } from '../core/fractalUniforms';
+import { useFractureView } from '../core/useFractureView';
 import { useParams } from '../stores/createParamStore';
 import { doubleSplitStore } from '../stores/doubleSplitStore';
 import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
@@ -23,19 +25,20 @@ function DoubleSplitScene() {
         }
     }, [isActive, pan, zoom]);
 
+    const { camera, controls, pointerHandlers, syncView } = useFractureView({
+        initialView: { pan, zoom },
+        maxZoom: MAX_ZOOM
+    });
+
     return (
-        <ShaderCanvas
+        <GpuCanvas
+            className="h-full w-full"
             fragmentShader={fragmentShader}
-            webGLContextAttributes={{ antialias: true }}
-            initialView={{ pan, zoom }}
-            maxZoom={MAX_ZOOM}
-            zoomToCursor
-            scalePanWithZoom
-            zoomSpeed={250}
-            onViewChange={(view) => {
-                setView({ pan: view.pan, zoom: view.zoom });
-            }}
-            onBeforeRender={({ pipeline, view }) => {
+            camera={camera}
+            cameraControls={controls}
+            pointerHandlers={pointerHandlers}
+            uniforms={({ camera: view, width, height }) => {
+                syncView();
                 // Map the interaction view onto the complex-plane center the shader
                 // expects. With the shader's convention
                 //   c = (uvCoord - 0.5) · (3 / zoom) + center
@@ -43,9 +46,9 @@ function DoubleSplitScene() {
                 // pan offset normalized by the canvas size. pan is a drag offset, so it
                 // must move opposite the cursor (content-follows); y is flipped by the
                 // canvas→vUv conversion, so it enters positive.
-                const panNormX = view.pan.x / view.canvasWidth;
-                const panNormY = view.pan.y / view.canvasHeight;
-                const aspect = view.canvasWidth / view.canvasHeight;
+                const panNormX = view.x / view.zoom / width;
+                const panNormY = view.y / view.zoom / height;
+                const aspect = width / height;
                 const centerRe = -3.0 * aspect * panNormX - 0.5;
                 const centerIm = 3.0 * panNormY;
 
@@ -55,21 +58,12 @@ function DoubleSplitScene() {
                 const [centerReHi, centerReLo] = splitDouble(centerRe);
                 const [centerImHi, centerImLo] = splitDouble(centerIm);
 
-                pipeline.setUniforms({
-                    u_iterationBase: params.iterationBase,
-                    u_iterationScale: params.iterationScale,
-                    u_iterationCap: params.iterationCap,
-                    u_interiorScale: params.interiorScale,
-                    u_pixelEps: params.pixelEps,
-                    u_sunAngle: params.sunAngle,
-                    u_bumpHeight: params.bumpHeight,
-                    u_ambient: params.ambientLight,
-                    u_hueShift: params.hueShift,
-                    u_hueFrequency: params.hueFrequency,
-                    u_chromaScale: params.chromaScale,
+                return {
                     u_centerRe: [centerReHi, centerReLo],
-                    u_centerIm: [centerImHi, centerImLo]
-                });
+                    u_centerIm: [centerImHi, centerImLo],
+                    u_zoom: view.zoom,
+                    ...fractalParamsUniforms(params)
+                };
             }}
         />
     );

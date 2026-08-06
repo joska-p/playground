@@ -25,7 +25,7 @@ export function buildValueFragmentShader(rule: GrammarRule, node: ExpressionNode
     const expression = rule.toGLSL(GLSL_ARGS, node);
     const noiseFunctions = resolveGlslDeps(rule.noiseDependencies ?? []);
 
-    return /* glsl */ `#version 300 es
+    return `#version 300 es
 precision highp float;
 
 in vec2 vUv;

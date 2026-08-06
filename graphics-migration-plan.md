@@ -15,10 +15,23 @@ suite onto `@repo/glaze`, then delete the two old libs.
 
 ## Decisions (recorded)
 
-- **Fracture pipeline approach**: DEFERRED — review `createPerturbationPipeline.ts`
-    - `PerturbationScene.tsx` first, then present options (reimplement on glaze
-      runtime vs. add glaze exports).
+- **Fracture pipeline approach**: DECIDED — **conform fracture to glaze's existing API, zero glaze
+  changes.** Rationale: fracture/graphics holds nothing reusable that glaze lacks (fullscreen
+  fragment shader → `GpuCanvas`/`useGpuCanvas`; standard uniforms → `createStandardUniformValues`
+  superset; camera/pan/zoom → `useCamera` — pan already scales with zoom, just a different stored
+  convention; resize/context-restore/loop → `createGpuRuntime`). The genuinely fracture-specific
+  parts (reference-orbit math, RG32F textures, double-double `splitDS`, custom uniforms) are
+  consumer domain logic. `zoomSpeed`, `scalePanWithZoom`, `onViewChange` gaps are handled
+  consumer-side (onWheel override / formula re-derivation / diff writeback in `onFrame`).
+- **Glaze internal cleanup**: `useGpuCanvas` dropped its `uniformsRef` mirror — the `draw`
+  effect event already reads the latest `uniforms`/`onFrame` from render scope
+  (`useEffectEvent` replaces the ref-mirror + no-deps `useEffect` trick). No API change.
 - **Zero-cost items**: do both upfront (delete pixelate2d suite, drop storybook dep).
+- **Known unrelated breakage**: `@repo/automa` `CellMesh.tsx:3` imports
+  `@repo/glaze/gpu/createGpuDoor` — pre-existing stale import (glaze renamed the door to
+  `createGpuRuntime`). Automa imports glaze, not graphics; NOT part of this migration. Also:
+  repo-wide `pnpm check-types` is flaky — parallel `tsc -b` on shared project references races
+  on `.tsbuildinfo`; every package passes its own `check-types` sequentially.
 
 ## Phase status
 
@@ -32,8 +45,7 @@ suite onto `@repo/glaze`, then delete the two old libs.
       check-types + lint pass.
 - [x] **Phase 1b** — `@repo/randomart`: swap to `@repo/glaze/react/GpuCanvas`, drop
       `FrameLoopProvider`, remove `@repo/graphics` dep. Renamed shader uniform `uT` → `u_time`
-      (glaze builtin; old `time="uTime"` was a silent no-op — preview was static). check-types
-      + lint pass.
+      (glaze builtin; old `time="uTime"` was a silent no-op — preview was static). check-types + lint pass.
       **Uniform-name audit (both consumers):** test-mode fragment shaders use `u_time` ✓
       (glaze builtin); `vUv` matches glaze's default vertex shader ✓. The `VALUE_VERTEX_SHADER`
       constants (`modelViewMatrix`/`projectionMatrix`) are dead code — never passed to the
@@ -41,22 +53,36 @@ suite onto `@repo/glaze`, then delete the two old libs.
       `@repo/graphics`) is self-consistent: `u_time`/`u_animSpeed`/`u_resolution`/`u_mouse`
       declared in `compileToGLSL.ts:94-97` == queried in `useShaderProgram.ts:82-85`.
       Stale `uT` comment in `evalHelpers.ts` updated to `u_time`.
-- [ ] **Phase 2** — `@repo/fracture`: review pipeline code, decide approach, migrate
-- [ ] **Phase 3** — delete `@repo/graphics`; prune `graphics.md` reference doc;
-      update `scripts/sync-package-readmes.mjs` `PACKAGE_NAMES`; repo-wide check
+- [x] **Phase 2** — `@repo/fracture`: migrated all three scenes to `@repo/glaze/react/GpuCanvas` + a shared `core/useFractureView` hook (external `useCamera` pair, `zoomSpeed=250` wheel
+      override returning `true`, store writeback). `viewStore` `Point2D` now from
+      `@repo/glaze/core/coords/camera`. Orbit RG32F textures moved to `core/createOrbitTextures`
+      (lazy-bound to glaze's GL context inside the `uniforms` callback; re-uploaded on
+      `webglcontextrestored`; disposed on unmount). `App.tsx` dropped `FrameLoopProvider`.
+      Center/pan math preserved verbatim from the old scenes (original: `u_panOffset = -panNorm`;
+      double-split: DS `u_centerRe/u_centerIm`; perturbation: `u_zoom`/`u_scale`/orbit samplers).
+      Sizing kept the old `<canvas width/height:100%>` contract via `className="h-full w-full"`.
+      check-types + lint pass.
+- [x] **Phase 3** — deleted `packages/graphics`; pruned `reference/packages/graphics.md`; removed
+      `graphics` from `scripts/sync-package-readmes.mjs` `PACKAGE_NAMES`; refreshed lockfile.
+      Repo-wide `@repo/graphics` grep: zero remaining imports (only historical docs mention it).
+      All touched packages pass `check-types` + `lint` individually (see unrelated-breakage note).
 
 ## Verification
 
 Per package: `pnpm --filter @repo/<pkg> check-types` and `pnpm --filter @repo/<pkg> lint`.
 Repo-wide after Phase 3: `pnpm check-types && pnpm lint`.
 
-## Key API mappings
+## Key API mappings (verified)
 
-| `@repo/graphics`                                                      | `@repo/glaze`                                | Notes                                       |
-| --------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------- |
-| `ShaderCanvas` (`2d/react/ShaderCanvas`)                              | `react/GpuCanvas`                            | GpuCanvas owns its frame loop + interaction |
-| `FrameLoopProvider` / `useFrame`                                      | `react/FrameLoopProvider` / `react/useFrame` | often not needed — GpuCanvas self-driven    |
-| `usePanZoom`                                                          | `react/useCanvasInteraction`                 | built into GpuCanvas via `pan`/`zoom` props |
-| `time="uTime"`                                                        | `uniforms: (ctx) => ({ uTime: ctx.time })`   | glaze auto-sets `u_time` (lowercase)        |
-| `transforms` / `Point2D`                                              | `core/coords/*`                              | verify export parity during migration       |
-| `createQuadPipeline` / `createWebGLContext` / `applyStandardUniforms` | (none today)                                 | Phase 2 decision point                      |
+| `@repo/graphics`                                                      | `@repo/glaze`                                        | Notes                                                                                                         |
+| --------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `ShaderCanvas` (`2d/react/ShaderCanvas`)                              | `react/GpuCanvas`                                    | GpuCanvas owns frame loop + interaction                                                                       |
+| `FrameLoopProvider` / `useFrame`                                      | (not needed)                                         | GpuCanvas is self-driven; `useGpuCanvas.onFrame` / `GpuRuntime.setDraw` if you need the frame                 |
+| `usePanZoom` (`zoomToCursor`, `scalePanWithZoom`, `onViewChange`)     | `react/useCamera` + `react/useCanvasInteraction`     | pan stored unscaled (px); convert at the boundary (`pan * zoom` in, `x / zoom` out)                           |
+| `usePanZoomUniforms` (`u_zoom`/`u_panOffset`)                         | (none)                                               | supply in GpuCanvas `uniforms` callback; fracture keeps its own center formula                                |
+| `zoomSpeed` prop                                                      | `pointerHandlers.onWheel` returning `true`           | return `true` to consume and skip glaze's 0.002/px default                                                    |
+| `time="uTime"`                                                        | `uniforms: (ctx) => ({ uTime: ctx.time })`           | glaze auto-sets `u_time` (lowercase); prefer the builtin name                                                 |
+| `transforms` / `Point2D`                                              | `core/coords/camera`                                 | `Point2D` re-exported there                                                                                   |
+| `createQuadPipeline` / `createWebGLContext` / `applyStandardUniforms` | `gpu/createGpuRuntime` + `uniforms` callback         | fragment program via `runtime.createProgram`; raw-GL resources (e.g. RG32F orbit textures) stay consumer-side |
+| default vertex shader (`vUv`)                                         | `gpu/shader/compileProgram.FULLSCREEN_TRIANGLE`      | byte-identical (`in vec2 vUv`)                                                                                |
+| standard uniforms (`u_resolution`/`u_aspect`/`u_mouse`/`u_time`/…)    | `gpu/shader/setUniforms.createStandardUniformValues` | applied per-frame in `renderProgram`; unknown-uniform keys are skipped                                        |
