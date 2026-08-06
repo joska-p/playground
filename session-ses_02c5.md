@@ -40,7 +40,7 @@ The refactors you described are in place (`useEffectEvent`, wheel on native non-
 
 ## Assistant
 
-State confirmed: the refactor you described is in place (`useEffectEvent`, native non-passive wheel, strict `UniformValue`/`GpuFrameContext`), the French comments are still there, and `CellMesh` still hand-rolls the door/loop/pan. 
+State confirmed: the refactor you described is in place (`useEffectEvent`, native non-passive wheel, strict `UniformValue`/`GpuFrameContext`), the French comments are still there, and `CellMesh` still hand-rolls the door/loop/pan.
 
 We were right at the "four decisions" gate. Here they are:
 
@@ -51,6 +51,7 @@ We were right at the "four decisions" gate. Here they are:
 ## Assistant
 
 Decisions locked in:
+
 - **Both** `return true` and `ctx.consume()` block the chain (docs distinguish from `stopPropagation`).
 - **`useGpuCanvas`** (door + shader + frameLoop) and **`useCanvasInteraction`** (listeners + composition + `InputStore`) as two hooks; `<GpuCanvas>` composes both.
 - **Keep `frameLoop`** — no rename.
@@ -266,10 +267,10 @@ Now run the glaze tests + typecheck to validate Phase 1 so far:
 
 Three failures — two real, one test bug:
 
-1. The controller holds a *copy* of `optionsRef.current`, so live handler/pan mutations never reach it (stale handlers bug).
+1. The controller holds a _copy_ of `optionsRef.current`, so live handler/pan mutations never reach it (stale handlers bug).
 2. My "up and cancel" test expectation was wrong (the second drag never moved before cancel).
 
-Fixing the hook to hand the controller the *same* mutable object:
+Fixing the hook to hand the controller the _same_ mutable object:
 
 **Tool: edit**
 
@@ -540,4 +541,3 @@ Now the `run` cast still has `boolean | void`:
 ## Assistant
 
 ---
-

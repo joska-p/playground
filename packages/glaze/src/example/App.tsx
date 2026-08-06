@@ -67,7 +67,10 @@ export function App() {
                                 </div>
                         </header>
                         <main className="flex flex-col gap-8 p-4">
-                                <Section backend="CPU" mode="surface">
+                                <Section
+                                        backend="CPU"
+                                        mode="surface"
+                                >
                                         <Cell
                                                 style="declarative"
                                                 caption="CpuCanvas onFrame · SCENE via runtime.context"
@@ -87,7 +90,10 @@ export function App() {
                                                 <SurfaceCpuImperative />
                                         </Cell>
                                 </Section>
-                                <Section backend="GPU" mode="surface">
+                                <Section
+                                        backend="GPU"
+                                        mode="surface"
+                                >
                                         <Cell
                                                 style="declarative"
                                                 caption="GpuCanvas onFrame · SCENE shapes"
@@ -107,7 +113,10 @@ export function App() {
                                                 <SurfaceGpuImperative />
                                         </Cell>
                                 </Section>
-                                <Section backend="GPU" mode="program">
+                                <Section
+                                        backend="GPU"
+                                        mode="program"
+                                >
                                         <Cell
                                                 style="declarative"
                                                 caption="GpuCanvas fragmentShader · plasma"

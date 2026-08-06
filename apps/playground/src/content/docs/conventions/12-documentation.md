@@ -17,5 +17,5 @@ tags:
 - Each package's `README.md` is the source of truth for its docs.
 - After updating a package README, sync to the Astro docs site:
      ```bash
-     pnpm --filter @repo/playground sync-package-docs
+     pnpm sync-package-docs
      ```

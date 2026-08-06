@@ -14,6 +14,8 @@ export function SurfaceGpuDeclarative() {
         return (
                 <div className="h-75 w-100">
                         <GpuCanvas
+                                pan={true}
+                                zoom={true}
                                 onRuntime={setRuntime}
                                 onFrame={onFrame}
                                 className="h-full w-full"

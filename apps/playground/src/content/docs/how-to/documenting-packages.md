@@ -11,6 +11,14 @@ Every package's `README.md` is the **single source of truth** for its documentat
 It covers everything — consumer API, architecture, internals, gotchas.
 The Astro site renders it automatically via the sync script.
 
+**Write it first.** The README is the package's local spec, not a post-hoc summary:
+state the contract up front, then implement to match it. When working inside a
+package, its README and existing code are the source of truth for naming,
+structure, and testing — mirror what the code already shows. New packages get a
+seeded README from the scaffold generator
+(`turbo/generators/templates/new-package/README.md.hbs`); expand it into the spec
+before writing application code.
+
 ---
 
 ## Before You Start
@@ -113,6 +121,7 @@ _Part of [Creative Playground](https://joska-p.github.io/playground/)_
 - Named exports only (matches project convention).
 - No emojis in section headings.
 - Use accessible language (avoid "simply" or "just").
+- Treat the README as the spec: document the contract (exports, architecture, gotchas) plainly and keep it in sync with the code — a stale spec is worse than none.
 
 ---
 
@@ -121,7 +130,7 @@ _Part of [Creative Playground](https://joska-p.github.io/playground/)_
 Run from repo root:
 
 ```bash
-pnpm --filter @repo/playground sync-package-docs
+pnpm sync-package-docs
 ```
 
 This copies the README into `src/content/docs/reference/packages/<name>.md`, wrapping it in frontmatter. The doc appears automatically in the sidebar under **Reference → Packages** and on the [docs index](/docs/).
@@ -159,7 +168,7 @@ If a package is removed from the repo, its reference doc becomes orphaned.
 Clean it up:
 
 ```bash
-pnpm --filter @repo/playground sync-package-docs -- --prune
+pnpm sync-package-docs -- --prune
 ```
 
 ### Adding a new package

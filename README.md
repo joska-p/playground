@@ -57,21 +57,15 @@ pnpm install && pnpm dev
 
 ## Documentation
 
-| Doc                                                                                                       | Description                                                |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Documentation hub](https://joska-p.github.io/playground/docs/)                                           | Documentation hub                                          |
-| [Overview](https://joska-p.github.io/playground/docs/explanation/overview/)                               | What this is, principles, architecture                     |
-| [Engines](https://joska-p.github.io/playground/docs/explanation/engines/)                                 | How rules and visualizations work                          |
-| [Your First Visualization](https://joska-p.github.io/playground/docs/tutorial/first-visualization/)       | Step-by-step tutorial                                      |
-| [Scaffolding Packages](https://joska-p.github.io/playground/docs/how-to/scaffolding-packages/)            | Generate new packages with `turbo gen`                     |
-| [Project Maintenance](https://joska-p.github.io/playground/docs/how-to/maintenance/)                      | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
-| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/)                      | How to add new visualizations                              |
-| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/)                  | How to add UI components                                   |
-| [Adding a Rule](https://joska-p.github.io/playground/docs/how-to/adding-sequence-rule/)                   | Add sequence rules                                         |
-| [Adding a Visualization](https://joska-p.github.io/playground/docs/how-to/adding-visualization/)          | Add visualization types                                    |
-| [Import and Export Strategy](https://joska-p.github.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules                                |
-| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/)                       | Color palette and typography                               |
-| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/)                       | Component library reference                                |
+| Doc                                                                                            | Description                                                |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [Documentation hub](https://joska-p.github.io/playground/docs/)                                | Documentation hub                                          |
+| [Conventions](https://joska-p.github.io/playground/docs/conventions/01-overview/)              | Code style, package structure, and common patterns         |
+| [Architecture](https://joska-p.github.io/playground/docs/explanation/architecture/)            | System overview and principles                             |
+| [Engine Patterns](https://joska-p.github.io/playground/docs/explanation/engine-patterns/)      | How rules and visualizations work                          |
+| [Scaffolding Packages](https://joska-p.github.io/playground/docs/how-to/scaffolding-packages/) | Generate new packages with `turbo gen`                     |
+| [Documenting Packages](https://joska-p.github.io/playground/docs/how-to/documenting-packages/) | README-first docs, synced to the site                      |
+| [Project Maintenance](https://joska-p.github.io/playground/docs/how-to/maintenance/)           | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
 
 ---
 

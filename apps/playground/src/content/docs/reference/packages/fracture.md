@@ -18,10 +18,6 @@ order: 20
 pnpm --filter @repo/fracture dev
 ```
 
-## Adding to the Playground
-
-Follow the official guide: [Adding Projects](/docs/how-to/adding-projects/).
-
 ## Conventions
 
 This package follows [project conventions](/docs/conventions/01-overview.md):

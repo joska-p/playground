@@ -4,7 +4,7 @@
 
 ## What it is
 
-`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 there is no difference between the two: `drawCircle` *is* a tiny compiled program.
+`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 there is no difference between the two: `drawCircle` _is_ a tiny compiled program.
 
 It ships as two sibling runtimes over a shared foundation:
 
@@ -117,33 +117,38 @@ import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
 const runtime = createGpuRuntime({ canvas });
 const buffer = createStateBuffer(runtime.gl, 96, 96);
 
-buffer.addProgram('sim', /* glsl */ `
-        precision highp float;
-        in vec2 vUv;
-        out vec4 fragColor;
-        uniform sampler2D u_state;
-        uniform vec2 u_gridSize;
+buffer.addProgram(
+        'sim',
+        /* glsl */ `
+                precision highp float;
+                in vec2 vUv;
+                out vec4 fragColor;
+                uniform sampler2D u_state;
+                uniform vec2 u_gridSize;
 
-        ivec2 wrap(ivec2 c) {
-                return ivec2(mod(vec2(c) + u_gridSize, u_gridSize));
-        }
-        int cellAt(ivec2 c) {
-                return int(texelFetch(u_state, wrap(c), 0).r * 255.0 + 0.5);
-        }
-        void main() {
-                ivec2 coord = ivec2(gl_FragCoord.xy);
-                int alive = cellAt(coord);
-                int n = 0;
-                for (int dy = -1; dy <= 1; dy++)
-                for (int dx = -1; dx <= 1; dx++) {
-                        if (dx == 0 && dy == 0) continue;
-                        n += cellAt(coord + ivec2(dx, dy));
+                ivec2 wrap(ivec2 c) {
+                        return ivec2(mod(vec2(c) + u_gridSize, u_gridSize));
                 }
-                float next = (alive == 1 && (n == 2 || n == 3)) || (alive == 0 && n == 3)
-                        ? 1.0 / 255.0 : 0.0;
-                fragColor = vec4(next, 0.0, 0.0, 1.0);
-        }
-`);
+                int cellAt(ivec2 c) {
+                        return int(texelFetch(u_state, wrap(c), 0).r * 255.0 + 0.5);
+                }
+                void main() {
+                        ivec2 coord = ivec2(gl_FragCoord.xy);
+                        int alive = cellAt(coord);
+                        int n = 0;
+                        for (int dy = -1; dy <= 1; dy++)
+                                for (int dx = -1; dx <= 1; dx++) {
+                                        if (dx == 0 && dy == 0) continue;
+                                        n += cellAt(coord + ivec2(dx, dy));
+                                }
+                        float next =
+                                alive == 1 && (n == 2 || n == 3) || alive == 0 && n == 3
+                                        ? 1.0 / 255.0
+                                        : 0.0;
+                        fragColor = vec4(next, 0.0, 0.0, 1.0);
+                }
+        `
+);
 
 buffer.init(cells); // one byte per cell: 0 or 1
 

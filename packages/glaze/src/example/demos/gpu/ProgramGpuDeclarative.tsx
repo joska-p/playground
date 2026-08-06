@@ -4,7 +4,10 @@ import { plasmaFragmentSource } from '../shaders';
 export function ProgramGpuDeclarative() {
         return (
                 <div className="h-75 w-100">
-                        <GpuCanvas fragmentShader={plasmaFragmentSource} className="h-full w-full" />
+                        <GpuCanvas
+                                fragmentShader={plasmaFragmentSource}
+                                className="h-full w-full"
+                        />
                 </div>
         );
 }

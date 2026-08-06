@@ -50,7 +50,7 @@ packages/<name>/
 │   ├── demoStore.ts                 # Zustand store (private, getter hooks + setter fns)
 │   ├── main.tsx                     # React DOM entry
 │   └── styles/
-│       └── styles.css               # Tailwind v4 + @repo/ui/gruvbox-theme
+│       └── global.css               # Tailwind v4 + @repo/ui/gruvbox-theme
 ├── tsconfig.json
 ├── tsconfig.app.json
 ├── tsconfig.node.json
@@ -73,7 +73,7 @@ Follow [Documenting a Package](./documenting-packages/) to write the README, boo
 
 ## Adding to the Playground Website
 
-Follow [Adding Projects](./adding-projects/) to register the new package as a project page on the Astro site. For React components, use the `client:only="react"` directive:
+The `Demo` component renders on the Astro site via a `client:only` island. Create a project page under `src/pages/` importing `@repo/<name>/Demo`:
 
 ```astro
 ---
