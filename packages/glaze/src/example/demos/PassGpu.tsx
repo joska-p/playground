@@ -59,7 +59,7 @@ void main() {
     out_color = vec4(0.02, 0.03, 0.05, 1.0);
     return;
   }
-  float alive = texture(u_state, uv).r;
+  float alive = texture(u_state, uv).r * 255.0;
   vec3 dead = vec3(0.05, 0.07, 0.12);
   vec3 live = vec3(0.96, 0.6, 0.22);
   out_color = vec4(mix(dead, live, alive), 1.0);
