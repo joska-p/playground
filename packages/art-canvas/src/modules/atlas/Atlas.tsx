@@ -35,6 +35,8 @@ function Atlas() {
                 uGlitch: glitch,
                 uSeedOffset: seedOffset
             })}
+            pan={false}
+            zoom={false}
         />
     );
 }

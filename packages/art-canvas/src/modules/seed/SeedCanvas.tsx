@@ -10,7 +10,14 @@ function SeedCanvas() {
 
     const fragmentShader = generateShaderFromSeed(seed, complexity, mood, palette);
 
-    return <GpuCanvas className="h-full w-full" fragmentShader={fragmentShader} />;
+    return (
+        <GpuCanvas
+            className="h-full w-full"
+            fragmentShader={fragmentShader}
+            pan={false}
+            zoom={false}
+        />
+    );
 }
 
 export { SeedCanvas };
