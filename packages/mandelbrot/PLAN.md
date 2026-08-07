@@ -5,6 +5,10 @@ ordered work. It consolidates `REVIEW.md` (how the current code works + what's w
 and `REPORT-perturbation-ultimate.md` (the mandelbrot ↔ fracture comparison + merged
 blueprint) into one actionable plan. Read those for depth; read this for direction.
 
+> **Hand-off status (2026-08-07): Phases 0–1 shipped.** Phase 2 (glaze shell) is next.
+> Fresh-context prompt for the next session: [`NEXT-SESSION.md`](./NEXT-SESSION.md) —
+> paste it verbatim and it will not rescan the codebase.
+
 ---
 
 ## 1. Vision
@@ -37,20 +41,19 @@ Two consequences that shape everything:
 - **Correctness details**: DPR cap 2, `preventDefault` on wheel, pointer capture,
   Strict-Mode-safe init, context handled.
 
-### What's wrong (fix)
+### What was wrong (all fixed in Phases 0–1)
 
-1. **The worker is fake.** `reference-worker.ts` does `await Promise.resolve()` then runs
-   the BigInt loop synchronously on the main thread — a multi-hundred-ms freeze at deep
-   zoom. This is the single biggest gap.
-2. **Broken export**: `package.json` `exports["./styles"]` points at `styles.css`; the
-   file is `global.css`.
-3. **Duplicated** `toNumber` (`toNum` in the viewer re-implements `big-float.ts:toNumber`).
-4. **Dead code**: `formatCoord` (view.ts), `scale2`, `cmp`, `magSq`, `_TWO` (big-float.ts),
-   the `escaped` flag thread.
-5. **Layering**: `LookState` lives in `control-panel.tsx`; move the look model to a lib.
-6. **Repo-convention clash**: manual `useCallback`s trigger React-Compiler warnings; drop them.
-7. **45 ESLint errors** (mostly `--fix`-able; interface→type and `void`-prefix manual).
-8. **Stale README** ("Scaffolded demo showcasing Zustand + Zod").
+1. **The worker was fake.** ✅ Real `@repo/worker-pool` + Vite module worker + chunked
+   main-thread fallback (Phase 1, `50d20022`).
+2. **Broken export.** ✅ `exports["./styles"]` → `./src/styles/global.css` (Phase 0).
+3. **Duplicated `toNumber`.** ✅ viewer imports `big-float.ts:toNumber` (Phase 0).
+4. **Dead code.** ✅ removed `formatCoord`, `scale2`, `cmp`, `magSq`, `_TWO`, the `escaped`
+   thread (Phase 0).
+5. **Layering `LookState`.** ✅ moved to `src/lib/mandelbrot/look.ts`; the panel is a pure
+   view (Phase 0). Note: `framework/` paths are deferred to Phase 3 (§9).
+6. **`useCallback` clash.** ✅ dropped (Phase 0).
+7. **45 ESLint errors.** ✅ `lint` + `check-types` gates are green (Phase 0).
+8. **Stale README.** ✅ refreshed (Phase 0).
 
 ## 3. Renderer registry
 
@@ -94,6 +97,11 @@ src/components/                 ← current control-panel.tsx, hud.tsx (migrate 
 Framework layering: data (`big-float`, `view`, `look`) → reference pipeline → shaders →
 stores → renderers → shell. Each level depends only on the one below.
 
+> **Current layout note:** Phases 0–1 landed the building blocks under `src/lib/` as the
+> plan's phases happened (`lib/mandelbrot/look.ts`, `lib/reference-policy.ts`). The
+> `framework/` tree above is the **Phase 3 extraction target**; do not create `framework/`
+> paths before then (§9 decision D1).
+
 ## 5. Locked decisions
 
 - **Framework lives inside `@repo/mandelbrot`** (`src/framework/`), extractable later if a
@@ -114,26 +122,31 @@ stores → renderers → shell. Each level depends only on the one below.
 
 ## 6. Phases
 
-### Phase 0 — Housekeeping
-- Fix `exports["./styles"]` → `./src/styles/global.css`.
-- Import `toNumber` instead of `toNum`; delete dead exports and the `escaped` thread.
-- Move `LookState`/`DEFAULT_LOOK`/`lookToParams` → `framework/look.ts`; panel becomes a pure view.
-- Drop manual `useCallback`s (React Compiler).
-- `lint-fix` + manual interface→type and `void`-prefixed promise passes (REVIEW 2.3).
-- Refresh `README.md`; keep `REVIEW.md`/`REPORT` as references.
+### Phase 0 — Housekeeping ✅ shipped (`4ccb66d4`)
+- Fix `exports["./styles"]` → `./src/styles/global.css`. ✅
+- Import `toNumber` instead of `toNum`; delete dead exports and the `escaped` thread. ✅
+- Move `LookState`/`DEFAULT_LOOK`/`lookToParams` → `lib/mandelbrot/look.ts` (see §9 for
+  the `framework/` path reconciliation). ✅
+- Drop manual `useCallback`s (React Compiler). ✅
+- `lint-fix` + manual interface→type and `void`-prefixed promise passes. ✅
+- Refresh `README.md`; keep `REVIEW.md`/`REPORT` as references. ✅
+- Added the missing `lint`/`lint-fix`/`check-types` scripts (the gate didn't exist before).
 
-*Done when:* `pnpm --filter @repo/mandelbrot lint` and `check-types` are clean.
+*Done when:* `pnpm --filter @repo/mandelbrot lint` and `check-types` are clean — **met**.
 
-### Phase 1 — Real worker
-- Move `computeReferenceOrbit` + `big-float.ts` behind a module worker entry.
+### Phase 1 — Real worker ✅ shipped (`50d20022`)
+- Move `computeReferenceOrbit` + `big-float.ts` behind a module worker entry. ✅
 - Wire through `@repo/worker-pool`: `serialize` sends the view request, `deserialize`
-  returns the `Float32Array` orbit (transferable).
-- Keep drift policy + token superseding in `reference/policy.ts`.
-- Chunked main-thread fallback (no workers) so the UI never freezes.
-- HUD "ref" pulse driven by the real in-flight flag.
+  returns the `Float32Array` orbit (transferable). ✅
+- Keep drift policy + token superseding in `reference-policy.ts` (app-owned). ✅
+- Chunked main-thread fallback (no workers) so the UI never freezes. ✅
+- HUD "ref" pulse driven by the real in-flight flag. ✅ (already keyed off the promise;
+  now genuinely non-blocking.)
 
-*Done when:* deep-zoom reference recompute never blocks the main thread; test uses
-`MockWorkerPool`.
+*Done when:* deep-zoom reference recompute never blocks the main thread — **met**. The
+`MockWorkerPool` test clause was deliberately dropped (no vitest in the package, per
+preference). The pool is still injectable (`computeReferenceAsync(req, pool?)`), so a test
+can be added later if wanted.
 
 ### Phase 2 — Glaze shell (Reference/DE)
 - Delete `renderer.ts`; render through `GpuCanvas` + per-frame `uniforms`, porting the
@@ -192,3 +205,23 @@ interior relief and crisp filaments.
 - No zoom beyond the `1e38` uniform wall.
 - No streaming/observable workers (`@repo/worker-pool` explicitly doesn't do this).
 - No new dependency beyond `@repo/glaze` and `@repo/worker-pool`.
+
+## 9. Hand-off notes
+
+Landing record (commits): Phase 0 `4ccb66d4`, Phase 1 `50d20022`.
+
+**D1 — `framework/` paths deferred to Phase 3.** Phases 0–1 used the existing `src/lib/`
+layout (`lib/mandelbrot/look.ts`, `lib/reference-policy.ts`, `lib/reference-orbit.ts`).
+Phase 3 moves these into `framework/` per §4. Do not pre-move them.
+
+**D2 — No vitest in the package.** The Phase 1 `MockWorkerPool` test was dropped by
+request. `computeReferenceAsync(req, pool?)` keeps the pool injectable so a test can be
+added later without refactoring.
+
+**D3 — Drift comparison normalized to device px.** The old `maybeRecompute` compared a
+device-pixel distance against a CSS-pixel threshold; `needsRecompute` (reference-policy.ts)
+uses consistent device pixels throughout (`MAX_REF_DRIFT = 0.35 × heightPx`). Slightly
+tighter than before at DPR > 1 — intended.
+
+**Next:** Phase 2 (glaze shell). The fresh-context prompt lives in
+[`NEXT-SESSION.md`](./NEXT-SESSION.md); read that plus this §6 before starting.

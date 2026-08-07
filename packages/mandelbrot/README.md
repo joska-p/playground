@@ -42,6 +42,7 @@ pnpm --filter @repo/mandelbrot dev
 ## Docs
 
 - [PLAN.md](./PLAN.md) — the driving roadmap (phases, renderer registry, decisions).
+- [NEXT-SESSION.md](./NEXT-SESSION.md) — fresh-context hand-off prompt for the next phase.
 - [REVIEW.md](./REVIEW.md) — pipeline walkthrough + code review findings.
 - [REPORT-perturbation-ultimate.md](./REPORT-perturbation-ultimate.md) — mandelbrot ↔
   `fracture` implementation comparison and the merged blueprint.
