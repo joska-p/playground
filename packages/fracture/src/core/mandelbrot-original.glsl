@@ -62,7 +62,7 @@ uniform float u_hueFrequency; // how quickly hue cycles with height
 uniform float u_chromaScale; // global saturation multiplier
 
 // View
-uniform float u_zoom; // >1 zooms in
+uniform vec3 u_camera; // [x, y, zoom] — glaze built-in, y-down screen px
 uniform vec2 u_panOffset; // pan, in UV space, applied after zoom
 uniform float u_aspect; // canvas width / height, for non-square canvases
 
@@ -121,7 +121,7 @@ vec3 oklchToRgb(vec3 oklch) {
 //  so they behave intuitively when the user interacts.
 // ============================================================
 vec2 screenToComplex(vec2 uv) {
-    vec2 centered = (uv - 0.5) / u_zoom + 0.5 + u_panOffset;
+    vec2 centered = (uv - 0.5) / u_camera.z + 0.5 + u_panOffset;
     centered.x = (centered.x - 0.5) * u_aspect + 0.5;
     return (centered - 0.5) * 3.0 - vec2(0.5, 0.0);
 }
@@ -224,7 +224,7 @@ vec2 getMandelbrotData(vec2 uv, int maxIter) {
 //  purely as a growth rate controlled by u_iterationScale.
 // ============================================================
 int computeMaxIterations() {
-    float logZoom = log2(max(1.0, u_zoom));
+    float logZoom = log2(max(1.0, u_camera.z));
     int iterations = int(u_iterationBase + logZoom * INV_LN_2 * u_iterationScale);
     return min(iterations, int(u_iterationCap));
 }
@@ -250,7 +250,7 @@ vec3 computeNormal(vec2 uv, int maxIter, float eps, float h0) {
     float hX = getMandelbrotData(uv + vec2(eps / max(u_aspect, 1e-6), 0.0), maxIter).x;
     float hY = getMandelbrotData(uv + vec2(0.0, eps), maxIter).x;
 
-    float heightScale = u_bumpHeight / max(u_zoom, 1.0);
+    float heightScale = u_bumpHeight / max(u_camera.z, 1.0);
 
     return normalize(
         vec3(

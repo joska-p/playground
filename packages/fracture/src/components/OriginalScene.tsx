@@ -30,26 +30,30 @@ function OriginalScene() {
     });
 
     return (
-        <GpuCanvas
-            className="h-full w-full"
-            fragmentShader={fragmentShader}
-            camera={camera}
-            cameraControls={controls}
-            pointerHandlers={pointerHandlers}
-            uniforms={({ camera: view, width, height }) => {
-                syncView();
-                // pan is stored zoom-normalized; normalize by canvas size into UV
-                // space. The shader applies u_panOffset after zoom, and a drag
-                // offset moves content opposite the cursor, so x is negated.
-                const panNormX = view.x / view.zoom / width;
-                const panNormY = view.y / view.zoom / height;
-                return {
-                    u_zoom: view.zoom,
-                    u_panOffset: [-panNormX, panNormY],
-                    ...fractalParamsUniforms(params)
-                };
-            }}
-        />
+        <div className="h-screen w-screen">
+            <GpuCanvas
+                className="h-full w-full"
+                fragmentShader={fragmentShader}
+                camera={camera}
+                cameraControls={controls}
+                pointerHandlers={pointerHandlers}
+                uniforms={({ camera: view, width, height }) => {
+                    syncView();
+                    // pan is stored zoom-normalized; normalize by canvas size into UV
+                    // space. The shader applies u_panOffset after zoom, and a drag
+                    // offset moves content opposite the cursor, so x is negated.
+                    // The −0.5·drift terms pin the anchor to screenToWorld across zoom:
+                    // the shader's (uv − 0.5) reference sits inside the /zoom divide.
+                    const panNormX = view.x / view.zoom / width;
+                    const panNormY = view.y / view.zoom / height;
+                    const drift = 1.0 - 1.0 / view.zoom;
+                    return {
+                        u_panOffset: [-panNormX - 0.5 * drift, panNormY + 0.5 * drift],
+                        ...fractalParamsUniforms(params)
+                    };
+                }}
+            />
+        </div>
     );
 }
 

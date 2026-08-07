@@ -105,104 +105,110 @@ function PerturbationScene() {
     }, [canvasRef]);
 
     return (
-        <GpuCanvas
-            className="h-full w-full"
-            fragmentShader={perturbationShader}
-            camera={camera}
-            cameraControls={controls}
-            pointerHandlers={pointerHandlers}
-            canvasRef={canvasRef}
-            uniforms={({ camera: view, width, height }) => {
-                syncView();
+        <div className="h-screen w-screen">
+            <GpuCanvas
+                className="h-full w-full"
+                fragmentShader={perturbationShader}
+                camera={camera}
+                cameraControls={controls}
+                pointerHandlers={pointerHandlers}
+                canvasRef={canvasRef}
+                uniforms={({ camera: view, width, height }) => {
+                    syncView();
 
-                // Hidden scenes (Activity mode="hidden") report 0 size; skip the
-                // expensive reference-orbit math until the canvas is visible.
-                const canvas = canvasRef.current;
-                if (!canvas || canvas.clientWidth === 0 || canvas.clientHeight === 0) {
-                    return {};
-                }
+                    // Hidden scenes (Activity mode="hidden") report 0 size; skip the
+                    // expensive reference-orbit math until the canvas is visible.
+                    const canvas = canvasRef.current;
+                    if (!canvas || canvas.clientWidth === 0 || canvas.clientHeight === 0) {
+                        return {};
+                    }
 
-                // Lazily bind the orbit textures to the glaze-owned GL context
-                // (the first frame runs only once the runtime is live).
-                if (!texturesRef.current) {
-                    const gl = canvas.getContext('webgl2');
-                    if (!gl) return {};
-                    texturesRef.current = createOrbitTextures(gl);
-                }
+                    // Lazily bind the orbit textures to the glaze-owned GL context
+                    // (the first frame runs only once the runtime is live).
+                    if (!texturesRef.current) {
+                        const gl = canvas.getContext('webgl2');
+                        if (!gl) return {};
+                        texturesRef.current = createOrbitTextures(gl);
+                    }
 
-                // ─── FIXED CENTRE ────────────────────────────────────────────────
-                // pan is stored in zoom-normalized units (see useFractureView).
-                const panNormX = view.x / view.zoom / width;
-                const panNormY = view.y / view.zoom / height;
+                    // ─── FIXED CENTRE ────────────────────────────────────────────────
+                    // pan is stored in zoom-normalized units (see useFractureView).
+                    const panNormX = view.x / view.zoom / width;
+                    const panNormY = view.y / view.zoom / height;
 
-                // Convert pan with the FIXED zoom = 1 width, not the current view
-                // scale (see WORLD_SCALE doc comment above) — the pan/zoom fix.
-                // pan is a drag offset: it moves opposite the cursor
-                // (content-follows), hence the negated centerRe; y is flipped by
-                // the canvas→vUv conversion, so centerIm stays positive.
-                const aspect = width / height;
-                const centerRe = -panNormX * WORLD_SCALE * aspect - 0.5;
-                const centerIm = panNormY * WORLD_SCALE;
+                    // Convert pan with the FIXED zoom = 1 width, not the current view
+                    // scale (see WORLD_SCALE doc comment above) — the pan/zoom fix.
+                    // pan is a drag offset: it moves opposite the cursor
+                    // (content-follows), hence the negated centerRe; y is flipped by
+                    // the canvas→vUv conversion, so centerIm stays positive.
+                    const aspect = width / height;
+                    // Pin the center to screenToWorld across zoom: the shader's
+                    // (uvCoord − 0.5) reference sits inside the /zoom divide, which
+                    // glaze's screenToWorld-based zoomAt does not compensate.
+                    const drift = 1.0 - 1.0 / view.zoom;
+                    const centerRe =
+                        -panNormX * WORLD_SCALE * aspect - 0.5 - 0.5 * WORLD_SCALE * aspect * drift;
+                    const centerIm = panNormY * WORLD_SCALE + 0.5 * WORLD_SCALE * drift;
 
-                // Complex-plane width of the *current* view — this one correctly
-                // shrinks with zoom and drives the per-pixel delta / reference
-                // orbit spacing.
-                const viewScale = WORLD_SCALE / view.zoom;
-                // ────────────────────────────────────────────────────────────────
+                    // Complex-plane width of the *current* view — this one correctly
+                    // shrinks with zoom and drives the per-pixel delta / reference
+                    // orbit spacing.
+                    const viewScale = WORLD_SCALE / view.zoom;
+                    // ────────────────────────────────────────────────────────────────
 
-                const viewChanged =
-                    centerRe !== lastCenterRe.current ||
-                    centerIm !== lastCenterIm.current ||
-                    view.zoom !== lastZoom.current;
+                    const viewChanged =
+                        centerRe !== lastCenterRe.current ||
+                        centerIm !== lastCenterIm.current ||
+                        view.zoom !== lastZoom.current;
 
-                if (viewChanged) {
-                    const maxIterations = computeMaxIterations(
-                        view.zoom,
-                        params.iterationBase,
-                        params.iterationScale,
-                        params.iterationCap
-                    );
+                    if (viewChanged) {
+                        const maxIterations = computeMaxIterations(
+                            view.zoom,
+                            params.iterationBase,
+                            params.iterationScale,
+                            params.iterationCap
+                        );
 
-                    // Primary at the exact view centre
-                    const primary = computeReferenceOrbit(centerRe, centerIm, maxIterations);
+                        // Primary at the exact view centre
+                        const primary = computeReferenceOrbit(centerRe, centerIm, maxIterations);
 
-                    // Secondary a few pixels away (still useful for the current view)
-                    const secondary = computeSecondaryOrbit(
-                        centerRe,
-                        centerIm,
-                        viewScale,
-                        maxIterations
-                    );
+                        // Secondary a few pixels away (still useful for the current view)
+                        const secondary = computeSecondaryOrbit(
+                            centerRe,
+                            centerIm,
+                            viewScale,
+                            maxIterations
+                        );
 
-                    texturesRef.current.upload(primary, secondary);
-                    orbitsRef.current = { primary, secondary };
+                        texturesRef.current.upload(primary, secondary);
+                        orbitsRef.current = { primary, secondary };
 
-                    lastCenterRe.current = centerRe;
-                    lastCenterIm.current = centerIm;
-                    lastZoom.current = view.zoom;
-                }
+                        lastCenterRe.current = centerRe;
+                        lastCenterIm.current = centerIm;
+                        lastZoom.current = view.zoom;
+                    }
 
-                if (!orbitsRef.current) return {};
-                const { primary, secondary } = orbitsRef.current;
+                    if (!orbitsRef.current) return {};
+                    const { primary, secondary } = orbitsRef.current;
 
-                const [scaleHi, scaleLo] = splitDS(viewScale);
+                    const [scaleHi, scaleLo] = splitDS(viewScale);
 
-                return {
-                    u_zoom: view.zoom,
-                    u_scale: [scaleHi, scaleLo],
+                    return {
+                        u_scale: [scaleHi, scaleLo],
 
-                    u_orbit: texturesRef.current.tex1,
-                    u_orbitLength: primary.orbitLength,
-                    u_referenceIterations: primary.referenceIterations,
+                        u_orbit: texturesRef.current.tex1,
+                        u_orbitLength: primary.orbitLength,
+                        u_referenceIterations: primary.referenceIterations,
 
-                    u_orbit2: texturesRef.current.tex2,
-                    u_orbitLength2: secondary.orbitLength,
-                    u_referenceIterations2: secondary.referenceIterations,
+                        u_orbit2: texturesRef.current.tex2,
+                        u_orbitLength2: secondary.orbitLength,
+                        u_referenceIterations2: secondary.referenceIterations,
 
-                    ...fractalParamsUniforms(params)
-                };
-            }}
-        />
+                        ...fractalParamsUniforms(params)
+                    };
+                }}
+            />
+        </div>
     );
 }
 

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { GpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
 
 import { getModule } from '../core/registry'; // your package
 import { identity } from '../middle/identity';
 import { createPolylineViz } from '../viz/polyline';
 
 export function NaturalsDemo() {
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
 
-    const module = getModule('naturals')!;
+    const module = getModule('naturals');
     const signal = module.createSignal({ maxTerms: 200 });
     const processed = identity(signal); // middleware does nothing yet
     const viz = createPolylineViz({

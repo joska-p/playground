@@ -21,7 +21,7 @@ uniform float u_chromaScale;
 // View
 uniform vec2 u_centerRe;
 uniform vec2 u_centerIm;
-uniform float u_zoom;
+uniform vec3 u_camera; // [x, y, zoom] — glaze built-in, y-down screen px
 uniform float u_aspect;
 
 in vec2 vUv;
@@ -115,7 +115,7 @@ vec3 oklchToRgb(vec3 oklch) {
 // Returns (continuous height, secondary magnitude)
 // ---------------------------------------------------------------------------
 vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
-    vec2 delta = (uvCoord - 0.5) * vec2(u_aspect, 1.0) * (3.0 / u_zoom);
+    vec2 delta = (uvCoord - 0.5) * vec2(u_aspect, 1.0) * (3.0 / u_camera.z);
 
     vec2 cr = ds_add(ds_set2(u_centerRe.x, u_centerRe.y), ds_set(delta.x));
     vec2 ci = ds_add(ds_set2(u_centerIm.x, u_centerIm.y), ds_set(delta.y));
@@ -174,7 +174,7 @@ vec2 getMandelbrotData(vec2 uvCoord, int maxIter) {
 // ---------------------------------------------------------------------------
 void main() {
     int maxIterations = int(
-        u_iterationBase + log2(max(1.0, u_zoom)) * 1.44269504089 * u_iterationScale
+        u_iterationBase + log2(max(1.0, u_camera.z)) * 1.44269504089 * u_iterationScale
     );
     maxIterations = min(maxIterations, int(u_iterationCap));
 
@@ -198,7 +198,7 @@ void main() {
         dhdv = (dU.x * dhdy - dV.x * dhdx) / det;
     }
 
-    float heightScale = u_bumpHeight / max(u_zoom, 1.0);
+    float heightScale = u_bumpHeight / max(u_camera.z, 1.0);
 
     vec3 normal = normalize(vec3(-dhdu * heightScale, -dhdv * heightScale, pixelEps));
 

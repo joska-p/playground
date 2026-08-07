@@ -14,7 +14,8 @@
  * - The GPU delta loop now uses double-single (~48-bit mantissa).  This pushes the
  *   practical floor for the per-pixel offset from ~1e7–1e8 (plain float32) to
  *   roughly 1e14–1e15 relative to the reference, provided the centre itself is
- *   still accurate.  The float32 `u_zoom` uniform still overflows past ~3.4e38.
+ *   still accurate.  The float32 `u_camera.z` uniform (glaze's zoom built-in)
+ *   still overflows past ~3.4e38.
  * - Reaching 1e100 also requires a scaled / regioned perturbation scheme or a
  *   full multiprecision reference, not just DS deltas.
  *

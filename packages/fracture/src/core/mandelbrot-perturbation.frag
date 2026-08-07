@@ -24,7 +24,7 @@ uniform float u_hueFrequency;
 uniform float u_chromaScale;
 
 // View
-uniform float u_zoom;
+uniform vec3 u_camera; // [x, y, zoom] — glaze built-in, y-down screen px
 uniform vec2 u_scale; // DS (hi, lo)
 uniform float u_aspect;
 
@@ -256,7 +256,7 @@ void main() {
         dhdv = (dU.x * dhdy - dV.x * dhdx) / det;
     }
 
-    float heightScale = u_bumpHeight / max(u_zoom, 1.0);
+    float heightScale = u_bumpHeight / max(u_camera.z, 1.0);
     vec3 normal = normalize(vec3(-dhdu * heightScale, -dhdv * heightScale, pixelEps));
 
     vec3 lightDir = normalize(vec3(cos(u_sunAngle), sin(u_sunAngle), 1.0));

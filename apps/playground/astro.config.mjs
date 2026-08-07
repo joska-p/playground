@@ -41,8 +41,8 @@ export default defineConfig({
                 filename: 'stats.html',
                 title: 'Playground client bundle',
                 gzipSize: true,
-                brotliSize: true,
-                sourcemap: true
+                brotliSize: true
+                //sourcemap: true
             })
         ],
         resolve: {
