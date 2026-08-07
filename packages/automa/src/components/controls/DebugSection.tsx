@@ -1,6 +1,5 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Checkbox } from '@repo/ui/data-entry';
-import { useStepTimer } from '../../hooks/useStepTimer';
 import { setShowDebug, useCols, useGeneration, useRows, useShowDebug } from '../../stores/automa';
 
 function DebugSection() {
@@ -8,8 +7,6 @@ function DebugSection() {
     const cols = useCols();
     const rows = useRows();
     const showDebug = useShowDebug();
-
-    const { stepTime, roundTripTime } = useStepTimer(generation);
 
     return (
         <ControlGrid columns={2}>
@@ -25,8 +22,6 @@ function DebugSection() {
                 <div>
                     grid: {cols}&times;{rows}
                 </div>
-                <div>step: {stepTime.toFixed(1)}ms</div>
-                <div>rtt: {roundTripTime.toFixed(1)}ms</div>
             </div>
         </ControlGrid>
     );

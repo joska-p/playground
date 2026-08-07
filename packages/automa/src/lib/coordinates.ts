@@ -1,6 +1,7 @@
+import { screenToWorld, type Camera } from '@repo/glaze/core/coords/camera';
+
 export type Point2D = { x: number; y: number };
 export type GridCell = { column: number; row: number; index: number };
-export type Camera = { x: number; y: number; zoom: number };
 
 type DataFit = { scaleX: number; scaleY: number; offsetX: number; offsetY: number };
 
@@ -44,27 +45,16 @@ export function createCanvasToGrid(
 ) {
     const toData = createCanvasToData(cols, rows, boundsWidth, boundsHeight);
     return (p: Point2D) => {
+        // Flip Y to match the display: the grid texture stores row 0 at the
+        // bottom (gl_FragCoord is Y-up), so canvas-top ↔ high row.
         const d = toData({ x: p.x, y: boundsHeight - p.y });
         return {
             column: Math.floor(d.x),
             row: Math.floor(d.y),
-            // Deliberate: keep automa's unclamped index. The lib's createWorldToGrid
-            // clamps to grid bounds; automa intentionally reports out-of-bounds cells.
+            // Deliberate: keep automa's unclamped index. Bounds checks happen in the caller.
             index: Math.floor(d.y) * cols + Math.floor(d.x)
         };
     };
-}
-
-export function createWorldToGrid(cols: number, rows: number): (world: Point2D) => GridCell {
-    return (world: Point2D) => {
-        const column = Math.max(0, Math.min(cols - 1, Math.floor(world.x)));
-        const row = Math.max(0, Math.min(rows - 1, Math.floor(world.y)));
-        return { column, row, index: row * cols + column };
-    };
-}
-
-export function gridToWorld(cell: { column: number; row: number }): Point2D {
-    return { x: cell.column + 0.5, y: cell.row + 0.5 };
 }
 
 export function eventToGridPoint(
@@ -72,18 +62,11 @@ export function eventToGridPoint(
     canvas: HTMLCanvasElement,
     cols: number,
     rows: number,
-    interaction?: Camera
-) {
+    camera?: Camera
+): GridCell {
     const bounds = canvas.getBoundingClientRect();
-    let localX = e.clientX - bounds.left;
-    let localY = e.clientY - bounds.top;
-
-    // Inverse of the shader's camera transform: world = (screen - camera) / zoom.
-    if (interaction) {
-        localX = (localX - interaction.x) / interaction.zoom;
-        localY = (localY - interaction.y) / interaction.zoom;
-    }
-
+    const toWorld = screenToWorld(camera ?? { x: 0, y: 0, zoom: 1 });
+    const world = toWorld({ x: e.clientX - bounds.left, y: e.clientY - bounds.top });
     const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
-    return toGrid({ x: localX, y: localY });
+    return toGrid(world);
 }

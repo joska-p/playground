@@ -12,7 +12,14 @@ in vec2 vUv;
 out vec4 fragColor;
 
 void main() {
-    vec2 panNorm = u_camera.xy * u_dpr / u_resolution;
+    // u_camera is Y-down (JS screen convention) but vUv is Y-up. The pan Y must
+    // both flip the axis AND absorb the -u_camera.z term so that the shader's
+    // world→screen mapping matches screenToWorld exactly at every zoom level
+    // (otherwise zooming-in drifts content vertically off the cursor anchor).
+    vec2 panNorm = vec2(
+        u_camera.x * u_dpr / u_resolution.x,
+        1.0 - u_camera.y * u_dpr / u_resolution.y - u_camera.z
+    );
     vec2 uv = (vUv - panNorm) / u_camera.z;
 
     float gridAspect = texelSize.y / texelSize.x;

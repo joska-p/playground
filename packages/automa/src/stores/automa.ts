@@ -23,6 +23,7 @@ type AutomaState = {
     generation: number;
     cols: number;
     rows: number;
+    grid: Uint8Array | null;
     seed: number;
     ruleId: RuleId;
     running: boolean;
@@ -40,6 +41,7 @@ const automaStore = createStore<AutomaState>(() => ({
     generation: 0,
     cols: GRID_DEFAULT_COLS,
     rows: GRID_DEFAULT_ROWS,
+    grid: null,
     seed: GRID_DEFAULT_SEED,
     ruleId: 'conway',
     running: false,
@@ -92,7 +94,8 @@ const init = (opts: SimulationInit): void => {
         cols: opts.cols,
         rows: opts.rows,
         seed: opts.seed,
-        generation: 0
+        generation: 0,
+        grid
     });
 };
 
@@ -134,7 +137,7 @@ const clear = (): void => {
 
     const empty = new Uint8Array(cols * rows);
     engine.init(empty);
-    automaStore.setState({ generation: generation + 1 });
+    automaStore.setState({ generation: generation + 1, grid: empty });
 };
 
 const randomize = (density?: number): void => {
@@ -144,7 +147,7 @@ const randomize = (density?: number): void => {
     const grid = createGrid(rows, cols);
     seedGrid(grid, density ?? GRID_DEFAULT_DENSITY, seed);
     engine.init(grid);
-    automaStore.setState({ generation: generation + 1 });
+    automaStore.setState({ generation: generation + 1, grid });
 };
 
 const paintCell = (col: number, row: number, value: number): void => {
