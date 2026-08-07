@@ -1,14 +1,48 @@
 # @repo/mandelbrot
 
-> Scaffolded demo showcasing Zustand + Zod.
+> Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits.
 
 ---
+
+## What it is
+
+An interactive Mandelbrot-set viewer that zooms to millions of × and stays crisp
+and real-time in the browser. The trick is **perturbation theory**: one slow
+high-precision point (the *reference orbit*, computed with BigInt-backed
+fixed-point on the CPU) plus a fast per-pixel delta loop in the GPU shader,
+with double-single arithmetic, Zhuoran rebasing, a distance estimate, and
+in-shader OKLCH colour.
+
+The pipeline and its design decisions are explained in depth in
+[REVIEW.md](./REVIEW.md). The package is planned to grow into a **bespoke
+framework hosting several independent visualizers** (migrated from
+`packages/fracture`) built on `@repo/glaze` — the driving roadmap is
+[PLAN.md](./PLAN.md).
 
 ## Quick Start
 
 ```bash
 pnpm --filter @repo/mandelbrot dev
 ```
+
+## Layout
+
+| Path                              | Role                                                                 |
+| --------------------------------- | -------------------------------------------------------------------- |
+| `src/components/`                 | Viewer, control panel, HUD (React shell).                            |
+| `src/lib/big-float.ts`            | Arbitrary-precision numbers as `BigInt` fixed-point, dependency-free. |
+| `src/lib/mandelbrot/view.ts`      | Camera math: log2-magnification zoom + BigFloat centre.              |
+| `src/lib/mandelbrot/look.ts`      | Colour/lighting/iteration model (`LookState` → shader params).       |
+| `src/lib/reference-orbit.ts`      | CPU reference-orbit iteration.                                       |
+| `src/lib/reference-worker.ts`     | Async orbit API + serialization.                                     |
+| `src/lib/webgl/`                  | WebGL2 renderer + perturbation shader (being replaced by glaze).     |
+
+## Docs
+
+- [PLAN.md](./PLAN.md) — the driving roadmap (phases, renderer registry, decisions).
+- [REVIEW.md](./REVIEW.md) — pipeline walkthrough + code review findings.
+- [REPORT-perturbation-ultimate.md](./REPORT-perturbation-ultimate.md) — mandelbrot ↔
+  `fracture` implementation comparison and the merged blueprint.
 
 ## Conventions
 

@@ -7,16 +7,7 @@
  */
 
 import { VERTEX_SRC, FRAGMENT_SRC } from './shaders';
-
-export type LookParams = {
-    colorFreq: number;
-    colorOffset: number;
-    lightAngle: number;
-    lightHeight: number;
-    glow: number;
-    chroma: number;
-    baseL: number;
-};
+import type { LookParams } from '../mandelbrot/look';
 
 export type FrameParams = {
     spacing: number;
@@ -27,13 +18,32 @@ export type FrameParams = {
 
 const REF_TEX_WIDTH = 2048;
 
+const UNIFORM_NAMES = [
+    'uResolution',
+    'uSpacing',
+    'uRefOffset',
+    'uMaxIter',
+    'uRef',
+    'uRefWidth',
+    'uRefCount',
+    'uColorFreq',
+    'uColorOffset',
+    'uLightAngle',
+    'uLightHeight',
+    'uGlow',
+    'uChroma',
+    'uBaseL'
+] as const;
+
+type UniformName = (typeof UNIFORM_NAMES)[number];
+
 export class MandelbrotRenderer {
     private gl: WebGL2RenderingContext;
     private program: WebGLProgram;
     private refTex: WebGLTexture;
     private refWidth = REF_TEX_WIDTH;
     private refCount = 0;
-    private u: Record<string, WebGLUniformLocation | null> = {};
+    private u: Record<UniformName, WebGLUniformLocation | null>;
 
     constructor(canvas: HTMLCanvasElement) {
         const gl = canvas.getContext('webgl2', {
@@ -61,7 +71,6 @@ export class MandelbrotRenderer {
 
         // Reference orbit texture.
         const tex = gl.createTexture();
-        if (!tex) throw new Error('Failed to create reference texture.');
         this.refTex = tex;
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -71,22 +80,8 @@ export class MandelbrotRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
         // Cache uniform locations.
-        for (const name of [
-            'uResolution',
-            'uSpacing',
-            'uRefOffset',
-            'uMaxIter',
-            'uRef',
-            'uRefWidth',
-            'uRefCount',
-            'uColorFreq',
-            'uColorOffset',
-            'uLightAngle',
-            'uLightHeight',
-            'uGlow',
-            'uChroma',
-            'uBaseL'
-        ]) {
+        this.u = {} as Record<UniformName, WebGLUniformLocation | null>;
+        for (const name of UNIFORM_NAMES) {
             this.u[name] = gl.getUniformLocation(this.program, name);
         }
         gl.uniform1i(this.u.uRef, 0);
@@ -97,13 +92,12 @@ export class MandelbrotRenderer {
         const vs = this.compile(gl.VERTEX_SHADER, vsSrc);
         const fs = this.compile(gl.FRAGMENT_SHADER, fsSrc);
         const program = gl.createProgram();
-        if (!program) throw new Error('Failed to create GL program.');
         gl.attachShader(program, vs);
         gl.attachShader(program, fs);
         gl.linkProgram(program);
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
             const log = gl.getProgramInfoLog(program);
-            throw new Error('Program link failed: ' + log);
+            throw new Error('Program link failed: ' + (log ?? ''));
         }
         gl.deleteShader(vs);
         gl.deleteShader(fs);
@@ -119,7 +113,7 @@ export class MandelbrotRenderer {
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
             const log = gl.getShaderInfoLog(shader);
             gl.deleteShader(shader);
-            throw new Error('Shader compile failed: ' + log);
+            throw new Error('Shader compile failed: ' + (log ?? ''));
         }
         return shader;
     }

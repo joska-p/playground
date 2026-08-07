@@ -16,8 +16,6 @@ export type ReferenceOrbit = {
     data: Float32Array;
     /** Number of stored iterations (orbit length). */
     length: number;
-    /** Whether the reference escaped before hitting maxIter. */
-    escaped: boolean;
 };
 
 export type ReferenceParams = {
@@ -43,7 +41,6 @@ export function computeReferenceOrbit({
     let zy = zero(prec);
 
     let n = 0;
-    let escaped = false;
 
     for (; n < maxIter; n++) {
         // Store current Z_n as floats.
@@ -54,7 +51,6 @@ export function computeReferenceOrbit({
 
         // Escape check on the cheap float copy.
         if (fx * fx + fy * fy > 1e12) {
-            escaped = true;
             n++;
             break;
         }
@@ -74,7 +70,6 @@ export function computeReferenceOrbit({
 
     return {
         data: data.subarray(0, n * 2),
-        length: n,
-        escaped
+        length: n
     };
 }

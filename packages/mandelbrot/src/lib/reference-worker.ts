@@ -25,7 +25,6 @@ export type OrbitRequest = {
 export type OrbitResult = {
     data: Float32Array;
     length: number;
-    escaped: boolean;
 };
 
 /**
@@ -51,8 +50,7 @@ export async function computeReferenceAsync(req: OrbitRequest): Promise<OrbitRes
 
     return {
         data: orbit.data,
-        length: orbit.length,
-        escaped: orbit.escaped
+        length: orbit.length
     };
 }
 

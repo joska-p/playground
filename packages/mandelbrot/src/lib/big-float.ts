@@ -24,7 +24,6 @@ export type BigFloat = {
 
 const ZERO = BigInt(0);
 const ONE = BigInt(1);
-const TWO = BigInt(2);
 
 /** Arithmetic right shift with round-to-nearest (ties away from zero). */
 function shrRound(x: bigint, n: number): bigint {
@@ -103,26 +102,6 @@ export function mulInt(a: BigFloat, k: number): BigFloat {
     return { m: a.m * BigInt(k), prec: a.prec };
 }
 
-/** a * 2^k (exact, cheap) — used for zoom scaling. */
-export function scale2(a: BigFloat, k: number): BigFloat {
-    if (k >= 0) return { m: a.m << BigInt(k), prec: a.prec };
-    return { m: shrRound(a.m, -k), prec: a.prec };
-}
-
-export function cmp(a: BigFloat, b: BigFloat): number {
-    const [am, bm] = align(a, b);
-    return am < bm ? -1 : am > bm ? 1 : 0;
-}
-
 export function zero(prec: number): BigFloat {
     return { m: ZERO, prec };
 }
-
-/** Squared magnitude |x + iy|^2 as a JS number (values here are bounded). */
-export function magSq(x: BigFloat, y: BigFloat): number {
-    const xn = toNumber(x);
-    const yn = toNumber(y);
-    return xn * xn + yn * yn;
-}
-
-export { TWO as _TWO };

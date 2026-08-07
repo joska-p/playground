@@ -1,17 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@repo/ui/data-entry';
 import { RotateCcw, SlidersHorizontal, X } from 'lucide-react';
-
-export type LookState = {
-    maxIter: number;
-    colorFreq: number;
-    colorOffset: number;
-    lightAngle: number;
-    lightHeight: number;
-    glow: number;
-    chroma: number;
-    baseL: number;
-};
+import { type LookState } from '../lib/mandelbrot/look';
 
 type ControlPanelProps = {
     look: LookState;
@@ -50,7 +40,7 @@ function SliderRow({ label, value, min, max, step, format, onChange }: SliderRow
                 }}
                 className="h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none [&::-moz-range-thumb]:h-3.5 [&::-moz-range-thumb]:w-3.5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-primary [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary"
                 style={{
-                    background: `linear-gradient(to right, var(--primary) ${pct}%, var(--muted) ${pct}%)`
+                    background: `linear-gradient(to right, var(--primary) ${String(pct)}%, var(--muted) ${String(pct)}%)`
                 }}
             />
         </label>
@@ -101,7 +91,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
                     min={25}
                     max={400}
                     step={5}
-                    format={(v) => `${v}%`}
+                    format={(v) => `${String(v)}%`}
                     onChange={(v) => {
                         set({ maxIter: v });
                     }}
@@ -163,7 +153,7 @@ export function ControlPanel({ look, onChange, onReset }: ControlPanelProps) {
                     min={0}
                     max={360}
                     step={1}
-                    format={(v) => `${v}\u00b0`}
+                    format={(v) => `${String(v)}\u00b0`}
                     onChange={(v) => {
                         set({ lightAngle: v });
                     }}

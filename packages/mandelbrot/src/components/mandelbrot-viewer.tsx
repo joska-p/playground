@@ -1,55 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { MandelbrotRenderer, type LookParams } from '../lib/webgl/renderer';
+import { useEffect, useRef, useState } from 'react';
+import { MandelbrotRenderer } from '../lib/webgl/renderer';
 import { computeReferenceAsync, toRequest } from '../lib/reference-worker';
 import {
     type View,
     initialView,
     panByPixels,
     pixelSpacing,
-    precisionForZoom,
     reprecision,
     zoomAtPixel
 } from '../lib/mandelbrot/view';
-import { ControlPanel, type LookState } from './control-panel';
+import { toNumber } from '../lib/big-float';
+import { type LookState, DEFAULT_LOOK, effectiveMaxIter, lookToParams } from '../lib/mandelbrot/look';
+import { ControlPanel } from './control-panel';
 import { Hud } from './hud';
-
-const DEFAULT_LOOK: LookState = {
-    // maxIter here is a *budget* multiplier (%); the effective iteration count
-    // scales with zoom depth so deep zooms keep resolving border detail.
-    maxIter: 100,
-    colorFreq: 8,
-    colorOffset: 0.62,
-    lightAngle: 135,
-    lightHeight: 1.35,
-    glow: 0.35,
-    chroma: 0.14,
-    baseL: 0.62
-};
-
-/** Hard ceiling to protect the GPU/CPU from runaway iteration counts. */
-const MAX_ITER_CAP = 60000;
-
-/**
- * Effective iteration count for a zoom depth. Detail near the border needs
- * more iterations the deeper we go — roughly linear in zoom (log2 mag), scaled
- * by the user's budget slider (100 = default).
- */
-export function effectiveMaxIter(budgetPct: number, zoom: number): number {
-    const base = 256 + zoom * 96;
-    return Math.min(MAX_ITER_CAP, Math.round((base * budgetPct) / 100));
-}
-
-function lookToParams(s: LookState): LookParams {
-    return {
-        colorFreq: s.colorFreq,
-        colorOffset: s.colorOffset,
-        lightAngle: (s.lightAngle * Math.PI) / 180,
-        lightHeight: s.lightHeight,
-        glow: s.glow,
-        chroma: s.chroma,
-        baseL: s.baseL
-    };
-}
 
 export function MandelbrotViewer() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -69,13 +32,17 @@ export function MandelbrotViewer() {
     const [error, setError] = useState<string | null>(null);
     const [hud, setHud] = useState({ zoom: 0, cx: -0.6, cy: 0, computing: false });
 
-    // Keep refs in sync with the look state driven by the panel.
-    useEffect(() => {
-        lookRef.current = look;
-        dirtyRef.current = true;
-    }, [look]);
+    const updateHud = () => {
+        const v = viewRef.current;
+        setHud((h) => ({
+            ...h,
+            zoom: v.zoom,
+            cx: toNumber(reprecision(v).cx),
+            cy: toNumber(reprecision(v).cy)
+        }));
+    };
 
-    const requestReference = useCallback(async (view: View) => {
+    const requestReference = async (view: View) => {
         if (computingRef.current) return;
         computingRef.current = true;
         const token = ++refTokenRef.current;
@@ -100,7 +67,19 @@ export function MandelbrotViewer() {
             computingRef.current = false;
             setHud((h) => ({ ...h, computing: false }));
         }
-    }, []);
+    };
+
+    // These closures only read refs and stable setState, so their identity never
+    // matters — hold them behind refs so effects/listeners keep stable deps
+    // without useCallback (the compiler can't memoize this imperative component).
+    const updateHudRef = useRef(updateHud);
+    const requestReferenceRef = useRef(requestReference);
+
+    // Keep refs in sync with the look state driven by the panel.
+    useEffect(() => {
+        lookRef.current = look;
+        dirtyRef.current = true;
+    }, [look]);
 
     // Initialize WebGL.
     useEffect(() => {
@@ -110,12 +89,15 @@ export function MandelbrotViewer() {
         try {
             renderer = new MandelbrotRenderer(canvas);
         } catch (e) {
-            setError((e as Error).message);
+            // Defer so the error card renders after this effect, not mid-effect.
+            queueMicrotask(() => {
+                setError((e as Error).message);
+            });
             return;
         }
         rendererRef.current = renderer;
 
-        requestReference(viewRef.current);
+        void requestReferenceRef.current(viewRef.current);
 
         const loop = () => {
             rafRef.current = requestAnimationFrame(loop);
@@ -133,10 +115,9 @@ export function MandelbrotViewer() {
             const spacing = pixelSpacing(view.zoom, h);
 
             // Offset of the reference point from the current center, in pixels.
-            // Both share precision; convert delta to float pixel space.
-            const prec = precisionForZoom(view.zoom);
-            const dx = toNum(reprecision(view).cx, prec) - toNum(refCenter.cx, prec);
-            const dy = toNum(reprecision(view).cy, prec) - toNum(refCenter.cy, prec);
+            const rv = reprecision(view);
+            const dx = toNumber(rv.cx) - toNumber(refCenter.cx);
+            const dy = toNumber(rv.cy) - toNumber(refCenter.cy);
             const refOffsetX = dx / spacing;
             const refOffsetY = dy / spacing;
 
@@ -163,7 +144,7 @@ export function MandelbrotViewer() {
             renderer.dispose();
             rendererRef.current = null;
         };
-    }, [requestReference]);
+    }, []);
 
     // Pointer + wheel input.
     useEffect(() => {
@@ -182,9 +163,9 @@ export function MandelbrotViewer() {
             if (!ref) return;
             const h = canvas.clientHeight * dpr();
             const spacing = pixelSpacing(view.zoom, h);
-            const prec = precisionForZoom(view.zoom);
-            const dxPx = (toNum(reprecision(view).cx, prec) - toNum(ref.cx, prec)) / spacing;
-            const dyPx = (toNum(reprecision(view).cy, prec) - toNum(ref.cy, prec)) / spacing;
+            const rv = reprecision(view);
+            const dxPx = (toNumber(rv.cx) - toNumber(ref.cx)) / spacing;
+            const dyPx = (toNumber(rv.cy) - toNumber(ref.cy)) / spacing;
             const distPx = Math.hypot(dxPx, dyPx);
             const zoomDrift = Math.abs(view.zoom - ref.zoom);
             // Recompute if the depth now demands substantially more iterations than
@@ -192,7 +173,7 @@ export function MandelbrotViewer() {
             const wantIters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
             const needMoreIters = wantIters > refLengthRef.current * 1.3;
             if (distPx > canvas.clientHeight * 0.35 || zoomDrift > 2 || needMoreIters) {
-                requestReference(view);
+                void requestReferenceRef.current(view);
             }
         };
 
@@ -215,7 +196,7 @@ export function MandelbrotViewer() {
             lastX = e.clientX;
             lastY = e.clientY;
             dirtyRef.current = true;
-            updateHud();
+            updateHudRef.current();
         };
         const onUp = (e: PointerEvent) => {
             dragging = false;
@@ -233,7 +214,7 @@ export function MandelbrotViewer() {
             const dZoom = -e.deltaY * 0.0025;
             viewRef.current = zoomAtPixel(viewRef.current, dZoom, px, py, w, h);
             dirtyRef.current = true;
-            updateHud();
+            updateHudRef.current();
             maybeRecompute();
         };
 
@@ -248,30 +229,18 @@ export function MandelbrotViewer() {
             canvas.removeEventListener('pointerup', onUp);
             canvas.removeEventListener('wheel', onWheel);
         };
-    }, [requestReference]);
-
-    const updateHud = useCallback(() => {
-        const v = viewRef.current;
-        const prec = precisionForZoom(v.zoom);
-        setHud((h) => ({
-            ...h,
-            zoom: v.zoom,
-            cx: toNum(reprecision(v).cx, prec),
-            cy: toNum(reprecision(v).cy, prec)
-        }));
     }, []);
 
-    const handleReset = useCallback(() => {
+    const handleReset = () => {
         viewRef.current = initialView();
         dirtyRef.current = true;
-        updateHud();
-        requestReference(viewRef.current);
-    }, [requestReference, updateHud]);
+        updateHudRef.current();
+        void requestReferenceRef.current(viewRef.current);
+    };
 
     // Recompute reference when maxIter changes (orbit length depends on it).
     useEffect(() => {
-        requestReference(viewRef.current);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        void requestReferenceRef.current(viewRef.current);
     }, [look.maxIter]);
 
     if (error) {
@@ -311,16 +280,4 @@ export function MandelbrotViewer() {
             />
         </main>
     );
-}
-
-// Local helper to read a BigFloat as a float at a target precision.
-function toNum(a: { m: bigint; prec: number }, prec: number): number {
-    // Reuse fromNumber/toNumber semantics without importing toNumber twice.
-    const neg = a.m < BigInt(0);
-    const m = neg ? -a.m : a.m;
-    const bits = m.toString(2).length;
-    const drop = Math.max(0, bits - 53);
-    const top = Number(m >> BigInt(drop));
-    const value = top * 2 ** (drop - a.prec);
-    return neg ? -value : value;
 }

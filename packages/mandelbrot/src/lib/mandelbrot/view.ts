@@ -7,7 +7,7 @@
  * derived from zoom and shrinks exponentially with depth.
  */
 
-import { type BigFloat, add, fromNumber, toNumber, withPrec } from '../big-float';
+import { type BigFloat, add, fromNumber, withPrec } from '../big-float';
 
 /** Complex-plane height shown at zoom 0. Classic full view is ~3 units tall. */
 export const BASE_SPAN_Y = 3.0;
@@ -98,11 +98,5 @@ export function formatMagnification(zoom: number): string {
     }
     const exp = Math.floor(log10);
     const mant = Math.pow(10, log10 - exp);
-    return `${mant.toFixed(2)}e${exp}x`;
-}
-
-/** Decimal string of a BigFloat coordinate, to `digits` significant figures. */
-export function formatCoord(a: BigFloat, digits: number): string {
-    const n = toNumber(a);
-    return n.toPrecision(Math.min(21, Math.max(2, digits)));
+    return `${mant.toFixed(2)}e${String(exp)}x`;
 }
