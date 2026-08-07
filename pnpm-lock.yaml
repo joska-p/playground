@@ -1146,6 +1146,9 @@ importers:
 
   packages/oeis-signal:
     dependencies:
+      '@repo/glaze':
+        specifier: workspace:*
+        version: link:../glaze
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui

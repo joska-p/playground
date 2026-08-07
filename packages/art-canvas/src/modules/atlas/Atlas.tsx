@@ -25,6 +25,7 @@ function Atlas() {
 
     return (
         <GpuCanvas
+            className="h-full w-full"
             fragmentShader={SYLLABIC_FIBONACCI_FRAGMENT}
             uniforms={() => ({
                 uGridSize: complexity,

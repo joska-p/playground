@@ -1,0 +1,227 @@
+@import 'tailwindcss';
+
+/* ==========================================
+   1. Dynamic Parametric Base Rules
+   ========================================== */
+:root {
+    /* Dynamic defaults injected via colorpicker or JS */
+    --live-hue: 219.672;
+    --live-chroma: 0.042;
+
+    /* Base Parametric Lightness Anchors */
+    --L-bg-dark: 0.22;
+    --L-bg-raised-dark: 0.28;
+    --L-fg-dark: 0.88;
+    --L-accent-dark: 0.7;
+    --L-accent-light: 0.45;
+}
+
+/* ==========================================
+   2. Comprehensive Semantic Design Tokens Mapping
+   ========================================== */
+@theme inline {
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-raised: var(--surface-raised);
+    --color-foreground: var(--foreground);
+    --color-foreground-muted: var(--foreground-muted);
+    --color-foreground-dim: var(--foreground-dim);
+    --color-border: var(--border);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+
+    --color-ring: var(--primary);
+    --color-input: var(--surface-raised);
+
+    --color-red: var(--red);
+    --color-green: var(--green);
+    --color-yellow: var(--yellow);
+    --color-blue: var(--blue);
+    --color-purple: var(--purple);
+    --color-aqua: var(--aqua);
+    --color-orange: var(--orange);
+
+    --color-tags-canvas: var(--tags-canvas);
+    --color-tags-cellular-automata: var(--tags-cellular-automata);
+    --color-tags-charts: var(--tags-charts);
+    --color-tags-color: var(--tags-color);
+    --color-tags-complex-systems: var(--tags-complex-systems);
+    --color-tags-conventions: var(--tags-conventions);
+    --color-tags-3d: var(--tags-3d);
+    --color-tags-data-viz: var(--tags-data-viz);
+    --color-tags-design: var(--tags-design);
+    --color-tags-docs: var(--tags-docs);
+    --color-tags-explanation: var(--tags-explanation);
+    --color-tags-generative: var(--tags-generative);
+    --color-tags-graph: var(--tags-graph);
+    --color-tags-how-to: var(--tags-how-to);
+    --color-tags-image: var(--tags-image);
+    --color-tags-l-system: var(--tags-l-system);
+    --color-tags-log: var(--tags-log);
+    --color-tags-machine-learning: var(--tags-machine-learning);
+    --color-tags-math: var(--tags-math);
+    --color-tags-particle-system: var(--tags-particle-system);
+    --color-tags-philosophy: var(--tags-philosophy);
+    --color-tags-physics: var(--tags-physics);
+    --color-tags-pipeline: var(--tags-pipeline);
+    --color-tags-procedural: var(--tags-procedural);
+    --color-tags-random: var(--tags-random);
+    --color-tags-reference: var(--tags-reference);
+    --color-tags-shader: var(--tags-shader);
+    --color-tags-simulation: var(--tags-simulation);
+    --color-tags-svg: var(--tags-svg);
+    --color-tags-theory: var(--tags-theory);
+    --color-tags-three-js: var(--tags-three-js);
+    --color-tags-tutorial: var(--tags-tutorial);
+    --color-tags-webgl: var(--tags-webgl);
+    --color-tags-worker-pool: var(--tags-worker-pool);
+    --color-tags-zustand: var(--tags-zustand);
+
+    --font-sans: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
+    --font-mono: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ==========================================
+   3. Parametric Calculations (Dark Mode Default)
+   ========================================== */
+:root,
+html[data-theme='dark'] {
+    --chroma: var(--live-chroma);
+
+    --background: oklch(var(--L-bg-dark) var(--chroma) var(--live-hue));
+    --surface: oklch(calc(var(--L-bg-dark) - 0.04) calc(var(--chroma) * 0.8) var(--live-hue));
+    --surface-raised: oklch(var(--L-bg-raised-dark) var(--chroma) var(--live-hue));
+
+    --foreground: oklch(var(--L-fg-dark) 0.02 var(--live-hue));
+    --foreground-muted: oklch(calc(var(--L-fg-dark) - 0.15) 0.02 var(--live-hue));
+    --foreground-dim: oklch(calc(var(--L-fg-dark) - 0.32) 0.015 var(--live-hue));
+    --border: oklch(var(--L-fg-dark) var(--chroma) var(--live-hue) / 0.12);
+
+    /* Dynamic Accent Variables */
+    --primary: oklch(var(--L-accent-dark) 0.14 var(--live-hue));
+    --primary-foreground: oklch(0.15 0.01 var(--live-hue));
+    --secondary: oklch(var(--L-accent-dark) 0.158 calc(var(--live-hue) + 60));
+    --secondary-foreground: oklch(0.15 0.01 var(--live-hue));
+    --accent: oklch(var(--L-accent-dark) 0.16 calc(var(--live-hue) + 180));
+    --accent-foreground: oklch(0.15 0.01 var(--live-hue));
+
+    /* Fixed Core Gruvbox Accent Palette Fallbacks */
+    --red: oklch(0.66 0.218 30.392);
+    --green: oklch(0.765 0.158 110.835);
+    --yellow: oklch(0.832 0.159 82.987);
+    --blue: oklch(0.693 0.042 169.768);
+    --purple: oklch(0.705 0.098 2.189);
+    --aqua: oklch(0.756 0.108 137.676);
+    --orange: oklch(0.731 0.182 51.693);
+
+    /* Procedural Tag Palette Generator */
+    --tags-3d: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 30));
+    --tags-canvas: oklch(var(--L-accent-dark) 0.14 calc(var(--live-hue) + 60));
+    --tags-cellular-automata: oklch(var(--L-accent-dark) 0.11 calc(var(--live-hue) + 90));
+    --tags-charts: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 120));
+    --tags-color: oklch(var(--L-accent-dark) 0.18 calc(var(--live-hue) + 150));
+    --tags-complex-systems: oklch(var(--L-accent-dark) 0.12 calc(var(--live-hue) + 180));
+    --tags-conventions: oklch(var(--L-accent-dark) 0.18 calc(var(--live-hue) + 210));
+    --tags-d3: oklch(var(--L-accent-dark) 0.04 var(--live-hue));
+    --tags-data-viz: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 120));
+    --tags-design: oklch(var(--L-accent-dark) 0.09 calc(var(--live-hue) + 240));
+    --tags-docs: oklch(var(--L-accent-dark) 0.035 var(--live-hue));
+    --tags-explanation: oklch(var(--L-accent-dark) 0.15 calc(var(--live-hue) + 270));
+    --tags-generative: oklch(var(--L-accent-dark) 0.14 calc(var(--live-hue) + 60));
+    --tags-graph: oklch(var(--L-accent-dark) 0.042 var(--live-hue));
+    --tags-how-to: oklch(var(--L-accent-dark) 0.09 calc(var(--live-hue) + 300));
+    --tags-image: oklch(var(--L-accent-dark) 0.09 calc(var(--live-hue) + 330));
+    --tags-l-system: oklch(var(--L-accent-dark) 0.14 calc(var(--live-hue) + 60));
+    --tags-log: oklch(var(--L-accent-dark) 0.09 calc(var(--live-hue) + 300));
+    --tags-machine-learning: oklch(var(--L-accent-dark) 0.12 calc(var(--live-hue) + 15));
+    --tags-math: oklch(var(--L-accent-dark) 0.12 calc(var(--live-hue) + 15));
+    --tags-particle-system: oklch(var(--L-accent-dark) 0.108 calc(var(--live-hue) + 45));
+    --tags-philosophy: oklch(var(--L-accent-dark) 0.08 calc(var(--live-hue) + 75));
+    --tags-physics: oklch(var(--L-accent-dark) 0.11 calc(var(--live-hue) + 90));
+    --tags-pipeline: oklch(var(--L-accent-dark) 0.042 var(--live-hue));
+    --tags-procedural: oklch(var(--L-accent-dark) 0.14 calc(var(--live-hue) + 60));
+    --tags-random: oklch(var(--L-accent-dark) 0.12 calc(var(--live-hue) + 15));
+    --tags-reference: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 120));
+    --tags-shader: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 30));
+    --tags-simulation: oklch(var(--L-accent-dark) 0.11 calc(var(--live-hue) + 90));
+    --tags-svg: oklch(var(--L-accent-dark) 0.042 var(--live-hue));
+    --tags-theory: oklch(var(--L-accent-dark) 0.098 calc(var(--live-hue) + 240));
+    --tags-three-js: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 30));
+    --tags-tutorial: oklch(var(--L-accent-dark) 0.14 calc(var(--live-hue) + 60));
+    --tags-webgl: oklch(var(--L-accent-dark) 0.13 calc(var(--live-hue) + 30));
+    --tags-worker-pool: oklch(var(--L-accent-dark) 0.035 var(--live-hue));
+    --tags-zustand: oklch(var(--L-accent-dark) 0.158 calc(var(--live-hue) + 60));
+}
+
+/* ==========================================
+   4. Parametric Calculations (Symmetrical Opposite Light Mode)
+   ========================================== */
+html[data-theme='light'] {
+    /* Scale chroma down to ~70% on bright background to preserve color gamut */
+    --chroma: calc(var(--live-chroma) * 0.7);
+
+    /* Inverted Foreground/Background Assignments */
+    --background: oklch(var(--L-fg-dark) var(--chroma) var(--live-hue));
+    --surface: oklch(calc(var(--L-fg-dark) + 0.06) calc(var(--chroma) * 0.5) var(--live-hue));
+    --surface-raised: oklch(calc(var(--L-fg-dark) - 0.07) var(--chroma) var(--live-hue));
+
+    --foreground: oklch(var(--L-bg-dark) 0.02 var(--live-hue));
+    --foreground-muted: oklch(calc(var(--L-bg-dark) + 0.18) 0.02 var(--live-hue));
+    --foreground-dim: oklch(calc(var(--L-bg-dark) + 0.32) 0.015 var(--live-hue));
+    --border: oklch(var(--L-bg-dark) var(--chroma) var(--live-hue) / 0.15);
+
+    /* Inverted Accent Variables (Lower Lightness for Contrast on Light BG) */
+    --primary: oklch(var(--L-accent-light) 0.14 var(--live-hue));
+    --primary-foreground: oklch(0.98 0.005 var(--live-hue));
+    --secondary: oklch(var(--L-accent-light) 0.158 calc(var(--live-hue) + 60));
+    --secondary-foreground: oklch(0.98 0.005 var(--live-hue));
+    --accent: oklch(var(--L-accent-light) 0.16 calc(var(--live-hue) + 180));
+    --accent-foreground: oklch(0.98 0.005 var(--live-hue));
+
+    /* Procedural Tag Palette Generator (Light Mode Anchor) */
+    --tags-3d: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 30));
+    --tags-canvas: oklch(var(--L-accent-light) 0.14 calc(var(--live-hue) + 60));
+    --tags-cellular-automata: oklch(var(--L-accent-light) 0.11 calc(var(--live-hue) + 90));
+    --tags-charts: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 120));
+    --tags-color: oklch(var(--L-accent-light) 0.18 calc(var(--live-hue) + 150));
+    --tags-complex-systems: oklch(var(--L-accent-light) 0.12 calc(var(--live-hue) + 180));
+    --tags-conventions: oklch(var(--L-accent-light) 0.18 calc(var(--live-hue) + 210));
+    --tags-d3: oklch(var(--L-accent-light) 0.04 var(--live-hue));
+    --tags-data-viz: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 120));
+    --tags-design: oklch(var(--L-accent-light) 0.09 calc(var(--live-hue) + 240));
+    --tags-docs: oklch(var(--L-accent-light) 0.035 var(--live-hue));
+    --tags-explanation: oklch(var(--L-accent-light) 0.15 calc(var(--live-hue) + 270));
+    --tags-generative: oklch(var(--L-accent-light) 0.14 calc(var(--live-hue) + 60));
+    --tags-graph: oklch(var(--L-accent-light) 0.042 var(--live-hue));
+    --tags-how-to: oklch(var(--L-accent-light) 0.09 calc(var(--live-hue) + 300));
+    --tags-image: oklch(var(--L-accent-light) 0.09 calc(var(--live-hue) + 330));
+    --tags-l-system: oklch(var(--L-accent-light) 0.14 calc(var(--live-hue) + 60));
+    --tags-log: oklch(var(--L-accent-light) 0.09 calc(var(--live-hue) + 300));
+    --tags-machine-learning: oklch(var(--L-accent-light) 0.12 calc(var(--live-hue) + 15));
+    --tags-math: oklch(var(--L-accent-light) 0.12 calc(var(--live-hue) + 15));
+    --tags-particle-system: oklch(var(--L-accent-light) 0.108 calc(var(--live-hue) + 45));
+    --tags-philosophy: oklch(var(--L-accent-light) 0.08 calc(var(--live-hue) + 75));
+    --tags-physics: oklch(var(--L-accent-light) 0.11 calc(var(--live-hue) + 90));
+    --tags-pipeline: oklch(var(--L-accent-light) 0.042 var(--live-hue));
+    --tags-procedural: oklch(var(--L-accent-light) 0.14 calc(var(--live-hue) + 60));
+    --tags-random: oklch(var(--L-accent-light) 0.12 calc(var(--live-hue) + 15));
+    --tags-reference: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 120));
+    --tags-shader: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 30));
+    --tags-simulation: oklch(var(--L-accent-light) 0.11 calc(var(--live-hue) + 90));
+    --tags-svg: oklch(var(--L-accent-light) 0.042 var(--live-hue));
+    --tags-theory: oklch(var(--L-accent-light) 0.098 calc(var(--live-hue) + 240));
+    --tags-three-js: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 30));
+    --tags-tutorial: oklch(var(--L-accent-light) 0.14 calc(var(--live-hue) + 60));
+    --tags-webgl: oklch(var(--L-accent-light) 0.13 calc(var(--live-hue) + 30));
+    --tags-worker-pool: oklch(var(--L-accent-light) 0.035 var(--live-hue));
+    --tags-zustand: oklch(var(--L-accent-light) 0.158 calc(var(--live-hue) + 60));
+}
