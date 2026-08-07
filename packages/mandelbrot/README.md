@@ -33,8 +33,10 @@ pnpm --filter @repo/mandelbrot dev
 | `src/lib/big-float.ts`            | Arbitrary-precision numbers as `BigInt` fixed-point, dependency-free. |
 | `src/lib/mandelbrot/view.ts`      | Camera math: log2-magnification zoom + BigFloat centre.              |
 | `src/lib/mandelbrot/look.ts`      | Colour/lighting/iteration model (`LookState` → shader params).       |
-| `src/lib/reference-orbit.ts`      | CPU reference-orbit iteration.                                       |
-| `src/lib/reference-worker.ts`     | Async orbit API + serialization.                                     |
+| `src/lib/reference-orbit.ts`      | CPU reference-orbit iteration (+ chunked async fallback).            |
+| `src/lib/reference.worker.ts`     | Vite module worker that runs the orbit compute off the main thread.  |
+| `src/lib/reference-worker.ts`     | `@repo/worker-pool` adapter: dispatch, serialization, fallback.      |
+| `src/lib/reference-policy.ts`     | Drift thresholds + token superseding (app-owned).                    |
 | `src/lib/webgl/`                  | WebGL2 renderer + perturbation shader (being replaced by glaze).     |
 
 ## Docs

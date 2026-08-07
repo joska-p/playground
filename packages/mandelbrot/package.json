@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@repo/ui": "workspace:*",
+        "@repo/worker-pool": "workspace:*",
         "lucide-react": "^1.23.0",
         "zustand": "catalog:"
     },

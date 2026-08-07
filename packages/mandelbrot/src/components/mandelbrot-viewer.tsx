@@ -11,6 +11,7 @@ import {
 } from '../lib/mandelbrot/view';
 import { toNumber } from '../lib/big-float';
 import { type LookState, DEFAULT_LOOK, effectiveMaxIter, lookToParams } from '../lib/mandelbrot/look';
+import { needsRecompute, Superseder } from '../lib/reference-policy';
 import { ControlPanel } from './control-panel';
 import { Hud } from './hud';
 
@@ -26,7 +27,7 @@ export function MandelbrotViewer() {
     const refCenterRef = useRef<View | null>(null);
     const refLengthRef = useRef(0);
     const computingRef = useRef(false);
-    const refTokenRef = useRef(0);
+    const supersederRef = useRef(new Superseder());
 
     const [look, setLook] = useState<LookState>(DEFAULT_LOOK);
     const [error, setError] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export function MandelbrotViewer() {
     const requestReference = async (view: View) => {
         if (computingRef.current) return;
         computingRef.current = true;
-        const token = ++refTokenRef.current;
+        const token = supersederRef.current.begin();
         setHud((h) => ({ ...h, computing: true }));
 
         try {
@@ -53,7 +54,7 @@ export function MandelbrotViewer() {
             const iters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
             const req = toRequest(withP.cx, withP.cy, iters);
             const orbit = await computeReferenceAsync(req);
-            if (token !== refTokenRef.current) return; // superseded
+            if (!supersederRef.current.isCurrent(token)) return; // superseded
             const renderer = rendererRef.current;
             if (renderer) {
                 renderer.setReference(orbit.data, orbit.length);
@@ -162,17 +163,7 @@ export function MandelbrotViewer() {
             const ref = refCenterRef.current;
             if (!ref) return;
             const h = canvas.clientHeight * dpr();
-            const spacing = pixelSpacing(view.zoom, h);
-            const rv = reprecision(view);
-            const dxPx = (toNumber(rv.cx) - toNumber(ref.cx)) / spacing;
-            const dyPx = (toNumber(rv.cy) - toNumber(ref.cy)) / spacing;
-            const distPx = Math.hypot(dxPx, dyPx);
-            const zoomDrift = Math.abs(view.zoom - ref.zoom);
-            // Recompute if the depth now demands substantially more iterations than
-            // the current reference orbit provides (deep zoom keeps resolving).
-            const wantIters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
-            const needMoreIters = wantIters > refLengthRef.current * 1.3;
-            if (distPx > canvas.clientHeight * 0.35 || zoomDrift > 2 || needMoreIters) {
+            if (needsRecompute(view, ref, refLengthRef.current, lookRef.current, h)) {
                 void requestReferenceRef.current(view);
             }
         };

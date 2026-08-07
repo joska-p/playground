@@ -1,19 +1,16 @@
 /**
  * Runs the high-precision reference-orbit computation off the main thread.
  *
- * The worker source is bundled as a string and instantiated from a Blob URL,
- * so no extra bundler/loader configuration is needed and there are no runtime
- * dependencies. The BigFloat + reference-orbit code is inlined into the blob.
+ * The BigInt loop executes inside a Vite module worker (bundled from
+ * `reference.worker.ts`); `@repo/worker-pool` dispatches the request and hands
+ * back the transferable `Float32Array` orbit. When `Worker` is unavailable a
+ * chunked main-thread compute (`computeReferenceOrbitAsync`) steps in so the
+ * UI never freezes.
  */
 
-import { computeReferenceOrbit } from './reference-orbit';
-import type * as BigFloatMod from './big-float';
-
-// Serialize the math modules into the worker by re-declaring the functions we
-// need through a string. To avoid duplicating source, we instead build the
-// worker body to import via a data structure passed at call time is not
-// possible — so we run the computation on the main thread in a microtask-
-// friendly chunked loop as a fallback, and use a real worker when available.
+import { WorkerPool } from '@repo/worker-pool/worker-pool';
+import type { BigFloat } from './big-float';
+import { type ReferenceParams, computeReferenceOrbitAsync } from './reference-orbit';
 
 export type OrbitRequest = {
     centerXStr: string; // BigInt mantissa serialized as string
@@ -27,37 +24,74 @@ export type OrbitResult = {
     length: number;
 };
 
-/**
- * Compute a reference orbit. Uses a Web Worker when the environment supports
- * module workers; otherwise falls back to a synchronous main-thread compute.
- *
- * We keep this abstraction here so the React component never blocks on the
- * BigInt loop directly.
- */
-export async function computeReferenceAsync(req: OrbitRequest): Promise<OrbitResult> {
-    const centerX = { m: BigInt(req.centerXStr), prec: req.prec };
-    const centerY = { m: BigInt(req.centerYStr), prec: req.prec };
+/** The subset of a worker pool `computeReferenceAsync` depends on (also
+ * satisfied by `MockWorkerPool` in tests). */
+export type OrbitPool = {
+    run: (task: OrbitRequest) => Promise<OrbitResult>;
+};
 
-    // Wrap the (potentially heavy) synchronous compute in a promise so the UI
-    // can show a "computing" state; yield to the event loop first.
-    await Promise.resolve();
+type OrbitWorkerMessage =
+    | { ok: true; data: Float32Array; length: number }
+    | { ok: false; error?: string };
 
-    const orbit = computeReferenceOrbit({
-        centerX,
-        centerY,
-        maxIter: req.maxIter
-    });
-
+/** Convert a serialized request back into BigFloat params for the fallback. */
+function requestToParams({
+    centerXStr,
+    centerYStr,
+    prec,
+    maxIter
+}: OrbitRequest): ReferenceParams {
     return {
-        data: orbit.data,
-        length: orbit.length
+        centerX: { m: BigInt(centerXStr), prec },
+        centerY: { m: BigInt(centerYStr), prec },
+        maxIter
     };
+}
+
+const supportsWorkers = typeof Worker !== 'undefined';
+
+const defaultPool: WorkerPool<OrbitRequest, OrbitResult> | { run: OrbitPool['run'] } =
+    supportsWorkers
+        ? new WorkerPool<OrbitRequest, OrbitResult>({
+              maxPoolSize: 1,
+              workerFactory: () =>
+                  new Worker(new URL('./reference.worker.ts', import.meta.url), {
+                      type: 'module'
+                  }),
+              serialize: (task) => ({ message: task }),
+              deserialize: (event: MessageEvent<OrbitWorkerMessage>) => {
+                  const msg = event.data;
+                  if (!msg.ok) {
+                      return { ok: false, error: new Error(msg.error ?? 'Unknown worker error') };
+                  }
+                  return { ok: true, value: { data: msg.data, length: msg.length } };
+              }
+          })
+        : {
+              run: (task) => computeReferenceOrbitAsync(requestToParams(task))
+          };
+
+// Release the pooled worker on Vite hot-module reload instead of leaking it.
+import.meta.hot?.dispose(() => {
+    if ('teardown' in defaultPool) defaultPool.teardown();
+});
+
+/**
+ * Compute a reference orbit. Uses a Web Worker when available; otherwise falls
+ * back to a chunked main-thread compute. `pool` is injectable so tests can
+ * substitute a `MockWorkerPool`.
+ */
+export function computeReferenceAsync(
+    req: OrbitRequest,
+    pool: OrbitPool = defaultPool
+): Promise<OrbitResult> {
+    return pool.run(req);
 }
 
 // Re-export so consumers can serialize a BigFloat center to a request.
 export function toRequest(
-    centerX: BigFloatMod.BigFloat,
-    centerY: BigFloatMod.BigFloat,
+    centerX: BigFloat,
+    centerY: BigFloat,
     maxIter: number
 ): OrbitRequest {
     return {

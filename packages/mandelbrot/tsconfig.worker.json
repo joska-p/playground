@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "lib": ["webworker", "esnext"]
+    },
+    "include": [
+        "src/**/*.worker.ts",
+        "src/lib/reference-orbit.ts",
+        "src/lib/big-float.ts"
+    ]
+}
