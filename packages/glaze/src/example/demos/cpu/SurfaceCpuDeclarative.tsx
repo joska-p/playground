@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import type { CpuDraw, CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import type { CpuDraw, Surface } from '@repo/glaze/cpu/createSurface';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import { drawSceneCpu } from '../scene';
 
 export function SurfaceCpuDeclarative() {
-    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [surface, setSurface] = useState<Surface | null>(null);
 
     const onFrame: CpuDraw = () => {
-        if (!runtime) return;
-        drawSceneCpu(runtime);
+        if (!surface) return;
+        drawSceneCpu(surface);
     };
 
     return (
         <div className="h-75 w-100">
             <CpuCanvas
-                onRuntime={setRuntime}
+                onSurface={setSurface}
                 onFrame={onFrame}
                 className="h-full w-full"
             />

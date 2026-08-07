@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactNode, type RefObject } from 'react';
-import { type CpuRuntime, type CpuDraw } from '../cpu/createCpuRuntime';
+import { type Surface, type CpuDraw } from '../cpu/createSurface';
 import type { Camera } from '../core/coords/camera';
 import type { CameraControls, CameraOptions } from './useCamera';
 import type { PointerHandlers } from './interaction';
@@ -8,7 +8,7 @@ import { useCpuCanvas } from './useCpuCanvas';
 
 export type CpuCanvasProps = {
     onFrame?: CpuDraw | null;
-    onRuntime?: (runtime: CpuRuntime | null) => void;
+    onSurface?: (surface: Surface | null) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;
@@ -25,7 +25,7 @@ export type CpuCanvasProps = {
 
 export function CpuCanvas({
     onFrame,
-    onRuntime,
+    onSurface,
     camera: externalCamera,
     cameraControls,
     initialCamera,
@@ -39,9 +39,9 @@ export function CpuCanvas({
     style,
     children
 }: CpuCanvasProps) {
-    const { runtime, canvasRef, camera, controls, frameRef } = useCpuCanvas({
+    const { surface, canvasRef, camera, controls, frameRef } = useCpuCanvas({
         onFrame,
-        onRuntime,
+        onSurface,
         camera: externalCamera,
         cameraControls,
         initialCamera,
@@ -53,7 +53,7 @@ export function CpuCanvas({
     const interaction = {
         camera,
         controls,
-        input: runtime?.input ?? null,
+        input: surface?.input ?? null,
         getFrame: () => frameRef.current
     };
     const options = {

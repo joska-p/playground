@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createCpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import { createSurface } from '@repo/glaze/cpu/createSurface';
 import { drawSceneCpu } from '../scene';
 
 export function SurfaceCpuImperative() {
@@ -8,12 +8,12 @@ export function SurfaceCpuImperative() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const runtime = createCpuRuntime({ canvas });
-        runtime.setDraw(() => {
-            drawSceneCpu(runtime);
+        const surface = createSurface({ canvas });
+        surface.setDraw(() => {
+            drawSceneCpu(surface);
         });
         return () => {
-            runtime.destroy();
+            surface.destroy();
         };
     }, []);
 

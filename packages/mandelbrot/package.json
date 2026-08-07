@@ -15,6 +15,7 @@
         "preview": "vite preview --host"
     },
     "dependencies": {
+        "@repo/glaze": "workspace:*",
         "@repo/ui": "workspace:*",
         "@repo/worker-pool": "workspace:*",
         "lucide-react": "^1.23.0",

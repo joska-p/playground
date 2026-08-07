@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import type { Surface } from '@repo/glaze/cpu/createSurface';
 
 import { getModule } from '../core/registry'; // your package
 import { identity } from '../middle/identity';
 import { createPolylineViz } from '../viz/polyline';
 
 export function NaturalsDemo() {
-    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [runtime, setRuntime] = useState<Surface | null>(null);
 
     const module = getModule('naturals');
     const signal = module.createSignal({ maxTerms: 200 });

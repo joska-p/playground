@@ -1,6 +1,18 @@
+/**
+ * The Mandelbrot viewer, wired onto `@repo/glaze`.
+ *
+ * GpuCanvas is a pure GL surface + frame loop: glaze supplies the fullscreen
+ * triangle and compiles `FRAGMENT_SRC`; this component feeds it per-frame
+ * uniforms. All view math stays in BigFloat land (`view.ts`); only the
+ * spacing + reference offset are translated at the canvas boundary. glaze's
+ * float32 Camera is deliberately not used for pan/zoom — it can't hold
+ * arbitrary-depth zoom.
+ */
+
 import { useEffect, useRef, useState } from 'react';
-import { MandelbrotRenderer } from '../lib/webgl/renderer';
-import { computeReferenceAsync, toRequest } from '../lib/reference-worker';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+import type { PointerHandlers } from '@repo/glaze/react/interaction';
+import { computeReferenceAsync, toRequest, type OrbitResult } from '../lib/reference-worker';
 import {
     type View,
     initialView,
@@ -12,16 +24,29 @@ import {
 import { toNumber } from '../lib/big-float';
 import { type LookState, DEFAULT_LOOK, effectiveMaxIter, lookToParams } from '../lib/mandelbrot/look';
 import { needsRecompute, Superseder } from '../lib/reference-policy';
+import { FRAGMENT_SRC } from '../lib/webgl/shaders';
+import { createOrbitTexture, REF_TEX_WIDTH, type OrbitTexture } from '../lib/orbit-textures';
 import { ControlPanel } from './control-panel';
 import { Hud } from './hud';
 
+// Probe up front so the error card renders instead of letting glaze's runtime
+// throw inside GpuCanvas (which would surface the App-level error boundary).
+const WEBGL2_AVAILABLE =
+    typeof document !== 'undefined' && document.createElement('canvas').getContext('webgl2') !== null;
+
+// TEMP DIAGNOSTICS — remove after fixing the blank canvas.
+let diagLogged = 0;
+const diag = (...args: unknown[]) => {
+    if (diagLogged < 30) {
+        diagLogged++;
+        console.info('[mb-diag]', ...args);
+    }
+};
+
 export function MandelbrotViewer() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const rendererRef = useRef<MandelbrotRenderer | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const viewRef = useRef<View>(initialView());
     const lookRef = useRef<LookState>(DEFAULT_LOOK);
-    const dirtyRef = useRef(true);
-    const rafRef = useRef(0);
 
     // Reference-orbit bookkeeping.
     const refCenterRef = useRef<View | null>(null);
@@ -29,8 +54,14 @@ export function MandelbrotViewer() {
     const computingRef = useRef(false);
     const supersederRef = useRef(new Superseder());
 
+    // Raw-GL orbit texture + the last orbit (needed to re-upload after a
+    // context restore, since app-created textures are dead afterwards).
+    const texturesRef = useRef<OrbitTexture | null>(null);
+    const lastOrbitRef = useRef<OrbitResult | null>(null);
+    const orbitVersionRef = useRef(0);
+    const uploadedVersionRef = useRef(0);
+
     const [look, setLook] = useState<LookState>(DEFAULT_LOOK);
-    const [error, setError] = useState<string | null>(null);
     const [hud, setHud] = useState({ zoom: 0, cx: -0.6, cy: 0, computing: false });
 
     const updateHud = () => {
@@ -44,6 +75,7 @@ export function MandelbrotViewer() {
     };
 
     const requestReference = async (view: View) => {
+        diag('requestReference start, computing=', computingRef.current);
         if (computingRef.current) return;
         computingRef.current = true;
         const token = supersederRef.current.begin();
@@ -54,14 +86,12 @@ export function MandelbrotViewer() {
             const iters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
             const req = toRequest(withP.cx, withP.cy, iters);
             const orbit = await computeReferenceAsync(req);
+            diag('orbit resolved, length=', orbit.length, 'superseded=', !supersederRef.current.isCurrent(token));
             if (!supersederRef.current.isCurrent(token)) return; // superseded
-            const renderer = rendererRef.current;
-            if (renderer) {
-                renderer.setReference(orbit.data, orbit.length);
-                refCenterRef.current = withP;
-                refLengthRef.current = orbit.length;
-                dirtyRef.current = true;
-            }
+            orbitVersionRef.current += 1;
+            lastOrbitRef.current = orbit;
+            refCenterRef.current = withP;
+            refLengthRef.current = orbit.length;
         } catch (e) {
             console.log('[v0] reference compute failed:', (e as Error).message);
         } finally {
@@ -76,173 +106,134 @@ export function MandelbrotViewer() {
     const updateHudRef = useRef(updateHud);
     const requestReferenceRef = useRef(requestReference);
 
-    // Keep refs in sync with the look state driven by the panel.
-    useEffect(() => {
-        lookRef.current = look;
-        dirtyRef.current = true;
-    }, [look]);
-
-    // Initialize WebGL.
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        let renderer: MandelbrotRenderer;
-        try {
-            renderer = new MandelbrotRenderer(canvas);
-        } catch (e) {
-            // Defer so the error card renders after this effect, not mid-effect.
-            queueMicrotask(() => {
-                setError((e as Error).message);
-            });
-            return;
-        }
-        rendererRef.current = renderer;
-
-        void requestReferenceRef.current(viewRef.current);
-
-        const loop = () => {
-            rafRef.current = requestAnimationFrame(loop);
-            const r = rendererRef.current;
-            const refCenter = refCenterRef.current;
-            if (!r || !refCenter || !dirtyRef.current) return;
-            dirtyRef.current = false;
-
-            const view = viewRef.current;
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            const w = Math.floor(canvas.clientWidth * dpr);
-            const h = Math.floor(canvas.clientHeight * dpr);
-            r.resize(w, h);
-
-            const spacing = pixelSpacing(view.zoom, h);
-
-            // Offset of the reference point from the current center, in pixels.
-            const rv = reprecision(view);
-            const dx = toNumber(rv.cx) - toNumber(refCenter.cx);
-            const dy = toNumber(rv.cy) - toNumber(refCenter.cy);
-            const refOffsetX = dx / spacing;
-            const refOffsetY = dy / spacing;
-
-            const wantIters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
-            r.render({
-                spacing,
-                refOffsetX,
-                refOffsetY,
-                // Never iterate past the stored reference orbit.
-                maxIter: Math.min(wantIters, refLengthRef.current),
-                ...lookToParams(lookRef.current)
-            });
-        };
-        rafRef.current = requestAnimationFrame(loop);
-
-        const onResize = () => {
-            dirtyRef.current = true;
-        };
-        window.addEventListener('resize', onResize);
-
-        return () => {
-            cancelAnimationFrame(rafRef.current);
-            window.removeEventListener('resize', onResize);
-            renderer.dispose();
-            rendererRef.current = null;
-        };
-    }, []);
-
-    // Pointer + wheel input.
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-
+    // Pan/zoom handlers drive the BigFloat view. Built once via a lazy state
+    // initializer so the object's identity is stable across renders and glaze's
+    // interaction controller attaches its listeners once.
+    const [pointerHandlers] = useState<PointerHandlers>(() => {
         let dragging = false;
         let lastX = 0;
         let lastY = 0;
+
         const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 
         const maybeRecompute = () => {
             // Recompute reference if we've panned/zoomed far from the current ref.
             const view = viewRef.current;
             const ref = refCenterRef.current;
-            if (!ref) return;
-            const h = canvas.clientHeight * dpr();
+            const canvas = canvasRef.current;
+            if (!ref || !canvas) return;
+            const h = canvas.height;
             if (needsRecompute(view, ref, refLengthRef.current, lookRef.current, h)) {
                 void requestReferenceRef.current(view);
             }
         };
 
-        const onDown = (e: PointerEvent) => {
-            dragging = true;
-            lastX = e.clientX;
-            lastY = e.clientY;
-            canvas.setPointerCapture(e.pointerId);
+        return {
+            onPointerDown(event) {
+                dragging = true;
+                lastX = event.clientX;
+                lastY = event.clientY;
+                canvasRef.current?.setPointerCapture(event.pointerId);
+                return true;
+            },
+            onPointerMove(event) {
+                if (!dragging) return true;
+                const canvas = canvasRef.current;
+                if (!canvas) return true;
+                const d = dpr();
+                viewRef.current = panByPixels(
+                    viewRef.current,
+                    (event.clientX - lastX) * d,
+                    (event.clientY - lastY) * d,
+                    canvas.height
+                );
+                lastX = event.clientX;
+                lastY = event.clientY;
+                updateHudRef.current();
+                return true;
+            },
+            onPointerUp(event) {
+                dragging = false;
+                canvasRef.current?.releasePointerCapture(event.pointerId);
+                maybeRecompute();
+                return true;
+            },
+            onWheel(event) {
+                event.preventDefault();
+                const canvas = canvasRef.current;
+                if (!canvas) return true;
+                const rect = canvas.getBoundingClientRect();
+                const d = dpr();
+                viewRef.current = zoomAtPixel(
+                    viewRef.current,
+                    -event.deltaY * 0.0025,
+                    (event.clientX - rect.left) * d,
+                    (event.clientY - rect.top) * d,
+                    canvas.width,
+                    canvas.height
+                );
+                updateHudRef.current();
+                maybeRecompute();
+                return true;
+            }
         };
-        const onMove = (e: PointerEvent) => {
-            if (!dragging) return;
-            const d = dpr();
-            const h = canvas.clientHeight * d;
-            viewRef.current = panByPixels(
-                viewRef.current,
-                (e.clientX - lastX) * d,
-                (e.clientY - lastY) * d,
-                h
-            );
-            lastX = e.clientX;
-            lastY = e.clientY;
-            dirtyRef.current = true;
-            updateHudRef.current();
-        };
-        const onUp = (e: PointerEvent) => {
-            dragging = false;
-            canvas.releasePointerCapture(e.pointerId);
-            maybeRecompute();
-        };
-        const onWheel = (e: WheelEvent) => {
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const d = dpr();
-            const px = (e.clientX - rect.left) * d;
-            const py = (e.clientY - rect.top) * d;
-            const w = canvas.clientWidth * d;
-            const h = canvas.clientHeight * d;
-            const dZoom = -e.deltaY * 0.0025;
-            viewRef.current = zoomAtPixel(viewRef.current, dZoom, px, py, w, h);
-            dirtyRef.current = true;
-            updateHudRef.current();
-            maybeRecompute();
-        };
+    });
 
-        canvas.addEventListener('pointerdown', onDown);
-        canvas.addEventListener('pointermove', onMove);
-        canvas.addEventListener('pointerup', onUp);
-        canvas.addEventListener('wheel', onWheel, { passive: false });
+    // Keep refs in sync with the look state driven by the panel.
+    useEffect(() => {
+        lookRef.current = look;
+    }, [look]);
 
+    // Dispose the orbit texture with the component; the glaze runtime owns its
+    // own resources and cleans those up when the canvas unmounts.
+    useEffect(() => {
         return () => {
-            canvas.removeEventListener('pointerdown', onDown);
-            canvas.removeEventListener('pointermove', onMove);
-            canvas.removeEventListener('pointerup', onUp);
-            canvas.removeEventListener('wheel', onWheel);
+            texturesRef.current?.dispose();
+            texturesRef.current = null;
         };
     }, []);
 
-    const handleReset = () => {
-        viewRef.current = initialView();
-        dirtyRef.current = true;
-        updateHudRef.current();
+    // Glaze recompiles its programs on context restore, but our raw-GL orbit
+    // texture is dead afterwards; recreate + re-upload the last orbit.
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const onRestored = () => {
+            texturesRef.current?.dispose();
+            texturesRef.current = null;
+            uploadedVersionRef.current = 0;
+        };
+        canvas.addEventListener('webglcontextrestored', onRestored);
+        return () => {
+            canvas.removeEventListener('webglcontextrestored', onRestored);
+        };
+    }, []);
+
+    // First reference orbit on mount.
+    useEffect(() => {
         void requestReferenceRef.current(viewRef.current);
-    };
+    }, []);
 
     // Recompute reference when maxIter changes (orbit length depends on it).
     useEffect(() => {
         void requestReferenceRef.current(viewRef.current);
     }, [look.maxIter]);
 
-    if (error) {
+    const handleReset = () => {
+        viewRef.current = initialView();
+        updateHudRef.current();
+        void requestReferenceRef.current(viewRef.current);
+    };
+
+    if (!WEBGL2_AVAILABLE) {
         return (
             <div className="flex h-dvh w-full items-center justify-center bg-background p-8">
                 <div className="max-w-md rounded-lg border border-border bg-card p-6 text-card-foreground">
                     <h2 className="mb-2 text-lg font-semibold text-balance">WebGL2 unavailable</h2>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                        {error} This visualizer needs WebGL2 with float-texture support. Try a
-                        recent version of Chrome, Firefox, or Safari on a device with GPU
-                        acceleration enabled.
+                        WebGL2 is not available in this browser. This visualizer needs WebGL2 with
+                        float-texture support. Try a recent version of Chrome, Firefox, or Safari on
+                        a device with GPU acceleration enabled.
                     </p>
                 </div>
             </div>
@@ -251,24 +242,97 @@ export function MandelbrotViewer() {
 
     return (
         <main className="relative h-dvh w-full overflow-hidden bg-background">
-            <canvas
-                ref={canvasRef}
-                className="h-full w-full touch-none"
-                style={{ cursor: 'grab' }}
-                aria-label="Interactive Mandelbrot set visualization. Drag to pan, scroll to zoom."
-            />
-            <Hud
-                zoom={hud.zoom}
-                cx={hud.cx}
-                cy={hud.cy}
-                maxIter={effectiveMaxIter(look.maxIter, hud.zoom)}
-                computing={hud.computing}
-            />
-            <ControlPanel
-                look={look}
-                onChange={setLook}
-                onReset={handleReset}
-            />
+            <GpuCanvas
+                className="h-full w-full"
+                fragmentShader={FRAGMENT_SRC}
+                canvasRef={canvasRef}
+                pan={false}
+                zoom={false}
+                pointerHandlers={pointerHandlers}
+                dpr={Math.min(window.devicePixelRatio || 1, 2)}
+                uniforms={() => {
+                    const refCenter = refCenterRef.current;
+                    if (!refCenter) {
+                        diag('uniforms: {} no refCenter');
+                        return {};
+                    }
+
+                    const canvas = canvasRef.current;
+                    if (!canvas) {
+                        diag('uniforms: {} no canvas');
+                        return {};
+                    }
+
+                    const orbit = lastOrbitRef.current;
+                    if (!orbit) {
+                        diag('uniforms: {} no orbit');
+                        return {};
+                    }
+
+                    // Lazily create the texture on the glaze-owned context and
+                    // upload each new orbit exactly once.
+                    let texture = texturesRef.current;
+                    if (!texture || orbitVersionRef.current !== uploadedVersionRef.current) {
+                        if (!texture) {
+                            const gl = canvas.getContext('webgl2');
+                            if (!gl) {
+                                diag('uniforms: {} no gl');
+                                return {};
+                            }
+                            texture = createOrbitTexture(gl);
+                            texturesRef.current = texture;
+                        }
+                        texture.upload(orbit.data, orbit.length);
+                        uploadedVersionRef.current = orbitVersionRef.current;
+                        diag('texture uploaded, version=', uploadedVersionRef.current);
+                    }
+
+                    const view = viewRef.current;
+                    const devW = canvas.width;
+                    const devH = canvas.height;
+                    if (devW === 0 || devH === 0) {
+                        diag('uniforms: {} zero size', devW, devH);
+                        return {};
+                    }
+
+                    const spacing = pixelSpacing(view.zoom, devH);
+                    const rv = reprecision(view);
+                    // Offset of the reference point from the view center, in
+                    // complex units (the shader's uRefOffset contract).
+                    const refOffsetX = toNumber(rv.cx) - toNumber(refCenter.cx);
+                    const refOffsetY = toNumber(rv.cy) - toNumber(refCenter.cy);
+
+                    const wantIters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
+                    const uMaxIter = Math.min(wantIters, refLengthRef.current);
+                    diag('uniforms: full set', {
+                        uResolution: [devW, devH],
+                        uSpacing: spacing,
+                        uMaxIter,
+                        uRefCount: refLengthRef.current,
+                        zoom: view.zoom
+                    });
+                    return {
+                        uResolution: [devW, devH],
+                        uSpacing: spacing,
+                        uRefOffset: [refOffsetX, refOffsetY],
+                        // Never iterate past the stored reference orbit.
+                        uMaxIter,
+                        uRef: texture.texture,
+                        uRefWidth: REF_TEX_WIDTH,
+                        uRefCount: refLengthRef.current,
+                        ...lookToParams(lookRef.current)
+                    };
+                }}
+            >
+                <Hud
+                    zoom={hud.zoom}
+                    cx={hud.cx}
+                    cy={hud.cy}
+                    maxIter={effectiveMaxIter(look.maxIter, hud.zoom)}
+                    computing={hud.computing}
+                />
+                <ControlPanel look={look} onChange={setLook} onReset={handleReset} />
+            </GpuCanvas>
         </main>
     );
 }

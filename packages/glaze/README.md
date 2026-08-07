@@ -8,7 +8,7 @@
 
 It ships as two sibling runtimes over a shared foundation:
 
-- `createCpuRuntime` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
+- `createSurface` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
 - `createGpuRuntime` — WebGL2, the same drawing model. Shapes plus custom programs (`createProgram` / `renderProgram`), and `createStateBuffer` for GPGPU simulation on a ping-pong texture pair.
 
 Both expose the same skeleton: a frame loop, a camera, and an input store, handed to you every frame as a context object (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`). Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
@@ -22,11 +22,11 @@ The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime
 No React, no shaders — a canvas, a loop, and shapes.
 
 ```ts
-import { createCpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import { createSurface } from '@repo/glaze/cpu/createSurface';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { drawText } from '@repo/glaze/cpu/shapes/text';
 
-const runtime = createCpuRuntime({ canvas });
+const runtime = createSurface({ canvas });
 
 runtime.setDraw(({ time }) => {
     runtime.clear('#0d1015');
@@ -52,11 +52,11 @@ import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
 
 export function Sketch() {
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [surface, setSurface] = useState<GpuRuntime | null>(null);
 
     return (
         <GpuCanvas
-            onRuntime={setRuntime}
+            onSurface={setRuntime}
             onFrame={() => {
                 if (!runtime) return;
                 runtime.clear(0.05, 0.07, 0.09, 1);
@@ -73,7 +73,7 @@ export function Sketch() {
 }
 ```
 
-`onRuntime` hands you the live runtime (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
+`onSurface` hands you the live runtime (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -101,7 +101,7 @@ void main() {
 }
 ```
 
-The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `runtime.createProgram(source)` and `runtime.renderProgram(program)` from `onRuntime`.
+The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `runtime.createProgram(source)` and `runtime.renderProgram(program)` from `onSurface`.
 
 ### A GPGPU simulation (state buffer)
 
@@ -179,17 +179,17 @@ A pass is reusable: `addProgram` several shaders and switch between them with `u
 ```tsx
 import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import type { Surface } from '@repo/glaze/cpu/createSurface';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { useCamera } from '@repo/glaze/react/useCamera';
 
 export function Crosshair() {
-    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [surface, setSurface] = useState<Surface | null>(null);
     const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
 
     return (
         <CpuCanvas
-            onRuntime={setRuntime}
+            onSurface={setRuntime}
             camera={camera}
             cameraControls={controls}
             onFrame={({ input }) => {

@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
-import { createCpuRuntime, type CpuRuntime, type CpuDraw } from '../cpu/createCpuRuntime';
+import { createSurface, type Surface, type CpuDraw } from '../cpu/createSurface';
 import type { Camera } from '../core/coords/camera';
 import type { FrameSnapshot } from './interaction';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
@@ -10,7 +10,7 @@ export type UseCpuCanvasOptions = {
      * Called with the runtime when it becomes ready, and with `null` when
      * it is destroyed. Treat it like a ref callback.
      */
-    onRuntime?: ((runtime: CpuRuntime | null) => void) | undefined;
+    onSurface?: ((surface: Surface | null) => void) | undefined;
     camera?: Camera | undefined;
     cameraControls?: CameraControls | undefined;
     initialCamera?: CameraOptions | undefined;
@@ -23,7 +23,7 @@ export type UseCpuCanvasOptions = {
 };
 
 export type UseCpuCanvasResult = {
-    runtime: CpuRuntime | null;
+    surface: Surface | null;
     canvasRef: RefObject<HTMLCanvasElement | null>;
     camera: Camera;
     controls: CameraControls;
@@ -33,7 +33,7 @@ export type UseCpuCanvasResult = {
 export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     const {
         onFrame,
-        onRuntime,
+        onSurface,
         camera: externalCamera,
         cameraControls,
         initialCamera,
@@ -48,11 +48,11 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     const camera = externalCamera ?? internalCamera;
     const controls = cameraControls ?? internalControls;
 
-    const [runtime, setRuntime] = useState<CpuRuntime | null>(null);
+    const [surface, setSurface] = useState<Surface | null>(null);
     const frameRef = useRef<FrameSnapshot | null>(null);
 
-    const createRuntime = useEffectEvent((canvas: HTMLCanvasElement) => {
-        return createCpuRuntime({
+    const createNewSurface = useEffectEvent((canvas: HTMLCanvasElement) => {
+        return createSurface({
             canvas,
             camera,
             ...(dpr !== undefined ? { dpr } : {})
@@ -64,21 +64,21 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const instance = createRuntime(canvas);
-        setRuntime(instance);
+        const newSurface = createNewSurface(canvas);
+        setSurface(newSurface);
 
         return () => {
-            instance.destroy();
-            setRuntime(null);
+            newSurface.destroy();
+            setSurface(null);
             frameRef.current = null;
         };
     }, [canvasRef]);
 
     // Notify parent (ref-callback style)
     useEffect(() => {
-        onRuntime?.(runtime);
-        return () => onRuntime?.(null);
-    }, [runtime, onRuntime]);
+        onSurface?.(surface);
+        return () => onSurface?.(null);
+    }, [surface, onSurface]);
 
     // Always call the latest onFrame without re-creating the runtime
     const draw = useEffectEvent((ctx: Parameters<CpuDraw>[0]) => {
@@ -87,9 +87,9 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     });
 
     useEffect(() => {
-        if (!runtime) return;
-        runtime.setDraw(onFrame ? draw : null);
-    }, [runtime, onFrame]);
+        if (!surface) return;
+        surface.setDraw(onFrame ? draw : null);
+    }, [surface, onFrame]);
 
-    return { runtime, canvasRef, camera, controls, frameRef };
+    return { surface, canvasRef, camera, controls, frameRef };
 }

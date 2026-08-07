@@ -11,7 +11,7 @@ export type GpuCanvasProps = {
     fragmentShader?: string;
     uniforms?: (context: GpuFrameContext) => Record<string, UniformValue>;
     onFrame?: GpuDraw | null;
-    onRuntime?: (runtime: GpuRuntime | null) => void;
+    onSurface?: (runtime: GpuRuntime | null) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;
@@ -30,7 +30,7 @@ export function GpuCanvas({
     fragmentShader,
     uniforms,
     onFrame,
-    onRuntime,
+    onSurface,
     camera: externalCamera,
     cameraControls,
     initialCamera,
@@ -48,7 +48,7 @@ export function GpuCanvas({
         fragmentShader,
         uniforms,
         onFrame,
-        onRuntime,
+        onSurface,
         camera: externalCamera,
         cameraControls,
         initialCamera,

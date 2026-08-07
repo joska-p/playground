@@ -9,7 +9,7 @@
         "./core/coords/createScreenToCanvas": "./src/core/coords/createScreenToCanvas.ts",
         "./core/coords/createCanvasToNormalized": "./src/core/coords/createCanvasToNormalized.ts",
         "./core/coords/createNormalizedToUv": "./src/core/coords/createNormalizedToUv.ts",
-        "./cpu/createCpuRuntime": "./src/cpu/createCpuRuntime.ts",
+        "./cpu/createSurface": "./src/cpu/createSurface.ts",
         "./cpu/input": "./src/cpu/input.ts",
         "./cpu/shapes/circle": "./src/cpu/shapes/circle.ts",
         "./cpu/shapes/rect": "./src/cpu/shapes/rect.ts",

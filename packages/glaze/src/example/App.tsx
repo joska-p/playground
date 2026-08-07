@@ -83,7 +83,7 @@ export function App() {
                     </Cell>
                     <Cell
                         style="imperative"
-                        caption="createCpuRuntime + setDraw in an effect"
+                        caption="createSurface + setDraw in an effect"
                     >
                         <SurfaceCpuImperative />
                     </Cell>

@@ -19,7 +19,7 @@ export type UseGpuCanvasOptions = {
      * Called with the runtime when it becomes ready, and with `null` when
      * it is destroyed. Treat it like a ref callback.
      */
-    onRuntime?: ((runtime: GpuRuntime | null) => void) | undefined;
+    onSurface?: ((runtime: GpuRuntime | null) => void) | undefined;
     camera?: Camera | undefined;
     cameraControls?: CameraControls | undefined;
     initialCamera?: CameraOptions | undefined;
@@ -44,7 +44,7 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
         fragmentShader,
         uniforms,
         onFrame,
-        onRuntime,
+        onSurface,
         camera: externalCamera,
         cameraControls,
         initialCamera,
@@ -101,9 +101,9 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
 
     // Notify parent (ref-callback style)
     useEffect(() => {
-        onRuntime?.(runtime);
-        return () => onRuntime?.(null);
-    }, [runtime, onRuntime]);
+        onSurface?.(runtime);
+        return () => onSurface?.(null);
+    }, [runtime, onSurface]);
 
     // Always call the latest draw logic without re-creating the runtime
     const draw = useEffectEvent((ctx: GpuFrameContext) => {

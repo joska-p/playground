@@ -29,7 +29,7 @@ export function SurfaceGpuHybrid() {
     return (
         <div className="h-75 w-100">
             <GpuCanvas
-                onRuntime={setRuntime}
+                onSurface={setRuntime}
                 onFrame={onFrame}
                 camera={camera}
                 cameraControls={controls}

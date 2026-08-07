@@ -105,7 +105,7 @@ export function ProgramGpuHybrid() {
         <div className="h-75 w-100">
             <GpuCanvas
                 fragmentShader={displayFragmentSource}
-                onRuntime={setRuntime}
+                onSurface={setRuntime}
                 className="h-full w-full"
                 uniforms={(): Record<string, UniformValue> => {
                     const buffer = bufferRef.current;

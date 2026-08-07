@@ -16,7 +16,7 @@ export function SurfaceGpuDeclarative() {
             <GpuCanvas
                 pan={true}
                 zoom={true}
-                onRuntime={setRuntime}
+                onSurface={setRuntime}
                 onFrame={onFrame}
                 className="h-full w-full"
             />

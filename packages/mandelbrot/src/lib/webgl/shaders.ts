@@ -1,5 +1,7 @@
 /**
- * GLSL sources for the perturbation-theory Mandelbrot renderer (WebGL2 / GLSL ES 3.00).
+ * Fragment shader source for the perturbation-theory Mandelbrot renderer
+ * (WebGL2 / GLSL ES 3.00). Rendered by @repo/glaze's fullscreen triangle; this
+ * string needs no varyings — it positions pixels via `gl_FragCoord` only.
  *
  * Strategy
  * --------
@@ -23,14 +25,6 @@
  * Color: log-scaled smooth iteration count mapped through OKLCH (perceptual),
  * converted to sRGB entirely in-shader — no color library.
  */
-
-export const VERTEX_SRC = /* glsl */ `
-    #version 300 es
-    in vec2 aPos;
-    void main() {
-        gl_Position = vec4(aPos, 0.0, 1.0);
-    }
-`;
 
 export const FRAGMENT_SRC = /* glsl */ `
     #version 300 es

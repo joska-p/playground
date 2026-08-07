@@ -1,5 +1,5 @@
 import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
-import type { CpuRuntime } from '@repo/glaze/cpu/createCpuRuntime';
+import type { Surface } from '@repo/glaze/cpu/createSurface';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { drawLine } from '@repo/glaze/cpu/shapes/line';
 import { drawRect } from '@repo/glaze/cpu/shapes/rect';
@@ -14,28 +14,28 @@ export const SCENE = {
     text: { text: 'RENDER', position: { x: 220, y: 80 }, fill: '#f8fafc', fontSize: 28 }
 } as const;
 
-export function drawSceneCpu(runtime: CpuRuntime): void {
-    runtime.clear(SCENE.bg);
-    runtime.applyCamera();
+export function drawSceneCpu(surface: Surface): void {
+    surface.clear(SCENE.bg);
+    surface.applyCamera();
     drawCircle(
-        runtime.context,
+        surface.context,
         { fill: SCENE.circle.fill },
         SCENE.circle.center,
         SCENE.circle.radius
     );
     drawRect(
-        runtime.context,
+        surface.context,
         { fill: SCENE.rect.fill },
         { x: SCENE.rect.x, y: SCENE.rect.y, w: SCENE.rect.w, h: SCENE.rect.h }
     );
     drawLine(
-        runtime.context,
+        surface.context,
         { stroke: SCENE.line.stroke, lineWidth: SCENE.line.lineWidth },
         SCENE.line.a,
         SCENE.line.b
     );
     drawText(
-        runtime.context,
+        surface.context,
         { fill: SCENE.text.fill, fontSize: SCENE.text.fontSize },
         SCENE.text.text,
         SCENE.text.position

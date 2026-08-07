@@ -19,7 +19,7 @@ export type Viz = {
     /** Called every frame. The viz is free to pull from the signal as needed. */
     render(
         signal: Signal,
-        runtime: { context: CanvasRenderingContext2D }, // CpuRuntime | GpuRuntime – we keep it loose for now
+        runtime: { context: CanvasRenderingContext2D }, // Surface | GpuRuntime – we keep it loose for now
         ctx: VizFrameContext
     ): void;
 };

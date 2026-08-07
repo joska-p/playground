@@ -2,7 +2,7 @@ import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera } from '../core/coords/camera';
 import { createInputStore, type InputStore } from './input';
 
-export type CpuRuntimeConfig = {
+export type SurfaceConfig = {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     dpr?: number;
@@ -21,7 +21,7 @@ export type CpuFrameContext = {
 
 export type CpuDraw = (context: CpuFrameContext) => void;
 
-export type CpuRuntime = {
+export type Surface = {
     readonly canvas: HTMLCanvasElement;
     readonly context: CanvasRenderingContext2D;
     readonly camera: Camera;
@@ -34,7 +34,7 @@ export type CpuRuntime = {
     destroy(): void;
 };
 
-export function createCpuRuntime(config: CpuRuntimeConfig): CpuRuntime {
+export function createSurface(config: SurfaceConfig): Surface {
     const canvas = config.canvas;
     const context = canvas.getContext('2d');
     if (!context) throw new Error('Glaze: Canvas2D context unavailable');
