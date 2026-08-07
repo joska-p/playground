@@ -8,7 +8,7 @@
 
 An interactive Mandelbrot-set viewer that zooms to millions of × and stays crisp
 and real-time in the browser. The trick is **perturbation theory**: one slow
-high-precision point (the *reference orbit*, computed with BigInt-backed
+high-precision point (the _reference orbit_, computed with BigInt-backed
 fixed-point on the CPU) plus a fast per-pixel delta loop in the GPU shader,
 with double-single arithmetic, Zhuoran rebasing, a distance estimate, and
 in-shader OKLCH colour.
@@ -27,17 +27,17 @@ pnpm --filter @repo/mandelbrot dev
 
 ## Layout
 
-| Path                              | Role                                                                 |
-| --------------------------------- | -------------------------------------------------------------------- |
-| `src/components/`                 | Viewer, control panel, HUD (React shell).                            |
-| `src/lib/big-float.ts`            | Arbitrary-precision numbers as `BigInt` fixed-point, dependency-free. |
-| `src/lib/mandelbrot/view.ts`      | Camera math: log2-magnification zoom + BigFloat centre.              |
-| `src/lib/mandelbrot/look.ts`      | Colour/lighting/iteration model (`LookState` → shader params).       |
-| `src/lib/reference-orbit.ts`      | CPU reference-orbit iteration (+ chunked async fallback).            |
-| `src/lib/reference.worker.ts`     | Vite module worker that runs the orbit compute off the main thread.  |
-| `src/lib/reference-worker.ts`     | `@repo/worker-pool` adapter: dispatch, serialization, fallback.      |
-| `src/lib/reference-policy.ts`     | Drift thresholds + token superseding (app-owned).                    |
-| `src/lib/webgl/`                  | WebGL2 renderer + perturbation shader (being replaced by glaze).     |
+| Path                          | Role                                                                  |
+| ----------------------------- | --------------------------------------------------------------------- |
+| `src/components/`             | Viewer, control panel, HUD (React shell).                             |
+| `src/lib/big-float.ts`        | Arbitrary-precision numbers as `BigInt` fixed-point, dependency-free. |
+| `src/lib/mandelbrot/view.ts`  | Camera math: log2-magnification zoom + BigFloat centre.               |
+| `src/lib/mandelbrot/look.ts`  | Colour/lighting/iteration model (`LookState` → shader params).        |
+| `src/lib/reference-orbit.ts`  | CPU reference-orbit iteration (+ chunked async fallback).             |
+| `src/lib/reference.worker.ts` | Vite module worker that runs the orbit compute off the main thread.   |
+| `src/lib/reference-worker.ts` | `@repo/worker-pool` adapter: dispatch, serialization, fallback.       |
+| `src/lib/reference-policy.ts` | Drift thresholds + token superseding (app-owned).                     |
+| `src/lib/webgl/`              | WebGL2 renderer + perturbation shader (being replaced by glaze).      |
 
 ## Docs
 

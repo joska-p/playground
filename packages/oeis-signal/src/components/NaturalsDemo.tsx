@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import type { Surface } from '@repo/glaze/cpu/createSurface';
 
-import { getModule } from '../core/registry'; // your package
+import { getModule } from '../core/registry';
 import { identity } from '../middle/identity';
 import { createPolylineViz } from '../viz/polyline';
 
 export function NaturalsDemo() {
-    const [runtime, setRuntime] = useState<Surface | null>(null);
+    const [surface, setSurface] = useState<Surface | null>(null);
 
     const module = getModule('naturals');
     const signal = module.createSignal({ maxTerms: 200 });
@@ -22,12 +22,12 @@ export function NaturalsDemo() {
     return (
         <CpuCanvas
             style={{ width: '100%', height: 400, background: '#0d1015' }}
-            onRuntime={setRuntime}
+            onSurface={setSurface}
             onFrame={(frame) => {
-                if (!runtime) return;
-                runtime.clear('#0d1015');
+                if (!surface) return;
+                surface.clear('#0d1015');
 
-                viz.render(processed, runtime, {
+                viz.render(processed, surface, {
                     width: frame.width,
                     height: frame.height,
                     time: frame.time

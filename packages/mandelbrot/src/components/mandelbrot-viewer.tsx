@@ -22,7 +22,12 @@ import {
     zoomAtPixel
 } from '../lib/mandelbrot/view';
 import { toNumber } from '../lib/big-float';
-import { type LookState, DEFAULT_LOOK, effectiveMaxIter, lookToParams } from '../lib/mandelbrot/look';
+import {
+    type LookState,
+    DEFAULT_LOOK,
+    effectiveMaxIter,
+    lookToParams
+} from '../lib/mandelbrot/look';
 import { needsRecompute, Superseder } from '../lib/reference-policy';
 import { FRAGMENT_SRC } from '../lib/webgl/shaders';
 import { createOrbitTexture, REF_TEX_WIDTH, type OrbitTexture } from '../lib/orbit-textures';
@@ -32,7 +37,8 @@ import { Hud } from './hud';
 // Probe up front so the error card renders instead of letting glaze's runtime
 // throw inside GpuCanvas (which would surface the App-level error boundary).
 const WEBGL2_AVAILABLE =
-    typeof document !== 'undefined' && document.createElement('canvas').getContext('webgl2') !== null;
+    typeof document !== 'undefined' &&
+    document.createElement('canvas').getContext('webgl2') !== null;
 
 // TEMP DIAGNOSTICS — remove after fixing the blank canvas.
 let diagLogged = 0;
@@ -86,7 +92,12 @@ export function MandelbrotViewer() {
             const iters = effectiveMaxIter(lookRef.current.maxIter, view.zoom);
             const req = toRequest(withP.cx, withP.cy, iters);
             const orbit = await computeReferenceAsync(req);
-            diag('orbit resolved, length=', orbit.length, 'superseded=', !supersederRef.current.isCurrent(token));
+            diag(
+                'orbit resolved, length=',
+                orbit.length,
+                'superseded=',
+                !supersederRef.current.isCurrent(token)
+            );
             if (!supersederRef.current.isCurrent(token)) return; // superseded
             orbitVersionRef.current += 1;
             lastOrbitRef.current = orbit;
@@ -331,7 +342,11 @@ export function MandelbrotViewer() {
                     maxIter={effectiveMaxIter(look.maxIter, hud.zoom)}
                     computing={hud.computing}
                 />
-                <ControlPanel look={look} onChange={setLook} onReset={handleReset} />
+                <ControlPanel
+                    look={look}
+                    onChange={setLook}
+                    onReset={handleReset}
+                />
             </GpuCanvas>
         </main>
     );

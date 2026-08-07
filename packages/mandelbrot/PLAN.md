@@ -61,13 +61,13 @@ Each renderer is a self-contained module — `{ component, store, shader }` — 
 view and params. **No shared zoom/pan state across renderers**; if a unified view is ever
 wanted, a shared store can wrap the same helpers later.
 
-| # | Renderer | Source | Precision | Needs reference? | Ships in |
-| - | -------- | ------ | --------- | ---------------- | -------- |
-| 1 | **Classic** | fracture `OriginalScene` | float32 escape-time | no | Phase 3 |
-| 2 | **Double-split** | fracture `DoubleSplitScene` | double-single, no reference | no | Phase 3 |
-| 3 | **Perturbation** | fracture `PerturbationScene` | ref orbit + DS, float64 center | yes | Phase 3 |
-| 4 | **Reference/DE** | current mandelbrot renderer | BigFloat ref + rebase + DE + OKLCH | yes | Phase 2 |
-| 5 | **Ultimate** | merge of #4 ↑ fracture's rigor | BigFloat ref + DS seeding + rebase + CP + secondary orbit + analytical normals | yes | Phase 4 |
+| #   | Renderer         | Source                         | Precision                                                                      | Needs reference? | Ships in |
+| --- | ---------------- | ------------------------------ | ------------------------------------------------------------------------------ | ---------------- | -------- |
+| 1   | **Classic**      | fracture `OriginalScene`       | float32 escape-time                                                            | no               | Phase 3  |
+| 2   | **Double-split** | fracture `DoubleSplitScene`    | double-single, no reference                                                    | no               | Phase 3  |
+| 3   | **Perturbation** | fracture `PerturbationScene`   | ref orbit + DS, float64 center                                                 | yes              | Phase 3  |
+| 4   | **Reference/DE** | current mandelbrot renderer    | BigFloat ref + rebase + DE + OKLCH                                             | yes              | Phase 2  |
+| 5   | **Ultimate**     | merge of #4 ↑ fracture's rigor | BigFloat ref + DS seeding + rebase + CP + secondary orbit + analytical normals | yes              | Phase 4  |
 
 Renderers 1–3 clamp to their precision ceiling (Classic ~1e1, Double-split ~1e4,
 Perturbation ~1e15); 4–5 go arbitrarily deep.
@@ -112,7 +112,7 @@ stores → renderers → shell. Each level depends only on the one below.
   app layer; `@repo/worker-pool` only dispatches and queues. No cancellation feature added
   to worker-pool.
 - **Worker bundling**: Vite module worker (`new Worker(new URL('./…', import.meta.url),
-  { type: 'module' })`) behind `WorkerPool.workerFactory`; `MockWorkerPool` in tests.
+{ type: 'module' })`) behind `WorkerPool.workerFactory`; `MockWorkerPool` in tests.
 - **glaze replaces the bespoke renderer.** Reference orbit uploads as a raw `WebGLTexture`
   uniform (glaze auto-assigns texture units). Context-loss re-upload handled via glaze's
   `webglcontextrestored` listener + a re-upload hook (fracture's pattern).
@@ -123,6 +123,7 @@ stores → renderers → shell. Each level depends only on the one below.
 ## 6. Phases
 
 ### Phase 0 — Housekeeping ✅ shipped (`4ccb66d4`)
+
 - Fix `exports["./styles"]` → `./src/styles/global.css`. ✅
 - Import `toNumber` instead of `toNum`; delete dead exports and the `escaped` thread. ✅
 - Move `LookState`/`DEFAULT_LOOK`/`lookToParams` → `lib/mandelbrot/look.ts` (see §9 for
@@ -132,9 +133,10 @@ stores → renderers → shell. Each level depends only on the one below.
 - Refresh `README.md`; keep `REVIEW.md`/`REPORT` as references. ✅
 - Added the missing `lint`/`lint-fix`/`check-types` scripts (the gate didn't exist before).
 
-*Done when:* `pnpm --filter @repo/mandelbrot lint` and `check-types` are clean — **met**.
+_Done when:_ `pnpm --filter @repo/mandelbrot lint` and `check-types` are clean — **met**.
 
 ### Phase 1 — Real worker ✅ shipped (`50d20022`)
+
 - Move `computeReferenceOrbit` + `big-float.ts` behind a module worker entry. ✅
 - Wire through `@repo/worker-pool`: `serialize` sends the view request, `deserialize`
   returns the `Float32Array` orbit (transferable). ✅
@@ -143,12 +145,13 @@ stores → renderers → shell. Each level depends only on the one below.
 - HUD "ref" pulse driven by the real in-flight flag. ✅ (already keyed off the promise;
   now genuinely non-blocking.)
 
-*Done when:* deep-zoom reference recompute never blocks the main thread — **met**. The
+_Done when:_ deep-zoom reference recompute never blocks the main thread — **met**. The
 `MockWorkerPool` test clause was deliberately dropped (no vitest in the package, per
 preference). The pool is still injectable (`computeReferenceAsync(req, pool?)`), so a test
 can be added later if wanted.
 
 ### Phase 2 — Glaze shell (Reference/DE)
+
 - Delete `renderer.ts`; render through `GpuCanvas` + per-frame `uniforms`, porting the
   texture/uniform plumbing (pattern: `packages/fracture/.../PerturbationScene.tsx:109-209`).
 - Orbit texture via raw `WebGLTexture` uniform; `texSubImage2D` reuse when dims match;
@@ -157,9 +160,10 @@ can be added later if wanted.
 - The current viewer becomes the **Reference/DE** registry entry (component + store + shader).
 - Keep the BigFloat view math; only translate at the canvas boundary.
 
-*Done when:* Reference/DE renders identically to today, with context-loss recovery.
+_Done when:_ Reference/DE renders identically to today, with context-loss recovery.
 
 ### Phase 3 — The framework + the 4 renderers
+
 - Extract `framework/` (view, reference pipeline, orbit textures, DS/color shaders,
   `createRendererStore`).
 - Migrate fracture's three visualizers as independent renderers with their own stores
@@ -167,9 +171,10 @@ can be added later if wanted.
 - Shell: renderer switcher + shared chrome (HUD, reset, error card, budget slider per
   renderer where it applies).
 
-*Done when:* all 4 renderers switchable in one app; per-renderer params persist on switch.
+_Done when:_ all 4 renderers switchable in one app; per-renderer params persist on switch.
 
 ### Phase 4 — Ultimate (5th renderer)
+
 - Unify `ds.glsl` (fracture's full-error `ds_add/ds_sub`, split-8193 `ds_mul`,
   `2X·δ` fast path) with the existing `df32` complex-DS struct.
 - Merge Reference/DE with fracture's rigor: DS delta **seeding**, exact `X_{i+1}+δ`
@@ -179,24 +184,25 @@ can be added later if wanted.
   agree on the reference index).
 - Raise shader loop bound to 65536, gated by `uMaxIter` (never a magic constant).
 
-*Done when:* glitch-free renders deeper than Reference/DE alone at the same zoom, with
+_Done when:_ glitch-free renders deeper than Reference/DE alone at the same zoom, with
 interior relief and crisp filaments.
 
 ### Phase 5 — Polish & tests
+
 - Per-renderer HUD/reset/error/budget; measure deep-zoom perf at 60k budget (shader does
   two `texelFetch`s per iteration).
 - vitest: view math, BigFloat round-trips, orbit compute via `MockWorkerPool`.
 
 ## 7. Risks & disposition (from REPORT §5)
 
-| Risk | Disposition |
-| ---- | ----------- |
-| Worker bundling strategy | **Decided** — Vite module worker + `@repo/worker-pool` (§5). |
+| Risk                                  | Disposition                                                       |
+| ------------------------------------- | ----------------------------------------------------------------- |
+| Worker bundling strategy              | **Decided** — Vite module worker + `@repo/worker-pool` (§5).      |
 | Rebasing ↔ reconstruction interaction | **Spike in Phase 4**; shader-level testing, subtlest merge point. |
-| GPU iteration budget / 60fps | **Measure in Phase 5**; keep 60k cap + budget slider. |
-| `1e38` float32 uniform wall | **Documented frontier**; DS pair buys one extra factor only. |
-| Interior past reference iterations | **Mitigated** by secondary orbit, not solved; future work. |
-| `maxIter`-driven reference recompute | **Keep** in Reference/DE and Ultimate stores. |
+| GPU iteration budget / 60fps          | **Measure in Phase 5**; keep 60k cap + budget slider.             |
+| `1e38` float32 uniform wall           | **Documented frontier**; DS pair buys one extra factor only.      |
+| Interior past reference iterations    | **Mitigated** by secondary orbit, not solved; future work.        |
+| `maxIter`-driven reference recompute  | **Keep** in Reference/DE and Ultimate stores.                     |
 
 ## 8. Non-goals
 

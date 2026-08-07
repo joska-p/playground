@@ -15,11 +15,11 @@ the first edit**. The repo's `AGENTS.md` governs commands and conventions.
 - **Preloaded and verified — trust it.** Everything below was checked in the previous
   session (types, glaze APIs, shader surfaces, the fracture pattern). Don't re-derive it.
 - **Read these files only** (small, high-value):
-  - `packages/mandelbrot/PLAN.md` — phases, decisions, hand-off notes (§9).
-  - `packages/mandelbrot/REVIEW.md` — pipeline depth (skim; it's long).
-  - `packages/fracture/src/components/PerturbationScene.tsx` (lines ~107–213) — the glaze
-    integration pattern to mirror.
-  - `packages/fracture/src/core/createOrbitTextures.ts` — the orbit-texture pattern.
+    - `packages/mandelbrot/PLAN.md` — phases, decisions, hand-off notes (§9).
+    - `packages/mandelbrot/REVIEW.md` — pipeline depth (skim; it's long).
+    - `packages/fracture/src/components/PerturbationScene.tsx` (lines ~107–213) — the glaze
+      integration pattern to mirror.
+    - `packages/fracture/src/core/createOrbitTextures.ts` — the orbit-texture pattern.
 - **For any targeted question, use the codegraph MCP tool** (`codegraph_explore`) — one
   call answers what a grep+read loop would take dozens of turns to find. Do not grep the
   repo for facts already stated here.
@@ -35,21 +35,21 @@ The remaining gap: the app still renders through a bespoke WebGL2 `renderer.ts` 
 
 ### File map (all under `packages/mandelbrot/src/`)
 
-| File | What it is |
-| --- | --- |
-| `components/mandelbrot-viewer.tsx` | THE imperative shell: WebGL init, rAF render loop, pointer/wheel input on the BigFloat view, `requestReference`, HUD + ControlPanel. **Phase 2 rewires this onto `GpuCanvas`.** |
-| `components/control-panel.tsx` | `LookState` sliders; pure view of `LookState`. |
-| `components/hud.tsx` | zoom / cx / cy / maxIter / `computing` ("ref" pulse) readout. |
-| `lib/big-float.ts` | `BigFloat { m: bigint; prec }`; `fromNumber`/`toNumber`/`add`/`sub`/`mul`/`mulInt`/`zero`/`withPrec`. |
-| `lib/mandelbrot/view.ts` | `View { cx: BigFloat; cy: BigFloat; zoom /* log2 mag */ }`; `precisionForZoom = ⌈zoom⌉+52`, `pixelSpacing`, `initialView`, `reprecision`, `panByPixels`, `zoomAtPixel`, `formatMagnification`; `BASE_SPAN_Y = 3.0`. |
-| `lib/mandelbrot/look.ts` | `LookState`/`LookParams`, `DEFAULT_LOOK`, `MAX_ITER_CAP = 60000`, `effectiveMaxIter(budgetPct, zoom)`, `lookToParams` (angles → radians). |
-| `lib/reference-orbit.ts` | `computeReferenceOrbit` (sync, used by worker) + `computeReferenceOrbitAsync` (chunked fallback). `ReferenceOrbit { data: Float32Array /* interleaved Zx,Zy */; length }`. |
-| `lib/reference.worker.ts` | Vite module-worker entry. |
-| `lib/reference-worker.ts` | `OrbitRequest`/`OrbitResult`/`OrbitPool`; `computeReferenceAsync(req, pool?)`, `toRequest(centerX, centerY, maxIter)`. |
-| `lib/reference-policy.ts` | `needsRecompute(view, ref, refLength, look, heightPx)`, `Superseder`. |
-| `lib/webgl/renderer.ts` | `MandelbrotRenderer` — **delete in Phase 2** (replaced by glaze). |
-| `lib/webgl/shaders.ts` | `VERTEX_SRC` + `FRAGMENT_SRC` (perturbation + rebase + DE + OKLCH) — **kept as-is**. |
-| `styles/global.css` | styles (note: `exports["./styles"]` now points here). |
+| File                               | What it is                                                                                                                                                                                                          |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `components/mandelbrot-viewer.tsx` | THE imperative shell: WebGL init, rAF render loop, pointer/wheel input on the BigFloat view, `requestReference`, HUD + ControlPanel. **Phase 2 rewires this onto `GpuCanvas`.**                                     |
+| `components/control-panel.tsx`     | `LookState` sliders; pure view of `LookState`.                                                                                                                                                                      |
+| `components/hud.tsx`               | zoom / cx / cy / maxIter / `computing` ("ref" pulse) readout.                                                                                                                                                       |
+| `lib/big-float.ts`                 | `BigFloat { m: bigint; prec }`; `fromNumber`/`toNumber`/`add`/`sub`/`mul`/`mulInt`/`zero`/`withPrec`.                                                                                                               |
+| `lib/mandelbrot/view.ts`           | `View { cx: BigFloat; cy: BigFloat; zoom /* log2 mag */ }`; `precisionForZoom = ⌈zoom⌉+52`, `pixelSpacing`, `initialView`, `reprecision`, `panByPixels`, `zoomAtPixel`, `formatMagnification`; `BASE_SPAN_Y = 3.0`. |
+| `lib/mandelbrot/look.ts`           | `LookState`/`LookParams`, `DEFAULT_LOOK`, `MAX_ITER_CAP = 60000`, `effectiveMaxIter(budgetPct, zoom)`, `lookToParams` (angles → radians).                                                                           |
+| `lib/reference-orbit.ts`           | `computeReferenceOrbit` (sync, used by worker) + `computeReferenceOrbitAsync` (chunked fallback). `ReferenceOrbit { data: Float32Array /* interleaved Zx,Zy */; length }`.                                          |
+| `lib/reference.worker.ts`          | Vite module-worker entry.                                                                                                                                                                                           |
+| `lib/reference-worker.ts`          | `OrbitRequest`/`OrbitResult`/`OrbitPool`; `computeReferenceAsync(req, pool?)`, `toRequest(centerX, centerY, maxIter)`.                                                                                              |
+| `lib/reference-policy.ts`          | `needsRecompute(view, ref, refLength, look, heightPx)`, `Superseder`.                                                                                                                                               |
+| `lib/webgl/renderer.ts`            | `MandelbrotRenderer` — **delete in Phase 2** (replaced by glaze).                                                                                                                                                   |
+| `lib/webgl/shaders.ts`             | `VERTEX_SRC` + `FRAGMENT_SRC` (perturbation + rebase + DE + OKLCH) — **kept as-is**.                                                                                                                                |
+| `styles/global.css`                | styles (note: `exports["./styles"]` now points here).                                                                                                                                                               |
 
 ### Key signatures the renderer currently calls
 
@@ -98,23 +98,23 @@ texture/uniform plumbing. Mirror `PerturbationScene.tsx:107–213` + `createOrbi
    `renderer.setReference` re-allocates every recompute), `dispose()`, and a getter for
    the raw `WebGLTexture`.
 2. **Rewire `mandelbrot-viewer.tsx`**:
-   - Render via `<GpuCanvas fragmentShader={FRAGMENT_SRC} ...>` with the uniforms callback
-     computing exactly what the old render loop did: `uResolution` (from frame ctx),
-     `uSpacing`, `uRefOffset` (`(reprecision(view).cx - refCenter.cx)/spacing`, same
-     toNumber math as today), `uMaxIter = min(effectiveMaxIter(...), refLength)`,
-     `uRefWidth/uRefCount`, and `...lookToParams(look)`.
-   - **Decision to make (recommended):** set `pan={false} zoom={false}` and keep the
-     existing BigFloat pointer/wheel handlers driving `viewRef`. glaze's `Camera` is
-     float32 and cannot hold arbitrary-depth zoom; PLAN §2 says "Keep the BigFloat view
-     math; only translate at the canvas boundary." GpuCanvas becomes a pure GL surface +
-     frame loop.
-   - **Retain the last orbit `Float32Array` in a ref.** Today the viewer discards
-     `orbit.data` after upload — context restore needs it for re-upload.
-   - Add a `webglcontextrestored` listener: `dispose()` + re-upload the last orbit
-     (fracture pattern). Dispose textures on unmount.
-   - `requestReference`, policy, and the HUD "computing" flag stay as-is.
-   - Delete `MandelbrotRenderer` + the bespoke init/rAF/loop code it replaces (the
-     rAF loop moves into glaze's per-frame uniforms callback).
+    - Render via `<GpuCanvas fragmentShader={FRAGMENT_SRC} ...>` with the uniforms callback
+      computing exactly what the old render loop did: `uResolution` (from frame ctx),
+      `uSpacing`, `uRefOffset` (`(reprecision(view).cx - refCenter.cx)/spacing`, same
+      toNumber math as today), `uMaxIter = min(effectiveMaxIter(...), refLength)`,
+      `uRefWidth/uRefCount`, and `...lookToParams(look)`.
+    - **Decision to make (recommended):** set `pan={false} zoom={false}` and keep the
+      existing BigFloat pointer/wheel handlers driving `viewRef`. glaze's `Camera` is
+      float32 and cannot hold arbitrary-depth zoom; PLAN §2 says "Keep the BigFloat view
+      math; only translate at the canvas boundary." GpuCanvas becomes a pure GL surface +
+      frame loop.
+    - **Retain the last orbit `Float32Array` in a ref.** Today the viewer discards
+      `orbit.data` after upload — context restore needs it for re-upload.
+    - Add a `webglcontextrestored` listener: `dispose()` + re-upload the last orbit
+      (fracture pattern). Dispose textures on unmount.
+    - `requestReference`, policy, and the HUD "computing" flag stay as-is.
+    - Delete `MandelbrotRenderer` + the bespoke init/rAF/loop code it replaces (the
+      rAF loop moves into glaze's per-frame uniforms callback).
 3. **HUD** — PLAN says "FrameLoopProvider/useFrame for the HUD." Decide: either move the
    HUD readout to `useFrame`, or keep the current state-driven HUD. Pick the smallest
    change that stays honest to the plan; say which and why.
@@ -139,7 +139,7 @@ texture/uniform plumbing. Mirror `PerturbationScene.tsx:107–213` + `createOrbi
 - `pnpm --filter @repo/mandelbrot dev`: visual parity with the pre-change renderer at
   several zooms (incl. deep), pan/zoom smooth, "ref" pulse still accurate.
 - Context-loss recovery: trigger a WebGL context loss (e.g. `canvas.getContext('webgl2')
-  .getExtension('WEBGL_lose_context').loseContext()` from devtools) and confirm the image
+.getExtension('WEBGL_lose_context').loseContext()` from devtools) and confirm the image
   re-uploads correctly.
 
 **Done when** (PLAN §6): Reference/DE renders identically to today, with context-loss

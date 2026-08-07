@@ -31,16 +31,10 @@ export type OrbitPool = {
 };
 
 type OrbitWorkerMessage =
-    | { ok: true; data: Float32Array; length: number }
-    | { ok: false; error?: string };
+    { ok: true; data: Float32Array; length: number } | { ok: false; error?: string };
 
 /** Convert a serialized request back into BigFloat params for the fallback. */
-function requestToParams({
-    centerXStr,
-    centerYStr,
-    prec,
-    maxIter
-}: OrbitRequest): ReferenceParams {
+function requestToParams({ centerXStr, centerYStr, prec, maxIter }: OrbitRequest): ReferenceParams {
     return {
         centerX: { m: BigInt(centerXStr), prec },
         centerY: { m: BigInt(centerYStr), prec },
@@ -89,11 +83,7 @@ export function computeReferenceAsync(
 }
 
 // Re-export so consumers can serialize a BigFloat center to a request.
-export function toRequest(
-    centerX: BigFloat,
-    centerY: BigFloat,
-    maxIter: number
-): OrbitRequest {
+export function toRequest(centerX: BigFloat, centerY: BigFloat, maxIter: number): OrbitRequest {
     return {
         centerXStr: centerX.m.toString(),
         centerYStr: centerY.m.toString(),
