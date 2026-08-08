@@ -85,7 +85,8 @@ NEAREST + CLAMP_TO_EDGE. `uRefWidth=2048`, `uRefCount=length`.
 - glaze recompiles its own programs on `webglcontextrestored`, but **app-created raw
   textures are dead** after restore — you must re-create + re-upload (fracture's pattern).
 - `FrameLoopProvider` + `useFrame` exist for rAF-driven UI (`@repo/glaze/react/`).
-- `GpuFrameContext` exposes `width`/`height` → feed `uResolution: [width, height]`.
+- The `GpuSurface` you get from `onFrame`/`uniforms` exposes `width`/`height` → feed
+  `uResolution: [width, height]`.
 
 ## Phase 2 task (from PLAN §6)
 

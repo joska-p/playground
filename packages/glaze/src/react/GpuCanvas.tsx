@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactNode, type RefObject } from 'react';
-import { type GpuSurface, type GpuDraw, type GpuFrameContext } from '../gpu/createGpuSurface';
+import { type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { CameraControls, CameraOptions } from './useCamera';
@@ -9,7 +9,7 @@ import { useGpuCanvas } from './useGpuCanvas';
 
 export type GpuCanvasProps = {
     fragmentShader?: string;
-    uniforms?: (context: GpuFrameContext) => Record<string, UniformValue>;
+    uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
     onFrame?: GpuDraw | null;
     onSurface?: (surface: GpuSurface | null) => void;
     camera?: Camera;

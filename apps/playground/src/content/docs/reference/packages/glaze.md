@@ -19,7 +19,7 @@ It ships as two sibling runtimes over a shared foundation:
 - `CpuSurface` — immediate-mode Canvas2D. A fluent class: `createCpuSurface` is a thin `new CpuSurface(config)` wrapper; draw calls are chainable methods against a raw `2d` context.
 - `GpuSurface` — WebGL2, the same drawing model. A fluent class (`createGpuSurface` is a thin `new GpuSurface(config)` wrapper): the same chainable shape calls plus custom programs (`createProgram` / `renderProgram`), and `StateBuffer` for GPGPU simulation on a ping-pong texture pair.
 
-Both expose the same skeleton: a frame loop, a camera, and an input store, handed to you every frame as a context object (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`). Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
+Both expose the same skeleton: a frame loop, a camera, and an input store. Per-frame state (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`) lives on the surface, and draw callbacks receive the surface itself. Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
 
 The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the `Camera` class and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
 
@@ -59,7 +59,7 @@ export function Sketch() {
     return (
         <GpuCanvas
             onSurface={setSurface}
-            onFrame={({ surface }) => {
+            onFrame={(surface) => {
                 surface.clear(0.05, 0.07, 0.09, 1);
                 surface.circle(200, 150, 60, '#e11d48');
                 surface.rect(30, 30, 120, 90, '#16a34a');
@@ -70,7 +70,7 @@ export function Sketch() {
 }
 ```
 
-`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
+`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same surface the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -98,7 +98,7 @@ void main() {
 }
 ```
 
-The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `surface.createProgram(source)` and `surface.renderProgram(program)` from `onSurface`.
+The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the surface. For the imperative equivalent, use `surface.createProgram(source)` and `surface.renderProgram(program)` from `onSurface`.
 
 ### A GPGPU simulation (state buffer)
 

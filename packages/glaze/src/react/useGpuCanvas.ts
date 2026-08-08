@@ -2,8 +2,7 @@ import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'rea
 import {
     createGpuSurface,
     type GpuSurface,
-    type GpuDraw,
-    type GpuFrameContext
+    type GpuDraw
 } from '../gpu/createGpuSurface';
 import type { Program } from '../gpu/shader/createProgram';
 import type { UniformValue } from '../gpu/shader/compileProgram';
@@ -13,7 +12,7 @@ import { useCamera, type CameraControls, type CameraOptions } from './useCamera'
 
 export type UseGpuCanvasOptions = {
     fragmentShader?: string | undefined;
-    uniforms?: ((context: GpuFrameContext) => Record<string, UniformValue>) | undefined;
+    uniforms?: ((surface: GpuSurface) => Record<string, UniformValue>) | undefined;
     onFrame?: GpuDraw | null | undefined;
     onSurface?: ((surface: GpuSurface | null) => void) | undefined;
     camera?: Camera | undefined;
@@ -94,16 +93,16 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
         return () => onSurface?.(null);
     }, [surface, onSurface]);
 
-    const draw = useEffectEvent((ctx: GpuFrameContext) => {
-        frameRef.current = ctx;
+    const draw = useEffectEvent((frame: GpuSurface) => {
+        frameRef.current = frame;
 
         const program = programRef.current;
         if (program) {
-            program.setUniforms(uniforms ? uniforms(ctx) : {});
-            if (surface) surface.renderProgram(program);
+            program.setUniforms(uniforms ? uniforms(frame) : {});
+            frame.renderProgram(program);
         }
 
-        onFrame?.(ctx);
+        onFrame?.(frame);
     });
 
     useEffect(() => {

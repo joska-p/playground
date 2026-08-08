@@ -18,19 +18,7 @@ export type GpuSurfaceConfig = {
     dpr?: number;
 };
 
-export type GpuFrameContext = {
-    readonly time: number;
-    readonly deltaTime: number;
-    readonly frameCount: number;
-    readonly camera: Camera;
-    readonly input: InputStore;
-    readonly width: number;
-    readonly height: number;
-    readonly dpr: number;
-    readonly surface: GpuSurface;
-};
-
-export type GpuDraw = (context: GpuFrameContext) => void;
+export type GpuDraw = (surface: GpuSurface) => void;
 
 const buildStyle = (fill?: string, stroke?: string, lineWidth?: number): DrawStyle => ({
     ...(fill !== undefined ? { fill } : {}),
@@ -39,12 +27,17 @@ const buildStyle = (fill?: string, stroke?: string, lineWidth?: number): DrawSty
 });
 
 export class GpuSurface {
+    time = 0;
+    deltaTime = 0;
+    frameCount = 0;
+    width = 0;
+    height = 0;
+    readonly dpr: number;
     readonly canvas: HTMLCanvasElement;
     readonly gl: WebGL2RenderingContext;
     readonly camera: Camera;
     readonly input: InputStore;
 
-    readonly #dpr: number;
     readonly #loop = createFrameLoop();
     readonly #programs = new Set<Program>();
     readonly #subscribers = new Set<GpuDraw>();
@@ -52,8 +45,6 @@ export class GpuSurface {
     #draw: GpuDraw | null = null;
     #textRasterizer: TextRasterizer | null = null;
     #textProgram: Program | null = null;
-    #frameCount = 0;
-    #currentTime = 0;
     #cssWidth = 0;
     #cssHeight = 0;
     #lost = false;
@@ -71,7 +62,7 @@ export class GpuSurface {
         this.canvas = config.canvas;
         this.gl = gl;
         this.camera = config.camera ?? defaultCamera();
-        this.#dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
+        this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
         this.#batch = new ShapeBatcher({
             gl,
@@ -100,12 +91,12 @@ export class GpuSurface {
         if (this.#lost) return this;
         program.setUniforms(
             createStandardUniformValues(
-                this.#cssWidth,
-                this.#cssHeight,
-                this.#dpr,
+                this.width,
+                this.height,
+                this.dpr,
                 this.input.pointer,
                 this.camera,
-                this.#currentTime
+                this.time
             )
         );
         program.render();
@@ -282,8 +273,8 @@ export class GpuSurface {
     #resize(): void {
         this.#cssWidth = Math.max(1, this.canvas.clientWidth);
         this.#cssHeight = Math.max(1, this.canvas.clientHeight);
-        const deviceWidth = Math.round(this.#cssWidth * this.#dpr);
-        const deviceHeight = Math.round(this.#cssHeight * this.#dpr);
+        const deviceWidth = Math.round(this.#cssWidth * this.dpr);
+        const deviceHeight = Math.round(this.#cssHeight * this.dpr);
         if (this.canvas.width !== deviceWidth) this.canvas.width = deviceWidth;
         if (this.canvas.height !== deviceHeight) this.canvas.height = deviceHeight;
         this.gl.viewport(0, 0, deviceWidth, deviceHeight);
@@ -323,24 +314,15 @@ export class GpuSurface {
 
     #onFrame: FrameCallback = (time, deltaTime): void => {
         this.#resize();
-        this.#frameCount++;
-        this.#currentTime = time;
-
-        const frameContext: GpuFrameContext = {
-            time,
-            deltaTime,
-            frameCount: this.#frameCount,
-            camera: this.camera,
-            input: this.input,
-            width: this.#cssWidth,
-            height: this.#cssHeight,
-            dpr: this.#dpr,
-            surface: this
-        };
+        this.frameCount++;
+        this.time = time;
+        this.deltaTime = deltaTime;
+        this.width = this.#cssWidth;
+        this.height = this.#cssHeight;
 
         const current = this.#draw;
-        if (current) current(frameContext);
-        for (const subscriber of this.#subscribers) subscriber(frameContext);
+        if (current) current(this);
+        for (const subscriber of this.#subscribers) subscriber(this);
         this.#flushBatch();
         this.input.endFrame();
     };

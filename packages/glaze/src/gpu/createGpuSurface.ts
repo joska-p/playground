@@ -1,6 +1,6 @@
-import { GpuSurface, type GpuSurfaceConfig, type GpuDraw, type GpuFrameContext } from './GpuSurface';
+import { GpuSurface, type GpuSurfaceConfig, type GpuDraw } from './GpuSurface';
 
-export type { GpuSurfaceConfig, GpuDraw, GpuFrameContext };
+export type { GpuSurfaceConfig, GpuDraw };
 export { GpuSurface };
 
 export function createGpuSurface(config: GpuSurfaceConfig): GpuSurface {
