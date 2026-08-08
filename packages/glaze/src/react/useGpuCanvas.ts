@@ -1,10 +1,10 @@
 import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
 import {
-    createGpuRuntime,
-    type GpuRuntime,
+    createGpuSurface,
+    type GpuSurface,
     type GpuDraw,
     type GpuFrameContext
-} from '../gpu/createGpuRuntime';
+} from '../gpu/createGpuSurface';
 import type { Program } from '../gpu/shader/createProgram';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { Camera } from '../core/coords/camera';
@@ -15,24 +15,16 @@ export type UseGpuCanvasOptions = {
     fragmentShader?: string | undefined;
     uniforms?: ((context: GpuFrameContext) => Record<string, UniformValue>) | undefined;
     onFrame?: GpuDraw | null | undefined;
-    /**
-     * Called with the runtime when it becomes ready, and with `null` when
-     * it is destroyed. Treat it like a ref callback.
-     */
-    onSurface?: ((runtime: GpuRuntime | null) => void) | undefined;
+    onSurface?: ((surface: GpuSurface | null) => void) | undefined;
     camera?: Camera | undefined;
     cameraControls?: CameraControls | undefined;
     initialCamera?: CameraOptions | undefined;
-    /**
-     * Device pixel ratio. Fixed at runtime creation.
-     * Changing this prop after mount has no effect.
-     */
     dpr?: number | undefined;
     canvasRef?: RefObject<HTMLCanvasElement | null> | undefined;
 };
 
 export type UseGpuCanvasResult = {
-    runtime: GpuRuntime | null;
+    surface: GpuSurface | null;
     canvasRef: RefObject<HTMLCanvasElement | null>;
     camera: Camera;
     controls: CameraControls;
@@ -59,70 +51,66 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
     const camera = externalCamera ?? internalCamera;
     const controls = cameraControls ?? internalControls;
 
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [surface, setSurface] = useState<GpuSurface | null>(null);
     const programRef = useRef<Program | null>(null);
     const frameRef = useRef<FrameSnapshot | null>(null);
 
-    const createRuntime = useEffectEvent((canvas: HTMLCanvasElement) => {
-        return createGpuRuntime({
+    const createSurface = useEffectEvent((canvas: HTMLCanvasElement) => {
+        return createGpuSurface({
             canvas,
             camera,
             ...(dpr !== undefined ? { dpr } : {})
         });
     });
 
-    // Runtime lifetime is tied to the canvas element
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const instance = createRuntime(canvas);
-        setRuntime(instance);
+        const instance = createSurface(canvas);
+        setSurface(instance);
 
         return () => {
             instance.destroy();
-            setRuntime(null);
+            setSurface(null);
             frameRef.current = null;
         };
     }, [canvasRef]);
 
-    // Program lifetime is tied to the runtime + shader source
     useEffect(() => {
-        if (!runtime || !fragmentShader) return;
+        if (!surface || !fragmentShader) return;
 
-        const program = runtime.createProgram(fragmentShader);
+        const program = surface.createProgram(fragmentShader);
         programRef.current = program;
 
         return () => {
             program.destroy();
             programRef.current = null;
         };
-    }, [runtime, fragmentShader]);
+    }, [surface, fragmentShader]);
 
-    // Notify parent (ref-callback style)
     useEffect(() => {
-        onSurface?.(runtime);
+        onSurface?.(surface ?? null);
         return () => onSurface?.(null);
-    }, [runtime, onSurface]);
+    }, [surface, onSurface]);
 
-    // Always call the latest draw logic without re-creating the runtime
     const draw = useEffectEvent((ctx: GpuFrameContext) => {
         frameRef.current = ctx;
 
         const program = programRef.current;
         if (program) {
             program.setUniforms(uniforms ? uniforms(ctx) : {});
-            if (runtime) runtime.renderProgram(program);
+            if (surface) surface.renderProgram(program);
         }
 
         onFrame?.(ctx);
     });
 
     useEffect(() => {
-        if (!runtime) return;
+        if (!surface) return;
         const shouldDraw = onFrame != null || fragmentShader != null;
-        runtime.setDraw(shouldDraw ? draw : null);
-    }, [runtime, onFrame, fragmentShader]);
+        surface.setDraw(shouldDraw ? draw : null);
+    }, [surface, onFrame, fragmentShader]);
 
-    return { runtime, canvasRef, camera, controls, frameRef };
+    return { surface, canvasRef, camera, controls, frameRef };
 }

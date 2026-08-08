@@ -1,14 +1,11 @@
-import { useState } from 'react';
-import type { GpuDraw, GpuRuntime } from '../../../gpu/createGpuRuntime';
+import type { GpuDraw } from '../../../gpu/createGpuSurface';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuDeclarative() {
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
-
-    const onFrame: GpuDraw = () => {
-        if (!runtime) return;
-        drawSceneGpu(runtime);
+    const onFrame: GpuDraw = (context) => {
+        const { surface } = context;
+        drawSceneGpu(surface);
     };
 
     return (
@@ -16,7 +13,6 @@ export function SurfaceGpuDeclarative() {
             <GpuCanvas
                 pan={true}
                 zoom={true}
-                onSurface={setRuntime}
                 onFrame={onFrame}
                 className="h-full w-full"
             />

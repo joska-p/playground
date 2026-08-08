@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '../../../react/GpuCanvas';
-import type { GpuRuntime } from '../../../gpu/createGpuRuntime';
+import type { GpuSurface } from '../../../gpu/createGpuSurface';
 import type { UniformValue } from '../../../gpu/shader/compileProgram';
 import { createStateBuffer, type StateBuffer } from '../../../gpu/createStateBuffer';
 
@@ -86,12 +86,12 @@ function seedSoup(): Uint8Array {
 }
 
 export function ProgramGpuHybrid() {
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [surface, setSurface] = useState<GpuSurface | null>(null);
     const bufferRef = useRef<StateBuffer | null>(null);
 
     useEffect(() => {
-        if (!runtime) return;
-        const buffer = createStateBuffer(runtime.gl, GRID, GRID);
+        if (!surface) return;
+        const buffer = createStateBuffer(surface.gl, GRID, GRID);
         buffer.addProgram('sim', simFragmentSource);
         buffer.init(seedSoup());
         bufferRef.current = buffer;
@@ -99,13 +99,13 @@ export function ProgramGpuHybrid() {
             buffer.destroy();
             bufferRef.current = null;
         };
-    }, [runtime]);
+    }, [surface]);
 
     return (
         <div className="h-75 w-100">
             <GpuCanvas
                 fragmentShader={displayFragmentSource}
-                onSurface={setRuntime}
+                onSurface={setSurface}
                 className="h-full w-full"
                 uniforms={(): Record<string, UniformValue> => {
                     const buffer = bufferRef.current;

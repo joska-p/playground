@@ -13,7 +13,7 @@ import {
     type TextRasterizer
 } from './shapes/text';
 
-export type GpuRuntimeConfig = {
+export type GpuSurfaceConfig = {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     dpr?: number;
@@ -28,11 +28,12 @@ export type GpuFrameContext = {
     readonly width: number;
     readonly height: number;
     readonly dpr: number;
+    readonly surface: GpuSurface;
 };
 
 export type GpuDraw = (context: GpuFrameContext) => void;
 
-export type GpuRuntime = {
+export type GpuSurface = {
     readonly canvas: HTMLCanvasElement;
     readonly gl: WebGL2RenderingContext;
     readonly camera: Camera;
@@ -50,7 +51,7 @@ export type GpuRuntime = {
     destroy(): void;
 };
 
-export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
+export function createGpuSurface(config: GpuSurfaceConfig): GpuSurface {
     const canvas = config.canvas;
     const gl = canvas.getContext('webgl2', {
         alpha: true,
@@ -58,10 +59,12 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         premultipliedAlpha: true
     });
     if (!gl) throw new Error('Glaze: WebGL2 not supported');
+
     const camera: Camera = config.camera ?? defaultCamera();
     const dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
     const input = createInputStore();
     const loop = createFrameLoop();
+
     const programs = new Set<Program>();
     const subscribers = new Set<GpuDraw>();
     let draw: GpuDraw | null = null;
@@ -74,6 +77,12 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
     let lost = false;
     let rendererAttached = false;
     let unsubscribeRenderer: (() => void) | null = null;
+
+    const batch = createShapeBatcher({
+        gl,
+        camera,
+        getViewport: () => ({ width: cssWidth, height: cssHeight })
+    });
 
     const resize = (): void => {
         cssWidth = Math.max(1, canvas.clientWidth);
@@ -141,27 +150,6 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         for (const program of programs) program.reinitialize();
     };
 
-    const onFrame: FrameCallback = (time, deltaTime): void => {
-        resize();
-        frameCount++;
-        currentTime = time;
-        const frameContext: GpuFrameContext = {
-            time,
-            deltaTime,
-            frameCount,
-            camera,
-            input,
-            width: cssWidth,
-            height: cssHeight,
-            dpr
-        };
-        const current = draw;
-        if (current) current(frameContext);
-        for (const subscriber of subscribers) subscriber(frameContext);
-        flushBatch();
-        input.endFrame();
-    };
-
     const startRendering = (): void => {
         if (rendererAttached) return;
         unsubscribeRenderer = loop.subscribe(onFrame);
@@ -175,18 +163,8 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
         rendererAttached = false;
     };
 
-    const batch = createShapeBatcher({
-        gl,
-        camera,
-        getViewport: () => ({ width: cssWidth, height: cssHeight })
-    });
-
-    configureState();
-    resize();
-    canvas.addEventListener('webglcontextlost', onContextLost);
-    canvas.addEventListener('webglcontextrestored', onContextRestored);
-
-    return {
+    // Build the public surface first so onFrame can close over it.
+    const surface: GpuSurface = {
         canvas,
         gl,
         camera,
@@ -264,4 +242,35 @@ export function createGpuRuntime(config: GpuRuntimeConfig): GpuRuntime {
             draw = null;
         }
     };
+
+    const onFrame: FrameCallback = (time, deltaTime): void => {
+        resize();
+        frameCount++;
+        currentTime = time;
+
+        const frameContext: GpuFrameContext = {
+            time,
+            deltaTime,
+            frameCount,
+            camera,
+            input,
+            width: cssWidth,
+            height: cssHeight,
+            dpr,
+            surface
+        };
+
+        const current = draw;
+        if (current) current(frameContext);
+        for (const subscriber of subscribers) subscriber(frameContext);
+        flushBatch();
+        input.endFrame();
+    };
+
+    configureState();
+    resize();
+    canvas.addEventListener('webglcontextlost', onContextLost);
+    canvas.addEventListener('webglcontextrestored', onContextRestored);
+
+    return surface;
 }

@@ -1,4 +1,4 @@
-import type { GpuRuntime } from '../../gpu/createGpuRuntime';
+import type { GpuSurface } from '../../gpu/createGpuSurface';
 import type { CpuSurface } from '../../cpu/createCpuSurface';
 import { drawCircle } from '../../cpu/shapes/circle';
 import { drawLine } from '../../cpu/shapes/line';
@@ -42,18 +42,18 @@ export function drawSceneCpu(surface: CpuSurface): void {
     );
 }
 
-export function drawSceneGpu(runtime: GpuRuntime): void {
-    runtime.clear(SCENE.bgGpu[0], SCENE.bgGpu[1], SCENE.bgGpu[2], 1);
-    runtime.drawCircle(SCENE.circle.center, SCENE.circle.radius, { fill: SCENE.circle.fill });
-    runtime.drawRect(
+export function drawSceneGpu(surface: GpuSurface): void {
+    surface.clear(SCENE.bgGpu[0], SCENE.bgGpu[1], SCENE.bgGpu[2], 1);
+    surface.drawCircle(SCENE.circle.center, SCENE.circle.radius, { fill: SCENE.circle.fill });
+    surface.drawRect(
         { x: SCENE.rect.x, y: SCENE.rect.y, w: SCENE.rect.w, h: SCENE.rect.h },
         { fill: SCENE.rect.fill }
     );
-    runtime.drawLine(SCENE.line.a, SCENE.line.b, {
+    surface.drawLine(SCENE.line.a, SCENE.line.b, {
         stroke: SCENE.line.stroke,
         lineWidth: SCENE.line.lineWidth
     });
-    runtime.drawText(SCENE.text.text, SCENE.text.position, {
+    surface.drawText(SCENE.text.text, SCENE.text.position, {
         fill: SCENE.text.fill,
         fontSize: SCENE.text.fontSize
     });

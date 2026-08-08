@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import type { GpuDraw, GpuRuntime } from '../../../gpu/createGpuRuntime';
+import { useRef } from 'react';
+import type { GpuDraw } from '../../../gpu/createGpuSurface';
 import type { Point2D } from '../../../core/coords/camera';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 import { useCamera } from '../../../react/useCamera';
@@ -7,7 +7,6 @@ import { useFrame } from '../../../react/useFrame';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuHybrid() {
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
     const [camera, controls] = useCamera({ zoom: 1 });
     const hoverRef = useRef<Point2D | null>(null);
     const phaseRef = useRef(0);
@@ -16,20 +15,19 @@ export function SurfaceGpuHybrid() {
         phaseRef.current = time * 3;
     });
 
-    const onFrame: GpuDraw = () => {
-        if (!runtime) return;
-        drawSceneGpu(runtime);
+    const onFrame: GpuDraw = (context) => {
+        const { surface } = context;
+        drawSceneGpu(surface);
         const hover = hoverRef.current;
         if (hover) {
             const radius = 22 + Math.sin(phaseRef.current) * 6;
-            runtime.drawCircle(hover, radius, { stroke: '#facc15', lineWidth: 3 });
+            surface.drawCircle(hover, radius, { stroke: '#facc15', lineWidth: 3 });
         }
     };
 
     return (
         <div className="h-75 w-100">
             <GpuCanvas
-                onSurface={setRuntime}
                 onFrame={onFrame}
                 camera={camera}
                 cameraControls={controls}

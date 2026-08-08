@@ -6,18 +6,10 @@ import { useCamera, type CameraControls, type CameraOptions } from './useCamera'
 
 export type UseCpuCanvasOptions = {
     onFrame?: CpuDraw | null | undefined;
-    /**
-     * Called with the runtime when it becomes ready, and with `null` when
-     * it is destroyed. Treat it like a ref callback.
-     */
     onSurface?: ((surface: CpuSurface | null) => void) | undefined;
     camera?: Camera | undefined;
     cameraControls?: CameraControls | undefined;
     initialCamera?: CameraOptions | undefined;
-    /**
-     * Device pixel ratio. Fixed at runtime creation.
-     * Changing this prop after mount has no effect.
-     */
     dpr?: number | undefined;
     canvasRef?: RefObject<HTMLCanvasElement | null> | undefined;
 };
@@ -59,7 +51,6 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         });
     });
 
-    // Runtime lifetime is tied to the canvas element
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -74,13 +65,11 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         };
     }, [canvasRef]);
 
-    // Notify parent (ref-callback style)
     useEffect(() => {
         onSurface?.(surface);
         return () => onSurface?.(null);
     }, [surface, onSurface]);
 
-    // Always call the latest onFrame without re-creating the runtime
     const draw = useEffectEvent((ctx: Parameters<CpuDraw>[0]) => {
         frameRef.current = ctx;
         onFrame?.(ctx);

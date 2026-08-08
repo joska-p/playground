@@ -1,20 +1,15 @@
-import { useState } from 'react';
-import type { CpuDraw, CpuSurface } from '../../../cpu/createCpuSurface';
+import type { CpuDraw } from '../../../cpu/createCpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 import { drawSceneCpu } from '../scene';
 
 export function SurfaceCpuDeclarative() {
-    const [surface, setSurface] = useState<CpuSurface | null>(null);
-
-    const onFrame: CpuDraw = () => {
-        if (!surface) return;
-        drawSceneCpu(surface);
+    const onFrame: CpuDraw = (context) => {
+        drawSceneCpu(context.surface);
     };
 
     return (
         <div className="h-75 w-100">
             <CpuCanvas
-                onSurface={setSurface}
                 onFrame={onFrame}
                 className="h-full w-full"
             />

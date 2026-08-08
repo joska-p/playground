@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createGpuRuntime } from '../../../gpu/createGpuRuntime';
+import { createGpuSurface } from '../../../gpu/createGpuSurface';
 import plasmaFragmentSource from '../shaders.glsl?raw';
 
 export function ProgramGpuImperative() {
@@ -8,16 +8,16 @@ export function ProgramGpuImperative() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const runtime = createGpuRuntime({ canvas });
-        const plasma = runtime.createProgram(plasmaFragmentSource);
-        const unsubscribe = runtime.subscribe(() => {
-            runtime.clear(0, 0, 0, 1);
-            runtime.renderProgram(plasma);
+        const surface = createGpuSurface({ canvas });
+        const plasma = surface.createProgram(plasmaFragmentSource);
+        const unsubscribe = surface.subscribe(() => {
+            surface.clear(0, 0, 0, 1);
+            surface.renderProgram(plasma);
         });
         return () => {
             unsubscribe();
             plasma.destroy();
-            runtime.destroy();
+            surface.destroy();
         };
     }, []);
 

@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactNode, type RefObject } from 'react';
-import { type GpuRuntime, type GpuDraw, type GpuFrameContext } from '../gpu/createGpuRuntime';
+import { type GpuSurface, type GpuDraw, type GpuFrameContext } from '../gpu/createGpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { CameraControls, CameraOptions } from './useCamera';
@@ -11,7 +11,7 @@ export type GpuCanvasProps = {
     fragmentShader?: string;
     uniforms?: (context: GpuFrameContext) => Record<string, UniformValue>;
     onFrame?: GpuDraw | null;
-    onSurface?: (runtime: GpuRuntime | null) => void;
+    onSurface?: (surface: GpuSurface | null) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;
@@ -44,7 +44,7 @@ export function GpuCanvas({
     style,
     children
 }: GpuCanvasProps) {
-    const { runtime, canvasRef, camera, controls, frameRef } = useGpuCanvas({
+    const { surface, canvasRef, camera, controls, frameRef } = useGpuCanvas({
         fragmentShader,
         uniforms,
         onFrame,
@@ -61,7 +61,7 @@ export function GpuCanvas({
         {
             camera,
             controls,
-            input: runtime?.input ?? null,
+            input: surface?.input ?? null,
             getFrame: () => frameRef.current
         },
         { pan, zoom, panButton, pointerHandlers }

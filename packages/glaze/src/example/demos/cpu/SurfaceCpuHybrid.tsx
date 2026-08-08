@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import type { CpuDraw, CpuSurface } from '../../../cpu/createCpuSurface';
+import { useRef } from 'react';
+import type { CpuDraw } from '../../../cpu/createCpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 import { drawCircle } from '../../../cpu/shapes/circle';
 import type { Point2D } from '../../../core/coords/camera';
@@ -12,7 +12,6 @@ const RADIUS = 24;
 const SPEED = 8;
 
 export function SurfaceCpuHybrid() {
-    const [surface, setSurface] = useState<CpuSurface | null>(null);
     const [camera, controls] = useCamera({ zoom: 1 });
     const phaseRef = useRef(0);
 
@@ -20,8 +19,8 @@ export function SurfaceCpuHybrid() {
         phaseRef.current = time * SPEED;
     });
 
-    const onFrame: CpuDraw = () => {
-        if (!surface) return;
+    const onFrame: CpuDraw = (frameContext) => {
+        const surface = frameContext.surface;
         const position: Point2D = {
             x: CENTER.x + ORBIT * Math.cos(phaseRef.current),
             y: CENTER.y + ORBIT * Math.sin(phaseRef.current)
@@ -35,7 +34,6 @@ export function SurfaceCpuHybrid() {
     return (
         <div className="h-75 w-100">
             <CpuCanvas
-                onSurface={setSurface}
                 onFrame={onFrame}
                 camera={camera}
                 cameraControls={controls}

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createGpuRuntime } from '../../../gpu/createGpuRuntime';
+import { createGpuSurface } from '../../../gpu/createGpuSurface';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuImperative() {
@@ -8,12 +8,12 @@ export function SurfaceGpuImperative() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const runtime = createGpuRuntime({ canvas });
-        runtime.setDraw(() => {
-            drawSceneGpu(runtime);
+        const surface = createGpuSurface({ canvas });
+        surface.setDraw(() => {
+            drawSceneGpu(surface);
         });
         return () => {
-            runtime.destroy();
+            surface.destroy();
         };
     }, []);
 
