@@ -156,7 +156,8 @@ can be added later if wanted.
   texture/uniform plumbing (pattern: `packages/fracture/.../PerturbationScene.tsx:109-209`).
 - Orbit texture via raw `WebGLTexture` uniform; `texSubImage2D` reuse when dims match;
   re-upload last orbit on `webglcontextrestored`.
-- `FrameLoopProvider`/`useFrame` for the HUD; `@repo/ui/control-panel` for the sliders.
+- HUD stays state-driven (glaze has no `useFrame`; the rAF tick is owned by the surface);
+  `@repo/ui/control-panel` for the sliders.
 - The current viewer becomes the **Reference/DE** registry entry (component + store + shader).
 - Keep the BigFloat view math; only translate at the canvas boundary.
 

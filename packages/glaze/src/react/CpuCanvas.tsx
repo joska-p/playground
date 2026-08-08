@@ -15,7 +15,7 @@ export type CpuCanvasProps = {
     pan?: boolean;
     zoom?: boolean;
     panButton?: number | number[];
-    pointerHandlers?: PointerHandlers;
+    pointerHandlers?: PointerHandlers<CpuSurface>;
     canvasRef?: RefObject<HTMLCanvasElement | null>;
     dpr?: number;
     className?: string;
@@ -39,7 +39,7 @@ export function CpuCanvas({
     style,
     children
 }: CpuCanvasProps) {
-    const { surface, canvasRef, camera, controls, frameRef } = useCpuCanvas({
+    const { surface, canvasRef, camera, controls } = useCpuCanvas({
         onFrame,
         onSurface,
         camera: externalCamera,
@@ -49,12 +49,10 @@ export function CpuCanvas({
         canvasRef: externalCanvasRef
     });
 
-    const target = canvasRef;
     const interaction = {
         camera,
         controls,
-        input: surface?.input ?? null,
-        getFrame: () => frameRef.current
+        surface
     };
     const options = {
         pan,
@@ -63,7 +61,7 @@ export function CpuCanvas({
         pointerHandlers
     };
 
-    useCanvasInteraction(target, interaction, options);
+    useCanvasInteraction(canvasRef, interaction, options);
 
     const touchAction = pan || zoom || pointerHandlers ? 'none' : 'auto';
 

@@ -1,4 +1,3 @@
-import { FrameLoopProvider } from '@repo/glaze/react/FrameLoopProvider';
 import { Atlas } from '../modules/atlas/Atlas';
 import { FoldedSpace } from '../modules/folded-space/FoldedSpace';
 import { Manual } from '../modules/manual/Manual';
@@ -12,12 +11,10 @@ export function ArtCanvas() {
     return (
         <>
             <ControlsPanel />
-            <FrameLoopProvider>
-                {inputMode === 'seed' && <SeedCanvas />}
-                {inputMode === 'folded-space' && <FoldedSpace />}
-                {inputMode === 'atlas' && <Atlas />}
-                {inputMode === 'manual' && <Manual />}
-            </FrameLoopProvider>
+            {inputMode === 'seed' && <SeedCanvas />}
+            {inputMode === 'folded-space' && <FoldedSpace />}
+            {inputMode === 'atlas' && <Atlas />}
+            {inputMode === 'manual' && <Manual />}
         </>
     );
 }

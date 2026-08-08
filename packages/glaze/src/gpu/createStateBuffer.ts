@@ -6,6 +6,7 @@ import type { UniformValue } from './shader/compileProgram';
  * framebuffer. `step()` renders into the write target while sampling the read
  * target, then swaps them so the result becomes the input of the next step.
  */
+// fallow-ignore-next-line unused-export -- public types of createStateBuffer, consumed via the factory's return type
 export class StateBufferTargets {
     readonly #gl: WebGL2RenderingContext;
     #pingPong = 0;
@@ -113,7 +114,17 @@ export class StateBufferTargets {
         }
 
         gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA8,
+            width,
+            height,
+            0,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            null
+        );
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -186,6 +197,7 @@ export class StateBufferTargets {
  * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)`
  * → `step()`, reading the live state back with `getTexture()`.
  */
+// fallow-ignore-next-line unused-export -- public return type of createStateBuffer
 export class StateBuffer {
     readonly #gl: WebGL2RenderingContext;
     readonly #targets: StateBufferTargets;
@@ -264,7 +276,9 @@ export class StateBuffer {
     #activeProgram(): Program {
         const program = this.#programs.get(this.#activeName ?? 'default');
         if (!program)
-            throw new Error(`Glaze: StateBuffer program "${this.#activeName ?? 'default'}" not found`);
+            throw new Error(
+                `Glaze: StateBuffer program "${this.#activeName ?? 'default'}" not found`
+            );
         return program;
     }
 }

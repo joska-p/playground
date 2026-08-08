@@ -86,11 +86,26 @@ export class TextRasterizer {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createTexture() as non-null, but the WebGL spec allows null on failure
         if (!texture) throw new Error('Glaze: text texture allocation failed');
         this.#gl.bindTexture(this.#gl.TEXTURE_2D, texture);
-        this.#gl.texImage2D(this.#gl.TEXTURE_2D, 0, this.#gl.RGBA, this.#gl.RGBA, this.#gl.UNSIGNED_BYTE, this.#canvas);
+        this.#gl.texImage2D(
+            this.#gl.TEXTURE_2D,
+            0,
+            this.#gl.RGBA,
+            this.#gl.RGBA,
+            this.#gl.UNSIGNED_BYTE,
+            this.#canvas
+        );
         this.#gl.texParameteri(this.#gl.TEXTURE_2D, this.#gl.TEXTURE_MIN_FILTER, this.#gl.LINEAR);
         this.#gl.texParameteri(this.#gl.TEXTURE_2D, this.#gl.TEXTURE_MAG_FILTER, this.#gl.LINEAR);
-        this.#gl.texParameteri(this.#gl.TEXTURE_2D, this.#gl.TEXTURE_WRAP_S, this.#gl.CLAMP_TO_EDGE);
-        this.#gl.texParameteri(this.#gl.TEXTURE_2D, this.#gl.TEXTURE_WRAP_T, this.#gl.CLAMP_TO_EDGE);
+        this.#gl.texParameteri(
+            this.#gl.TEXTURE_2D,
+            this.#gl.TEXTURE_WRAP_S,
+            this.#gl.CLAMP_TO_EDGE
+        );
+        this.#gl.texParameteri(
+            this.#gl.TEXTURE_2D,
+            this.#gl.TEXTURE_WRAP_T,
+            this.#gl.CLAMP_TO_EDGE
+        );
 
         const entry: TextRaster = { texture, width, height };
         this.#cache.set(key, entry);
@@ -113,10 +128,6 @@ export class TextRasterizer {
     destroy(): void {
         this.clear();
     }
-}
-
-export function createTextRasterizer(gl: WebGL2RenderingContext): TextRasterizer {
-    return new TextRasterizer(gl);
 }
 
 export function textUniforms(

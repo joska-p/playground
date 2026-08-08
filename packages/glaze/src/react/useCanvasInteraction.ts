@@ -1,54 +1,31 @@
-import { useEffect, useEffectEvent, useRef, type RefObject } from 'react';
-import type { InputStore } from '../cpu/createInputStore';
+import { useEffect, useRef, type RefObject } from 'react';
 import type { Camera } from '../core/coords/camera';
+import type { InputStore } from '../cpu/createInputStore';
 import {
     createInteractionController,
-    type FrameSnapshot,
-    type InteractionContextBase,
     type InteractionControllerOptions,
     type InteractionOptions
 } from './interaction';
 import type { CameraControls } from './useCamera';
 
-export type CanvasInteraction = {
+export type CanvasInteraction<TSurface extends { input: InputStore }> = {
     camera: Camera;
     controls: CameraControls;
-    input: InputStore | null;
-    getFrame(): FrameSnapshot | null;
+    surface: TSurface | null;
 };
 
-export function useCanvasInteraction(
+export function useCanvasInteraction<TSurface extends { input: InputStore }>(
     target: RefObject<HTMLCanvasElement | null>,
-    interaction: CanvasInteraction,
-    options: InteractionOptions = {}
+    interaction: CanvasInteraction<TSurface>,
+    options: InteractionOptions<TSurface> = {}
 ): void {
-    const { camera, controls, input } = interaction;
+    const { camera, controls, surface } = interaction;
     const { pan, zoom, panButton, pointerHandlers } = options;
 
-    const controllerOptionsRef = useRef<InteractionControllerOptions | null>(null);
+    const controllerOptionsRef = useRef<InteractionControllerOptions<TSurface> | null>(null);
     const cameraRef = useRef(camera);
     const controlsRef = useRef(controls);
     const interactionRef = useRef(interaction);
-
-    const getContext = useEffectEvent((): InteractionContextBase => {
-        const canvas = target.current;
-        const frame = interactionRef.current.getFrame();
-
-        if (!canvas) {
-            throw new Error('Canvas target is not available');
-        }
-
-        return {
-            camera: cameraRef.current,
-            input: input,
-            width: canvas.clientWidth,
-            height: canvas.clientHeight,
-            dpr: frame?.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio),
-            time: frame?.time ?? 0,
-            deltaTime: frame?.deltaTime ?? 0,
-            frameCount: frame?.frameCount ?? 0
-        };
-    });
 
     // Keep mutable refs and live options in sync without re-attaching listeners
     useEffect(() => {
@@ -67,16 +44,16 @@ export function useCanvasInteraction(
 
     useEffect(() => {
         const canvas = target.current;
-        if (!canvas || !input) return;
+        if (!canvas || !surface) return;
 
-        input.attach(canvas);
+        surface.input.attach(canvas);
 
-        const opts: InteractionControllerOptions = {
+        const opts: InteractionControllerOptions<TSurface> = {
             handlers: pointerHandlers ?? {},
             pan: pan ?? true,
             zoom: zoom ?? true,
             panButton: panButton,
-            getContext,
+            getSurface: () => interactionRef.current.surface,
             onPan(dx, dy) {
                 const cam = cameraRef.current;
                 cam.x += dx;
@@ -105,8 +82,8 @@ export function useCanvasInteraction(
             canvas.removeEventListener('pointercancel', controller.onPointerCancel);
             canvas.removeEventListener('wheel', controller.onWheel);
             canvas.removeEventListener('contextmenu', controller.onContextMenu);
-            input.detach();
+            surface.input.detach();
             controllerOptionsRef.current = null;
         };
-    }, [target, input, pointerHandlers, pan, zoom, panButton]);
+    }, [target, surface, pointerHandlers, pan, zoom, panButton]);
 }

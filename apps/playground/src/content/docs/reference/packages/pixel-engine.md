@@ -1,13 +1,12 @@
 ---
-title: "Pixel Engine"
-description: "The bare-metal core — a pure TypeScript image pipeline that translates raw pixel arrays through fused transforms, tiled convolutions, and geometry-bending global operations without touching a single line of framework code."
-category: "reference"
+title: 'Pixel Engine'
+description: 'The bare-metal core — a pure TypeScript image pipeline that translates raw pixel arrays through fused transforms, tiled convolutions, and geometry-bending global operations without touching a single line of framework code.'
+category: 'reference'
 tags:
-  - reference
-  - pixel-engine
+    - reference
+    - pixel-engine
 order: 20
 ---
-
 
 # @repo/pixel-engine
 
@@ -88,4 +87,3 @@ See the [pixel README](../../pixel/) for full usage docs.
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

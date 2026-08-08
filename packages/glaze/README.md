@@ -188,33 +188,6 @@ export function Crosshair() {
 
 The shared input store tracks the pointer (position + delta), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`, cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to world coordinates, so the crosshair stays glued to the cursor under pan/zoom. `controls` adds `panTo`, `zoomTo`, and `reset`.
 
-### One loop for everything else
-
-`FrameLoopProvider` + `useFrame` run non-canvas logic on the same tick — e.g. an HUD that doesn't need a canvas.
-
-```tsx
-import { useState } from 'react';
-import { FrameLoopProvider } from '@repo/glaze/react/FrameLoopProvider';
-import { useFrame } from '@repo/glaze/react/useFrame';
-
-function FpsHud() {
-    const [fps, setFps] = useState(0);
-    useFrame((_time, delta) => setFps(delta > 0 ? Math.round(1 / delta) : 0));
-    return <span>{fps} fps</span>;
-}
-
-export function App() {
-    return (
-        <FrameLoopProvider>
-            <FpsHud />
-            <Sketch />
-        </FrameLoopProvider>
-    );
-}
-```
-
-`useFrame` always calls the latest closure, so inline callbacks are safe; the loop starts on the first subscriber and stops when the last one leaves.
-
 ## Notes & gotchas
 
 - **Shapes are batched.** GPU shapes are tessellated on the CPU into one dynamic vertex buffer and drawn in a single draw call per frame (flushed on `clear()`, before custom programs/text, and at the end of the frame). A fullscreen pass is reserved for custom programs.

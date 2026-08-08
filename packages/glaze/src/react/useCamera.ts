@@ -31,7 +31,7 @@ export type CameraControls = {
     attachWheel(target: HTMLElement): () => void;
 };
 
-export type CameraHandle = {
+type CameraHandle = {
     camera: Camera;
     controls: CameraControls;
 };
@@ -124,11 +124,16 @@ function createCameraControls(
     };
 }
 
-export function createCamera(options: CameraOptions = {}): CameraHandle {
+function createCamera(options: CameraOptions = {}): CameraHandle {
     const camera = new Camera(options.pan?.x ?? 0, options.pan?.y ?? 0, options.zoom ?? 1);
 
     const initial = new Camera(camera.x, camera.y, camera.zoom);
-    const controls = createCameraControls(camera, options.minZoom ?? 0.05, options.maxZoom ?? 64, initial);
+    const controls = createCameraControls(
+        camera,
+        options.minZoom ?? 0.05,
+        options.maxZoom ?? 64,
+        initial
+    );
 
     return { camera, controls };
 }

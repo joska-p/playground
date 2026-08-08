@@ -8,7 +8,7 @@ function isWebGLTextureValue(
     return value instanceof WebGLTexture && gl.isTexture(value);
 }
 
-export function setUniformValue(
+function setUniformValue(
     gl: WebGL2RenderingContext,
     entry: UniformEntry,
     value: UniformValue,

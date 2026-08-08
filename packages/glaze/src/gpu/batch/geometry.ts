@@ -52,10 +52,10 @@ export function projectionFor(camera: Camera, width: number, height: number): Ma
     return multiplyMat3(viewportMatrix(width, height), cameraMatrix(camera));
 }
 
-export const MIN_CIRCLE_SEGMENTS = 12;
-export const MAX_CIRCLE_SEGMENTS = 128;
-export const MIN_CAP_SEGMENTS = 4;
-export const MAX_CAP_SEGMENTS = 32;
+const MIN_CIRCLE_SEGMENTS = 12;
+const MAX_CIRCLE_SEGMENTS = 128;
+const MIN_CAP_SEGMENTS = 4;
+const MAX_CAP_SEGMENTS = 32;
 
 const clamp = (value: number, min: number, max: number): number =>
     Math.max(min, Math.min(max, value));

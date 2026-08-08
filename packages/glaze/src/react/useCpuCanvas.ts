@@ -1,7 +1,6 @@
 import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
 import { createCpuSurface, type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
 import type { Camera } from '../core/coords/camera';
-import type { FrameSnapshot } from './interaction';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 
 export type UseCpuCanvasOptions = {
@@ -19,7 +18,6 @@ export type UseCpuCanvasResult = {
     canvasRef: RefObject<HTMLCanvasElement | null>;
     camera: Camera;
     controls: CameraControls;
-    frameRef: RefObject<FrameSnapshot | null>;
 };
 
 export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
@@ -41,7 +39,6 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     const controls = cameraControls ?? internalControls;
 
     const [surface, setSurface] = useState<CpuSurface | null>(null);
-    const frameRef = useRef<FrameSnapshot | null>(null);
 
     const createNewSurface = useEffectEvent((canvas: HTMLCanvasElement) => {
         return createCpuSurface({
@@ -61,7 +58,6 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         return () => {
             newSurface.destroy();
             setSurface(null);
-            frameRef.current = null;
         };
     }, [canvasRef]);
 
@@ -71,7 +67,6 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     }, [surface, onSurface]);
 
     const draw = useEffectEvent((frame: CpuSurface) => {
-        frameRef.current = frame;
         onFrame?.(frame);
     });
 
@@ -80,5 +75,5 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         surface.setDraw(onFrame ? draw : null);
     }, [surface, onFrame]);
 
-    return { surface, canvasRef, camera, controls, frameRef };
+    return { surface, canvasRef, camera, controls };
 }

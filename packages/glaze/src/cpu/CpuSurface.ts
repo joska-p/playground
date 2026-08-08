@@ -87,7 +87,15 @@ export class CpuSurface {
         return this;
     }
 
-    rect(x: number, y: number, w: number, h: number, fill?: string, stroke?: string, lineWidth?: number): this;
+    rect(
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number
+    ): this;
     rect(rect: Rect, style?: DrawStyle): this;
     rect(
         xOrRect: number | Rect,
@@ -104,12 +112,27 @@ export class CpuSurface {
             this.#paintShape(fill, stroke);
         } else {
             const style = yOrStyle as DrawStyle | undefined;
-            this.rect(xOrRect.x, xOrRect.y, xOrRect.w, xOrRect.h, style?.fill, style?.stroke, style?.lineWidth);
+            this.rect(
+                xOrRect.x,
+                xOrRect.y,
+                xOrRect.w,
+                xOrRect.h,
+                style?.fill,
+                style?.stroke,
+                style?.lineWidth
+            );
         }
         return this;
     }
 
-    circle(x: number, y: number, radius: number, fill?: string, stroke?: string, lineWidth?: number): this;
+    circle(
+        x: number,
+        y: number,
+        radius: number,
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number
+    ): this;
     circle(center: Point2D, radius: number, style?: DrawStyle): this;
     circle(
         xOrCenter: number | Point2D,
@@ -125,7 +148,14 @@ export class CpuSurface {
             this.#paintShape(fill, stroke);
         } else {
             const style = radiusOrStyle as DrawStyle | undefined;
-            this.circle(xOrCenter.x, xOrCenter.y, yOrRadius, style?.fill, style?.stroke, style?.lineWidth);
+            this.circle(
+                xOrCenter.x,
+                xOrCenter.y,
+                yOrRadius,
+                style?.fill,
+                style?.stroke,
+                style?.lineWidth
+            );
         }
         return this;
     }
@@ -163,7 +193,14 @@ export class CpuSurface {
         if (typeof xOrPosition === 'number') {
             const style = typeof fillOrStyle === 'object' ? fillOrStyle : undefined;
             const fill = typeof fillOrStyle === 'string' ? fillOrStyle : style?.fill;
-            this.#drawText(text, xOrPosition, yOrStyle as number, fill, style ? style.fontSize : fontSize, style);
+            this.#drawText(
+                text,
+                xOrPosition,
+                yOrStyle as number,
+                fill,
+                style ? style.fontSize : fontSize,
+                style
+            );
         } else {
             const style = yOrStyle as TextStyle;
             this.#drawText(text, xOrPosition.x, xOrPosition.y, style.fill, style.fontSize, style);
@@ -171,7 +208,13 @@ export class CpuSurface {
         return this;
     }
 
-    path(points: readonly Point2D[], fill?: string, stroke?: string, lineWidth?: number, closed?: boolean): this;
+    path(
+        points: readonly Point2D[],
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number,
+        closed?: boolean
+    ): this;
     path(points: readonly Point2D[], style?: DrawStyle, options?: PathOptions): this;
     path(
         points: readonly Point2D[],
@@ -181,10 +224,23 @@ export class CpuSurface {
         closed?: boolean
     ): this {
         if (typeof fillOrStyle === 'string') {
-            this.#drawPath(points, fillOrStyle, strokeOrOptions as string | undefined, lineWidth, closed);
+            this.#drawPath(
+                points,
+                fillOrStyle,
+                strokeOrOptions as string | undefined,
+                lineWidth,
+                closed
+            );
         } else {
             const options = strokeOrOptions as PathOptions | undefined;
-            this.#drawPath(points, fillOrStyle?.fill, fillOrStyle?.stroke, fillOrStyle?.lineWidth, options?.closed, options);
+            this.#drawPath(
+                points,
+                fillOrStyle?.fill,
+                fillOrStyle?.stroke,
+                fillOrStyle?.lineWidth,
+                options?.closed,
+                options
+            );
         }
         return this;
     }
@@ -255,7 +311,14 @@ export class CpuSurface {
         if (doStroke && stroke) this.context.stroke();
     }
 
-    #strokeLine(x1: number, y1: number, x2: number, y2: number, stroke?: string, lineWidth?: number): void {
+    #strokeLine(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        stroke?: string,
+        lineWidth?: number
+    ): void {
         const context = this.context;
         context.beginPath();
         context.strokeStyle = stroke ?? '#000000';
@@ -266,7 +329,14 @@ export class CpuSurface {
         context.stroke();
     }
 
-    #drawText(text: string, x: number, y: number, fill: string | undefined, fontSize: number | undefined, style?: TextStyle): void {
+    #drawText(
+        text: string,
+        x: number,
+        y: number,
+        fill: string | undefined,
+        fontSize: number | undefined,
+        style?: TextStyle
+    ): void {
         const context = this.context;
         const size = String(fontSize ?? 16);
         context.font = `${size}px ${style?.fontFamily ?? DEFAULT_FONT_FAMILY}`;
@@ -283,7 +353,14 @@ export class CpuSurface {
         }
     }
 
-    #drawPath(points: readonly Point2D[], fill?: string, stroke?: string, lineWidth?: number, closed?: boolean, options?: PathOptions): void {
+    #drawPath(
+        points: readonly Point2D[],
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number,
+        closed?: boolean,
+        options?: PathOptions
+    ): void {
         if (points.length < 2) return;
         this.#begin(fill, stroke, lineWidth);
         const context = this.context;

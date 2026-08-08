@@ -1,10 +1,10 @@
 ---
-title: "Mandelbrot"
-description: "Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits."
-category: "reference"
+title: 'Mandelbrot'
+description: 'Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits.'
+category: 'reference'
 tags:
-  - reference
-  - mandelbrot
+    - reference
+    - mandelbrot
 order: 20
 ---
 
@@ -62,4 +62,3 @@ This package follows [project conventions](/docs/conventions/01-overview.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

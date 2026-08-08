@@ -1,10 +1,10 @@
 ---
-title: "Fracture"
-description: "Scaffolded demo showcasing Zustand + Zod."
-category: "reference"
+title: 'Fracture'
+description: 'Scaffolded demo showcasing Zustand + Zod.'
+category: 'reference'
 tags:
-  - reference
-  - fracture
+    - reference
+    - fracture
 order: 20
 ---
 
@@ -25,4 +25,3 @@ This package follows [project conventions](/docs/conventions/01-overview.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

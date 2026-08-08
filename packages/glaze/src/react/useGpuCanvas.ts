@@ -1,13 +1,8 @@
 import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
-import {
-    createGpuSurface,
-    type GpuSurface,
-    type GpuDraw
-} from '../gpu/createGpuSurface';
+import { createGpuSurface, type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
 import type { Program } from '../gpu/shader/createProgram';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { Camera } from '../core/coords/camera';
-import type { FrameSnapshot } from './interaction';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 
 export type UseGpuCanvasOptions = {
@@ -27,7 +22,6 @@ export type UseGpuCanvasResult = {
     canvasRef: RefObject<HTMLCanvasElement | null>;
     camera: Camera;
     controls: CameraControls;
-    frameRef: RefObject<FrameSnapshot | null>;
 };
 
 export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
@@ -52,7 +46,6 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
 
     const [surface, setSurface] = useState<GpuSurface | null>(null);
     const programRef = useRef<Program | null>(null);
-    const frameRef = useRef<FrameSnapshot | null>(null);
 
     const createSurface = useEffectEvent((canvas: HTMLCanvasElement) => {
         return createGpuSurface({
@@ -72,7 +65,6 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
         return () => {
             instance.destroy();
             setSurface(null);
-            frameRef.current = null;
         };
     }, [canvasRef]);
 
@@ -94,8 +86,6 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
     }, [surface, onSurface]);
 
     const draw = useEffectEvent((frame: GpuSurface) => {
-        frameRef.current = frame;
-
         const program = programRef.current;
         if (program) {
             program.setUniforms(uniforms ? uniforms(frame) : {});
@@ -111,5 +101,5 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
         surface.setDraw(shouldDraw ? draw : null);
     }, [surface, onFrame, fragmentShader]);
 
-    return { surface, canvasRef, camera, controls, frameRef };
+    return { surface, canvasRef, camera, controls };
 }

@@ -1,10 +1,10 @@
 ---
-title: "Oeis Signal"
-description: "Personal composable signal + visualization package for integer sequences."
-category: "reference"
+title: 'Oeis Signal'
+description: 'Personal composable signal + visualization package for integer sequences.'
+category: 'reference'
 tags:
-  - reference
-  - oeis-signal
+    - reference
+    - oeis-signal
 order: 20
 ---
 
@@ -37,4 +37,3 @@ src/
 - **Signal**: lazy pull-based sequence (can be materialized to an array when needed).
 - **Budget**: hard limit so stateful modules cannot explode.
 - **Registry**: collection of all available modules.
-

@@ -11,6 +11,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
 import type { PointerHandlers } from '@repo/glaze/react/interaction';
 import { computeReferenceAsync, toRequest, type OrbitResult } from '../lib/reference-worker';
 import {
@@ -120,7 +121,7 @@ export function MandelbrotViewer() {
     // Pan/zoom handlers drive the BigFloat view. Built once via a lazy state
     // initializer so the object's identity is stable across renders and glaze's
     // interaction controller attaches its listeners once.
-    const [pointerHandlers] = useState<PointerHandlers>(() => {
+    const [pointerHandlers] = useState<PointerHandlers<GpuSurface>>(() => {
         let dragging = false;
         let lastX = 0;
         let lastY = 0;

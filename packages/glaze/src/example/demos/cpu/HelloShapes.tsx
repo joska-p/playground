@@ -38,18 +38,6 @@ function Sketch() {
 export function HelloShapes() {
     const onSurface = (surface: CpuSurface | null) => {
         if (!surface) return;
-
-        // boring way to draw the static scene once, instead of every frame
-        surface.setDraw((surface) => {
-            surface
-                .clear('#0d1117')
-                .rect(30, 30, 120, 90, '#16a34a')
-                .circle(SUN.x, SUN.y, 60, '#e11d48')
-                .line(30, 260, 200, 260, '#3b82f6', 8)
-                .text('RENDER', 220, 80, '#f8fafc', 28);
-        });
-
-        // or, the more direct way to draw the static scene once, instead of every frame
         surface
             .clear('#0d1117')
             .rect(30, 30, 120, 90, '#16a34a')

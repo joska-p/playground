@@ -84,7 +84,8 @@ NEAREST + CLAMP_TO_EDGE. `uRefWidth=2048`, `uRefCount=length`.
   `setUniforms.ts`.
 - glaze recompiles its own programs on `webglcontextrestored`, but **app-created raw
   textures are dead** after restore — you must re-create + re-upload (fracture's pattern).
-- `FrameLoopProvider` + `useFrame` exist for rAF-driven UI (`@repo/glaze/react/`).
+- The rAF loop lives inside glaze's surfaces — there is no `useFrame` hook. Drive per-frame
+  UI from `GpuCanvas` `onFrame`/`uniforms`.
 - The `GpuSurface` you get from `onFrame`/`uniforms` exposes `width`/`height` → feed
   `uResolution: [width, height]`.
 
@@ -116,9 +117,10 @@ texture/uniform plumbing. Mirror `PerturbationScene.tsx:107–213` + `createOrbi
     - `requestReference`, policy, and the HUD "computing" flag stay as-is.
     - Delete `MandelbrotRenderer` + the bespoke init/rAF/loop code it replaces (the
       rAF loop moves into glaze's per-frame uniforms callback).
-3. **HUD** — PLAN says "FrameLoopProvider/useFrame for the HUD." Decide: either move the
-   HUD readout to `useFrame`, or keep the current state-driven HUD. Pick the smallest
-   change that stays honest to the plan; say which and why.
+3. **HUD** — glaze no longer ships `useFrame`; the rAF tick is owned by the surface.
+   Keep the current state-driven HUD (updates come from recompute events, not rAF), or
+   drive it from `GpuCanvas` `onFrame`. Pick the smallest change that stays honest to the
+   plan; say which and why.
 4. **`@repo/ui/control-panel`** — PLAN mentions it for the sliders. Check whether it
    exists and fits before adopting it; the current hand-rolled panel already works. Don't
    churn the panel unless it's clearly better.

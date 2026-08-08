@@ -18,7 +18,7 @@ export type GpuCanvasProps = {
     pan?: boolean;
     zoom?: boolean;
     panButton?: number | number[];
-    pointerHandlers?: PointerHandlers;
+    pointerHandlers?: PointerHandlers<GpuSurface>;
     canvasRef?: RefObject<HTMLCanvasElement | null>;
     dpr?: number;
     className?: string;
@@ -44,7 +44,7 @@ export function GpuCanvas({
     style,
     children
 }: GpuCanvasProps) {
-    const { surface, canvasRef, camera, controls, frameRef } = useGpuCanvas({
+    const { surface, canvasRef, camera, controls } = useGpuCanvas({
         fragmentShader,
         uniforms,
         onFrame,
@@ -61,8 +61,7 @@ export function GpuCanvas({
         {
             camera,
             controls,
-            input: surface?.input ?? null,
-            getFrame: () => frameRef.current
+            surface
         },
         { pan, zoom, panButton, pointerHandlers }
     );

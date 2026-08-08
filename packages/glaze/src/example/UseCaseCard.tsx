@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-type UseCaseCardProps = {
+export type UseCaseCardProps = {
     index: number;
     title: string;
     description: string;

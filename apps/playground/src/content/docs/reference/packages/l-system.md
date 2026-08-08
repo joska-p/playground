@@ -1,13 +1,12 @@
 ---
-title: "L-system"
-description: "An interactive 3D fractal visualizer that turns L-system grammars into turtle-graphics geometry — pick a grammar, watch it grow, tweak the angles and watch the branches reshape themselves."
-category: "reference"
+title: 'L-system'
+description: 'An interactive 3D fractal visualizer that turns L-system grammars into turtle-graphics geometry — pick a grammar, watch it grow, tweak the angles and watch the branches reshape themselves.'
+category: 'reference'
 tags:
-  - reference
-  - l-system
+    - reference
+    - l-system
 order: 20
 ---
-
 
 # @repo/l-system
 
@@ -169,4 +168,3 @@ import '@repo/l-system/styles';
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

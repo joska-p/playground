@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { Camera } from '@repo/glaze/core/coords/camera';
+import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
 import { useCamera, type CameraControls } from '@repo/glaze/react/useCamera';
 import type { PointerHandlers } from '@repo/glaze/react/interaction';
 import { setView, type View } from '../stores/viewStore';
@@ -15,7 +16,7 @@ export type FractureViewOptions = {
 export type FractureView = {
     camera: Camera;
     controls: CameraControls;
-    pointerHandlers: PointerHandlers;
+    pointerHandlers: PointerHandlers<GpuSurface>;
     /** Write the live camera back to the view store (ControlPanel reads it). */
     syncView: () => void;
 };
@@ -47,7 +48,7 @@ export function useFractureView(options: FractureViewOptions): FractureView {
 
     // camera, controls and zoomSpeed never change after mount, and the stable
     // object identity keeps useCanvasInteraction from re-attaching listeners.
-    const [pointerHandlers] = useState<PointerHandlers>(() => ({
+    const [pointerHandlers] = useState<PointerHandlers<GpuSurface>>(() => ({
         onWheel(event) {
             event.preventDefault();
             const target = event.target;

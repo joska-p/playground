@@ -22,8 +22,6 @@
         "./gpu/shader/setUniforms": "./src/gpu/shader/setUniforms.ts",
         "./gpu/shader/createProgram": "./src/gpu/shader/createProgram.ts",
         "./gpu/shapes/text": "./src/gpu/shapes/text.ts",
-        "./react/FrameLoopProvider": "./src/react/FrameLoopProvider.tsx",
-        "./react/useFrame": "./src/react/useFrame.ts",
         "./react/useCamera": "./src/react/useCamera.ts",
         "./react/useGpuCanvas": "./src/react/useGpuCanvas.ts",
         "./react/useCpuCanvas": "./src/react/useCpuCanvas.ts",

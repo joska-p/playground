@@ -126,7 +126,11 @@ export class ShapeBatcher {
             this.#pushRectFill(rect, colorArray(style.fill));
         }
         if (style.stroke !== undefined) {
-            this.#pushRectStroke(rect, style.lineWidth ?? DEFAULT_LINE_WIDTH, colorArray(style.stroke));
+            this.#pushRectStroke(
+                rect,
+                style.lineWidth ?? DEFAULT_LINE_WIDTH,
+                colorArray(style.stroke)
+            );
         }
     }
 
@@ -409,8 +413,4 @@ export class ShapeBatcher {
             this.#batchProjection = projection;
         }
     }
-}
-
-export function createShapeBatcher(options: ShapeBatcherOptions): ShapeBatcher {
-    return new ShapeBatcher(options);
 }

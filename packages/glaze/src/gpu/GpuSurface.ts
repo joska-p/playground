@@ -103,7 +103,15 @@ export class GpuSurface {
         return this;
     }
 
-    rect(x: number, y: number, w: number, h: number, fill?: string, stroke?: string, lineWidth?: number): this;
+    rect(
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number
+    ): this;
     rect(rect: Rect, style?: DrawStyle): this;
     rect(
         xOrRect: number | Rect,
@@ -115,14 +123,24 @@ export class GpuSurface {
         lineWidth?: number
     ): this {
         if (typeof xOrRect === 'number') {
-            this.#drawRect({ x: xOrRect, y: yOrStyle as number, w, h }, buildStyle(fill, stroke, lineWidth));
+            this.#drawRect(
+                { x: xOrRect, y: yOrStyle as number, w, h },
+                buildStyle(fill, stroke, lineWidth)
+            );
         } else {
             this.#drawRect(xOrRect, yOrStyle as DrawStyle | undefined);
         }
         return this;
     }
 
-    circle(x: number, y: number, radius: number, fill?: string, stroke?: string, lineWidth?: number): this;
+    circle(
+        x: number,
+        y: number,
+        radius: number,
+        fill?: string,
+        stroke?: string,
+        lineWidth?: number
+    ): this;
     circle(center: Point2D, radius: number, style?: DrawStyle): this;
     circle(
         xOrCenter: number | Point2D,
