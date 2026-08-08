@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { Camera } from '../../core/coords/camera';
 import {
     type Mat3,
     cameraMatrix,
@@ -30,17 +31,17 @@ describe('mat3 helpers', () => {
     });
 
     it('camera matrix maps world to screen', () => {
-        const m = cameraMatrix({ x: 100, y: 50, zoom: 2 });
+        const m = cameraMatrix(new Camera(100, 50, 2));
         expect(apply(m, 10, 20)).toEqual([120, 90]);
     });
 
     it('default camera is the identity', () => {
         const identity = [1, 0, 0, 0, 1, 0, 0, 0, 1] as const;
-        expect(sameMat3(cameraMatrix({ x: 0, y: 0, zoom: 1 }), identity)).toBe(true);
+        expect(sameMat3(cameraMatrix(new Camera()), identity)).toBe(true);
     });
 
     it('projection composes camera then viewport', () => {
-        const p = projectionFor({ x: 100, y: 50, zoom: 2 }, 800, 600);
+        const p = projectionFor(new Camera(100, 50, 2), 800, 600);
         const [originX, originY] = apply(p, 0, 0);
         expect(originX).toBeCloseTo(-0.75, 5);
         expect(originY).toBeCloseTo(0.83333, 5);

@@ -1,4 +1,4 @@
-import { screenToWorld, type Camera } from '@repo/glaze/core/coords/camera';
+import { Camera } from '@repo/glaze/core/coords/camera';
 
 export type Point2D = { x: number; y: number };
 export type GridCell = { column: number; row: number; index: number };
@@ -65,8 +65,8 @@ export function eventToGridPoint(
     camera?: Camera
 ): GridCell {
     const bounds = canvas.getBoundingClientRect();
-    const toWorld = screenToWorld(camera ?? { x: 0, y: 0, zoom: 1 });
-    const world = toWorld({ x: e.clientX - bounds.left, y: e.clientY - bounds.top });
+    const cam = camera ?? new Camera();
+    const world = cam.screenToWorld({ x: e.clientX - bounds.left, y: e.clientY - bounds.top });
     const toGrid = createCanvasToGrid(cols, rows, bounds.width, bounds.height);
     return toGrid(world);
 }

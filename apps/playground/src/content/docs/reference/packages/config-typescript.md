@@ -1,10 +1,10 @@
 ---
-title: 'TypeScript Config'
-description: 'Shared TypeScript configurations for the monorepo — strictest base, browser app, and Node tooling, all extending `@tsconfig/strictest`.'
-category: 'reference'
+title: "TypeScript Config"
+description: "Shared TypeScript configurations for the monorepo — strictest base, browser app, and Node tooling, all extending `@tsconfig/strictest`."
+category: "reference"
 tags:
-    - reference
-    - config-typescript
+  - reference
+  - config-typescript
 order: 20
 ---
 
@@ -88,3 +88,4 @@ In any package's `tsconfig.json`:
     "include": ["src"]
 }
 ```
+

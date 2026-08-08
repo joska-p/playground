@@ -1,6 +1,6 @@
 import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
 import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
-import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
 import type { UniformValue } from '@repo/glaze/gpu/shader/compileProgram';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { useEffect, useState } from 'react';
@@ -13,14 +13,14 @@ import { automaStore, setEngine, useCols, useRows } from '../../stores/automa';
 function CellMesh() {
     const rows = useRows();
     const cols = useCols();
-    const [runtime, setRuntime] = useState<GpuRuntime | null>(null);
+    const [surface, setSurface] = useState<GpuSurface | null>(null);
     const pointerHandlers = useCellPainting();
 
     useEffect(() => {
-        if (!runtime) return;
+        if (!surface) return;
 
         const engine = createSimulationEngine(
-            runtime.gl,
+            surface.gl,
             cols,
             rows,
             simStepShader,
@@ -34,14 +34,14 @@ function CellMesh() {
             engine.destroy();
             setEngine(null);
         };
-    }, [runtime, cols, rows]);
+    }, [surface, cols, rows]);
 
     return (
         <GpuCanvas
             className="h-full w-full"
             panButton={1}
             initialCamera={{ minZoom: 1, maxZoom: 64 }}
-            onRuntime={setRuntime}
+            onSurface={setSurface}
             fragmentShader={fragmentShader}
             uniforms={(): Record<string, UniformValue> => {
                 const { engine, stateColors } = automaStore.getState();

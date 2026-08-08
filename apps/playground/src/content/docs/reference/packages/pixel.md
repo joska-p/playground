@@ -1,12 +1,13 @@
 ---
-title: 'Pixel'
-description: 'A pipeline that translates raw pixel data through chains of transforms, each step breathing a new visual texture into the image.'
-category: 'reference'
+title: "Pixel"
+description: "A pipeline that translates raw pixel data through chains of transforms, each step breathing a new visual texture into the image."
+category: "reference"
 tags:
-    - reference
-    - pixel
+  - reference
+  - pixel
 order: 20
 ---
+
 
 # @repo/pixel
 
@@ -222,3 +223,4 @@ hand-rolled `PipelineGateway` has been replaced with `@repo/worker-pool`'s
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
+

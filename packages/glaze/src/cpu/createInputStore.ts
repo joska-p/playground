@@ -1,111 +1,114 @@
-import { screenToWorld, type Camera, type Point2D } from '../core/coords/camera';
+import type { Camera, Point2D } from '../core/coords/camera';
 
-export type InputStore = {
-    readonly pointer: Point2D;
-    readonly pointerDelta: Point2D;
-    readonly mouseDown: boolean;
-    readonly mouseButtons: number;
-    isKeyDown(code: string): boolean;
-    wasKeyPressed(code: string): boolean;
-    getPointerWorldPos(camera: Camera): Point2D;
-    endFrame(): void;
-    attach(target: HTMLElement): void;
-    detach(): void;
-    destroy(): void;
-};
+export class InputStore {
+    readonly pointer: Point2D = { x: 0, y: 0 };
+    readonly pointerDelta: Point2D = { x: 0, y: 0 };
+    readonly #keys = new Set<string>();
+    readonly #pressed = new Set<string>();
+    #mouseDown = false;
+    #mouseButtons = 0;
+    #attached: HTMLElement | null = null;
+    #lastPointer: Point2D = { x: 0, y: 0 };
 
-export function createInputStore(): InputStore {
-    const pointer = { x: 0, y: 0 };
-    const pointerDelta = { x: 0, y: 0 };
-    const state = { mouseDown: false, mouseButtons: 0 };
-    const keys = new Set<string>();
-    const pressed = new Set<string>();
-    let attached: HTMLElement | null = null;
-    let lastPointer = { x: 0, y: 0 };
+    get mouseDown(): boolean {
+        return this.#mouseDown;
+    }
 
-    const updatePointer = (event: PointerEvent): void => {
-        const target = attached;
+    get mouseButtons(): number {
+        return this.#mouseButtons;
+    }
+
+    isKeyDown(code: string): boolean {
+        return this.#keys.has(code);
+    }
+
+    wasKeyPressed(code: string): boolean {
+        return this.#pressed.has(code);
+    }
+
+    getPointerWorldPos(camera: Camera): Point2D {
+        return camera.screenToWorld(this.pointer);
+    }
+
+    endFrame(): void {
+        this.#pressed.clear();
+    }
+
+    attach(target: HTMLElement): void {
+        this.#unbind();
+        this.#attached = target;
+        target.addEventListener('pointermove', this.#onPointerMove);
+        target.addEventListener('pointerdown', this.#onPointerDown);
+        target.addEventListener('pointerup', this.#onPointerUp);
+        target.addEventListener('pointercancel', this.#onPointerCancel);
+        window.addEventListener('keydown', this.#onKeyDown);
+        window.addEventListener('keyup', this.#onKeyUp);
+    }
+
+    detach(): void {
+        this.#unbind();
+    }
+
+    destroy(): void {
+        this.#unbind();
+        this.#keys.clear();
+        this.#pressed.clear();
+    }
+
+    #updatePointer(event: PointerEvent): void {
+        const target = this.#attached;
         if (!target) return;
         const rect = target.getBoundingClientRect();
-        pointer.x = event.clientX - rect.left;
-        pointer.y = event.clientY - rect.top;
-        pointerDelta.x = pointer.x - lastPointer.x;
-        pointerDelta.y = pointer.y - lastPointer.y;
-        lastPointer = { x: pointer.x, y: pointer.y };
+        this.pointer.x = event.clientX - rect.left;
+        this.pointer.y = event.clientY - rect.top;
+        this.pointerDelta.x = this.pointer.x - this.#lastPointer.x;
+        this.pointerDelta.y = this.pointer.y - this.#lastPointer.y;
+        this.#lastPointer = { x: this.pointer.x, y: this.pointer.y };
+    }
+
+    #onPointerMove = (event: PointerEvent): void => {
+        this.#updatePointer(event);
     };
 
-    const onPointerMove = (event: PointerEvent): void => {
-        updatePointer(event);
-    };
-    const onPointerDown = (event: PointerEvent): void => {
-        state.mouseDown = true;
-        state.mouseButtons = event.buttons;
-        updatePointer(event);
-    };
-    const onPointerUp = (event: PointerEvent): void => {
-        state.mouseDown = false;
-        state.mouseButtons = event.buttons;
-        updatePointer(event);
-    };
-    const onPointerCancel = (): void => {
-        state.mouseDown = false;
-        state.mouseButtons = 0;
-    };
-    const onKeyDown = (event: KeyboardEvent): void => {
-        keys.add(event.code);
-        pressed.add(event.code);
-    };
-    const onKeyUp = (event: KeyboardEvent): void => {
-        keys.delete(event.code);
+    #onPointerDown = (event: PointerEvent): void => {
+        this.#mouseDown = true;
+        this.#mouseButtons = event.buttons;
+        this.#updatePointer(event);
     };
 
-    const unbind = (): void => {
-        if (!attached) return;
-        attached.removeEventListener('pointermove', onPointerMove);
-        attached.removeEventListener('pointerdown', onPointerDown);
-        attached.removeEventListener('pointerup', onPointerUp);
-        attached.removeEventListener('pointercancel', onPointerCancel);
-        window.removeEventListener('keydown', onKeyDown);
-        window.removeEventListener('keyup', onKeyUp);
-        attached = null;
+    #onPointerUp = (event: PointerEvent): void => {
+        this.#mouseDown = false;
+        this.#mouseButtons = event.buttons;
+        this.#updatePointer(event);
     };
 
-    return {
-        get pointer(): Point2D {
-            return pointer;
-        },
-        get pointerDelta(): Point2D {
-            return pointerDelta;
-        },
-        get mouseDown(): boolean {
-            return state.mouseDown;
-        },
-        get mouseButtons(): number {
-            return state.mouseButtons;
-        },
-        isKeyDown: (code: string): boolean => keys.has(code),
-        wasKeyPressed: (code: string): boolean => pressed.has(code),
-        getPointerWorldPos: (camera: Camera): Point2D => screenToWorld(camera)(pointer),
-        endFrame(): void {
-            pressed.clear();
-        },
-        attach(target: HTMLElement): void {
-            unbind();
-            attached = target;
-            target.addEventListener('pointermove', onPointerMove);
-            target.addEventListener('pointerdown', onPointerDown);
-            target.addEventListener('pointerup', onPointerUp);
-            target.addEventListener('pointercancel', onPointerCancel);
-            window.addEventListener('keydown', onKeyDown);
-            window.addEventListener('keyup', onKeyUp);
-        },
-        detach(): void {
-            unbind();
-        },
-        destroy(): void {
-            unbind();
-            keys.clear();
-            pressed.clear();
-        }
+    #onPointerCancel = (): void => {
+        this.#mouseDown = false;
+        this.#mouseButtons = 0;
     };
+
+    #onKeyDown = (event: KeyboardEvent): void => {
+        this.#keys.add(event.code);
+        this.#pressed.add(event.code);
+    };
+
+    #onKeyUp = (event: KeyboardEvent): void => {
+        this.#keys.delete(event.code);
+    };
+
+    #unbind(): void {
+        const target = this.#attached;
+        if (!target) return;
+        target.removeEventListener('pointermove', this.#onPointerMove);
+        target.removeEventListener('pointerdown', this.#onPointerDown);
+        target.removeEventListener('pointerup', this.#onPointerUp);
+        target.removeEventListener('pointercancel', this.#onPointerCancel);
+        window.removeEventListener('keydown', this.#onKeyDown);
+        window.removeEventListener('keyup', this.#onKeyUp);
+        this.#attached = null;
+    }
+}
+
+export function createInputStore(): InputStore {
+    return new InputStore();
 }

@@ -37,21 +37,11 @@ export function createPolylineViz(options: PolylineOptions = {}): Viz {
             for (let i = 1; i < points.length; i++) {
                 const a = points[i - 1] ?? { x: 0, y: 0 };
                 const b = points[i] ?? { x: 0, y: 0 };
-                const c = surface.context;
-                c.beginPath();
-                c.moveTo(a.x, a.y);
-                c.lineTo(b.x, b.y);
-                c.strokeStyle = color;
-                c.lineWidth = lineWidth;
-                c.stroke();
+                surface.line(a.x, a.y, b.x, b.y, color, lineWidth);
             }
 
             for (const p of points) {
-                const c = surface.context;
-                c.beginPath();
-                c.arc(p.x, p.y, pointRadius, 0, Math.PI * 2);
-                c.fillStyle = color;
-                c.fill();
+                surface.circle(p.x, p.y, pointRadius, color);
             }
         }
     };

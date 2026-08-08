@@ -3,24 +3,6 @@ export type Point2D = {
     y: number;
 };
 
-export type Camera = { x: number; y: number; zoom: number };
-
-export const defaultCamera = (): Camera => ({ x: 0, y: 0, zoom: 1 });
-
-export const screenToWorld =
-    (camera: Camera) =>
-    (screen: Point2D): Point2D => ({
-        x: (screen.x - camera.x) / camera.zoom,
-        y: (screen.y - camera.y) / camera.zoom
-    });
-
-export const worldToScreen =
-    (camera: Camera) =>
-    (world: Point2D): Point2D => ({
-        x: world.x * camera.zoom + camera.x,
-        y: world.y * camera.zoom + camera.y
-    });
-
 export type ZoomBounds = {
     minZoom: number;
     maxZoom: number;
@@ -31,12 +13,38 @@ export const clamp =
     (value: number): number =>
         Math.max(min, Math.min(max, value));
 
-export const zoomAt =
-    (camera: Camera, bounds: ZoomBounds) =>
-    (focalPoint: Point2D, nextZoom: number): void => {
+export class Camera {
+    x: number;
+    y: number;
+    zoom: number;
+
+    constructor(x = 0, y = 0, zoom = 1) {
+        this.x = x;
+        this.y = y;
+        this.zoom = zoom;
+    }
+
+    screenToWorld(screen: Point2D): Point2D {
+        return {
+            x: (screen.x - this.x) / this.zoom,
+            y: (screen.y - this.y) / this.zoom
+        };
+    }
+
+    worldToScreen(world: Point2D): Point2D {
+        return {
+            x: world.x * this.zoom + this.x,
+            y: world.y * this.zoom + this.y
+        };
+    }
+
+    zoomAt(focalPoint: Point2D, nextZoom: number, bounds: ZoomBounds): void {
         const zoom = clamp(bounds.minZoom, bounds.maxZoom)(nextZoom);
-        const world = screenToWorld(camera)(focalPoint);
-        camera.x = focalPoint.x - world.x * zoom;
-        camera.y = focalPoint.y - world.y * zoom;
-        camera.zoom = zoom;
-    };
+        const world = this.screenToWorld(focalPoint);
+        this.x = focalPoint.x - world.x * zoom;
+        this.y = focalPoint.y - world.y * zoom;
+        this.zoom = zoom;
+    }
+}
+
+export const defaultCamera = (): Camera => new Camera();

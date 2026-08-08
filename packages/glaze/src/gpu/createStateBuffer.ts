@@ -6,31 +6,105 @@ import type { UniformValue } from './shader/compileProgram';
  * framebuffer. `step()` renders into the write target while sampling the read
  * target, then swaps them so the result becomes the input of the next step.
  */
-export type StateBufferTargets = {
-    readonly width: number;
-    readonly height: number;
-    bindWrite(): void;
-    unbind(): void;
-    getReadTexture(): WebGLTexture;
-    getWriteTexture(): WebGLTexture;
-    swap(): void;
-    init(data: Uint8Array): void;
-    resize(width: number, height: number): void;
-    destroy(): void;
-};
+export class StateBufferTargets {
+    readonly #gl: WebGL2RenderingContext;
+    #pingPong = 0;
+    #currentWidth: number;
+    #currentHeight: number;
+    #textures: WebGLTexture[] = [];
+    #framebuffers: WebGLFramebuffer[] = [];
 
-function createStateBufferTargets(
-    gl: WebGL2RenderingContext,
-    initialWidth: number,
-    initialHeight: number
-): StateBufferTargets {
-    let pingPong = 0;
-    let currentWidth = initialWidth;
-    let currentHeight = initialHeight;
-    let textures: WebGLTexture[] = [];
-    let framebuffers: WebGLFramebuffer[] = [];
+    constructor(gl: WebGL2RenderingContext, initialWidth: number, initialHeight: number) {
+        this.#gl = gl;
+        this.#currentWidth = initialWidth;
+        this.#currentHeight = initialHeight;
+        this.#createTargetPair(initialWidth, initialHeight);
+    }
 
-    const createTarget = (width: number, height: number): [WebGLTexture, WebGLFramebuffer] => {
+    get width(): number {
+        return this.#currentWidth;
+    }
+
+    get height(): number {
+        return this.#currentHeight;
+    }
+
+    bindWrite(): void {
+        const fbo = this.#framebuffers[this.#writeIndex()];
+        if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
+        this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, fbo);
+        this.#gl.viewport(0, 0, this.#currentWidth, this.#currentHeight);
+    }
+
+    unbind(): void {
+        this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, null);
+    }
+
+    getReadTexture(): WebGLTexture {
+        const texture = this.#textures[this.#readIndex()];
+        if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
+        return texture;
+    }
+
+    getWriteTexture(): WebGLTexture {
+        const texture = this.#textures[this.#writeIndex()];
+        if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
+        return texture;
+    }
+
+    swap(): void {
+        this.#pingPong = 1 - this.#pingPong;
+    }
+
+    init(data: Uint8Array): void {
+        if (data.length !== this.#currentWidth * this.#currentHeight) {
+            throw new Error(
+                `Glaze: StateBuffer init data length ${String(data.length)} does not match ${String(this.#currentWidth)}x${String(this.#currentHeight)} cells`
+            );
+        }
+
+        const rgba = new Uint8Array(data.length * 4);
+        for (let i = 0; i < data.length; i++) {
+            const cell = data[i] ?? 0;
+            const j = i * 4;
+            rgba[j] = cell;
+            rgba[j + 1] = 0;
+            rgba[j + 2] = 0;
+            rgba[j + 3] = 255;
+        }
+
+        const gl = this.#gl;
+        for (const texture of this.#textures) {
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texSubImage2D(
+                gl.TEXTURE_2D,
+                0,
+                0,
+                0,
+                this.#currentWidth,
+                this.#currentHeight,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
+                rgba
+            );
+        }
+    }
+
+    resize(width: number, height: number): void {
+        if (width === this.#currentWidth && height === this.#currentHeight) return;
+        this.#destroyTargetPair();
+        this.#createTargetPair(width, height);
+        this.#currentWidth = width;
+        this.#currentHeight = height;
+        this.#pingPong = 0;
+    }
+
+    destroy(): void {
+        this.#destroyTargetPair();
+    }
+
+    #createTarget(width: number, height: number): [WebGLTexture, WebGLFramebuffer] {
+        const gl = this.#gl;
         const texture = gl.createTexture();
         // even with WebGL2, createTexture can return null if the context is lost or if there are insufficient resources.
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -39,17 +113,7 @@ function createStateBufferTargets(
         }
 
         gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(
-            gl.TEXTURE_2D,
-            0,
-            gl.RGBA8,
-            width,
-            height,
-            0,
-            gl.RGBA,
-            gl.UNSIGNED_BYTE,
-            null
-        );
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -75,15 +139,16 @@ function createStateBufferTargets(
         }
 
         return [texture, fbo];
-    };
+    }
 
-    const createTargetPair = (width: number, height: number): void => {
+    #createTargetPair(width: number, height: number): void {
+        const gl = this.#gl;
         const created: [WebGLTexture, WebGLFramebuffer][] = [];
         try {
-            created.push(createTarget(width, height));
-            created.push(createTarget(width, height));
-            textures = created.map(([texture]) => texture);
-            framebuffers = created.map(([, fbo]) => fbo);
+            created.push(this.#createTarget(width, height));
+            created.push(this.#createTarget(width, height));
+            this.#textures = created.map(([texture]) => texture);
+            this.#framebuffers = created.map(([, fbo]) => fbo);
         } catch (error) {
             for (const [texture, fbo] of created) {
                 gl.deleteTexture(texture);
@@ -93,102 +158,23 @@ function createStateBufferTargets(
         } finally {
             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         }
-    };
+    }
 
-    const destroyTargetPair = (): void => {
-        for (const texture of textures) gl.deleteTexture(texture);
-        for (const fbo of framebuffers) gl.deleteFramebuffer(fbo);
-        textures = [];
-        framebuffers = [];
-    };
+    #destroyTargetPair(): void {
+        const gl = this.#gl;
+        for (const texture of this.#textures) gl.deleteTexture(texture);
+        for (const fbo of this.#framebuffers) gl.deleteFramebuffer(fbo);
+        this.#textures = [];
+        this.#framebuffers = [];
+    }
 
-    const writeIndex = (): number => (pingPong === 0 ? 0 : 1);
-    const readIndex = (): number => (pingPong === 0 ? 1 : 0);
+    #writeIndex(): number {
+        return this.#pingPong === 0 ? 0 : 1;
+    }
 
-    createTargetPair(initialWidth, initialHeight);
-
-    return {
-        get width(): number {
-            return currentWidth;
-        },
-
-        get height(): number {
-            return currentHeight;
-        },
-
-        bindWrite(): void {
-            const fbo = framebuffers[writeIndex()];
-            if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
-            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-            gl.viewport(0, 0, currentWidth, currentHeight);
-        },
-
-        unbind(): void {
-            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        },
-
-        getReadTexture(): WebGLTexture {
-            const texture = textures[readIndex()];
-            if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
-            return texture;
-        },
-
-        getWriteTexture(): WebGLTexture {
-            const texture = textures[writeIndex()];
-            if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
-            return texture;
-        },
-
-        swap(): void {
-            pingPong = 1 - pingPong;
-        },
-
-        init(data: Uint8Array): void {
-            if (data.length !== currentWidth * currentHeight) {
-                throw new Error(
-                    `Glaze: StateBuffer init data length ${String(data.length)} does not match ${String(currentWidth)}x${String(currentHeight)} cells`
-                );
-            }
-
-            const rgba = new Uint8Array(data.length * 4);
-            for (let i = 0; i < data.length; i++) {
-                const cell = data[i] ?? 0;
-                const j = i * 4;
-                rgba[j] = cell;
-                rgba[j + 1] = 0;
-                rgba[j + 2] = 0;
-                rgba[j + 3] = 255;
-            }
-
-            for (const texture of textures) {
-                gl.bindTexture(gl.TEXTURE_2D, texture);
-                gl.texSubImage2D(
-                    gl.TEXTURE_2D,
-                    0,
-                    0,
-                    0,
-                    currentWidth,
-                    currentHeight,
-                    gl.RGBA,
-                    gl.UNSIGNED_BYTE,
-                    rgba
-                );
-            }
-        },
-
-        resize(width: number, height: number): void {
-            if (width === currentWidth && height === currentHeight) return;
-            destroyTargetPair();
-            createTargetPair(width, height);
-            currentWidth = width;
-            currentHeight = height;
-            pingPong = 0;
-        },
-
-        destroy(): void {
-            destroyTargetPair();
-        }
-    };
+    #readIndex(): number {
+        return this.#pingPong === 0 ? 1 : 0;
+    }
 }
 
 /**
@@ -200,96 +186,93 @@ function createStateBufferTargets(
  * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)`
  * → `step()`, reading the live state back with `getTexture()`.
  */
-export type StateBuffer = {
-    readonly width: number;
-    readonly height: number;
-    readonly targets: StateBufferTargets;
-    addProgram(name: string, fragmentSource: string): void;
-    useProgram(name: string): void;
-    setUniforms(values: Record<string, UniformValue>): void;
-    step(): void;
-    init(data: Uint8Array): void;
-    getTexture(): WebGLTexture;
-    resize(width: number, height: number): void;
-    destroy(): void;
-};
+export class StateBuffer {
+    readonly #gl: WebGL2RenderingContext;
+    readonly #targets: StateBufferTargets;
+    readonly #programs = new Map<string, Program>();
+    #activeName: string | null = null;
+
+    constructor(gl: WebGL2RenderingContext, width: number, height: number) {
+        this.#gl = gl;
+        this.#targets = new StateBufferTargets(gl, width, height);
+    }
+
+    get targets(): StateBufferTargets {
+        return this.#targets;
+    }
+
+    get width(): number {
+        return this.#targets.width;
+    }
+
+    get height(): number {
+        return this.#targets.height;
+    }
+
+    addProgram(name: string, fragmentSource: string): void {
+        const prior = this.#programs.get(name);
+        if (prior) prior.destroy();
+        this.#programs.set(name, createProgram(this.#gl, fragmentSource));
+    }
+
+    useProgram(name: string): void {
+        if (!this.#programs.has(name))
+            throw new Error(`Glaze: StateBuffer program "${name}" not found`);
+        this.#activeName = name;
+    }
+
+    setUniforms(values: Record<string, UniformValue>): void {
+        this.#activeProgram().setUniforms(values);
+    }
+
+    step(): void {
+        const program = this.#activeProgram();
+        program.use();
+        const gl = this.#gl;
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.#targets.getReadTexture());
+        this.#targets.bindWrite();
+        const stateEntry = program.uniforms.get('u_state');
+        if (stateEntry) {
+            gl.uniform1i(stateEntry.location, 0);
+        }
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        this.#targets.unbind();
+        this.#targets.swap();
+    }
+
+    init(data: Uint8Array): void {
+        this.#targets.init(data);
+    }
+
+    getTexture(): WebGLTexture {
+        return this.#targets.getReadTexture();
+    }
+
+    resize(width: number, height: number): void {
+        this.#targets.resize(width, height);
+    }
+
+    destroy(): void {
+        for (const program of this.#programs.values()) {
+            program.destroy();
+        }
+        this.#programs.clear();
+        this.#targets.destroy();
+    }
+
+    #activeProgram(): Program {
+        const program = this.#programs.get(this.#activeName ?? 'default');
+        if (!program)
+            throw new Error(`Glaze: StateBuffer program "${this.#activeName ?? 'default'}" not found`);
+        return program;
+    }
+}
 
 export function createStateBuffer(
     gl: WebGL2RenderingContext,
     width: number,
     height: number
 ): StateBuffer {
-    const targets = createStateBufferTargets(gl, width, height);
-    const programs = new Map<string, Program>();
-    let activeName: string | null = null;
-
-    const activeProgram = (): Program => {
-        const program = programs.get(activeName ?? 'default');
-        if (!program)
-            throw new Error(`Glaze: StateBuffer program "${activeName ?? 'default'}" not found`);
-        return program;
-    };
-
-    return {
-        targets,
-
-        get width(): number {
-            return targets.width;
-        },
-
-        get height(): number {
-            return targets.height;
-        },
-
-        addProgram(name: string, fragmentSource: string): void {
-            const prior = programs.get(name);
-            if (prior) prior.destroy();
-            programs.set(name, createProgram(gl, fragmentSource));
-        },
-
-        useProgram(name: string): void {
-            if (!programs.has(name))
-                throw new Error(`Glaze: StateBuffer program "${name}" not found`);
-            activeName = name;
-        },
-
-        setUniforms(values: Record<string, UniformValue>): void {
-            activeProgram().setUniforms(values);
-        },
-
-        step(): void {
-            const program = activeProgram();
-            program.use();
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, targets.getReadTexture());
-            targets.bindWrite();
-            const stateEntry = program.uniforms.get('u_state');
-            if (stateEntry) {
-                gl.uniform1i(stateEntry.location, 0);
-            }
-            gl.drawArrays(gl.TRIANGLES, 0, 3);
-            targets.unbind();
-            targets.swap();
-        },
-
-        init(data: Uint8Array): void {
-            targets.init(data);
-        },
-
-        getTexture(): WebGLTexture {
-            return targets.getReadTexture();
-        },
-
-        resize(nextWidth: number, nextHeight: number): void {
-            targets.resize(nextWidth, nextHeight);
-        },
-
-        destroy(): void {
-            for (const program of programs.values()) {
-                program.destroy();
-            }
-            programs.clear();
-            targets.destroy();
-        }
-    };
+    return new StateBuffer(gl, width, height);
 }

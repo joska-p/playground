@@ -1,12 +1,13 @@
 ---
-title: 'Sequence Engine'
-description: 'A pure engine that turns mathematical rules into numbered sequences — each rule a function, each sequence a `number[]`, no DOM, no rendering, no opinions about what comes next.'
-category: 'reference'
+title: "Sequence Engine"
+description: "A pure engine that turns mathematical rules into numbered sequences — each rule a function, each sequence a `number[]`, no DOM, no rendering, no opinions about what comes next."
+category: "reference"
 tags:
-    - reference
-    - sequence-engine
+  - reference
+  - sequence-engine
 order: 20
 ---
+
 
 # @repo/sequence-engine
 
@@ -132,3 +133,4 @@ adapters live in consumers (e.g., `LocalStoragePresetStore` in
 _See [@repo/sequence-renderer](/docs/reference/packages/sequence-renderer) for the canvas rendering layer, Fourier DFT computation, and interactive controls._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

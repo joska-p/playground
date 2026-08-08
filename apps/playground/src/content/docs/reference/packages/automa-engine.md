@@ -1,12 +1,13 @@
 ---
-title: 'Automa Engine'
-description: 'A pure simulation engine that turns birth/survive lookup tables into evolving grids — a generic `evolve` function that knows nothing about rendering, only about neighbour counts and state transitions.'
-category: 'reference'
+title: "Automa Engine"
+description: "A pure simulation engine that turns birth/survive lookup tables into evolving grids — a generic `evolve` function that knows nothing about rendering, only about neighbour counts and state transitions."
+category: "reference"
 tags:
-    - reference
-    - automa-engine
+  - reference
+  - automa-engine
 order: 20
 ---
+
 
 # @repo/automa-engine
 
@@ -170,3 +171,4 @@ src/
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

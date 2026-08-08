@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import { clamp, zoomAt, type Camera, type Point2D, type ZoomBounds } from '../core/coords/camera';
+import { Camera, clamp, type Point2D, type ZoomBounds } from '../core/coords/camera';
 
 export type CameraOptions = {
     zoom?: number;
@@ -52,7 +52,6 @@ function createCameraControls(
 ): CameraControls {
     const dragging = { active: false };
     const bounds: ZoomBounds = { minZoom, maxZoom };
-    const focalZoom = zoomAt(camera, bounds);
 
     const handleWheel = (event: WheelEventLike): void => {
         event.preventDefault();
@@ -64,7 +63,7 @@ function createCameraControls(
             x: event.clientX - rect.left,
             y: event.clientY - rect.top
         };
-        focalZoom(focalPoint, camera.zoom * Math.exp(-event.deltaY * 0.002));
+        camera.zoomAt(focalPoint, camera.zoom * Math.exp(-event.deltaY * 0.002), bounds);
     };
 
     return {
@@ -75,7 +74,7 @@ function createCameraControls(
 
         zoomTo(zoom, focalPoint) {
             if (focalPoint) {
-                focalZoom(focalPoint, zoom);
+                camera.zoomAt(focalPoint, zoom, bounds);
             } else {
                 camera.zoom = clamp(minZoom, maxZoom)(zoom);
             }
@@ -126,15 +125,10 @@ function createCameraControls(
 }
 
 export function createCamera(options: CameraOptions = {}): CameraHandle {
-    const camera: Camera = {
-        x: options.pan?.x ?? 0,
-        y: options.pan?.y ?? 0,
-        zoom: options.zoom ?? 1
-    };
+    const camera = new Camera(options.pan?.x ?? 0, options.pan?.y ?? 0, options.zoom ?? 1);
 
-    const controls = createCameraControls(camera, options.minZoom ?? 0.05, options.maxZoom ?? 64, {
-        ...camera
-    });
+    const initial = new Camera(camera.x, camera.y, camera.zoom);
+    const controls = createCameraControls(camera, options.minZoom ?? 0.05, options.maxZoom ?? 64, initial);
 
     return { camera, controls };
 }

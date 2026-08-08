@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { createInputStore } from './createInputStore';
+import { Camera } from '../core/coords/camera';
+import { InputStore, createInputStore } from './createInputStore';
 
-describe('createInputStore', () => {
+describe('InputStore', () => {
+    it('createInputStore is a thin new InputStore() wrapper', () => {
+        expect(createInputStore()).toBeInstanceOf(InputStore);
+    });
+
     it('tracks the pointer relative to the attached target', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         target.dispatchEvent(
             new PointerEvent('pointermove', {
@@ -20,7 +25,7 @@ describe('createInputStore', () => {
 
     it('tracks key state and clears presses at endFrame', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }));
         expect(store.isKeyDown('Space')).toBe(true);
@@ -35,7 +40,7 @@ describe('createInputStore', () => {
 
     it('tracks mouse down state and buttons', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         target.dispatchEvent(new PointerEvent('pointerdown', { buttons: 1, bubbles: true }));
         expect(store.mouseDown).toBe(true);
@@ -48,13 +53,13 @@ describe('createInputStore', () => {
 
     it('converts the pointer to world position through the camera', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         target.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 20, clientY: 30, bubbles: true })
         );
-        expect(store.getPointerWorldPos({ x: 0, y: 0, zoom: 1 })).toEqual({ x: 20, y: 30 });
-        expect(store.getPointerWorldPos({ x: 10, y: 10, zoom: 2 })).toEqual({
+        expect(store.getPointerWorldPos(new Camera(0, 0, 1))).toEqual({ x: 20, y: 30 });
+        expect(store.getPointerWorldPos(new Camera(10, 10, 2))).toEqual({
             x: 5,
             y: 10
         });
@@ -63,7 +68,7 @@ describe('createInputStore', () => {
 
     it('ignores pointer events while detached', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         store.detach();
         target.dispatchEvent(
@@ -74,7 +79,7 @@ describe('createInputStore', () => {
 
     it('destroy clears key state', () => {
         const target = document.createElement('div');
-        const store = createInputStore();
+        const store = new InputStore();
         store.attach(target);
         window.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA' }));
         store.destroy();

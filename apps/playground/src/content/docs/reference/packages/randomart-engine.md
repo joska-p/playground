@@ -1,12 +1,13 @@
 ---
-title: 'Randomart Engine'
-description: 'A grammar-driven expression tree that compiles to both CPU pixel buffers and GLSL fragment shaders — the mathematical heart of generative art, built to be consumed by any renderer.'
-category: 'reference'
+title: "Randomart Engine"
+description: "A grammar-driven expression tree that compiles to both CPU pixel buffers and GLSL fragment shaders — the mathematical heart of generative art, built to be consumed by any renderer."
+category: "reference"
 tags:
-    - reference
-    - randomart-engine
+  - reference
+  - randomart-engine
 order: 20
 ---
+
 
 # @repo/randomart-engine
 
@@ -284,3 +285,4 @@ src/
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

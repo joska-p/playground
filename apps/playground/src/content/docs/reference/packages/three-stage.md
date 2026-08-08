@@ -1,12 +1,13 @@
 ---
-title: 'Three Stage'
-description: 'A 3D scene explorer where geometry, materials, and lighting are all swappable at runtime — click a mesh to see its wireframe, tweak a slider to reshape it, switch a light and watch the shadows move.'
-category: 'reference'
+title: "Three Stage"
+description: "A 3D scene explorer where geometry, materials, and lighting are all swappable at runtime — click a mesh to see its wireframe, tweak a slider to reshape it, switch a light and watch the shadows move."
+category: "reference"
 tags:
-    - reference
-    - three-stage
+  - reference
+  - three-stage
 order: 20
 ---
+
 
 # @repo/three-stage
 
@@ -166,3 +167,4 @@ App.tsx (entry — renders GetStarted scene)
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

@@ -7,67 +7,74 @@ import {
 } from './compileProgram';
 import { setUniforms } from './setUniforms';
 
-export type Program = {
-    readonly program: WebGLProgram;
-    readonly uniforms: Map<string, UniformEntry>;
-    use(): void;
-    setUniforms(values: Record<string, UniformValue>): void;
-    render(): void;
-    reinitialize(): void;
-    destroy(): void;
-};
+export class Program {
+    readonly #gl: WebGL2RenderingContext;
+    readonly #fragmentSource: string;
+    readonly #vertexSource: string;
+    #compiled: CompiledShaderProgram;
+    #vao: WebGLVertexArrayObject | null;
+    #nextTextureUnit = 0;
+    #destroyed = false;
+
+    constructor(
+        gl: WebGL2RenderingContext,
+        fragmentSource: string,
+        vertexSource: string = FULLSCREEN_TRIANGLE
+    ) {
+        this.#gl = gl;
+        this.#fragmentSource = fragmentSource;
+        this.#vertexSource = vertexSource;
+        this.#compiled = compileProgram(gl, fragmentSource, vertexSource);
+        this.#vao = gl.createVertexArray();
+    }
+
+    get program(): WebGLProgram {
+        return this.#compiled.program;
+    }
+
+    get uniforms(): Map<string, UniformEntry> {
+        return this.#compiled.uniforms;
+    }
+
+    use(): void {
+        this.#gl.useProgram(this.#compiled.program);
+        this.#gl.bindVertexArray(this.#vao);
+    }
+
+    setUniforms(values: Record<string, UniformValue>): void {
+        this.#gl.useProgram(this.#compiled.program);
+        setUniforms(this.#gl, this.#compiled.uniforms, values, () => this.#nextTextureUnit++);
+    }
+
+    render(): void {
+        this.#nextTextureUnit = 0;
+        this.#gl.useProgram(this.#compiled.program);
+        this.#gl.bindVertexArray(this.#vao);
+        this.#gl.viewport(0, 0, this.#gl.drawingBufferWidth, this.#gl.drawingBufferHeight);
+        this.#gl.drawArrays(this.#gl.TRIANGLES, 0, 3);
+    }
+
+    reinitialize(): void {
+        if (this.#destroyed) return;
+        this.#gl.deleteProgram(this.#compiled.program);
+        if (this.#vao) this.#gl.deleteVertexArray(this.#vao);
+        this.#compiled = compileProgram(this.#gl, this.#fragmentSource, this.#vertexSource);
+        this.#vao = this.#gl.createVertexArray();
+    }
+
+    destroy(): void {
+        if (this.#destroyed) return;
+        this.#destroyed = true;
+        this.#gl.deleteProgram(this.#compiled.program);
+        if (this.#vao) this.#gl.deleteVertexArray(this.#vao);
+        this.#vao = null;
+    }
+}
 
 export function createProgram(
     gl: WebGL2RenderingContext,
     fragmentSource: string,
-    vertexSource: string = FULLSCREEN_TRIANGLE
+    vertexSource?: string
 ): Program {
-    let compiled: CompiledShaderProgram = compileProgram(gl, fragmentSource, vertexSource);
-    let vao: WebGLVertexArrayObject | null = gl.createVertexArray();
-    let nextTextureUnit = 0;
-    let destroyed = false;
-
-    return {
-        get program(): WebGLProgram {
-            return compiled.program;
-        },
-
-        get uniforms(): Map<string, UniformEntry> {
-            return compiled.uniforms;
-        },
-
-        use(): void {
-            gl.useProgram(compiled.program);
-            gl.bindVertexArray(vao);
-        },
-
-        setUniforms(values: Record<string, UniformValue>): void {
-            gl.useProgram(compiled.program);
-            setUniforms(gl, compiled.uniforms, values, () => nextTextureUnit++);
-        },
-
-        render(): void {
-            nextTextureUnit = 0;
-            gl.useProgram(compiled.program);
-            gl.bindVertexArray(vao);
-            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-            gl.drawArrays(gl.TRIANGLES, 0, 3);
-        },
-
-        reinitialize(): void {
-            if (destroyed) return;
-            gl.deleteProgram(compiled.program);
-            if (vao) gl.deleteVertexArray(vao);
-            compiled = compileProgram(gl, fragmentSource, vertexSource);
-            vao = gl.createVertexArray();
-        },
-
-        destroy(): void {
-            if (destroyed) return;
-            destroyed = true;
-            gl.deleteProgram(compiled.program);
-            if (vao) gl.deleteVertexArray(vao);
-            vao = null;
-        }
-    };
+    return new Program(gl, fragmentSource, vertexSource);
 }

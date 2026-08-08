@@ -1,10 +1,10 @@
 ---
-title: 'Mandelbrot'
-description: 'Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits.'
-category: 'reference'
+title: "Mandelbrot"
+description: "Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits."
+category: "reference"
 tags:
-    - reference
-    - mandelbrot
+  - reference
+  - mandelbrot
 order: 20
 ---
 
@@ -41,13 +41,16 @@ pnpm --filter @repo/mandelbrot dev
 | `src/lib/big-float.ts`        | Arbitrary-precision numbers as `BigInt` fixed-point, dependency-free. |
 | `src/lib/mandelbrot/view.ts`  | Camera math: log2-magnification zoom + BigFloat centre.               |
 | `src/lib/mandelbrot/look.ts`  | Colour/lighting/iteration model (`LookState` → shader params).        |
-| `src/lib/reference-orbit.ts`  | CPU reference-orbit iteration.                                        |
-| `src/lib/reference-worker.ts` | Async orbit API + serialization.                                      |
+| `src/lib/reference-orbit.ts`  | CPU reference-orbit iteration (+ chunked async fallback).             |
+| `src/lib/reference.worker.ts` | Vite module worker that runs the orbit compute off the main thread.   |
+| `src/lib/reference-worker.ts` | `@repo/worker-pool` adapter: dispatch, serialization, fallback.       |
+| `src/lib/reference-policy.ts` | Drift thresholds + token superseding (app-owned).                     |
 | `src/lib/webgl/`              | WebGL2 renderer + perturbation shader (being replaced by glaze).      |
 
 ## Docs
 
 - [PLAN.md](./PLAN.md) — the driving roadmap (phases, renderer registry, decisions).
+- [NEXT-SESSION.md](./NEXT-SESSION.md) — fresh-context hand-off prompt for the next phase.
 - [REVIEW.md](./REVIEW.md) — pipeline walkthrough + code review findings.
 - [REPORT-perturbation-ultimate.md](./REPORT-perturbation-ultimate.md) — mandelbrot ↔
   `fracture` implementation comparison and the merged blueprint.
@@ -59,3 +62,4 @@ This package follows [project conventions](/docs/conventions/01-overview.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

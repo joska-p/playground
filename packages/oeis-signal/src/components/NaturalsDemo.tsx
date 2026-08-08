@@ -1,6 +1,5 @@
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import { getModule } from '../core/registry';
-import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 
 export function NaturalsDemo() {
     const module = getModule('naturals');
@@ -14,7 +13,7 @@ export function NaturalsDemo() {
                 if (next.done) return;
                 const x = next.value;
                 const y = x;
-                drawCircle(surface.context, { fill: 'red' }, { x, y }, 5);
+                surface.circle(x, y, 5, 'red');
             }}
         />
     );

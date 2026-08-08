@@ -1,10 +1,10 @@
 ---
-title: 'UI Components'
-description: 'UI Components package'
-category: 'reference'
+title: "UI Components"
+description: "UI Components package"
+category: "reference"
 tags:
-    - reference
-    - ui
+  - reference
+  - ui
 order: 20
 ---
 
@@ -86,3 +86,4 @@ This package follows [project conventions](/docs/conventions/01-overview.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

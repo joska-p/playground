@@ -4,16 +4,16 @@
 
 ## What it is
 
-`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`drawCircle`, `drawRect`, `drawLine`, `drawText`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 the two speak the same language: shapes are tessellated and drawn through a shader, and custom programs are fullscreen passes.
+`@repo/glaze` is a 2D rendering toolkit built on one idea: **a shape on the canvas and a shader on the canvas are the same mechanism.** The draw primitives (`surface.circle`, `surface.rect`, `surface.line`, `surface.text`) read like p5, and a "program" — a fragment shader plus its uniforms rendered as a fullscreen triangle — is what you reach for when shapes aren't enough. On WebGL2 the two speak the same language: shapes are tessellated and drawn through a shader, and custom programs are fullscreen passes.
 
 It ships as two sibling runtimes over a shared foundation:
 
-- `createCpuSurface` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
-- `createGpuRuntime` — WebGL2, the same drawing model. Shapes plus custom programs (`createProgram` / `renderProgram`), and `createStateBuffer` for GPGPU simulation on a ping-pong texture pair.
+- `CpuSurface` — immediate-mode Canvas2D. A fluent class: `createCpuSurface` is a thin `new CpuSurface(config)` wrapper; draw calls are chainable methods against a raw `2d` context.
+- `GpuSurface` — WebGL2, the same drawing model. A fluent class (`createGpuSurface` is a thin `new GpuSurface(config)` wrapper): the same chainable shape calls plus custom programs (`createProgram` / `renderProgram`), and `StateBuffer` for GPGPU simulation on a ping-pong texture pair.
 
 Both expose the same skeleton: a frame loop, a camera, and an input store, handed to you every frame as a context object (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`). Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
 
-The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the camera object and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
+The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the `Camera` class and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
 
 ## Use cases
 
@@ -23,24 +23,18 @@ No React, no shaders — a canvas, a loop, and shapes.
 
 ```ts
 import { createCpuSurface } from '@repo/glaze/cpu/createCpuSurface';
-import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
-import { drawText } from '@repo/glaze/cpu/shapes/text';
 
 const surface = createCpuSurface({ canvas });
 
 surface.setDraw(() => {
-    surface.clear('#0d1015');
-    drawCircle(
-        surface.context,
-        { fill: '#e11d48' },
-        { x: 200, y: 150 + Math.sin(surface.time * 2) * 30 },
-        60
-    );
-    drawText(surface.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
+    surface
+        .clear('#0d1015')
+        .circle(200, 150 + Math.sin(surface.time * 2) * 30, 60, '#e11d48')
+        .text('glaze', 20, 40, '#f8fafc', 24);
 });
 ```
 
-`setDraw` starts the rAF loop; `surface.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin. Per-frame state (`time`, `deltaTime`, `frameCount`, `width`, `height`, `dpr`) lives on the surface, updated before each draw callback.
+`setDraw` starts the rAF loop; `surface.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin. Per-frame state (`time`, `deltaTime`, `frameCount`, `width`, `height`, `dpr`) lives on the surface, updated before each draw callback. Every drawing method returns `surface`, so frames chain naturally with zero per-call allocations.
 
 ### Shapes on a GPU canvas (React)
 
@@ -49,31 +43,26 @@ Same draw calls as the CPU runtime — WebGL2 under the hood.
 ```tsx
 import { useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
 
 export function Sketch() {
-    const [surface, setSurface] = useState<GpuRuntime | null>(null);
+    const [surface, setSurface] = useState<GpuSurface | null>(null);
 
     return (
         <GpuCanvas
-            onSurface={setRuntime}
-            onFrame={() => {
-                if (!runtime) return;
-                runtime.clear(0.05, 0.07, 0.09, 1);
-                runtime.drawCircle({ x: 200, y: 150 }, 60, { fill: '#e11d48' });
-                runtime.drawRect({ x: 30, y: 30, w: 120, h: 90 }, { fill: '#16a34a' });
-                runtime.drawLine(
-                    { x: 30, y: 260 },
-                    { x: 200, y: 260 },
-                    { stroke: '#3b82f6', lineWidth: 8 }
-                );
+            onSurface={setSurface}
+            onFrame={({ surface }) => {
+                surface.clear(0.05, 0.07, 0.09, 1);
+                surface.circle(200, 150, 60, '#e11d48');
+                surface.rect(30, 30, 120, 90, '#16a34a');
+                surface.line(30, 260, 200, 260, '#3b82f6', 8);
             }}
         />
     );
 }
 ```
 
-`onSurface` hands you the live runtime (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
+`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same per-frame context the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -101,18 +90,18 @@ void main() {
 }
 ```
 
-The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `runtime.createProgram(source)` and `runtime.renderProgram(program)` from `onSurface`.
+The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the frame context. For the imperative equivalent, use `surface.createProgram(source)` and `surface.renderProgram(program)` from `onSurface`.
 
 ### A GPGPU simulation (state buffer)
 
-`createStateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps. Seed it with `init()` and read the live state back with `getTexture()`. This is Conway's Game of Life in miniature.
+`StateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps. Seed it with `init()` and read the live state back with `getTexture()`. This is Conway's Game of Life in miniature.
 
 ```ts
-import { createGpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import { createGpuSurface } from '@repo/glaze/gpu/createGpuSurface';
 import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
 
-const runtime = createGpuRuntime({ canvas });
-const buffer = createStateBuffer(runtime.gl, 96, 96);
+const surface = createGpuSurface({ canvas });
+const buffer = createStateBuffer(surface.gl, 96, 96);
 
 buffer.addProgram(
     'sim',
@@ -149,7 +138,7 @@ buffer.addProgram(
 
 buffer.init(cells); // one byte per cell: 0 or 1
 
-const display = runtime.createProgram(/* glsl */ `
+const display = surface.createProgram(/* glsl */ `
     precision highp float;
     in vec2 vUv;
     out vec4 out_color;
@@ -160,17 +149,17 @@ const display = runtime.createProgram(/* glsl */ `
     }
 `);
 
-runtime.setDraw(() => {
+surface.setDraw(() => {
     buffer.useProgram('sim');
     buffer.setUniforms({ u_gridSize: [96, 96] });
     buffer.step(); // one generation, then swap the ping-pong pair
-    runtime.clear(0, 0, 0, 1);
+    surface.clear(0, 0, 0, 1);
     display.setUniforms({ u_state: buffer.getTexture() });
-    runtime.renderProgram(display);
+    surface.renderProgram(display);
 });
 ```
 
-A pass is reusable: `addProgram` several shaders and switch between them with `useProgram(name)`.
+A pass is reusable: `addProgram` several shaders and switch between them with `useProgram(name)`. `StateBuffer` is a class (`createStateBuffer` is a thin `new StateBuffer(gl, w, h)` wrapper).
 
 ### An interactive canvas (pan/zoom + input)
 
@@ -178,7 +167,6 @@ A pass is reusable: `addProgram` several shaders and switch between them with `u
 
 ```tsx
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { useCamera } from '@repo/glaze/react/useCamera';
 
 export function Crosshair() {
@@ -191,7 +179,7 @@ export function Crosshair() {
             onFrame={(surface) => {
                 surface.clear('#0d1015');
                 const world = surface.input.getPointerWorldPos(camera);
-                drawCircle(surface.context, { fill: '#38bdf8' }, world, 12);
+                surface.circle(world.x, world.y, 12, '#38bdf8');
             }}
         />
     );
@@ -235,7 +223,7 @@ export function App() {
 - **Text is a texture.** Glyphs are rasterized to an offscreen canvas (2× supersampled, 128-entry LRU cache) and uploaded with `UNPACK_FLIP_Y`.
 - **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including the shape batcher and the text cache) on restore.
 - **CPU and GPU stay siblings.** There is deliberately no shared renderer abstraction — duplicate over abstract.
-- **Factories, not classes; named exports only, no barrel files; errors prefixed `Glaze:`.**
+- **Classes over factories.** `CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `StateBuffer`, `Program`, `ShapeBatcher`, and `TextRasterizer` are classes; every `createX` export is a thin `new X(...)` wrapper kept for compatibility. Named exports only, no barrel files; errors prefixed `Glaze:`.
 
 ## Testing
 
