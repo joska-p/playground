@@ -1,6 +1,6 @@
 import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera } from '../core/coords/camera';
-import { createInputStore, type InputStore } from './input';
+import { createInputStore, type InputStore } from './createInputStore';
 
 export type CpuSurfaceConfig = {
     canvas: HTMLCanvasElement;
@@ -8,21 +8,15 @@ export type CpuSurfaceConfig = {
     dpr?: number;
 };
 
-export type CpuFrameContext = {
-    readonly time: number;
-    readonly deltaTime: number;
-    readonly frameCount: number;
-    readonly camera: Camera;
-    readonly input: InputStore;
-    readonly width: number;
-    readonly height: number;
-    readonly dpr: number;
-    readonly surface: CpuSurface;
-};
-
-export type CpuDraw = (context: CpuFrameContext) => void;
+export type CpuDraw = (surface: CpuSurface) => void;
 
 export type CpuSurface = {
+    time: number;
+    deltaTime: number;
+    frameCount: number;
+    width: number;
+    height: number;
+    dpr: number;
     readonly canvas: HTMLCanvasElement;
     readonly context: CanvasRenderingContext2D;
     readonly camera: Camera;
@@ -89,8 +83,14 @@ export function createCpuSurface(config: CpuSurfaceConfig): CpuSurface {
         rendererAttached = false;
     };
 
-    // Build the public surface object first so onFrame can close over it.
+    // Build the public surface first so the frame loop can update it and hand it to draw callbacks.
     const surface: CpuSurface = {
+        time: 0,
+        deltaTime: 0,
+        frameCount: 0,
+        width: 0,
+        height: 0,
+        dpr,
         canvas,
         context,
         camera,
@@ -132,23 +132,21 @@ export function createCpuSurface(config: CpuSurfaceConfig): CpuSurface {
         frameCount++;
         applyCamera();
 
-        const frameContext: CpuFrameContext = {
-            time,
-            deltaTime,
-            frameCount,
-            camera,
-            input,
-            width: cssWidth,
-            height: cssHeight,
-            dpr,
-            surface
-        };
+        surface.time = time;
+        surface.deltaTime = deltaTime;
+        surface.frameCount = frameCount;
+        surface.width = cssWidth;
+        surface.height = cssHeight;
 
         const current = cpuDraw;
-        if (current) current(frameContext);
-        for (const subscriber of subscribers) subscriber(frameContext);
+        if (current) current(surface);
+        for (const subscriber of subscribers) subscriber(surface);
         input.endFrame();
     };
+
+    // Size the canvas once up front so one-shot draws made outside the frame loop survive
+    // (the loop's first resize would otherwise clear the buffer).
+    resize();
 
     return surface;
 }

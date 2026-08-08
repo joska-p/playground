@@ -70,9 +70,9 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
         return () => onSurface?.(null);
     }, [surface, onSurface]);
 
-    const draw = useEffectEvent((ctx: Parameters<CpuDraw>[0]) => {
-        frameRef.current = ctx;
-        onFrame?.(ctx);
+    const draw = useEffectEvent((frame: CpuSurface) => {
+        frameRef.current = frame;
+        onFrame?.(frame);
     });
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useRef, type RefObject } from 'react';
-import type { InputStore } from '../cpu/input';
+import type { InputStore } from '../cpu/createInputStore';
 import type { Camera } from '../core/coords/camera';
 import {
     createInteractionController,

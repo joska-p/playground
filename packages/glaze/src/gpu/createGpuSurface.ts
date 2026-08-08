@@ -1,6 +1,6 @@
 import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera, type Point2D } from '../core/coords/camera';
-import { createInputStore, type InputStore } from '../cpu/input';
+import { createInputStore, type InputStore } from '../cpu/createInputStore';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 import { createShapeBatcher } from './batch/createShapeBatcher';
 import { createProgram as createShaderProgram, type Program } from './shader/createProgram';

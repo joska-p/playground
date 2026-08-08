@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createInputStore } from './input';
+import { createInputStore } from './createInputStore';
 
 describe('createInputStore', () => {
     it('tracks the pointer relative to the attached target', () => {

@@ -1,5 +1,5 @@
 import type { Camera, Point2D } from '../core/coords/camera';
-import type { InputStore } from '../cpu/input';
+import type { InputStore } from '../cpu/createInputStore';
 
 export type FrameSnapshot = {
     readonly time: number;

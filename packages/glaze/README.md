@@ -8,7 +8,7 @@
 
 It ships as two sibling runtimes over a shared foundation:
 
-- `createSurface` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
+- `createCpuSurface` — immediate-mode Canvas2D. Draw calls against a raw `2d` context.
 - `createGpuRuntime` — WebGL2, the same drawing model. Shapes plus custom programs (`createProgram` / `renderProgram`), and `createStateBuffer` for GPGPU simulation on a ping-pong texture pair.
 
 Both expose the same skeleton: a frame loop, a camera, and an input store, handed to you every frame as a context object (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`). Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
@@ -22,25 +22,25 @@ The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime
 No React, no shaders — a canvas, a loop, and shapes.
 
 ```ts
-import { createSurface } from '@repo/glaze/cpu/createSurface';
+import { createCpuSurface } from '@repo/glaze/cpu/createCpuSurface';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { drawText } from '@repo/glaze/cpu/shapes/text';
 
-const runtime = createSurface({ canvas });
+const surface = createCpuSurface({ canvas });
 
-runtime.setDraw(({ time }) => {
-    runtime.clear('#0d1015');
+surface.setDraw(() => {
+    surface.clear('#0d1015');
     drawCircle(
-        runtime.context,
+        surface.context,
         { fill: '#e11d48' },
-        { x: 200, y: 150 + Math.sin(time * 2) * 30 },
+        { x: 200, y: 150 + Math.sin(surface.time * 2) * 30 },
         60
     );
-    drawText(runtime.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
+    drawText(surface.context, { fill: '#f8fafc', fontSize: 24 }, 'glaze', { x: 20, y: 40 });
 });
 ```
 
-`setDraw` starts the rAF loop; `runtime.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin.
+`setDraw` starts the rAF loop; `surface.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin. Per-frame state (`time`, `deltaTime`, `frameCount`, `width`, `height`, `dpr`) lives on the surface, updated before each draw callback.
 
 ### Shapes on a GPU canvas (React)
 
@@ -177,26 +177,21 @@ A pass is reusable: `addProgram` several shaders and switch between them with `u
 `CpuCanvas` and `GpuCanvas` wire pointer-drag pan and wheel zoom to a camera by default. Take control of that camera with `useCamera`:
 
 ```tsx
-import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { Surface } from '@repo/glaze/cpu/createSurface';
 import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 import { useCamera } from '@repo/glaze/react/useCamera';
 
 export function Crosshair() {
-    const [surface, setSurface] = useState<Surface | null>(null);
     const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
 
     return (
         <CpuCanvas
-            onSurface={setRuntime}
             camera={camera}
             cameraControls={controls}
-            onFrame={({ input }) => {
-                if (!runtime) return;
-                runtime.clear('#0d1015');
-                const world = input.getPointerWorldPos(camera);
-                drawCircle(runtime.context, { fill: '#38bdf8' }, world, 12);
+            onFrame={(surface) => {
+                surface.clear('#0d1015');
+                const world = surface.input.getPointerWorldPos(camera);
+                drawCircle(surface.context, { fill: '#38bdf8' }, world, 12);
             }}
         />
     );

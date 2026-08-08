@@ -1,37 +1,20 @@
-import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
-
 import { getModule } from '../core/registry';
-import { identity } from '../middle/identity';
-import { createPolylineViz } from '../viz/polyline';
+import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
 
 export function NaturalsDemo() {
-    const [surface, setSurface] = useState<CpuSurface | null>(null);
-
     const module = getModule('naturals');
-    const signal = module.createSignal({ maxTerms: 200 });
-    const processed = identity(signal); // middleware does nothing yet
-    const viz = createPolylineViz({
-        maxTerms: 80,
-        xSpacing: 14,
-        yScale: 0.8,
-        color: '#38bdf8'
-    });
+    const signal = module.createSignal({ maxTerms: 1000 });
 
     return (
         <CpuCanvas
-            style={{ width: '100%', height: 400, background: '#0d1015' }}
-            onSurface={setSurface}
-            onFrame={(frame) => {
-                if (!surface) return;
-                surface.clear('#0d1015');
-
-                viz.render(processed, surface, {
-                    width: frame.width,
-                    height: frame.height,
-                    time: frame.time
-                });
+            style={{ width: '100%', height: 400, background: 'black' }}
+            onFrame={(surface) => {
+                const next = signal.next();
+                if (next.done) return;
+                const x = next.value;
+                const y = x;
+                drawCircle(surface.context, { fill: 'red' }, { x, y }, 5);
             }}
         />
     );
