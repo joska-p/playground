@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createGpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import { createGpuRuntime } from '../../../gpu/createGpuRuntime';
 import plasmaFragmentSource from '../shaders.glsl?raw';
 
 export function ProgramGpuImperative() {

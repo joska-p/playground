@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
-import type { UniformValue } from '@repo/glaze/gpu/shader/compileProgram';
-import { createStateBuffer, type StateBuffer } from '@repo/glaze/gpu/createStateBuffer';
+import { GpuCanvas } from '../../../react/GpuCanvas';
+import type { GpuRuntime } from '../../../gpu/createGpuRuntime';
+import type { UniformValue } from '../../../gpu/shader/compileProgram';
+import { createStateBuffer, type StateBuffer } from '../../../gpu/createStateBuffer';
 
 const GRID = 96;
 

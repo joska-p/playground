@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactNode, type RefObject } from 'react';
-import { type Surface, type CpuDraw } from '../cpu/createSurface';
+import { type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { CameraControls, CameraOptions } from './useCamera';
 import type { PointerHandlers } from './interaction';
@@ -8,7 +8,7 @@ import { useCpuCanvas } from './useCpuCanvas';
 
 export type CpuCanvasProps = {
     onFrame?: CpuDraw | null;
-    onSurface?: (surface: Surface | null) => void;
+    onSurface?: (surface: CpuSurface | null) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;

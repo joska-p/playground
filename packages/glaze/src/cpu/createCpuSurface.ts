@@ -2,7 +2,7 @@ import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
 import { defaultCamera, type Camera } from '../core/coords/camera';
 import { createInputStore, type InputStore } from './input';
 
-export type SurfaceConfig = {
+export type CpuSurfaceConfig = {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     dpr?: number;
@@ -17,11 +17,12 @@ export type CpuFrameContext = {
     readonly width: number;
     readonly height: number;
     readonly dpr: number;
+    readonly surface: CpuSurface;
 };
 
 export type CpuDraw = (context: CpuFrameContext) => void;
 
-export type Surface = {
+export type CpuSurface = {
     readonly canvas: HTMLCanvasElement;
     readonly context: CanvasRenderingContext2D;
     readonly camera: Camera;
@@ -34,16 +35,18 @@ export type Surface = {
     destroy(): void;
 };
 
-export function createSurface(config: SurfaceConfig): Surface {
+export function createCpuSurface(config: CpuSurfaceConfig): CpuSurface {
     const canvas = config.canvas;
     const context = canvas.getContext('2d');
     if (!context) throw new Error('Glaze: Canvas2D context unavailable');
+
     const camera: Camera = config.camera ?? defaultCamera();
     const dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
     const input = createInputStore();
     const loop = createFrameLoop();
+
     const subscribers = new Set<CpuDraw>();
-    let draw: CpuDraw | null = null;
+    let cpuDraw: CpuDraw | null = null;
     let frameCount = 0;
     let cssWidth = 0;
     let cssHeight = 0;
@@ -73,26 +76,6 @@ export function createSurface(config: SurfaceConfig): Surface {
         context.restore();
     };
 
-    const onFrame: FrameCallback = (time, deltaTime): void => {
-        resize();
-        frameCount++;
-        applyCamera();
-        const frameContext: CpuFrameContext = {
-            time,
-            deltaTime,
-            frameCount,
-            camera,
-            input,
-            width: cssWidth,
-            height: cssHeight,
-            dpr
-        };
-        const current = draw;
-        if (current) current(frameContext);
-        for (const subscriber of subscribers) subscriber(frameContext);
-        input.endFrame();
-    };
-
     const startRendering = (): void => {
         if (rendererAttached) return;
         unsubscribeRenderer = loop.subscribe(onFrame);
@@ -106,7 +89,8 @@ export function createSurface(config: SurfaceConfig): Surface {
         rendererAttached = false;
     };
 
-    return {
+    // Build the public surface object first so onFrame can close over it.
+    const surface: CpuSurface = {
         canvas,
         context,
         camera,
@@ -116,10 +100,10 @@ export function createSurface(config: SurfaceConfig): Surface {
             return loop.isRunning;
         },
 
-        setDraw(fn: CpuDraw | null): void {
-            draw = fn;
-            if (fn && subscribers.size === 0) startRendering();
-            else if (!fn && subscribers.size === 0) stopRendering();
+        setDraw(newCpuDraw: CpuDraw | null): void {
+            cpuDraw = newCpuDraw;
+            if (newCpuDraw && subscribers.size === 0) startRendering();
+            else if (!newCpuDraw && subscribers.size === 0) stopRendering();
         },
 
         subscribe(fn: CpuDraw): () => void {
@@ -127,7 +111,7 @@ export function createSurface(config: SurfaceConfig): Surface {
             startRendering();
             return () => {
                 subscribers.delete(fn);
-                if (subscribers.size === 0 && draw === null) stopRendering();
+                if (subscribers.size === 0 && cpuDraw === null) stopRendering();
             };
         },
 
@@ -139,7 +123,32 @@ export function createSurface(config: SurfaceConfig): Surface {
             loop.dispose();
             input.destroy();
             subscribers.clear();
-            draw = null;
+            cpuDraw = null;
         }
     };
+
+    const onFrame: FrameCallback = (time, deltaTime): void => {
+        resize();
+        frameCount++;
+        applyCamera();
+
+        const frameContext: CpuFrameContext = {
+            time,
+            deltaTime,
+            frameCount,
+            camera,
+            input,
+            width: cssWidth,
+            height: cssHeight,
+            dpr,
+            surface
+        };
+
+        const current = cpuDraw;
+        if (current) current(frameContext);
+        for (const subscriber of subscribers) subscriber(frameContext);
+        input.endFrame();
+    };
+
+    return surface;
 }

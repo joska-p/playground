@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createSurface } from '@repo/glaze/cpu/createSurface';
+import { createCpuSurface } from '../../../cpu/createCpuSurface';
 import { drawSceneCpu } from '../scene';
 
 export function SurfaceCpuImperative() {
@@ -8,7 +8,7 @@ export function SurfaceCpuImperative() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const surface = createSurface({ canvas });
+        const surface = createCpuSurface({ canvas });
         surface.setDraw(() => {
             drawSceneCpu(surface);
         });

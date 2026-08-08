@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
-import type { CpuDraw, Surface } from '@repo/glaze/cpu/createSurface';
-import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
-import type { Point2D } from '@repo/glaze/core/coords/camera';
-import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import { useCamera } from '@repo/glaze/react/useCamera';
-import { useFrame } from '@repo/glaze/react/useFrame';
+import type { CpuDraw, CpuSurface } from '../../../cpu/createCpuSurface';
+import { CpuCanvas } from '../../../react/CpuCanvas';
+import { drawCircle } from '../../../cpu/shapes/circle';
+import type { Point2D } from '../../../core/coords/camera';
+import { useCamera } from '../../../react/useCamera';
+import { useFrame } from '../../../react/useFrame';
 
 const CENTER: Point2D = { x: 200, y: 150 };
 const ORBIT = 90;
@@ -12,7 +12,7 @@ const RADIUS = 24;
 const SPEED = 8;
 
 export function SurfaceCpuHybrid() {
-    const [surface, setSurface] = useState<Surface | null>(null);
+    const [surface, setSurface] = useState<CpuSurface | null>(null);
     const [camera, controls] = useCamera({ zoom: 1 });
     const phaseRef = useRef(0);
 

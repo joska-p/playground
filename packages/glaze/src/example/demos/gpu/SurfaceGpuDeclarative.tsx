@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { GpuDraw, GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+import type { GpuDraw, GpuRuntime } from '../../../gpu/createGpuRuntime';
+import { GpuCanvas } from '../../../react/GpuCanvas';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuDeclarative() {

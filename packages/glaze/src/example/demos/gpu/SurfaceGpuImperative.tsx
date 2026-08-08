@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createGpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
+import { createGpuRuntime } from '../../../gpu/createGpuRuntime';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuImperative() {

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import type { CpuDraw, Surface } from '@repo/glaze/cpu/createSurface';
-import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
+import type { CpuDraw, CpuSurface } from '../../../cpu/createCpuSurface';
+import { CpuCanvas } from '../../../react/CpuCanvas';
 import { drawSceneCpu } from '../scene';
 
 export function SurfaceCpuDeclarative() {
-    const [surface, setSurface] = useState<Surface | null>(null);
+    const [surface, setSurface] = useState<CpuSurface | null>(null);
 
     const onFrame: CpuDraw = () => {
         if (!surface) return;

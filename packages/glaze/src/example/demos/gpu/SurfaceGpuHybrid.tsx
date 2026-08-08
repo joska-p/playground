@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import type { GpuDraw, GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
-import type { Point2D } from '@repo/glaze/core/coords/camera';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import { useCamera } from '@repo/glaze/react/useCamera';
-import { useFrame } from '@repo/glaze/react/useFrame';
+import type { GpuDraw, GpuRuntime } from '../../../gpu/createGpuRuntime';
+import type { Point2D } from '../../../core/coords/camera';
+import { GpuCanvas } from '../../../react/GpuCanvas';
+import { useCamera } from '../../../react/useCamera';
+import { useFrame } from '../../../react/useFrame';
 import { drawSceneGpu } from '../scene';
 
 export function SurfaceGpuHybrid() {

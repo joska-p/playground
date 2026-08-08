@@ -1,4 +1,4 @@
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+import { GpuCanvas } from '../../../react/GpuCanvas';
 import plasmaFragmentSource from '../shaders.glsl?raw';
 
 export function ProgramGpuDeclarative() {

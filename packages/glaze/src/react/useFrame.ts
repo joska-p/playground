@@ -18,8 +18,7 @@ export function useFrame(callback: (time: number, delta: number) => void): void 
         if (!loop) {
             if (!import.meta.env.PROD) {
                 console.warn(
-                    'useFrame() called outside <FrameLoopProvider>. ' +
-                        'The callback will never be invoked.'
+                    'useFrame() called outside <FrameLoopProvider>. The callback will never be invoked.'
                 );
             }
             return;

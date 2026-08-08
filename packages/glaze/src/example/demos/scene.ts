@@ -1,9 +1,9 @@
-import type { GpuRuntime } from '@repo/glaze/gpu/createGpuRuntime';
-import type { Surface } from '@repo/glaze/cpu/createSurface';
-import { drawCircle } from '@repo/glaze/cpu/shapes/circle';
-import { drawLine } from '@repo/glaze/cpu/shapes/line';
-import { drawRect } from '@repo/glaze/cpu/shapes/rect';
-import { drawText } from '@repo/glaze/cpu/shapes/text';
+import type { GpuRuntime } from '../../gpu/createGpuRuntime';
+import type { CpuSurface } from '../../cpu/createCpuSurface';
+import { drawCircle } from '../../cpu/shapes/circle';
+import { drawLine } from '../../cpu/shapes/line';
+import { drawRect } from '../../cpu/shapes/rect';
+import { drawText } from '../../cpu/shapes/text';
 
 export const SCENE = {
     bg: '#0d1117',
@@ -14,7 +14,7 @@ export const SCENE = {
     text: { text: 'RENDER', position: { x: 220, y: 80 }, fill: '#f8fafc', fontSize: 28 }
 } as const;
 
-export function drawSceneCpu(surface: Surface): void {
+export function drawSceneCpu(surface: CpuSurface): void {
     surface.clear(SCENE.bg);
     surface.applyCamera();
     drawCircle(
