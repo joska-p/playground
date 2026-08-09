@@ -1,5 +1,5 @@
 import type { Signal } from '../core/types';
-import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
+import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
 export type Viz = {
     readonly id: string;

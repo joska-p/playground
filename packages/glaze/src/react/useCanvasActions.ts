@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import type { InputStore } from '../cpu/createInputStore';
-import type { CameraControls } from '../core/coords/cameraControls';
+import type { InputStore } from '../core/InputStore';
+import type { CameraControls } from '../core/CameraControls';
 import {
     InputRouter,
     createInteractionAdapter,

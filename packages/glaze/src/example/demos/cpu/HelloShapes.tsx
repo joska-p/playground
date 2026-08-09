@@ -1,8 +1,8 @@
-import type { CpuDraw } from '../../../cpu/createCpuSurface';
+import type { CpuDraw } from '../../../cpu/CpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 export const helloShapesSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuDraw } from '@repo/glaze/cpu/createCpuSurface';
+import type { CpuDraw } from '@repo/glaze/cpu/CpuSurface';
 
 function RadarSketch() {
     const onFrame: CpuDraw = (surface) => {

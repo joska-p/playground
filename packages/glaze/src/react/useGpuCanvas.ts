@@ -1,8 +1,8 @@
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
-import { createGpuSurface, type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
-import type { Program } from '../gpu/shader/createProgram';
+import { createGpuSurface, type GpuSurface, type GpuDraw } from '../gpu/GpuSurface';
+import type { Program } from '../gpu/shader/Program';
 import type { UniformValue } from '../gpu/shader/compileProgram';
-import type { Camera } from '../core/coords/camera';
+import type { Camera } from '../core/Camera';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 import type { CanvasRef } from './useCpuCanvas';
 

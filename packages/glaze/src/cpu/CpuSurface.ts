@@ -1,6 +1,6 @@
-import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
-import { defaultCamera, type Camera, type Point2D } from '../core/coords/camera';
-import { createInputStore, type InputStore } from './createInputStore';
+import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
+import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
+import { createInputStore, type InputStore } from '../core/InputStore';
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
 
 const DEFAULT_STROKE_WIDTH = 1;
@@ -386,4 +386,8 @@ export class CpuSurface {
         if (options?.closed ?? closed) context.closePath();
         this.#paintShape(fill, stroke, options);
     }
+}
+
+export function createCpuSurface(config: CpuSurfaceConfig): CpuSurface {
+    return new CpuSurface(config);
 }

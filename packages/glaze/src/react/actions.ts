@@ -1,6 +1,6 @@
-import type { InputStore } from '../cpu/createInputStore';
-import type { CameraControls } from '../core/coords/cameraControls';
-import type { Point2D } from '../core/coords/camera';
+import type { InputStore } from '../core/InputStore';
+import type { CameraControls } from '../core/CameraControls';
+import type { Point2D } from '../core/Camera';
 
 export const DEFAULT_WHEEL_SPEED = 0.002;
 

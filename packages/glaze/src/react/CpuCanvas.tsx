@@ -1,6 +1,6 @@
 import { type CSSProperties, type ReactNode } from 'react';
-import { type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
-import type { Camera } from '../core/coords/camera';
+import { type CpuSurface, type CpuDraw } from '../cpu/CpuSurface';
+import type { Camera } from '../core/Camera';
 import type { CameraControls, CameraOptions } from './useCamera';
 import { createInteractionAdapter, type CanvasInteractions } from './actions';
 import { useCanvasActions } from './useCanvasActions';

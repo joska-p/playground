@@ -1,4 +1,4 @@
-import type { Point2D } from '../core/coords/camera';
+import type { Point2D } from './Camera';
 
 type PointerEventName = 'pointerdown' | 'pointermove' | 'pointerup' | 'pointercancel';
 

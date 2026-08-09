@@ -1,4 +1,4 @@
-import { Camera } from '@repo/glaze/core/coords/camera';
+import { Camera } from '@repo/glaze/core/Camera';
 
 export type Point2D = { x: number; y: number };
 export type GridCell = { column: number; row: number; index: number };

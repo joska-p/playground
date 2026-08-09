@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Camera } from '../core/coords/camera';
+import { Camera } from '../core/Camera';
 import { CpuSurface } from './CpuSurface';
 
 function surfaceWithCamera(camera: Camera): CpuSurface {

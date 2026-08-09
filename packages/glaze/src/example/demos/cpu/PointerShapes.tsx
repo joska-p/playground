@@ -1,4 +1,4 @@
-import type { CpuSurface } from '../../../cpu/createCpuSurface';
+import type { CpuSurface } from '../../../cpu/CpuSurface';
 import type { LiveInteractionEvent } from '../../../react/actions';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
@@ -7,7 +7,7 @@ const BACKGROUND = '#0d1117';
 const FILL = '#38bdf8';
 
 export const pointerShapesSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
+import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 import type { LiveInteractionEvent } from '@repo/glaze/react/actions';
 
 const RADIUS = 12;

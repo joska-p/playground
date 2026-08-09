@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Camera } from './camera';
-import { createCameraControls } from './cameraControls';
+import { Camera } from './Camera';
+import { createCameraControls } from './CameraControls';
 
 describe('createCameraControls', () => {
     it('panTo moves the camera without touching zoom', () => {

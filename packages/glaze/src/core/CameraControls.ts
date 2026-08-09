@@ -1,4 +1,4 @@
-import { Camera, clamp, DEFAULT_ZOOM_BOUNDS, type Point2D, type ZoomBounds } from './camera';
+import { Camera, clamp, DEFAULT_ZOOM_BOUNDS, type Point2D, type ZoomBounds } from './Camera';
 
 /**
  * Explicit camera mutation contract. `Camera` stays passive; everything that

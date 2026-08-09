@@ -1,9 +1,8 @@
 import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
-import { createCpuSurface, type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
-import type { Camera } from '../core/coords/camera';
+import { createCpuSurface, type CpuSurface, type CpuDraw } from '../cpu/CpuSurface';
+import type { Camera } from '../core/Camera';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 
-/** A ref to a canvas element; `current` is null until the element mounts. */
 export type CanvasRef = RefObject<HTMLCanvasElement | null>;
 
 export type UseCpuCanvasOptions = {

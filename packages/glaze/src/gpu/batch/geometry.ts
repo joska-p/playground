@@ -1,4 +1,4 @@
-import type { Camera, Point2D } from '../../core/coords/camera';
+import type { Camera, Point2D } from '../../core/Camera';
 
 /**
  * GL 3x3 matrix in column-major order (element `i` = row `i % 3`, column

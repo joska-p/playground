@@ -11,7 +11,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
+import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 import type { CanvasInteractions } from '@repo/glaze/react/actions';
 import { computeReferenceAsync, toRequest, type OrbitResult } from '../lib/reference-worker';
 import {

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Camera } from '../core/coords/camera';
-import { createCameraControls } from '../core/coords/cameraControls';
-import { InputStore } from '../cpu/createInputStore';
+import { Camera } from '../core/Camera';
+import { createCameraControls } from '../core/CameraControls';
+import { InputStore } from '../core/InputStore';
 import {
     InputRouter,
     PanGesture,

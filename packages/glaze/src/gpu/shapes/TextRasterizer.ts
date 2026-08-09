@@ -1,4 +1,4 @@
-import type { Point2D } from '../../core/coords/camera';
+import type { Point2D } from '../../core/Camera';
 import type { TextStyle } from '../../cpu/shapes/types';
 import type { UniformValue } from '../shader/compileProgram';
 import { colorArray } from './color';

@@ -1,6 +1,6 @@
 import { type CSSProperties, type ReactNode } from 'react';
-import { type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
-import type { Camera } from '../core/coords/camera';
+import { type GpuSurface, type GpuDraw } from '../gpu/GpuSurface';
+import type { Camera } from '../core/Camera';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { CameraControls, CameraOptions } from './useCamera';
 import { createInteractionAdapter, type CanvasInteractions } from './actions';

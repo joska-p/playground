@@ -30,7 +30,7 @@ The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime
 No React, no shaders — a canvas, a loop, and shapes.
 
 ```ts
-import { createCpuSurface } from '@repo/glaze/cpu/createCpuSurface';
+import { createCpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
 const surface = createCpuSurface({ canvas });
 
@@ -51,7 +51,7 @@ Same draw calls as the CPU runtime — WebGL2 under the hood.
 ```tsx
 import { useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
+import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 
 export function Sketch() {
     const [surface, setSurface] = useState<GpuSurface | null>(null);
@@ -105,8 +105,8 @@ The standard uniforms are applied automatically each frame: `u_resolution` (devi
 `StateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps. Seed it with `init()` and read the live state back with `getTexture()`. This is Conway's Game of Life in miniature.
 
 ```ts
-import { createGpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
+import { createGpuSurface } from '@repo/glaze/gpu/GpuSurface';
+import { createStateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
 const surface = createGpuSurface({ canvas });
 const buffer = createStateBuffer(surface.gl, 96, 96);

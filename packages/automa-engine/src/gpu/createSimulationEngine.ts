@@ -1,5 +1,5 @@
 import type { Rule } from '../rules/registry';
-import { createStateBuffer } from '@repo/glaze/gpu/createStateBuffer';
+import { createStateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
 export type SimulationEngine = ReturnType<typeof createSimulationEngine>;
 

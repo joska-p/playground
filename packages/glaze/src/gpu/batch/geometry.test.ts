@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Camera } from '../../core/coords/camera';
+import { Camera } from '../../core/Camera';
 import {
     type Mat3,
     cameraMatrix,

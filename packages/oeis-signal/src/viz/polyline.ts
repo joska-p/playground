@@ -1,6 +1,6 @@
 import type { Signal } from '../core/types';
 import type { Viz } from './types';
-import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
+import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
 type PolylineOptions = {
     maxTerms?: number;

@@ -1,4 +1,4 @@
-import { createProgram, type Program } from './shader/createProgram';
+import { createProgram, type Program } from './shader/Program';
 import type { UniformValue } from './shader/compileProgram';
 
 /**

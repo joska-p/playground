@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Camera, defaultCamera } from './camera';
+import { Camera, defaultCamera } from './Camera';
 
 describe('camera', () => {
     it('defaults to the identity camera', () => {

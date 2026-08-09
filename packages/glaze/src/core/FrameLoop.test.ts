@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { FrameLoop, createFrameLoop } from './createFrameLoop';
+import { FrameLoop, createFrameLoop } from './FrameLoop';
 
 let rafCallback: FrameRequestCallback | null = null;
 let cancelCalls = 0;

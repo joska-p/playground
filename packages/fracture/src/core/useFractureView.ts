@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import type { Camera } from '@repo/glaze/core/coords/camera';
+import type { Camera } from '@repo/glaze/core/Camera';
 import { useCamera, type CameraControls } from '@repo/glaze/react/useCamera';
 import { setView, type View } from '../stores/viewStore';
 

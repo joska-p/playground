@@ -1,16 +1,16 @@
-import { createFrameLoop, type FrameCallback } from '../core/createFrameLoop';
-import { defaultCamera, type Camera, type Point2D } from '../core/coords/camera';
-import { createInputStore, type InputStore } from '../cpu/createInputStore';
+import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
+import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
+import { createInputStore, type InputStore } from '../core/InputStore';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
-import { ShapeBatcher } from './batch/createShapeBatcher';
-import { createProgram, type Program } from './shader/createProgram';
+import { ShapeBatcher } from './batch/ShapeBatcher';
+import { createProgram, type Program } from './shader/Program';
 import { createStandardUniformValues } from './shader/setUniforms';
 import {
     TextRasterizer,
     DEFAULT_FONT_FAMILY,
     textFragmentSource,
     textUniforms
-} from './shapes/text';
+} from './shapes/TextRasterizer';
 
 export type GpuSurfaceConfig = {
     canvas: HTMLCanvasElement;
@@ -357,4 +357,8 @@ export class GpuSurface {
         this.#flushBatch();
         this.input.endFrame();
     };
+}
+
+export function createGpuSurface(config: GpuSurfaceConfig): GpuSurface {
+    return new GpuSurface(config);
 }

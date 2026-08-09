@@ -1,4 +1,4 @@
-import type { Camera, Point2D } from '../../core/coords/camera';
+import type { Camera, Point2D } from '../../core/Camera';
 import type { DrawStyle, Rect } from '../../cpu/shapes/types';
 import { colorArray } from '../shapes/color';
 import {

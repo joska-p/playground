@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { InputStore, createInputStore } from './createInputStore';
+import { InputStore, createInputStore } from './InputStore';
 
 function wheelEvent(init: {
     deltaY: number;

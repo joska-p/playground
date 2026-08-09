@@ -1,4 +1,4 @@
-import type { Camera, Point2D } from '../../core/coords/camera';
+import type { Camera, Point2D } from '../../core/Camera';
 import type { UniformEntry, UniformValue } from './compileProgram';
 
 function isWebGLTextureValue(

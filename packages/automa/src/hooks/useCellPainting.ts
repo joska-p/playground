@@ -1,5 +1,5 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
-import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
+import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 import type { CanvasInteractions, LiveInteractionEvent } from '@repo/glaze/react/actions';
 import { useRef } from 'react';
 import { eventToGridPoint } from '../lib/coordinates';

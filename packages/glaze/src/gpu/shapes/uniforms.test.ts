@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { textUniforms } from './text';
+import { textUniforms } from './TextRasterizer';
 
 describe('text uniform builder', () => {
     it('positions the baseline and tints the fill', () => {

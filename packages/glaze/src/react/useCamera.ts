@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Camera, DEFAULT_ZOOM_BOUNDS, type Point2D } from '../core/coords/camera';
-import { createCameraControls, type CameraControls } from '../core/coords/cameraControls';
+import { Camera, DEFAULT_ZOOM_BOUNDS, type Point2D } from '../core/Camera';
+import { createCameraControls, type CameraControls } from '../core/CameraControls';
 
-export type { CameraControls } from '../core/coords/cameraControls';
+export type { CameraControls } from '../core/CameraControls';
 
 export type CameraOptions = {
     zoom?: number;
