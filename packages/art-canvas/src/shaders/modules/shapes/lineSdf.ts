@@ -12,6 +12,6 @@ export const lineSdf: ShaderModule = {
         x2: { type: 'range', min: 0.0, max: 0.6 },
         y2: { type: 'range', min: -0.6, max: 0.6 }
     },
-    getCall: ({ uv, x1, y1, x2, y2 }) =>
-        `float dist = sdLine(${uv ?? 'uv'}, vec2(${x1 ?? '0.0'}, ${y1 ?? '0.0'}), vec2(${x2 ?? '0.0'}, ${y2 ?? '0.0'}));`
+    getCall: ({ uv = 'uv', x1 = '0.0', y1 = '0.0', x2 = '0.0', y2 = '0.0' }) =>
+        `float dist = sdLine(${uv}, vec2(${x1}, ${y1}), vec2(${x2}, ${y2}));`
 };

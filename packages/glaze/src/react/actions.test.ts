@@ -83,7 +83,7 @@ describe('PanGesture', () => {
             controls,
             surface: null
         });
-        expect(gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })))).toBeUndefined();
+        expect(gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })))).toBe(false);
         expect(gesture.active).toBe(false);
         input.detach();
     });
@@ -337,7 +337,7 @@ describe('InputRouter', () => {
     it('reads the latest gesture list without re-subscribing', () => {
         const { target, input } = setup();
         const { camera, controls } = setupCamera();
-        const gestures: { onMove?: () => boolean | undefined }[] = [];
+        const gestures: { onMove?: () => boolean }[] = [];
         const options = {
             input,
             controls,

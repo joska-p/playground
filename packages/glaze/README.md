@@ -62,7 +62,7 @@ export function Sketch() {
 }
 ```
 
-`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same surface the imperative `setDraw` does.
+`onSurface` hands you the live surface as soon as it's ready, for imperative access; `onFrame` receives the same surface the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -219,7 +219,7 @@ configures them and slots custom handlers around them:
     interactions={{
         pan: { button: 1 }, // middle-drag pans
         onStart({ nativeEvent, surface }) {
-            if (nativeEvent.button !== 0 || !surface) return;
+            if (nativeEvent.button !== 0) return;
             const p = surface.input.getPointerWorldPos(surface.camera);
             surface.circle(p.x, p.y, 12, '#38bdf8');
         }

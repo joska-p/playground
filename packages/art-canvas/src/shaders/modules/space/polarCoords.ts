@@ -6,5 +6,5 @@ export const polarCoords: ShaderModule = {
     category: 'space',
     weight: 0.4,
     code,
-    getCall: ({ uv }) => `uv = polarCoords(${String(uv)});`
+    getCall: ({ uv = 'uv' }) => `uv = polarCoords(${uv});`
 };

@@ -53,7 +53,22 @@ export default function createConfig(dirname) {
                 ],
 
                 // enforce consistent type exports
-                '@typescript-eslint/consistent-type-exports': 'error'
+                '@typescript-eslint/consistent-type-exports': 'error',
+
+                'no-restricted-syntax': [
+                    'error',
+                    {
+                        selector: 'TSPropertySignature[optional=true] TSUnionType > TSNullKeyword',
+                        message:
+                            "Type noise: Avoid combining optional properties (?) with explicit '| null'."
+                    },
+                    {
+                        selector:
+                            'TSPropertySignature[optional=true] TSUnionType > TSUndefinedKeyword',
+                        message:
+                            "Type noise: Avoid combining optional properties (?) with explicit '| undefined'."
+                    }
+                ]
             }
         },
         {

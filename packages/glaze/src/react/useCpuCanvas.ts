@@ -3,19 +3,22 @@ import { createCpuSurface, type CpuSurface, type CpuDraw } from '../cpu/createCp
 import type { Camera } from '../core/coords/camera';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
 
+/** A ref to a canvas element; `current` is null until the element mounts. */
+export type CanvasRef = RefObject<HTMLCanvasElement | null>;
+
 export type UseCpuCanvasOptions = {
-    onFrame?: CpuDraw | null | undefined;
-    onSurface?: ((surface: CpuSurface | null) => void) | undefined;
-    camera?: Camera | undefined;
-    cameraControls?: CameraControls | undefined;
-    initialCamera?: CameraOptions | undefined;
-    dpr?: number | undefined;
-    canvasRef?: RefObject<HTMLCanvasElement | null> | undefined;
+    onFrame?: CpuDraw;
+    onSurface?: (surface: CpuSurface) => void;
+    camera?: Camera;
+    cameraControls?: CameraControls;
+    initialCamera?: CameraOptions;
+    dpr?: number;
+    canvasRef?: CanvasRef;
 };
 
 export type UseCpuCanvasResult = {
     surface: CpuSurface | null;
-    canvasRef: RefObject<HTMLCanvasElement | null>;
+    canvasRef: CanvasRef;
     camera: Camera;
     controls: CameraControls;
 };
@@ -62,8 +65,7 @@ export function useCpuCanvas(options: UseCpuCanvasOptions): UseCpuCanvasResult {
     }, [canvasRef]);
 
     useEffect(() => {
-        onSurface?.(surface);
-        return () => onSurface?.(null);
+        if (surface) onSurface?.(surface);
     }, [surface, onSurface]);
 
     const draw = useEffectEvent((frame: CpuSurface) => {

@@ -1,6 +1,6 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
 import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import type { CanvasInteractions, InteractionEvent } from '@repo/glaze/react/actions';
+import type { CanvasInteractions, LiveInteractionEvent } from '@repo/glaze/react/actions';
 import { useRef } from 'react';
 import { eventToGridPoint } from '../lib/coordinates';
 import { automaStore, paintCell, placePattern } from '../stores/automa';
@@ -28,30 +28,28 @@ export function useCellPainting(): CanvasInteractions<GpuSurface> {
     const onStart = ({
         nativeEvent,
         surface
-    }: InteractionEvent<PointerEvent, GpuSurface>): boolean | undefined => {
+    }: LiveInteractionEvent<PointerEvent, GpuSurface>): boolean => {
         // Only respond to primary left click
-        if (nativeEvent.button !== 0) return undefined;
-        if (!surface) return undefined;
+        if (nativeEvent.button !== 0) return false;
         isPainting.current = true;
         paintAtEvent(nativeEvent, surface);
-        return undefined;
+        return false;
     };
 
     const onMove = ({
         nativeEvent,
         surface
-    }: InteractionEvent<PointerEvent, GpuSurface>): boolean | undefined => {
-        if (!isPainting.current) return undefined;
-        if (!surface) return undefined;
+    }: LiveInteractionEvent<PointerEvent, GpuSurface>): boolean => {
+        if (!isPainting.current) return false;
         paintAtEvent(nativeEvent, surface);
-        return undefined;
+        return false;
     };
 
     const onEnd = (): void => {
         isPainting.current = false;
     };
 
-    const onContextMenu = ({ nativeEvent }: InteractionEvent<MouseEvent, GpuSurface>): void => {
+    const onContextMenu = ({ nativeEvent }: LiveInteractionEvent<MouseEvent, GpuSurface>): void => {
         nativeEvent.preventDefault();
     };
 

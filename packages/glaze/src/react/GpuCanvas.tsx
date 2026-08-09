@@ -1,24 +1,24 @@
-import { type CSSProperties, type ReactNode, type RefObject } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 import { type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { CameraControls, CameraOptions } from './useCamera';
 import { createInteractionAdapter, type CanvasInteractions } from './actions';
 import { useCanvasActions } from './useCanvasActions';
-import { useGpuCanvas } from './useGpuCanvas';
+import { useGpuCanvas, type CanvasRef } from './useGpuCanvas';
 
 export type GpuCanvasProps = {
     fragmentShader?: string;
     uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
-    onFrame?: GpuDraw | null;
-    onSurface?: (surface: GpuSurface | null) => void;
+    onFrame?: GpuDraw;
+    onSurface?: (surface: GpuSurface) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;
     minZoom?: number;
     maxZoom?: number;
     interactions?: CanvasInteractions<GpuSurface>;
-    canvasRef?: RefObject<HTMLCanvasElement | null>;
+    canvasRef?: CanvasRef;
     dpr?: number;
     className?: string;
     style?: CSSProperties;
@@ -49,15 +49,15 @@ export function GpuCanvas({
     };
 
     const { surface, canvasRef, controls } = useGpuCanvas({
-        fragmentShader,
-        uniforms,
-        onFrame,
-        onSurface,
-        camera: externalCamera,
-        cameraControls,
         initialCamera: cameraOptions,
-        dpr,
-        canvasRef: externalCanvasRef
+        ...(fragmentShader !== undefined ? { fragmentShader } : {}),
+        ...(uniforms !== undefined ? { uniforms } : {}),
+        ...(onFrame !== undefined ? { onFrame } : {}),
+        ...(onSurface !== undefined ? { onSurface } : {}),
+        ...(externalCamera !== undefined ? { camera: externalCamera } : {}),
+        ...(cameraControls !== undefined ? { cameraControls } : {}),
+        ...(dpr !== undefined ? { dpr } : {}),
+        ...(externalCanvasRef !== undefined ? { canvasRef: externalCanvasRef } : {})
     });
 
     useCanvasActions({ surface, controls }, interactions);

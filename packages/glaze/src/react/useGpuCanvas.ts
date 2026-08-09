@@ -1,25 +1,28 @@
-import { useEffect, useEffectEvent, useRef, useState, type RefObject } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { createGpuSurface, type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
 import type { Program } from '../gpu/shader/createProgram';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { Camera } from '../core/coords/camera';
 import { useCamera, type CameraControls, type CameraOptions } from './useCamera';
+import type { CanvasRef } from './useCpuCanvas';
+
+export type { CanvasRef } from './useCpuCanvas';
 
 export type UseGpuCanvasOptions = {
-    fragmentShader?: string | undefined;
-    uniforms?: ((surface: GpuSurface) => Record<string, UniformValue>) | undefined;
-    onFrame?: GpuDraw | null | undefined;
-    onSurface?: ((surface: GpuSurface | null) => void) | undefined;
-    camera?: Camera | undefined;
-    cameraControls?: CameraControls | undefined;
-    initialCamera?: CameraOptions | undefined;
-    dpr?: number | undefined;
-    canvasRef?: RefObject<HTMLCanvasElement | null> | undefined;
+    fragmentShader?: string;
+    uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
+    onFrame?: GpuDraw;
+    onSurface?: (surface: GpuSurface) => void;
+    camera?: Camera;
+    cameraControls?: CameraControls;
+    initialCamera?: CameraOptions;
+    dpr?: number;
+    canvasRef?: CanvasRef;
 };
 
 export type UseGpuCanvasResult = {
     surface: GpuSurface | null;
-    canvasRef: RefObject<HTMLCanvasElement | null>;
+    canvasRef: CanvasRef;
     camera: Camera;
     controls: CameraControls;
 };
@@ -81,8 +84,7 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
     }, [surface, fragmentShader]);
 
     useEffect(() => {
-        onSurface?.(surface ?? null);
-        return () => onSurface?.(null);
+        if (surface) onSurface?.(surface);
     }, [surface, onSurface]);
 
     const draw = useEffectEvent((frame: GpuSurface) => {
@@ -97,7 +99,7 @@ export function useGpuCanvas(options: UseGpuCanvasOptions): UseGpuCanvasResult {
 
     useEffect(() => {
         if (!surface) return;
-        const shouldDraw = onFrame != null || fragmentShader != null;
+        const shouldDraw = onFrame !== undefined || fragmentShader !== undefined;
         surface.setDraw(shouldDraw ? draw : null);
     }, [surface, onFrame, fragmentShader]);
 

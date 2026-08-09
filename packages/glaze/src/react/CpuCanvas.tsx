@@ -1,21 +1,21 @@
-import { type CSSProperties, type ReactNode, type RefObject } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 import { type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { CameraControls, CameraOptions } from './useCamera';
 import { createInteractionAdapter, type CanvasInteractions } from './actions';
 import { useCanvasActions } from './useCanvasActions';
-import { useCpuCanvas } from './useCpuCanvas';
+import { useCpuCanvas, type CanvasRef } from './useCpuCanvas';
 
 export type CpuCanvasProps = {
-    onFrame?: CpuDraw | null;
-    onSurface?: (surface: CpuSurface | null) => void;
+    onFrame?: CpuDraw;
+    onSurface?: (surface: CpuSurface) => void;
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: CameraOptions;
     minZoom?: number;
     maxZoom?: number;
     interactions?: CanvasInteractions<CpuSurface>;
-    canvasRef?: RefObject<HTMLCanvasElement | null>;
+    canvasRef?: CanvasRef;
     dpr?: number;
     className?: string;
     style?: CSSProperties;
@@ -44,13 +44,13 @@ export function CpuCanvas({
     };
 
     const { surface, canvasRef, controls } = useCpuCanvas({
-        onFrame,
-        onSurface,
-        camera: externalCamera,
-        cameraControls,
         initialCamera: cameraOptions,
-        dpr,
-        canvasRef: externalCanvasRef
+        ...(onFrame !== undefined ? { onFrame } : {}),
+        ...(onSurface !== undefined ? { onSurface } : {}),
+        ...(externalCamera !== undefined ? { camera: externalCamera } : {}),
+        ...(cameraControls !== undefined ? { cameraControls } : {}),
+        ...(dpr !== undefined ? { dpr } : {}),
+        ...(externalCanvasRef !== undefined ? { canvasRef: externalCanvasRef } : {})
     });
 
     useCanvasActions({ surface, controls }, interactions);

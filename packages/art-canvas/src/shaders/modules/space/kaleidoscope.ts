@@ -9,6 +9,5 @@ export const kaleidoscope: ShaderModule = {
     params: {
         segments: { type: 'range', min: 3.0, max: 12.0, precision: 1 }
     },
-    getCall: ({ uv, segments }) =>
-        `${uv ?? 'uv'} = kaleidoscope(${uv ?? 'uv'}, ${segments ?? '6.0'});`
+    getCall: ({ uv = 'uv', segments = '6.0' }) => `${uv} = kaleidoscope(${uv}, ${segments});`
 };

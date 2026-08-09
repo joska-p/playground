@@ -1,5 +1,5 @@
 import type { CpuSurface } from '../../../cpu/createCpuSurface';
-import type { InteractionEvent } from '../../../react/actions';
+import type { LiveInteractionEvent } from '../../../react/actions';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 const RADIUS = 12;
@@ -8,7 +8,7 @@ const FILL = '#38bdf8';
 
 export const pointerShapesSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
-import type { InteractionEvent } from '@repo/glaze/react/actions';
+import type { LiveInteractionEvent } from '@repo/glaze/react/actions';
 
 const RADIUS = 12;
 const BACKGROUND = '#0d1117';
@@ -16,11 +16,11 @@ const FILL = '#38bdf8';
 
 function Sketch() {
     // onStart receives the interaction block: native event, screen point, input
-    // store, camera controls, and the surface. Left-click draws a circle,
-    // right-click clears. surface.input.getPointerWorldPos(surface.camera) maps
-    // the cursor into world space, and the builtin surface.circle paints it.
-    const onStart = ({ nativeEvent, surface }: InteractionEvent<PointerEvent, CpuSurface>) => {
-        if (!surface) return false;
+    // store, camera controls, and the mounted surface (always present — the
+    // pipeline only routes events while a surface is live). Left-click draws a
+    // circle, right-click clears. surface.input.getPointerWorldPos(surface.camera)
+    // maps the cursor into world space, and the builtin surface.circle paints it.
+    const onStart = ({ nativeEvent, surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
         if (nativeEvent.button === 2) {
             surface.clear(BACKGROUND);
             return true;
@@ -46,8 +46,7 @@ function Sketch() {
 }`;
 
 export function PointerShapes() {
-    const onStart = ({ nativeEvent, surface }: InteractionEvent<PointerEvent, CpuSurface>) => {
-        if (!surface) return false;
+    const onStart = ({ nativeEvent, surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
         if (nativeEvent.button === 2) {
             surface.clear(BACKGROUND);
             return true;

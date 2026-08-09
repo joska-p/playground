@@ -18,12 +18,24 @@ export type InteractionEvent<TEvent, TSurface> = {
     surface: TSurface | null;
 };
 
+/**
+ * An interaction event for a mounted surface. The pipeline only routes events
+ * while a surface is mounted, so consumer handlers receive this — `surface`
+ * is always present and needs no defensive check.
+ */
+export type LiveInteractionEvent<TEvent, TSurface> = Omit<
+    InteractionEvent<TEvent, TSurface>,
+    'surface'
+> & {
+    surface: TSurface;
+};
+
 export type PanOptions = {
-    button?: number | number[] | undefined;
+    button?: number | number[];
 };
 
 export type ZoomOptions = {
-    speed?: number | undefined;
+    speed?: number;
 };
 
 /**
@@ -37,19 +49,19 @@ export type ZoomOptions = {
  * gesture receives them (so captured state is always released) and return
  * values are ignored.
  *
- * Handlers only fire while a surface is mounted, so `surface` is non-null
- * inside them. `pan` and `zoom` configure the built-in gestures; `false`
- * turns one off, an options object configures it, and omitting it keeps the
- * default behavior.
+ * Handlers only fire while a surface is mounted, so they receive a
+ * `LiveInteractionEvent` whose `surface` is always present. `pan` and `zoom`
+ * configure the built-in gestures; `false` turns one off, an options object
+ * configures it, and omitting it keeps the default behavior.
  */
 export type CanvasInteractions<TSurface> = {
     pan?: boolean | PanOptions;
     zoom?: boolean | ZoomOptions;
-    onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
-    onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
-    onEnd?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
-    onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => boolean | undefined;
-    onContextMenu?: (event: InteractionEvent<MouseEvent, TSurface>) => void;
+    onStart?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => boolean;
+    onMove?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => boolean;
+    onEnd?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
+    onZoom?: (event: LiveInteractionEvent<WheelEvent, TSurface>) => boolean;
+    onContextMenu?: (event: LiveInteractionEvent<MouseEvent, TSurface>) => void;
 };
 
 /**
@@ -59,10 +71,10 @@ export type CanvasInteractions<TSurface> = {
  * `CanvasInteractions` are adapted into steps by `createInteractionAdapter`.
  */
 export type Gesture<TSurface> = {
-    onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
-    onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
+    onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean;
+    onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean;
     onEnd?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
-    onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => boolean | undefined;
+    onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => boolean;
     onContextMenu?: (event: InteractionEvent<MouseEvent, TSurface>) => void;
 };
 
@@ -79,8 +91,8 @@ export class PanGesture<TSurface> {
         this.#button = options.button;
     }
 
-    onStart = (event: InteractionEvent<PointerEvent, TSurface>): boolean | undefined => {
-        if (!matchesButton(event.nativeEvent.button, this.#button)) return;
+    onStart = (event: InteractionEvent<PointerEvent, TSurface>): boolean => {
+        if (!matchesButton(event.nativeEvent.button, this.#button)) return false;
         this.active = true;
         (event.nativeEvent.currentTarget as HTMLElement | null)?.setPointerCapture(
             event.nativeEvent.pointerId
@@ -88,8 +100,8 @@ export class PanGesture<TSurface> {
         return true;
     };
 
-    onMove = (event: InteractionEvent<PointerEvent, TSurface>): boolean | undefined => {
-        if (!this.active) return;
+    onMove = (event: InteractionEvent<PointerEvent, TSurface>): boolean => {
+        if (!this.active) return false;
         event.controls.panBy(event.input.pointerDelta.x, event.input.pointerDelta.y);
         return true;
     };
@@ -143,20 +155,20 @@ export function createInteractionAdapter<TSurface>(
     const lifecycle: Gesture<TSurface> = {};
     if (interactions.onStart)
         lifecycle.onStart = (event: InteractionEvent<PointerEvent, TSurface>) =>
-            withSurface(event, (e) => interactions.onStart?.(e));
+            withSurface(event, (e) => interactions.onStart?.(e) ?? false);
     if (interactions.onMove)
         lifecycle.onMove = (event: InteractionEvent<PointerEvent, TSurface>) =>
-            withSurface(event, (e) => interactions.onMove?.(e));
+            withSurface(event, (e) => interactions.onMove?.(e) ?? false);
     if (interactions.onZoom)
         lifecycle.onZoom = (event: InteractionEvent<WheelEvent, TSurface>) =>
-            withSurface(event, (e) => interactions.onZoom?.(e));
+            withSurface(event, (e) => interactions.onZoom?.(e) ?? false);
     if (interactions.onEnd)
         lifecycle.onEnd = (event: InteractionEvent<PointerEvent, TSurface>) => {
-            if (event.surface) interactions.onEnd?.(event);
+            if (event.surface) interactions.onEnd?.({ ...event, surface: event.surface });
         };
     if (interactions.onContextMenu)
         lifecycle.onContextMenu = (event: InteractionEvent<MouseEvent, TSurface>) => {
-            if (event.surface) interactions.onContextMenu?.(event);
+            if (event.surface) interactions.onContextMenu?.({ ...event, surface: event.surface });
         };
 
     if (
@@ -172,7 +184,9 @@ export function createInteractionAdapter<TSurface>(
     if (interactions.pan !== false)
         gestures.push(new PanGesture(typeof interactions.pan === 'object' ? interactions.pan : {}));
     if (interactions.zoom !== false)
-        gestures.push(new ZoomGesture(typeof interactions.zoom === 'object' ? interactions.zoom : {}));
+        gestures.push(
+            new ZoomGesture(typeof interactions.zoom === 'object' ? interactions.zoom : {})
+        );
 
     return gestures;
 }
@@ -191,10 +205,10 @@ function matchesButton(button: number, filter?: number | number[]): boolean {
 
 function withSurface<TEvent, TSurface>(
     event: InteractionEvent<TEvent, TSurface>,
-    run: (event: InteractionEvent<TEvent, TSurface>) => boolean | undefined
-): boolean | undefined {
+    run: (event: LiveInteractionEvent<TEvent, TSurface>) => boolean
+): boolean {
     if (!event.surface) return false;
-    return run(event);
+    return run({ ...event, surface: event.surface });
 }
 
 /**

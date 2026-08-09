@@ -11,6 +11,6 @@ export const flowField: ShaderModule = {
         time: { type: 'global', value: 'u_time' },
         strength: { type: 'range', min: 0.05, max: 0.2 }
     },
-    getCall: ({ uv, time, strength }) =>
-        `${uv ?? 'uv'} = flowField(${uv ?? 'uv'}, ${time ?? 'u_time'}, ${strength ?? '0.1'});`
+    getCall: ({ uv = 'uv', time = 'u_time', strength = '0.1' }) =>
+        `${uv} = flowField(${uv}, ${time}, ${strength});`
 };
