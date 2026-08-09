@@ -1,0 +1,102 @@
+import type { CpuDraw } from '../../../cpu/CpuSurface';
+import { CpuCanvas } from '../../../react/CpuCanvas';
+
+const PARTICLE_COUNT = 120;
+const GRAVITY = 260;
+const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)';
+
+type Particle = {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    color: string;
+};
+
+const FILLS = ['#38bdf8', '#a78bfa', '#f472b6', '#34d399', '#fbbf24'];
+
+const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
+    x: 200 + (i % 5) * 130,
+    y: -40 - i * 8,
+    vx: (Math.random() - 0.5) * 60,
+    vy: Math.random() * 40,
+    radius: 2 + Math.random() * 4,
+    color: FILLS[i % FILLS.length]
+}));
+
+export const screensaverSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
+import type { CpuDraw } from '@repo/glaze/cpu/CpuSurface';
+
+const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)';
+
+function Sketch() {
+    const onFrame: CpuDraw = (surface) => {
+        // Never clear: a translucent full-viewport rect dims last frame's
+        // shapes into motion trails, and each particle repaints itself.
+        surface.rect(
+            -surface.camera.x / surface.camera.zoom,
+            -surface.camera.y / surface.camera.zoom,
+            surface.width / surface.camera.zoom,
+            surface.height / surface.camera.zoom,
+            TRAIL_COLOR
+        );
+
+        for (const p of PARTICLES) {
+            p.vy += GRAVITY * surface.deltaTime;
+            p.x += p.vx * surface.deltaTime;
+            p.y += p.vy * surface.deltaTime;
+            if (p.y > surface.height) { p.y = -10; p.vy = -Math.abs(p.vy) * 0.2; }
+            if (p.x < 0 || p.x > surface.width) p.vx *= -1;
+            surface.circle(p.x, p.y, p.radius, p.color);
+        }
+
+        surface.text(
+            \`frame \${String(surface.frameCount)} · time \${surface.time.toFixed(1)}s · dpr \${String(surface.dpr)}\`,
+            16, 24, '#475569', 11
+        );
+    };
+
+    return <CpuCanvas onFrame={onFrame} className="h-full w-full" />;
+}`;
+
+export function Screensaver() {
+    const onFrame: CpuDraw = (surface) => {
+        surface
+            .rect(
+                -surface.camera.x / surface.camera.zoom,
+                -surface.camera.y / surface.camera.zoom,
+                surface.width / surface.camera.zoom,
+                surface.height / surface.camera.zoom,
+                TRAIL_COLOR
+            )
+            .text(
+                `frame ${String(surface.frameCount)} · time ${surface.time.toFixed(1)}s · dpr ${String(surface.dpr)}`,
+                16,
+                24,
+                '#475569',
+                11
+            );
+
+        for (const particle of particles) {
+            particle.vy += GRAVITY * surface.deltaTime;
+            particle.x += particle.vx * surface.deltaTime;
+            particle.y += particle.vy * surface.deltaTime;
+            if (particle.y > surface.height) {
+                particle.y = -10;
+                particle.vy = -Math.abs(particle.vy) * 0.2;
+            }
+            if (particle.x < 0 || particle.x > surface.width) particle.vx *= -1;
+
+            surface.circle(particle.x, particle.y, particle.radius, particle.color);
+        }
+    };
+
+    return (
+        <CpuCanvas
+            onFrame={onFrame}
+            interactions={{ pan: false, zoom: false }}
+            className="h-full w-full"
+        />
+    );
+}
