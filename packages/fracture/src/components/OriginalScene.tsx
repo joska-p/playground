@@ -24,7 +24,7 @@ function OriginalScene() {
         }
     }, [isActive, pan, zoom]);
 
-    const { camera, controls, pointerHandlers, syncView } = useFractureView({
+    const { camera, controls, zoomSpeed, minZoom, maxZoom, syncView } = useFractureView({
         initialView: { pan, zoom },
         maxZoom: MAX_ZOOM
     });
@@ -36,7 +36,9 @@ function OriginalScene() {
                 fragmentShader={fragmentShader}
                 camera={camera}
                 cameraControls={controls}
-                pointerHandlers={pointerHandlers}
+                zoomSpeed={zoomSpeed}
+                minZoom={minZoom}
+                maxZoom={maxZoom}
                 uniforms={({ camera: view, width, height }) => {
                     syncView();
                     // pan is stored zoom-normalized; normalize by canvas size into UV

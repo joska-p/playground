@@ -1,5 +1,5 @@
 import type { CpuSurface } from '../../../cpu/createCpuSurface';
-import type { PointerHandler } from '../../../react/interaction';
+import type { PointerHandler } from '../../../react/actions';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 const RADIUS = 12;
@@ -8,7 +8,7 @@ const FILL = '#38bdf8';
 
 export const pointerShapesSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import type { CpuSurface } from '@repo/glaze/cpu/createCpuSurface';
-import type { PointerHandler } from '@repo/glaze/react/interaction';
+import type { PointerHandler } from '@repo/glaze/react/actions';
 
 const RADIUS = 12;
 const BACKGROUND = '#0d1117';

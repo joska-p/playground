@@ -8,6 +8,8 @@ export type ZoomBounds = {
     maxZoom: number;
 };
 
+export const DEFAULT_ZOOM_BOUNDS: ZoomBounds = { minZoom: 0.05, maxZoom: 64 };
+
 export const clamp =
     (min: number, max: number) =>
     (value: number): number =>
@@ -44,6 +46,15 @@ export class Camera {
         this.x = focalPoint.x - world.x * zoom;
         this.y = focalPoint.y - world.y * zoom;
         this.zoom = zoom;
+    }
+
+    panBy(dx: number, dy: number): void {
+        this.x += dx;
+        this.y += dy;
+    }
+
+    zoomBy(factor: number, focalPoint: Point2D, bounds: ZoomBounds = DEFAULT_ZOOM_BOUNDS): void {
+        this.zoomAt(focalPoint, this.zoom * factor, bounds);
     }
 }
 

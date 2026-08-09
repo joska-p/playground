@@ -44,6 +44,7 @@ export class CpuSurface {
         this.camera = config.camera ?? defaultCamera();
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
+        this.input.attach(this.canvas);
 
         // Size the canvas once up front so one-shot draws made outside the frame loop survive
         // (the loop's first resize would otherwise clear the buffer).

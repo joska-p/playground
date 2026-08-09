@@ -64,6 +64,7 @@ export class GpuSurface {
         this.camera = config.camera ?? defaultCamera();
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
+        this.input.attach(this.canvas);
         this.#batch = new ShapeBatcher({
             gl,
             camera: this.camera,

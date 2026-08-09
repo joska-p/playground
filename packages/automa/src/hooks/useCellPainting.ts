@@ -1,6 +1,6 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
 import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import type { PointerHandlers } from '@repo/glaze/react/interaction';
+import type { PointerHandlers } from '@repo/glaze/react/actions';
 import { useRef } from 'react';
 import { eventToGridPoint } from '../lib/coordinates';
 import { automaStore, paintCell, placePattern } from '../stores/automa';

@@ -1,6 +1,19 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Camera } from '../core/coords/camera';
 import { InputStore, createInputStore } from './createInputStore';
+
+function wheelEvent(init: {
+    deltaY: number;
+    clientX?: number;
+    clientY?: number;
+    bubbles?: boolean;
+    cancelable?: boolean;
+}) {
+    const event = new WheelEvent('wheel', init);
+    if (init.clientX !== undefined) Object.defineProperty(event, 'clientX', { value: init.clientX });
+    if (init.clientY !== undefined) Object.defineProperty(event, 'clientY', { value: init.clientY });
+    return event;
+}
 
 describe('InputStore', () => {
     it('createInputStore is a thin new InputStore() wrapper', () => {
@@ -85,5 +98,55 @@ describe('InputStore', () => {
         store.destroy();
         expect(store.isKeyDown('KeyA')).toBe(false);
         expect(store.wasKeyPressed('KeyA')).toBe(false);
+    });
+
+    it('tracks wheel delta and position, cleared at endFrame', () => {
+        const target = document.createElement('div');
+        const store = new InputStore();
+        store.attach(target);
+        target.dispatchEvent(wheelEvent({ deltaY: 120, clientX: 50, clientY: 60, bubbles: true }));
+        expect(store.wheelDelta).toBe(120);
+        expect(store.wheelPosition).toEqual({ x: 50, y: 60 });
+        store.endFrame();
+        expect(store.wheelDelta).toBe(0);
+        store.detach();
+    });
+
+    it('notifies subscribers and unsubscribes', () => {
+        const target = document.createElement('div');
+        const store = new InputStore();
+        store.attach(target);
+        const a = vi.fn();
+        const b = vi.fn();
+        const unsubA = store.subscribe({ onPointerMove: a });
+        store.subscribe({ onPointerMove: b });
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 5, clientY: 6, bubbles: true })
+        );
+        expect(a).toHaveBeenCalledTimes(1);
+        expect(b).toHaveBeenCalledTimes(1);
+        expect(a.mock.calls[0]?.[1]).toEqual({ x: 5, y: 6 });
+        unsubA();
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 7, clientY: 8, bubbles: true })
+        );
+        expect(a).toHaveBeenCalledTimes(1);
+        expect(b).toHaveBeenCalledTimes(2);
+        store.detach();
+    });
+
+    it('notifies wheel and contextmenu subscribers', () => {
+        const target = document.createElement('div');
+        const store = new InputStore();
+        store.attach(target);
+        const onWheel = vi.fn();
+        const onContextMenu = vi.fn();
+        store.subscribe({ onWheel, onContextMenu });
+        target.dispatchEvent(wheelEvent({ deltaY: 10, clientX: 3, clientY: 4, bubbles: true }));
+        expect(onWheel).toHaveBeenCalledTimes(1);
+        expect(onWheel.mock.calls[0]?.[1]).toEqual({ x: 3, y: 4 });
+        target.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true }));
+        expect(onContextMenu).toHaveBeenCalledTimes(1);
+        store.detach();
     });
 });

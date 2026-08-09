@@ -25,8 +25,8 @@
         "./react/useCamera": "./src/react/useCamera.ts",
         "./react/useGpuCanvas": "./src/react/useGpuCanvas.ts",
         "./react/useCpuCanvas": "./src/react/useCpuCanvas.ts",
-        "./react/useCanvasInteraction": "./src/react/useCanvasInteraction.ts",
-        "./react/interaction": "./src/react/interaction.ts",
+        "./react/useCanvasActions": "./src/react/useCanvasActions.ts",
+        "./react/actions": "./src/react/actions.ts",
         "./react/CpuCanvas": "./src/react/CpuCanvas.tsx",
         "./react/GpuCanvas": "./src/react/GpuCanvas.tsx"
     },

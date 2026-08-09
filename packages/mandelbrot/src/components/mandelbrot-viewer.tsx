@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import type { PointerHandlers } from '@repo/glaze/react/interaction';
+import type { PointerHandlers } from '@repo/glaze/react/actions';
 import { computeReferenceAsync, toRequest, type OrbitResult } from '../lib/reference-worker';
 import {
     type View,

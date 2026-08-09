@@ -62,7 +62,7 @@ function PerturbationScene() {
         }
     }, [isActive, pan, zoom]);
 
-    const { camera, controls, pointerHandlers, syncView } = useFractureView({
+    const { camera, controls, zoomSpeed, minZoom, maxZoom, syncView } = useFractureView({
         initialView: { pan, zoom },
         maxZoom: MAX_ZOOM
     });
@@ -111,7 +111,9 @@ function PerturbationScene() {
                 fragmentShader={perturbationShader}
                 camera={camera}
                 cameraControls={controls}
-                pointerHandlers={pointerHandlers}
+                zoomSpeed={zoomSpeed}
+                minZoom={minZoom}
+                maxZoom={maxZoom}
                 canvasRef={canvasRef}
                 uniforms={({ camera: view, width, height }) => {
                     syncView();

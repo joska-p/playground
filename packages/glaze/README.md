@@ -186,7 +186,19 @@ export function Crosshair() {
 }
 ```
 
-The shared input store tracks the pointer (position + delta), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`, cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to world coordinates, so the crosshair stays glued to the cursor under pan/zoom. `controls` adds `panTo`, `zoomTo`, and `reset`.
+The shared input store is the single producer of input: it owns every canvas
+listener and tracks the pointer (position + delta), wheel (delta + focal
+position), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`,
+cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to
+world coordinates, so the crosshair stays glued to the cursor under pan/zoom.
+`controls` adds `panTo`, `zoomTo`, and `reset`.
+
+Pan and zoom are default *actions* wired onto that input; a consumer can
+override or chain them with `pointerHandlers`. Handlers run before the defaults:
+returning `true` consumes the event and overrides the default (e.g. draw on
+click instead of panning), returning falsy lets the default action still run.
+Wheel zoom is configurable per canvas with `zoomSpeed` (exponential factor per
+scroll tick, default `0.002`) and `minZoom` / `maxZoom`.
 
 ## Notes & gotchas
 

@@ -2,8 +2,8 @@ import { type CSSProperties, type ReactNode, type RefObject } from 'react';
 import { type CpuSurface, type CpuDraw } from '../cpu/createCpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { CameraControls, CameraOptions } from './useCamera';
-import type { PointerHandlers } from './interaction';
-import { useCanvasInteraction } from './useCanvasInteraction';
+import type { PointerHandlers } from './actions';
+import { useCanvasActions } from './useCanvasActions';
 import { useCpuCanvas } from './useCpuCanvas';
 
 export type CpuCanvasProps = {
@@ -15,6 +15,9 @@ export type CpuCanvasProps = {
     pan?: boolean;
     zoom?: boolean;
     panButton?: number | number[];
+    zoomSpeed?: number;
+    minZoom?: number;
+    maxZoom?: number;
     pointerHandlers?: PointerHandlers<CpuSurface>;
     canvasRef?: RefObject<HTMLCanvasElement | null>;
     dpr?: number;
@@ -32,6 +35,9 @@ export function CpuCanvas({
     pan = true,
     zoom = true,
     panButton,
+    zoomSpeed,
+    minZoom,
+    maxZoom,
     pointerHandlers,
     canvasRef: externalCanvasRef,
     dpr,
@@ -39,7 +45,7 @@ export function CpuCanvas({
     style,
     children
 }: CpuCanvasProps) {
-    const { surface, canvasRef, camera, controls } = useCpuCanvas({
+    const { surface, canvasRef, camera } = useCpuCanvas({
         onFrame,
         onSurface,
         camera: externalCamera,
@@ -49,19 +55,10 @@ export function CpuCanvas({
         canvasRef: externalCanvasRef
     });
 
-    const interaction = {
-        camera,
-        controls,
-        surface
-    };
-    const options = {
-        pan,
-        zoom,
-        panButton,
-        pointerHandlers
-    };
-
-    useCanvasInteraction(canvasRef, interaction, options);
+    useCanvasActions(
+        { surface, camera },
+        { pan, zoom, panButton, zoomSpeed, minZoom, maxZoom, pointerHandlers }
+    );
 
     const touchAction = pan || zoom || pointerHandlers ? 'none' : 'auto';
 

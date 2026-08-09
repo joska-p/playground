@@ -1,4 +1,7 @@
-import type { Point2D } from '../core/coords/camera';
+import type { InputStore } from '../cpu/createInputStore';
+import { DEFAULT_ZOOM_BOUNDS, type Camera, type Point2D, type ZoomBounds } from '../core/coords/camera';
+
+export const DEFAULT_WHEEL_SPEED = 0.002;
 
 export type PointerHandler<TSurface> = (
     event: PointerEvent,
@@ -9,6 +12,11 @@ export type WheelHandler<TSurface> = (event: WheelEvent, surface: TSurface) => b
 
 export type ContextMenuHandler<TSurface> = (event: MouseEvent, surface: TSurface) => void;
 
+/**
+ * Consumer actions. They run before the built-in pan/zoom actions: a handler
+ * returning `true` consumes the event and overrides the default; returning
+ * falsy chains through to the default action.
+ */
 export type PointerHandlers<TSurface> = {
     onPointerDown?: PointerHandler<TSurface>;
     onPointerMove?: PointerHandler<TSurface>;
@@ -18,27 +26,26 @@ export type PointerHandlers<TSurface> = {
     onContextMenu?: ContextMenuHandler<TSurface>;
 };
 
-export type InteractionOptions<TSurface> = {
+export type RouterOptions<TSurface> = {
     pan?: boolean | undefined;
     zoom?: boolean | undefined;
     panButton?: number | number[] | undefined;
+    zoomSpeed?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
     pointerHandlers?: PointerHandlers<TSurface> | undefined;
+};
+
+export type InputRouterOptions<TSurface> = RouterOptions<TSurface> & {
+    input: InputStore;
+    camera: Camera;
+    getSurface(): TSurface | null;
 };
 
 function matchesPanButton(button: number, filter?: number | number[]): boolean {
     if (filter === undefined) return true;
     return Array.isArray(filter) ? filter.includes(button) : filter === button;
 }
-
-export type InteractionControllerOptions<TSurface> = {
-    handlers: PointerHandlers<TSurface>;
-    pan: boolean;
-    zoom: boolean;
-    panButton?: number | number[] | undefined;
-    getSurface(): TSurface | null;
-    onPan(dx: number, dy: number): void;
-    onZoom(deltaY: number, focalPoint: Point2D): void;
-};
 
 function runHandler<TSurface>(
     handler: PointerHandler<TSurface> | WheelHandler<TSurface> | undefined,
@@ -54,14 +61,23 @@ function runHandler<TSurface>(
     );
 }
 
-export function createInteractionController<TSurface>(
-    options: InteractionControllerOptions<TSurface>
-) {
+function boundsOf(options: { minZoom?: number | undefined; maxZoom?: number | undefined }): ZoomBounds {
+    return {
+        minZoom: options.minZoom ?? DEFAULT_ZOOM_BOUNDS.minZoom,
+        maxZoom: options.maxZoom ?? DEFAULT_ZOOM_BOUNDS.maxZoom
+    };
+}
+
+/**
+ * Routes input to actions: consumer `pointerHandlers` first, then the built-in
+ * pan (pointer drag) and zoom (wheel) defaults, both mutating the camera.
+ */
+export function createInputRouter<TSurface>(options: InputRouterOptions<TSurface>) {
     const dragging = { active: false };
 
     const onPointerDown = (event: PointerEvent): void => {
         const surface = options.getSurface();
-        if (surface && runHandler(options.handlers.onPointerDown, event, surface)) {
+        if (surface && runHandler(options.pointerHandlers?.onPointerDown, event, surface)) {
             return;
         }
         if (!options.pan) return;
@@ -73,53 +89,54 @@ export function createInteractionController<TSurface>(
 
     const onPointerMove = (event: PointerEvent): void => {
         const surface = options.getSurface();
-        if (surface && runHandler(options.handlers.onPointerMove, event, surface)) {
+        if (surface && runHandler(options.pointerHandlers?.onPointerMove, event, surface)) {
             return;
         }
         if (!dragging.active) return;
-        options.onPan(event.movementX, event.movementY);
+        options.camera.panBy(options.input.pointerDelta.x, options.input.pointerDelta.y);
     };
 
     const onPointerUp = (event: PointerEvent): void => {
         const surface = options.getSurface();
-        if (surface) runHandler(options.handlers.onPointerUp, event, surface);
+        if (surface) runHandler(options.pointerHandlers?.onPointerUp, event, surface);
         dragging.active = false;
     };
 
     const onPointerCancel = (event: PointerEvent): void => {
         const surface = options.getSurface();
-        if (surface) runHandler(options.handlers.onPointerCancel, event, surface);
+        if (surface) runHandler(options.pointerHandlers?.onPointerCancel, event, surface);
         dragging.active = false;
     };
 
-    const onWheel = (event: WheelEvent): void => {
+    const onWheel = (event: WheelEvent, point: Point2D): void => {
         const surface = options.getSurface();
-        if (surface && runHandler(options.handlers.onWheel, event, surface)) {
+        if (surface && runHandler(options.pointerHandlers?.onWheel, event, surface)) {
             return;
         }
         if (!options.zoom) return;
-        if (!(event.target instanceof HTMLElement)) return;
 
         event.preventDefault();
-        const rect = event.target.getBoundingClientRect();
-        options.onZoom(event.deltaY, {
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top
-        });
+        options.camera.zoomBy(
+            Math.exp(-event.deltaY * (options.zoomSpeed ?? DEFAULT_WHEEL_SPEED)),
+            point,
+            boundsOf(options)
+        );
     };
 
     const onContextMenu = (event: MouseEvent): void => {
         if (options.pan && matchesPanButton(2, options.panButton)) event.preventDefault();
         const surface = options.getSurface();
-        if (surface) options.handlers.onContextMenu?.(event, surface);
+        if (surface) options.pointerHandlers?.onContextMenu?.(event, surface);
     };
 
-    return {
+    const dispose = options.input.subscribe({
         onPointerDown,
         onPointerMove,
         onPointerUp,
         onPointerCancel,
         onWheel,
         onContextMenu
-    };
+    });
+
+    return { dispose };
 }

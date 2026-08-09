@@ -3,8 +3,8 @@ import { type GpuSurface, type GpuDraw } from '../gpu/createGpuSurface';
 import type { Camera } from '../core/coords/camera';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { CameraControls, CameraOptions } from './useCamera';
-import type { PointerHandlers } from './interaction';
-import { useCanvasInteraction } from './useCanvasInteraction';
+import type { PointerHandlers } from './actions';
+import { useCanvasActions } from './useCanvasActions';
 import { useGpuCanvas } from './useGpuCanvas';
 
 export type GpuCanvasProps = {
@@ -18,6 +18,9 @@ export type GpuCanvasProps = {
     pan?: boolean;
     zoom?: boolean;
     panButton?: number | number[];
+    zoomSpeed?: number;
+    minZoom?: number;
+    maxZoom?: number;
     pointerHandlers?: PointerHandlers<GpuSurface>;
     canvasRef?: RefObject<HTMLCanvasElement | null>;
     dpr?: number;
@@ -37,6 +40,9 @@ export function GpuCanvas({
     pan = true,
     zoom = true,
     panButton,
+    zoomSpeed,
+    minZoom,
+    maxZoom,
     pointerHandlers,
     canvasRef: externalCanvasRef,
     dpr,
@@ -44,7 +50,7 @@ export function GpuCanvas({
     style,
     children
 }: GpuCanvasProps) {
-    const { surface, canvasRef, camera, controls } = useGpuCanvas({
+    const { surface, canvasRef, camera } = useGpuCanvas({
         fragmentShader,
         uniforms,
         onFrame,
@@ -56,14 +62,9 @@ export function GpuCanvas({
         canvasRef: externalCanvasRef
     });
 
-    useCanvasInteraction(
-        canvasRef,
-        {
-            camera,
-            controls,
-            surface
-        },
-        { pan, zoom, panButton, pointerHandlers }
+    useCanvasActions(
+        { surface, camera },
+        { pan, zoom, panButton, zoomSpeed, minZoom, maxZoom, pointerHandlers }
     );
 
     const touchAction = pan || zoom || pointerHandlers ? 'none' : 'auto';
