@@ -81,6 +81,18 @@ export class GpuSurface {
         return this.#loop.isRunning;
     }
 
+    get pointer(): Point2D {
+        return this.camera.screenToWorld(this.input.pointer);
+    }
+
+    screenToWorld(point: Point2D): Point2D {
+        return this.camera.screenToWorld(point);
+    }
+
+    worldToScreen(point: Point2D): Point2D {
+        return this.camera.worldToScreen(point);
+    }
+
     createProgram(fragmentSource: string, vertexSource?: string): Program {
         const program = createProgram(this.gl, fragmentSource, vertexSource);
         this.#programs.add(program);

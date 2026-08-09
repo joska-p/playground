@@ -55,6 +55,18 @@ export class CpuSurface {
         return this.#loop.isRunning;
     }
 
+    get pointer(): Point2D {
+        return this.camera.screenToWorld(this.input.pointer);
+    }
+
+    screenToWorld(point: Point2D): Point2D {
+        return this.camera.screenToWorld(point);
+    }
+
+    worldToScreen(point: Point2D): Point2D {
+        return this.camera.worldToScreen(point);
+    }
+
     setDraw(newCpuDraw: CpuDraw | null): void {
         this.#cpuDraw = newCpuDraw;
         if (newCpuDraw && this.#subscribers.size === 0) this.#startRendering();

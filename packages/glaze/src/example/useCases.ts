@@ -23,7 +23,7 @@ export const useCases: UseCase[] = [
         id: 'pointer-shapes',
         title: 'Pointer shapes',
         description:
-            'interactions.onStart receives the interaction block (native event, screen point, input store, camera controls, surface): left-click draws a circle, right-click clears. surface.input.getPointerWorldPos(surface.camera) maps the cursor into world space, and the builtin surface.circle paints it. onFrame never clears, so each circle stays — no refs, no state.',
+            'interactions.onStart receives the interaction block (native event, screen point, input store, camera controls, surface): left-click draws a circle, right-click clears. surface.pointer is the cursor in world space, and the builtin surface.circle paints it. The canvas is never cleared, so each circle stays — no refs, no state.',
         snippet: pointerShapesSnippet,
         Demo: PointerShapes
     }

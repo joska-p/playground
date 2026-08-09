@@ -178,7 +178,7 @@ export function Crosshair() {
             cameraControls={controls}
             onFrame={(surface) => {
                 surface.clear('#0d1015');
-                const world = surface.input.getPointerWorldPos(camera);
+                const world = surface.pointer;
                 surface.circle(world.x, world.y, 12, '#38bdf8');
             }}
         />
@@ -189,8 +189,9 @@ export function Crosshair() {
 The shared input store is the single producer of input: it owns every canvas
 listener and tracks the pointer (position + delta), wheel (delta + focal
 position), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`,
-cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to
-world coordinates, so the crosshair stays glued to the cursor under pan/zoom.
+cleared each frame). The surface is the single place conversions happen:
+`surface.pointer` is the cursor mapped into world space (it keeps working under
+pan/zoom), and `screenToWorld` / `worldToScreen` delegate to the same camera.
 `controls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
 `zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
 
@@ -220,7 +221,7 @@ configures them and slots custom handlers around them:
         pan: { button: 1 }, // middle-drag pans
         onStart({ nativeEvent, surface }) {
             if (nativeEvent.button !== 0) return;
-            const p = surface.input.getPointerWorldPos(surface.camera);
+            const p = surface.pointer;
             surface.circle(p.x, p.y, 12, '#38bdf8');
         }
     }}

@@ -15,18 +15,13 @@ const BACKGROUND = '#0d1117';
 const FILL = '#38bdf8';
 
 function Sketch() {
-    // onStart receives the interaction block: native event, screen point, input
-    // store, camera controls, and the mounted surface (always present — the
-    // pipeline only routes events while a surface is live). Left-click draws a
-    // circle, right-click clears. surface.input.getPointerWorldPos(surface.camera)
-    // maps the cursor into world space, and the builtin surface.circle paints it.
     const onStart = ({ nativeEvent, surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
         if (nativeEvent.button === 2) {
             surface.clear(BACKGROUND);
             return true;
         }
         if (nativeEvent.button !== 0) return false;
-        const p = surface.input.getPointerWorldPos(surface.camera);
+        const p = surface.pointer;
         surface.circle(p.x, p.y, RADIUS, FILL);
         return true;
     };
@@ -37,9 +32,6 @@ function Sketch() {
                 pan: false,
                 zoom: false,
                 onStart
-            }}
-            onFrame={() => {
-                // never clears, so the circles placed by clicks stay on the canvas
             }}
         />
     );
@@ -52,7 +44,7 @@ export function PointerShapes() {
             return true;
         }
         if (nativeEvent.button !== 0) return false;
-        const p = surface.input.getPointerWorldPos(surface.camera);
+        const p = surface.pointer;
         surface.circle(p.x, p.y, RADIUS, FILL);
         return true;
     };
@@ -64,9 +56,6 @@ export function PointerShapes() {
                 pan: false,
                 zoom: false,
                 onStart
-            }}
-            onFrame={() => {
-                // never clears, so the circles placed by clicks stay on the canvas
             }}
         />
     );

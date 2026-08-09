@@ -1,4 +1,4 @@
-import type { Camera, Point2D } from '../core/coords/camera';
+import type { Point2D } from '../core/coords/camera';
 
 type PointerEventName = 'pointerdown' | 'pointermove' | 'pointerup' | 'pointercancel';
 
@@ -47,10 +47,6 @@ export class InputStore {
 
     wasKeyPressed(code: string): boolean {
         return this.#pressed.has(code);
-    }
-
-    getPointerWorldPos(camera: Camera): Point2D {
-        return camera.screenToWorld(this.pointer);
     }
 
     subscribe(handlers: InputHandlers): () => void {

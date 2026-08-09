@@ -1,5 +1,4 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Camera } from '../core/coords/camera';
 import { InputStore, createInputStore } from './createInputStore';
 
 function wheelEvent(init: {
@@ -63,21 +62,6 @@ describe('InputStore', () => {
         target.dispatchEvent(new PointerEvent('pointerup', { buttons: 0, bubbles: true }));
         expect(store.mouseDown).toBe(false);
         expect(store.mouseButtons).toBe(0);
-        store.detach();
-    });
-
-    it('converts the pointer to world position through the camera', () => {
-        const target = document.createElement('div');
-        const store = new InputStore();
-        store.attach(target);
-        target.dispatchEvent(
-            new PointerEvent('pointermove', { clientX: 20, clientY: 30, bubbles: true })
-        );
-        expect(store.getPointerWorldPos(new Camera(0, 0, 1))).toEqual({ x: 20, y: 30 });
-        expect(store.getPointerWorldPos(new Camera(10, 10, 2))).toEqual({
-            x: 5,
-            y: 10
-        });
         store.detach();
     });
 
