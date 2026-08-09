@@ -15,6 +15,11 @@ export const clamp =
     (value: number): number =>
         Math.max(min, Math.min(max, value));
 
+/**
+ * Passive spatial state: a pure coordinate grid plus its two conversion
+ * functions. It never mutates itself — panning and zooming are gestures and
+ * live in `CameraControls`.
+ */
 export class Camera {
     x: number;
     y: number;
@@ -38,23 +43,6 @@ export class Camera {
             x: world.x * this.zoom + this.x,
             y: world.y * this.zoom + this.y
         };
-    }
-
-    zoomAt(focalPoint: Point2D, nextZoom: number, bounds: ZoomBounds): void {
-        const zoom = clamp(bounds.minZoom, bounds.maxZoom)(nextZoom);
-        const world = this.screenToWorld(focalPoint);
-        this.x = focalPoint.x - world.x * zoom;
-        this.y = focalPoint.y - world.y * zoom;
-        this.zoom = zoom;
-    }
-
-    panBy(dx: number, dy: number): void {
-        this.x += dx;
-        this.y += dy;
-    }
-
-    zoomBy(factor: number, focalPoint: Point2D, bounds: ZoomBounds = DEFAULT_ZOOM_BOUNDS): void {
-        this.zoomAt(focalPoint, this.zoom * factor, bounds);
     }
 }
 

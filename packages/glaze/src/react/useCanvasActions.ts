@@ -1,12 +1,31 @@
 import { useEffect, useRef } from 'react';
 import type { InputStore } from '../cpu/createInputStore';
-import type { Camera } from '../core/coords/camera';
-import { createInputRouter, type InputRouterOptions, type RouterOptions } from './actions';
+import type { CameraControls } from '../core/coords/cameraControls';
+import {
+    createInputRouter,
+    createPanGesture,
+    createPointerHandlersGesture,
+    createZoomGesture,
+    type Gesture,
+    type InputRouterOptions,
+    type RouterOptions
+} from './actions';
 
 export type CanvasActions<TSurface extends { input: InputStore }> = {
-    camera: Camera;
+    controls: CameraControls;
     surface: TSurface | null;
 };
+
+function buildGestures<TSurface>(options: RouterOptions<TSurface>): Gesture<TSurface>[] {
+    const gestures: Gesture<TSurface>[] = [];
+
+    if (options.pointerHandlers) gestures.push(createPointerHandlersGesture(options.pointerHandlers));
+    if (options.gestures) gestures.push(...options.gestures);
+    if (options.pan) gestures.push(createPanGesture({ button: options.panButton }));
+    if (options.zoom) gestures.push(createZoomGesture({ speed: options.zoomSpeed }));
+
+    return gestures;
+}
 
 export function useCanvasActions<TSurface extends { input: InputStore }>(
     actions: CanvasActions<TSurface>,
@@ -16,20 +35,14 @@ export function useCanvasActions<TSurface extends { input: InputStore }>(
     const actionsRef = useRef(actions);
     const optionsRef = useRef(options);
 
-    // Keep live options and the camera in sync without re-subscribing.
+    // Keep live options and the camera controls in sync without re-subscribing.
     useEffect(() => {
         actionsRef.current = actions;
         optionsRef.current = options;
         const opts = routerOptionsRef.current;
         if (!opts) return;
-        opts.camera = actions.camera;
-        opts.pointerHandlers = options.pointerHandlers;
-        opts.pan = options.pan;
-        opts.zoom = options.zoom;
-        opts.panButton = options.panButton;
-        opts.zoomSpeed = options.zoomSpeed;
-        opts.minZoom = options.minZoom;
-        opts.maxZoom = options.maxZoom;
+        opts.controls = actions.controls;
+        opts.gestures = buildGestures(options);
     });
 
     useEffect(() => {
@@ -38,15 +51,9 @@ export function useCanvasActions<TSurface extends { input: InputStore }>(
 
         const opts: InputRouterOptions<TSurface> = {
             input: surface.input,
-            camera: actionsRef.current.camera,
+            controls: actionsRef.current.controls,
             getSurface: () => actionsRef.current.surface,
-            pointerHandlers: optionsRef.current.pointerHandlers,
-            pan: optionsRef.current.pan,
-            zoom: optionsRef.current.zoom,
-            panButton: optionsRef.current.panButton,
-            zoomSpeed: optionsRef.current.zoomSpeed,
-            minZoom: optionsRef.current.minZoom,
-            maxZoom: optionsRef.current.maxZoom
+            gestures: buildGestures(optionsRef.current)
         };
 
         routerOptionsRef.current = opts;

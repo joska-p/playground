@@ -6,9 +6,7 @@
     "exports": {
         "./core/createFrameLoop": "./src/core/createFrameLoop.ts",
         "./core/coords/camera": "./src/core/coords/camera.ts",
-        "./core/coords/createScreenToCanvas": "./src/core/coords/createScreenToCanvas.ts",
-        "./core/coords/createCanvasToNormalized": "./src/core/coords/createCanvasToNormalized.ts",
-        "./core/coords/createNormalizedToUv": "./src/core/coords/createNormalizedToUv.ts",
+        "./core/coords/cameraControls": "./src/core/coords/cameraControls.ts",
         "./cpu/createCpuSurface": "./src/cpu/createCpuSurface.ts",
         "./cpu/CpuSurface": "./src/cpu/CpuSurface.ts",
         "./cpu/createInputStore": "./src/cpu/createInputStore.ts",

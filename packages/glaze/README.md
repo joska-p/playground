@@ -13,7 +13,7 @@ It ships as two sibling runtimes over a shared foundation:
 
 Both expose the same skeleton: a frame loop, a camera, and an input store. Per-frame state (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`) lives on the surface, and draw callbacks receive the surface itself. Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
 
-The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the `Camera` class and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
+The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the passive `Camera` (pure `screenToWorld` / `worldToScreen` math), the `CameraControls` mutation layer that owns panning/zooming and their bounds, and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
 
 ## Use cases
 
@@ -191,14 +191,25 @@ listener and tracks the pointer (position + delta), wheel (delta + focal
 position), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`,
 cleared each frame). `input.getPointerWorldPos(camera)` converts the pointer to
 world coordinates, so the crosshair stays glued to the cursor under pan/zoom.
-`controls` adds `panTo`, `zoomTo`, and `reset`.
+`controls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
+`zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
 
-Pan and zoom are default *actions* wired onto that input; a consumer can
-override or chain them with `pointerHandlers`. Handlers run before the defaults:
-returning `true` consumes the event and overrides the default (e.g. draw on
-click instead of panning), returning falsy lets the default action still run.
-Wheel zoom is configurable per canvas with `zoomSpeed` (exponential factor per
-scroll tick, default `0.002`) and `minZoom` / `maxZoom`.
+Raw inputs and gestures are separate layers. `InputStore` only produces signals;
+an `InputRouter` pipelines those signals through an ordered list of *gestures*,
+and each gesture reads the raw signals and drives change through `CameraControls`
+or the surface. Pan (`createPanGesture`) and zoom (`createZoomGesture`) are just
+the built-in gestures. They can be configured or turned off per canvas with
+`pan` / `panButton` / `zoom` / `zoomSpeed` (exponential factor per scroll tick,
+default `0.002`), and the zoom bounds come from the camera's `minZoom` /
+`maxZoom`.
+
+Custom input handlers are gestures too: `pointerHandlers` (and the lower-level
+`gestures` prop, a list of `Gesture` objects) are slotted ahead of the built-in
+pan/zoom, so they run first. A handler returning `true` consumes the event and
+stops the chain — e.g. draw on click instead of panning; returning falsy lets
+the next gesture run. `pointerup` / `pointercancel` / `contextmenu` are
+broadcast to every gesture so captured state (like an active drag) is always
+released.
 
 ## Notes & gotchas
 
