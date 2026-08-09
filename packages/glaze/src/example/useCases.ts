@@ -8,22 +8,22 @@ import { CyberHud, cyberHudSnippet } from './demos/gpu/CyberHud';
 import { ReactionDiffusion, reactionDiffusionSnippet } from './demos/gpu/ReactionDiffusion';
 
 export type UseCaseLevel = {
-    level: number;
-    emoji: string;
-    name: string;
-    description: string;
+    readonly level: number;
+    readonly emoji: string;
+    readonly name: string;
+    readonly description: string;
 };
 
 export type UseCase = {
-    id: string;
-    level: number;
-    title: string;
-    description: string;
-    snippet: string;
-    Demo: ComponentType;
+    readonly level: number;
+    readonly id: string;
+    readonly title: string;
+    readonly description: string;
+    readonly snippet: string;
+    readonly Demo: ComponentType;
 };
 
-export const useCaseLevels: UseCaseLevel[] = [
+export const useCaseLevels = [
     {
         level: 1,
         emoji: '🟢',
@@ -54,9 +54,9 @@ export const useCaseLevels: UseCaseLevel[] = [
         name: 'GPGPU & Heavy Simulations',
         description: 'Ping-pong texture simulations'
     }
-];
+] as const satisfies UseCaseLevel[];
 
-export const useCases: UseCase[] = [
+export const useCases = [
     {
         id: 'screensaver',
         level: 1,
@@ -120,4 +120,4 @@ export const useCases: UseCase[] = [
         snippet: reactionDiffusionSnippet,
         Demo: ReactionDiffusion
     }
-];
+] as const satisfies UseCase[];
