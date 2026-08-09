@@ -14,8 +14,7 @@ function SeedCanvas() {
         <GpuCanvas
             className="h-full w-full"
             fragmentShader={fragmentShader}
-            pan={false}
-            zoom={false}
+            interactions={{ pan: false, zoom: false }}
         />
     );
 }

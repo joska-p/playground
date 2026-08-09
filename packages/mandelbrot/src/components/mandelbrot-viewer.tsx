@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import type { PointerHandlers } from '@repo/glaze/react/actions';
+import type { CanvasInteractions } from '@repo/glaze/react/actions';
 import { computeReferenceAsync, toRequest, type OrbitResult } from '../lib/reference-worker';
 import {
     type View,
@@ -121,7 +121,7 @@ export function MandelbrotViewer() {
     // Pan/zoom handlers drive the BigFloat view. Built once via a lazy state
     // initializer so the object's identity is stable across renders and glaze's
     // interaction controller attaches its listeners once.
-    const [pointerHandlers] = useState<PointerHandlers<GpuSurface>>(() => {
+    const [interactions] = useState<CanvasInteractions<GpuSurface>>(() => {
         let dragging = false;
         let lastX = 0;
         let lastY = 0;
@@ -141,46 +141,47 @@ export function MandelbrotViewer() {
         };
 
         return {
-            onPointerDown(event) {
+            pan: false,
+            zoom: false,
+            onStart({ nativeEvent }) {
                 dragging = true;
-                lastX = event.clientX;
-                lastY = event.clientY;
-                canvasRef.current?.setPointerCapture(event.pointerId);
+                lastX = nativeEvent.clientX;
+                lastY = nativeEvent.clientY;
+                canvasRef.current?.setPointerCapture(nativeEvent.pointerId);
                 return true;
             },
-            onPointerMove(event) {
+            onMove({ nativeEvent }) {
                 if (!dragging) return true;
                 const canvas = canvasRef.current;
                 if (!canvas) return true;
                 const d = dpr();
                 viewRef.current = panByPixels(
                     viewRef.current,
-                    (event.clientX - lastX) * d,
-                    (event.clientY - lastY) * d,
+                    (nativeEvent.clientX - lastX) * d,
+                    (nativeEvent.clientY - lastY) * d,
                     canvas.height
                 );
-                lastX = event.clientX;
-                lastY = event.clientY;
+                lastX = nativeEvent.clientX;
+                lastY = nativeEvent.clientY;
                 updateHudRef.current();
                 return true;
             },
-            onPointerUp(event) {
+            onEnd({ nativeEvent }) {
                 dragging = false;
-                canvasRef.current?.releasePointerCapture(event.pointerId);
+                canvasRef.current?.releasePointerCapture(nativeEvent.pointerId);
                 maybeRecompute();
-                return true;
             },
-            onWheel(event) {
-                event.preventDefault();
+            onZoom({ nativeEvent }) {
+                nativeEvent.preventDefault();
                 const canvas = canvasRef.current;
                 if (!canvas) return true;
                 const rect = canvas.getBoundingClientRect();
                 const d = dpr();
                 viewRef.current = zoomAtPixel(
                     viewRef.current,
-                    -event.deltaY * 0.0025,
-                    (event.clientX - rect.left) * d,
-                    (event.clientY - rect.top) * d,
+                    -nativeEvent.deltaY * 0.0025,
+                    (nativeEvent.clientX - rect.left) * d,
+                    (nativeEvent.clientY - rect.top) * d,
                     canvas.width,
                     canvas.height
                 );
@@ -258,9 +259,7 @@ export function MandelbrotViewer() {
                 className="h-full w-full"
                 fragmentShader={FRAGMENT_SRC}
                 canvasRef={canvasRef}
-                pan={false}
-                zoom={false}
-                pointerHandlers={pointerHandlers}
+                interactions={interactions}
                 dpr={Math.min(window.devicePixelRatio || 1, 2)}
                 uniforms={() => {
                     const refCenter = refCenterRef.current;

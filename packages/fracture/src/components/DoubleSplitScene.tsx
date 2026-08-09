@@ -37,7 +37,7 @@ function DoubleSplitScene() {
                 fragmentShader={fragmentShader}
                 camera={camera}
                 cameraControls={controls}
-                zoomSpeed={zoomSpeed}
+                interactions={{ zoom: { speed: zoomSpeed } }}
                 minZoom={minZoom}
                 maxZoom={maxZoom}
                 uniforms={({ camera: view, width, height }) => {

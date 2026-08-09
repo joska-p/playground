@@ -4,188 +4,178 @@ import type { Point2D } from '../core/coords/camera';
 
 export const DEFAULT_WHEEL_SPEED = 0.002;
 
-export type PointerHandler<TSurface> = (
-    event: PointerEvent,
-    surface: TSurface
-) => boolean | undefined;
-
-export type WheelHandler<TSurface> = (event: WheelEvent, surface: TSurface) => boolean | undefined;
-
-export type ContextMenuHandler<TSurface> = (event: MouseEvent, surface: TSurface) => void;
-
 /**
- * Consumer handlers, run as the first gesture in the pipeline. A handler
- * returning `true` consumes the event and stops the chain; returning falsy
- * lets the built-in gestures run.
+ * The unified context every interaction handler receives: the raw native
+ * event, its screen-space point, the live input store, the camera controls,
+ * and the targeted surface (when one is mounted). Built-in pan/zoom gestures
+ * and custom `CanvasInteractions` handlers all read the same block.
  */
-export type PointerHandlers<TSurface> = {
-    onPointerDown?: PointerHandler<TSurface>;
-    onPointerMove?: PointerHandler<TSurface>;
-    onPointerUp?: PointerHandler<TSurface>;
-    onPointerCancel?: PointerHandler<TSurface>;
-    onWheel?: WheelHandler<TSurface>;
-    onContextMenu?: ContextMenuHandler<TSurface>;
-};
-
-/**
- * What a gesture gets to work with: the raw input signals, the mutation
- * contract for the camera, and the current surface (when one is mounted).
- */
-export type GestureContext<TSurface> = {
+export type InteractionEvent<TEvent, TSurface> = {
+    nativeEvent: TEvent;
+    point: Point2D;
     input: InputStore;
     controls: CameraControls;
     surface: TSurface | null;
 };
 
-/**
- * A gesture interprets raw `InputStore` events and drives change — camera
- * mutation through `controls`, or drawing straight on `context.surface`.
- *
- * `onPointerDown` / `onPointerMove` / `onWheel` are chainable: returning
- * `true` consumes the event and stops the router from reaching the next
- * gesture. `onPointerUp` / `onPointerCancel` / `onContextMenu` are
- * broadcast: every gesture receives them (so captured state is always
- * released) and return values are ignored.
- */
-export type Gesture<TSurface> = {
-    onPointerDown?: (
-        event: PointerEvent,
-        point: Point2D,
-        context: GestureContext<TSurface>
-    ) => boolean | undefined;
-    onPointerMove?: (
-        event: PointerEvent,
-        point: Point2D,
-        context: GestureContext<TSurface>
-    ) => boolean | undefined;
-    onPointerUp?: (event: PointerEvent, point: Point2D, context: GestureContext<TSurface>) => void;
-    onPointerCancel?: (
-        event: PointerEvent,
-        point: Point2D,
-        context: GestureContext<TSurface>
-    ) => void;
-    onWheel?: (
-        event: WheelEvent,
-        point: Point2D,
-        context: GestureContext<TSurface>
-    ) => boolean | undefined;
-    onContextMenu?: (event: MouseEvent, context: GestureContext<TSurface>) => void;
+export type PanOptions = {
+    button?: number | number[] | undefined;
 };
 
-export type PanGestureOptions = {
-    button?: number | number[] | undefined;
+export type ZoomOptions = {
+    speed?: number | undefined;
+};
+
+/**
+ * The consumer-facing interaction lifecycle. Physical events map onto
+ * readable action cycles: `pointerdown` -> `onStart`, `pointermove` ->
+ * `onMove`, `pointerup` / `pointercancel` -> `onEnd`, `wheel` -> `onZoom`.
+ *
+ * `onStart`, `onMove` and `onZoom` are chainable: returning `true` consumes
+ * the event and stops the built-in gestures from running; returning falsy
+ * lets them proceed. `onEnd` and `onContextMenu` are broadcast — every
+ * gesture receives them (so captured state is always released) and return
+ * values are ignored.
+ *
+ * Handlers only fire while a surface is mounted, so `surface` is non-null
+ * inside them. `pan` and `zoom` configure the built-in gestures; `false`
+ * turns one off, an options object configures it, and omitting it keeps the
+ * default behavior.
+ */
+export type CanvasInteractions<TSurface> = {
+    pan?: boolean | PanOptions;
+    zoom?: boolean | ZoomOptions;
+    onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
+    onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
+    onEnd?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
+    onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => boolean | undefined;
+    onContextMenu?: (event: InteractionEvent<MouseEvent, TSurface>) => void;
+};
+
+/**
+ * A pipeline step that interprets `InteractionEvent`s and drives change —
+ * camera mutation through `controls`, or drawing straight on `event.surface`.
+ * `PanGesture` / `ZoomGesture` are the built-in steps; consumer
+ * `CanvasInteractions` are adapted into steps by `createInteractionAdapter`.
+ */
+export type Gesture<TSurface> = {
+    onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
+    onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => boolean | undefined;
+    onEnd?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
+    onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => boolean | undefined;
+    onContextMenu?: (event: InteractionEvent<MouseEvent, TSurface>) => void;
 };
 
 /**
  * Pointer-drag panning. Capture starts on a matching button press and the
  * camera pans with every pointer move while dragging.
  */
-export function createPanGesture<TSurface>(options: PanGestureOptions = {}): Gesture<TSurface> {
-    const { button } = options;
-    let active = false;
+export class PanGesture<TSurface> {
+    /** True while a drag is being captured; `onMove` only pans while active. */
+    active = false;
+    readonly #button: number | number[] | undefined;
 
-    const onPointerDown = (event: PointerEvent): boolean | undefined => {
-        if (!matchesButton(event.button, button)) return;
-        active = true;
-        (event.currentTarget as HTMLElement | null)?.setPointerCapture(event.pointerId);
+    constructor(options: PanOptions = {}) {
+        this.#button = options.button;
+    }
+
+    onStart = (event: InteractionEvent<PointerEvent, TSurface>): boolean | undefined => {
+        if (!matchesButton(event.nativeEvent.button, this.#button)) return;
+        this.active = true;
+        (event.nativeEvent.currentTarget as HTMLElement | null)?.setPointerCapture(
+            event.nativeEvent.pointerId
+        );
         return true;
     };
 
-    const onPointerMove = (
-        _event: PointerEvent,
-        _point: Point2D,
-        context: GestureContext<TSurface>
-    ): boolean | undefined => {
-        if (!active) return;
-        context.controls.panBy(context.input.pointerDelta.x, context.input.pointerDelta.y);
+    onMove = (event: InteractionEvent<PointerEvent, TSurface>): boolean | undefined => {
+        if (!this.active) return;
+        event.controls.panBy(event.input.pointerDelta.x, event.input.pointerDelta.y);
         return true;
     };
 
-    const onPointerUp = (): void => {
-        active = false;
+    onEnd = (): void => {
+        this.active = false;
     };
 
-    const onPointerCancel = (): void => {
-        active = false;
+    onContextMenu = (event: InteractionEvent<MouseEvent, TSurface>): void => {
+        if (matchesButton(2, this.#button)) event.nativeEvent.preventDefault();
     };
-
-    const onContextMenu = (event: MouseEvent): void => {
-        if (matchesButton(2, button)) event.preventDefault();
-    };
-
-    return { onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onContextMenu };
 }
 
-export type ZoomGestureOptions = {
-    speed?: number | undefined;
-};
+export function createPanGesture<TSurface>(options: PanOptions = {}): PanGesture<TSurface> {
+    return new PanGesture<TSurface>(options);
+}
 
 /**
  * Wheel zooming. Scales around the cursor position; the zoom value is
  * clamped by `controls`.
  */
-export function createZoomGesture<TSurface>(options: ZoomGestureOptions = {}): Gesture<TSurface> {
-    const speed = options.speed ?? DEFAULT_WHEEL_SPEED;
+export class ZoomGesture<TSurface> {
+    readonly #speed: number;
 
-    const onWheel = (
-        event: WheelEvent,
-        point: Point2D,
-        context: GestureContext<TSurface>
-    ): boolean => {
-        event.preventDefault();
-        context.controls.zoomBy(Math.exp(-event.deltaY * speed), point);
+    constructor(options: ZoomOptions = {}) {
+        this.#speed = options.speed ?? DEFAULT_WHEEL_SPEED;
+    }
+
+    onZoom = (event: InteractionEvent<WheelEvent, TSurface>): boolean => {
+        event.nativeEvent.preventDefault();
+        event.controls.zoomBy(Math.exp(-event.nativeEvent.deltaY * this.#speed), event.point);
         return true;
     };
+}
 
-    return { onWheel };
+export function createZoomGesture<TSurface>(options: ZoomOptions = {}): ZoomGesture<TSurface> {
+    return new ZoomGesture<TSurface>(options);
 }
 
 /**
- * Adapts the consumer `pointerHandlers` callback bundle into a gesture so it
- * sits first in the pipeline. Handlers only fire while a surface is mounted.
+ * Adapts the consumer `CanvasInteractions` config into the pipeline. The
+ * lifecycle handlers slot first (so they run before the built-in gestures)
+ * and only fire while a surface is mounted; `pan` / `zoom` then append their
+ * built-in gestures, defaulting to on.
  */
-export function createPointerHandlersGesture<TSurface>(
-    handlers: PointerHandlers<TSurface>
-): Gesture<TSurface> {
-    return {
-        onPointerDown(event, _point, context) {
-            const surface = context.surface;
-            if (!surface) return false;
-            return runHandler(handlers.onPointerDown, event, surface);
-        },
-        onPointerMove(event, _point, context) {
-            const surface = context.surface;
-            if (!surface) return false;
-            return runHandler(handlers.onPointerMove, event, surface);
-        },
-        onPointerUp(event, _point, context) {
-            const surface = context.surface;
-            if (surface) runHandler(handlers.onPointerUp, event, surface);
-        },
-        onPointerCancel(event, _point, context) {
-            const surface = context.surface;
-            if (surface) runHandler(handlers.onPointerCancel, event, surface);
-        },
-        onWheel(event, _point, context) {
-            const surface = context.surface;
-            if (!surface) return false;
-            return runHandler(handlers.onWheel, event, surface);
-        },
-        onContextMenu(event, context) {
-            const surface = context.surface;
-            if (surface) handlers.onContextMenu?.(event, surface);
-        }
-    };
-}
+export function createInteractionAdapter<TSurface>(
+    interactions: CanvasInteractions<TSurface> = {}
+): Gesture<TSurface>[] {
+    const gestures: Gesture<TSurface>[] = [];
 
-export type RouterOptions<TSurface> = {
-    pan?: boolean | undefined;
-    zoom?: boolean | undefined;
-    panButton?: number | number[] | undefined;
-    zoomSpeed?: number | undefined;
-    pointerHandlers?: PointerHandlers<TSurface> | undefined;
-    gestures?: Gesture<TSurface>[] | undefined;
-};
+    const lifecycle: Gesture<TSurface> = {};
+    if (interactions.onStart)
+        lifecycle.onStart = (event: InteractionEvent<PointerEvent, TSurface>) =>
+            withSurface(event, (e) => interactions.onStart?.(e));
+    if (interactions.onMove)
+        lifecycle.onMove = (event: InteractionEvent<PointerEvent, TSurface>) =>
+            withSurface(event, (e) => interactions.onMove?.(e));
+    if (interactions.onZoom)
+        lifecycle.onZoom = (event: InteractionEvent<WheelEvent, TSurface>) =>
+            withSurface(event, (e) => interactions.onZoom?.(e));
+    if (interactions.onEnd)
+        lifecycle.onEnd = (event: InteractionEvent<PointerEvent, TSurface>) => {
+            if (event.surface) interactions.onEnd?.(event);
+        };
+    if (interactions.onContextMenu)
+        lifecycle.onContextMenu = (event: InteractionEvent<MouseEvent, TSurface>) => {
+            if (event.surface) interactions.onContextMenu?.(event);
+        };
+
+    if (
+        lifecycle.onStart ||
+        lifecycle.onMove ||
+        lifecycle.onEnd ||
+        lifecycle.onZoom ||
+        lifecycle.onContextMenu
+    ) {
+        gestures.push(lifecycle);
+    }
+
+    if (interactions.pan !== false)
+        gestures.push(new PanGesture(typeof interactions.pan === 'object' ? interactions.pan : {}));
+    if (interactions.zoom !== false)
+        gestures.push(new ZoomGesture(typeof interactions.zoom === 'object' ? interactions.zoom : {}));
+
+    return gestures;
+}
 
 export type InputRouterOptions<TSurface> = {
     input: InputStore;
@@ -199,78 +189,94 @@ function matchesButton(button: number, filter?: number | number[]): boolean {
     return Array.isArray(filter) ? filter.includes(button) : filter === button;
 }
 
-function runHandler<TSurface>(
-    handler: PointerHandler<TSurface> | WheelHandler<TSurface> | undefined,
-    event: PointerEvent | WheelEvent,
-    surface: TSurface
-): boolean {
-    if (!handler) return false;
-    return (
-        (handler as (event: PointerEvent | WheelEvent, surface: TSurface) => boolean | undefined)(
-            event,
-            surface
-        ) === true
-    );
+function withSurface<TEvent, TSurface>(
+    event: InteractionEvent<TEvent, TSurface>,
+    run: (event: InteractionEvent<TEvent, TSurface>) => boolean | undefined
+): boolean | undefined {
+    if (!event.surface) return false;
+    return run(event);
 }
 
 /**
- * Routes raw `InputStore` events through an ordered list of gestures. The
- * first gesture to return `true` from a chainable handler consumes the
- * event; terminal events reach every gesture.
+ * Routes raw `InputStore` events through an ordered list of gestures,
+ * wrapping each event's native signal into an `InteractionEvent`. The first
+ * gesture to return `true` from a chainable handler consumes the event;
+ * terminal events reach every gesture. Reads `controls`, `getSurface`, and
+ * `gestures` from its options at event time, so those can be swapped without
+ * re-subscribing.
  */
-export function createInputRouter<TSurface>(options: InputRouterOptions<TSurface>) {
-    const { input } = options;
+export class InputRouter<TSurface> {
+    readonly #options: InputRouterOptions<TSurface>;
+    readonly #dispose: () => void;
 
-    const context: GestureContext<TSurface> = {
-        get input() {
-            return options.input;
-        },
-        get controls() {
-            return options.controls;
-        },
-        get surface() {
-            return options.getSurface();
+    constructor(options: InputRouterOptions<TSurface>) {
+        this.#options = options;
+        this.#dispose = options.input.subscribe({
+            onPointerDown: this.#onStart,
+            onPointerMove: this.#onMove,
+            onPointerUp: this.#onEnd,
+            onPointerCancel: this.#onEnd,
+            onWheel: this.#onZoom,
+            onContextMenu: this.#onContextMenu
+        });
+    }
+
+    dispose(): void {
+        this.#dispose();
+    }
+
+    #interaction = <TEvent>(
+        nativeEvent: TEvent,
+        point: Point2D
+    ): InteractionEvent<TEvent, TSurface> => {
+        const options = this.#options;
+        return {
+            nativeEvent,
+            point,
+            input: options.input,
+            get controls() {
+                return options.controls;
+            },
+            get surface() {
+                return options.getSurface();
+            }
+        };
+    };
+
+    #onStart = (nativeEvent: PointerEvent, point: Point2D): void => {
+        const event = this.#interaction(nativeEvent, point);
+        for (const gesture of this.#options.gestures) {
+            if (gesture.onStart?.(event)) break;
         }
     };
 
-    const onPointerDown = (event: PointerEvent, point: Point2D): void => {
-        for (const gesture of options.gestures) {
-            if (gesture.onPointerDown?.(event, point, context)) break;
+    #onMove = (nativeEvent: PointerEvent, point: Point2D): void => {
+        const event = this.#interaction(nativeEvent, point);
+        for (const gesture of this.#options.gestures) {
+            if (gesture.onMove?.(event)) break;
         }
     };
 
-    const onPointerMove = (event: PointerEvent, point: Point2D): void => {
-        for (const gesture of options.gestures) {
-            if (gesture.onPointerMove?.(event, point, context)) break;
+    #onZoom = (nativeEvent: WheelEvent, point: Point2D): void => {
+        const event = this.#interaction(nativeEvent, point);
+        for (const gesture of this.#options.gestures) {
+            if (gesture.onZoom?.(event)) break;
         }
     };
 
-    const onWheel = (event: WheelEvent, point: Point2D): void => {
-        for (const gesture of options.gestures) {
-            if (gesture.onWheel?.(event, point, context)) break;
-        }
+    #onEnd = (nativeEvent: PointerEvent, point: Point2D): void => {
+        const event = this.#interaction(nativeEvent, point);
+        for (const gesture of this.#options.gestures) gesture.onEnd?.(event);
     };
 
-    const onPointerUp = (event: PointerEvent, point: Point2D): void => {
-        for (const gesture of options.gestures) gesture.onPointerUp?.(event, point, context);
+    #onContextMenu = (nativeEvent: MouseEvent): void => {
+        const event = this.#interaction(nativeEvent, this.#options.input.pointer);
+        for (const gesture of this.#options.gestures) gesture.onContextMenu?.(event);
     };
+}
 
-    const onPointerCancel = (event: PointerEvent, point: Point2D): void => {
-        for (const gesture of options.gestures) gesture.onPointerCancel?.(event, point, context);
-    };
-
-    const onContextMenu = (event: MouseEvent): void => {
-        for (const gesture of options.gestures) gesture.onContextMenu?.(event, context);
-    };
-
-    const dispose = input.subscribe({
-        onPointerDown,
-        onPointerMove,
-        onPointerUp,
-        onPointerCancel,
-        onWheel,
-        onContextMenu
-    });
-
-    return { dispose };
+export function createInputRouter<TSurface>(
+    options: InputRouterOptions<TSurface>
+): InputRouter<TSurface> {
+    return new InputRouter(options);
 }

@@ -14,7 +14,7 @@ function CellMesh() {
     const rows = useRows();
     const cols = useCols();
     const [surface, setSurface] = useState<GpuSurface | null>(null);
-    const pointerHandlers = useCellPainting();
+    const interactions = useCellPainting();
 
     useEffect(() => {
         if (!surface) return;
@@ -39,7 +39,7 @@ function CellMesh() {
     return (
         <GpuCanvas
             className="h-full w-full"
-            panButton={1}
+            interactions={{ pan: { button: 1 }, ...interactions }}
             initialCamera={{ minZoom: 1, maxZoom: 64 }}
             onSurface={setSurface}
             fragmentShader={fragmentShader}
@@ -52,7 +52,6 @@ function CellMesh() {
                     texelSize: [1 / engine.width, 1 / engine.height]
                 };
             }}
-            pointerHandlers={pointerHandlers}
         />
     );
 }

@@ -16,8 +16,7 @@ function Manual() {
                 uLightness: lightness,
                 uChroma: chroma
             })}
-            pan={false}
-            zoom={false}
+            interactions={{ pan: false, zoom: false }}
         />
     );
 }

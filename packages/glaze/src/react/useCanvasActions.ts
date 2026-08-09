@@ -2,13 +2,10 @@ import { useEffect, useRef } from 'react';
 import type { InputStore } from '../cpu/createInputStore';
 import type { CameraControls } from '../core/coords/cameraControls';
 import {
-    createInputRouter,
-    createPanGesture,
-    createPointerHandlersGesture,
-    createZoomGesture,
-    type Gesture,
-    type InputRouterOptions,
-    type RouterOptions
+    InputRouter,
+    createInteractionAdapter,
+    type CanvasInteractions,
+    type InputRouterOptions
 } from './actions';
 
 export type CanvasActions<TSurface extends { input: InputStore }> = {
@@ -16,34 +13,22 @@ export type CanvasActions<TSurface extends { input: InputStore }> = {
     surface: TSurface | null;
 };
 
-function buildGestures<TSurface>(options: RouterOptions<TSurface>): Gesture<TSurface>[] {
-    const gestures: Gesture<TSurface>[] = [];
-
-    if (options.pointerHandlers)
-        gestures.push(createPointerHandlersGesture(options.pointerHandlers));
-    if (options.gestures) gestures.push(...options.gestures);
-    if (options.pan) gestures.push(createPanGesture({ button: options.panButton }));
-    if (options.zoom) gestures.push(createZoomGesture({ speed: options.zoomSpeed }));
-
-    return gestures;
-}
-
 export function useCanvasActions<TSurface extends { input: InputStore }>(
     actions: CanvasActions<TSurface>,
-    options: RouterOptions<TSurface> = {}
+    interactions: CanvasInteractions<TSurface> = {}
 ): void {
     const routerOptionsRef = useRef<InputRouterOptions<TSurface> | null>(null);
     const actionsRef = useRef(actions);
-    const optionsRef = useRef(options);
+    const interactionsRef = useRef(interactions);
 
-    // Keep live options and the camera controls in sync without re-subscribing.
+    // Keep live interactions and the camera controls in sync without re-subscribing.
     useEffect(() => {
         actionsRef.current = actions;
-        optionsRef.current = options;
+        interactionsRef.current = interactions;
         const opts = routerOptionsRef.current;
         if (!opts) return;
         opts.controls = actions.controls;
-        opts.gestures = buildGestures(options);
+        opts.gestures = createInteractionAdapter(interactions);
     });
 
     useEffect(() => {
@@ -54,14 +39,14 @@ export function useCanvasActions<TSurface extends { input: InputStore }>(
             input: surface.input,
             controls: actionsRef.current.controls,
             getSurface: () => actionsRef.current.surface,
-            gestures: buildGestures(optionsRef.current)
+            gestures: createInteractionAdapter(interactionsRef.current)
         };
 
         routerOptionsRef.current = opts;
-        const { dispose } = createInputRouter(opts);
+        const router = new InputRouter(opts);
 
         return () => {
-            dispose();
+            router.dispose();
             routerOptionsRef.current = null;
         };
     }, [actions.surface]);

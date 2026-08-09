@@ -1,4 +1,4 @@
-import type { CpuDraw, CpuSurface } from '../../../cpu/createCpuSurface';
+import type { CpuDraw } from '../../../cpu/createCpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 const SUN = { x: 200, y: 150 };
@@ -32,35 +32,34 @@ function Sketch() {
         );
     };
 
-    return <CpuCanvas onSurface={onSurface} onFrame={onFrame} pan={false} zoom={false} />;
+    return (
+        <CpuCanvas
+            onSurface={onSurface}
+            onFrame={onFrame}
+            interactions={{ pan: false, zoom: false }}
+        />
+    );
 }`;
 
 export function HelloShapes() {
-    const onSurface = (surface: CpuSurface | null) => {
-        if (!surface) return;
+    const onFrame: CpuDraw = (surface) => {
         surface
             .clear('#0d1117')
             .rect(30, 30, 120, 90, '#16a34a')
             .circle(SUN.x, SUN.y, 60, '#e11d48')
             .line(30, 260, 200, 260, '#3b82f6', 8)
-            .text('RENDER', 220, 80, '#f8fafc', 28);
-    };
-
-    const onFrame: CpuDraw = (surface) => {
-        surface.circle(
-            SUN.x + ORBIT * Math.cos(surface.time * SPEED),
-            SUN.y + ORBIT * Math.sin(surface.time * SPEED),
-            MOON_RADIUS,
-            '#38bdf8'
-        );
+            .text('RENDER', 220, 80, '#f8fafc', 28)
+            .circle(
+                SUN.x + ORBIT * Math.cos(surface.time * SPEED),
+                SUN.y + ORBIT * Math.sin(surface.time * SPEED),
+                MOON_RADIUS,
+                '#38bdf8'
+            );
     };
 
     return (
         <CpuCanvas
-            onSurface={onSurface}
             onFrame={onFrame}
-            pan={false}
-            zoom={false}
             className="h-full w-full"
         />
     );

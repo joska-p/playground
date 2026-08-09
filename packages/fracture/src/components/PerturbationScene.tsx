@@ -111,7 +111,7 @@ function PerturbationScene() {
                 fragmentShader={perturbationShader}
                 camera={camera}
                 cameraControls={controls}
-                zoomSpeed={zoomSpeed}
+                interactions={{ zoom: { speed: zoomSpeed } }}
                 minZoom={minZoom}
                 maxZoom={maxZoom}
                 canvasRef={canvasRef}

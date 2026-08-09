@@ -194,22 +194,38 @@ world coordinates, so the crosshair stays glued to the cursor under pan/zoom.
 `controls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
 `zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
 
-Raw inputs and gestures are separate layers. `InputStore` only produces signals;
-an `InputRouter` pipelines those signals through an ordered list of _gestures_,
-and each gesture reads the raw signals and drives change through `CameraControls`
-or the surface. Pan (`createPanGesture`) and zoom (`createZoomGesture`) are just
-the built-in gestures. They can be configured or turned off per canvas with
-`pan` / `panButton` / `zoom` / `zoomSpeed` (exponential factor per scroll tick,
-default `0.002`), and the zoom bounds come from the camera's `minZoom` /
-`maxZoom`.
+Raw inputs and interactions are separate layers. `InputStore` only produces
+signals; an `InputRouter` wraps each signal into an `InteractionEvent` — the
+native event, screen point, input store, camera controls, and surface — and
+pipelines it through an ordered list of _gestures_. `PanGesture` and
+`ZoomGesture` are the built-in gestures (`createPanGesture` /
+`createZoomGesture` are thin `new` wrappers); the `interactions` prop
+configures them and slots custom handlers around them:
 
-Custom input handlers are gestures too: `pointerHandlers` (and the lower-level
-`gestures` prop, a list of `Gesture` objects) are slotted ahead of the built-in
-pan/zoom, so they run first. A handler returning `true` consumes the event and
-stops the chain — e.g. draw on click instead of panning; returning falsy lets
-the next gesture run. `pointerup` / `pointercancel` / `contextmenu` are
-broadcast to every gesture so captured state (like an active drag) is always
-released.
+- `pan` / `zoom` — the built-in gestures, on by default. `false` turns one off,
+  an options object configures it (`pan: { button }`, `zoom: { speed }` — the
+  exponential factor per scroll tick, default `0.002`). Zoom bounds come from
+  the camera's `minZoom` / `maxZoom`.
+- `onStart` / `onMove` / `onEnd` / `onZoom` — custom lifecycle handlers, run
+  ahead of the built-in gestures. `onStart` fires on pointer-down, `onMove` on
+  pointer-move, `onEnd` on pointer-up or pointer-cancel, `onZoom` on wheel. A
+  handler returning `true` from `onStart` / `onMove` / `onZoom` consumes the
+  event and stops the chain — e.g. draw on click instead of panning; returning
+  falsy lets the next gesture run. `onEnd` and `onContextMenu` are broadcast to
+  every gesture so captured state (like an active drag) is always released.
+
+```tsx
+<CpuCanvas
+    interactions={{
+        pan: { button: 1 }, // middle-drag pans
+        onStart({ nativeEvent, surface }) {
+            if (nativeEvent.button !== 0 || !surface) return;
+            const p = surface.input.getPointerWorldPos(surface.camera);
+            surface.circle(p.x, p.y, 12, '#38bdf8');
+        }
+    }}
+/>
+```
 
 ## Notes & gotchas
 
@@ -219,7 +235,7 @@ released.
 - **Text is a texture.** Glyphs are rasterized to an offscreen canvas (2× supersampled, 128-entry LRU cache) and uploaded with `UNPACK_FLIP_Y`.
 - **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including the shape batcher and the text cache) on restore.
 - **CPU and GPU stay siblings.** There is deliberately no shared renderer abstraction — duplicate over abstract.
-- **Classes over factories.** `CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `StateBuffer`, `Program`, `ShapeBatcher`, and `TextRasterizer` are classes; every `createX` export is a thin `new X(...)` wrapper kept for compatibility. Named exports only, no barrel files; errors prefixed `Glaze:`.
+- **Classes over factories.** `CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `PanGesture`, `ZoomGesture`, `InputRouter`, `StateBuffer`, `Program`, `ShapeBatcher`, and `TextRasterizer` are classes; every `createX` export is a thin `new X(...)` wrapper kept for compatibility. Named exports only, no barrel files; errors prefixed `Glaze:`.
 
 ## Testing
 

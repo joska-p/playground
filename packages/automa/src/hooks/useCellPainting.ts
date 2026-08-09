@@ -1,6 +1,6 @@
 import { creatures } from '@repo/automa-engine/creature/registry';
 import type { GpuSurface } from '@repo/glaze/gpu/createGpuSurface';
-import type { PointerHandlers } from '@repo/glaze/react/actions';
+import type { CanvasInteractions, InteractionEvent } from '@repo/glaze/react/actions';
 import { useRef } from 'react';
 import { eventToGridPoint } from '../lib/coordinates';
 import { automaStore, paintCell, placePattern } from '../stores/automa';
@@ -22,36 +22,38 @@ function paintAtEvent(event: PointerEvent, surface: GpuSurface): void {
     paintCell(col, row, toolMode === 'erase' ? 0 : 1);
 }
 
-export function useCellPainting(): PointerHandlers<GpuSurface> {
+export function useCellPainting(): CanvasInteractions<GpuSurface> {
     const isPainting = useRef(false);
 
-    const onPointerDown = (event: PointerEvent, surface: GpuSurface): boolean | undefined => {
+    const onStart = ({
+        nativeEvent,
+        surface
+    }: InteractionEvent<PointerEvent, GpuSurface>): boolean | undefined => {
         // Only respond to primary left click
-        if (event.button !== 0) return undefined;
+        if (nativeEvent.button !== 0) return undefined;
+        if (!surface) return undefined;
         isPainting.current = true;
-        paintAtEvent(event, surface);
+        paintAtEvent(nativeEvent, surface);
         return undefined;
     };
 
-    const onPointerMove = (event: PointerEvent, surface: GpuSurface): boolean | undefined => {
+    const onMove = ({
+        nativeEvent,
+        surface
+    }: InteractionEvent<PointerEvent, GpuSurface>): boolean | undefined => {
         if (!isPainting.current) return undefined;
-        paintAtEvent(event, surface);
+        if (!surface) return undefined;
+        paintAtEvent(nativeEvent, surface);
         return undefined;
     };
 
-    const onPointerUp = (): boolean | undefined => {
+    const onEnd = (): void => {
         isPainting.current = false;
-        return undefined;
     };
 
-    const onPointerCancel = (): boolean | undefined => {
-        isPainting.current = false;
-        return undefined;
+    const onContextMenu = ({ nativeEvent }: InteractionEvent<MouseEvent, GpuSurface>): void => {
+        nativeEvent.preventDefault();
     };
 
-    const onContextMenu = (event: MouseEvent): void => {
-        event.preventDefault();
-    };
-
-    return { onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onContextMenu };
+    return { onStart, onMove, onEnd, onContextMenu };
 }
