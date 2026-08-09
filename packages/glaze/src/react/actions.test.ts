@@ -33,8 +33,10 @@ function wheelEvent(init: {
     cancelable?: boolean;
 }) {
     const event = new WheelEvent('wheel', init);
-    if (init.clientX !== undefined) Object.defineProperty(event, 'clientX', { value: init.clientX });
-    if (init.clientY !== undefined) Object.defineProperty(event, 'clientY', { value: init.clientY });
+    if (init.clientX !== undefined)
+        Object.defineProperty(event, 'clientX', { value: init.clientX });
+    if (init.clientY !== undefined)
+        Object.defineProperty(event, 'clientY', { value: init.clientY });
     return event;
 }
 
@@ -55,7 +57,9 @@ describe('createInputRouter', () => {
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
+        );
         pan(camera);
         dispose();
         input.detach();
@@ -75,7 +79,9 @@ describe('createInputRouter', () => {
             gestures: [createPointerHandlersGesture(pointerHandlers), createPanGesture()]
         });
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
+        );
         expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
         dispose();
         input.detach();
@@ -94,7 +100,9 @@ describe('createInputRouter', () => {
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
+        );
         expect(onPointerMove).toHaveBeenCalledTimes(1);
         pan(camera);
         dispose();
@@ -111,7 +119,9 @@ describe('createInputRouter', () => {
             gestures: [createPanGesture({ button: [2] })]
         });
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
+        );
         expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
         dispose();
         input.detach();
@@ -158,15 +168,22 @@ describe('createInputRouter', () => {
             input,
             controls,
             getSurface: () => null,
-            gestures: [createPointerHandlersGesture({ onPointerMove: () => false }), createPanGesture()]
+            gestures: [
+                createPointerHandlersGesture({ onPointerMove: () => false }),
+                createPanGesture()
+            ]
         });
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
+        );
         expect(camera).toEqual({ x: 20, y: 30, zoom: 1 });
         target.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
+        );
         expect(camera).toEqual({ x: 20, y: 30, zoom: 1 });
         dispose();
         input.detach();
@@ -205,9 +222,7 @@ describe('createInputRouter', () => {
             getSurface: () => null,
             gestures: [createZoomGesture()]
         });
-        target.dispatchEvent(
-            wheelEvent({ deltaY: -100000, bubbles: true, cancelable: true })
-        );
+        target.dispatchEvent(wheelEvent({ deltaY: -100000, bubbles: true, cancelable: true }));
         expect(camera.zoom).toBe(2);
         dispose();
         input.detach();
@@ -222,9 +237,7 @@ describe('createInputRouter', () => {
             getSurface: () => ({ input }),
             gestures: [createPointerHandlersGesture({ onWheel: () => true }), createZoomGesture()]
         });
-        target.dispatchEvent(
-            wheelEvent({ deltaY: 100, bubbles: true, cancelable: true })
-        );
+        target.dispatchEvent(wheelEvent({ deltaY: 100, bubbles: true, cancelable: true }));
         expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
         dispose();
         input.detach();
@@ -262,7 +275,9 @@ describe('createInputRouter', () => {
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
+        );
         expect(onPointerMove).toHaveBeenCalledTimes(1);
         expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
         dispose();
@@ -280,7 +295,9 @@ describe('createInputRouter', () => {
         });
         dispose();
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        target.dispatchEvent(new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true }));
+        target.dispatchEvent(
+            new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
+        );
         expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
         input.detach();
     });

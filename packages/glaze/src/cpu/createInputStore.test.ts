@@ -10,8 +10,10 @@ function wheelEvent(init: {
     cancelable?: boolean;
 }) {
     const event = new WheelEvent('wheel', init);
-    if (init.clientX !== undefined) Object.defineProperty(event, 'clientX', { value: init.clientX });
-    if (init.clientY !== undefined) Object.defineProperty(event, 'clientY', { value: init.clientY });
+    if (init.clientX !== undefined)
+        Object.defineProperty(event, 'clientX', { value: init.clientX });
+    if (init.clientY !== undefined)
+        Object.defineProperty(event, 'clientY', { value: init.clientY });
     return event;
 }
 

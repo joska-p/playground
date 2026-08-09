@@ -195,7 +195,7 @@ world coordinates, so the crosshair stays glued to the cursor under pan/zoom.
 `zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
 
 Raw inputs and gestures are separate layers. `InputStore` only produces signals;
-an `InputRouter` pipelines those signals through an ordered list of *gestures*,
+an `InputRouter` pipelines those signals through an ordered list of _gestures_,
 and each gesture reads the raw signals and drives change through `CameraControls`
 or the surface. Pan (`createPanGesture`) and zoom (`createZoomGesture`) are just
 the built-in gestures. They can be configured or turned off per canvas with

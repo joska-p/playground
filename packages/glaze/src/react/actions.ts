@@ -48,11 +48,27 @@ export type GestureContext<TSurface> = {
  * released) and return values are ignored.
  */
 export type Gesture<TSurface> = {
-    onPointerDown?: (event: PointerEvent, point: Point2D, context: GestureContext<TSurface>) => boolean | undefined;
-    onPointerMove?: (event: PointerEvent, point: Point2D, context: GestureContext<TSurface>) => boolean | undefined;
+    onPointerDown?: (
+        event: PointerEvent,
+        point: Point2D,
+        context: GestureContext<TSurface>
+    ) => boolean | undefined;
+    onPointerMove?: (
+        event: PointerEvent,
+        point: Point2D,
+        context: GestureContext<TSurface>
+    ) => boolean | undefined;
     onPointerUp?: (event: PointerEvent, point: Point2D, context: GestureContext<TSurface>) => void;
-    onPointerCancel?: (event: PointerEvent, point: Point2D, context: GestureContext<TSurface>) => void;
-    onWheel?: (event: WheelEvent, point: Point2D, context: GestureContext<TSurface>) => boolean | undefined;
+    onPointerCancel?: (
+        event: PointerEvent,
+        point: Point2D,
+        context: GestureContext<TSurface>
+    ) => void;
+    onWheel?: (
+        event: WheelEvent,
+        point: Point2D,
+        context: GestureContext<TSurface>
+    ) => boolean | undefined;
     onContextMenu?: (event: MouseEvent, context: GestureContext<TSurface>) => void;
 };
 
@@ -75,7 +91,11 @@ export function createPanGesture<TSurface>(options: PanGestureOptions = {}): Ges
         return true;
     };
 
-    const onPointerMove = (_event: PointerEvent, _point: Point2D, context: GestureContext<TSurface>): boolean | undefined => {
+    const onPointerMove = (
+        _event: PointerEvent,
+        _point: Point2D,
+        context: GestureContext<TSurface>
+    ): boolean | undefined => {
         if (!active) return;
         context.controls.panBy(context.input.pointerDelta.x, context.input.pointerDelta.y);
         return true;
@@ -107,7 +127,11 @@ export type ZoomGestureOptions = {
 export function createZoomGesture<TSurface>(options: ZoomGestureOptions = {}): Gesture<TSurface> {
     const speed = options.speed ?? DEFAULT_WHEEL_SPEED;
 
-    const onWheel = (event: WheelEvent, point: Point2D, context: GestureContext<TSurface>): boolean => {
+    const onWheel = (
+        event: WheelEvent,
+        point: Point2D,
+        context: GestureContext<TSurface>
+    ): boolean => {
         event.preventDefault();
         context.controls.zoomBy(Math.exp(-event.deltaY * speed), point);
         return true;

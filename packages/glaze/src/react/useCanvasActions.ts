@@ -19,7 +19,8 @@ export type CanvasActions<TSurface extends { input: InputStore }> = {
 function buildGestures<TSurface>(options: RouterOptions<TSurface>): Gesture<TSurface>[] {
     const gestures: Gesture<TSurface>[] = [];
 
-    if (options.pointerHandlers) gestures.push(createPointerHandlersGesture(options.pointerHandlers));
+    if (options.pointerHandlers)
+        gestures.push(createPointerHandlersGesture(options.pointerHandlers));
     if (options.gestures) gestures.push(...options.gestures);
     if (options.pan) gestures.push(createPanGesture({ button: options.panButton }));
     if (options.zoom) gestures.push(createZoomGesture({ speed: options.zoomSpeed }));

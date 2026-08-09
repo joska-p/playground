@@ -14,7 +14,7 @@ export type ManipInfo = {
     label: string;
     type: 'pixel' | 'neighborhood' | 'global';
     path: string;
-    params?: ParamDef[];
+    params?: ParamDef[] | undefined;
     description: string;
     longDescription: string;
 };
@@ -33,7 +33,7 @@ export type EndpointItem = {
     type: EndpointItemType;
     description: string;
     path: string;
-    params?: ParamDef[];
+    params?: ParamDef[] | undefined;
 };
 
 export type EndpointGroup = {
