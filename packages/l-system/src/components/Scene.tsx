@@ -11,7 +11,6 @@ function Segments({ segments }: { segments: LineSegment[] }) {
 
         for (let i = 0; i < segments.length; i++) {
             const s = segments[i];
-            if (!s) continue;
             const c = new THREE.Color(GRUVBOX_DEPTH[s.depth % GRUVBOX_DEPTH.length]);
             const i6 = i * 6;
 

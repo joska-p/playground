@@ -39,7 +39,7 @@ function CellMesh() {
     return (
         <GpuCanvas
             className="h-full w-full"
-            interactions={{ pan: { button: 1 }, ...interactions }}
+            canvasInteractions={{ pan: { button: 1 }, ...interactions }}
             initialCamera={{ minZoom: 1, maxZoom: 64 }}
             onSurface={setSurface}
             fragmentShader={fragmentShader}

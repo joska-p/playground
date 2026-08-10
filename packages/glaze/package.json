@@ -21,7 +21,11 @@
         "./gpu/shapes/TextRasterizer": "./src/gpu/shapes/TextRasterizer.ts",
         "./react/interactions": "./src/react/interactions.ts",
         "./react/CpuCanvas": "./src/react/CpuCanvas.tsx",
-        "./react/GpuCanvas": "./src/react/GpuCanvas.tsx"
+        "./react/GpuCanvas": "./src/react/GpuCanvas.tsx",
+        "./react/useCpuSurface": "./src/react/useCpuSurface.ts",
+        "./react/useGpuSurface": "./src/react/useGpuSurface.ts",
+        "./docs/GlazeDocs": "./src/docs/GlazeDocs.tsx",
+        "./styles": "./src/styles/global.css"
     },
     "scripts": {
         "dev": "vite --host",
@@ -37,8 +41,10 @@
         "react": "catalog:",
         "react-dom": "catalog:"
     },
+    "dependencies": {
+        "@repo/ui": "workspace:*"
+    },
     "devDependencies": {
-        "@repo/ui": "workspace:*",
         "@babel/core": "catalog:",
         "@repo/config-eslint": "workspace:*",
         "@repo/config-typescript": "workspace:*",

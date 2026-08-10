@@ -6,7 +6,7 @@ function FoldedSpace() {
         <GpuCanvas
             className="h-full w-full"
             fragmentShader={foldedSpaceFragment}
-            interactions={{ pan: false, zoom: false }}
+            canvasInteractions={{ pan: false, zoom: false }}
         />
     );
 }

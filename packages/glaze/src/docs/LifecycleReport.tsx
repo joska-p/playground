@@ -1,8 +1,9 @@
+import { Accordion, AccordionItem } from '@repo/ui/data-display';
 import type { ReactNode } from 'react';
 
 function Code({ children }: { children: ReactNode }) {
     return (
-        <code className="rounded bg-white/5 px-1 py-0.5 font-mono text-[0.9em] text-amber-200/90">
+        <code className="rounded bg-surface-raised/50 px-1.5 py-0.5 font-mono text-[0.9em] text-warning">
             {children}
         </code>
     );
@@ -10,48 +11,36 @@ function Code({ children }: { children: ReactNode }) {
 
 function CodeBlock({ label, children }: { label?: string; children: string }) {
     return (
-        <div className="overflow-hidden rounded-lg border border-white/5 bg-[#0b0d11]">
+        <div className="overflow-hidden rounded-lg border border-border bg-surface-raised/30">
             {label && (
-                <div className="border-b border-white/5 px-4 py-1.5 font-mono text-[10px] uppercase tracking-wider text-neutral-500">
+                <div className="border-b border-border px-4 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground-dim">
                     {label}
                 </div>
             )}
-            <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-neutral-200">
+            <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-foreground">
                 {children}
             </pre>
         </div>
     );
 }
 
-function Section({ index, title, children }: { index: string; title: string; children: ReactNode }) {
+function ReportTable({ rows }: { rows: readonly (readonly string[])[] }) {
     return (
-        <section className="flex flex-col gap-3">
-            <h3 className="font-mono text-sm font-semibold tracking-wide text-amber-300">
-                <span className="mr-2 text-neutral-500">{index}</span>
-                {title}
-            </h3>
-            {children}
-        </section>
-    );
-}
-
-function Table({ rows }: { rows: readonly (readonly string[])[] }) {
-    return (
-        <div className="overflow-x-auto rounded-lg border border-white/5">
+        <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full border-collapse font-mono text-xs leading-relaxed">
                 <tbody>
                     {rows.map((row, index) => (
                         <tr
                             key={row[0] ?? String(index)}
-                            className={index === 0 ? 'bg-white/5' : 'bg-transparent'}
+                            className={index === 0 ? 'bg-surface-raised/40' : 'bg-transparent'}
                         >
                             {row.map((cell, cellIndex) => (
                                 <td
                                     key={`${row[0] ?? String(index)}-${String(cellIndex)}`}
                                     className={
                                         cellIndex === 0
-                                            ? 'border-t border-white/5 px-3 py-1.5 align-top text-amber-200/90'
-                                            : 'border-t border-white/5 px-3 py-1.5 align-top text-neutral-300'
+                                            ? 'border-t border-border px-3 py-1.5 align-top text-warning'
+                                            : 'border-t border-border px-3 py-1.5 align-top text-foreground-muted'
                                     }
                                 >
                                     {cell}
@@ -136,46 +125,29 @@ const PIPE =
 
 export function LifecycleReport() {
     return (
-        <div className="flex flex-col gap-8 rounded-xl border border-white/10 bg-[#12151b] p-6">
-            <header className="flex flex-col gap-2">
-                <div className="flex items-baseline gap-3">
-                    <h2 className="font-mono text-base font-semibold tracking-wide text-amber-300">
-                        The Lifecycle Report
-                    </h2>
-                    <span className="font-mono text-xs text-neutral-500">
-                        how a simple demo really runs
-                    </span>
-                </div>
-                <p className="text-sm leading-relaxed text-neutral-400">
+        <Accordion>
+            <AccordionItem title="01 · The cast">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     Everything the React facade does is orchestrate three imperative objects — a{' '}
                     <Code>Surface</Code>, a <Code>Camera</Code>, and an <Code>InputStore</Code> — and
                     stitch them together with an <Code>InputRouter</Code> and a set of{' '}
-                    <Code>Gesture</Code>s. One canvas, one frame loop, one input bus. This page walks
-                    a demo from mount to unmount and traces every signal in between. Line numbers
-                    refer to the current source; the two surfaces (<Code>CpuSurface</Code> and{' '}
-                    <Code>GpuSurface</Code>) share the skeleton, so the narrative uses CPU as the
-                    spine and calls out the GPU deltas in section 6.
+                    <Code>Gesture</Code>s. Ownership is strict and one-directional, which is why
+                    teardown is exactly the reverse of mount: the surface owns its input bus and its
+                    frame loop, the hook owns the router and the gesture array, the camera is owned
+                    by nobody but mutated by exactly one thing. Line numbers below refer to the
+                    current source.
                 </p>
-            </header>
+                <ReportTable rows={CAST} />
+            </AccordionItem>
 
-            <Section index="01" title="The cast">
-                <p className="text-sm leading-relaxed text-neutral-400">
-                    Ownership is strict and one-directional, which is why teardown is exactly the
-                    reverse of mount. The surface owns its input bus and its frame loop; the hook
-                    owns the router and the gesture array; the camera is owned by nobody but mutated
-                    by exactly one thing.
-                </p>
-                <Table rows={CAST} />
-            </Section>
-
-            <Section index="02" title="Mount — a <CpuCanvas> becomes a running demo">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="02 · Mount — a <CpuCanvas> becomes a running demo">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     Seven steps, split between React&apos;s ref callback (synchronous, when the DOM
                     node exists) and its effects (after paint). The trickiest ordering fact: DOM
                     listeners are bound at step 4, gestures only go live at step 6, and the rAF loop
                     only starts once a draw callback exists at step 7.
                 </p>
-                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         React commits <Code>&lt;CpuCanvas&gt;</Code> and renders{' '}
                         <Code>{'<canvas ref={setCanvasRef}>'}</Code>.
@@ -195,13 +167,14 @@ export function LifecycleReport() {
                         <Code>reset()</Code>.
                     </li>
                     <li>
-                        <Code>createCpuSurface({'{ canvas, camera, dpr }'})</Code>{' '}
-                        <Code>useCpuSurface.ts:54</Code>. The constructor                         <Code>CpuSurface.ts:38</Code>{' '}
-                        grabs the 2D context (throws if unavailable), creates an{' '}
-                        <Code>InputStore</Code>, and calls <Code>input.attach(this.canvas)</Code> —{' '}
-                        <Code>InputStore.ts:64</Code> binds the pointer/wheel/context listeners on
-                        the canvas and key listeners on the window, right here. It then resizes the
-                        canvas once so one-shot draws made outside the loop survive.
+                        <Code>{'createCpuSurface({ canvas, camera, dpr })'}</Code>{' '}
+                        <Code>useCpuSurface.ts:54</Code>. The constructor{' '}
+                        <Code>CpuSurface.ts:38</Code> grabs the 2D context (throws if unavailable),
+                        creates an <Code>InputStore</Code>, and calls{' '}
+                        <Code>input.attach(this.canvas)</Code> — <Code>InputStore.ts:64</Code> binds
+                        the pointer/wheel/context listeners on the canvas and key listeners on the
+                        window, right here. It then resizes the canvas once so one-shot draws made
+                        outside the loop survive.
                     </li>
                     <li>
                         <Code>{'new InputRouter({ input, cameraControls, getSurface, get gestures() })'}</Code>{' '}
@@ -228,20 +201,18 @@ export function LifecycleReport() {
                         <Code>FrameLoop.ts:17</Code>. The demo is running.
                     </li>
                 </ol>
-                <CodeBlock label="one pipeline, end to end">
-                    {PIPE}
-                </CodeBlock>
-            </Section>
+                <CodeBlock label="one pipeline, end to end">{PIPE}</CodeBlock>
+            </AccordionItem>
 
-            <Section index="03" title="The frame — what runs on every rAF tick">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="03 · The frame — what runs on every rAF tick">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     The <Code>FrameLoop</Code> is a pure scheduler: on each tick it computes{' '}
                     <Code>delta = (now − lastTime) / 1000</Code> and <Code>time = now / 1000</Code>,
                     schedules the <em>next</em> rAF, then calls every subscribed callback{' '}
                     <Code>FrameLoop.ts:46</Code>. The surface&apos;s <Code>#onFrame</Code>{' '}
                     <Code>CpuSurface.ts:269</Code> is that callback:
                 </p>
-                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         <Code>#resize()</Code> <Code>CpuSurface.ts:286</Code> — read{' '}
                         <Code>clientWidth/Height</Code>, scale by dpr, only touch{' '}
@@ -270,17 +241,17 @@ export function LifecycleReport() {
                         (pointer position, held keys, button state) persists across frames.
                     </li>
                 </ol>
-                <p className="text-sm leading-relaxed text-neutral-400">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     Note <Code>surface.pointer</Code> is a getter that runs{' '}
                     <Code>camera.screenToWorld(input.pointer)</Code> <Code>CpuSurface.ts:58</Code> —
                     it is always world space, at any zoom. That single line is why the GraphPaper
                     demo is just &quot;compute the visible world bounds with screenToWorld and draw
                     grid lines across them&quot;.
                 </p>
-            </Section>
+            </AccordionItem>
 
-            <Section index="04" title="Input → gesture → camera, end to end">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="04 · Input → gesture → camera, end to end">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     Trace one drag and one wheel tick. The pattern is identical every time: the{' '}
                     <Code>InputStore</Code> turns a native DOM event into CSS-px state, the{' '}
                     <Code>InputRouter</Code> wraps it in an <Code>InteractionEvent</Code>, and every
@@ -288,7 +259,7 @@ export function LifecycleReport() {
                     lands in the camera&apos;s x/y/zoom and is picked up by the next frame&apos;s{' '}
                     <Code>applyCamera</Code>.
                 </p>
-                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         <strong>pointerdown</strong> — <Code>InputStore.#onPointerDown</Code>{' '}
                         <Code>InputStore.ts:111</Code> sets <Code>mouseDown</Code> /{' '}
@@ -299,7 +270,7 @@ export function LifecycleReport() {
                         button (default: any), sets <Code>active = true</Code>, and calls{' '}
                         <Code>setPointerCapture</Code> on the canvas so subsequent moves keep firing
                         even outside its box. If the demo supplies its own <Code>onStart</Code>, the
-                        adapter replaced pan with it (section 5).
+                        adapter replaced pan with it (section 05).
                     </li>
                     <li>
                         <strong>pointermove</strong> — <Code>InputStore.#onPointerMove</Code>{' '}
@@ -341,25 +312,25 @@ export function LifecycleReport() {
                 <CodeBlock label="the gesture pipeline — every event fans out to every gesture">
                     {'DOM event\n  - InputStore   normalize to CSS px (pointer, pointerDelta, wheelPosition)\n  - InputRouter  wrap: InteractionEvent { nativeEvent, point, input, cameraControls, surface }\n  - gestures     each receives it; PanGesture pans, ZoomGesture zooms, lifecycle handlers run\n  - next frame   applyCamera() renders the camera you just moved'}
                 </CodeBlock>
-            </Section>
+            </AccordionItem>
 
-            <Section index="05" title="The React bridge — gestures you can swap without touching the DOM">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="05 · The React bridge — gestures you can swap without touching the DOM">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     The <Code>InputRouter</Code> reads <Code>options.gestures</Code> at event time,{' '}
                     not at construction. The hook exploits this with a live getter: the router is
-                    handed <Code>get gestures() {'{'} return gesturesRef.current {'}'}</Code>{' '}
+                    handed <Code>{'get gestures() { return gesturesRef.current }'}</Code>{' '}
                     <Code>useCpuSurface.ts:61</Code>, so changing the{' '}
                     <Code>canvasInteractions</Code> prop just rewrites{' '}
                     <Code>gesturesRef.current</Code> in an effect — a new array, the same six DOM
                     listeners, zero re-binding. That is the &quot;Dynamic Interaction Bridge&quot;
                     the README advertises.
                 </p>
-                <p className="text-sm leading-relaxed text-neutral-400">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     <Code>createInteractionAdapter</Code> <Code>interactions.ts:56</Code> turns the
                     declarative <Code>CanvasInteractions</Code> config into a <Code>Gesture[]</Code>{' '}
                     with deliberate replace-vs-alongside semantics:
                 </p>
-                <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         An optional lifecycle gesture (holding any of <Code>onStart</Code> /{' '}
                         <Code>onMove</Code> / <Code>onEnd</Code> / <Code>onZoom</Code> /{' '}
@@ -377,7 +348,7 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         <Code>pan: false</Code> / <Code>zoom: false</Code> turn a built-in off;{' '}
-                        <Code>pan: {'{'} button: 2 {'}'}</Code> configures it (middle-drag pan);{' '}
+                        <Code>{'pan: { button: 2 }'}</Code> configures it (middle-drag pan);{' '}
                         <Code>pan: true</Code> or omitting it keeps the default.
                     </li>
                     <li>
@@ -387,17 +358,17 @@ export function LifecycleReport() {
                         <Code>withSurface</Code> <Code>interactions.ts:43</Code> narrows the type.
                     </li>
                 </ul>
-            </Section>
+            </AccordionItem>
 
-            <Section index="06" title="The GPU surface — same lifecycle, different innards">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="06 · The GPU surface — same lifecycle, different innards">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     <Code>GpuSurface</Code> mirrors the whole skeleton: its own InputStore bound to
                     the canvas, its own FrameLoop, the same <Code>setDraw</Code> /{' '}
                     <Code>subscribe</Code> / <Code>destroy</Code> contract, and a{' '}
                     <Code>#onFrame</Code> of the same shape. The deltas are all inside the draw
                     path:
                 </p>
-                <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         Constructor <Code>GpuSurface.ts:54</Code> additionally creates a WebGL2
                         context, a <Code>ShapeBatcher</Code> (shapes are tessellated into one dynamic
@@ -431,14 +402,14 @@ export function LifecycleReport() {
                         <Code>GpuSurface.ts:332</Code>.
                     </li>
                 </ul>
-            </Section>
+            </AccordionItem>
 
-            <Section index="07" title="Unmount — teardown is the reverse of mount">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="07 · Unmount — teardown is the reverse of mount">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     When React unmounts the canvas, the ref callback fires with <Code>null</Code>{' '}
                     <Code>useCpuSurface.ts:28</Code> and walks the ownership chain down:
                 </p>
-                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-neutral-300">
+                <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         <Code>inputRouter.dispose()</Code> — unsubscribes the router from the{' '}
                         <Code>InputStore</Code> <Code>gestures.ts:142</Code>.
@@ -456,16 +427,16 @@ export function LifecycleReport() {
                         every program, the batch, and the text rasterizer <Code>GpuSurface.ts:248</Code>.
                     </li>
                 </ol>
-                <p className="text-sm leading-relaxed text-neutral-400">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     Nothing survives: no listeners on the canvas or window, no scheduled rAF, no GL
                     resources. This is also why React 19 StrictMode (which double-mounts in dev) is
-                    safe here — the unmount pass runs the teardown path in step 2 of section 2, and
+                    safe here — the unmount pass runs the teardown path in step 2 of section 02, and
                     the second mount rebuilds from scratch.
                 </p>
-            </Section>
+            </AccordionItem>
 
-            <Section index="08" title="Suggested reading order">
-                <p className="text-sm leading-relaxed text-neutral-400">
+            <AccordionItem title="08 · Suggested reading order">
+                <p className="text-sm leading-relaxed text-foreground-muted">
                     The modules build bottom-up; read them in the order the runtime runs:
                 </p>
                 <CodeBlock>
@@ -479,9 +450,9 @@ export function LifecycleReport() {
                         'react/useCpuSurface.ts  mount orchestration + the live gesture bridge\n' +
                         'react/CpuCanvas.tsx     effects: gestures + setDraw\n' +
                         'react/interactions.ts   CanvasInteractions -> Gesture[] adapter\n' +
-                        'example/demos/          demos that put it all together'}
+                        'docs/GlazeDocs.tsx      this page'}
                 </CodeBlock>
-            </Section>
-        </div>
+            </AccordionItem>
+        </Accordion>
     );
 }
