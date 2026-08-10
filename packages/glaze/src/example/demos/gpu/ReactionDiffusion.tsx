@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { GpuDraw, GpuSurface } from '../../../gpu/GpuSurface';
 import { createStateBuffer, type StateBuffer } from '../../../gpu/StateBuffer';
-import type { LiveInteractionEvent } from '../../../react/actions';
+import type { LiveInteractionEvent } from '../../../react/interactions';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
 const SIZE = 256;
@@ -91,7 +91,7 @@ export const reactionDiffusionSnippet = `import { useRef } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import { createStateBuffer, type StateBuffer } from '@repo/glaze/gpu/StateBuffer';
 import type { GpuDraw, GpuSurface } from '@repo/glaze/gpu/GpuSurface';
-import type { LiveInteractionEvent } from '@repo/glaze/react/actions';
+import type { LiveInteractionEvent } from '@repo/glaze/react/interactions';
 
 const mod = (value: number, size: number) => ((value % size) + size) % size;
 
@@ -101,9 +101,8 @@ function Sketch() {
     const injecting = useRef(false);
 
     const onStart = ({ nativeEvent }: LiveInteractionEvent<PointerEvent, GpuSurface>) => {
-        if (nativeEvent.button !== 0) return false;
+        if (nativeEvent.button !== 0) return;
         injecting.current = true;
-        return true; // consume: click injects chemical instead of panning
     };
     const onEnd = () => { injecting.current = false; };
 
@@ -116,7 +115,7 @@ function Sketch() {
         return buffer;
     };
 
-    const onFrame: GpuDraw = (surface) => {
+    const onDraw: GpuDraw = (surface) => {
         const buffer = ensureBuffer(surface);
         buffer.useProgram('simulate');
         buffer.setUniforms({
@@ -134,8 +133,8 @@ function Sketch() {
                 u_state: ensureBuffer(surface).getTexture(),
                 u_simSize: 256
             })}
-            onFrame={onFrame}
-            interactions={{ pan: { button: 1 }, onStart, onEnd }}
+            onDraw={onDraw}
+            canvasInteractions={{ onStart, onEnd }}
             className="h-full w-full"
         />
     );
@@ -164,17 +163,16 @@ export function ReactionDiffusion() {
         []
     );
 
-    const onStart = ({ nativeEvent }: LiveInteractionEvent<PointerEvent, GpuSurface>): boolean => {
-        if (nativeEvent.button !== 0) return false;
+    const onStart = ({ nativeEvent }: LiveInteractionEvent<PointerEvent, GpuSurface>): void => {
+        if (nativeEvent.button !== 0) return;
         injecting.current = true;
-        return true;
     };
 
     const onEnd = (): void => {
         injecting.current = false;
     };
 
-    const onFrame: GpuDraw = (surface) => {
+    const onDraw: GpuDraw = (surface) => {
         const buffer = ensureBuffer(surface);
 
         let uv = {
@@ -212,8 +210,8 @@ export function ReactionDiffusion() {
         <GpuCanvas
             fragmentShader={visualizeFragmentSource}
             uniforms={uniforms}
-            onFrame={onFrame}
-            interactions={{ pan: { button: 1 }, onStart, onEnd }}
+            onDraw={onDraw}
+            canvasInteractions={{ onStart, onEnd }}
             className="h-full w-full"
         />
     );

@@ -30,7 +30,7 @@ const MINOR = 20;   // minor grid step, in world units
 const MAJOR = 100;  // major grid step, in world units
 
 function Sketch() {
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         const min = surface.screenToWorld({ x: 0, y: 0 });
         const max = surface.screenToWorld({ x: surface.width, y: surface.height });
 
@@ -54,7 +54,7 @@ function Sketch() {
 
     return (
         <CpuCanvas
-            onFrame={onFrame}
+            onDraw={onDraw}
             initialCamera={{ zoom: 0.8, pan: { x: 0, y: 0 } }}
             className="h-full w-full"
         />
@@ -62,7 +62,7 @@ function Sketch() {
 }`;
 
 export function GraphPaper() {
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         const { min, max } = bounds(surface);
 
         surface.clear('#0a0d12');
@@ -88,7 +88,7 @@ export function GraphPaper() {
 
     return (
         <CpuCanvas
-            onFrame={onFrame}
+            onDraw={onDraw}
             initialCamera={{ zoom: 0.8 }}
             className="h-full w-full"
         />

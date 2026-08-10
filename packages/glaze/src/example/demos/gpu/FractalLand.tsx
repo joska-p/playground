@@ -63,7 +63,7 @@ const FRAGMENT = /* glsl */ \`
     }
 \`;
 
-// Declarative: no onFrame, no program bookkeeping. Pan/zoom the canvas and
+// Declarative: no onDraw, no program bookkeeping. Pan/zoom the canvas and
 // u_camera pans/zooms the fractal.
 export function FractalLand() {
     return (

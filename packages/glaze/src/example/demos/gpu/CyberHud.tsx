@@ -62,7 +62,7 @@ function Sketch() {
     const programRef = useRef<Program | null>(null);
 
     // A custom fullscreen program and batched shapes share one frame:
-    const onFrame: GpuDraw = (surface) => {
+    const onDraw: GpuDraw = (surface) => {
         surface.clear(0, 0, 0, 1);
         surface.renderProgram(programRef.current!); // background pass first
         surface
@@ -75,7 +75,7 @@ function Sketch() {
             onSurface={(surface) => {
                 if (!programRef.current) programRef.current = surface.createProgram(GRID);
             }}
-            onFrame={onFrame}
+            onDraw={onDraw}
             className="h-full w-full"
         />
     );
@@ -84,7 +84,7 @@ function Sketch() {
 export function CyberHud() {
     const programRef = useRef<Program | null>(null);
 
-    const onFrame: GpuDraw = (surface) => {
+    const onDraw: GpuDraw = (surface) => {
         surface.clear(0, 0, 0, 1);
 
         let program = programRef.current;
@@ -121,7 +121,7 @@ export function CyberHud() {
 
     return (
         <GpuCanvas
-            onFrame={onFrame}
+            onDraw={onDraw}
             className="h-full w-full"
         />
     );

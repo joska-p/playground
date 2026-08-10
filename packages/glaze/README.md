@@ -51,7 +51,7 @@ export function Sketch() {
     return (
         <GpuCanvas
             onSurface={setSurface}
-            onFrame={(surface) => {
+            onDraw={(surface) => {
                 surface.clear(0.05, 0.07, 0.09, 1);
                 surface.circle(200, 150, 60, '#e11d48');
                 surface.rect(30, 30, 120, 90, '#16a34a');
@@ -62,7 +62,7 @@ export function Sketch() {
 }
 ```
 
-`onSurface` hands you the live surface as soon as it's ready, for imperative access; `onFrame` receives the same surface the imperative `setDraw` does.
+`onSurface` hands you the live surface as soon as it's ready, for imperative access; `onDraw` receives the same surface the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -170,13 +170,13 @@ import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import { useCamera } from '@repo/glaze/react/useCamera';
 
 export function Crosshair() {
-    const [camera, controls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
+    const [camera, cameraControls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
 
     return (
         <CpuCanvas
             camera={camera}
-            cameraControls={controls}
-            onFrame={(surface) => {
+            cameraControls={cameraControls}
+            onDraw={(surface) => {
                 surface.clear('#0d1015');
                 const world = surface.pointer;
                 surface.circle(world.x, world.y, 12, '#38bdf8');
@@ -192,7 +192,7 @@ position), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`,
 cleared each frame). The surface is the single place conversions happen:
 `surface.pointer` is the cursor mapped into world space (it keeps working under
 pan/zoom), and `screenToWorld` / `worldToScreen` delegate to the same camera.
-`controls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
+`cameraControls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
 `zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
 
 Raw inputs and interactions are separate layers. `InputStore` only produces
@@ -200,7 +200,7 @@ signals; an `InputRouter` wraps each signal into an `InteractionEvent` — the
 native event, screen point, input store, camera controls, and surface — and
 pipelines it through an ordered list of _gestures_. `PanGesture` and
 `ZoomGesture` are the built-in gestures (`createPanGesture` /
-`createZoomGesture` are thin `new` wrappers); the `interactions` prop
+`createZoomGesture` are thin `new` wrappers); the `canvasInteractions` prop
 configures them and slots custom handlers around them:
 
 - `pan` / `zoom` — the built-in gestures, on by default. `false` turns one off,
@@ -217,7 +217,7 @@ configures them and slots custom handlers around them:
 
 ```tsx
 <CpuCanvas
-    interactions={{
+    canvasInteractions={{
         pan: { button: 1 }, // middle-drag pans
         onStart({ nativeEvent, surface }) {
             if (nativeEvent.button !== 0) return;

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import type { CpuDraw, CpuSurface } from '../../../cpu/CpuSurface';
 import type { Point2D } from '../../../core/Camera';
-import type { LiveInteractionEvent } from '../../../react/actions';
+import type { LiveInteractionEvent } from '../../../react/interactions';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 const NODE_RADIUS = 16;
@@ -34,7 +34,7 @@ export const nodeEditorSnippet = `import { useRef } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import type { CpuDraw, CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 import type { Point2D } from '@repo/glaze/core/Camera';
-import type { LiveInteractionEvent } from '@repo/glaze/react/actions';
+import type { LiveInteractionEvent } from '@repo/glaze/react/interactions';
 
 type Node = { id: number; x: number; y: number };
 
@@ -50,29 +50,35 @@ function Sketch() {
     const nodes = useRef<Node[]>([]);
     const edges = useRef<[number, number][]>([]);
     const drag = useRef<{ id: number; ox: number; oy: number } | null>(null);
+    const panMode = useRef(false);
     const nextId = useRef(1);
 
+    // Attaching handlers replaces the default pan, so the middle button is
+    // panned manually through the event's cameraControls.
     const onStart = ({ surface, nativeEvent }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
-        if (nativeEvent.button !== 0) return false; // middle-drag falls through to PanGesture
-
+        if (nativeEvent.button === 1) { panMode.current = true; return; }
+        if (nativeEvent.button !== 0) return;
         const hit = hitNode(nodes.current, surface.pointer);
         if (hit) {
             drag.current = { id: hit.id, ox: surface.pointer.x - hit.x, oy: surface.pointer.y - hit.y };
         } else {
             nodes.current.push({ id: nextId.current++, ...surface.pointer });
         }
-        return true; // consume the event: draw/edit instead of pan
     };
 
-    const onMove = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
+    const onMove = ({ surface, input, cameraControls }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
+        if (panMode.current) {
+            cameraControls.panBy(input.pointerDelta.x, input.pointerDelta.y);
+            return;
+        }
         const active = drag.current;
-        if (!active) return false;
+        if (!active) return;
         const node = nodes.current.find((n) => n.id === active.id);
         if (node) { node.x = surface.pointer.x - active.ox; node.y = surface.pointer.y - active.oy; }
-        return true;
     };
 
     const onEnd = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
+        if (panMode.current) { panMode.current = false; return; }
         const active = drag.current;
         if (!active) return;
         const target = hitNode(nodes.current.filter((n) => n.id !== active.id), surface.pointer);
@@ -86,7 +92,7 @@ function Sketch() {
         if (hit) nodes.current = nodes.current.filter((n) => n.id !== hit.id);
     };
 
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         surface.clear('#0b0e13');
         for (const [a, b] of edges.current) {
             const from = nodes.current.find((n) => n.id === a)!;
@@ -102,8 +108,8 @@ function Sketch() {
 
     return (
         <CpuCanvas
-            onFrame={onFrame}
-            interactions={{ pan: { button: 1 }, onStart, onMove, onEnd, onContextMenu }}
+            onDraw={onDraw}
+            canvasInteractions={{ onStart, onMove, onEnd, onContextMenu }}
             className="h-full w-full"
         />
     );
@@ -113,13 +119,18 @@ export function NodeEditor() {
     const nodes = useRef<Node[]>([]);
     const edges = useRef<[number, number][]>([]);
     const drag = useRef<Drag | null>(null);
+    const panMode = useRef(false);
     const nextId = useRef(1);
 
     const onStart = ({
         surface,
         nativeEvent
-    }: LiveInteractionEvent<PointerEvent, CpuSurface>): boolean => {
-        if (nativeEvent.button !== 0) return false;
+    }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
+        if (nativeEvent.button === 1) {
+            panMode.current = true;
+            return;
+        }
+        if (nativeEvent.button !== 0) return;
 
         const hit = hitNode(nodes.current, surface.pointer);
         if (hit) {
@@ -136,21 +147,31 @@ export function NodeEditor() {
             });
             nextId.current += 1;
         }
-        return true;
     };
 
-    const onMove = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>): boolean => {
+    const onMove = ({
+        surface,
+        input,
+        cameraControls
+    }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
+        if (panMode.current) {
+            cameraControls.panBy(input.pointerDelta.x, input.pointerDelta.y);
+            return;
+        }
         const active = drag.current;
-        if (!active) return false;
+        if (!active) return;
         const node = nodes.current.find((candidate) => candidate.id === active.id);
         if (node) {
             node.x = surface.pointer.x - active.offsetX;
             node.y = surface.pointer.y - active.offsetY;
         }
-        return true;
     };
 
     const onEnd = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
+        if (panMode.current) {
+            panMode.current = false;
+            return;
+        }
         const active = drag.current;
         if (!active) return;
         const target = hitNode(
@@ -175,7 +196,7 @@ export function NodeEditor() {
         }
     };
 
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         surface.clear('#0b0e13');
 
         for (const [fromId, toId] of edges.current) {
@@ -229,8 +250,8 @@ export function NodeEditor() {
 
     return (
         <CpuCanvas
-            onFrame={onFrame}
-            interactions={{ pan: { button: 1 }, onStart, onMove, onEnd, onContextMenu }}
+            onDraw={onDraw}
+            canvasInteractions={{ onStart, onMove, onEnd, onContextMenu }}
             className="h-full w-full"
         />
     );

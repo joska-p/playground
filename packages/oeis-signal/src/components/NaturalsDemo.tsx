@@ -8,7 +8,7 @@ export function NaturalsDemo() {
     return (
         <CpuCanvas
             style={{ width: '100%', height: 400, background: 'black' }}
-            onFrame={(surface) => {
+            onDraw={(surface) => {
                 const next = signal.next();
                 if (next.done) return;
                 const x = next.value;

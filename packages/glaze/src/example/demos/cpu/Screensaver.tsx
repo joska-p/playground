@@ -31,7 +31,7 @@ import type { CpuDraw } from '@repo/glaze/cpu/CpuSurface';
 const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)';
 
 function Sketch() {
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         // Never clear: a translucent full-viewport rect dims last frame's
         // shapes into motion trails, and each particle repaints itself.
         surface.rect(
@@ -57,11 +57,11 @@ function Sketch() {
         );
     };
 
-    return <CpuCanvas onFrame={onFrame} className="h-full w-full" />;
+    return <CpuCanvas onDraw={onDraw} className="h-full w-full" />;
 }`;
 
 export function Screensaver() {
-    const onFrame: CpuDraw = (surface) => {
+    const onDraw: CpuDraw = (surface) => {
         surface
             .rect(
                 -surface.camera.x / surface.camera.zoom,
@@ -94,8 +94,8 @@ export function Screensaver() {
 
     return (
         <CpuCanvas
-            onFrame={onFrame}
-            interactions={{ pan: false, zoom: false }}
+            onDraw={onDraw}
+            canvasInteractions={{ pan: false, zoom: false }}
             className="h-full w-full"
         />
     );

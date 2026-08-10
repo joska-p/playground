@@ -1,18 +1,16 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Camera } from '../core/Camera';
-import { createCameraControls } from '../core/CameraControls';
-import { InputStore } from '../core/InputStore';
+import { Camera } from './Camera';
+import { createCameraControls } from './CameraControls';
+import { InputStore } from './InputStore';
 import {
     InputRouter,
     PanGesture,
     ZoomGesture,
     createInputRouter,
-    createInteractionAdapter,
     createPanGesture,
     createZoomGesture,
-    type CanvasInteractions,
     type InteractionEvent
-} from './actions';
+} from './gestures';
 
 type FakeSurface = { input: InputStore };
 
@@ -25,8 +23,8 @@ function setup() {
 
 function setupCamera(minZoom = 0.05, maxZoom = 64) {
     const camera = new Camera();
-    const controls = createCameraControls(camera, minZoom, maxZoom);
-    return { camera, controls };
+    const cameraControls = createCameraControls(camera, minZoom, maxZoom);
+    return { camera, cameraControls };
 }
 
 function wheelEvent(init: {
@@ -44,10 +42,6 @@ function wheelEvent(init: {
     return event;
 }
 
-function pan(camera: Camera) {
-    expect(camera).toEqual({ x: 20, y: 30, zoom: 1 });
-}
-
 describe('PanGesture', () => {
     it('createPanGesture is a thin new PanGesture() wrapper', () => {
         expect(createPanGesture()).toBeInstanceOf(PanGesture);
@@ -55,13 +49,13 @@ describe('PanGesture', () => {
 
     it('tracks an explicit active drag state through onStart and onEnd', () => {
         const { input } = setup();
-        const { controls } = setupCamera();
+        const { cameraControls } = setupCamera();
         const gesture = new PanGesture();
         const event = (nativeEvent: PointerEvent): InteractionEvent<PointerEvent, FakeSurface> => ({
             nativeEvent,
             point: input.pointer,
             input,
-            controls,
+            cameraControls,
             surface: null
         });
         expect(gesture.active).toBe(false);
@@ -74,16 +68,16 @@ describe('PanGesture', () => {
 
     it('does not start on a non-matching button', () => {
         const { input } = setup();
-        const { controls } = setupCamera();
+        const { cameraControls } = setupCamera();
         const gesture = new PanGesture({ button: [2] });
         const event = (nativeEvent: PointerEvent): InteractionEvent<PointerEvent, FakeSurface> => ({
             nativeEvent,
             point: input.pointer,
             input,
-            controls,
+            cameraControls,
             surface: null
         });
-        expect(gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })))).toBe(false);
+        gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })));
         expect(gesture.active).toBe(false);
         input.detach();
     });
@@ -95,26 +89,13 @@ describe('ZoomGesture', () => {
     });
 });
 
-describe('createInteractionAdapter', () => {
-    it('defaults to the built-in pan and zoom gestures', () => {
-        const gestures = createInteractionAdapter();
-        expect(gestures).toHaveLength(2);
-        expect(gestures[0]).toBeInstanceOf(PanGesture);
-        expect(gestures[1]).toBeInstanceOf(ZoomGesture);
-    });
-
-    it('turns pan and zoom off with false', () => {
-        expect(createInteractionAdapter({ pan: false, zoom: false })).toEqual([]);
-    });
-});
-
 describe('InputRouter', () => {
     it('createInputRouter is a thin new InputRouter() wrapper', () => {
         const { input } = setup();
-        const { controls } = setupCamera();
+        const { cameraControls } = setupCamera();
         const router = createInputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: []
         });
@@ -125,10 +106,10 @@ describe('InputRouter', () => {
 
     it('pans the camera while dragging with the matching button', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera();
+        const { camera, cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new PanGesture()]
         });
@@ -138,61 +119,17 @@ describe('InputRouter', () => {
         target.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
         );
-        pan(camera);
+        expect(camera).toEqual({ x: 20, y: 30, zoom: 1 });
         router.dispose();
         input.detach();
     });
 
-    it('does not pan when a consumer gesture consumes the event', () => {
+    it('does not pan when pan is restricted to another button', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const interactions: CanvasInteractions<FakeSurface> = {
-            onStart: () => true,
-            onMove: () => true
-        };
+        const { camera, cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
-            getSurface: () => ({ input }),
-            gestures: [...createInteractionAdapter(interactions), new PanGesture()]
-        });
-        target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        target.dispatchEvent(
-            new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
-        );
-        expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
-        router.dispose();
-        input.detach();
-    });
-
-    it('chains a non-consuming gesture with the default pan', () => {
-        const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const onMove = vi.fn(() => false);
-        const router = new InputRouter({
-            input,
-            controls,
-            getSurface: () => ({ input }),
-            gestures: [...createInteractionAdapter({ onMove }), new PanGesture()]
-        });
-        target.dispatchEvent(
-            new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
-        );
-        target.dispatchEvent(
-            new PointerEvent('pointermove', { clientX: 30, clientY: 40, bubbles: true })
-        );
-        expect(onMove).toHaveBeenCalledTimes(1);
-        pan(camera);
-        router.dispose();
-        input.detach();
-    });
-
-    it('respects panButton', () => {
-        const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const router = new InputRouter({
-            input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new PanGesture({ button: [2] })]
         });
@@ -205,48 +142,14 @@ describe('InputRouter', () => {
         input.detach();
     });
 
-    it('stops the chain at the first gesture that consumes', () => {
+    it('releases the drag state on pointerup', () => {
         const { target, input } = setup();
-        const { controls } = setupCamera();
-        const first = { onStart: () => true };
-        const second = { onStart: vi.fn() };
+        const { camera, cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
-            gestures: [first, second]
-        });
-        target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        expect(second.onStart).not.toHaveBeenCalled();
-        router.dispose();
-        input.detach();
-    });
-
-    it('lets a non-consuming first gesture pass through to the next', () => {
-        const { target, input } = setup();
-        const { controls } = setupCamera();
-        const first = { onStart: () => false };
-        const second = { onStart: vi.fn(() => true) };
-        const router = new InputRouter({
-            input,
-            controls,
-            getSurface: () => null,
-            gestures: [first, second]
-        });
-        target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
-        expect(second.onStart).toHaveBeenCalledTimes(1);
-        router.dispose();
-        input.detach();
-    });
-
-    it('broadcasts pointerup so released pan state resets even after a consume', () => {
-        const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const router = new InputRouter({
-            input,
-            controls,
-            getSurface: () => null,
-            gestures: [...createInteractionAdapter({ onMove: () => false }), new PanGesture()]
+            gestures: [new PanGesture()]
         });
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
@@ -266,10 +169,10 @@ describe('InputRouter', () => {
 
     it('zooms around the wheel focal point and prevents default', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera();
+        const { camera, cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new ZoomGesture({ speed: 0.001 })]
         });
@@ -290,10 +193,10 @@ describe('InputRouter', () => {
 
     it('clamps zoom to the configured bounds', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera(0.5, 2);
+        const { camera, cameraControls } = setupCamera(0.5, 2);
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new ZoomGesture()]
         });
@@ -303,27 +206,12 @@ describe('InputRouter', () => {
         input.detach();
     });
 
-    it('lets a consumer wheel gesture override the default zoom', () => {
-        const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const router = new InputRouter({
-            input,
-            controls,
-            getSurface: () => ({ input }),
-            gestures: [...createInteractionAdapter({ onZoom: () => true }), new ZoomGesture()]
-        });
-        target.dispatchEvent(wheelEvent({ deltaY: 100, bubbles: true, cancelable: true }));
-        expect(camera).toEqual({ x: 0, y: 0, zoom: 1 });
-        router.dispose();
-        input.detach();
-    });
-
     it('prevents the context menu when right-button panning is enabled', () => {
         const { target, input } = setup();
-        const { controls } = setupCamera();
+        const { cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new PanGesture({ button: 2 })]
         });
@@ -336,16 +224,16 @@ describe('InputRouter', () => {
 
     it('reads the latest gesture list without re-subscribing', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera();
-        const gestures: { onMove?: () => boolean }[] = [];
+        const { camera, cameraControls } = setupCamera();
+        const gestures: { onMove?: () => void }[] = [];
         const options = {
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures
         };
         const router = new InputRouter(options);
-        const onMove = vi.fn(() => true);
+        const onMove = vi.fn();
         gestures.push({ onMove });
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
@@ -361,10 +249,10 @@ describe('InputRouter', () => {
 
     it('stops routing after dispose', () => {
         const { target, input } = setup();
-        const { camera, controls } = setupCamera();
+        const { camera, cameraControls } = setupCamera();
         const router = new InputRouter({
             input,
-            controls,
+            cameraControls,
             getSurface: () => null,
             gestures: [new PanGesture()]
         });

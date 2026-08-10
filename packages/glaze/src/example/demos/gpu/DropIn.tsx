@@ -94,9 +94,9 @@ export function Sketch() {
                 switch to {runtime === 'cpu' ? 'GpuCanvas' : 'CpuCanvas'}
             </button>
             {runtime === 'cpu' ? (
-                <CpuCanvas onFrame={(s) => { s.clear('#05070b'); drawScene(s); }} />
+                <CpuCanvas onDraw={(s) => { s.clear('#05070b'); drawScene(s); }} />
             ) : (
-                <GpuCanvas onFrame={(s) => { s.clear(0.02, 0.03, 0.045, 1); drawScene(s); }} />
+                <GpuCanvas onDraw={(s) => { s.clear(0.02, 0.03, 0.045, 1); drawScene(s); }} />
             )}
         </>
     );
@@ -109,12 +109,12 @@ export function DropIn() {
     const [count, setCount] = useState(6000);
     const stars = useMemo(() => makeStars(count), [count]);
 
-    const onCpuFrame: CpuDraw = (surface) => {
+    const onCpuDraw: CpuDraw = (surface) => {
         surface.clear('#05070b');
         drawScene(surface, stars);
     };
 
-    const onGpuFrame: GpuDraw = (surface) => {
+    const onGpuDraw: GpuDraw = (surface) => {
         surface.clear(0.02, 0.03, 0.045, 1);
         drawScene(surface, stars);
     };
@@ -161,12 +161,12 @@ export function DropIn() {
             <div className="relative min-h-0 flex-1">
                 {runtime === 'cpu' ? (
                     <CpuCanvas
-                        onFrame={onCpuFrame}
+                        onDraw={onCpuDraw}
                         className="h-full w-full"
                     />
                 ) : (
                     <GpuCanvas
-                        onFrame={onGpuFrame}
+                        onDraw={onGpuDraw}
                         className="h-full w-full"
                     />
                 )}

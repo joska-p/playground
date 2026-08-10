@@ -59,7 +59,7 @@ export function Sketch() {
     return (
         <GpuCanvas
             onSurface={setSurface}
-            onFrame={(surface) => {
+            onDraw={(surface) => {
                 surface.clear(0.05, 0.07, 0.09, 1);
                 surface.circle(200, 150, 60, '#e11d48');
                 surface.rect(30, 30, 120, 90, '#16a34a');
@@ -70,7 +70,7 @@ export function Sketch() {
 }
 ```
 
-`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onFrame` receives the same surface the imperative `setDraw` does.
+`onSurface` hands you the live surface (ref-callback style, `null` on unmount) for imperative access; `onDraw` receives the same surface the imperative `setDraw` does.
 
 ### A fullscreen shader (declarative)
 
@@ -184,7 +184,7 @@ export function Crosshair() {
         <CpuCanvas
             camera={camera}
             cameraControls={controls}
-            onFrame={(surface) => {
+            onDraw={(surface) => {
                 surface.clear('#0d1015');
                 const world = surface.pointer;
                 surface.circle(world.x, world.y, 12, '#38bdf8');
