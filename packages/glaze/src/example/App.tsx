@@ -1,5 +1,6 @@
 import { useCases, useCaseLevels, type UseCase, type UseCaseLevel } from './useCases';
 import { UseCaseCard } from './UseCaseCard';
+import { LifecycleReport } from './report/LifecycleReport';
 
 const LEVEL_COLORS: Record<number, string> = {
     1: 'text-green-400',
@@ -25,6 +26,7 @@ export function App() {
                 </div>
             </header>
             <main className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-8">
+                <LifecycleReport />
                 {useCases.map((useCase: UseCase, index: number) => {
                     const level = levelOf(useCase.level);
                     const previous = index > 0 ? useCases[index - 1] : undefined;

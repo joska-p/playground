@@ -38,6 +38,7 @@
         "react-dom": "catalog:"
     },
     "devDependencies": {
+        "@repo/ui": "workspace:*",
         "@babel/core": "catalog:",
         "@repo/config-eslint": "workspace:*",
         "@repo/config-typescript": "workspace:*",
