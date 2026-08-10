@@ -9,7 +9,7 @@ import { GpuCanvas } from '../../../react/GpuCanvas';
  * GpuSurface satisfy it structurally, so one scene function drives both
  * runtimes — the only difference is how each clears.
  */
-type ShapeSurface = {
+interface ShapeSurface {
     width: number;
     height: number;
     time: number;
@@ -23,7 +23,7 @@ type ShapeSurface = {
         lineWidth?: number
     ): ShapeSurface;
     text(text: string, x: number, y: number, fill?: string, fontSize?: number): ShapeSurface;
-};
+}
 
 const STAR_COLORS = ['#38bdf8', '#a78bfa', '#f472b6', '#fbbf24', '#e2e8f0'];
 
@@ -31,14 +31,14 @@ const fract = (value: number): number => value - Math.floor(value);
 
 const hash = (index: number): number => fract(Math.sin(index * 127.1) * 43758.5453);
 
-type Star = {
+interface Star {
     sx: number;
     sy: number;
     radius: number;
     phase: number;
     drift: number;
     color: string;
-};
+}
 
 const makeStars = (count: number): Star[] =>
     Array.from({ length: count }, (_, i) => ({
@@ -70,9 +70,6 @@ export const dropInSnippet = `import { useState } from 'react';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
-// Both CpuSurface and GpuSurface expose the same shape API (circle, rect,
-// line, text), so one scene function drives both runtimes. Only the clear
-// differs: CPU takes a color string, GPU takes r/g/b/a floats.
 const STARS = [
     { x: 120, y: 80, r: 3, color: '#38bdf8' },
     { x: 260, y: 200, r: 5, color: '#f472b6' },

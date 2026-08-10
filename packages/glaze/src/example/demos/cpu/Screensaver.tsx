@@ -5,14 +5,14 @@ const PARTICLE_COUNT = 120;
 const GRAVITY = 260;
 const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)';
 
-type Particle = {
+interface Particle {
     x: number;
     y: number;
     vx: number;
     vy: number;
     radius: number;
     color: string;
-};
+}
 
 const FILLS = ['#38bdf8', '#a78bfa', '#f472b6', '#34d399', '#fbbf24'];
 

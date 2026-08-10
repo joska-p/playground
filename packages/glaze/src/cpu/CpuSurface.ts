@@ -6,11 +6,11 @@ import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
 const DEFAULT_STROKE_WIDTH = 1;
 const DEFAULT_FONT_FAMILY = 'sans-serif';
 
-export type CpuSurfaceConfig = {
+export interface CpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     dpr?: number;
-};
+}
 
 export type CpuDraw = (surface: CpuSurface) => void;
 

@@ -5,7 +5,7 @@ import type { UniformValue } from '../gpu/shader/compileProgram';
 import { useGpuSurface, type GpuSurfaceOptions } from './useGpuSurface';
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
 
-export type GpuCanvasProps = GpuSurfaceOptions & {
+export interface GpuCanvasProps extends GpuSurfaceOptions {
     fragmentShader?: string;
     uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
     onDraw?: GpuDraw;
@@ -13,7 +13,7 @@ export type GpuCanvasProps = GpuSurfaceOptions & {
     canvasInteractions?: CanvasInteractions<GpuSurface>;
     className?: string;
     style?: CSSProperties;
-};
+}
 
 export function GpuCanvas({
     fragmentShader,
@@ -28,12 +28,10 @@ export function GpuCanvas({
     const { canvasRef, surfaceRef, gesturesRef } = useGpuSurface(surfaceOptions);
     const programRef = useRef<Program | null>(null);
 
-    // Sync interactions cleanly
     useEffect(() => {
         gesturesRef.current = createInteractionAdapter(canvasInteractions);
     }, [canvasInteractions, gesturesRef]);
 
-    // Handle shader program lifetime
     useEffect(() => {
         const surface = surfaceRef.current;
         if (!surface || !fragmentShader) return;
@@ -47,7 +45,6 @@ export function GpuCanvas({
         };
     }, [fragmentShader, surfaceRef]);
 
-    // Sync render loop callback
     useEffect(() => {
         const surface = surfaceRef.current;
         if (!surface) return;

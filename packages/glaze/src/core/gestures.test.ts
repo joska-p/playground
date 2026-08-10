@@ -12,7 +12,7 @@ import {
     type InteractionEvent
 } from './gestures';
 
-type FakeSurface = { input: InputStore };
+interface FakeSurface { input: InputStore }
 
 function setup() {
     const target = document.createElement('div');

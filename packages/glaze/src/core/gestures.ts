@@ -4,13 +4,13 @@ import type { Point2D } from './Camera';
 
 export const DEFAULT_WHEEL_SPEED = 0.002;
 
-export type PanOptions = {
+export interface PanOptions {
     button?: number | number[];
-};
+}
 
-export type ZoomOptions = {
+export interface ZoomOptions {
     speed?: number;
-};
+}
 
 /**
  * The unified context every gesture receives: the raw native event, its
@@ -18,13 +18,13 @@ export type ZoomOptions = {
  * targeted surface (when one is mounted). Built-in pan/zoom gestures and the
  * React facade's consumer handlers all read the same block.
  */
-export type InteractionEvent<TEvent, TSurface> = {
+export interface InteractionEvent<TEvent, TSurface> {
     nativeEvent: TEvent;
     point: Point2D;
     input: InputStore;
     cameraControls: CameraControls;
     surface: TSurface | null;
-};
+}
 
 /**
  * A pipeline step that interprets `InteractionEvent`s and drives change —
@@ -36,13 +36,13 @@ export type InteractionEvent<TEvent, TSurface> = {
  * it. Custom handlers replace the built-ins rather than chain against them,
  * so there is no consume protocol.
  */
-export type Gesture<TSurface> = {
+export interface Gesture<TSurface> {
     onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
     onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
     onEnd?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
     onZoom?: (event: InteractionEvent<WheelEvent, TSurface>) => void;
     onContextMenu?: (event: InteractionEvent<MouseEvent, TSurface>) => void;
-};
+}
 
 /**
  * Pointer-drag panning. Capture starts on a matching button press and the
@@ -104,12 +104,12 @@ export function createZoomGesture<TSurface>(options: ZoomOptions = {}): ZoomGest
     return new ZoomGesture<TSurface>(options);
 }
 
-export type InputRouterOptions<TSurface> = {
+export interface InputRouterOptions<TSurface> {
     input: InputStore;
     cameraControls: CameraControls;
     getSurface(): TSurface | null;
     gestures: Gesture<TSurface>[];
-};
+}
 
 function matchesButton(button: number, filter?: number | number[]): boolean {
     if (filter === undefined) return true;

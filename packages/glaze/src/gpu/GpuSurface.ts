@@ -12,11 +12,11 @@ import {
     textUniforms
 } from './shapes/TextRasterizer';
 
-export type GpuSurfaceConfig = {
+export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     dpr?: number;
-};
+}
 
 export type GpuDraw = (surface: GpuSurface) => void;
 

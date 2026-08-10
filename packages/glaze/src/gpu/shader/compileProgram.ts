@@ -9,18 +9,18 @@ export const FULLSCREEN_TRIANGLE = /* glsl */ `
   }
 `.trim();
 
-export type UniformEntry = {
+export interface UniformEntry {
     location: WebGLUniformLocation;
     type: number;
     size: number;
-};
+}
 
 export type UniformValue = number | number[] | Float32Array | Int32Array | WebGLTexture;
 
-export type CompiledShaderProgram = {
+export interface CompiledShaderProgram {
     program: WebGLProgram;
     uniforms: Map<string, UniformEntry>;
-};
+}
 
 function withVersionDirective(source: string): string {
     const stripped = source.replace(/^\uFEFF/, '').replace(/^\s*#version\s+\d+\s+\w+\s*/m, '');

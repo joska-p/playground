@@ -1,16 +1,15 @@
-// components/CpuCanvas.tsx
 import { useEffect, type CSSProperties } from 'react';
 import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
 
-export type CpuCanvasProps = CpuSurfaceOptions & {
+export interface CpuCanvasProps extends CpuSurfaceOptions {
     onDraw?: CpuDraw;
     onSurface?: (surface: CpuSurface) => void;
     canvasInteractions?: CanvasInteractions<CpuSurface>;
     className?: string;
     style?: CSSProperties;
-};
+}
 
 export function CpuCanvas({
     onDraw,
@@ -22,12 +21,10 @@ export function CpuCanvas({
 }: CpuCanvasProps) {
     const { canvasRef, surfaceRef, gesturesRef } = useCpuSurface(surfaceOptions);
 
-    // Sync interactions cleanly by updating the ref
     useEffect(() => {
         gesturesRef.current = createInteractionAdapter(canvasInteractions);
     }, [canvasInteractions, gesturesRef]);
 
-    // Sync draw callbacks and pass surface reference
     useEffect(() => {
         const surface = surfaceRef.current;
         if (!surface) return;

@@ -1,14 +1,14 @@
 export type Color = string;
 
-export type Rect = { x: number; y: number; w: number; h: number };
+export interface Rect { x: number; y: number; w: number; h: number }
 
-export type DrawStyle = {
+export interface DrawStyle {
     fill?: Color;
     stroke?: Color;
     lineWidth?: number;
-};
+}
 
-export type TextStyle = {
+export interface TextStyle {
     fill?: Color;
     stroke?: Color;
     lineWidth?: number;
@@ -16,10 +16,10 @@ export type TextStyle = {
     fontFamily?: string;
     align?: 'left' | 'center' | 'right';
     baseline?: 'alphabetic' | 'top' | 'middle' | 'bottom';
-};
+}
 
-export type PathOptions = {
+export interface PathOptions {
     closed?: boolean;
     fill?: boolean;
     stroke?: boolean;
-};
+}

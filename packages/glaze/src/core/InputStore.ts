@@ -11,14 +11,14 @@ const POINTER_HANDLER_BY_EVENT: Record<PointerEventName, PointerHandlerName> = {
     pointercancel: 'onPointerCancel'
 };
 
-export type InputHandlers = {
+export interface InputHandlers {
     onPointerDown?: (event: PointerEvent, point: Point2D) => void;
     onPointerMove?: (event: PointerEvent, point: Point2D) => void;
     onPointerUp?: (event: PointerEvent, point: Point2D) => void;
     onPointerCancel?: (event: PointerEvent, point: Point2D) => void;
     onWheel?: (event: WheelEvent, point: Point2D) => void;
     onContextMenu?: (event: MouseEvent) => void;
-};
+}
 
 export class InputStore {
     readonly pointer: Point2D = { x: 0, y: 0 };

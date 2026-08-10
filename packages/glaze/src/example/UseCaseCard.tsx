@@ -1,12 +1,12 @@
 import type { ComponentType } from 'react';
 
-export type UseCaseCardProps = {
+export interface UseCaseCardProps {
     index: number;
     title: string;
     description: string;
     snippet: string;
     Demo: ComponentType;
-};
+}
 
 export function UseCaseCard({ index, title, description, snippet, Demo }: UseCaseCardProps) {
     return (

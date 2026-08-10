@@ -36,11 +36,11 @@ in vec4 v_color;
 out vec4 out_color;
 void main() { out_color = v_color; }`;
 
-export type ShapeBatcherOptions = {
+export interface ShapeBatcherOptions {
     gl: WebGL2RenderingContext;
     camera: Camera;
     getViewport: () => { width: number; height: number };
-};
+}
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
     const shader = gl.createShader(type);

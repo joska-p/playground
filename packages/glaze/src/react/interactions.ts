@@ -6,12 +6,12 @@ import { PanGesture, ZoomGesture } from '../core/gestures';
  * while a surface is mounted, so consumer handlers receive this — `surface`
  * is always present and needs no defensive check.
  */
-export type LiveInteractionEvent<TEvent, TSurface> = Omit<
+export interface LiveInteractionEvent<TEvent, TSurface> extends Omit<
     InteractionEvent<TEvent, TSurface>,
     'surface'
-> & {
+> {
     surface: TSurface;
-};
+}
 
 /**
  * The consumer-facing interaction config. Physical events map onto readable
@@ -30,7 +30,7 @@ export type LiveInteractionEvent<TEvent, TSurface> = Omit<
  * Handlers only fire while a surface is mounted, so they receive a
  * `LiveInteractionEvent` whose `surface` is always present.
  */
-export type CanvasInteractions<TSurface> = {
+export interface CanvasInteractions<TSurface> {
     pan?: boolean | PanOptions;
     zoom?: boolean | ZoomOptions;
     onStart?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
@@ -38,7 +38,7 @@ export type CanvasInteractions<TSurface> = {
     onEnd?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
     onZoom?: (event: LiveInteractionEvent<WheelEvent, TSurface>) => void;
     onContextMenu?: (event: LiveInteractionEvent<MouseEvent, TSurface>) => void;
-};
+}
 
 function withSurface<TEvent, TSurface>(
     event: InteractionEvent<TEvent, TSurface>,

@@ -4,7 +4,7 @@ import { Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
 import { InputRouter, type Gesture } from '../core/gestures';
 
-export type CpuSurfaceOptions = {
+export interface CpuSurfaceOptions {
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: {
@@ -14,7 +14,7 @@ export type CpuSurfaceOptions = {
         maxZoom?: number;
     };
     dpr?: number;
-};
+}
 
 export function useCpuSurface(options: CpuSurfaceOptions = {}) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);

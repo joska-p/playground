@@ -1,12 +1,12 @@
-export type Point2D = {
+export interface Point2D {
     x: number;
     y: number;
-};
+}
 
-export type ZoomBounds = {
+export interface ZoomBounds {
     minZoom: number;
     maxZoom: number;
-};
+}
 
 export const DEFAULT_ZOOM_BOUNDS: ZoomBounds = { minZoom: 0.05, maxZoom: 64 };
 

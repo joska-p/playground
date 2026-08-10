@@ -5,7 +5,7 @@ import { Camera, clamp, DEFAULT_ZOOM_BOUNDS, type Point2D, type ZoomBounds } fro
  * changes its `x`/`y`/`zoom` goes through here, so bounds and focal-point
  * math are enforced in exactly one place.
  */
-export type CameraControls = {
+export interface CameraControls {
     panTo(position: Point2D): void;
     panBy(dx: number, dy: number): void;
     zoomTo(zoom: number, focalPoint?: Point2D): void;
@@ -13,7 +13,7 @@ export type CameraControls = {
     zoomBy(factor: number, focalPoint: Point2D): void;
     reset(): void;
     update(partial: Partial<Camera>): void;
-};
+}
 
 export function createCameraControls(
     camera: Camera,

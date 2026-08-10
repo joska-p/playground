@@ -39,11 +39,11 @@ void main() {
 }
 `.trim();
 
-export type TextRaster = {
+export interface TextRaster {
     texture: WebGLTexture;
     width: number;
     height: number;
-};
+}
 
 export class TextRasterizer {
     readonly #gl: WebGL2RenderingContext;

@@ -7,17 +7,17 @@ import { CpuCanvas } from '../../../react/CpuCanvas';
 const NODE_RADIUS = 16;
 const HIT_RADIUS = 18;
 
-type Node = {
+interface Node {
     id: number;
     x: number;
     y: number;
-};
+}
 
-type Drag = {
+interface Drag {
     id: number;
     offsetX: number;
     offsetY: number;
-};
+}
 
 const hitNode = (nodes: Node[], point: Point2D): Node | null => {
     for (let i = nodes.length - 1; i >= 0; i--) {
@@ -36,7 +36,7 @@ import type { CpuDraw, CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 import type { Point2D } from '@repo/glaze/core/Camera';
 import type { LiveInteractionEvent } from '@repo/glaze/react/interactions';
 
-type Node = { id: number; x: number; y: number };
+interface Node { id: number; x: number; y: number }
 
 const hitNode = (nodes: Node[], p: Point2D): Node | null => {
     for (let i = nodes.length - 1; i >= 0; i--) {

@@ -7,21 +7,21 @@ import { FractalLand, fractalLandSnippet } from './demos/gpu/FractalLand';
 import { CyberHud, cyberHudSnippet } from './demos/gpu/CyberHud';
 import { ReactionDiffusion, reactionDiffusionSnippet } from './demos/gpu/ReactionDiffusion';
 
-export type UseCaseLevel = {
+export interface UseCaseLevel {
     readonly level: number;
     readonly emoji: string;
     readonly name: string;
     readonly description: string;
-};
+}
 
-export type UseCase = {
+export interface UseCase {
     readonly level: number;
     readonly id: string;
     readonly title: string;
     readonly description: string;
     readonly snippet: string;
     readonly Demo: ComponentType;
-};
+}
 
 export const useCaseLevels = [
     {
