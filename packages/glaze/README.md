@@ -13,7 +13,7 @@ It ships as two sibling runtimes over a shared foundation:
 
 Both expose the same skeleton: a frame loop, a camera, and an input store. Per-frame state (`time`, `deltaTime`, `frameCount`, `camera`, `input`, `width`, `height`, `dpr`) lives on the surface, and draw callbacks receive the surface itself. Drawing happens in **world space** — the runtime applies the camera for you, so pan/zoom/pointer math is solved once instead of once per sketch.
 
-The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>`: the runtime is created on mount and destroyed on unmount, and pointer-drag + wheel pan/zoom gestures drive the same camera the runtime renders through. `core/` also exports the passive `Camera` (pure `screenToWorld` / `worldToScreen` math), the `CameraControls` mutation layer that owns panning/zooming and their bounds, and curried coordinate transformers (screen → canvas → normalized → UV) for custom math outside a canvas.
+The React layer wraps the runtimes in `<CpuCanvas>` / `<GpuCanvas>` or via hooks (`useCpuSurface` / `useGpuSurface`). Life-cycle operations (mounting, camera setup, gestures) are cleanly decoupled from rendering loops, allowing dynamic interaction updates without unnecessary context destructions or WebGL re-compilations.
 
 ## Use cases
 
@@ -36,22 +36,20 @@ surface.setDraw(() => {
 
 `setDraw` starts the rAF loop; `surface.destroy()` stops it and detaches listeners. The default camera is `{ x: 0, y: 0, zoom: 1 }`, so world pixels equal CSS pixels with a top-left origin. Per-frame state (`time`, `deltaTime`, `frameCount`, `width`, `height`, `dpr`) lives on the surface, updated before each draw callback. Every drawing method returns `surface`, so frames chain naturally with zero per-call allocations.
 
-### Shapes on a GPU canvas (React)
+---
 
-Same draw calls as the CPU runtime — WebGL2 under the hood.
+### React Integration: Components & Hooks
+
+The React facade provides dual ways to work with Glaze: declarative components (`<CpuCanvas>` / `<GpuCanvas>`) or headless lifecycle hooks (`useCpuSurface` / `useGpuSurface`).
+
+#### Shapes on a GPU canvas (`GpuCanvas`)
 
 ```tsx
-import { useState } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 
 export function Sketch() {
-    const [surface, setSurface] = useState<GpuSurface | null>(null);
-
     return (
-        <GpuCanvas
-            onSurface={setSurface}
-            onDraw={(surface) => {
+        <GpuCanvas onDraw="{(surface)"> {
                 surface.clear(0.05, 0.07, 0.09, 1);
                 surface.circle(200, 150, 60, '#e11d48');
                 surface.rect(30, 30, 120, 90, '#16a34a');
@@ -60,41 +58,65 @@ export function Sketch() {
         />
     );
 }
+
 ```
 
-`onSurface` hands you the live surface as soon as it's ready, for imperative access; `onDraw` receives the same surface the imperative `setDraw` does.
+#### Headless Surface Management (`useGpuSurface` / `useCpuSurface`)
+
+If you want complete control over component rendering or want to hook engine refs directly into your own UI, use the surface hooks:
+
+```tsx
+import { useEffect } from 'react';
+import { useGpuSurface } from '@repo/glaze/react/hooks/useGpuSurface';
+
+export function HeadlessSketch() {
+    const { canvasRef, surfaceRef } = useGpuSurface({
+        initialCamera: { zoom: 1.5 }
+    });
+
+    useEffect(() => {
+        const surface = surfaceRef.current;
+        if (!surface) return;
+
+        surface.setDraw(() => {
+            surface.clear(0.1, 0.1, 0.1, 1);
+            surface.circle(100, 100, 40, '#38bdf8');
+        });
+    }, [surfaceRef]);
+
+    return (
+        <canvas
+            ref={canvasRef}
+            style={{ width: '100%', height: '100%' }}
+        />
+    );
+}
+```
+
+---
 
 ### A fullscreen shader (declarative)
 
-For shader art you never touch the runtime: pass a fragment shader to `GpuCanvas` and it compiles it on mount, recompiles on context restore or source change, and renders it every frame.
+For shader art you never touch the runtime: pass a fragment shader to `GpuCanvas` and it compiles it on mount, recompiles on source change, and renders it every frame cleanly without flickering or unnecessary engine destruction.
 
 ```tsx
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
 export function Plasma() {
     return (
-        <GpuCanvas
-            style={{ width: 400, height: 300 }}
-            fragmentShader={`precision highp float;
-in vec2 vUv;
-out vec4 out_color;
-uniform vec2 u_resolution;
-uniform float u_time;
-void main() {
-  vec2 p = (vUv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0);
-  float wave = 0.5 + 0.5 * sin(length(p) * 5.0 - u_time * 4.0);
-  out_color = vec4(mix(vec3(0.08, 0.05, 0.16), vec3(1.0, 0.35, 0.18), wave), 1.0);
-}`}
-        />
+        <GpuCanvas * + - / 0.05, 0.16), 0.18), 0.35, 0.5 0.5) 1.0); 300 4.0); 400, 5.0 float float; fragmentShader="{`precision" height: highp in main() out out_color="vec4(mix(vec3(0.08," out_color; p="(vUv" sin(length(p) style="{{" u_resolution.y, u_resolution; u_time u_time; uniform vUv; vec2 vec2(u_resolution.x vec3(1.0, vec4 void wave="0.5" wave), width: { }`} }}/>
     );
 }
+
 ```
 
-The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the surface. For the imperative equivalent, use `surface.createProgram(source)` and `surface.renderProgram(program)` from `onSurface`.
+The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the surface.
+
+---
 
 ### A GPGPU simulation (state buffer)
 
-`StateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps. Seed it with `init()` and read the live state back with `getTexture()`. This is Conway's Game of Life in miniature.
+`StateBuffer` owns two textures it alternates between: `step()` renders the active program into the write target while sampling the previous state through a `u_state` sampler, then swaps.
 
 ```ts
 import { createGpuSurface } from '@repo/glaze/gpu/GpuSurface';
@@ -159,89 +181,38 @@ surface.setDraw(() => {
 });
 ```
 
-A pass is reusable: `addProgram` several shaders and switch between them with `useProgram(name)`. `StateBuffer` is a class (`createStateBuffer` is a thin `new StateBuffer(gl, w, h)` wrapper).
+---
 
-### An interactive canvas (pan/zoom + input)
+### Interactive canvas (dynamic interactions & gestures)
 
-`CpuCanvas` and `GpuCanvas` wire pointer-drag pan and wheel zoom to a camera by default. Take control of that camera with `useCamera`:
-
-```tsx
-import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import { useCamera } from '@repo/glaze/react/useCamera';
-
-export function Crosshair() {
-    const [camera, cameraControls] = useCamera({ zoom: 1, minZoom: 0.5, maxZoom: 8 });
-
-    return (
-        <CpuCanvas
-            camera={camera}
-            cameraControls={cameraControls}
-            onDraw={(surface) => {
-                surface.clear('#0d1015');
-                const world = surface.pointer;
-                surface.circle(world.x, world.y, 12, '#38bdf8');
-            }}
-        />
-    );
-}
-```
-
-The shared input store is the single producer of input: it owns every canvas
-listener and tracks the pointer (position + delta), wheel (delta + focal
-position), mouse buttons, and keyboard state (`isKeyDown` / `wasKeyPressed`,
-cleared each frame). The surface is the single place conversions happen:
-`surface.pointer` is the cursor mapped into world space (it keeps working under
-pan/zoom), and `screenToWorld` / `worldToScreen` delegate to the same camera.
-`cameraControls` (`CameraControls`) holds every camera mutation — `panTo`, `panBy`,
-`zoomTo`, `zoomAt`, `zoomBy`, `reset` — clamping zoom to the configured bounds.
-
-Raw inputs and interactions are separate layers. `InputStore` only produces
-signals; an `InputRouter` wraps each signal into an `InteractionEvent` — the
-native event, screen point, input store, camera controls, and surface — and
-pipelines it through an ordered list of _gestures_. `PanGesture` and
-`ZoomGesture` are the built-in gestures (`createPanGesture` /
-`createZoomGesture` are thin `new` wrappers); the `canvasInteractions` prop
-configures them and slots custom handlers around them:
-
-- `pan` / `zoom` — the built-in gestures, on by default. `false` turns one off,
-  an options object configures it (`pan: { button }`, `zoom: { speed }` — the
-  exponential factor per scroll tick, default `0.002`). Zoom bounds come from
-  the camera's `minZoom` / `maxZoom`.
-- `onStart` / `onMove` / `onEnd` / `onZoom` — custom lifecycle handlers, run
-  ahead of the built-in gestures. `onStart` fires on pointer-down, `onMove` on
-  pointer-move, `onEnd` on pointer-up or pointer-cancel, `onZoom` on wheel. A
-  handler returning `true` from `onStart` / `onMove` / `onZoom` consumes the
-  event and stops the chain — e.g. draw on click instead of panning; returning
-  falsy lets the next gesture run. `onEnd` and `onContextMenu` are broadcast to
-  every gesture so captured state (like an active drag) is always released.
+`CpuCanvas` and `GpuCanvas` wire pointer-drag pan and wheel zoom to a camera by default. The React components dynamically route gestures through `gesturesRef` without recreating the `InputRouter` or re-binding raw input listeners.
 
 ```tsx
-<CpuCanvas
-    canvasInteractions={{
-        pan: { button: 1 }, // middle-drag pans
-        onStart({ nativeEvent, surface }) {
-            if (nativeEvent.button !== 0) return;
-            const p = surface.pointer;
-            surface.circle(p.x, p.y, 12, '#38bdf8');
-        }
-    }}
-/>
+<CpuCanvas !="=" '#38bdf8'); (nativeEvent.button // 0) 1 12, button: canvasInteractions="{{" const if middle-drag nativeEvent, onStart({ p="surface.pointer;" p.y, pan: pans return; surface surface.circle(p.x, { } }) }, }}/>
+
 ```
+
+Inputs and interactions remain cleanly separated:
+
+- `InputStore` handles raw signals (`pointerdown`, `pointermove`, `wheel`, etc.).
+- `InputRouter` pipelines events into an active gesture array dynamically provided at event time via getter delegation.
+- `PanGesture` and `ZoomGesture` handle spatial transforms against `CameraControls`.
+
+---
 
 ## Notes & gotchas
 
-- **Shapes are batched.** GPU shapes are tessellated on the CPU into one dynamic vertex buffer and drawn in a single draw call per frame (flushed on `clear()`, before custom programs/text, and at the end of the frame). A fullscreen pass is reserved for custom programs.
-- **Draw in world space.** CPU shapes assume the runtime's transform is applied (it is, before every frame); GPU shapes are tessellated in world space and projected through the camera matrix, with GPU MSAA anti-aliased edges.
-- **`half` is reserved in GLSL ES 3.00.** Using `half` / `hvec2/3/4` as an identifier only fails at compile time.
-- **Text is a texture.** Glyphs are rasterized to an offscreen canvas (2× supersampled, 128-entry LRU cache) and uploaded with `UNPACK_FLIP_Y`.
-- **Context loss is handled.** The GPU runtime `preventDefault()`s `webglcontextlost`, then re-applies state and recompiles tracked programs (including the shape batcher and the text cache) on restore.
-- **CPU and GPU stay siblings.** There is deliberately no shared renderer abstraction — duplicate over abstract.
-- **Classes over factories.** `CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `PanGesture`, `ZoomGesture`, `InputRouter`, `StateBuffer`, `Program`, `ShapeBatcher`, and `TextRasterizer` are classes; every `createX` export is a thin `new X(...)` wrapper kept for compatibility. Named exports only, no barrel files; errors prefixed `Glaze:`.
+- **Shapes are batched.** GPU shapes are tessellated on the CPU into one dynamic vertex buffer and drawn in a single draw call per frame.
+- **Draw in world space.** World pixel spaces map directly with smooth camera projection and GPU MSAA anti-aliasing.
+- **Dynamic Interaction Bridge.** Gestures defined via `canvasInteractions` update seamlessly in React without forcing DOM listener unbinding or re-attachment.
+- **Context loss handling.** The GPU runtime safely handles `webglcontextlost` and re-applies shader and resource states upon restoration.
+- **Classes over factories.** `CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `PanGesture`, `ZoomGesture`, `InputRouter`, `StateBuffer`, `Program`, `ShapeBatcher`, and `TextRasterizer` are pure imperative classes; `createX` exports are thin wrapper instantiators.
 
 ## Testing
 
 ```bash
 pnpm --filter @repo/glaze test
+
 ```
 
 ## Contributing
@@ -254,4 +225,4 @@ Follows SemVer. See [CHANGELOG.md].
 
 ---
 
-_Part of [Creative Playground](https://joska-p.github.io/playground)_
+*Part of [Creative Playground*](https://www.google.com/search?q=https://joska-p.github.io/playground)
