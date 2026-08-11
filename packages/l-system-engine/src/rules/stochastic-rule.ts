@@ -6,10 +6,10 @@ export type StochasticProduction = {
     readonly produce: Word;
 };
 
-/** @internal Brand attached to stochastic rules for validate() introspection. */
+/** @internal */
 export const STOCHASTIC_PRODUCTIONS_KEY = '__stochasticProductions';
 
-/** @internal Branded type that validate() uses to introspect stochastic rules. */
+/** @internal */
 export type StochasticRule = {
     readonly [STOCHASTIC_PRODUCTIONS_KEY]: readonly StochasticProduction[];
 } & Rule;
@@ -20,7 +20,8 @@ export type StochasticRule = {
  *
  * Weights must sum to 1.0 (±0.001 tolerance). Validation is deferred to `validate()` — this factory
  * does not throw.
- *
+ * @param name
+ * @param productions
  * @example
  *     stochasticRule('F', [
  *         { weight: 0.7, produce: [symbol('F'), symbol('F')] },

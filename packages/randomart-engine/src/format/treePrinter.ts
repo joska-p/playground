@@ -3,8 +3,6 @@ import type { ExpressionNode } from '../types';
 
 /**
  * Renders a tree as an infix math expression, e.g. `(sin(π · x) + y)`.
- * @param node - The tree to render.
- * @returns The math expression string.
  */
 export function nodeToMathString(node: ExpressionNode): string {
     if (node.ruleId === 'x') return 'x';
@@ -19,9 +17,6 @@ export function nodeToMathString(node: ExpressionNode): string {
 
 /**
  * Renders a tree as an indented ASCII tree view, for debugging.
- * @param node - The tree to render.
- * @param depth - Indentation level of the root (default 0).
- * @returns The ASCII tree string.
  */
 export function nodeToTreeView(node: ExpressionNode, depth = 0): string {
     const indent = '  '.repeat(depth);

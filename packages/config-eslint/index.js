@@ -79,6 +79,13 @@ export default function createConfig(dirname) {
                 // 'jsdoc/check-indentation': 'error',
                 // 'jsdoc/multiline-blocks': 'error',
 
+                // Les types TS suffisent: pas de @param/@returns obligatoires
+                // ni de mise en forme stricte — les commentaires restent des one-liners.
+                'jsdoc/tag-lines': 'off',
+                'jsdoc/require-param': 'off',
+                'jsdoc/require-returns': 'off',
+                'jsdoc/check-param-names': 'off',
+
                 // On interdit le doublon de types dans les commentaires (ex: @param {number} x)
                 'jsdoc/no-types': 'error',
                 'jsdoc/require-param-type': 'off',

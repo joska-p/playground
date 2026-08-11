@@ -72,11 +72,7 @@ function compileColorExpr(
 /**
  * Compiles three expression trees (R, G, B channels) plus animation behaviors
  * into a complete WebGL 2 fragment shader string, ready for `gl.compileShader()`.
- * @param treeR - Expression tree for the red channel.
- * @param treeG - Expression tree for the green channel.
- * @param treeB - Expression tree for the blue channel.
- * @param behaviors - Animation behaviors to inject (spatial and color).
- * @returns The full `#version 300 es` fragment shader source.
+ *
  * @example
  * ```ts
  * const shader = compileToGLSL(treeR, treeG, treeB, [zoomBehavior]);

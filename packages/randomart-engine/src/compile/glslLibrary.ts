@@ -113,8 +113,6 @@ export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) 
  * Returns the concatenated source of the requested functions and all of their
  * transitive dependencies, topologically ordered (dependencies first). Throws
  * when a dependency cycle is detected.
- * @param requiredIds - Ids of the functions to include.
- * @returns The joined GLSL source of the resolved functions.
  */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();

@@ -5,6 +5,9 @@ import type { Context, ExpandOptions, Grammar, Word } from './types';
  * Applies one rewriting step to `word` using `grammar.rules`. For each symbol, the first matching
  * rule is applied (declaration-order priority). Unmatched symbols are kept or removed according to
  * `grammar.unmatchedSymbol`.
+ * @param word
+ * @param grammar
+ * @param random
  */
 function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
     const next: Word[number][] = [];
@@ -38,7 +41,8 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
  * yielded is `grammar.axiom` (iteration 0).
  *
  * Useful for animation: the UI calls `iterator.next()` on each frame.
- *
+ * @param grammar
+ * @param options
  * @example
  *     const iter = steps(grammar, { seed: 42 });
  *     const iteration0 = iter.next().value; // axiom

@@ -13,10 +13,7 @@ export class SeededRandom {
     /** The most recent values produced by {@link next}, capped at a fixed limit. */
     public choiceHistory: number[] = [];
 
-    /**
-     * Creates a PRNG from a seed string; the same string always yields the same sequence.
-     * @param seedString - The seed; must be identical across runs to reproduce art.
-     */
+    /** Creates a PRNG from a seed string; the same string always yields the same sequence. */
     constructor(seedString: string) {
         // A more robust string hashing algorithm (MurmurHash-inspired)
         let hash = 2166136261;
@@ -29,10 +26,7 @@ export class SeededRandom {
     }
 
     // Mulberry32 generator: excellent distribution for procedural generation
-    /**
-     * Returns the next pseudorandom float in [0, 1).
-     * @returns A value in [0, 1).
-     */
+    /** Returns the next pseudorandom float in [0, 1). */
     next(): number {
         let z = (this.seed += 0x6d2b79f5);
         z = Math.imul(z ^ (z >>> 15), z | 1);

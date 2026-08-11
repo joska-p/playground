@@ -35,6 +35,12 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
   listing documented packages.
 - `apps/playground/src/content/docs/how-to/documenting-packages.md` — the guide.
 
+> **Glaze is the *config* template, not a style authority.** The repo's jsdoc
+> lint is deliberately loose (anti-noise): the rules that forced `@param`/
+> `@returns` on every function and no-blank-line blocks are disabled in
+> `packages/config-eslint`. Keep comments minimal; the package's own files set
+> the style.
+
 ## Steps
 
 1. **Read the package.** `packages/<PACKAGE_NAME>/package.json` (exports map),
@@ -44,47 +50,63 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    entry file (e.g. `src/index.ts`).
 
 2. **Create `typedoc.json`.** Copy `packages/glaze/typedoc.json`; set
-   `entryPoints` to the exported source files (explicit list, as glaze does —
-   do NOT use `entryPointStrategy: "expand"` over `src/**`); set `tsconfig` to
-   the lib/app tsconfig that compiles `src` (usually `./tsconfig.json` if it's
-   not composite, else the `.lib` one); keep `out`, `readme`, `theme`,
-   `plugin`, and the exclude flags identical to glaze.
+   `entryPoints` to the exported source files **in exports-map order** (explicit
+   list, as glaze does — do NOT use `entryPointStrategy: "expand"` over
+   `src/**`); set `tsconfig` to the lib/app tsconfig that compiles `src`
+   (usually `./tsconfig.json` if it's not composite, else the `.lib` one);
+   keep `out`, `readme`, `theme`, `plugin`, and the exclude flags identical to
+   glaze. Adapt `externalSymbolLinkMappings` to the ambient/external module the
+   package actually references (glaze maps `@types/react`; a non-React package
+   usually wants `@types/node` instead). Run
+   `pnpm --filter @repo/<PACKAGE_NAME> build:docs` once here to confirm the
+   toolchain before writing any comments.
 
 3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>/package.json`: add
    `"build:docs": "typedoc"` to `scripts` and the three devDependencies
    `typedoc`, `typedoc-plugin-missing-exports`, `typedoc-theme-hierarchy`
-   (all `catalog:`). Run `pnpm install` afterwards.
+   (all `catalog:`). Run `pnpm install` afterwards — it updates
+   `pnpm-lock.yaml`, which is expected.
 
 4. **Audit + improve TSDoc comments** on the *public exports* (classes,
-   functions, types, props):
-   - One-liner for each exported symbol; `@param`/`@returns` where non-obvious;
-     `@example` for tricky usage; `@internal` to hide internals; `@deprecated`
-     when relevant.
+   functions, types, exported consts, props):
+   - One-liner for each exported symbol; `@param`/`@returns` only where the
+     signature is non-obvious; `@example` for tricky usage; `@internal` to
+     hide internals; `@deprecated` when relevant.
+   - Keep it minimal (the jsdoc lint is deliberately loose — see note above):
+     a comment that only repeats the signature is noise. No `{type}` in tags
+     (`jsdoc/no-types` is on). Wrap at ~100 cols, sentence case, backticks
+     around identifiers.
+   - `@link` only to symbols in this package — cross-package links would dangle.
    - Match the existing comment style in the file — do not add comments to
      internal/private code. Only what consumers see needs documenting.
    - Keep the diff minimal: fix/extend comments, don't refactor code.
 
 5. **Simplify the README** so it stays stable:
+   - Keep the **whole shell**: frontmatter, the `> tagline`, and the footer.
    - Keep: Purpose, Quick Start, Usage Examples, Patterns & Gotchas.
    - **Remove**: API inventory — export tables, per-signature walkthroughs,
      file-by-file API lists (TypeDoc now owns these).
-   - Fix any links that point to the old
-     `/docs/reference/packages/<other>/` — repoint cross-package mentions to
-     the other package's new generated docs (relative `../../api/<other>/` from
-     the reference index) or to the package's GitHub path.
+   - **Verify accuracy, not just links**: every import path in a README example
+     must exist in the package's exports map — no bare root import
+     (`@repo/<pkg>` alone) unless a `"."` export exists; drop stale counts
+     (e.g. "19 built-in rules") and filenames that no longer exist.
+   - Fix any links that point to the old `/docs/reference/packages/<other>/` —
+     repoint cross-package mentions to the other package's new generated docs
+     (relative `../../api/<other>/` from the reference index) or to the
+     package's GitHub path.
 
 6. **Register the package:**
    - Add `['packages/<PACKAGE_NAME>/dist-docs', 'docs/api/<PACKAGE_NAME>']` to
      `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted).
    - Add a row to the table in
-     `apps/playground/src/content/docs/reference/packages.md`.
+     `apps/playground/src/content/docs/reference/packages.md` (also sorted).
 
 7. **Verify (all from repo root):**
    ```bash
    pnpm --filter @repo/<PACKAGE_NAME> build:docs   # dist-docs generated, 0 errors
    pnpm --filter @repo/<PACKAGE_NAME> check-types
-   pnpm --filter @repo/<PACKAGE_NAME> lint
-   pnpm --filter @repo/<PACKAGE_NAME> lint-fix
+   pnpm --filter @repo/<PACKAGE_NAME> lint-fix     # auto-fix style, then:
+   pnpm --filter @repo/<PACKAGE_NAME> lint         # must be clean (the gate)
    pnpm collect-assets                             # dist/docs/api/<pkg>/ present
    pnpm --filter @repo/playground check-types      # content schema still valid
    pnpm --filter @repo/playground lint
@@ -92,14 +114,18 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    ```
    - Spot-check `packages/<PACKAGE_NAME>/dist-docs/index.html`: README is the
      overview, exports are documented, no dangling `@link`s.
+   - `_internal_` modules in `dist-docs/` are expected — the
+     `typedoc-plugin-missing-exports` plugin pulls referenced lib types (e.g.
+     `Blob`); glaze has them too. Don't try to remove them.
    - Aim for 0 TypeDoc warnings; if a warning comes from an external library's
      own type defs (e.g. `@types/react`), note it and move on.
 
 ## Rules
 
-- Only `packages/<PACKAGE_NAME>` and the two registration files
-  (`collect-static-assets.mjs`, `reference/packages.md`) may change. If the
-  package's README or code needs fixes, that's in scope — other packages are not.
+- Only `packages/<PACKAGE_NAME>`, the two registration files
+  (`collect-static-assets.mjs`, `reference/packages.md`), and the lockfile
+  (`pnpm-lock.yaml`, from `pnpm install`) may change. If the package's README
+  or code needs fixes, that's in scope — other packages are not.
 - Never hand-edit `dist-docs/` (generated, gitignored).
 - Never re-run `pnpm build:docs` / `collect-assets` for other packages.
 - Follow repo conventions: read `AGENTS.md`; load the `coding-style` skill
@@ -113,7 +139,8 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 
 - `typedoc.json` + `build:docs` + devDeps in place; `pnpm install` done.
 - `pnpm build:docs` produces `dist-docs/` with the README as the index.
-- Public exports have TSDoc comments; README is concept-only and stable.
+- Public exports have TSDoc comments (minimal one-liners); README is
+  concept-only, accurate, and stable.
 - Package registered in `collect-static-assets.mjs` and the reference index.
-- All commands in the Verify section pass.
+- All commands in the Verify section pass (lint-fix run before lint; lint clean).
 - No other package was modified.

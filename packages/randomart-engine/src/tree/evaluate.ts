@@ -5,11 +5,6 @@ import type { ExpressionNode } from '../types';
  * Evaluates a tree node at a coordinate and time, returning a value in [-1, 1].
  * Terminal nodes (`x`, `y`, `constant`) short-circuit; everything else is
  * dispatched to its rule's `evaluate`.
- * @param node - The node to evaluate.
- * @param x - The x coordinate in [-1, 1].
- * @param y - The y coordinate in [-1, 1].
- * @param t - The time value (default 0).
- * @returns The expression result in [-1, 1].
  */
 export function evaluateNode(node: ExpressionNode, x: number, y: number, t = 0): number {
     // Terminal nodes: early-exit before any rule lookup or arg construction

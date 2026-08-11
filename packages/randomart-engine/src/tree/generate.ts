@@ -31,8 +31,7 @@ export type TreeOutput = {
  * correlated mode all channels share a single PRNG stream; otherwise each
  * channel gets its own PRNG, which produces visibly different art for the same
  * seed.
- * @param config - Tree generation options.
- * @returns The generated per-channel trees and their PRNG instances.
+ *
  * @example
  * ```ts
  * const { treeR, treeG, treeB } = generateTrees({

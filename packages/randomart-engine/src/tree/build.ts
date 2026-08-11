@@ -43,12 +43,6 @@ function buildPool(
  * each rule's `weight`. Structural decisions at shallow depth come from
  * `structureRng` (shared across channels) so R/G/B trees share shape; deeper
  * nodes use `channelRng`.
- * @param structureRng - The PRNG driving shallow structural decisions.
- * @param channelRng - The PRNG driving deep node and value selection.
- * @param currentDepth - Depth of the node being built (root is 0).
- * @param maxDepth - Maximum tree depth.
- * @param rules - The rule pool to build from (defaults to all registered rules).
- * @returns The root node of the generated subtree.
  */
 export function buildTree(
     structureRng: SeededRandom,

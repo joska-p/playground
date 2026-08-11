@@ -11,12 +11,6 @@ function toChannel(value: number): number {
  * Renders the three channel trees into an RGBA pixel buffer, evaluating every
  * pixel on the CPU. Expression values in [-1, 1] map to 8-bit channels,
  * mirroring the GLSL shader's normalization.
- * @param treeR - Expression tree for the red channel.
- * @param treeG - Expression tree for the green channel.
- * @param treeB - Expression tree for the blue channel.
- * @param size - Output size in pixels; the buffer is `size × size`.
- * @param time - Time value passed to the trees (default 0).
- * @returns A `size × size × 4` RGBA buffer with alpha 255.
  */
 export function renderTreesToBuffer(
     treeR: ExpressionNode,
