@@ -6,7 +6,6 @@
         "build:docs": "turbo run build:docs",
         "collect-assets": "node ./scripts/collect-static-assets.mjs",
         "deploy": "pnpm build && pnpm build:docs && pnpm collect-assets",
-        "sync-package-docs": "node ./scripts/sync-package-readmes.mjs",
         "dev": "turbo run dev",
         "lint": "turbo run lint",
         "lint-fix": "turbo run lint-fix",
