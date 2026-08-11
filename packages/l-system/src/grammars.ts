@@ -122,7 +122,7 @@ export const GRAMMARS: GrammarDef[] = [
             rules: [
                 parametricRule({
                     name: 'F',
-                    guard: ([l]) => (l ?? 0) > 0.02,
+                    guard: ([l]) => l > 0.02,
                     produce: ([l = 0]) => [
                         symbol('F', l * 0.6),
                         symbol('['),
@@ -138,7 +138,7 @@ export const GRAMMARS: GrammarDef[] = [
                 }),
                 parametricRule({
                     name: 'F',
-                    guard: ([l]) => (l ?? 0) <= 0.02,
+                    guard: ([l]) => l <= 0.02,
                     produce: () => [symbol('F', 0.02)]
                 })
             ]

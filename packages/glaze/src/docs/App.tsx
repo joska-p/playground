@@ -1,4 +1,4 @@
-import { GlazeDocs } from '../docs/GlazeDocs';
+import { GlazeDocs } from './GlazeDocs';
 
 export function App() {
     return (

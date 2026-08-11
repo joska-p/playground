@@ -23,44 +23,6 @@ const bounds = (surface: {
     max: surface.screenToWorld({ x: surface.width, y: surface.height })
 });
 
-export const graphPaperSnippet = `import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuDraw } from '@repo/glaze/cpu/CpuSurface';
-
-const MINOR = 20;   // minor grid step, in world units
-const MAJOR = 100;  // major grid step, in world units
-
-function Sketch() {
-    const onDraw: CpuDraw = (surface) => {
-        const min = surface.screenToWorld({ x: 0, y: 0 });
-        const max = surface.screenToWorld({ x: surface.width, y: surface.height });
-
-        surface.clear('#0a0d12');
-
-        for (const x of range(min.x, max.x, MINOR)) {
-            const major = Math.round(x / MAJOR) === x / MAJOR;
-            surface.line(x, min.y, x, max.y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
-        }
-        for (const y of range(min.y, max.y, MINOR)) {
-            const major = Math.round(y / MAJOR) === y / MAJOR;
-            surface.line(min.x, y, max.x, y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
-        }
-
-        // Origin axes + a crisp text tag that pans and zooms with the world.
-        surface
-            .line(0, min.y, 0, max.y, '#f43f5e', 2)
-            .line(min.x, 0, max.x, 0, '#38bdf8', 2)
-            .text('world origin', 6, -6, '#64748b', 11);
-    };
-
-    return (
-        <CpuCanvas
-            onDraw={onDraw}
-            initialCamera={{ zoom: 0.8, pan: { x: 0, y: 0 } }}
-            className="h-full w-full"
-        />
-    );
-}`;
-
 export function GraphPaper() {
     const onDraw: CpuDraw = (surface) => {
         const { min, max } = bounds(surface);

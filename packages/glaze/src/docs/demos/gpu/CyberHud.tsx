@@ -37,50 +37,6 @@ const gridFragmentSource = /* glsl */ `
 const hull = 0.72;
 const shield = 0.41;
 
-export const cyberHudSnippet = `import { useRef } from 'react';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import type { GpuDraw, GpuSurface } from '@repo/glaze/gpu/GpuSurface';
-import type { Program } from '@repo/glaze/gpu/shader/Program';
-
-// A fullscreen "matrix grid" pass.
-const GRID = \`
-    precision highp float;
-    in vec2 vUv; out vec4 out_color;
-    uniform vec3 u_camera; uniform vec2 u_resolution;
-    uniform float u_dpr; uniform float u_time;
-    void main() {
-        vec2 css = vUv * (u_resolution / u_dpr);
-        vec2 world = (css - u_camera.xy) / u_camera.z;
-        vec2 p = fract(world / 48.0);
-        vec2 edge = abs(p - 0.5);
-        float line = 1.0 - smoothstep(0.44, 0.5, max(edge.x, edge.y));
-        out_color = vec4(mix(vec3(0.02), vec3(0.15, 1.0, 0.7), line * 0.8), 1.0);
-    }
-\`;
-
-function Sketch() {
-    const programRef = useRef<Program | null>(null);
-
-    // A custom fullscreen program and batched shapes share one frame:
-    const onDraw: GpuDraw = (surface) => {
-        surface.clear(0, 0, 0, 1);
-        surface.renderProgram(programRef.current!); // background pass first
-        surface
-            .rect(24, 24, 220, 14, '#1e293b')      // then batched vector shapes
-            .text('HULL', 26, 20, '#34d399', 10);   // and text, all on top
-    };
-
-    return (
-        <GpuCanvas
-            onSurface={(surface) => {
-                if (!programRef.current) programRef.current = surface.createProgram(GRID);
-            }}
-            onDraw={onDraw}
-            className="h-full w-full"
-        />
-    );
-}`;
-
 export function CyberHud() {
     const programRef = useRef<Program | null>(null);
 

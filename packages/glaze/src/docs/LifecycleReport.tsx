@@ -129,8 +129,8 @@ export function LifecycleReport() {
             <AccordionItem title="01 · The cast">
                 <p className="text-sm leading-relaxed text-foreground-muted">
                     Everything the React facade does is orchestrate three imperative objects — a{' '}
-                    <Code>Surface</Code>, a <Code>Camera</Code>, and an <Code>InputStore</Code> — and
-                    stitch them together with an <Code>InputRouter</Code> and a set of{' '}
+                    <Code>Surface</Code>, a <Code>Camera</Code>, and an <Code>InputStore</Code> —
+                    and stitch them together with an <Code>InputRouter</Code> and a set of{' '}
                     <Code>Gesture</Code>s. Ownership is strict and one-directional, which is why
                     teardown is exactly the reverse of mount: the surface owns its input bus and its
                     frame loop, the hook owns the router and the gesture array, the camera is owned
@@ -162,9 +162,9 @@ export function LifecycleReport() {
                     <li>
                         Build the camera chain <Code>useCpuSurface.ts:38</Code>. A{' '}
                         <Code>Camera</Code> from <Code>initialCamera</Code> (or{' '}
-                        <Code>options.camera</Code>), then <Code>createCameraControls</Code> wraps it
-                        with min/max zoom bounds and an initial snapshot for{' '}
-                        <Code>reset()</Code>.
+                        <Code>options.camera</Code>), then <Code>createCameraControls</Code> wraps
+                        it with min/max zoom bounds and an initial snapshot for <Code>reset()</Code>
+                        .
                     </li>
                     <li>
                         <Code>{'createCpuSurface({ canvas, camera, dpr })'}</Code>{' '}
@@ -177,25 +177,31 @@ export function LifecycleReport() {
                         outside the loop survive.
                     </li>
                     <li>
-                        <Code>{'new InputRouter({ input, cameraControls, getSurface, get gestures() })'}</Code>{' '}
+                        <Code>
+                            {
+                                'new InputRouter({ input, cameraControls, getSurface, get gestures() })'
+                            }
+                        </Code>{' '}
                         <Code>useCpuSurface.ts:57</Code>. The router constructor subscribes to the
-                        store&apos;s six handlers — pointerdown → <Code>onStart</Code>, pointermove →{' '}
-                        <Code>onMove</Code>, pointerup/cancel → <Code>onEnd</Code>, wheel →{' '}
+                        store&apos;s six handlers — pointerdown → <Code>onStart</Code>, pointermove
+                        → <Code>onMove</Code>, pointerup/cancel → <Code>onEnd</Code>, wheel →{' '}
                         <Code>onZoom</Code>, contextmenu — <Code>gestures.ts:132</Code>. At this
-                        point the store has listeners but nothing to feed: the gesture array is still
-                        empty and no draw exists.
+                        point the store has listeners but nothing to feed: the gesture array is
+                        still empty and no draw exists.
                     </li>
                     <li>
                         After mount, effect 1 <Code>CpuCanvas.tsx:24</Code> writes{' '}
-                        <Code>gesturesRef.current = createInteractionAdapter(canvasInteractions)</Code>
-                        . The default adapter returns <Code>[PanGesture, ZoomGesture]</Code>. Gestures
-                        are now live — without any listener being re-bound.
+                        <Code>
+                            gesturesRef.current = createInteractionAdapter(canvasInteractions)
+                        </Code>
+                        . The default adapter returns <Code>[PanGesture, ZoomGesture]</Code>.
+                        Gestures are now live — without any listener being re-bound.
                     </li>
                     <li>
-                        Effect 2 <Code>CpuCanvas.tsx:28</Code> calls <Code>onSurface?.(surface)</Code>{' '}
-                        then <Code>surface.setDraw(onDraw)</Code>. <Code>setDraw</Code>{' '}
-                        <Code>CpuSurface.ts:70</Code> stores the callback and — being the first
-                        subscriber — calls <Code>#startRendering()</Code> →{' '}
+                        Effect 2 <Code>CpuCanvas.tsx:28</Code> calls{' '}
+                        <Code>onSurface?.(surface)</Code> then <Code>surface.setDraw(onDraw)</Code>.{' '}
+                        <Code>setDraw</Code> <Code>CpuSurface.ts:70</Code> stores the callback and —
+                        being the first subscriber — calls <Code>#startRendering()</Code> →{' '}
                         <Code>loop.subscribe(#onFrame)</Code>. The <Code>FrameLoop</Code> has no
                         callbacks yet, so its first subscribe starts the rAF clock{' '}
                         <Code>FrameLoop.ts:17</Code>. The demo is running.
@@ -264,13 +270,14 @@ export function LifecycleReport() {
                         <strong>pointerdown</strong> — <Code>InputStore.#onPointerDown</Code>{' '}
                         <Code>InputStore.ts:111</Code> sets <Code>mouseDown</Code> /{' '}
                         <Code>mouseButtons</Code>, recomputes pointer + pointerDelta against the
-                        canvas rect, and notifies subscribers. The router&apos;s <Code>#onStart</Code>{' '}
-                        <Code>gestures.ts:164</Code> builds the event and iterates gestures:{' '}
-                        <Code>PanGesture.onStart</Code> <Code>gestures.ts:60</Code> matches the
-                        button (default: any), sets <Code>active = true</Code>, and calls{' '}
-                        <Code>setPointerCapture</Code> on the canvas so subsequent moves keep firing
-                        even outside its box. If the demo supplies its own <Code>onStart</Code>, the
-                        adapter replaced pan with it (section 05).
+                        canvas rect, and notifies subscribers. The router&apos;s{' '}
+                        <Code>#onStart</Code> <Code>gestures.ts:164</Code> builds the event and
+                        iterates gestures: <Code>PanGesture.onStart</Code>{' '}
+                        <Code>gestures.ts:60</Code> matches the button (default: any), sets{' '}
+                        <Code>active = true</Code>, and calls <Code>setPointerCapture</Code> on the
+                        canvas so subsequent moves keep firing even outside its box. If the demo
+                        supplies its own <Code>onStart</Code>, the adapter replaced pan with it
+                        (section 05).
                     </li>
                     <li>
                         <strong>pointermove</strong> — <Code>InputStore.#onPointerMove</Code>{' '}
@@ -279,23 +286,23 @@ export function LifecycleReport() {
                         <Code>#onMove</Code> delivers to <Code>PanGesture.onMove</Code>{' '}
                         <Code>gestures.ts:68</Code>: if active,{' '}
                         <Code>cameraControls.panBy(pointerDelta.x, pointerDelta.y)</Code> — just{' '}
-                        <Code>camera.x += dx</Code>. Your draw code never sees this; next frame&apos;s
-                        camera transform is simply elsewhere.
+                        <Code>camera.x += dx</Code>. Your draw code never sees this; next
+                        frame&apos;s camera transform is simply elsewhere.
                     </li>
                     <li>
                         <strong>pointerup / pointercancel</strong> — <Code>InputStore</Code> clears{' '}
                         <Code>mouseDown</Code> and the router calls <Code>onEnd</Code>, so{' '}
                         <Code>PanGesture.onEnd</Code> flips <Code>active = false</Code>. Custom{' '}
-                        <Code>onEnd</Code> handlers run alongside the built-ins, so captured state is
-                        always released.
+                        <Code>onEnd</Code> handlers run alongside the built-ins, so captured state
+                        is always released.
                     </li>
                     <li>
                         <strong>wheel</strong> — bound <Code>passive: false</Code>{' '}
                         <Code>InputStore.ts:71</Code> so the gesture may{' '}
                         <Code>preventDefault()</Code> page scroll. <Code>#onWheel</Code>{' '}
                         <Code>InputStore.ts:131</Code> records <Code>wheelPosition</Code> and
-                        accumulates <Code>wheelDelta</Code>, then notifies. <Code>ZoomGesture.onZoom</Code>{' '}
-                        <Code>gestures.ts:97</Code> calls{' '}
+                        accumulates <Code>wheelDelta</Code>, then notifies.{' '}
+                        <Code>ZoomGesture.onZoom</Code> <Code>gestures.ts:97</Code> calls{' '}
                         <Code>cameraControls.zoomBy(Math.exp(−deltaY·speed), point)</Code>.
                     </li>
                     <li>
@@ -304,13 +311,16 @@ export function LifecycleReport() {
                         clamp the new zoom, read the world point under the cursor, then set{' '}
                         <Code>camera.x = focal.x − world.x·next</Code> and{' '}
                         <Code>camera.y = focal.y − world.y·next</Code>. Because the projection is{' '}
-                        <Code>screen = world·zoom + pan</Code>, placing <Code>pan = focal − world·next</Code>{' '}
-                        pins that world point exactly under the cursor — the canvas zooms toward the
-                        mouse and the focal world point never slips.
+                        <Code>screen = world·zoom + pan</Code>, placing{' '}
+                        <Code>pan = focal − world·next</Code> pins that world point exactly under
+                        the cursor — the canvas zooms toward the mouse and the focal world point
+                        never slips.
                     </li>
                 </ol>
                 <CodeBlock label="the gesture pipeline — every event fans out to every gesture">
-                    {'DOM event\n  - InputStore   normalize to CSS px (pointer, pointerDelta, wheelPosition)\n  - InputRouter  wrap: InteractionEvent { nativeEvent, point, input, cameraControls, surface }\n  - gestures     each receives it; PanGesture pans, ZoomGesture zooms, lifecycle handlers run\n  - next frame   applyCamera() renders the camera you just moved'}
+                    {
+                        'DOM event\n  - InputStore   normalize to CSS px (pointer, pointerDelta, wheelPosition)\n  - InputRouter  wrap: InteractionEvent { nativeEvent, point, input, cameraControls, surface }\n  - gestures     each receives it; PanGesture pans, ZoomGesture zooms, lifecycle handlers run\n  - next frame   applyCamera() renders the camera you just moved'
+                    }
                 </CodeBlock>
             </AccordionItem>
 
@@ -337,10 +347,10 @@ export function LifecycleReport() {
                         <Code>onContextMenu</Code>) runs first.
                     </li>
                     <li>
-                        Providing <Code>onStart</Code> or <Code>onMove</Code> suppresses the built-in
-                        pan — you own the whole drag cycle and drive the camera yourself via{' '}
-                        <Code>event.cameraControls</Code>. Providing <Code>onZoom</Code> suppresses
-                        the built-in zoom.
+                        Providing <Code>onStart</Code> or <Code>onMove</Code> suppresses the
+                        built-in pan — you own the whole drag cycle and drive the camera yourself
+                        via <Code>event.cameraControls</Code>. Providing <Code>onZoom</Code>{' '}
+                        suppresses the built-in zoom.
                     </li>
                     <li>
                         <Code>onEnd</Code> and <Code>onContextMenu</Code> run <em>alongside</em> the
@@ -353,8 +363,8 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         Consumer handlers receive a <Code>LiveInteractionEvent</Code>{' '}
-                        <Code>interactions.ts:9</Code> whose <Code>surface</Code> is always present —
-                        the pipeline only routes while a surface is mounted, and{' '}
+                        <Code>interactions.ts:9</Code> whose <Code>surface</Code> is always present
+                        — the pipeline only routes while a surface is mounted, and{' '}
                         <Code>withSurface</Code> <Code>interactions.ts:43</Code> narrows the type.
                     </li>
                 </ul>
@@ -371,16 +381,16 @@ export function LifecycleReport() {
                 <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         Constructor <Code>GpuSurface.ts:54</Code> additionally creates a WebGL2
-                        context, a <Code>ShapeBatcher</Code> (shapes are tessellated into one dynamic
-                        vertex buffer — <Code>VERTEX_STRIDE 6</Code> for x, y, rgba), configures GL
-                        state (blend on, depth off), and subscribes to{' '}
+                        context, a <Code>ShapeBatcher</Code> (shapes are tessellated into one
+                        dynamic vertex buffer — <Code>VERTEX_STRIDE 6</Code> for x, y, rgba),
+                        configures GL state (blend on, depth off), and subscribes to{' '}
                         <Code>webglcontextlost/restored</Code>.
                     </li>
                     <li>
-                        Shape calls don&apos;t paint — they append vertices to the batch. <Code>clear()</Code>{' '}
-                        and <Code>renderProgram</Code> flush it into a single draw call{' '}
-                        <Code>GpuSurface.ts:314</Code>. <Code>text</Code> flushes, then draws through
-                        a lazily-built <Code>TextRasterizer</Code> + text program{' '}
+                        Shape calls don&apos;t paint — they append vertices to the batch.{' '}
+                        <Code>clear()</Code> and <Code>renderProgram</Code> flush it into a single
+                        draw call <Code>GpuSurface.ts:314</Code>. <Code>text</Code> flushes, then
+                        draws through a lazily-built <Code>TextRasterizer</Code> + text program{' '}
                         <Code>GpuSurface.ts:279</Code>.
                     </li>
                     <li>
@@ -396,9 +406,9 @@ export function LifecycleReport() {
                         batched draw call per frame regardless of how many shapes you issued.
                     </li>
                     <li>
-                        Context loss is absorbed: a <Code>#lost</Code> flag makes every GL entry point
-                        a no-op; on restore the surface reconfigures state, resizes, clears the text
-                        cache, and reinitializes batch buffers and every registered program{' '}
+                        Context loss is absorbed: a <Code>#lost</Code> flag makes every GL entry
+                        point a no-op; on restore the surface reconfigures state, resizes, clears
+                        the text cache, and reinitializes batch buffers and every registered program{' '}
                         <Code>GpuSurface.ts:332</Code>.
                     </li>
                 </ul>
@@ -424,7 +434,8 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         The GPU surface additionally removes the context-loss listeners and destroys
-                        every program, the batch, and the text rasterizer <Code>GpuSurface.ts:248</Code>.
+                        every program, the batch, and the text rasterizer{' '}
+                        <Code>GpuSurface.ts:248</Code>.
                     </li>
                 </ol>
                 <p className="text-sm leading-relaxed text-foreground-muted">

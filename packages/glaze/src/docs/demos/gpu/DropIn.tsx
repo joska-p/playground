@@ -25,7 +25,10 @@ interface ShapeSurface {
     text(text: string, x: number, y: number, fill?: string, fontSize?: number): ShapeSurface;
 }
 
-const STAR_COLORS = ['#38bdf8', '#a78bfa', '#f472b6', '#fbbf24', '#e2e8f0'];
+const STAR_COLORS = ['#38bdf8', '#a78bfa', '#f472b6', '#fbbf24', '#e2e8f0'] as const;
+
+const colorAt = (index: number): string =>
+    STAR_COLORS[index % STAR_COLORS.length] ?? STAR_COLORS[0];
 
 const fract = (value: number): number => value - Math.floor(value);
 
@@ -47,7 +50,7 @@ const makeStars = (count: number): Star[] =>
         radius: 0.6 + hash(i * 3 + 3) * 1.8,
         phase: hash(i * 3 + 4) * Math.PI * 2,
         drift: 0.02 + hash(i * 3 + 5) * 0.05,
-        color: STAR_COLORS[i % STAR_COLORS.length]
+        color: colorAt(i)
     }));
 
 const drawScene = (surface: ShapeSurface, stars: Star[]): void => {
@@ -65,39 +68,6 @@ const drawScene = (surface: ShapeSurface, stars: Star[]): void => {
         11
     );
 };
-
-export const dropInSnippet = `import { useState } from 'react';
-import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-
-const STARS = [
-    { x: 120, y: 80, r: 3, color: '#38bdf8' },
-    { x: 260, y: 200, r: 5, color: '#f472b6' },
-    { x: 420, y: 130, r: 4, color: '#fbbf24' }
-];
-
-const drawScene = (
-    surface: { circle(x: number, y: number, r: number, fill?: string): unknown }
-) => {
-    for (const star of STARS) surface.circle(star.x, star.y, star.r, star.color);
-};
-
-export function Sketch() {
-    const [runtime, setRuntime] = useState<'cpu' | 'gpu'>('cpu');
-
-    return (
-        <>
-            <button onClick={() => setRuntime((mode) => (mode === 'cpu' ? 'gpu' : 'cpu'))}>
-                switch to {runtime === 'cpu' ? 'GpuCanvas' : 'CpuCanvas'}
-            </button>
-            {runtime === 'cpu' ? (
-                <CpuCanvas onDraw={(s) => { s.clear('#05070b'); drawScene(s); }} />
-            ) : (
-                <GpuCanvas onDraw={(s) => { s.clear(0.02, 0.03, 0.045, 1); drawScene(s); }} />
-            )}
-        </>
-    );
-}`;
 
 type Runtime = 'cpu' | 'gpu';
 

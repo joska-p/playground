@@ -22,6 +22,7 @@ interface Drag {
 const hitNode = (nodes: Node[], point: Point2D): Node | null => {
     for (let i = nodes.length - 1; i >= 0; i--) {
         const node = nodes[i];
+        if (!node) continue;
         if (Math.hypot(node.x - point.x, node.y - point.y) <= HIT_RADIUS) return node;
     }
     return null;
@@ -29,91 +30,6 @@ const hitNode = (nodes: Node[], point: Point2D): Node | null => {
 
 const alreadyConnected = (edges: [number, number][], a: number, b: number): boolean =>
     edges.some(([from, to]) => (from === a && to === b) || (from === b && to === a));
-
-export const nodeEditorSnippet = `import { useRef } from 'react';
-import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-import type { CpuDraw, CpuSurface } from '@repo/glaze/cpu/CpuSurface';
-import type { Point2D } from '@repo/glaze/core/Camera';
-import type { LiveInteractionEvent } from '@repo/glaze/react/interactions';
-
-interface Node { id: number; x: number; y: number }
-
-const hitNode = (nodes: Node[], p: Point2D): Node | null => {
-    for (let i = nodes.length - 1; i >= 0; i--) {
-        const node = nodes[i];
-        if (node && Math.hypot(node.x - p.x, node.y - p.y) <= 18) return node;
-    }
-    return null;
-};
-
-function Sketch() {
-    const nodes = useRef<Node[]>([]);
-    const edges = useRef<[number, number][]>([]);
-    const drag = useRef<{ id: number; ox: number; oy: number } | null>(null);
-    const panMode = useRef(false);
-    const nextId = useRef(1);
-
-    // Attaching handlers replaces the default pan, so the middle button is
-    // panned manually through the event's cameraControls.
-    const onStart = ({ surface, nativeEvent }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
-        if (nativeEvent.button === 1) { panMode.current = true; return; }
-        if (nativeEvent.button !== 0) return;
-        const hit = hitNode(nodes.current, surface.pointer);
-        if (hit) {
-            drag.current = { id: hit.id, ox: surface.pointer.x - hit.x, oy: surface.pointer.y - hit.y };
-        } else {
-            nodes.current.push({ id: nextId.current++, ...surface.pointer });
-        }
-    };
-
-    const onMove = ({ surface, input, cameraControls }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
-        if (panMode.current) {
-            cameraControls.panBy(input.pointerDelta.x, input.pointerDelta.y);
-            return;
-        }
-        const active = drag.current;
-        if (!active) return;
-        const node = nodes.current.find((n) => n.id === active.id);
-        if (node) { node.x = surface.pointer.x - active.ox; node.y = surface.pointer.y - active.oy; }
-    };
-
-    const onEnd = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>) => {
-        if (panMode.current) { panMode.current = false; return; }
-        const active = drag.current;
-        if (!active) return;
-        const target = hitNode(nodes.current.filter((n) => n.id !== active.id), surface.pointer);
-        if (target) edges.current.push([active.id, target.id]);
-        drag.current = null;
-    };
-
-    const onContextMenu = ({ surface, nativeEvent }: LiveInteractionEvent<MouseEvent, CpuSurface>) => {
-        nativeEvent.preventDefault();
-        const hit = hitNode(nodes.current, surface.pointer);
-        if (hit) nodes.current = nodes.current.filter((n) => n.id !== hit.id);
-    };
-
-    const onDraw: CpuDraw = (surface) => {
-        surface.clear('#0b0e13');
-        for (const [a, b] of edges.current) {
-            const from = nodes.current.find((n) => n.id === a)!;
-            const to = nodes.current.find((n) => n.id === b)!;
-            surface.line(from.x, from.y, to.x, to.y, '#334155', 2);
-        }
-        for (const node of nodes.current) {
-            surface
-                .circle(node.x, node.y, 16, '#0e7490', '#22d3ee', 2)
-                .text(String(node.id), node.x - 4, node.y + 4, '#e2e8f0', 11);
-        }
-    };
-
-    return (
-        <CpuCanvas
-            onDraw={onDraw}
-            canvasInteractions={{ onStart, onMove, onEnd, onContextMenu }}
-            className="h-full w-full"
-        />
-    );
-}`;
 
 export function NodeEditor() {
     const nodes = useRef<Node[]>([]);

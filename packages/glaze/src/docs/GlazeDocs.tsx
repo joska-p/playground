@@ -3,9 +3,9 @@ import { LifecycleReport } from './LifecycleReport';
 import { DemoGallery } from './DemoGallery';
 
 /**
- * The exportable docs feature: an in-depth lifecycle report plus a live demo
- * gallery that mounts each demo only while its accordion section is open.
- * Import as `GlazeDocs` from `@repo/glaze/docs/GlazeDocs`.
+ * The exportable docs feature: an in-depth lifecycle report plus a progressive
+ * live demo gallery that mounts each demo only while its accordion section is
+ * open. Import as `GlazeDocs` from `@repo/glaze/docs/GlazeDocs`.
  */
 export function GlazeDocs() {
     return (
@@ -14,8 +14,8 @@ export function GlazeDocs() {
                 variant="primary"
                 badgeText="@repo/glaze · docs"
                 highlight="glaze"
-                title="Lifecycle Report"
-                description="One canvas, one frame loop, one input bus. An in-depth walkthrough of how a glaze demo mounts, runs, and tears down — the surface, the camera, the input store, the gestures — followed by a live gallery that mounts each demo only while open."
+                title="From mount to unmount"
+                description="One canvas, one frame loop, one input bus. An in-depth walkthrough of how a glaze demo mounts, runs, and tears down — the surface, the camera, the input store, the gestures — followed by a progressive demo gallery, level by level, that mounts each demo only while open."
             />
             <section className="flex flex-col gap-6">
                 <SectionHeading
@@ -28,8 +28,8 @@ export function GlazeDocs() {
             <section className="flex flex-col gap-6">
                 <SectionHeading
                     label="live"
-                    title="The demos"
-                    description="One at a time: each demo mounts its canvas only while its section is open, so exactly one frame loop runs and the page stays fast."
+                    title="The demos, level by level"
+                    description="A journey from a canvas that runs itself to a GPGPU simulation. One at a time: each demo mounts its canvas only while its section is open, so exactly one frame loop runs and the page stays fast."
                 />
                 <DemoGallery />
             </section>

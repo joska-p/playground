@@ -87,59 +87,6 @@ const visualizeFragmentSource = /* glsl */ `
 
 const mod = (value: number, size: number): number => ((value % size) + size) % size;
 
-export const reactionDiffusionSnippet = `import { useRef } from 'react';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import { createStateBuffer, type StateBuffer } from '@repo/glaze/gpu/StateBuffer';
-import type { GpuDraw, GpuSurface } from '@repo/glaze/gpu/GpuSurface';
-import type { LiveInteractionEvent } from '@repo/glaze/react/interactions';
-
-const mod = (value: number, size: number) => ((value % size) + size) % size;
-
-// One 256x256 ping-pong texture pair holds the (u, v) chemical state.
-function Sketch() {
-    const bufferRef = useRef<StateBuffer | null>(null);
-    const injecting = useRef(false);
-
-    const onStart = ({ nativeEvent }: LiveInteractionEvent<PointerEvent, GpuSurface>) => {
-        if (nativeEvent.button !== 0) return;
-        injecting.current = true;
-    };
-    const onEnd = () => { injecting.current = false; };
-
-    const ensureBuffer = (surface: GpuSurface) => {
-        if (bufferRef.current) return bufferRef.current;
-        const buffer = createStateBuffer(surface.gl, 256, 256);
-        buffer.addProgram('simulate', SIM_SHADER); // Gray–Scott step
-        buffer.init(new Uint8Array(256 * 256).fill(255)); // u = 1 everywhere
-        bufferRef.current = buffer;
-        return buffer;
-    };
-
-    const onDraw: GpuDraw = (surface) => {
-        const buffer = ensureBuffer(surface);
-        buffer.useProgram('simulate');
-        buffer.setUniforms({
-            u_mouse: [mod(surface.pointer.x, 256) / 256, mod(surface.pointer.y, 256) / 256],
-            u_radius: 0.025,
-            u_inject: injecting.current ? [0, 0.9] : [0, 0]
-        });
-        buffer.step(); // render sim into the write target, then swap the pair
-    };
-
-    return (
-        <GpuCanvas
-            fragmentShader={VIS_SHADER}          // separate visualization pass
-            uniforms={(surface) => ({            // feeds it the live texture
-                u_state: ensureBuffer(surface).getTexture(),
-                u_simSize: 256
-            })}
-            onDraw={onDraw}
-            canvasInteractions={{ onStart, onEnd }}
-            className="h-full w-full"
-        />
-    );
-}`;
-
 export function ReactionDiffusion() {
     const bufferRef = useRef<{ surface: GpuSurface; buffer: StateBuffer } | null>(null);
     const injecting = useRef(false);

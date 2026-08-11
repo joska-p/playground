@@ -85,10 +85,8 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     for (const sym of word) {
         switch (sym.name) {
             case 'F': {
-                const length =
-                    sym.params[0] !== undefined
-                        ? sym.params[0] * opts.lengthFactor
-                        : opts.stepLength;
+                const length = sym.params[0] * opts.lengthFactor;
+
                 const next = state.position.clone().addScaledVector(state.direction, length);
                 segments.push({
                     start: state.position.clone(),
@@ -99,10 +97,8 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
                 break;
             }
             case 'f': {
-                const length =
-                    sym.params[0] !== undefined
-                        ? sym.params[0] * opts.lengthFactor
-                        : opts.stepLength;
+                const length = sym.params[0] * opts.lengthFactor;
+
                 state.position.addScaledVector(state.direction, length);
                 break;
             }
