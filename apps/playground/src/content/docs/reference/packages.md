@@ -21,6 +21,8 @@ Generated docs are served from [`/docs/api/`](../../api/):
 | Package            | Docs                                                       |
 | ------------------ | ---------------------------------------------------------- |
 | [`@repo/glaze`](../../api/glaze/) | 2D rendering toolkit — CPU/GPU surfaces, shaders, React. |
+| [`@repo/pixel`](../../api/pixel/) | Browser image-manipulation engine — typed step pipelines over a Web Worker pool. |
+| [`@repo/pixel-manipulator`](../../api/pixel-manipulator/) | React workbench for image manipulation — upload, chain steps, inspect results. |
 | [`@repo/randomart-engine`](../../api/randomart-engine/) | Grammar-driven expression trees compiling to CPU pixels and GLSL. |
 
 New packages are added here as they ship docs (`pnpm build:docs && pnpm collect-assets`).

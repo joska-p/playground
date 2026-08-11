@@ -6,7 +6,6 @@ import { setWorkflowSteps } from '../../stores/manipulator/actions';
 function PresetSelector() {
     function loadPreset(index: number) {
         const preset = WORKFLOW_PRESETS[index];
-        if (!preset) return;
         setWorkflowSteps(
             preset.steps.map((step) => ({
                 ...step,

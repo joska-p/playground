@@ -14,7 +14,7 @@ export type ManipInfo = {
     label: string;
     type: 'pixel' | 'neighborhood' | 'global';
     path: string;
-    params?: ParamDef[] | undefined;
+    params?: ParamDef[];
     description: string;
     longDescription: string;
 };
@@ -33,7 +33,7 @@ export type EndpointItem = {
     type: EndpointItemType;
     description: string;
     path: string;
-    params?: ParamDef[] | undefined;
+    params?: ParamDef[];
 };
 
 export type EndpointGroup = {
@@ -97,25 +97,27 @@ function paramsFromDefinition(
 }
 
 function manipToInfo(definition: (typeof ALL_MANIPULATIONS)[number]): ManipInfo {
+    const params = paramsFromDefinition(definition);
     return {
         id: definition.id,
         label: definition.ui.name,
         type: definition.access,
         path: `/manip/${definition.id}`,
-        params: paramsFromDefinition(definition),
+        ...(params && { params }),
         description: definition.ui.description,
         longDescription: definition.ui.longDescription
     };
 }
 
 function manipToItem(definition: (typeof ALL_MANIPULATIONS)[number]): EndpointItem {
+    const params = paramsFromDefinition(definition);
     return {
         id: definition.id,
         label: definition.ui.name,
         type: definition.access,
         description: definition.ui.description,
         path: `/manip/${definition.id}`,
-        params: paramsFromDefinition(definition)
+        ...(params && { params })
     };
 }
 

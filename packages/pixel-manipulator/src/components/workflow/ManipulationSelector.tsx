@@ -22,14 +22,14 @@ function ManipulationSelector() {
                         key={id}
                         value={id}
                     >
-                        {pixel.manipulations[id]?.name ?? id}
+                        {pixel.manipulations[id].name}
                     </option>
                 ))}
             </Select>
 
             <Button
                 onClick={() => {
-                    addWorkflowStep(String(manipulationId));
+                    addWorkflowStep(manipulationId);
                 }}
             >
                 Add to Workflow

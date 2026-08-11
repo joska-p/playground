@@ -23,12 +23,6 @@ function WorkflowControls() {
         <ControlSection title="workflow">
             {steps.map((step, index) => {
                 const manip = pixel.manipulations[step.id];
-                if (!manip)
-                    return (
-                        <p key={step.uid}>
-                            Step number: {step.id} that is not a valid manipulation
-                        </p>
-                    );
 
                 return (
                     <WorkflowNode

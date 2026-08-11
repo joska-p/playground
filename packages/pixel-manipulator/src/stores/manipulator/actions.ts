@@ -28,7 +28,7 @@ function addWorkflowStep(id: string) {
             {
                 uid: crypto.randomUUID(),
                 id,
-                options: { ...(entry?.defaultArgs ?? {}) }
+                options: { ...entry.defaultArgs }
             }
         ]
     });
@@ -49,7 +49,6 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
     const updated = [...workflow];
     const current = updated[index];
     const target = updated[targetIndex];
-    if (!current || !target) return; // narrows types, also guards runtime
 
     updated[index] = target;
     updated[targetIndex] = current;

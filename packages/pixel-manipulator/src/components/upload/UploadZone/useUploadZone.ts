@@ -39,8 +39,8 @@ export function useUploadZone() {
             setIsDragging(false);
             dragCounter.current = 0;
 
-            const file = e.dataTransfer.files[0];
-            if (file) handleFileDrop(file);
+            const { files } = e.dataTransfer;
+            if (files.length > 0) handleFileDrop(files[0]);
         },
         [handleFileDrop]
     );

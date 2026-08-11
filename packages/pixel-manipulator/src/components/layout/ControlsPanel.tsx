@@ -21,7 +21,7 @@ function ControlsPanel() {
 
     const manipulationIds = Object.keys(pixel.manipulations);
     const manipulationOptions = manipulationIds.map((id) => ({
-        label: pixel.manipulations[id]?.name ?? id,
+        label: pixel.manipulations[id].name,
         value: id
     }));
 

@@ -1,6 +1,6 @@
 # Package Documentation Prompt (reusable)
 
-Copy this into a fresh session for EACH package. Replace `<PACKAGE_NAME>` with
+Copy this into a fresh session for EACH package. Replace `<PACKAGE_NAME>>` with
 the package directory name under `packages/` (e.g. `randomart-engine`). Do one
 package per session.
 
@@ -8,7 +8,7 @@ package per session.
 
 ## Mission
 
-Document the package `packages/<PACKAGE_NAME>` using the repo's documentation
+Document the package `packages/<PACKAGE_NAME>>` using the repo's documentation
 system. This is a **single-package** task: do not touch, build, or regenerate
 docs for any other package.
 
@@ -43,7 +43,7 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 
 ## Steps
 
-1. **Read the package.** `packages/<PACKAGE_NAME>/package.json` (exports map),
+1. **Read the package.** `packages/<PACKAGE_NAME>>/package.json` (exports map),
    `tsconfig*.json`, `README.md`, and the `src/` tree. Identify the **public
    exports** — the files behind the `exports` map (exclude `.css` and any
    `docs/`, demo, or test files). If there's no exports map, use the single
@@ -52,16 +52,17 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 2. **Create `typedoc.json`.** Copy `packages/glaze/typedoc.json`; set
    `entryPoints` to the exported source files **in exports-map order** (explicit
    list, as glaze does — do NOT use `entryPointStrategy: "expand"` over
-   `src/**`); set `tsconfig` to the lib/app tsconfig that compiles `src`
-   (usually `./tsconfig.json` if it's not composite, else the `.lib` one);
-   keep `out`, `readme`, `theme`, `plugin`, and the exclude flags identical to
+   `src/**`); set `tsconfig` to the config that compiles `src` — the root
+   `tsconfig.json` is usually just `files: []` + references, in which case use
+   the referenced `tsconfig.app.json` / `tsconfig.lib.json`; keep `out`,
+   `readme`, `theme`, `plugin`, and the exclude flags identical to
    glaze. Adapt `externalSymbolLinkMappings` to the ambient/external module the
    package actually references (glaze maps `@types/react`; a non-React package
    usually wants `@types/node` instead). Run
-   `pnpm --filter @repo/<PACKAGE_NAME> build:docs` once here to confirm the
+   `pnpm --filter @repo/<PACKAGE_NAME>> build:docs` once here to confirm the
    toolchain before writing any comments.
 
-3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>/package.json`: add
+3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>>/package.json`: add
    `"build:docs": "typedoc"` to `scripts` and the three devDependencies
    `typedoc`, `typedoc-plugin-missing-exports`, `typedoc-theme-hierarchy`
    (all `catalog:`). Run `pnpm install` afterwards — it updates
@@ -77,6 +78,9 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      (`jsdoc/no-types` is on). Wrap at ~100 cols, sentence case, backticks
      around identifiers.
    - `@link` only to symbols in this package — cross-package links would dangle.
+   - Re-exported types from other packages (e.g. `@repo/pixel` re-exporting
+     engine types) land in `_internal_` — leave them alone, they are the owning
+     package's job to document.
    - Match the existing comment style in the file — do not add comments to
      internal/private code. Only what consumers see needs documenting.
    - Keep the diff minimal: fix/extend comments, don't refactor code.
@@ -90,44 +94,64 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      must exist in the package's exports map — no bare root import
      (`@repo/<pkg>` alone) unless a `"."` export exists; drop stale counts
      (e.g. "19 built-in rules") and filenames that no longer exist.
+   - The README may describe a *different* or older API — if its names don't
+     appear in the exports map at all, rewrite the concept sections, not just
+     the import paths. Only document what the exports map exposes: internal
+     hooks and sub-components must be dropped as imports, not described as
+     package APIs.
    - Fix any links that point to the old `/docs/reference/packages/<other>/` —
      repoint cross-package mentions to the other package's new generated docs
      (relative `../../api/<other>/` from the reference index) or to the
      package's GitHub path.
 
 6. **Register the package:**
-   - Add `['packages/<PACKAGE_NAME>/dist-docs', 'docs/api/<PACKAGE_NAME>']` to
-     `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted).
+   - Add `['packages/<PACKAGE_NAME>>/dist-docs', 'docs/api/<PACKAGE_NAME>>']` to
+     `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted by
+     source path — `packages/pixel/...` sorts before
+     `packages/<PACKAGE_NAME>>/...`).
    - Add a row to the table in
      `apps/playground/src/content/docs/reference/packages.md` (also sorted).
 
 7. **Verify (all from repo root):**
    ```bash
-   pnpm --filter @repo/<PACKAGE_NAME> build:docs   # dist-docs generated, 0 errors
-   pnpm --filter @repo/<PACKAGE_NAME> check-types
-   pnpm --filter @repo/<PACKAGE_NAME> lint-fix     # auto-fix style, then:
-   pnpm --filter @repo/<PACKAGE_NAME> lint         # must be clean (the gate)
-   pnpm collect-assets                             # dist/docs/api/<pkg>/ present
+   pnpm --filter @repo/<PACKAGE_NAME>> build:docs   # dist-docs generated, 0 errors
+   pnpm --filter @repo/<PACKAGE_NAME>> check-types
+   pnpm --filter @repo/<PACKAGE_NAME>> lint-fix     # auto-fix style, then:
+   pnpm --filter @repo/<PACKAGE_NAME>> lint         # must be clean (the gate)
    pnpm --filter @repo/playground check-types      # content schema still valid
    pnpm --filter @repo/playground lint
    pnpm --filter @repo/playground build            # full site builds
+   pnpm collect-assets                             # run LAST — build wipes dist/, docs must land in the final dist
    ```
-   - Spot-check `packages/<PACKAGE_NAME>/dist-docs/index.html`: README is the
-     overview, exports are documented, no dangling `@link`s.
+   - Spot-check `packages/<PACKAGE_NAME>>/dist-docs/index.html`: README is the
+     overview (grep for the tagline), exports are documented (the exported
+     symbol's HTML page), no dangling `@link`s.
    - `_internal_` modules in `dist-docs/` are expected — the
      `typedoc-plugin-missing-exports` plugin pulls referenced lib types (e.g.
-     `Blob`); glaze has them too. Don't try to remove them.
-   - Aim for 0 TypeDoc warnings; if a warning comes from an external library's
-     own type defs (e.g. `@types/react`), note it and move on.
+     `Blob`) and re-exported types; glaze has them too. Don't try to remove
+     them.
+   - Aim for 0 TypeDoc **errors**; a React package will always emit the
+     `JSXElementConstructor` warning from `@types/react`'s own defs — 0 errors
+     and 1 warning is a pass. Note it and move on.
 
 ## Rules
 
-- Only `packages/<PACKAGE_NAME>`, the two registration files
+- Only `packages/<PACKAGE_NAME>>`, the two registration files
   (`collect-static-assets.mjs`, `reference/packages.md`), and the lockfile
   (`pnpm-lock.yaml`, from `pnpm install`) may change. If the package's README
   or code needs fixes, that's in scope — other packages are not.
 - Never hand-edit `dist-docs/` (generated, gitignored).
 - Never re-run `pnpm build:docs` / `collect-assets` for other packages.
+- The lint gate ("lint clean") forces fixing pre-existing failures in the
+  package — run `lint` before editing to know the baseline. Two traps when
+  fixing them:
+  - `no-unnecessary-condition` flags defensive `??`/`?.`/`if (x)` on values the
+    types say are always defined — remove the guard, preserving a genuine
+    runtime invariant with a length/count check, never a cast.
+  - The type-noise rule bans `prop?: T | undefined`; with
+    `exactOptionalPropertyTypes` you can't just drop `| undefined`. Fix: keep
+    the prop optional and omit the key / use conditional spread
+    (`...(x && { x })`) — never required `prop: T | undefined`.
 - Follow repo conventions: read `AGENTS.md`; load the `coding-style` skill
   before editing code; the package's README + existing code are the local spec.
 - Keep the README's `> tagline` and structure; just remove the API inventory.

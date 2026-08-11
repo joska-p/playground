@@ -89,9 +89,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
     const handleTouchStart = useCallback(
         (e: React.TouchEvent) => {
             isDragging.current = true;
-            if (e.touches[0]) {
-                updateSliderPosition(e.touches[0].clientX);
-            }
+            updateSliderPosition(e.touches[0].clientX);
         },
         [updateSliderPosition]
     );
@@ -99,9 +97,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
     const handleTouchMove = useCallback(
         (e: React.TouchEvent) => {
             if (!isDragging.current) return;
-            if (e.touches[0]) {
-                updateSliderPosition(e.touches[0].clientX);
-            }
+            updateSliderPosition(e.touches[0].clientX);
         },
         [updateSliderPosition]
     );
