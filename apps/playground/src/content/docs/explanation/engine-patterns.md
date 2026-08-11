@@ -19,9 +19,9 @@ completely fine to pick differently, or to change your mind later and
 refactor. The goal of this page is to make that an informed choice.
 
 Examples below reference real packages to make the tradeoffs concrete, but
-they're illustrations, not an inventory — for what a package does _today_,
-its README under [`reference/packages`](/docs/reference/packages/) is the
-source of truth.
+they're illustrations, not an inventory — for what a package does _today_, its
+[package docs](/docs/api/glaze/) (README overview + generated API reference) are
+the source of truth.
 
 ---
 

@@ -38,7 +38,6 @@ type ParsedArgs = {
 
 /**
  * Parse argv into structured arguments. Throws on malformed flag usage.
- *
  * @param argv
  */
 function parseArgs(argv: string[]): ParsedArgs {
@@ -85,7 +84,6 @@ function parseArgs(argv: string[]): ParsedArgs {
 
 /**
  * Print an error message + usage and exit with a non-zero code.
- *
  * @param message
  */
 function fail(message: string): never {

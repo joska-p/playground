@@ -64,6 +64,7 @@ vendor/
 
 # --- Build output ---
 dist/
+dist-docs/
 .astro/
 build/
 storybook-static/

@@ -33,7 +33,6 @@ function crc32(buf: Buffer): number {
 
 /**
  * Build a single PNG chunk: length + type + data + CRC.
- *
  * @param type
  * @param data
  */
@@ -48,7 +47,6 @@ function chunk(type: string, data: Buffer): Buffer {
 
 /**
  * Encode an RGB pixel buffer into a PNG.
- *
  * @param rgb Raw pixel data, length must be `width * height * 3` (R,G,B).
  * @param width Image width in pixels.
  * @param height Image height in pixels.

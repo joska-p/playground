@@ -5,11 +5,10 @@ const DIST_DIR = path.resolve('apps/playground/dist');
 
 const targets = [
     // [Source Path, Target Path inside apps/playground/dist]
-    ['packages/glaze/dist/docs', 'docs/glaze'],
-    ['apps/storybook/storybook-static', 'storybook']
-    // How to add more docs in the future:
-    // ['packages/math/dist-docs', 'docs/math'],
-    // ['packages/ui/dist-docs', 'docs/ui'],
+    ['apps/storybook/storybook-static', 'storybook'],
+    // Package docs are generated per-package by `build:docs` (TypeDoc → dist-docs)
+    // and merged into the site at build time. Add each documented package here:
+    ['packages/glaze/dist-docs', 'docs/api/glaze']
 ];
 
 for (const [src, dest] of targets) {

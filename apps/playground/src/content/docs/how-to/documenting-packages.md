@@ -1,173 +1,98 @@
 ---
 title: Documenting a Package
-description: How to write package documentation — the README is the single source of truth.
+description: Package docs are generated from the code — a simple README plus TSDoc comments, rendered by TypeDoc.
 tags:
     - how-to
 ---
 
 # Documenting a Package
 
-Every package's `README.md` is the **single source of truth** for its documentation.
-It covers everything — consumer API, architecture, internals, gotchas.
-The Astro site renders it automatically via the sync script.
+A package's documentation has two halves, each maintained where it lives:
 
-**Write it first.** The README is the package's local spec, not a post-hoc summary:
-state the contract up front, then implement to match it. When working inside a
-package, its README and existing code are the source of truth for naming,
-structure, and testing — mirror what the code already shows. New packages get a
-seeded README from the scaffold generator
-(`turbo/generators/templates/new-package/README.md.hbs`); expand it into the spec
-before writing application code.
+- **The README** (`packages/<name>/README.md`) — the concept: what the package
+  is, why it exists, quick start, usage examples, gotchas. Keep it **simple and
+  stable**; it is the local spec, not a changelog of the API.
+- **The API reference** — generated from the code by TypeDoc reading **TSDoc
+  comments** on exported symbols. This never drifts, because it is extracted
+  from the source on every build.
 
----
-
-## Before You Start
-
-The package should already be scaffolded. See [Scaffolding Packages](./scaffolding-packages/) if it isn't.
+The two are combined into a static HTML site per package and merged into the
+docs at build time.
 
 ---
 
 ## 1. Write the README
 
-The README lives at `packages/<name>/README.md`. It documents both **consumer usage** and **contributor internals**.
+Keep the README focused on what does **not** change with every refactor:
 
-### Template
+- `# @repo/<name>` title and a `> ` one-liner tagline.
+- **Purpose** — why this package exists.
+- **Quick Start** — install + first minimal example.
+- **Usage Examples** — a few real-world snippets.
+- **Patterns & Gotchas** — design decisions and pitfalls.
 
-````markdown
-# @repo/<name>
+Do **not** maintain API inventory in the README (export tables, per-signature
+walkthroughs) — TypeDoc generates that from the code, so it stays correct on
+its own.
 
-> One-liner describing what the package does.
+## 2. Document the code with TSDoc comments
 
-## Purpose
+Add TSDoc/`/** ... */` comments to exported symbols — the ones consumers touch:
 
-Why this package exists and what problem it solves.
+- One-liner for functions, classes, and types.
+- `@param` / `@returns` for non-obvious signatures.
+- `@example` for tricky usage.
+- `@internal` to hide internals, `@deprecated` to mark removals.
 
-## Quick Start
+The quality of the generated reference is exactly the quality of these
+comments.
+
+## 3. Generate the docs
+
+Add a `typedoc.json` (see `packages/glaze/typedoc.json` as the template) and a
+`build:docs` script to the package, then run from the repo root:
 
 ```bash
-pnpm add @repo/<name>
-```
-````
-
-````
-
-```tsx
-import { Component } from '@repo/<name>';
-
-export default function Example() {
-  return <Component />;
-}
+pnpm build:docs
 ```
 
-## Exports
+Each documented package emits static HTML into its own `dist-docs/` (cached by
+Turborepo). TypeDoc embeds the README as the overview page.
 
-| Export | Path | Description |
-| ------ | ---- | ----------- |
+## 4. Merge into the site
 
-## Architecture
-_Add a brief description for accessibility if using ASCII/mermaid diagrams._
+Add the package to `scripts/collect-static-assets.mjs` and run:
 
-## Usage Examples
+```bash
+pnpm collect-assets
+```
 
-- Minimal example
-- Real-world example (e.g., how it's used in [Project X])
-
-## Patterns & Gotchas
-
-- Key design decisions
-- Edge cases and pitfalls to avoid
-
-## State Management (if applicable)
-
-Store shape, actions, selectors.
-
-## CSS Strategy (if applicable)
-
-How styling works — CSS variables, Tailwind, theme tokens.
-
-## Performance (if applicable)
-
-Rendering considerations, memoization, debouncing.
+The generated docs land in the site at `/docs/api/<name>/` and are listed on
+the [Package API Reference](../reference/packages/) page.
 
 ---
 
-_Part of [Creative Playground](https://joska-p.github.io/playground/)_
+## Adding a new package
 
-````
-
-**Adapt the sections to what the package actually needs.** Omit irrelevant sections (e.g., State Management, CSS Strategy, or Performance).
-
-### Style guidelines
-
-- Start with a `> ` tagline — the sync script uses it for the frontmatter `description` field.
-- Use tables for API exports (name, path, description).
-- Use ASCII diagrams or Markdown code blocks for architecture, not images.
-- Named exports only (matches project convention).
-- No emojis in section headings.
-- Use accessible language (avoid "simply" or "just").
-- Treat the README as the spec: document the contract (exports, architecture, gotchas) plainly and keep it in sync with the code — a stale spec is worse than none.
-
----
-
-## 2. Sync to the Astro Site
-
-Run from repo root:
-
-```bash
-pnpm sync-package-docs
-```
-
-This copies the README into `src/content/docs/reference/packages/<name>.md`, wrapping it in frontmatter. The doc appears automatically in the sidebar under **Reference → Packages** and on the [docs index](/docs/).
-
-**The sync script overwrites the reference doc.** Never edit `reference/packages/*.md` directly — all changes go in the README.
-
----
-
-## 3. Verify
-
-```bash
-pnpm --filter @repo/playground build
-pnpm --filter @repo/playground lint
-pnpm --filter @repo/playground check-types
-```
-
-Check that:
-
-- The doc appears in the sidebar under **Reference**
-- The README renders cleanly on GitLab
-- No broken internal or external links
+1. Write the README spec first (per the scaffold generator).
+2. Add TSDoc comments to the exports.
+3. Copy `packages/glaze/typedoc.json`, adjust `entryPoints` (the package's
+   exported files), add `"build:docs": "typedoc"` and the `typedoc*`
+   devDependencies (catalog).
+4. Add the package to `scripts/collect-static-assets.mjs` and the reference
+   index page.
 
 ---
 
 ## Maintenance
 
-When the package's API or architecture changes:
-
-1. Update the `README.md`.
-2. Re-run the sync script.
-
-### Pruning stale docs
-
-If a package is removed from the repo, its reference doc becomes orphaned.
-Clean it up:
+When a package's API changes, there is nothing to edit: the reference is
+regenerated. Only update the README when the **concepts** change, and re-run:
 
 ```bash
-pnpm sync-package-docs -- --prune
-```
-
-### Adding a new package
-
-1. Create `packages/<name>/README.md` following the template above.
-2. Run the sync script — it detects new READMEs automatically.
-3. If the package needs a custom display name in the sidebar title, add an entry to the `PACKAGE_NAMES` map in `scripts/sync-package-readmes.mjs`.
-
----
-
-## Feedback
-
-Questions or suggestions? Open an issue or PR!
-
+pnpm build:docs && pnpm collect-assets
 ```
 
 ---
-```
+
+_See [Package API Reference](../reference/packages/) for the current docs._

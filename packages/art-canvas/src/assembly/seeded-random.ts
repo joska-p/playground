@@ -19,13 +19,18 @@ const HISTORY_LIMIT = 1024;
  * Asserts a value is not undefined and returns it, narrowing the type. Prefer this over the `!`
  * non-null assertion operator: it performs the same narrowing but fails loudly at runtime if the
  * assumption was wrong, instead of silently letting `undefined` flow through.
+ * @param value
+ * @param message
  */
 function assertDefined<T>(value: T | undefined, message = 'Expected value to be defined'): T {
     if (value === undefined) throw new Error(message);
     return value;
 }
 
-/** FNV-1a style hash, folded to a positive 32-bit int (never 0). */
+/**
+ * FNV-1a style hash, folded to a positive 32-bit int (never 0).
+ * @param seedString
+ */
 function hashSeed(seedString: string): number {
     let hash = 2166136261;
     for (let i = 0; i < seedString.length; i++) {
@@ -38,6 +43,7 @@ function hashSeed(seedString: string): number {
 /**
  * Mulberry32 PRNG step. Deterministic, fast, good enough distribution for
  * gameplay/procedural-generation use cases (not cryptographically secure).
+ * @param state
  */
 function mulberry32Step(state: number): { value: number; nextState: number } {
     const nextState = (state + 0x6d2b79f5) | 0;
