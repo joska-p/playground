@@ -1,47 +1,24 @@
-import { useEffect } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
 import { splitDouble } from '../core/doubleSplit';
 import { fractalParamsUniforms } from '../core/fractalUniforms';
-import { useFractureView } from '../core/useFractureView';
+import { ZOOM_WHEEL_SPEED } from '../core/camera';
 import { useParams } from '../stores/createParamStore';
 import { doubleSplitStore } from '../stores/doubleSplitStore';
-import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
 
 const MAX_ZOOM = 1e11;
 
 function DoubleSplitScene() {
     const params = useParams(doubleSplitStore);
 
-    const renderer = useRenderer();
-    const isActive = renderer === 'double-single';
-    const pan = useViewPan();
-    const zoom = useViewZoom();
-
-    // Other renderers can zoom deeper than this one supports; clamp on activation.
-    useEffect(() => {
-        if (isActive && zoom > MAX_ZOOM) {
-            setView({ pan, zoom: MAX_ZOOM });
-        }
-    }, [isActive, pan, zoom]);
-
-    const { camera, controls, zoomSpeed, minZoom, maxZoom, syncView } = useFractureView({
-        initialView: { pan, zoom },
-        maxZoom: MAX_ZOOM
-    });
-
     return (
         <div className="h-screen w-screen">
             <GpuCanvas
                 className="h-full w-full"
                 fragmentShader={fragmentShader}
-                camera={camera}
-                cameraControls={controls}
-                interactions={{ zoom: { speed: zoomSpeed } }}
-                minZoom={minZoom}
-                maxZoom={maxZoom}
+                initialCamera={{ maxZoom: MAX_ZOOM }}
+                canvasInteractions={{ zoom: { speed: ZOOM_WHEEL_SPEED } }}
                 uniforms={({ camera: view, width, height }) => {
-                    syncView();
                     // Map the interaction view onto the complex-plane center the shader
                     // expects. With the shader's convention
                     //   c = (uvCoord - 0.5) · (3 / zoom) + center

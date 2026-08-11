@@ -9,10 +9,9 @@ import {
     type ReferenceOrbit
 } from '../core/perturbationOrbit';
 import { fractalParamsUniforms } from '../core/fractalUniforms';
-import { useFractureView } from '../core/useFractureView';
+import { ZOOM_WHEEL_SPEED } from '../core/camera';
 import { useParams } from '../stores/createParamStore';
 import { perturbationStore } from '../stores/perturbationStore';
-import { setView, useRenderer, useViewPan, useViewZoom } from '../stores/viewStore';
 
 type Orbits = {
     primary: ReferenceOrbit;
@@ -29,13 +28,13 @@ const MAX_ZOOM = 1e15;
 /**
  * Complex-plane width of the view at zoom = 1.
  *
- * `pan` (stored zoom-normalized, see useFractureView) is accumulated in
- * "zoom-normalized" units: every drag increment is pre-divided by the zoom
- * level *at the time of that drag*, so the stored value is already
- * zoom-independent. Converting it to a complex-plane offset must therefore
- * use this fixed, zoom = 1 width — NOT the current per-frame view scale
- * (3 / zoom). Multiplying by the current scale would divide old pan history
- * by zoom a second time, so the effective centre would drift further from
+ * The world coordinate under the screen centre is `−camera.x / zoom`: the
+ * glaze camera accumulates pan in raw screen pixels, so normalizing by the
+ * current zoom yields the centre offset in zoom = 1 world units. Converting
+ * that to a complex-plane offset must therefore use this fixed, zoom = 1
+ * width — NOT the current per-frame view scale (3 / zoom), which already
+ * applies zoom inside the shader's (uv − 0.5) term. Using the current scale
+ * would apply zoom twice, so the effective centre would drift further from
  * where the user actually dragged every time they zoomed afterwards.
  */
 const WORLD_SCALE = 3.0;
@@ -49,23 +48,6 @@ function splitDS(x: number): [number, number] {
 
 function PerturbationScene() {
     const params = useParams(perturbationStore);
-
-    const renderer = useRenderer();
-    const isActive = renderer === 'perturbation';
-    const pan = useViewPan();
-    const zoom = useViewZoom();
-
-    // Other renderers can zoom deeper than this one supports; clamp on activation.
-    useEffect(() => {
-        if (isActive && zoom > MAX_ZOOM) {
-            setView({ pan, zoom: MAX_ZOOM });
-        }
-    }, [isActive, pan, zoom]);
-
-    const { camera, controls, zoomSpeed, minZoom, maxZoom, syncView } = useFractureView({
-        initialView: { pan, zoom },
-        maxZoom: MAX_ZOOM
-    });
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const texturesRef = useRef<OrbitTextures | null>(null);
@@ -109,19 +91,17 @@ function PerturbationScene() {
             <GpuCanvas
                 className="h-full w-full"
                 fragmentShader={perturbationShader}
-                camera={camera}
-                cameraControls={controls}
-                interactions={{ zoom: { speed: zoomSpeed } }}
-                minZoom={minZoom}
-                maxZoom={maxZoom}
-                canvasRef={canvasRef}
-                uniforms={({ camera: view, width, height }) => {
-                    syncView();
+                initialCamera={{ maxZoom: MAX_ZOOM }}
+                canvasInteractions={{ zoom: { speed: ZOOM_WHEEL_SPEED } }}
+                onSurface={(surface) => {
+                    canvasRef.current = surface.canvas;
+                }}
+                uniforms={(surface) => {
+                    const { camera: view, width, height, canvas } = surface;
 
                     // Hidden scenes (Activity mode="hidden") report 0 size; skip the
                     // expensive reference-orbit math until the canvas is visible.
-                    const canvas = canvasRef.current;
-                    if (!canvas || canvas.clientWidth === 0 || canvas.clientHeight === 0) {
+                    if (canvas.clientWidth === 0 || canvas.clientHeight === 0) {
                         return {};
                     }
 
@@ -134,7 +114,10 @@ function PerturbationScene() {
                     }
 
                     // ─── FIXED CENTRE ────────────────────────────────────────────────
-                    // pan is stored in zoom-normalized units (see useFractureView).
+                    // The world coordinate under the screen centre is −camera.x / zoom;
+                    // the glaze camera accumulates pan in raw screen pixels, so
+                    // normalizing by the current zoom gives the centre offset in
+                    // zoom = 1 world units.
                     const panNormX = view.x / view.zoom / width;
                     const panNormY = view.y / view.zoom / height;
 

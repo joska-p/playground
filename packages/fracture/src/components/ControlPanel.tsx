@@ -3,21 +3,13 @@ import { Select, Slider } from '@repo/ui/data-entry';
 import { computeMaxIterations } from '../core/perturbationOrbit';
 import { setParam, useParams } from '../stores/createParamStore';
 import { paramStores } from '../stores/paramStores';
-import { setRenderer, useRenderer, useViewZoom, type Renderer } from '../stores/viewStore';
+import { setRenderer, useRenderer, type Renderer } from '../stores/viewStore';
 
 function ControlPanel() {
     const renderer = useRenderer();
     const active = paramStores[renderer];
     const params = useParams(active);
 
-    const zoom = useViewZoom();
-
-    const iterationsAtZoom = computeMaxIterations(
-        zoom,
-        params.iterationBase,
-        params.iterationScale,
-        params.iterationCap
-    );
     const iterationsHint = [1, 1e3, 1e6]
         .map((z) =>
             computeMaxIterations(
@@ -42,16 +34,6 @@ function ControlPanel() {
                     <option value="double-single">double-single</option>
                     <option value="perturbation">perturbation</option>
                 </Select>
-            </ControlRow>
-
-            <ControlRow label="zoom">
-                <span className="text-foreground-dim text-sm">
-                    {zoom >= 100 ? zoom.toExponential(2) : zoom.toFixed(3)}
-                </span>
-            </ControlRow>
-
-            <ControlRow label="iterations @ zoom">
-                <span className="text-foreground-dim text-sm">{iterationsAtZoom}</span>
             </ControlRow>
 
             <ControlGrid columns={2}>
