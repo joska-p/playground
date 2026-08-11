@@ -7,6 +7,10 @@ import {
 } from './compileProgram';
 import { setUniforms } from './setUniforms';
 
+/**
+ * A compiled fragment program rendered as a fullscreen triangle. Owns its WebGL program, VAO, and
+ * texture-unit allocation; call `destroy()` to release the GPU resources.
+ */
 export class Program {
     readonly #gl: WebGL2RenderingContext;
     readonly #fragmentSource: string;

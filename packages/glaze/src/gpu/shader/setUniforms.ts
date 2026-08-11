@@ -68,6 +68,15 @@ function setUniformValue(
     }
 }
 
+/**
+ * Uploads uniforms to the bound program. Names with no matching active uniform are silently
+ * ignored, so one map can feed programs with different uniform sets. `WebGLTexture` values bind the
+ * texture to the next unit supplied by `nextTextureUnit` and set the sampler to it.
+ * @param gl The WebGL2 context.
+ * @param uniforms The program's active uniform locations.
+ * @param values The values to upload, keyed by uniform name.
+ * @param nextTextureUnit Supplies texture units for `WebGLTexture` values, in binding order.
+ */
 export function setUniforms(
     gl: WebGL2RenderingContext,
     uniforms: Map<string, UniformEntry>,
@@ -81,6 +90,18 @@ export function setUniforms(
     }
 }
 
+/**
+ * The standard per-frame uniforms shared by every program: `u_resolution` (device px), `u_aspect`,
+ * `u_mouse` (normalized 0..1, y-flipped), `u_camera` (CSS-px offset + zoom), `u_dpr`, and `u_time`
+ * (seconds). Omitted inputs fall back to neutral defaults.
+ * @param width Viewport width in CSS px.
+ * @param height Viewport height in CSS px.
+ * @param dpr The device pixel ratio.
+ * @param mouse Pointer position in CSS px; defaults to top-left.
+ * @param camera The view transform; defaults to identity.
+ * @param time Seconds since the loop started; defaults to 0.
+ * @returns A uniform map ready for `setUniforms`.
+ */
 export function createStandardUniformValues(
     width: number,
     height: number,

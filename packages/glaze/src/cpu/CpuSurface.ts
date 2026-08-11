@@ -9,15 +9,25 @@ const DEFAULT_FONT_FAMILY = 'sans-serif';
 export interface CpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
+    /** Backing-buffer pixel ratio; defaults to `window.devicePixelRatio` (or 1 off-browser). */
     dpr?: number;
 }
 
 export type CpuDraw = (surface: CpuSurface) => void;
 
+/**
+ * Immediate-mode Canvas2D drawing. Draw calls are chainable and every method returns the surface;
+ * drawing happens in world space, with `applyCamera()` running automatically before each frame's
+ * callback. Per-frame state — `time` / `deltaTime` (seconds), `frameCount`, `width` / `height`
+ * (CSS px) — is updated just before the draw callback runs.
+ */
 export class CpuSurface {
+    /** Seconds since the frame loop started. */
     time = 0;
+    /** Seconds since the previous frame. */
     deltaTime = 0;
     frameCount = 0;
+    /** CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size. */
     width = 0;
     height = 0;
     readonly dpr: number;
@@ -55,6 +65,10 @@ export class CpuSurface {
         return this.#loop.isRunning;
     }
 
+    /**
+     * Current pointer position in world coordinates.
+     * @returns The pointer position, camera-transformed.
+     */
     get pointer(): Point2D {
         return this.camera.screenToWorld(this.input.pointer);
     }
@@ -67,12 +81,22 @@ export class CpuSurface {
         return this.camera.worldToScreen(point);
     }
 
+    /**
+     * Sets the per-frame draw callback. A non-null callback starts the rAF loop; `null` stops it.
+     * @param newCpuDraw The frame callback, or `null` to stop rendering.
+     */
     setDraw(newCpuDraw: CpuDraw | null): void {
         this.#cpuDraw = newCpuDraw;
         if (newCpuDraw && this.#subscribers.size === 0) this.#startRendering();
         else if (!newCpuDraw && this.#subscribers.size === 0) this.#stopRendering();
     }
 
+    /**
+     * Adds a draw callback, starting the loop if it is not running. The returned function removes
+     * the callback and stops the loop once none remain.
+     * @param fn The frame callback.
+     * @returns Removes the callback and stops rendering when the last one is gone.
+     */
     subscribe(fn: CpuDraw): () => void {
         this.#subscribers.add(fn);
         this.#startRendering();
@@ -92,6 +116,12 @@ export class CpuSurface {
         return this;
     }
 
+    /**
+     * Resets the context transform, then applies the camera (`zoom` plus `x`/`y` pan) scaled by
+     * `dpr`. Runs automatically before each frame's draw callback; call manually before one-shot
+     * draws made outside the loop.
+     * @returns This surface, for chaining.
+     */
     applyCamera(): this {
         const context = this.context;
         context.setTransform(1, 0, 0, 1, 0, 0);

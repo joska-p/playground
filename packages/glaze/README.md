@@ -104,10 +104,23 @@ import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
 export function Plasma() {
     return (
-        <GpuCanvas * + - / 0.05, 0.16), 0.18), 0.35, 0.5 0.5) 1.0); 300 4.0); 400, 5.0 float float; fragmentShader="{`precision" height: highp in main() out out_color="vec4(mix(vec3(0.08," out_color; p="(vUv" sin(length(p) style="{{" u_resolution.y, u_resolution; u_time u_time; uniform vUv; vec2 vec2(u_resolution.x vec3(1.0, vec4 void wave="0.5" wave), width: { }`} }}/>
+        <GpuCanvas
+            fragmentShader={`
+                precision highp float;
+                in vec2 vUv;
+                out vec4 out_color;
+                uniform vec2 u_resolution;
+                uniform float u_time;
+                void main() {
+                    vec2 p = vUv * u_resolution;
+                    float wave = 0.5 + 0.5 * sin(length(p) * 0.003 + u_time);
+                    out_color = vec4(mix(vec3(0.08, 0.06, 0.16), vec3(0.35, 0.5, 1.0), wave), 1.0);
+                }
+            `}
+            style={{ width: '100%', height: '100%' }}
+        />
     );
 }
-
 ```
 
 The standard uniforms are applied automatically each frame: `u_resolution` (device px), `u_aspect`, `u_mouse` (pointer normalized to the canvas, y-flipped to UV), `u_camera` (CSS-px offset + zoom), `u_dpr`, `u_time`. Add per-frame uniforms with the `uniforms` prop — a function of the surface.
@@ -188,8 +201,20 @@ surface.setDraw(() => {
 `CpuCanvas` and `GpuCanvas` wire pointer-drag pan and wheel zoom to a camera by default. The React components dynamically route gestures through `gesturesRef` without recreating the `InputRouter` or re-binding raw input listeners.
 
 ```tsx
-<CpuCanvas !="=" '#38bdf8'); (nativeEvent.button // 0) 1 12, button: canvasInteractions="{{" const if middle-drag nativeEvent, onStart({ p="surface.pointer;" p.y, pan: pans return; surface surface.circle(p.x, { } }) }, }}/>
+import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 
+export function InteractiveSketch() {
+    return (
+        <CpuCanvas
+            canvasInteractions={{
+                pan: { button: 1 },
+                onStart: ({ surface }) => {
+                    surface.circle(surface.pointer, 12, '#38bdf8');
+                }
+            }}
+        />
+    );
+}
 ```
 
 Inputs and interactions remain cleanly separated:
@@ -225,4 +250,4 @@ Follows SemVer. See [CHANGELOG.md].
 
 ---
 
-*Part of [Creative Playground*](https://www.google.com/search?q=https://joska-p.github.io/playground)
+*Part of [Creative Playground](https://joska-p.github.io/playground)*

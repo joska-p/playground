@@ -2,11 +2,6 @@ import { Hero, SectionHeading } from '@repo/ui/data-display';
 import { LifecycleReport } from './LifecycleReport';
 import { DemoGallery } from './DemoGallery';
 
-/**
- * The exportable docs feature: an in-depth lifecycle report plus a progressive live demo gallery
- * that mounts each demo only while its accordion section is open. Import as `GlazeDocs` from
- * `@repo/glaze/docs/GlazeDocs`.
- */
 export function GlazeDocs() {
     return (
         <div className="mx-auto flex max-w-4xl flex-col gap-14 px-6 py-10">

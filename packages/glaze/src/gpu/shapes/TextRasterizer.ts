@@ -3,11 +3,13 @@ import type { TextStyle } from '../../cpu/shapes/types';
 import type { UniformValue } from '../shader/compileProgram';
 import { colorArray } from './color';
 
+/** @internal */
 export const DEFAULT_FONT_FAMILY = 'sans-serif';
 
 const MAX_TEXT_CACHE = 128;
 const TEXT_SCALE = 2;
 
+/** @internal */
 export const textFragmentSource = /* glsl */ `
 precision highp float;
 in vec2 vUv;
@@ -45,6 +47,11 @@ export interface TextRaster {
     height: number;
 }
 
+/**
+ * Rasterizes text on an offscreen 2D canvas and uploads it as a texture, cached by (text, font) in
+ * an LRU of 128 entries. Rasterization runs at 2× the requested size so edges stay crisp when
+ * scaled.
+ */
 export class TextRasterizer {
     readonly #gl: WebGL2RenderingContext;
     readonly #canvas: HTMLCanvasElement;
