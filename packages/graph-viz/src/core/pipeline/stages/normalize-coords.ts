@@ -1,6 +1,6 @@
 /**
- * Stage 3: Scale simulation coordinates to a predictable range
- * for rendering. Default target range is [-500, 500].
+ * Stage 3: Scale simulation coordinates to a predictable range for rendering. Default target range
+ * is [-500, 500].
  */
 import type { SimNode } from './sim-types.js';
 

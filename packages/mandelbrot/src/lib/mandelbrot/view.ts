@@ -1,10 +1,9 @@
 /**
  * View state + camera math for the Mandelbrot viewer.
  *
- * The center is stored in arbitrary precision (BigFloat) so it never loses
- * detail as we zoom. `zoom` is the base-2 log of linear magnification, i.e.
- * magnification = 2^zoom. Pixel spacing (complex units per device pixel) is
- * derived from zoom and shrinks exponentially with depth.
+ * The center is stored in arbitrary precision (BigFloat) so it never loses detail as we zoom.
+ * `zoom` is the base-2 log of linear magnification, i.e. magnification = 2^zoom. Pixel spacing
+ * (complex units per device pixel) is derived from zoom and shrinks exponentially with depth.
  */
 
 import { type BigFloat, add, fromNumber, withPrec } from '../big-float';
@@ -15,7 +14,7 @@ export const BASE_SPAN_Y = 3.0;
 export type View = {
     cx: BigFloat;
     cy: BigFloat;
-    /** log2 of linear magnification. */
+    /** Log2 of linear magnification. */
     zoom: number;
 };
 
@@ -62,10 +61,10 @@ export function panByPixels(view: View, dxPx: number, dyPx: number, heightPx: nu
 }
 
 /**
- * Zoom by `dZoom` (in log2 magnification) about a screen anchor, keeping the
- * complex point under that anchor fixed.
+ * Zoom by `dZoom` (in log2 magnification) about a screen anchor, keeping the complex point under
+ * that anchor fixed.
  *
- * newCenter = center + offset * (1 - 2^-dZoom)
+ * NewCenter = center + offset * (1 - 2^-dZoom)
  */
 export function zoomAtPixel(
     view: View,

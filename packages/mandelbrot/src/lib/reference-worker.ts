@@ -1,11 +1,10 @@
 /**
  * Runs the high-precision reference-orbit computation off the main thread.
  *
- * The BigInt loop executes inside a Vite module worker (bundled from
- * `reference.worker.ts`); `@repo/worker-pool` dispatches the request and hands
- * back the transferable `Float32Array` orbit. When `Worker` is unavailable a
- * chunked main-thread compute (`computeReferenceOrbitAsync`) steps in so the
- * UI never freezes.
+ * The BigInt loop executes inside a Vite module worker (bundled from `reference.worker.ts`);
+ * `@repo/worker-pool` dispatches the request and hands back the transferable `Float32Array` orbit.
+ * When `Worker` is unavailable a chunked main-thread compute (`computeReferenceOrbitAsync`) steps
+ * in so the UI never freezes.
  */
 
 import { WorkerPool } from '@repo/worker-pool/worker-pool';
@@ -24,8 +23,10 @@ export type OrbitResult = {
     length: number;
 };
 
-/** The subset of a worker pool `computeReferenceAsync` depends on (also
- * satisfied by `MockWorkerPool` in tests). */
+/**
+ * The subset of a worker pool `computeReferenceAsync` depends on (also satisfied by
+ * `MockWorkerPool` in tests).
+ */
 export type OrbitPool = {
     run: (task: OrbitRequest) => Promise<OrbitResult>;
 };
@@ -71,9 +72,8 @@ import.meta.hot?.dispose(() => {
 });
 
 /**
- * Compute a reference orbit. Uses a Web Worker when available; otherwise falls
- * back to a chunked main-thread compute. `pool` is injectable so tests can
- * substitute a `MockWorkerPool`.
+ * Compute a reference orbit. Uses a Web Worker when available; otherwise falls back to a chunked
+ * main-thread compute. `pool` is injectable so tests can substitute a `MockWorkerPool`.
  */
 export function computeReferenceAsync(
     req: OrbitRequest,

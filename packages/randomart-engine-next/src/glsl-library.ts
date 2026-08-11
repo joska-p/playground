@@ -1,10 +1,9 @@
 /**
  * Reusable GLSL helper-function definitions.
  *
- * Each entry is a self-contained GLSL function (noise, hash, recaman, etc.)
- * that expression nodes can reference in their `toGLSL()` output. The
- * dependency resolver in this module emits them in topological order so every
- * function's dependencies are defined before use.
+ * Each entry is a self-contained GLSL function (noise, hash, recaman, etc.) that expression nodes
+ * can reference in their `toGLSL()` output. The dependency resolver in this module emits them in
+ * topological order so every function's dependencies are defined before use.
  *
  * Ported from randomart-engine/src/compile/glslLibrary.ts (S6).
  */
@@ -114,8 +113,8 @@ export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 /**
- * Given a list of required GLSL function IDs, returns the concatenated GLSL
- * source with dependencies resolved in topological order.
+ * Given a list of required GLSL function IDs, returns the concatenated GLSL source with
+ * dependencies resolved in topological order.
  *
  * Throws on dependency cycles.
  */

@@ -35,17 +35,14 @@ const DEG = Math.PI / 180;
 /**
  * Interprets a Word as 3D turtle-graphics commands and returns line segments.
  *
- * Symbol mapping:
- *  F / f  → move forward (F draws, f moves silently)
- *  +      → yaw left by angle
- *  -      → yaw right by angle
- *  ^      → pitch up by angle
- *  &      → pitch down by angle
- *  \      → roll left by angle
- *  /      → roll right by angle
- *  |      → turn around 180°
- *  [      → push state
- *  ]      → pop state
+ * Symbol mapping: F / f → move forward (F draws, f moves silently)
+ *
+ * - → yaw left by angle
+ *
+ * - → yaw right by angle
+ *
+ * ^ → pitch up by angle & → pitch down by angle \ → roll left by angle / → roll right by angle | →
+ * turn around 180° [ → push state ] → pop state
  */
 export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     const segments: LineSegment[] = [];

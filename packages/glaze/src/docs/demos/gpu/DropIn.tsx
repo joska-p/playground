@@ -5,9 +5,9 @@ import { CpuCanvas } from '../../../react/CpuCanvas';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
 /**
- * The drawing surface contract the scene needs. Both CpuSurface and
- * GpuSurface satisfy it structurally, so one scene function drives both
- * runtimes — the only difference is how each clears.
+ * The drawing surface contract the scene needs. Both CpuSurface and GpuSurface satisfy it
+ * structurally, so one scene function drives both runtimes — the only difference is how each
+ * clears.
  */
 interface ShapeSurface {
     width: number;

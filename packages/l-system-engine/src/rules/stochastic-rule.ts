@@ -15,18 +15,17 @@ export type StochasticRule = {
 } & Rule;
 
 /**
- * Matches any symbol whose name equals `name`.
- * On each application, picks one of the given productions randomly,
- * weighted by `weight`, using `context.random`.
+ * Matches any symbol whose name equals `name`. On each application, picks one of the given
+ * productions randomly, weighted by `weight`, using `context.random`.
  *
- * Weights must sum to 1.0 (±0.001 tolerance).
- * Validation is deferred to `validate()` — this factory does not throw.
+ * Weights must sum to 1.0 (±0.001 tolerance). Validation is deferred to `validate()` — this factory
+ * does not throw.
  *
  * @example
- * stochasticRule('F', [
- *   { weight: 0.7, produce: [symbol('F'), symbol('F')] },
- *   { weight: 0.3, produce: [symbol('F')] },
- * ])
+ *     stochasticRule('F', [
+ *         { weight: 0.7, produce: [symbol('F'), symbol('F')] },
+ *         { weight: 0.3, produce: [symbol('F')] }
+ *     ]);
  */
 export function stochasticRule(
     name: string,

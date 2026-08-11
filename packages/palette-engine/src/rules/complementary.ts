@@ -2,8 +2,7 @@ import type Color from 'colorjs.io';
 import type { Rule } from '../types';
 
 /**
- * Complementary color rule.
- * Returns the base color and its complement (180 degrees shift in hue).
+ * Complementary color rule. Returns the base color and its complement (180 degrees shift in hue).
  * It also includes some variations in lightness/chroma for a more useful palette.
  */
 const complementary: Rule = {

@@ -16,9 +16,8 @@ export const clamp =
         Math.max(min, Math.min(max, value));
 
 /**
- * Passive spatial state: a pure coordinate grid plus its two conversion
- * functions. It never mutates itself — panning and zooming are gestures and
- * live in `CameraControls`.
+ * Passive spatial state: a pure coordinate grid plus its two conversion functions. It never mutates
+ * itself — panning and zooming are gestures and live in `CameraControls`.
  */
 export class Camera {
     x: number;

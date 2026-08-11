@@ -1,17 +1,18 @@
 /**
  * EdgeField
  *
- * The whole "the page went through an edge-detection filter" illusion lives here.
- * Pipeline inside each SVG <filter>:
- *   1. feTurbulence  -> generate organic fractal noise (the "surface")
- *   2. feComponentTransfer (discrete) -> posterize the noise into flat bands,
- *      like a topographic height map
- *   3. feColorMatrix (matrix) -> desaturate the bands to grayscale
- *   4. feConvolveMatrix (Laplacian kernel) -> the actual edge detection:
- *      it lights up only where bands meet, i.e. the contour lines
- *   5. feColorMatrix (luminanceToAlpha) -> turn edge brightness into alpha
- *   6. feFlood + feComposite(in) -> paint those edges with the glow color
- *   7. feGaussianBlur + feMerge -> bloom so the lines actually glow
+ * The whole "the page went through an edge-detection filter" illusion lives here. Pipeline inside
+ * each SVG <filter>:
+ *
+ * 1. FeTurbulence -> generate organic fractal noise (the "surface")
+ * 2. FeComponentTransfer (discrete) -> posterize the noise into flat bands, like a topographic height
+ *    map
+ * 3. FeColorMatrix (matrix) -> desaturate the bands to grayscale
+ * 4. FeConvolveMatrix (Laplacian kernel) -> the actual edge detection: it lights up only where bands
+ *    meet, i.e. the contour lines
+ * 5. FeColorMatrix (luminanceToAlpha) -> turn edge brightness into alpha
+ * 6. FeFlood + feComposite(in) -> paint those edges with the glow color
+ * 7. FeGaussianBlur + feMerge -> bloom so the lines actually glow
  *
  * Static, inert background layer — no cursor tracking.
  */

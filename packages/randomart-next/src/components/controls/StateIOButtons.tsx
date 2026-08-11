@@ -4,11 +4,10 @@ import { randomartStore, updateTreeConfig } from '../../stores/randomart/store';
 import type { RandomartState } from '../../stores/randomart/types';
 
 /**
- * The "recipe" needed to reproduce an image and its animation state:
- * the inputs to `generateTrees`, plus the animation frame (`time`) and
- * which behaviors are active. `mode`, `activeChannel`, and `running` are
- * still excluded as pure UI/playback state. The derived trees themselves
- * are excluded too — they're recomputed on import.
+ * The "recipe" needed to reproduce an image and its animation state: the inputs to `generateTrees`,
+ * plus the animation frame (`time`) and which behaviors are active. `mode`, `activeChannel`, and
+ * `running` are still excluded as pure UI/playback state. The derived trees themselves are excluded
+ * too — they're recomputed on import.
  */
 type RandomartRecipe = {
     seedText: RandomartState['seedText'];

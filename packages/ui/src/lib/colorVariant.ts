@@ -1,13 +1,12 @@
 /**
- * Shared color-variant system.
- * -----------------------------
- * Every component in this library accepts the same `variant` prop with
- * these values: default, primary, secondary, accent, warning, destructive,
- * ghost, outline.
+ * ## Shared color-variant system.
  *
- * `COLOR_CLASSES` is the single source of truth mapping each variant to
- * its canonical bg + text Tailwind classes. CVA variant configs in
- * individual components spread this object and add any overrides.
+ * Every component in this library accepts the same `variant` prop with these values: default,
+ * primary, secondary, accent, warning, destructive, ghost, outline.
+ *
+ * `COLOR_CLASSES` is the single source of truth mapping each variant to its canonical bg + text
+ * Tailwind classes. CVA variant configs in individual components spread this object and add any
+ * overrides.
  */
 
 export type ColorVariant =
@@ -32,7 +31,10 @@ export const COLOR_CLASSES: Record<ColorVariant, string> = {
     destructive: 'bg-destructive text-destructive-foreground'
 };
 
-/** Sets a generic CSS variable (--variant-color) for components to consume via Tailwind arbitrary values. */
+/**
+ * Sets a generic CSS variable (--variant-color) for components to consume via Tailwind arbitrary
+ * values.
+ */
 export const COLOR_VARIABLE_CLASSES: Record<ColorVariant, string> = {
     default: '[--variant-color:var(--foreground-dim)]',
     primary: '[--variant-color:var(--primary)]',

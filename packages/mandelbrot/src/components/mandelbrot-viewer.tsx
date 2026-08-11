@@ -1,12 +1,10 @@
 /**
  * The Mandelbrot viewer, wired onto `@repo/glaze`.
  *
- * GpuCanvas is a pure GL surface + frame loop: glaze supplies the fullscreen
- * triangle and compiles `FRAGMENT_SRC`; this component feeds it per-frame
- * uniforms. All view math stays in BigFloat land (`view.ts`); only the
- * spacing + reference offset are translated at the canvas boundary. glaze's
- * float32 Camera is deliberately not used for pan/zoom — it can't hold
- * arbitrary-depth zoom.
+ * GpuCanvas is a pure GL surface + frame loop: glaze supplies the fullscreen triangle and compiles
+ * `FRAGMENT_SRC`; this component feeds it per-frame uniforms. All view math stays in BigFloat land
+ * (`view.ts`); only the spacing + reference offset are translated at the canvas boundary. glaze's
+ * float32 Camera is deliberately not used for pan/zoom — it can't hold arbitrary-depth zoom.
  */
 
 import { useEffect, useRef, useState } from 'react';

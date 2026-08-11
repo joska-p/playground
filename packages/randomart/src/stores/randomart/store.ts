@@ -40,8 +40,8 @@ export const randomartStore = createStore<RandomartState>()(
 );
 
 /**
- * Centrally batches updates to tree configuration fields and safely
- * recalculates the generative math trees within the exact same atomic state transition.
+ * Centrally batches updates to tree configuration fields and safely recalculates the generative
+ * math trees within the exact same atomic state transition.
  */
 export function updateTreeConfig(
     updater: (state: RandomartState) => Partial<RandomartState>,

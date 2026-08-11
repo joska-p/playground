@@ -1,7 +1,6 @@
 /**
- * Simulation-internal node type.
- * Extends the d3 datum so it can go into the force simulation.
- * Not exported to consumers — only used within the pipeline stages.
+ * Simulation-internal node type. Extends the d3 datum so it can go into the force simulation. Not
+ * exported to consumers — only used within the pipeline stages.
  */
 export type SimNode = {
     index?: number;

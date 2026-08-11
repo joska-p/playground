@@ -30,9 +30,9 @@ function toGLSLVec3([r, g, b]: [number, number, number]): string {
 }
 
 /**
- * GLSL source for the identical value -> color mapping, injected into
- * fragment shaders so the GPU renderer stays visually consistent with
- * ValueCanvasCPU. Keep this in lockstep with valueToRGB above.
+ * GLSL source for the identical value -> color mapping, injected into fragment shaders so the GPU
+ * renderer stays visually consistent with ValueCanvasCPU. Keep this in lockstep with valueToRGB
+ * above.
  */
 export function colormapGLSL(): string {
     return `

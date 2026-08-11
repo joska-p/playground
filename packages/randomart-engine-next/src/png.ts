@@ -1,11 +1,10 @@
 /**
  * Minimal, dependency-free PNG encoder.
  *
- * We only need to write true-color (RGB) images, so this implements just the
- * subset of the PNG spec required for that: signature, IHDR, a single IDAT
- * chunk holding zlib-deflated scanlines (each prefixed with filter byte 0), and
- * IEND. Compression is provided by Node's built-in `zlib`, so no third-party
- * dependency is needed.
+ * We only need to write true-color (RGB) images, so this implements just the subset of the PNG spec
+ * required for that: signature, IHDR, a single IDAT chunk holding zlib-deflated scanlines (each
+ * prefixed with filter byte 0), and IEND. Compression is provided by Node's built-in `zlib`, so no
+ * third-party dependency is needed.
  */
 
 import { deflateSync } from 'node:zlib';
@@ -45,7 +44,7 @@ function chunk(type: string, data: Buffer): Buffer {
 /**
  * Encode an RGB pixel buffer into a PNG.
  *
- * @param rgb   Raw pixel data, length must be `width * height * 3` (R,G,B).
+ * @param rgb Raw pixel data, length must be `width * height * 3` (R,G,B).
  * @param width Image width in pixels.
  * @param height Image height in pixels.
  * @returns Encoded PNG as a Buffer.

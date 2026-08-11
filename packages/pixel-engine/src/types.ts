@@ -59,8 +59,8 @@ export type WholeImageFunction<
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
 /**
- * Standardized definition for any image manipulation.
- * The 'options' property is a type-only marker to simplify Step derivation.
+ * Standardized definition for any image manipulation. The 'options' property is a type-only marker
+ * to simplify Step derivation.
  */
 export type ManipulationDefinition<
     Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */

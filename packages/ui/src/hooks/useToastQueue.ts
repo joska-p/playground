@@ -16,13 +16,11 @@ export type ToastItem = {
 } & ToastOptions;
 
 /**
- * useToastQueue — the state hook behind the toast system. `ToastProvider`
- * and `ToastViewport` are both stateless; this hook is where the toast
- * list, id counter, and dismiss timers actually live.
+ * UseToastQueue — the state hook behind the toast system. `ToastProvider` and `ToastViewport` are
+ * both stateless; this hook is where the toast list, id counter, and dismiss timers actually live.
  *
- *   const queue = useToastQueue();
- *   queue.toast({ title: "saved" });
- *   <ToastProvider toasts={queue.toasts} dismiss={queue.dismiss}>...</ToastProvider>
+ * Const queue = useToastQueue(); queue.toast({ title: "saved" }); <ToastProvider
+ * toasts={queue.toasts} dismiss={queue.dismiss}>...</ToastProvider>
  */
 export function useToastQueue() {
     const [toasts, setToasts] = useState<ToastItem[]>([]);

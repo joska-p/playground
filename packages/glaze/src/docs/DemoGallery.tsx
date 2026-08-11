@@ -17,10 +17,9 @@ function CodeBlock({ children }: { children: string }) {
 }
 
 /**
- * Single-open demo accordion. Only the open item mounts its canvas, so at most
- * one frame loop runs at a time; closing an item unmounts it, which triggers
- * surface.destroy() and cancels its rAF. This is why the whole page stays fast
- * even though some demos push thousands of shapes per frame.
+ * Single-open demo accordion. Only the open item mounts its canvas, so at most one frame loop runs
+ * at a time; closing an item unmounts it, which triggers surface.destroy() and cancels its rAF.
+ * This is why the whole page stays fast even though some demos push thousands of shapes per frame.
  */
 export function DemoGallery() {
     const [openId, setOpenId] = useState<string | null>(null);

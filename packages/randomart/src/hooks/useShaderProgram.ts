@@ -20,9 +20,7 @@ export type UniformLocs = {
     mouse: WebGLUniformLocation | null;
 };
 
-/**
- * Owns shader compilation and the resulting WebGLProgram lifecycle.
- */
+/** Owns shader compilation and the resulting WebGLProgram lifecycle. */
 export function useShaderProgram(
     glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
     bitmapSize: BitmapSize,

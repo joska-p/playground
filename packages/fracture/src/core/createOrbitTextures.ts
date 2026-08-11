@@ -8,10 +8,10 @@ export type OrbitTextures = {
 };
 
 /**
- * RG32F (floats as RG pairs) textures for the two reference orbits the
- * perturbation shader samples. Owns their lifetime for the given GL context;
- * the textures are recreated lazily when `upload` sees a different orbit
- * length, so repeated uploads for an unchanged orbit just re-fill the buffer.
+ * RG32F (floats as RG pairs) textures for the two reference orbits the perturbation shader samples.
+ * Owns their lifetime for the given GL context; the textures are recreated lazily when `upload`
+ * sees a different orbit length, so repeated uploads for an unchanged orbit just re-fill the
+ * buffer.
  */
 export function createOrbitTextures(gl: WebGL2RenderingContext): OrbitTextures {
     let texture1: WebGLTexture | null = null;

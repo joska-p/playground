@@ -1,0 +1,9 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": ["src/**/*.{ts,tsx}"],
+    "entryPointStrategy": "expand",
+    "exclude": ["src/**/*.test.{ts,tsx}", "src/docs/**"],
+    "json": ".src/docs/api-reference.json",
+    "excludeInternal": true,
+    "skipErrorChecking": true
+}

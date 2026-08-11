@@ -1,15 +1,12 @@
 /**
  * EdgeField
  *
- * The "edge-detection filter" look, now baked ahead of time instead of
- * computed live. The original SVG pipeline (feTurbulence -> posterize ->
- * feConvolveMatrix Laplacian -> luminanceToAlpha) is deterministic and the
- * layer is inert, so there's nothing to gain from re-running it in the
- * browser. It's rendered once by scripts/bake-edge-field.py into
- * public/edge-field-mask.webp — a transparent image whose alpha channel IS
- * the contour pattern. We use it as a CSS mask, which lets --glow-color
- * stay fully dynamic (theme swaps, dark mode, etc.) without touching the
- * baked asset.
+ * The "edge-detection filter" look, now baked ahead of time instead of computed live. The original
+ * SVG pipeline (feTurbulence -> posterize -> feConvolveMatrix Laplacian -> luminanceToAlpha) is
+ * deterministic and the layer is inert, so there's nothing to gain from re-running it in the
+ * browser. It's rendered once by scripts/bake-edge-field.py into public/edge-field-mask.webp — a
+ * transparent image whose alpha channel IS the contour pattern. We use it as a CSS mask, which lets
+ * --glow-color stay fully dynamic (theme swaps, dark mode, etc.) without touching the baked asset.
  *
  * Regenerate the mask with: python3 scripts/bake-edge-field.py
  */

@@ -8,8 +8,8 @@ import { useShaderProgram } from './useShaderProgram';
 import { useWebGLContext } from './useWebGLContext';
 
 /**
- * Master orchestrator. Wires useWebGLContext and useShaderProgram
- * together and drives the high-frequency GPU animation render loop.
+ * Master orchestrator. Wires useWebGLContext and useShaderProgram together and drives the
+ * high-frequency GPU animation render loop.
  */
 export function useWebGLRenderer(
     canvasRef: React.RefObject<HTMLCanvasElement | null>,

@@ -2,9 +2,9 @@ import { createProgram, type Program } from './shader/Program';
 import type { UniformValue } from './shader/compileProgram';
 
 /**
- * Ping-pong render targets: two RGBA8 textures each attached to their own
- * framebuffer. `step()` renders into the write target while sampling the read
- * target, then swaps them so the result becomes the input of the next step.
+ * Ping-pong render targets: two RGBA8 textures each attached to their own framebuffer. `step()`
+ * renders into the write target while sampling the read target, then swaps them so the result
+ * becomes the input of the next step.
  */
 // fallow-ignore-next-line unused-export -- public types of createStateBuffer, consumed via the factory's return type
 export class StateBufferTargets {
@@ -189,13 +189,13 @@ export class StateBufferTargets {
 }
 
 /**
- * A GPU state buffer: a ping-pong texture pair holding evolving state, plus
- * the fullscreen-triangle programs that step it. Each `step()` renders the
- * active program into the write target while sampling the previous state via
- * the `u_state` sampler (bound to texture unit 0), then swaps the pair.
+ * A GPU state buffer: a ping-pong texture pair holding evolving state, plus the fullscreen-triangle
+ * programs that step it. Each `step()` renders the active program into the write target while
+ * sampling the previous state via the `u_state` sampler (bound to texture unit 0), then swaps the
+ * pair.
  *
- * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)`
- * → `step()`, reading the live state back with `getTexture()`.
+ * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)` → `step()`, reading
+ * the live state back with `getTexture()`.
  */
 // fallow-ignore-next-line unused-export -- public return type of createStateBuffer
 export class StateBuffer {

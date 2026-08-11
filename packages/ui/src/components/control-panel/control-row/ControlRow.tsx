@@ -10,16 +10,14 @@ export interface ControlRowProps {
 }
 
 /**
- * The atomic unit of the control panel: a label, an optional live
- * value readout, and the control itself — this is the one place
- * "orientation" is actually load-bearing. Portrait stacks the control
- * full-width below its label (thumb-friendly, plenty of width for a
- * Slider or Select). Landscape moves the label to a fixed-width
- * column and the control fills the rest, so a tall sidebar reads like
- * a compact form instead of a wall of stacked fields.
+ * The atomic unit of the control panel: a label, an optional live value readout, and the control
+ * itself — this is the one place "orientation" is actually load-bearing. Portrait stacks the
+ * control full-width below its label (thumb-friendly, plenty of width for a Slider or Select).
+ * Landscape moves the label to a fixed-width column and the control fills the rest, so a tall
+ * sidebar reads like a compact form instead of a wall of stacked fields.
  *
- * Wrap whatever control you like — Slider, Select, Switch, an
- * Input — as `children`; ControlRow has no opinion on what's inside.
+ * Wrap whatever control you like — Slider, Select, Switch, an Input — as `children`; ControlRow has
+ * no opinion on what's inside.
  */
 export function ControlRow({ label, value, hint, className, children }: ControlRowProps) {
     return (

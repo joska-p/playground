@@ -16,10 +16,9 @@ export type SeededRandom = {
 const HISTORY_LIMIT = 1024;
 
 /**
- * Asserts a value is not undefined and returns it, narrowing the type.
- * Prefer this over the `!` non-null assertion operator: it performs the
- * same narrowing but fails loudly at runtime if the assumption was wrong,
- * instead of silently letting `undefined` flow through.
+ * Asserts a value is not undefined and returns it, narrowing the type. Prefer this over the `!`
+ * non-null assertion operator: it performs the same narrowing but fails loudly at runtime if the
+ * assumption was wrong, instead of silently letting `undefined` flow through.
  */
 function assertDefined<T>(value: T | undefined, message = 'Expected value to be defined'): T {
     if (value === undefined) throw new Error(message);
@@ -37,7 +36,7 @@ function hashSeed(seedString: string): number {
 }
 
 /**
- * mulberry32 PRNG step. Deterministic, fast, good enough distribution for
+ * Mulberry32 PRNG step. Deterministic, fast, good enough distribution for
  * gameplay/procedural-generation use cases (not cryptographically secure).
  */
 function mulberry32Step(state: number): { value: number; nextState: number } {

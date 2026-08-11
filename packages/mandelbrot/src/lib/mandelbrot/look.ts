@@ -1,7 +1,7 @@
 /**
- * Look model: the color/lighting/iteration knobs a renderer exposes, and the
- * mapping from the UI state to the shader-facing params. Pure data — the
- * control panel is a view of `LookState`, the renderer consumes `LookParams`.
+ * Look model: the color/lighting/iteration knobs a renderer exposes, and the mapping from the UI
+ * state to the shader-facing params. Pure data — the control panel is a view of `LookState`, the
+ * renderer consumes `LookParams`.
  */
 
 export type LookState = {
@@ -44,9 +44,9 @@ export const DEFAULT_LOOK: LookState = {
 export const MAX_ITER_CAP = 60000;
 
 /**
- * Effective iteration count for a zoom depth. Detail near the border needs
- * more iterations the deeper we go — roughly linear in zoom (log2 mag), scaled
- * by the user's budget slider (100 = default).
+ * Effective iteration count for a zoom depth. Detail near the border needs more iterations the
+ * deeper we go — roughly linear in zoom (log2 mag), scaled by the user's budget slider (100 =
+ * default).
  */
 export function effectiveMaxIter(budgetPct: number, zoom: number): number {
     const base = 256 + zoom * 96;

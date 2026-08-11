@@ -1,8 +1,8 @@
 import type { Camera, Point2D } from '../../core/Camera';
 
 /**
- * GL 3x3 matrix in column-major order (element `i` = row `i % 3`, column
- * `i / 3`), fed straight into `uniformMatrix3fv`.
+ * GL 3x3 matrix in column-major order (element `i` = row `i % 3`, column `i / 3`), fed straight
+ * into `uniformMatrix3fv`.
  */
 export type Mat3 = readonly [
     number,
@@ -37,17 +37,29 @@ export function sameMat3(a: Mat3, b: Mat3): boolean {
     return true;
 }
 
-/** World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`. */
+/**
+ * World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`.
+ * @param camera
+ */
 export function cameraMatrix(camera: Camera): Mat3 {
     return [camera.zoom, 0, 0, 0, camera.zoom, 0, camera.x, camera.y, 1];
 }
 
-/** Screen (CSS px, y-down) → NDC. */
+/**
+ * Screen (CSS px, y-down) → NDC.
+ * @param width
+ * @param height
+ */
 export function viewportMatrix(width: number, height: number): Mat3 {
     return [2 / width, 0, 0, 0, -2 / height, 0, -1, 1, 1];
 }
 
-/** World → NDC for a single batched draw call. */
+/**
+ * World → NDC for a single batched draw call.
+ * @param camera
+ * @param width
+ * @param height
+ */
 export function projectionFor(camera: Camera, width: number, height: number): Mat3 {
     return multiplyMat3(viewportMatrix(width, height), cameraMatrix(camera));
 }
@@ -60,17 +72,31 @@ const MAX_CAP_SEGMENTS = 32;
 const clamp = (value: number, min: number, max: number): number =>
     Math.max(min, Math.min(max, value));
 
-/** Tessellation of a circle scales with its screen size. */
+/**
+ * Tessellation of a circle scales with its screen size.
+ * @param radius
+ * @param zoom
+ */
 export function circleSegments(radius: number, zoom: number): number {
     return clamp(Math.round(radius * zoom), MIN_CIRCLE_SEGMENTS, MAX_CIRCLE_SEGMENTS);
 }
 
-/** Tessellation of a line cap scales with its screen width. */
+/**
+ * Tessellation of a line cap scales with its screen width.
+ * @param width
+ * @param zoom
+ */
 export function capSegments(width: number, zoom: number): number {
     return clamp(Math.round(width * zoom), MIN_CAP_SEGMENTS, MAX_CAP_SEGMENTS);
 }
 
-/** `segments` points around the ring, starting at angle 0 (positive x). */
+/**
+ * `segments` points around the ring, starting at angle 0 (positive x).
+ * @param cx
+ * @param cy
+ * @param radius
+ * @param segments
+ */
 export function circleRing(cx: number, cy: number, radius: number, segments: number): Point2D[] {
     const points: Point2D[] = [];
     for (let i = 0; i < segments; i++) {
@@ -96,7 +122,11 @@ export function rectStrokeVertices(): number {
     return 24;
 }
 
-/** Center quad plus two rounded caps. */
+/**
+ * Center quad plus two rounded caps.
+ * @param width
+ * @param zoom
+ */
 export function lineVertices(width: number, zoom: number): number {
     return 6 + 2 * capSegments(width, zoom) * 3;
 }

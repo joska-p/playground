@@ -16,8 +16,8 @@ export type LSymbol = {
 export type Word = readonly LSymbol[];
 
 /**
- * Information available to a rule during matching and production.
- * The engine constructs a fresh Context for each symbol on each iteration.
+ * Information available to a rule during matching and production. The engine constructs a fresh
+ * Context for each symbol on each iteration.
  */
 export type Context = {
     /** The full current word (read-only). */
@@ -28,21 +28,15 @@ export type Context = {
     readonly random: () => number;
 };
 
-/**
- * The only contract the engine cares about.
- * Every rule type implements this interface.
- */
+/** The only contract the engine cares about. Every rule type implements this interface. */
 export type Rule = {
     /**
-     * Returns true if this rule applies to the symbol at context.index.
-     * The engine calls match() on each rule in order until one returns true.
+     * Returns true if this rule applies to the symbol at context.index. The engine calls match() on
+     * each rule in order until one returns true.
      */
     match(symbol: LSymbol, context: Context): boolean;
 
-    /**
-     * Returns the replacement word for the matched symbol.
-     * Only called when match() returned true.
-     */
+    /** Returns the replacement word for the matched symbol. Only called when match() returned true. */
     apply(symbol: LSymbol, context: Context): Word;
 };
 
@@ -51,9 +45,8 @@ export type Grammar = {
     readonly axiom: Word;
     readonly rules: readonly Rule[];
     /**
-     * What to do when no rule matches a symbol.
-     * 'keep' (default) — pass it through unchanged.
-     * 'remove'         — drop it from the output.
+     * What to do when no rule matches a symbol. 'keep' (default) — pass it through unchanged.
+     * 'remove' — drop it from the output.
      */
     readonly unmatchedSymbol?: 'keep' | 'remove';
 };

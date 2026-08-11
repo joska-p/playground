@@ -19,23 +19,21 @@ type Orbits = {
 };
 
 /**
- * Practical ceiling once the centre is still float64 and the delta is DS.
- * Beyond ~1e15 the float64 centre itself loses significance; raise only after
- * you switch the reference-orbit math to BigInt / decimal.
+ * Practical ceiling once the centre is still float64 and the delta is DS. Beyond ~1e15 the float64
+ * centre itself loses significance; raise only after you switch the reference-orbit math to BigInt
+ * / decimal.
  */
 const MAX_ZOOM = 1e15;
 
 /**
  * Complex-plane width of the view at zoom = 1.
  *
- * The world coordinate under the screen centre is `−camera.x / zoom`: the
- * glaze camera accumulates pan in raw screen pixels, so normalizing by the
- * current zoom yields the centre offset in zoom = 1 world units. Converting
- * that to a complex-plane offset must therefore use this fixed, zoom = 1
- * width — NOT the current per-frame view scale (3 / zoom), which already
- * applies zoom inside the shader's (uv − 0.5) term. Using the current scale
- * would apply zoom twice, so the effective centre would drift further from
- * where the user actually dragged every time they zoomed afterwards.
+ * The world coordinate under the screen centre is `−camera.x / zoom`: the glaze camera accumulates
+ * pan in raw screen pixels, so normalizing by the current zoom yields the centre offset in zoom = 1
+ * world units. Converting that to a complex-plane offset must therefore use this fixed, zoom = 1
+ * width — NOT the current per-frame view scale (3 / zoom), which already applies zoom inside the
+ * shader's (uv − 0.5) term. Using the current scale would apply zoom twice, so the effective centre
+ * would drift further from where the user actually dragged every time they zoomed afterwards.
  */
 const WORLD_SCALE = 3.0;
 

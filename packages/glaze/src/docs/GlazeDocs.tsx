@@ -3,9 +3,9 @@ import { LifecycleReport } from './LifecycleReport';
 import { DemoGallery } from './DemoGallery';
 
 /**
- * The exportable docs feature: an in-depth lifecycle report plus a progressive
- * live demo gallery that mounts each demo only while its accordion section is
- * open. Import as `GlazeDocs` from `@repo/glaze/docs/GlazeDocs`.
+ * The exportable docs feature: an in-depth lifecycle report plus a progressive live demo gallery
+ * that mounts each demo only while its accordion section is open. Import as `GlazeDocs` from
+ * `@repo/glaze/docs/GlazeDocs`.
  */
 export function GlazeDocs() {
     return (

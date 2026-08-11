@@ -76,11 +76,10 @@ function compileProgram(
 }
 
 /**
- * Batches every shape into one dynamic vertex buffer and a single draw call
- * per flush — the pixelate2d approach ported to glaze. Shapes are tessellated
- * on the CPU (position + RGBA per vertex) and drawn through one shared
- * program with a single `u_projection` uniform, instead of a fullscreen
- * fragment pass per shape.
+ * Batches every shape into one dynamic vertex buffer and a single draw call per flush — the
+ * pixelate2d approach ported to glaze. Shapes are tessellated on the CPU (position + RGBA per
+ * vertex) and drawn through one shared program with a single `u_projection` uniform, instead of a
+ * fullscreen fragment pass per shape.
  */
 export class ShapeBatcher {
     readonly #gl: WebGL2RenderingContext;

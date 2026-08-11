@@ -1,11 +1,11 @@
 /**
- * Fixed-width RG32F texture holding the reference orbit the perturbation
- * shader samples (RG = (Zx, Zy) per texel).
+ * Fixed-width RG32F texture holding the reference orbit the perturbation shader samples (RG = (Zx,
+ * Zy) per texel).
  *
- * Owns the texture's lifetime for the given GL context. Uploads reuse the
- * buffer via `texSubImage2D` when the orbit still fits in the current row
- * count; only a longer orbit forces a reallocation (`texImage2D`). Pass the
- * raw `WebGLTexture` as the `uRef` uniform and let glaze bind it.
+ * Owns the texture's lifetime for the given GL context. Uploads reuse the buffer via
+ * `texSubImage2D` when the orbit still fits in the current row count; only a longer orbit forces a
+ * reallocation (`texImage2D`). Pass the raw `WebGLTexture` as the `uRef` uniform and let glaze bind
+ * it.
  */
 
 export const REF_TEX_WIDTH = 2048;

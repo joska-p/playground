@@ -13,10 +13,9 @@ export interface ZoomOptions {
 }
 
 /**
- * The unified context every gesture receives: the raw native event, its
- * screen-space point, the live input store, the camera controls, and the
- * targeted surface (when one is mounted). Built-in pan/zoom gestures and the
- * React facade's consumer handlers all read the same block.
+ * The unified context every gesture receives: the raw native event, its screen-space point, the
+ * live input store, the camera controls, and the targeted surface (when one is mounted). Built-in
+ * pan/zoom gestures and the React facade's consumer handlers all read the same block.
  */
 export interface InteractionEvent<TEvent, TSurface> {
     nativeEvent: TEvent;
@@ -27,14 +26,12 @@ export interface InteractionEvent<TEvent, TSurface> {
 }
 
 /**
- * A pipeline step that interprets `InteractionEvent`s and drives change —
- * camera mutation through `cameraControls`, or drawing straight on
- * `event.surface`. `PanGesture` / `ZoomGesture` are the built-in steps; the
- * React facade adapts its consumer `CanvasInteractions` into steps too.
+ * A pipeline step that interprets `InteractionEvent`s and drives change — camera mutation through
+ * `cameraControls`, or drawing straight on `event.surface`. `PanGesture` / `ZoomGesture` are the
+ * built-in steps; the React facade adapts its consumer `CanvasInteractions` into steps too.
  *
- * Every gesture receives every event; a gesture either handles it or ignores
- * it. Custom handlers replace the built-ins rather than chain against them,
- * so there is no consume protocol.
+ * Every gesture receives every event; a gesture either handles it or ignores it. Custom handlers
+ * replace the built-ins rather than chain against them, so there is no consume protocol.
  */
 export interface Gesture<TSurface> {
     onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
@@ -45,8 +42,8 @@ export interface Gesture<TSurface> {
 }
 
 /**
- * Pointer-drag panning. Capture starts on a matching button press and the
- * camera pans with every pointer move while dragging.
+ * Pointer-drag panning. Capture starts on a matching button press and the camera pans with every
+ * pointer move while dragging.
  */
 export class PanGesture<TSurface> {
     /** True while a drag is being captured; `onMove` only pans while active. */
@@ -83,10 +80,7 @@ export function createPanGesture<TSurface>(options: PanOptions = {}): PanGesture
     return new PanGesture<TSurface>(options);
 }
 
-/**
- * Wheel zooming. Scales around the cursor position; the zoom value is
- * clamped by `cameraControls`.
- */
+/** Wheel zooming. Scales around the cursor position; the zoom value is clamped by `cameraControls`. */
 export class ZoomGesture<TSurface> {
     readonly #speed: number;
 
@@ -117,10 +111,9 @@ function matchesButton(button: number, filter?: number | number[]): boolean {
 }
 
 /**
- * Routes raw `InputStore` events through an ordered list of gestures,
- * wrapping each event's native signal into an `InteractionEvent`. Every
- * gesture receives every event. Reads `cameraControls`, `getSurface`, and
- * `gestures` from its options at event time, so those can be swapped without
+ * Routes raw `InputStore` events through an ordered list of gestures, wrapping each event's native
+ * signal into an `InteractionEvent`. Every gesture receives every event. Reads `cameraControls`,
+ * `getSurface`, and `gestures` from its options at event time, so those can be swapped without
  * re-subscribing.
  */
 export class InputRouter<TSurface> {

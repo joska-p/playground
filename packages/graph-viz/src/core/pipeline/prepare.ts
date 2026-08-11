@@ -1,7 +1,4 @@
-/**
- * CLI entrypoint — file I/O and shell execution only.
- * All computation is delegated to the pipeline.
- */
+/** CLI entrypoint — file I/O and shell execution only. All computation is delegated to the pipeline. */
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';

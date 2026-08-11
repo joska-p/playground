@@ -25,6 +25,7 @@
         "prettier-plugin-astro": "catalog:",
         "prettier-plugin-embed": "catalog:",
         "prettier-plugin-glsl": "catalog:",
+        "prettier-plugin-jsdoc": "catalog:",
         "prettier-plugin-organize-imports": "catalog:",
         "prettier-plugin-tailwindcss": "catalog:",
         "turbo": "catalog:",

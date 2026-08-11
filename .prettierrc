@@ -4,7 +4,8 @@
         "prettier-plugin-astro",
         "prettier-plugin-tailwindcss",
         "prettier-plugin-embed",
-        "prettier-plugin-glsl"
+        "prettier-plugin-glsl",
+        "prettier-plugin-jsdoc"
     ],
     "printWidth": 100,
     "tabWidth": 4,

@@ -1,16 +1,15 @@
 /**
  * BigFloat: binary fixed-point real numbers backed by BigInt.
  *
- * A value is represented as `m * 2^(-prec)`, where `m` is an arbitrary
- * precision signed integer (BigInt) and `prec` is the number of fractional
- * bits. All BigFloats that interact must share the same `prec`.
+ * A value is represented as `m * 2^(-prec)`, where `m` is an arbitrary precision signed integer
+ * (BigInt) and `prec` is the number of fractional bits. All BigFloats that interact must share the
+ * same `prec`.
  *
- * For Mandelbrot deep-zoom we only need arbitrary precision for a *single*
- * point (the reference orbit center); every per-pixel value stays bounded and
- * lives in ordinary floats on the GPU. That is why fixed-point (rather than a
- * full arbitrary-precision float) is enough here and stays fast: the integer
- * part of every coordinate we care about is tiny (|x| < 2), so the mantissa
- * grows only with zoom depth.
+ * For Mandelbrot deep-zoom we only need arbitrary precision for a _single_ point (the reference
+ * orbit center); every per-pixel value stays bounded and lives in ordinary floats on the GPU. That
+ * is why fixed-point (rather than a full arbitrary-precision float) is enough here and stays fast:
+ * the integer part of every coordinate we care about is tiny (|x| < 2), so the mantissa grows only
+ * with zoom depth.
  *
  * No third-party dependencies — just native BigInt.
  */

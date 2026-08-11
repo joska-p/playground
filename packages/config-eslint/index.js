@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import jsdoc from 'eslint-plugin-jsdoc';
 
 export default function createConfig(dirname) {
     return defineConfig([
@@ -16,10 +17,13 @@ export default function createConfig(dirname) {
                 ...tseslint.configs.strictTypeChecked,
                 ...tseslint.configs.stylisticTypeChecked,
                 reactHooks.configs.flat.recommended,
-                reactRefresh.configs.vite
+                reactRefresh.configs.vite,
+                // Désactive les règles JSDoc inutiles en TS
+                jsdoc.configs['flat/recommended-typescript-error']
             ],
             plugins: {
-                import: importPluginX
+                import: importPluginX,
+                jsdoc
             },
             languageOptions: {
                 globals: globals.browser,
@@ -68,7 +72,24 @@ export default function createConfig(dirname) {
                         message:
                             "Type noise: Avoid combining optional properties (?) with explicit '| undefined'."
                     }
-                ]
+                ],
+
+                // --- JSDoc / Anti-bruit pour TypeScript ---
+                'jsdoc/check-alignment': 'error',
+                'jsdoc/check-indentation': 'error',
+                'jsdoc/multiline-blocks': 'error',
+
+                // On interdit le doublon de types dans les commentaires (ex: @param {number} x)
+                'jsdoc/no-types': 'error',
+                'jsdoc/require-param-type': 'off',
+                'jsdoc/require-returns-type': 'off',
+                'jsdoc/require-property-type': 'off',
+
+                // On force la présence d'une description si un bloc JSDoc est ouvert
+                'jsdoc/require-description': 'warn',
+
+                // Pas besoin de forcer les commentaires sur absolument chaque fonction/type
+                'jsdoc/require-jsdoc': 'off'
             }
         },
         {

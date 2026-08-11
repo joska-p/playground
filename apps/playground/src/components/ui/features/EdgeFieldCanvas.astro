@@ -2,23 +2,20 @@
 /**
  * <edge-field-canvas>
  *
- * Same shader pipeline as EdgeFieldCanvas.tsx, packaged as a plain Web
- * Component instead of a React component. Works in any framework (or none)
- * since custom elements are a browser primitive, not a React concept.
+ * Same shader pipeline as EdgeFieldCanvas.tsx, packaged as a plain Web Component instead of a React
+ * component. Works in any framework (or none) since custom elements are a browser primitive, not a
+ * React concept.
  *
- * Usage:
- *   <script type="module" src="/edge-field-canvas.js"></script>
- *   <edge-field-canvas></edge-field-canvas>
+ * Usage:  <script type="module" src="/edge-field-canvas.js"></script>
  *
- * Optional attributes (all live-updatable after mount):
- *   color-cold="0.86,0.78,0.35"   RGB 0-1, comma separated
- *   color-hot="0.55,0.85,0.62"
- *   scale="6"                     noise frequency
- *   bands="8"                     posterization steps
- *   hot-radius="440"              cursor glow radius in px
+ * <edge-field-canvas></edge-field-canvas>
  *
- * See EdgeFieldCanvas.tsx for the full feX -> shader primitive mapping —
- * that comment block isn't duplicated here, the shader itself is identical.
+ * Optional attributes (all live-updatable after mount): color-cold="0.86,0.78,0.35" RGB 0-1, comma
+ * separated color-hot="0.55,0.85,0.62" scale="6" noise frequency bands="8" posterization steps
+ * hot-radius="440" cursor glow radius in px
+ *
+ * See EdgeFieldCanvas.tsx for the full feX -> shader primitive mapping — that comment block isn't
+ * duplicated here, the shader itself is identical.
  */
 ---
 
