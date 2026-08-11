@@ -31,7 +31,11 @@ function crc32(buf: Buffer): number {
     return (crc ^ 0xffffffff) >>> 0;
 }
 
-/** Build a single PNG chunk: length + type + data + CRC. */
+/**
+ * Build a single PNG chunk: length + type + data + CRC.
+ * @param type
+ * @param data
+ */
 function chunk(type: string, data: Buffer): Buffer {
     const typeBuf = Buffer.from(type, 'ascii');
     const lenBuf = Buffer.alloc(4);
@@ -43,7 +47,6 @@ function chunk(type: string, data: Buffer): Buffer {
 
 /**
  * Encode an RGB pixel buffer into a PNG.
- *
  * @param rgb Raw pixel data, length must be `width * height * 3` (R,G,B).
  * @param width Image width in pixels.
  * @param height Image height in pixels.

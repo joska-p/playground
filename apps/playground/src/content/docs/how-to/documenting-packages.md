@@ -65,8 +65,6 @@ export default function Example() {
 | ------ | ---- | ----------- |
 
 ## Architecture
-
-Component tree, data flow, directory structure.
 _Add a brief description for accessibility if using ASCII/mermaid diagrams._
 
 ## Usage Examples
@@ -90,20 +88,6 @@ How styling works — CSS variables, Tailwind, theme tokens.
 ## Performance (if applicable)
 
 Rendering considerations, memoization, debouncing.
-
-## Testing
-
-```bash
-pnpm test
-```
-
-## Contributing
-
-PRs welcome! See [CONTRIBUTING.md].
-
-## Changelog
-
-Follows SemVer. See [CHANGELOG.md].
 
 ---
 

@@ -38,7 +38,6 @@ const DEG = Math.PI / 180;
  * Symbol mapping: F / f → move forward (F draws, f moves silently)
  *
  * - → yaw left by angle
- *
  * - → yaw right by angle
  *
  * ^ → pitch up by angle & → pitch down by angle \ → roll left by angle / → roll right by angle | →

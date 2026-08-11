@@ -5,7 +5,7 @@
  * component. Works in any framework (or none) since custom elements are a browser primitive, not a
  * React concept.
  *
- * Usage:  <script type="module" src="/edge-field-canvas.js"></script>
+ * Usage: <script type="module" src="/edge-field-canvas.js"></script>
  *
  * <edge-field-canvas></edge-field-canvas>
  *

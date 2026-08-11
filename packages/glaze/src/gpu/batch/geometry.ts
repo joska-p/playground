@@ -39,6 +39,7 @@ export function sameMat3(a: Mat3, b: Mat3): boolean {
 
 /**
  * World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`.
+ *
  * @param camera
  */
 export function cameraMatrix(camera: Camera): Mat3 {
@@ -47,6 +48,7 @@ export function cameraMatrix(camera: Camera): Mat3 {
 
 /**
  * Screen (CSS px, y-down) → NDC.
+ *
  * @param width
  * @param height
  */
@@ -56,6 +58,7 @@ export function viewportMatrix(width: number, height: number): Mat3 {
 
 /**
  * World → NDC for a single batched draw call.
+ *
  * @param camera
  * @param width
  * @param height
@@ -74,6 +77,7 @@ const clamp = (value: number, min: number, max: number): number =>
 
 /**
  * Tessellation of a circle scales with its screen size.
+ *
  * @param radius
  * @param zoom
  */
@@ -83,6 +87,7 @@ export function circleSegments(radius: number, zoom: number): number {
 
 /**
  * Tessellation of a line cap scales with its screen width.
+ *
  * @param width
  * @param zoom
  */
@@ -92,6 +97,7 @@ export function capSegments(width: number, zoom: number): number {
 
 /**
  * `segments` points around the ring, starting at angle 0 (positive x).
+ *
  * @param cx
  * @param cy
  * @param radius
@@ -124,6 +130,7 @@ export function rectStrokeVertices(): number {
 
 /**
  * Center quad plus two rounded caps.
+ *
  * @param width
  * @param zoom
  */

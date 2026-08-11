@@ -28,9 +28,8 @@
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
-        "generate:api": "typedoc",
-        "dev": "npm run generate:api && vite --host",
-        "build": "npm run generate:api && vite build",
+        "build:docs": "typedoc",
+        "dev": "pnpm build:docs && vite --host",
         "preview": "vite preview --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
@@ -62,7 +61,9 @@
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
-        "typedoc": "^0.28.20",
+        "typedoc": "catalog:",
+        "typedoc-plugin-missing-exports": "catalog:",
+        "typedoc-theme-hierarchy": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:",
         "vitest": "catalog:"

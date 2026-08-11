@@ -132,6 +132,15 @@ catalogs:
         turbo:
             specifier: ^2.10.7
             version: 2.10.7
+        typedoc:
+            specifier: ^0.28.20
+            version: 0.28.20
+        typedoc-plugin-missing-exports:
+            specifier: ^4.1.4
+            version: 4.1.4
+        typedoc-theme-hierarchy:
+            specifier: ^6.0.0
+            version: 6.0.0
         typescript:
             specifier: ~6.0.3
             version: 6.0.3
@@ -767,8 +776,14 @@ importers:
                 specifier: 'catalog:'
                 version: 4.3.2
             typedoc:
-                specifier: ^0.28.20
+                specifier: 'catalog:'
                 version: 0.28.20(typescript@6.0.3)
+            typedoc-plugin-missing-exports:
+                specifier: 'catalog:'
+                version: 4.1.4(typedoc@0.28.20(typescript@6.0.3))
+            typedoc-theme-hierarchy:
+                specifier: 'catalog:'
+                version: 6.0.0(typedoc@0.28.20(typescript@6.0.3))
             typescript:
                 specifier: 'catalog:'
                 version: 6.0.3
@@ -7354,6 +7369,13 @@ packages:
             }
         engines: { node: '>=0.10.0' }
 
+    fs-extra@11.1.1:
+        resolution:
+            {
+                integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==
+            }
+        engines: { node: '>=14.14' }
+
     fsevents@2.3.2:
         resolution:
             {
@@ -10121,6 +10143,22 @@ packages:
                 integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==
             }
         engines: { node: '>=20' }
+
+    typedoc-plugin-missing-exports@4.1.4:
+        resolution:
+            {
+                integrity: sha512-tIay6z6MRb/4+mfWgKNPR6qEM5rz9S8rTiz0JWmSb/66A6AlZIl9q+1lAFygj4n8GHH1fsqKYQNt9JbNcuE0Uw==
+            }
+        peerDependencies:
+            typedoc: ^0.28.1
+
+    typedoc-theme-hierarchy@6.0.0:
+        resolution:
+            {
+                integrity: sha512-SSPqM0HnFyyYoNexmH8FHIkoKvd3Xg6KZsutrDCcYgm2mtVGGHLFKuqAaVKtKWbPq7xW61OIxvVrTQQi6dtXTw==
+            }
+        peerDependencies:
+            typedoc: ^0.28.0
 
     typedoc@0.28.20:
         resolution:
@@ -14195,6 +14233,12 @@ snapshots:
 
     for-in@1.0.2: {}
 
+    fs-extra@11.1.1:
+        dependencies:
+            graceful-fs: 4.2.11
+            jsonfile: 6.2.1
+            universalify: 2.0.1
+
     fsevents@2.3.2:
         optional: true
 
@@ -16140,6 +16184,15 @@ snapshots:
     type-fest@5.8.0:
         dependencies:
             tagged-tag: 1.0.0
+
+    typedoc-plugin-missing-exports@4.1.4(typedoc@0.28.20(typescript@6.0.3)):
+        dependencies:
+            typedoc: 0.28.20(typescript@6.0.3)
+
+    typedoc-theme-hierarchy@6.0.0(typedoc@0.28.20(typescript@6.0.3)):
+        dependencies:
+            fs-extra: 11.1.1
+            typedoc: 0.28.20(typescript@6.0.3)
 
     typedoc@0.28.20(typescript@6.0.3):
         dependencies:

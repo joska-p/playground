@@ -117,6 +117,7 @@ export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map(
  * dependencies resolved in topological order.
  *
  * Throws on dependency cycles.
+ * @param requiredIds
  */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();

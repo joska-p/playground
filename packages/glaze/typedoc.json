@@ -3,7 +3,31 @@
     "entryPoints": ["src/**/*.{ts,tsx}"],
     "entryPointStrategy": "expand",
     "exclude": ["src/**/*.test.{ts,tsx}", "src/docs/**"],
-    "json": ".src/docs/api-reference.json",
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "theme": "hierarchy",
+    "customCss": "./src/styles/typedoc-theme.css",
     "excludeInternal": true,
-    "skipErrorChecking": true
+    "skipErrorChecking": true,
+    "outputs": [
+        {
+            "name": "html",
+            "path": "./dist/docs/docs_html"
+        },
+        {
+            "name": "html",
+            "path": "./dist/docs/docs_html_full_nav",
+            "options": {
+                "navigation": {
+                    "includeCategories": true,
+                    "includeGroups": true,
+                    "excludeReferences": false,
+                    "includeFolders": true
+                }
+            }
+        },
+        {
+            "name": "json",
+            "path": "./dist/docs/docs.json"
+        }
+    ]
 }
