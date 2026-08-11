@@ -11,6 +11,7 @@ const textEncoder = new TextEncoder();
 
 /**
  * FNV-1a 32-bit hash of a string (proper UTF-8 encoding).
+ *
  * @param text
  */
 function fnv1a(text: string): number {
@@ -51,6 +52,7 @@ export class SeededRandom {
 
     /**
      * Integer in [0, n).
+     *
      * @param n
      */
     nextInt(n: number): number {
@@ -64,6 +66,7 @@ export class SeededRandom {
 
     /**
      * Float in [min, max).
+     *
      * @param min
      * @param max
      */
@@ -88,6 +91,7 @@ export type DualRng = {
  *
  * The structure RNG is seeded independently from each channel RNG so that structural decisions vary
  * across seeds but stay consistent across channels within a single seed.
+ *
  * @param seedText
  * @param maxDepth
  */
@@ -107,6 +111,7 @@ export function createDualRng(seedText: string, maxDepth: number): DualRng {
  *
  * All three channels share one RNG instance so structural decisions are identical across R/G/B —
  * the channels diverge only because the expression tree is built as separate instances.
+ *
  * @param seedText
  */
 export function createCorrelatedRng(seedText: string): DualRng {
@@ -119,6 +124,7 @@ export function createCorrelatedRng(seedText: string): DualRng {
  *
  * This does NOT consume from any {@link SeededRandom} instance, so callers can shuffle operator
  * lists (or anything else) without affecting the main RNG stream used for tree generation.
+ *
  * @param arr
  * @param seedText
  */

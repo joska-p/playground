@@ -40,6 +40,12 @@ export type ReferenceOrbit = {
 /**
  * Mirrors the loop-count formula baked into mandelbrot.glsl (DS shader) so the CPU orbit texture
  * and the shader's loop never disagree on the iteration count.
+ *
+ * @param zoom The current zoom level used to scale the iteration count.
+ * @param iterationBase The base iteration count at zoom = 1.
+ * @param iterationScale The factor applied to the zoom-based iteration increment.
+ * @param iterationCap The maximum allowed number of iterations.
+ * @returns The computed maximum iteration count clamped to the iteration cap.
  */
 export function computeMaxIterations(
     zoom: number,
@@ -60,6 +66,13 @@ export function computeMaxIterations(
  * If the reference escapes while computing X_{e+1} from X_e we still write the (large) escaped
  * value into the next slot and set referenceIterations = e + 2 so the shader’s “i+1 <
  * referenceIterations” test succeeds for the escaping step and zFull = X_{e+1} + dz is exact.
+ *
+ * @param centerRe Real part of the complex view center.
+ * @param centerIm Imaginary part of the complex view center.
+ * @param maxIterations Maximum number of orbit iterations to compute.
+ * @param bailoutSquared Squared bailout radius used to determine escape.
+ * @returns A ReferenceOrbit containing the orbit data, orbit length, and valid reference iteration
+ *   count.
  */
 export function computeReferenceOrbit(
     centerRe: number,
@@ -121,6 +134,13 @@ export function computeReferenceOrbit(
  * Compute a second reference a small distance away from the primary. The offset is ~2–3 pixels in
  * complex plane so it is still useful for the current view but statistically less likely to hit the
  * same glitch-prone location.
+ *
+ * @param centerRe Real part of the complex view center.
+ * @param centerIm Imaginary part of the complex view center.
+ * @param scale Scale factor for the offset (typically 3 / zoom).
+ * @param maxIterations Maximum number of orbit iterations to compute.
+ * @param bailoutSquared Squared bailout radius used to determine escape.
+ * @returns A ReferenceOrbit containing the secondary orbit data.
  */
 export function computeSecondaryOrbit(
     centerRe: number,

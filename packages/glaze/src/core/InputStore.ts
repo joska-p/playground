@@ -11,9 +11,7 @@ const POINTER_HANDLER_BY_EVENT: Record<PointerEventName, PointerHandlerName> = {
     pointercancel: 'onPointerCancel'
 };
 
-/**
- * Subscriber callbacks for raw input. `point` is canvas-relative in CSS pixels.
- */
+/** Subscriber callbacks for raw input. `point` is canvas-relative in CSS pixels. */
 export interface InputHandlers {
     onPointerDown?: (event: PointerEvent, point: Point2D) => void;
     onPointerMove?: (event: PointerEvent, point: Point2D) => void;
@@ -64,7 +62,10 @@ export class InputStore {
         };
     }
 
-    /** Clears per-frame state: the `wasKeyPressed` set and the accumulated `wheelDelta`. Call once per frame. */
+    /**
+     * Clears per-frame state: the `wasKeyPressed` set and the accumulated `wheelDelta`. Call once
+     * per frame.
+     */
     endFrame(): void {
         this.#pressed.clear();
         this.wheelDelta = 0;

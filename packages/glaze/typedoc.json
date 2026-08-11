@@ -3,7 +3,11 @@
     "entryPoints": ["src/**/*.{ts,tsx}"],
     "entryPointStrategy": "expand",
     "exclude": ["src/**/*.test.{ts,tsx}", "src/docs/**"],
-    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "plugin": [
+        "typedoc-theme-hierarchy",
+        "typedoc-plugin-missing-exports",
+        "typedoc-plugin-markdown"
+    ],
     "theme": "hierarchy",
     "customCss": "./src/styles/typedoc-theme.css",
     "excludeInternal": true,
@@ -28,6 +32,10 @@
         {
             "name": "json",
             "path": "./dist/docs/docs.json"
+        },
+        {
+            "name": "markdown",
+            "path": "./dist/docs_markdown"
         }
     ]
 }

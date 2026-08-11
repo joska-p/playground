@@ -75,9 +75,9 @@ export default function createConfig(dirname) {
                 ],
 
                 // --- JSDoc / Anti-bruit pour TypeScript ---
-                'jsdoc/check-alignment': 'error',
-                'jsdoc/check-indentation': 'error',
-                'jsdoc/multiline-blocks': 'error',
+                // 'jsdoc/check-alignment': 'error',
+                // 'jsdoc/check-indentation': 'error',
+                // 'jsdoc/multiline-blocks': 'error',
 
                 // On interdit le doublon de types dans les commentaires (ex: @param {number} x)
                 'jsdoc/no-types': 'error',

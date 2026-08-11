@@ -18,8 +18,8 @@ export type CpuDraw = (surface: CpuSurface) => void;
 /**
  * Immediate-mode Canvas2D drawing. Draw calls are chainable and every method returns the surface;
  * drawing happens in world space, with `applyCamera()` running automatically before each frame's
- * callback. Per-frame state — `time` / `deltaTime` (seconds), `frameCount`, `width` / `height`
- * (CSS px) — is updated just before the draw callback runs.
+ * callback. Per-frame state — `time` / `deltaTime` (seconds), `frameCount`, `width` / `height` (CSS
+ * px) — is updated just before the draw callback runs.
  */
 export class CpuSurface {
     /** Seconds since the frame loop started. */
@@ -67,6 +67,7 @@ export class CpuSurface {
 
     /**
      * Current pointer position in world coordinates.
+     *
      * @returns The pointer position, camera-transformed.
      */
     get pointer(): Point2D {
@@ -83,6 +84,7 @@ export class CpuSurface {
 
     /**
      * Sets the per-frame draw callback. A non-null callback starts the rAF loop; `null` stops it.
+     *
      * @param newCpuDraw The frame callback, or `null` to stop rendering.
      */
     setDraw(newCpuDraw: CpuDraw | null): void {
@@ -94,6 +96,7 @@ export class CpuSurface {
     /**
      * Adds a draw callback, starting the loop if it is not running. The returned function removes
      * the callback and stops the loop once none remain.
+     *
      * @param fn The frame callback.
      * @returns Removes the callback and stops rendering when the last one is gone.
      */
@@ -120,6 +123,7 @@ export class CpuSurface {
      * Resets the context transform, then applies the camera (`zoom` plus `x`/`y` pan) scaled by
      * `dpr`. Runs automatically before each frame's draw callback; call manually before one-shot
      * draws made outside the loop.
+     *
      * @returns This surface, for chaining.
      */
     applyCamera(): this {

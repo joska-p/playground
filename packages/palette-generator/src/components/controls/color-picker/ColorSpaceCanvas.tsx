@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { scaleTo255 } from '../../../utils/color';
 
 type ColorSpaceCanvasProps = {
-    ref?: React.RefObject<HTMLCanvasElement | null>;
+    ref?: React.RefObject<HTMLCanvasElement>;
     spaceId: keyof typeof colorSpaces;
     zValue: number;
     size?: number;

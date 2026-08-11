@@ -9,6 +9,9 @@
  *
  * `value - hi` is exact in float64 (hi is a float32 and thus exactly representable), so the only
  * rounding introduced is on the residual.
+ *
+ * @param value The double-precision value to split.
+ * @returns A tuple containing the high and low float32 components.
  */
 export function splitDouble(value: number): [number, number] {
     const hi = Math.fround(value);

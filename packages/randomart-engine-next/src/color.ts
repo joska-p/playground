@@ -14,6 +14,7 @@ export type RGB = {
 
 /**
  * Parse a `#rgb` or `#rrggbb` hex color into RGB (0-255).
+ *
  * @param hex
  */
 export function parseHex(hex: string): RGB {
@@ -36,6 +37,7 @@ export function parseHex(hex: string): RGB {
 
 /**
  * Build a color mapper from a palette of hex strings.
+ *
  * @param palette Optional list of hex colors. If omitted or empty, a grayscale gradient (black ->
  *   white) is used.
  * @returns A function mapping v in [-1, 1] to an RGB triple.

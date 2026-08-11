@@ -39,6 +39,7 @@ export function sameMat3(a: Mat3, b: Mat3): boolean {
 
 /**
  * World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`.
+ *
  * @param camera The current view transform.
  * @returns The column-major camera transform.
  */
@@ -48,6 +49,7 @@ export function cameraMatrix(camera: Camera): Mat3 {
 
 /**
  * Screen (CSS px, y-down) → NDC.
+ *
  * @param width Viewport width in CSS px.
  * @param height Viewport height in CSS px.
  * @returns The column-major viewport transform.
@@ -58,6 +60,7 @@ export function viewportMatrix(width: number, height: number): Mat3 {
 
 /**
  * World → NDC for a single batched draw call, composing `viewportMatrix` after `cameraMatrix`.
+ *
  * @param camera The current view transform.
  * @param width Viewport width in CSS px.
  * @param height Viewport height in CSS px.
@@ -77,6 +80,7 @@ const clamp = (value: number, min: number, max: number): number =>
 
 /**
  * Tessellation of a circle scales with its screen size (radius × zoom), clamped to 12..128.
+ *
  * @param radius Circle radius in world units.
  * @param zoom Current camera zoom.
  * @returns The number of ring segments.
@@ -87,6 +91,7 @@ export function circleSegments(radius: number, zoom: number): number {
 
 /**
  * Tessellation of a line cap scales with its screen width (width × zoom), clamped to 4..32.
+ *
  * @param width Line width in world units.
  * @param zoom Current camera zoom.
  * @returns The number of cap segments.
@@ -97,6 +102,7 @@ export function capSegments(width: number, zoom: number): number {
 
 /**
  * `segments` points around the ring, starting at angle 0 (positive x).
+ *
  * @param cx Ring center x.
  * @param cy Ring center y.
  * @param radius Ring radius.
@@ -130,6 +136,7 @@ export function rectStrokeVertices(): number {
 
 /**
  * Center quad plus two rounded caps.
+ *
  * @param width Line width in world units.
  * @param zoom Current camera zoom.
  * @returns The vertex count for a line at the given screen width.

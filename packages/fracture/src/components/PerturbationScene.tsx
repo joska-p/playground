@@ -37,7 +37,12 @@ const MAX_ZOOM = 1e15;
  */
 const WORLD_SCALE = 3.0;
 
-/** Split a float64 value into a double-single pair (hi, lo). */
+/**
+ * Split a float64 value into a double-single pair (hi, lo).
+ *
+ * @param x - The double-precision input value to split.
+ * @returns A tuple containing the high and low parts of the split value.
+ */
 function splitDS(x: number): [number, number] {
     const hi = Math.fround(x); // nearest float32
     const lo = x - hi; // exact residual in float64, still exact as float32

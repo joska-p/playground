@@ -12,6 +12,9 @@ export type OrbitTextures = {
  * Owns their lifetime for the given GL context; the textures are recreated lazily when `upload`
  * sees a different orbit length, so repeated uploads for an unchanged orbit just re-fill the
  * buffer.
+ *
+ * @param gl The WebGL2 rendering context used to create and manage the textures.
+ * @returns An object that manages orbit textures for upload and disposal.
  */
 export function createOrbitTextures(gl: WebGL2RenderingContext): OrbitTextures {
     let texture1: WebGLTexture | null = null;

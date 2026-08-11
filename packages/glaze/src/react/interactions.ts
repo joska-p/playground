@@ -49,6 +49,7 @@ function withSurface<TEvent, TSurface>(
  * Adapts the consumer `CanvasInteractions` config into the pipeline. Custom lifecycle handlers are
  * wrapped to receive a live surface and replace the matching built-in gesture: `onStart` / `onMove`
  * suppress pan, `onZoom` suppresses zoom. `onEnd` / `onContextMenu` run alongside the built-ins.
+ *
  * @param interactions Consumer config; defaults to built-in pan + zoom.
  * @returns The pipeline gestures.
  */

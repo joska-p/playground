@@ -94,6 +94,7 @@ export class GpuSurface {
 
     /**
      * Current pointer position in world coordinates.
+     *
      * @returns The pointer position, camera-transformed.
      */
     get pointer(): Point2D {
@@ -112,6 +113,7 @@ export class GpuSurface {
      * Compiles a fragment shader (over the default fullscreen-triangle vertex shader) into a
      * program owned by this surface: it is destroyed with the surface and recompiled on context
      * restore.
+     *
      * @param fragmentSource The fragment shader source.
      * @param vertexSource The vertex shader source; defaults to a fullscreen triangle.
      * @returns The compiled program.
@@ -125,6 +127,7 @@ export class GpuSurface {
     /**
      * Flushes pending batched shapes, applies the standard per-frame uniforms, then renders the
      * program as a fullscreen triangle.
+     *
      * @param program The program to render.
      * @returns This surface, for chaining.
      */
@@ -254,6 +257,7 @@ export class GpuSurface {
     /**
      * Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike the color-string
      * `CpuSurface.clear`.
+     *
      * @param r Red, 0..1.
      * @param g Green, 0..1.
      * @param b Blue, 0..1.
@@ -270,6 +274,7 @@ export class GpuSurface {
 
     /**
      * Sets the per-frame draw callback. A non-null callback starts the rAF loop; `null` stops it.
+     *
      * @param fn The frame callback, or `null` to stop rendering.
      */
     setDraw(fn: GpuDraw | null): void {

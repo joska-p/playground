@@ -19,6 +19,7 @@ export interface CameraControls {
  * Binds camera mutation to `camera` in place, clamping zoom to `[minZoom, maxZoom]` (both default
  * from `DEFAULT_ZOOM_BOUNDS`). `initial` is the state `reset()` restores; it defaults to a fresh
  * identity camera.
+ *
  * @param camera The camera to mutate.
  * @param minZoom Defaults to `DEFAULT_ZOOM_BOUNDS.minZoom`.
  * @param maxZoom Defaults to `DEFAULT_ZOOM_BOUNDS.maxZoom`.
