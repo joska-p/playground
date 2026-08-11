@@ -25,6 +25,9 @@ import {
     terminalYRule
 } from './rules';
 
+/**
+ * Every built-in grammar rule, in registration order.
+ */
 export const allRules = [
     terminalXRule,
     terminalYRule,
@@ -51,22 +54,43 @@ export const allRules = [
     clampRule
 ] as const;
 
+/**
+ * Union of the ids of every rule in {@link allRules}.
+ */
 export type RuleId = (typeof allRules)[number]['id'];
 
 const rules = new Map<RuleId, GrammarRule>(allRules.map((rule) => [rule.id, rule]));
 
+/**
+ * Looks up a rule by id, or `undefined` when the id is unknown.
+ * @param id - The id of the rule to look up.
+ * @returns The matching rule, or `undefined` when the id is unknown.
+ */
 export function getRule(id: RuleId) {
     return rules.get(id);
 }
 
+/**
+ * Returns all registered rules — the full grammar.
+ * @returns Every rule in registration order.
+ */
 export function getAllRules(): GrammarRule[] {
     return Array.from(rules.values());
 }
 
+/**
+ * Returns the id of every registered rule.
+ * @returns The ids in registration order.
+ */
 export function getAllRuleIds() {
     return allRules.map((rule) => rule.id);
 }
 
+/**
+ * Returns the default weight of every rule — the baseline that `ruleWeights`
+ * overrides on top of.
+ * @returns A full rule-to-weight map.
+ */
 export function getInitialWeights() {
     return allRules.reduce(
         (acc, rule) => {

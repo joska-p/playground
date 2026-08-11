@@ -3,6 +3,9 @@ import { SeededRandom } from '../random/SeededRandom';
 import type { ExpressionNode, GrammarRule, RuleId, RuleWeights } from '../types';
 import { buildTree } from './build';
 
+/**
+ * Options controlling tree generation.
+ */
 export type TreeConfig = {
     seedText: string;
     maxDepth: number;
@@ -11,6 +14,9 @@ export type TreeConfig = {
     ruleWeights: RuleWeights;
 };
 
+/**
+ * The generated per-channel trees plus the PRNG instances that produced them.
+ */
 export type TreeOutput = {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
@@ -20,6 +26,23 @@ export type TreeOutput = {
     rngB: SeededRandom;
 };
 
+/**
+ * Generates one expression tree per color channel from a seed string. In
+ * correlated mode all channels share a single PRNG stream; otherwise each
+ * channel gets its own PRNG, which produces visibly different art for the same
+ * seed.
+ * @param config - Tree generation options.
+ * @returns The generated per-channel trees and their PRNG instances.
+ * @example
+ * ```ts
+ * const { treeR, treeG, treeB } = generateTrees({
+ *     seedText: 'hello world',
+ *     maxDepth: 8,
+ *     enabledRuleIds: ['x', 'y', 'sin', 'cos', 'add', 'constant'],
+ *     correlated: false
+ * });
+ * ```
+ */
 export function generateTrees(config: TreeConfig): TreeOutput {
     const rules = getAllRules()
         .filter((rule) => config.enabledRuleIds.includes(rule.id as RuleId))

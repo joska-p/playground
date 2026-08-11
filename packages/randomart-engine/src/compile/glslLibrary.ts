@@ -1,3 +1,7 @@
+/**
+ * A reusable GLSL function: its source plus the ids of any other library
+ * functions it depends on.
+ */
 export type GlslFunction = {
     id: string;
     glsl: string;
@@ -83,6 +87,9 @@ const fbmNoise = {
 }`
 } as const satisfies GlslFunction;
 
+/**
+ * The library of reusable GLSL functions (hashing, smooth noise, fbm).
+ */
 export const glslFunctions = [
     random2d,
     hash1,
@@ -92,10 +99,23 @@ export const glslFunctions = [
     fbmNoise
 ] as const satisfies GlslFunction[];
 
+/**
+ * Union of the ids of every function in {@link glslFunctions}.
+ */
 export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 
+/**
+ * The GLSL library keyed by function id.
+ */
 export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
+/**
+ * Returns the concatenated source of the requested functions and all of their
+ * transitive dependencies, topologically ordered (dependencies first). Throws
+ * when a dependency cycle is detected.
+ * @param requiredIds - Ids of the functions to include.
+ * @returns The joined GLSL source of the resolved functions.
+ */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();
     const resolving = new Set<string>();

@@ -8,7 +8,8 @@ const targets = [
     ['apps/storybook/storybook-static', 'storybook'],
     // Package docs are generated per-package by `build:docs` (TypeDoc → dist-docs)
     // and merged into the site at build time. Add each documented package here:
-    ['packages/glaze/dist-docs', 'docs/api/glaze']
+    ['packages/glaze/dist-docs', 'docs/api/glaze'],
+    ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine']
 ];
 
 for (const [src, dest] of targets) {

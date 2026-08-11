@@ -1,0 +1,32 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/types.ts",
+        "src/tree/build.ts",
+        "src/tree/evaluate.ts",
+        "src/tree/generate.ts",
+        "src/grammar/registry.ts",
+        "src/random/SeededRandom.ts",
+        "src/animation/behaviors.ts",
+        "src/compile/compileToGLSL.ts",
+        "src/compile/glslLibrary.ts",
+        "src/format/treePrinter.ts",
+        "src/render/cpu-renderer.ts",
+        "src/png-export.ts"
+    ],
+    "out": "dist-docs",
+    "readme": "./README.md",
+    "tsconfig": "./tsconfig.json",
+    "theme": "hierarchy",
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "externalSymbolLinkMappings": {
+        "@types/node": {
+            "*": "#"
+        }
+    },
+    "githubPages": false,
+    "sort": ["kind", "alphabetical"]
+}

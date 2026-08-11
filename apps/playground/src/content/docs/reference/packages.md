@@ -21,5 +21,6 @@ Generated docs are served from [`/docs/api/`](../../api/):
 | Package            | Docs                                                       |
 | ------------------ | ---------------------------------------------------------- |
 | [`@repo/glaze`](../../api/glaze/) | 2D rendering toolkit — CPU/GPU surfaces, shaders, React. |
+| [`@repo/randomart-engine`](../../api/randomart-engine/) | Grammar-driven expression trees compiling to CPU pixels and GLSL. |
 
 New packages are added here as they ship docs (`pnpm build:docs && pnpm collect-assets`).
