@@ -39,8 +39,10 @@ import {
     waveInterferenceBehavior
 } from './spatial.js';
 
+/** What a behavior mutates: the coordinate `p` (spatial) or the output `color`. */
 export type BehaviorKind = 'spatial' | 'color';
 
+/** The GLSL variable names a behavior's `applyCode` emits code against. */
 export type ApplyCodeContext = {
     time: string;
     speed: string;
@@ -48,6 +50,10 @@ export type ApplyCodeContext = {
     color: string;
 };
 
+/**
+ * A post-processing effect for the compiled shader: `kind` picks where its
+ * `applyCode` GLSL is injected, and `glslFunction` adds shared helpers.
+ */
 export type Behavior = {
     readonly id: string;
     readonly label: string;
@@ -57,6 +63,7 @@ export type Behavior = {
     readonly noiseDependencies?: readonly string[];
 };
 
+/** The built-in behavior registry, keyed by behavior id. */
 export const BEHAVIORS = {
     // ── Spatial ──
     rotate: rotateBehavior,
@@ -98,8 +105,10 @@ export const BEHAVIORS = {
     'thermal-vision': thermalVisionBehavior
 } satisfies Record<string, Behavior>;
 
+/** Union of the ids of every built-in behavior. */
 export type BehaviorId = keyof typeof BEHAVIORS;
 
+/** Look up a behavior definition by id. */
 export function getBehavior(id: BehaviorId): Behavior {
     return BEHAVIORS[id];
 }
@@ -111,11 +120,13 @@ const KIND_LABELS: Record<Behavior['kind'], string> = {
     color: 'Color'
 };
 
+/** One category of behaviors (spatial or color) with its members, for pickers. */
 export type BehaviorGroup = {
     label: string;
     behaviors: { id: BehaviorId; label: string }[];
 };
 
+/** All behaviors grouped by {@link BehaviorKind}, for building pickers. */
 export function getBehaviorKinds(): BehaviorGroup[] {
     const grouped = new Map<BehaviorKind, { id: BehaviorId; label: string }[]>();
 

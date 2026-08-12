@@ -17,6 +17,7 @@
     },
     "scripts": {
         "randomart": "tsx src/cli.ts",
+        "build:docs": "typedoc",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",
@@ -35,7 +36,10 @@
         "@repo/config-typescript": "workspace:*",
         "@types/node": "catalog:",
         "eslint": "catalog:",
-        "typescript": "catalog:",
-        "tsx": "catalog:"
+        "tsx": "catalog:",
+        "typedoc": "catalog:",
+        "typedoc-plugin-missing-exports": "catalog:",
+        "typedoc-theme-hierarchy": "catalog:",
+        "typescript": "catalog:"
     }
 }

@@ -11,6 +11,7 @@
 /** GLSL literal string for π, used across operator GLSL output. */
 export const GLSL_PI = '3.141592653589793';
 
+/** A self-contained GLSL helper function, optionally depending on other entries. */
 export type GlslFunction = {
     id: string;
     glsl: string;
@@ -99,6 +100,7 @@ const fbmNoise = {
 }`
 } as const satisfies GlslFunction;
 
+/** The built-in GLSL helper library (noise, hashing, pseudo-Recaman). */
 export const glslFunctions = [
     random2d,
     hash1,
@@ -108,8 +110,10 @@ export const glslFunctions = [
     fbmNoise
 ] as const satisfies GlslFunction[];
 
+/** Union of the ids of every built-in GLSL helper function. */
 export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 
+/** Lookup map from helper id to its {@link GlslFunction} definition. */
 export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 /**
@@ -117,7 +121,6 @@ export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map(
  * dependencies resolved in topological order.
  *
  * Throws on dependency cycles.
- * @param requiredIds
  */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();

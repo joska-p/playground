@@ -5,6 +5,7 @@ import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
 import { createCorrelatedRng, createDualRng, seededShuffle } from './prng.js';
 
+/** A node in the expression tree — an operator id plus its resolved argument slots. */
 export type Node = {
     readonly type: OperatorId;
     readonly args: Record<string, Node | number>;
@@ -16,6 +17,7 @@ type PoolEntry = {
     weight: number;
 };
 
+/** Zero-arity fallback pool used when a rule provides no terminals. */
 export const DEFAULT_TERMINALS = [
     { type: 'x', arity: 0, weight: 1.0 },
     { type: 'y', arity: 0, weight: 1.0 },
@@ -52,6 +54,7 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
     return pool[pool.length - 1]!;
 }
 
+/** Options for {@link buildTree}: the active rule and the depth/RNG hooks that shape the tree. */
 export type BuildTreeProps = {
     rule: Rule;
     maxDepth: number;
@@ -60,6 +63,10 @@ export type BuildTreeProps = {
     seedText?: string;
 };
 
+/**
+ * Grow a single expression tree by weighted random selection from the rule's
+ * operator pool, forcing terminals at `maxDepth` and operators below `rule.minDepth`.
+ */
 export function buildTree({
     rule,
     maxDepth,
@@ -115,6 +122,7 @@ export function buildTree({
     return { type: pick.type, args };
 }
 
+/** Walk the tree on the CPU, returning the operator value at `(x, y, t)` in [-1, 1]. */
 export function evaluate(node: Node, x: number, y: number, t = 0): number {
     const operator = getOperator(node.type);
     const ctx = { x, y, t };
@@ -128,6 +136,7 @@ export function evaluate(node: Node, x: number, y: number, t = 0): number {
     return operator.evaluate({ args: resolvedArgs, ctx });
 }
 
+/** Compile the tree to a GLSL expression reading the coordinate variable `coordVar`. */
 export function toGLSL(node: Node, coordVar = 'p'): string {
     const op = getOperator(node.type);
     const resolvedArgs: Record<string, string> = {};
@@ -140,6 +149,7 @@ export function toGLSL(node: Node, coordVar = 'p'): string {
     return op.toGLSL({ args: resolvedArgs, coordVar });
 }
 
+/** Convert the tree into a nested {@link TreeView} for rendering as text. */
 export function toStructuredView(node: Node): TreeView {
     const operator = getOperator(node.type);
     const value = node.args['value'];
@@ -168,12 +178,18 @@ export function toStructuredView(node: Node): TreeView {
 
 const STRUCTURE_RNG_DEPTH = 3;
 
+/** Options for {@link buildChannelTrees}. */
 export type BuildChannelTreesProps = {
     seedText: string;
     rule: Rule;
     correlated?: boolean;
 };
 
+/**
+ * Grow the three R/G/B trees for a seed. Structural decisions come from a
+ * shared RNG, channel variation from per-channel RNGs (or one shared RNG in
+ * `correlated` mode).
+ */
 export function buildChannelTrees({ seedText, rule, correlated = false }: BuildChannelTreesProps): {
     treeR: Node;
     treeG: Node;

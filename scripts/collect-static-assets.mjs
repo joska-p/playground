@@ -14,6 +14,7 @@ const targets = [
     ['packages/pixel/dist-docs', 'docs/api/pixel'],
     ['packages/pixel-manipulator/dist-docs', 'docs/api/pixel-manipulator'],
     ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine'],
+    ['packages/randomart-engine-next/dist-docs', 'docs/api/randomart-engine-next'],
     ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer']
 ];
 

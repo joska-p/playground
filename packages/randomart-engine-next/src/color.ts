@@ -12,10 +12,7 @@ export type RGB = {
     b: number;
 };
 
-/**
- * Parse a `#rgb` or `#rrggbb` hex color into RGB (0-255).
- * @param hex
- */
+/** Parse a `#rgb` or `#rrggbb` hex color into RGB (0-255). */
 export function parseHex(hex: string): RGB {
     let h = hex.trim().replace(/^#/, '');
     if (h.length === 3) {

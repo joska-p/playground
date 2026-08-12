@@ -9,10 +9,7 @@
 
 const textEncoder = new TextEncoder();
 
-/**
- * FNV-1a 32-bit hash of a string (proper UTF-8 encoding).
- * @param text
- */
+/** FNV-1a 32-bit hash of a string (proper UTF-8 encoding). */
 function fnv1a(text: string): number {
     let hash = 0x811c9dc5;
     const bytes = textEncoder.encode(text);
@@ -49,10 +46,7 @@ export class SeededRandom {
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     }
 
-    /**
-     * Integer in [0, n).
-     * @param n
-     */
+    /** Integer in [0, n). */
     nextInt(n: number): number {
         return Math.floor(this.next() * n);
     }
@@ -62,11 +56,7 @@ export class SeededRandom {
         return this.nextInt(256);
     }
 
-    /**
-     * Float in [min, max).
-     * @param min
-     * @param max
-     */
+    /** Float in [min, max). */
     nextRange(min: number, max: number): number {
         return min + this.next() * (max - min);
     }
@@ -88,8 +78,6 @@ export type DualRng = {
  *
  * The structure RNG is seeded independently from each channel RNG so that structural decisions vary
  * across seeds but stay consistent across channels within a single seed.
- * @param seedText
- * @param maxDepth
  */
 export function createDualRng(seedText: string, maxDepth: number): DualRng {
     return {
@@ -107,7 +95,6 @@ export function createDualRng(seedText: string, maxDepth: number): DualRng {
  *
  * All three channels share one RNG instance so structural decisions are identical across R/G/B —
  * the channels diverge only because the expression tree is built as separate instances.
- * @param seedText
  */
 export function createCorrelatedRng(seedText: string): DualRng {
     const rng = new SeededRandom(`${seedText}_rgb`);
@@ -119,8 +106,6 @@ export function createCorrelatedRng(seedText: string): DualRng {
  *
  * This does NOT consume from any {@link SeededRandom} instance, so callers can shuffle operator
  * lists (or anything else) without affecting the main RNG stream used for tree generation.
- * @param arr
- * @param seedText
  */
 export function seededShuffle<T>(arr: readonly T[], seedText: string): T[] {
     const result = [...arr];

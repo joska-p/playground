@@ -59,6 +59,15 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      `radu-machine-learning`, `real-life`). Fix the path in the exports map —
      a missing target is a bug, in scope, and TypeDoc/README accuracy both
      depend on the map being true. `entryPoints` list the *fixed* paths.
+     Quick check from repo root (prints nothing when all targets exist):
+     ```bash
+     node -e "
+       const p = require('./packages/<PACKAGE_NAME>/package.json');
+       const fs = require('fs');
+       for (const [sub, rel] of Object.entries(p.exports)) {
+         if (!fs.existsSync(rel)) console.log('MISSING', sub, rel);
+       }"
+     ```
 
 2. **Create `typedoc.json`.** Copy `packages/glaze/typedoc.json`; set
    `entryPoints` to the exported source files **in exports-map order** (explicit
@@ -73,7 +82,9 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    actually references (glaze maps `@types/react`; a non-React package usually
    wants `@types/node` instead — see `randomart-engine`). Run
    `pnpm --filter @repo/<PACKAGE_NAME> build:docs` once here to confirm the
-   toolchain before writing any comments.
+   toolchain before writing any comments. Note: `build:docs` needs the README
+   to exist (`readme` points at it) — if the package has none yet, write it
+   first (step 5) or the toolchain check fails.
 
 3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>/package.json`: add
    `"build:docs": "typedoc"` to `scripts` and the three devDependencies
@@ -96,9 +107,22 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      package's job to document.
    - Match the existing comment style in the file — do not add comments to
      internal/private code. Only what consumers see needs documenting.
+   - **Exported-but-internal symbols leak into the reference**: every export of
+     an entry-point file gets a docs page, even a helper props type (`export
+     type ApplyBehaviorsProps`) used only by a *non-exported* function. Mark
+     those `@internal` instead of writing a one-liner for noise (seen in
+     `randomart-engine-next`'s `compileToGLSL.ts`).
    - Keep the diff minimal: fix/extend comments, don't refactor code.
 
-5. **Simplify the README** so it stays stable:
+5. **README** — concept-only and stable. If `packages/<PACKAGE_NAME>/README.md`
+   does **not** exist, write it from scratch with the repo's shell — frontmatter
+   (`title`, `coordinates`, `status`, `date_discovered`; take `date_discovered`
+   from the package's first commit, e.g. `git log --diff-filter=A --format=%ad
+   --date=short -- packages/<PACKAGE_NAME> | tail -1`), a `# @repo/<pkg>`
+   title, a `> tagline`, the concept sections below, and the
+   `_Part of the [Creative Playground](https://joska-p.github.io/playground)_`
+   footer. Model the shape on a documented sibling (`art-canvas`,
+   `randomart-engine`). Otherwise simplify the existing one:
    - Keep the **whole shell**: frontmatter, the `> tagline`, and the footer.
    - Keep: Purpose, Quick Start, Usage Examples, Patterns & Gotchas.
    - **Remove**: API inventory — export tables, per-signature walkthroughs,
@@ -159,7 +183,9 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    ```
    - Spot-check `packages/<PACKAGE_NAME>/dist-docs/index.html`: README is the
      overview (grep for the tagline), exports are documented (the exported
-     symbol's HTML page), no dangling `@link`s.
+     symbol's HTML page), no dangling `@link`s —
+     `rg '@link' packages/<PACKAGE_NAME>/dist-docs/ --glob '*.html'` returns
+     nothing (resolved links are `<a href>`).
    - `_internal_` modules in `dist-docs/` are expected — the
      `typedoc-plugin-missing-exports` plugin pulls referenced lib types (e.g.
      `Blob`) and re-exported types; glaze has them too. Don't try to remove

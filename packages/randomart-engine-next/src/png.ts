@@ -31,11 +31,7 @@ function crc32(buf: Buffer): number {
     return (crc ^ 0xffffffff) >>> 0;
 }
 
-/**
- * Build a single PNG chunk: length + type + data + CRC.
- * @param type
- * @param data
- */
+/** Build a single PNG chunk: length + type + data + CRC. */
 function chunk(type: string, data: Buffer): Buffer {
     const typeBuf = Buffer.from(type, 'ascii');
     const lenBuf = Buffer.alloc(4);

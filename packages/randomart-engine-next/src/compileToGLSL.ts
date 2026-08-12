@@ -27,6 +27,7 @@ function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps):
     return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
+/** @internal */
 export type CollectNoiseDependenciesProps = {
     node: Node;
     deps: Set<string>;
@@ -50,6 +51,7 @@ function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps)
     }
 }
 
+/** @internal */
 export type ApplyBehaviorsProps = {
     behaviors: Behavior[];
     behaviorType: Behavior['kind'];
@@ -68,6 +70,7 @@ function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): strin
         .join('\n');
 }
 
+/** @internal */
 export type compileColorExpressionProps = {
     treeR: Node;
     treeG: Node;
@@ -79,15 +82,21 @@ function compileColorExpression({ treeR, treeG, treeB }: compileColorExpressionP
     return `vec3(${toGLSL(treeR, 'p')}, ${toGLSL(treeG, 'p')}, ${toGLSL(treeB, 'p')})`;
 }
 
+/** Options for {@link compileToShader}: the seed, the three trees, behaviors, and color space. */
 export type CompileToShaderProps = {
     seedText: string;
     treeR: Node;
     treeG: Node;
     treeB: Node;
-    behaviors?: Behavior[] | undefined;
+    behaviors?: Behavior[];
     colorSpace?: ColorSpaceId;
 };
 
+/**
+ * Compile the three channel trees into a self-contained GLSL ES 3.0 fragment
+ * shader, injecting behavior code, color-space conversion, and the resolved
+ * noise helper functions.
+ */
 export function compileToShader({
     seedText,
     treeR,

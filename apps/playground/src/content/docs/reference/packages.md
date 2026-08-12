@@ -26,6 +26,7 @@ Generated docs are served from [`/docs/api/`](../../api/):
 | [`@repo/pixel`](../../api/pixel/) | Browser image-manipulation engine — typed step pipelines over a Web Worker pool. |
 | [`@repo/pixel-manipulator`](../../api/pixel-manipulator/) | React workbench for image manipulation — upload, chain steps, inspect results. |
 | [`@repo/randomart-engine`](../../api/randomart-engine/) | Grammar-driven expression trees compiling to CPU pixels and GLSL. |
+| [`@repo/randomart-engine-next`](../../api/randomart-engine-next/) | Seed-deterministic expression trees compiling to CPU evaluation and GLSL fragment shaders, with operator/rule/behavior registries. |
 | [`@repo/sequence-renderer`](../../api/sequence-renderer/) | Interactive canvas that unfurls mathematical sequences — Fourier epicycles, a layer stack, and an orbitable viewport. |
 
 New packages are added here as they ship docs (`pnpm build:docs && pnpm collect-assets`).

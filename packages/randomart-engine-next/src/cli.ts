@@ -36,10 +36,7 @@ type ParsedArgs = {
     help: boolean;
 };
 
-/**
- * Parse argv into structured arguments. Throws on malformed flag usage.
- * @param argv
- */
+/** Parse argv into structured arguments. Throws on malformed flag usage. */
 function parseArgs(argv: string[]): ParsedArgs {
     const result: ParsedArgs = { help: false };
     const positionals: string[] = [];
@@ -82,10 +79,7 @@ function parseArgs(argv: string[]): ParsedArgs {
     return result;
 }
 
-/**
- * Print an error message + usage and exit with a non-zero code.
- * @param message
- */
+/** Print an error message + usage and exit with a non-zero code. */
 function fail(message: string): never {
     console.error(`Error: ${message}\n`);
     console.error(USAGE);
