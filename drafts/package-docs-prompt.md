@@ -30,6 +30,9 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 **Reference implementation — study these first (they are the template):**
 - `packages/glaze/typedoc.json` — the config to copy and adapt (React variant).
 - `packages/randomart-engine/typedoc.json` — the non-React variant (`@types/node` mapping).
+- `packages/art-canvas/typedoc.json` — the app-package variant: one entry point
+  (a single component export), README rewritten to concept-only, plus a stale
+  `./styles` exports-map path fixed to `global.css`.
 - `packages/glaze/package.json` — the `build:docs` script + `typedoc*` devDependencies.
 - `scripts/collect-static-assets.mjs` — where a package gets registered.
 - `apps/playground/src/content/docs/reference/packages.md` — the index page
@@ -49,6 +52,13 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    exports** — the files behind the `exports` map (exclude `.css` and any
    `docs/`, demo, or test files). If there's no exports map, use the single
    entry file (e.g. `src/index.ts`).
+   - **Validate every exports-map target exists on disk.** Stale paths are
+     common: a `./styles` → `./src/styles/styles.css` that points at the file
+     renamed to `global.css`, or a `./Demo` pointing at a renamed component
+     (present in `automa`, `fracture`, `l-system`, `oeis-signal`,
+     `radu-machine-learning`, `real-life`). Fix the path in the exports map —
+     a missing target is a bug, in scope, and TypeDoc/README accuracy both
+     depend on the map being true. `entryPoints` list the *fixed* paths.
 
 2. **Create `typedoc.json`.** Copy `packages/glaze/typedoc.json`; set
    `entryPoints` to the exported source files **in exports-map order** (explicit
@@ -94,12 +104,14 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    - **Remove**: API inventory — export tables, per-signature walkthroughs,
      file-by-file API lists (TypeDoc now owns these).
    - **Verify accuracy, not just links**: every import path in a README example
-     must exist in the package's exports map — no bare root import
-     (`@repo/<pkg>` alone) unless a `"."` export exists; drop stale counts
-     (e.g. "19 built-in rules") and filenames that no longer exist. The exports
-     map may split functions and types across subpaths (e.g. `l-system-engine`'s
-     `./engine` vs `./types`) — import each from its own subpath, never invent a
-     root export.
+      must exist in the package's exports map — no bare root import
+      (`@repo/<pkg>` alone) unless a `"."` export exists; drop stale counts
+      (e.g. "19 built-in rules") and filenames that no longer exist. Use the
+      export's actual name and form — e.g. `@repo/art-canvas/art-canvas` is a
+      *named* `{ App }`, never a default import. The exports map may split
+      functions and types across subpaths (e.g. `l-system-engine`'s `./engine`
+      vs `./types`) — import each from its own subpath, never invent a root
+      export.
    - **Drop stale *sections*, not just links**: a "Testing" block referencing a
      `test` script the package doesn't have (or a made-up test count, e.g. "38
      tests") is fabricated — delete it. Only document what actually exists.
@@ -109,17 +121,30 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      hooks and sub-components must be dropped as imports, not described as
      package APIs.
    - Fix any links that point to the old `/docs/reference/packages/<other>/` —
-     repoint cross-package mentions to the other package's new generated docs
-     (relative `../../api/<other>/` from the reference index) or to the
-     package's GitHub path.
+      repoint cross-package mentions to the other package's new generated docs
+      (relative `../../api/<other>/` from the reference index) or to the
+      package's GitHub path.
+   - **App/demo packages** (exports map like `./<name>` → one component plus
+      `./styles`): the public surface is usually a single named component (e.g.
+      `@repo/art-canvas/art-canvas` exports `{ App }`). The README's
+      deep-internals inventory — pipeline diagrams, module/template/mood/palette
+      tables, store walkthroughs — is still API inventory even though nothing
+      there is exported: drop it, and keep a prose description of *what the app
+      does* (its modes, controls) plus the one embed example. `entryPoints` is
+      then that single file and the generated reference is tiny — expected, not
+      a sign of failure. The `> tagline` and concept sections usually survive
+      verbatim; only the inventory goes.
 
 6. **Register the package:**
    - Add `['packages/<PACKAGE_NAME>/dist-docs', 'docs/api/<PACKAGE_NAME>']` to
-     `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted by
-     source path — `packages/pixel/...` sorts before
-     `packages/<PACKAGE_NAME>/...`).
+      `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted
+      **alphabetically by source path** — e.g. `packages/art-canvas/...` before
+      `packages/glaze/...`, `packages/pixel/...` before
+      `packages/pixel-manipulator/...`).
    - Add a row to the table in
-     `apps/playground/src/content/docs/reference/packages.md` (also sorted).
+      `apps/playground/src/content/docs/reference/packages.md` (also sorted
+      alphabetically by package name — `@repo/art-canvas` before
+      `@repo/glaze`).
 
 7. **Verify (all from repo root):**
    ```bash

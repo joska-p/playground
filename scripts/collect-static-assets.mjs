@@ -8,6 +8,7 @@ const targets = [
     ['apps/storybook/storybook-static', 'storybook'],
     // Package docs are generated per-package by `build:docs` (TypeDoc → dist-docs)
     // and merged into the site at build time. Add each documented package here:
+    ['packages/art-canvas/dist-docs', 'docs/api/art-canvas'],
     ['packages/glaze/dist-docs', 'docs/api/glaze'],
     ['packages/l-system-engine/dist-docs', 'docs/api/l-system-engine'],
     ['packages/pixel/dist-docs', 'docs/api/pixel'],

@@ -20,6 +20,7 @@ Generated docs are served from [`/docs/api/`](../../api/):
 
 | Package            | Docs                                                       |
 | ------------------ | ---------------------------------------------------------- |
+| [`@repo/art-canvas`](../../api/art-canvas/) | Interactive WebGL canvas that composes procedural shader art from a mood-biased, seed-deterministic pipeline. |
 | [`@repo/glaze`](../../api/glaze/) | 2D rendering toolkit — CPU/GPU surfaces, shaders, React. |
 | [`@repo/l-system-engine`](../../api/l-system-engine/) | Grammar-agnostic L-system rewriting engine — pure symbol rewriting with rule factories, seeding, and validation. |
 | [`@repo/pixel`](../../api/pixel/) | Browser image-manipulation engine — typed step pipelines over a Web Worker pool. |
