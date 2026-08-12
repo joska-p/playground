@@ -1,9 +1,7 @@
-import type { ComponentProps, Ref } from 'react';
+import type { ComponentProps } from 'react';
 import { cn } from '../../../lib/cn';
 
-export type CardTitleProps = {
-    ref?: Ref<HTMLHeadingElement>;
-} & ComponentProps<'h3'>;
+export type CardTitleProps = {} & ComponentProps<'h3'>;
 
 /**
  * A card's heading — typography only, no props beyond standard heading attributes. Renders `<h3>`
@@ -12,10 +10,9 @@ export type CardTitleProps = {
  * polymorphism in this library), so render your own heading in that one spot instead of reaching
  * for this component.
  */
-export function CardTitle({ ref, className, children, ...props }: CardTitleProps) {
+export function CardTitle({ className, children, ...props }: CardTitleProps) {
     return (
         <h3
-            ref={ref}
             className={cn('text-card-foreground font-semibold', className)}
             {...props}
         >

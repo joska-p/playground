@@ -1,4 +1,4 @@
-import type { ComponentProps, Ref } from 'react';
+import type { ComponentProps } from 'react';
 import { Icon } from '../../icons/Icon';
 import type { IconName } from '../../icons/iconMap';
 import { CardBody } from '../shared/CardBody';
@@ -7,7 +7,6 @@ import { CardLink } from '../shared/CardLink';
 import { CardTitle } from '../shared/CardTitle';
 
 export type DocCardProps = {
-    ref?: Ref<HTMLAnchorElement>;
     title: string;
     description?: string;
     type?: string;
@@ -20,7 +19,6 @@ export type DocCardProps = {
  * color comes in separately through CardLink's `accent`.
  */
 function DocCard({
-    ref,
     title,
     description,
     type = 'reference',
@@ -30,7 +28,6 @@ function DocCard({
 }: DocCardProps) {
     return (
         <CardLink
-            ref={ref}
             data-variant="doc"
             className={className}
             {...props}

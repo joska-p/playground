@@ -7,7 +7,7 @@ import { CardLink } from '../shared/CardLink';
 import { CardTitle } from '../shared/CardTitle';
 
 export type ProjectCardProps = {
-    ref?: Ref<HTMLAnchorElement>;
+    ref: Ref<HTMLAnchorElement | null>;
     title: string;
     description?: string;
     iconName: IconName;
@@ -21,7 +21,6 @@ export type ProjectCardProps = {
  * mapping lives with whoever's calling it.
  */
 function ProjectCard({
-    ref,
     title,
     description,
     iconName,
@@ -31,7 +30,6 @@ function ProjectCard({
 }: ProjectCardProps) {
     return (
         <CardLink
-            ref={ref}
             data-variant="experiment"
             className={className}
             {...props}

@@ -5,9 +5,10 @@
     "type": "module",
     "exports": {
         "./radu-machine-learning": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/global.css"
     },
     "scripts": {
+        "build:docs": "typedoc",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
@@ -41,6 +42,9 @@
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
+        "typedoc": "catalog:",
+        "typedoc-plugin-missing-exports": "catalog:",
+        "typedoc-theme-hierarchy": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
     }

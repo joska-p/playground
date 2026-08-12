@@ -13,6 +13,7 @@ const targets = [
     ['packages/l-system-engine/dist-docs', 'docs/api/l-system-engine'],
     ['packages/pixel/dist-docs', 'docs/api/pixel'],
     ['packages/pixel-manipulator/dist-docs', 'docs/api/pixel-manipulator'],
+    ['packages/radu-machine-learning/dist-docs', 'docs/api/radu-machine-learning'],
     ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine'],
     ['packages/randomart-engine-next/dist-docs', 'docs/api/randomart-engine-next'],
     ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer']

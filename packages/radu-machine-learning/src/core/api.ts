@@ -5,16 +5,19 @@ const { samples } = features;
 
 function getSamplesByStudents(): Students {
     return samples.reduce((students: Students, sample) => {
-        const existing = students[sample.student_id];
-
         const drawing: Drawing = {
             id: sample.id,
             label: sample.label,
             point: sample.point
         };
 
-        if (existing) {
-            existing.drawings.push(drawing);
+        if (sample.student_id in students) {
+            const student = students[sample.student_id];
+            // For some reason eslint flag student as possibly undefined in the terminal but not in vscode. Maybe a probleme with the size ot the files and ts.
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (student !== undefined) {
+                student.drawings.push(drawing);
+            }
         } else {
             students[sample.student_id] = {
                 id: sample.student_id,

@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { scaleTo255 } from '../../../utils/color';
 
 type ColorSpaceCanvasProps = {
-    ref?: React.RefObject<HTMLCanvasElement>;
+    ref: React.RefObject<HTMLCanvasElement | null>;
     spaceId: keyof typeof colorSpaces;
     zValue: number;
     size?: number;
@@ -14,7 +14,7 @@ function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpa
     const config = useMemo(() => colorSpaces[spaceId], [spaceId]);
 
     useEffect(() => {
-        const canvas = ref?.current;
+        const canvas = ref.current;
         const ctx = canvas?.getContext('2d');
         if (!ctx) return;
 

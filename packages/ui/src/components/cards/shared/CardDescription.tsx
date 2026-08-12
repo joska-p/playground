@@ -1,9 +1,7 @@
-import type { ComponentProps, Ref } from 'react';
+import type { ComponentProps } from 'react';
 import { cn } from '../../../lib/cn';
 
-export type CardDescriptionProps = {
-    ref?: Ref<HTMLParagraphElement>;
-} & ComponentProps<'p'>;
+export type CardDescriptionProps = {} & ComponentProps<'p'>;
 
 /**
  * A card's supporting text — typography only, no props beyond standard paragraph attributes.
@@ -14,7 +12,6 @@ export type CardDescriptionProps = {
 export function CardDescription({ ref, className, children, ...props }: CardDescriptionProps) {
     return (
         <p
-            ref={ref}
             className={cn('text-muted-foreground text-sm', className)}
             {...props}
         >

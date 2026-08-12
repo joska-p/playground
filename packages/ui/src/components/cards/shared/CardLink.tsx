@@ -1,8 +1,7 @@
-import type { ComponentProps, CSSProperties, Ref } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from '../../../lib/cn';
 
 export type CardLinkProps = {
-    ref?: Ref<HTMLAnchorElement>;
     href: string;
     accent?: string;
 } & Omit<ComponentProps<'a'>, 'href'>;
@@ -17,7 +16,6 @@ export type CardLinkProps = {
  * further across neighboring cards.
  */
 export function CardLink({
-    ref,
     href,
     accent = 'var(--primary)',
     className,
@@ -27,7 +25,6 @@ export function CardLink({
 }: CardLinkProps) {
     return (
         <a
-            ref={ref}
             href={href}
             className={cn(
                 'group relative flex flex-col overflow-hidden rounded-lg border border-transparent bg-(--variant-color)/10',

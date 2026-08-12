@@ -1,4 +1,4 @@
-import type { ComponentProps, Ref } from 'react';
+import type { ComponentProps } from 'react';
 import { cn } from '../../../lib/cn';
 import { Icon } from '../../icons/Icon';
 import type { IconName } from '../../icons/iconMap';
@@ -6,7 +6,6 @@ import { CardBody } from '../shared/CardBody';
 import { CardLink } from '../shared/CardLink';
 
 export type CategoryCardProps = {
-    ref?: Ref<HTMLAnchorElement>;
     label: string;
     description?: string;
     iconName: IconName;
@@ -22,7 +21,6 @@ export type CategoryCardProps = {
  * CardLink, same as everywhere else.
  */
 function CategoryCard({
-    ref,
     label,
     description,
     iconName,
@@ -32,7 +30,6 @@ function CategoryCard({
 }: CategoryCardProps) {
     return (
         <CardLink
-            ref={ref}
             data-tilt
             className={cn('hover:translate-y-0', className)}
             {...props}
