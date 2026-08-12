@@ -1,8 +1,6 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
-/**
- * Options for {@link contextSensitiveRule} — the matched name plus optional left/right context.
- */
+/** Options for {@link contextSensitiveRule} — the matched name plus optional left/right context. */
 export type ContextSensitiveOptions = {
     /** Name of the symbol this rule matches. */
     readonly name: string;
@@ -55,6 +53,7 @@ function findRightNeighbor(
 /**
  * Matches a symbol by name, optionally checking left and/or right neighbors. Bracket symbols `[`
  * and `]` are skipped during context lookup by default (configurable via `ignoreBrackets: false`).
+ *
  * @example
  *     contextSensitiveRule({
  *         name: 'a',

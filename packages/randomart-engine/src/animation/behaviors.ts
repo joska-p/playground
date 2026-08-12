@@ -414,8 +414,8 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
 };
 
 /**
- * Every built-in animation behavior, in registration order — the default
- * catalog passed to `compileToGLSL`.
+ * Every built-in animation behavior, in registration order — the default catalog passed to
+ * `compileToGLSL`.
  */
 export const animationRegistry: AnimationBehavior[] = [
     hueShiftBehavior,

@@ -93,9 +93,8 @@ export type CompileToShaderProps = {
 };
 
 /**
- * Compile the three channel trees into a self-contained GLSL ES 3.0 fragment
- * shader, injecting behavior code, color-space conversion, and the resolved
- * noise helper functions.
+ * Compile the three channel trees into a self-contained GLSL ES 3.0 fragment shader, injecting
+ * behavior code, color-space conversion, and the resolved noise helper functions.
  */
 export function compileToShader({
     seedText,

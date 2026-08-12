@@ -3,9 +3,9 @@ import type { RuleId as RuleIdInternal } from './grammar/registry';
 import type { SeededRandom } from './random/SeededRandom';
 
 /**
- * A node in the expression tree — a recursive AST of mathematical operations.
- * `ruleId` names the grammar rule (e.g. `"sin"`, `"add"`, `"constant"`), `args`
- * hold the child nodes, and `constantValue` is set when `ruleId === "constant"`.
+ * A node in the expression tree — a recursive AST of mathematical operations. `ruleId` names the
+ * grammar rule (e.g. `"sin"`, `"add"`, `"constant"`), `args` hold the child nodes, and
+ * `constantValue` is set when `ruleId === "constant"`.
  */
 export type ExpressionNode = {
     ruleId: string;
@@ -14,9 +14,9 @@ export type ExpressionNode = {
 };
 
 /**
- * The contract every grammar operator implements — the plugin interface that
- * makes the grammar extensible. Each rule knows how to build a node, evaluate
- * it, and render it to GLSL, math notation, and a tree view.
+ * The contract every grammar operator implements — the plugin interface that makes the grammar
+ * extensible. Each rule knows how to build a node, evaluate it, and render it to GLSL, math
+ * notation, and a tree view.
  */
 export type GrammarRule = {
     id: string;
@@ -40,24 +40,18 @@ export type GrammarRule = {
     noiseDependencies?: GlslFunctionsIds[];
 };
 
-/**
- * Union of the ids of every rule registered in the grammar.
- */
+/** Union of the ids of every rule registered in the grammar. */
 export type RuleId = RuleIdInternal;
 
-/**
- * A weight for every rule id — the full grammar weighting.
- */
+/** A weight for every rule id — the full grammar weighting. */
 export type RuleWeight = Record<RuleId, number>;
 
-/**
- * A partial weight map for overriding selected rules' default weights.
- */
+/** A partial weight map for overriding selected rules' default weights. */
 export type RuleWeights = Partial<RuleWeight>;
 
 /**
- * The GLSL variable names injected into an {@link AnimationBehavior}'s
- * `applyCode` — the surface each behavior mutates.
+ * The GLSL variable names injected into an {@link AnimationBehavior}'s `applyCode` — the surface
+ * each behavior mutates.
  */
 export type ApplyCodeContext = {
     time: string;
@@ -67,8 +61,8 @@ export type ApplyCodeContext = {
 };
 
 /**
- * A post-processing effect (spatial or color) whose `applyCode` emits GLSL
- * against the compiled shader.
+ * A post-processing effect (spatial or color) whose `applyCode` emits GLSL against the compiled
+ * shader.
  */
 export type AnimationBehavior = {
     id: string;

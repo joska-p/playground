@@ -9,7 +9,7 @@ export type CardDescriptionProps = {} & ComponentProps<'p'>;
  * `className` where they want it, so a card that wants the full description un-truncated gets that
  * for free instead of having to fight a built-in clamp.
  */
-export function CardDescription({ ref, className, children, ...props }: CardDescriptionProps) {
+export function CardDescription({ className, children, ...props }: CardDescriptionProps) {
     return (
         <p
             className={cn('text-muted-foreground text-sm', className)}

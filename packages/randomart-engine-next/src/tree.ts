@@ -64,8 +64,8 @@ export type BuildTreeProps = {
 };
 
 /**
- * Grow a single expression tree by weighted random selection from the rule's
- * operator pool, forcing terminals at `maxDepth` and operators below `rule.minDepth`.
+ * Grow a single expression tree by weighted random selection from the rule's operator pool, forcing
+ * terminals at `maxDepth` and operators below `rule.minDepth`.
  */
 export function buildTree({
     rule,
@@ -186,9 +186,8 @@ export type BuildChannelTreesProps = {
 };
 
 /**
- * Grow the three R/G/B trees for a seed. Structural decisions come from a
- * shared RNG, channel variation from per-channel RNGs (or one shared RNG in
- * `correlated` mode).
+ * Grow the three R/G/B trees for a seed. Structural decisions come from a shared RNG, channel
+ * variation from per-channel RNGs (or one shared RNG in `correlated` mode).
  */
 export function buildChannelTrees({ seedText, rule, correlated = false }: BuildChannelTreesProps): {
     treeR: Node;

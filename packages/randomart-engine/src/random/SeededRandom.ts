@@ -1,8 +1,8 @@
 const HISTORY_LIMIT = 1024;
 
 /**
- * A deterministic seeded PRNG (Mulberry32) that reproduces the same sequence of
- * values for the same seed string — the engine's source of reproducible variety.
+ * A deterministic seeded PRNG (Mulberry32) that reproduces the same sequence of values for the same
+ * seed string — the engine's source of reproducible variety.
  */
 export class SeededRandom {
     private seed: number;

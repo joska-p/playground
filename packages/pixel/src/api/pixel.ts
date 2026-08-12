@@ -117,8 +117,8 @@ function buildCatalog(): Record<string, ManipulationInfo> {
 const MANIPULATIONS = buildCatalog();
 
 /**
- * The package's single facade: run pipelines over `ImageData`, browse the
- * manipulation catalog, and manage the worker pool.
+ * The package's single facade: run pipelines over `ImageData`, browse the manipulation catalog, and
+ * manage the worker pool.
  */
 export const pixel = {
     /** All registered manipulations, keyed by id. */

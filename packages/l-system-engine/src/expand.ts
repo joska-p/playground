@@ -8,6 +8,7 @@ import type { ExpandOptions, Grammar, Word } from './types';
  * - Pure function — does not mutate the grammar.
  * - `seed` controls the RNG for stochastic grammars. Same seed → same result.
  * - `iterations = 0` returns the axiom unchanged.
+ *
  * @example
  *     const word = expand(grammar, 5, { seed: 42 });
  */

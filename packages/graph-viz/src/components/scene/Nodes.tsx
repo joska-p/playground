@@ -36,10 +36,9 @@ function Nodes() {
         const isCode = event.object === codeMeshRef.current;
         const lookup = isCode ? codeToGlobal : docToGlobal;
         const globalIdx = lookup[instanceId];
-        if (globalIdx === undefined) return;
 
         const node = nodes[globalIdx];
-        if (node && !visibleCommunities.has(node.community)) return;
+        if (!visibleCommunities.has(node.community)) return;
 
         selectNode(selectedNodeIdx === globalIdx ? null : globalIdx);
     }

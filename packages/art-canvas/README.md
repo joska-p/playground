@@ -28,12 +28,12 @@ and working; the fun happens inside it.
 
 ## The modules
 
-| Module        | State                                                |
-| ------------- | ---------------------------------------------------- |
-| **Seed**      | Procedural shader generator — seed + mood bias into a composed fragment shader. The most "built" module. |
-| **Atlas**     | The current direction — modular-arithmetic shader rendering Unicode symbols (arrows, boxes, arcs, chevrons). |
-| **Folded Space** | A hardcoded study of `repeatSpace` + cosine palette composition. |
-| **Manual**    | A hand-authored shader with a few sliders. |
+| Module           | State                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Seed**         | Procedural shader generator — seed + mood bias into a composed fragment shader. The most "built" module.     |
+| **Atlas**        | The current direction — modular-arithmetic shader rendering Unicode symbols (arrows, boxes, arcs, chevrons). |
+| **Folded Space** | A hardcoded study of `repeatSpace` + cosine palette composition.                                             |
+| **Manual**       | A hand-authored shader with a few sliders.                                                                   |
 
 ## Quick Start
 

@@ -59,8 +59,8 @@ const COLOR_SPACE_GLSL: Record<string, string> = {
 };
 
 /**
- * Wrap a raw GLSL color expression so it lands in `color`, converting from the
- * given color space to sRGB when needed.
+ * Wrap a raw GLSL color expression so it lands in `color`, converting from the given color space to
+ * sRGB when needed.
  */
 export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorSpaceId): string {
     switch (colorSpace) {

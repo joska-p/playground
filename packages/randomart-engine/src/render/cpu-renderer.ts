@@ -8,9 +8,8 @@ function toChannel(value: number): number {
 }
 
 /**
- * Renders the three channel trees into an RGBA pixel buffer, evaluating every
- * pixel on the CPU. Expression values in [-1, 1] map to 8-bit channels,
- * mirroring the GLSL shader's normalization.
+ * Renders the three channel trees into an RGBA pixel buffer, evaluating every pixel on the CPU.
+ * Expression values in [-1, 1] map to 8-bit channels, mirroring the GLSL shader's normalization.
  */
 export function renderTreesToBuffer(
     treeR: ExpressionNode,

@@ -34,8 +34,8 @@ export type EvalContext = {
 };
 
 /**
- * The contract every grammar operator implements — knows its arity, how to
- * evaluate, and how to render itself to GLSL and math notation.
+ * The contract every grammar operator implements — knows its arity, how to evaluate, and how to
+ * render itself to GLSL and math notation.
  */
 export type Operator<TArgNames extends readonly string[] = readonly string[]> = {
     readonly arity: number;

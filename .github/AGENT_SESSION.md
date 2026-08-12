@@ -19,12 +19,12 @@ package :
 ## Board & script
 
 - Script : `./scripts/kanban.sh` (depuis la racine)
-  - `add "TITRE" [-s STATUS] [-p PRIORITY] [-e EFFORT] [-b BODY]`
-  - `idea "TITRE"` (Backlog/Low) · `wip "TITRE"` (In Progress/High)
-  - `list` · `status <ID> <STATUS>` · `priority <ID> <PRIO>` · `effort <ID> <LEVEL>` · `delete <ID>` · `board`
-  - `queue` (voir la file) · `enqueue <FIELD> <ID> <VALUE>` · `drain` (rejouer la file)
-  - STATUS : Backlog | Todo | In Progress | Done · PRIORITY : Low | Medium | High | Urgent
-  - EFFORT : 1 | 2 | 3 | 5 | 8 (Fibonacci — quick win = High + effort ≤ 2)
+    - `add "TITRE" [-s STATUS] [-p PRIORITY] [-e EFFORT] [-b BODY]`
+    - `idea "TITRE"` (Backlog/Low) · `wip "TITRE"` (In Progress/High)
+    - `list` · `status <ID> <STATUS>` · `priority <ID> <PRIO>` · `effort <ID> <LEVEL>` · `delete <ID>` · `board`
+    - `queue` (voir la file) · `enqueue <FIELD> <ID> <VALUE>` · `drain` (rejouer la file)
+    - STATUS : Backlog | Todo | In Progress | Done · PRIORITY : Low | Medium | High | Urgent
+    - EFFORT : 1 | 2 | 3 | 5 | 8 (Fibonacci — quick win = High + effort ≤ 2)
 - ⚠️ Rate limit GitHub : les opérations échouées sont mises en file
   `scripts/kanban.queue` (gitignoré). `drain` les rejoue lentement (défaut 15 s
   par op, `KANBAN_DELAY` pour régler) en vérifiant le quota GraphQL avant chaque

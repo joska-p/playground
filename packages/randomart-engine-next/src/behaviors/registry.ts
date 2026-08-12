@@ -51,8 +51,8 @@ export type ApplyCodeContext = {
 };
 
 /**
- * A post-processing effect for the compiled shader: `kind` picks where its
- * `applyCode` GLSL is injected, and `glslFunction` adds shared helpers.
+ * A post-processing effect for the compiled shader: `kind` picks where its `applyCode` GLSL is
+ * injected, and `glslFunction` adds shared helpers.
  */
 export type Behavior = {
     readonly id: string;

@@ -58,8 +58,6 @@ function GraphCanvas() {
         const controls = controlsRef.current;
         if (selectedNodeIdx === null || !controls) return;
         const node = nodes[selectedNodeIdx];
-        if (!node) return;
-
         const offset = new THREE.Vector3().copy(controls.object.position).sub(controls.target);
 
         // Clamp offset to a reasonable distance so clicking from

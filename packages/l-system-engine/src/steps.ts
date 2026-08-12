@@ -38,6 +38,7 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
  * yielded is `grammar.axiom` (iteration 0).
  *
  * Useful for animation: the UI calls `iterator.next()` on each frame.
+ *
  * @example
  *     const iter = steps(grammar, { seed: 42 });
  *     const iteration0 = iter.next().value; // axiom

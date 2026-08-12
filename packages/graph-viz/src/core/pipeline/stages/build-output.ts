@@ -105,8 +105,11 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
 
     const communityColor = new Map<number, string>();
     for (const c of communitySizeRank) {
-        const color = c.color ?? '#888888';
-        communityColor.set(c.id, color);
+        const color = c.color;
+
+        // for whatever reason
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        communityColor.set(c.id, color ?? '#fefefe');
     }
 
     for (const [id, data] of commAccum) {

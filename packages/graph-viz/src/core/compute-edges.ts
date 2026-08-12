@@ -26,8 +26,6 @@ export function computeEdgeBuffers(
         const target = nodes[link.targetIdx];
 
         if (
-            !source ||
-            !target ||
             (visibleCommunities.size > 0 && !visibleCommunities.has(source.community)) ||
             (visibleCommunities.size > 0 && !visibleCommunities.has(target.community))
         ) {

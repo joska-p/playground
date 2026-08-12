@@ -39,10 +39,9 @@ function buildPool(
 }
 
 /**
- * Builds one expression tree, recursively picking rules from a pool weighted by
- * each rule's `weight`. Structural decisions at shallow depth come from
- * `structureRng` (shared across channels) so R/G/B trees share shape; deeper
- * nodes use `channelRng`.
+ * Builds one expression tree, recursively picking rules from a pool weighted by each rule's
+ * `weight`. Structural decisions at shallow depth come from `structureRng` (shared across channels)
+ * so R/G/B trees share shape; deeper nodes use `channelRng`.
  */
 export function buildTree(
     structureRng: SeededRandom,

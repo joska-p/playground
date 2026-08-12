@@ -25,9 +25,7 @@ function assertDefined<T>(value: T | undefined, message = 'Expected value to be 
     return value;
 }
 
-/**
- * FNV-1a style hash, folded to a positive 32-bit int (never 0).
- */
+/** FNV-1a style hash, folded to a positive 32-bit int (never 0). */
 function hashSeed(seedString: string): number {
     let hash = 2166136261;
     for (let i = 0; i < seedString.length; i++) {

@@ -2,6 +2,7 @@ import type { LSymbol, Rule, Word } from '../types';
 
 /**
  * Matches any symbol whose name equals `name` and always produces the same word.
+ *
  * @example
  *     deterministicRule('F', [symbol('F'), symbol('+'), symbol('F')]);
  */

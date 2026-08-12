@@ -143,7 +143,7 @@ const shader = compileToShader({
 ## Field Notes
 
 - **The Catalyst:** The realization that a random-art engine's real complexity
-  is not tree generation but the *seams* — operators, rules, behaviors, and the
+  is not tree generation but the _seams_ — operators, rules, behaviors, and the
   GLSL helpers they share. The redesign exists to make those seams first-class
   subpath exports instead of one monolithic grammar registry.
 - **Quirks & Anomalies:** With `exactOptionalPropertyTypes`, shader options like

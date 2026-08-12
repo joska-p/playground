@@ -10,7 +10,7 @@ export const STRING_ARGS: string[] = ['x', 'y', '0.50'];
 /**
  * Argument names used when generating a _live_ fragment shader. Unlike STRING_ARGS, 't' here must
  * resolve to an actual GLSL variable name because ValueCanvasGPU declares `float t = u_time;` in
- * scope and animates it per-frame (u_time is one of @repo/glaze's built-in shader uniforms).
+ * scope and animates it per-frame (u_time is one of '@repo/glaze''s built-in shader uniforms).
  */
 export const GLSL_ARGS: string[] = ['x', 'y', 't'];
 

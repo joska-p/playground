@@ -1,8 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": [
-        "src/App.tsx"
-    ],
+    "entryPoints": ["src/App.tsx"],
     "out": "dist-docs",
     "readme": "./README.md",
     "tsconfig": "./tsconfig.app.json",

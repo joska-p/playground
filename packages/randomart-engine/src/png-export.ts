@@ -3,8 +3,8 @@ import { renderTreesToBuffer } from './render/cpu-renderer';
 import type { ExpressionNode } from './types';
 
 /**
- * Renders the three channel trees to an encoded PNG (`Uint8Array`), ready for
- * disk or for wrapping in a `Blob`.
+ * Renders the three channel trees to an encoded PNG (`Uint8Array`), ready for disk or for wrapping
+ * in a `Blob`.
  */
 export function renderTreesToPngBuffer(
     treeR: ExpressionNode,
@@ -25,8 +25,8 @@ export function renderTreesToPngBuffer(
 }
 
 /**
- * Renders the three channel trees to a `Blob` of MIME type `image/png`, ready
- * for display or download.
+ * Renders the three channel trees to a `Blob` of MIME type `image/png`, ready for display or
+ * download.
  */
 export function renderTreesToPngBlob(
     treeR: ExpressionNode,

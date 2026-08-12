@@ -41,11 +41,7 @@ function Branch({ position = new Vector3(0, 0, 0), rotation = new Euler(0, 0, 0)
     });
 
     useFrame((state) => {
-        if (
-            materialRef.current &&
-            'uniforms' in materialRef.current &&
-            materialRef.current.uniforms['uTime']
-        ) {
+        if (materialRef.current && 'uniforms' in materialRef.current) {
             materialRef.current.uniforms['uTime'].value = state.clock.getElapsedTime();
         }
     });

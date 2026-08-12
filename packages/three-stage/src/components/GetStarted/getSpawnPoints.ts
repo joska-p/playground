@@ -137,9 +137,6 @@ export function getSpawnPoints({
 
     // 3. Handle pure mathematical vertex processing
     const rawVertices = VERTEX_PRESETS[preset];
-
-    if (!rawVertices) throw new Error(`No raw vertices found for preset: ${preset}`);
-
     const vertexVec = new Vector3();
     let idCounter = 0;
 

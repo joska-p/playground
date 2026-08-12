@@ -21,6 +21,7 @@ export type StochasticRule = {
  *
  * Weights must sum to 1.0 (±0.001 tolerance). Validation is deferred to `validate()` — this factory
  * does not throw.
+ *
  * @example
  *     stochasticRule('F', [
  *         { weight: 0.7, produce: [symbol('F'), symbol('F')] },

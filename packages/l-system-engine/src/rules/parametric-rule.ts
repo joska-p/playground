@@ -17,6 +17,7 @@ export type ParametricOptions = {
  * Matches a symbol by name and an optional guard predicate on its parameters. The production is a
  * function that receives the current parameters and returns a new word — enabling parameter
  * transformations at each step.
+ *
  * @example
  *     parametricRule({
  *         name: 'F',
