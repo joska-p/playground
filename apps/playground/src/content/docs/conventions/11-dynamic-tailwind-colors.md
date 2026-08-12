@@ -26,5 +26,3 @@ Use CSS variables set via `style` + Tailwind's CSS variable shorthand to apply d
 // ❌
 <div style={{ color: dynamicValue }} />
 ```
-
-See `apps/playground/src/content/docs/explanation/dynamic-tailwind.md` for the full explanation.

@@ -13,7 +13,7 @@ pnpm --filter @repo/<package> <cmd>
 ## Deep docs (on-demand, not always loaded)
 
 - **Conventions (code)** → `./apps/playground/src/content/docs/conventions/01-overview.md`
-- **Engine architecture** → `./apps/playground/src/content/docs/explanation/engine.md`
+- **Engine architecture** → `./apps/playground/src/content/docs/explanation/architecture.md` (mental model) and `./apps/playground/src/content/docs/explanation/engine-patterns.md` (tradeoffs)
 - **Package documentation** → `./apps/playground/src/content/docs/how-to/documenting-packages.md`
 - **Other docs** → `./apps/playground/src/content/docs/`
 
