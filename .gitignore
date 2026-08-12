@@ -124,3 +124,7 @@ dump.sql
 
 # Turborepo
 .turbo
+
+# Kanban queue (rate-limit retries)
+scripts/kanban.queue
+scripts/kanban.queue.tmp

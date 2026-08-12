@@ -19,21 +19,31 @@ package :
 ## Board & script
 
 - Script : `./scripts/kanban.sh` (depuis la racine)
-  - `add "TITRE" [-s STATUS] [-p PRIORITY] [-b BODY]`
+  - `add "TITRE" [-s STATUS] [-p PRIORITY] [-e EFFORT] [-b BODY]`
   - `idea "TITRE"` (Backlog/Low) · `wip "TITRE"` (In Progress/High)
-  - `list` · `status <ID> <STATUS>` · `priority <ID> <PRIO>` · `delete <ID>` · `board`
+  - `list` · `status <ID> <STATUS>` · `priority <ID> <PRIO>` · `effort <ID> <LEVEL>` · `delete <ID>` · `board`
+  - `queue` (voir la file) · `enqueue <FIELD> <ID> <VALUE>` · `drain` (rejouer la file)
   - STATUS : Backlog | Todo | In Progress | Done · PRIORITY : Low | Medium | High | Urgent
-- Préfixes émoji des titres : 💡 idée/concept brut · 🧪 expérience fonctionnelle
-  mais WIP · 🛠️ maintenance/config/tooling/docs
-- ⚠️ Espace les appels API d'~1 s (rate limit GitHub : pas de lots parallèles ;
-  les échecs peuvent quand même créer la carte mais sans status/priority).
+  - EFFORT : 1 | 2 | 3 | 5 | 8 (Fibonacci — quick win = High + effort ≤ 2)
+- ⚠️ Rate limit GitHub : les opérations échouées sont mises en file
+  `scripts/kanban.queue` (gitignoré). `drain` les rejoue lentement (défaut 15 s
+  par op, `KANBAN_DELAY` pour régler) en vérifiant le quota GraphQL avant chaque
+  opération. Ne pas lancer de lots de `gh project` à la chaîne (limite burst).
 
 ## Progression
 
 Déjà triés : **art-canvas** (README réécrit → carte Done), **automa** (2 cartes
-créées), **automa-engine** (stable, rien à faire).
+créées), **automa-engine** (stable, rien à faire), **config-eslint** (revue
+faite — README complet, stable, rien à faire), **config-typescript** (revue
+faite — README désynchronisé d'app.json → carte créée, effort 1), **fracture**
+(revue faite — passe lint/types ; carte remplacée par "framework de fractals"),
+**mandelbrot** (revue faite — 22 lint + 5 TS errors, aucun script
+lint/check-types → carte High "Fix erreurs lint + TS", effort 3), **glaze**
+(revue "finale" faite — 71 tests OK, lint/types OK, typedoc OK ; carte "Corriger
+le README" créée, effort 2 — Priority/Effort de cette carte sont en file
+`scripts/kanban.queue` à drainer).
 
-Prochain package : **config-eslint** → config-typescript → fracture → glaze → …
+Prochain package : **graph-viz** → image-to-particles → l-system → …
 
 ## État du board
 
@@ -42,14 +52,23 @@ mention) : la décision outil docs (High), le refactor docs par package (une
 carte "🛠️ [Docs] <pkg>: README + API" pour chaque package non documenté), les
 cartes créées pendant le tri (Mandelbrot, OEIS Signal, Randomart doublon,
 Primordial Noise, Drafts Ideas, Fracture, Glaze, Repo README, Repo nettoyage,
-Art-Canvas atlas, Automa éditeur de règles / algorithmic art).
+Art-Canvas atlas, Automa éditeur de règles / algorithmic art) + cette session
+(config-typescript README aligné, mandelbrot fix lint+TS High, glaze README
+fix).
 
 ## Fils en cours (importants)
 
-1. **Refactor doc system** — TypeDoc ne convient pas au FP ni aux composants
+1. **Architecture fractals (nouvelle direction)** — hiérarchie en 3 couches :
+   **glaze** = lib graphique (début d'une "nouvelle ère" : se faire ses propres
+   outils) → **fracture** = moteur abstrait de fractals → **mandelbrot** =
+   app standalone construite SUR fracture, avec les implémentations (Original,
+   DoubleSplit, Perturbation). Glaze garde TypeDoc/TSDoc pour l'instant.
+   Cartes liées : fracture "framework de fractals" (effort 5), mandelbrot fix
+   lint+TS (High).
+2. **Refactor doc system** — TypeDoc ne convient pas au FP ni aux composants
    React. Une carte High "Choisir l'outil d'API doc" est prioritaire. Le système
    actuel : README (concept) + TypeDoc (API) → `dist-docs` →
    `scripts/collect-static-assets.mjs` → servi sur `/docs/api/<pkg>/`. Le double
    registre manuel (collect-static-assets + reference/packages.md) est voulu.
-2. **Randomart vs randomart-next** : doublon potentiel à consolider.
-3. README racine : chemins `packages/engines/...` inexistants à corriger.
+3. **Randomart vs randomart-next** : doublon potentiel à consolider.
+4. README racine : chemins `packages/engines/...` inexistants à corriger.
