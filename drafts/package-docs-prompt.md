@@ -1,6 +1,6 @@
 # Package Documentation Prompt (reusable)
 
-Copy this into a fresh session for EACH package. Replace `<PACKAGE_NAME>>` with
+Copy this into a fresh session for EACH package. Replace `<PACKAGE_NAME>` with
 the package directory name under `packages/` (e.g. `randomart-engine`). Do one
 package per session.
 
@@ -8,7 +8,7 @@ package per session.
 
 ## Mission
 
-Document the package `packages/<PACKAGE_NAME>>` using the repo's documentation
+Document the package `packages/<PACKAGE_NAME>` using the repo's documentation
 system. This is a **single-package** task: do not touch, build, or regenerate
 docs for any other package.
 
@@ -28,7 +28,8 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 `pnpm collect-assets` merges it into the site at `/docs/api/<pkg>/`.
 
 **Reference implementation — study these first (they are the template):**
-- `packages/glaze/typedoc.json` — the config to copy and adapt.
+- `packages/glaze/typedoc.json` — the config to copy and adapt (React variant).
+- `packages/randomart-engine/typedoc.json` — the non-React variant (`@types/node` mapping).
 - `packages/glaze/package.json` — the `build:docs` script + `typedoc*` devDependencies.
 - `scripts/collect-static-assets.mjs` — where a package gets registered.
 - `apps/playground/src/content/docs/reference/packages.md` — the index page
@@ -43,7 +44,7 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 
 ## Steps
 
-1. **Read the package.** `packages/<PACKAGE_NAME>>/package.json` (exports map),
+1. **Read the package.** `packages/<PACKAGE_NAME>/package.json` (exports map),
    `tsconfig*.json`, `README.md`, and the `src/` tree. Identify the **public
    exports** — the files behind the `exports` map (exclude `.css` and any
    `docs/`, demo, or test files). If there's no exports map, use the single
@@ -52,17 +53,19 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 2. **Create `typedoc.json`.** Copy `packages/glaze/typedoc.json`; set
    `entryPoints` to the exported source files **in exports-map order** (explicit
    list, as glaze does — do NOT use `entryPointStrategy: "expand"` over
-   `src/**`); set `tsconfig` to the config that compiles `src` — the root
-   `tsconfig.json` is usually just `files: []` + references, in which case use
-   the referenced `tsconfig.app.json` / `tsconfig.lib.json`; keep `out`,
-   `readme`, `theme`, `plugin`, and the exclude flags identical to
-   glaze. Adapt `externalSymbolLinkMappings` to the ambient/external module the
-   package actually references (glaze maps `@types/react`; a non-React package
-   usually wants `@types/node` instead). Run
-   `pnpm --filter @repo/<PACKAGE_NAME>> build:docs` once here to confirm the
+   `src/**`); set `tsconfig` to the config that compiles `src` — if the root
+   `tsconfig.json` is a solution file (`files: []` + references) use the
+   referenced `tsconfig.app.json` / `tsconfig.lib.json`; if it `include`s `src`
+   directly (extends `@repo/config-typescript/*`), point TypeDoc at it as-is
+   (e.g. `l-system-engine` uses `./tsconfig.json`); keep `out`, `readme`,
+   `theme`, `plugin`, and the exclude flags identical to glaze. Adapt
+   `externalSymbolLinkMappings` to the ambient/external module the package
+   actually references (glaze maps `@types/react`; a non-React package usually
+   wants `@types/node` instead — see `randomart-engine`). Run
+   `pnpm --filter @repo/<PACKAGE_NAME> build:docs` once here to confirm the
    toolchain before writing any comments.
 
-3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>>/package.json`: add
+3. **Add `build:docs`.** In `packages/<PACKAGE_NAME>/package.json`: add
    `"build:docs": "typedoc"` to `scripts` and the three devDependencies
    `typedoc`, `typedoc-plugin-missing-exports`, `typedoc-theme-hierarchy`
    (all `catalog:`). Run `pnpm install` afterwards — it updates
@@ -93,7 +96,13 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
    - **Verify accuracy, not just links**: every import path in a README example
      must exist in the package's exports map — no bare root import
      (`@repo/<pkg>` alone) unless a `"."` export exists; drop stale counts
-     (e.g. "19 built-in rules") and filenames that no longer exist.
+     (e.g. "19 built-in rules") and filenames that no longer exist. The exports
+     map may split functions and types across subpaths (e.g. `l-system-engine`'s
+     `./engine` vs `./types`) — import each from its own subpath, never invent a
+     root export.
+   - **Drop stale *sections*, not just links**: a "Testing" block referencing a
+     `test` script the package doesn't have (or a made-up test count, e.g. "38
+     tests") is fabricated — delete it. Only document what actually exists.
    - The README may describe a *different* or older API — if its names don't
      appear in the exports map at all, rewrite the concept sections, not just
      the import paths. Only document what the exports map exposes: internal
@@ -105,25 +114,25 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
      package's GitHub path.
 
 6. **Register the package:**
-   - Add `['packages/<PACKAGE_NAME>>/dist-docs', 'docs/api/<PACKAGE_NAME>>']` to
+   - Add `['packages/<PACKAGE_NAME>/dist-docs', 'docs/api/<PACKAGE_NAME>']` to
      `targets` in `scripts/collect-static-assets.mjs` (keep entries sorted by
      source path — `packages/pixel/...` sorts before
-     `packages/<PACKAGE_NAME>>/...`).
+     `packages/<PACKAGE_NAME>/...`).
    - Add a row to the table in
      `apps/playground/src/content/docs/reference/packages.md` (also sorted).
 
 7. **Verify (all from repo root):**
    ```bash
-   pnpm --filter @repo/<PACKAGE_NAME>> build:docs   # dist-docs generated, 0 errors
-   pnpm --filter @repo/<PACKAGE_NAME>> check-types
-   pnpm --filter @repo/<PACKAGE_NAME>> lint-fix     # auto-fix style, then:
-   pnpm --filter @repo/<PACKAGE_NAME>> lint         # must be clean (the gate)
+   pnpm --filter @repo/<PACKAGE_NAME> build:docs   # dist-docs generated, 0 errors
+   pnpm --filter @repo/<PACKAGE_NAME> check-types
+   pnpm --filter @repo/<PACKAGE_NAME> lint-fix     # auto-fix style, then:
+   pnpm --filter @repo/<PACKAGE_NAME> lint         # must be clean (the gate)
    pnpm --filter @repo/playground check-types      # content schema still valid
    pnpm --filter @repo/playground lint
    pnpm --filter @repo/playground build            # full site builds
    pnpm collect-assets                             # run LAST — build wipes dist/, docs must land in the final dist
    ```
-   - Spot-check `packages/<PACKAGE_NAME>>/dist-docs/index.html`: README is the
+   - Spot-check `packages/<PACKAGE_NAME>/dist-docs/index.html`: README is the
      overview (grep for the tagline), exports are documented (the exported
      symbol's HTML page), no dangling `@link`s.
    - `_internal_` modules in `dist-docs/` are expected — the
@@ -136,15 +145,22 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 
 ## Rules
 
-- Only `packages/<PACKAGE_NAME>>`, the two registration files
+- Only `packages/<PACKAGE_NAME>`, the two registration files
   (`collect-static-assets.mjs`, `reference/packages.md`), and the lockfile
   (`pnpm-lock.yaml`, from `pnpm install`) may change. If the package's README
   or code needs fixes, that's in scope — other packages are not.
 - Never hand-edit `dist-docs/` (generated, gitignored).
 - Never re-run `pnpm build:docs` / `collect-assets` for other packages.
 - The lint gate ("lint clean") forces fixing pre-existing failures in the
-  package — run `lint` before editing to know the baseline. Two traps when
+  package — run `lint` before editing to know the baseline. Common traps when
   fixing them:
+  - `jsdoc/require-param-description` fires on `@param` tags that exist but
+    lack a description (the shared config keeps this one from
+    `recommended-typescript-error`; `lint-fix` won't fix it). Fix aligned with
+    the anti-noise style: **remove** the empty `@param` tag — the one-liner
+    description carries the meaning (`jsdoc/require-param` is off, so no tag
+    is fine). Keep a `@param` only when it genuinely clarifies a non-obvious
+    parameter.
   - `no-unnecessary-condition` flags defensive `??`/`?.`/`if (x)` on values the
     types say are always defined — remove the guard, preserving a genuine
     runtime invariant with a length/count check, never a cast.

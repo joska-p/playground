@@ -34,6 +34,9 @@ through untouched, never interpreting it. `validate()` returns errors, never
 throws. `steps()` is the core iterator primitive; `expand()` is a thin wrapper.
 Same inputs always produce the same outputs.
 
+The package exposes two entry points: `@repo/l-system-engine/engine` for the
+functions and rule factories, `@repo/l-system-engine/types` for the types.
+
 ## Quick Launch
 
 ```bash
@@ -41,7 +44,7 @@ pnpm add @repo/l-system-engine
 ```
 
 ```ts
-import { deterministicRule, expand, symbol } from '@repo/l-system-engine';
+import { deterministicRule, expand, symbol } from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbol('F')],
@@ -53,30 +56,6 @@ const grammar = {
 const word = expand(grammar, 3);
 // → [{ name: 'F', params: [] }, { name: '+', params: [] }, ...]
 ```
-
-## Exports
-
-| Export                                      | Description                                            |
-| ------------------------------------------- | ------------------------------------------------------ |
-| `symbol(name, ...params)`                   | Creates an `LSymbol` with no metadata                  |
-| `symbolWithMeta(name, metadata, ...params)` | Creates an `LSymbol` with attached metadata            |
-| `deterministicRule(name, production)`       | Rule factory — always produces the same word           |
-| `stochasticRule(name, productions[])`       | Rule factory — picks a production by weight            |
-| `contextSensitiveRule(options)`             | Rule factory — matches based on left/right neighbors   |
-| `parametricRule(options)`                   | Rule factory — matches by name + guard on params       |
-| `expand(grammar, iterations, options?)`     | Runs N iterations, returns final word                  |
-| `steps(grammar, options?)`                  | Returns an iterator yielding one word per iteration    |
-| `validate(grammar)`                         | Returns `ValidationError[]`, empty if grammar is valid |
-| `LSymbol`                                   | Type — atomic unit of a word                           |
-| `Word`                                      | Type — `readonly LSymbol[]`                            |
-| `Context`                                   | Type — passed to each rule's `match` and `apply`       |
-| `Rule`                                      | Interface — `match + apply` contract                   |
-| `Grammar`                                   | Type — `{ axiom, rules, unmatchedSymbol? }`            |
-| `ValidationError`                           | Type — `{ code, message }`                             |
-| `ExpandOptions`                             | Type — `{ seed?: number }`                             |
-| `StochasticProduction`                      | Type — `{ weight, produce }`                           |
-| `ContextSensitiveOptions`                   | Type — options for `contextSensitiveRule`              |
-| `ParametricOptions`                         | Type — options for `parametricRule`                    |
 
 ---
 
@@ -119,7 +98,7 @@ const word = expand(grammar, 3);
 ### Deterministic — Koch curve
 
 ```ts
-import { deterministicRule, expand, symbol } from '@repo/l-system-engine';
+import { deterministicRule, expand, symbol } from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbol('F')],
@@ -146,7 +125,7 @@ expand(grammar, 2); //               49 symbols
 ### Stochastic — random branching
 
 ```ts
-import { expand, stochasticRule, symbol } from '@repo/l-system-engine';
+import { expand, stochasticRule, symbol } from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbol('F')],
@@ -165,7 +144,12 @@ expand(grammar, 5, { seed: 42 });
 ### Context-sensitive — signal propagation
 
 ```ts
-import { contextSensitiveRule, deterministicRule, expand, symbol } from '@repo/l-system-engine';
+import {
+    contextSensitiveRule,
+    deterministicRule,
+    expand,
+    symbol
+} from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbol('b'), symbol('a'), symbol('a'), symbol('a')],
@@ -187,7 +171,7 @@ Bracket symbols `[` and `]` are skipped during context lookup by default (Prusin
 ### Parametric — shrinking branches
 
 ```ts
-import { expand, parametricRule, symbol } from '@repo/l-system-engine';
+import { expand, parametricRule, symbol } from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbol('F', 1.0)],
@@ -215,7 +199,7 @@ const grammar = {
 ### Metadata — tagging symbols for the renderer
 
 ```ts
-import { deterministicRule, expand, symbolWithMeta } from '@repo/l-system-engine';
+import { deterministicRule, expand, symbolWithMeta } from '@repo/l-system-engine/engine';
 
 const grammar = {
     axiom: [symbolWithMeta('F', { shader: 'trunk' })],
@@ -240,7 +224,7 @@ Metadata values must be plain serializable data (strings, numbers, booleans). No
 ### Step-by-step animation
 
 ```ts
-import { steps } from '@repo/l-system-engine';
+import { steps } from '@repo/l-system-engine/engine';
 
 const iter = steps(grammar, { seed: 42 });
 
@@ -256,7 +240,7 @@ function onFrame() {
 The engine is open for extension. Implement the `Rule` interface directly and pass it alongside built-in rules:
 
 ```ts
-import type { Context, LSymbol, Rule, Word } from '@repo/l-system-engine';
+import type { Context, LSymbol, Rule, Word } from '@repo/l-system-engine/types';
 
 const myRule: Rule = {
     match(sym: LSymbol, context: Context): boolean {
@@ -314,7 +298,7 @@ expand(grammar, 5); // random each call
 Use `validate()` before running expansion in user-facing contexts:
 
 ```ts
-import { validate } from '@repo/l-system-engine';
+import { validate } from '@repo/l-system-engine/engine';
 
 const errors = validate(grammar);
 if (errors.length > 0) {
@@ -346,24 +330,6 @@ Word (readonly LSymbol[])
 Interpreter (UI layer)  ← maps symbols → turtle commands → path → render
 ```
 
-### Directory layout
-
-```
-src/
-  types.ts                    ← all core types
-  symbol.ts                   ← symbol() / symbolWithMeta() helpers
-  random.ts                   ← Mulberry32 seeded PRNG
-  rules/
-    deterministic-rule.ts
-    stochastic-rule.ts
-    context-sensitive-rule.ts
-    parametric-rule.ts
-  steps.ts                    ← core rewriting iterator (the primitive)
-  expand.ts                   ← thin wrapper over steps()
-  validate.ts                 ← ValidationError[] — never throws
-  engine.ts                   ← public re-export surface
-```
-
 ### Design principles
 
 1. **Grammar-agnostic** — the engine loops over symbols and calls `match` / `apply`. It never checks rule type.
@@ -371,27 +337,6 @@ src/
 3. **Pure** — `expand` is a pure function. No global state. Same inputs → same outputs.
 4. **`steps` is the primitive** — `expand` is derived from it (`consume N+1 steps`). Animation calls `steps().next()` per frame.
 5. **Renderer-agnostic** — `metadata` on symbols is an opaque bag of plain values. The engine passes it through untouched.
-
----
-
-## Testing
-
-```bash
-pnpm --filter @repo/l-system-engine test
-pnpm --filter @repo/l-system-engine test-watch
-```
-
-The test suite covers all six canonical L-system examples (Koch curve, binary tree, signal propagation, shrinking branch, stochastic branching, metadata passthrough), plus rule priority, `unmatchedSymbol`, `validate()`, `steps()`, and bracket-skipping behavior. 38 tests total.
-
----
-
-## Contributing
-
-PRs welcome! See [CONTRIBUTING.md].
-
-## Changelog
-
-Follows SemVer. See [CHANGELOG.md].
 
 ---
 

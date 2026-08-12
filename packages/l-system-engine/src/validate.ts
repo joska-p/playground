@@ -14,7 +14,6 @@ function isStochasticRule(rule: object): rule is StochasticRule {
  * Checks performed:
  *
  * - Stochastic rule weights sum to 1.0 (±0.001 tolerance).
- * @param grammar
  */
 export function validate(grammar: Grammar): ValidationError[] {
     const errors: ValidationError[] = [];

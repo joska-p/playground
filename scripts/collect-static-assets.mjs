@@ -9,6 +9,7 @@ const targets = [
     // Package docs are generated per-package by `build:docs` (TypeDoc → dist-docs)
     // and merged into the site at build time. Add each documented package here:
     ['packages/glaze/dist-docs', 'docs/api/glaze'],
+    ['packages/l-system-engine/dist-docs', 'docs/api/l-system-engine'],
     ['packages/pixel/dist-docs', 'docs/api/pixel'],
     ['packages/pixel-manipulator/dist-docs', 'docs/api/pixel-manipulator'],
     ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine']

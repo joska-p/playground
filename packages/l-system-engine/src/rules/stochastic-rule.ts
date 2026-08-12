@@ -1,7 +1,8 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
+/** One weighted production choice. Weights across a rule's productions must sum to 1.0. */
 export type StochasticProduction = {
-    /** Relative probability of this production being chosen. Must sum to 1.0. */
+    /** Relative probability of this production being chosen. */
     readonly weight: number;
     readonly produce: Word;
 };
@@ -20,8 +21,6 @@ export type StochasticRule = {
  *
  * Weights must sum to 1.0 (±0.001 tolerance). Validation is deferred to `validate()` — this factory
  * does not throw.
- * @param name
- * @param productions
  * @example
  *     stochasticRule('F', [
  *         { weight: 0.7, produce: [symbol('F'), symbol('F')] },

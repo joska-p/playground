@@ -1,5 +1,6 @@
 import type { LSymbol, Parameter, Rule, Word } from '../types';
 
+/** Options for {@link parametricRule} — the matched name, an optional guard, and the production. */
 export type ParametricOptions = {
     /** Name of the symbol this rule matches. */
     readonly name: string;
@@ -16,7 +17,6 @@ export type ParametricOptions = {
  * Matches a symbol by name and an optional guard predicate on its parameters. The production is a
  * function that receives the current parameters and returns a new word — enabling parameter
  * transformations at each step.
- * @param options
  * @example
  *     parametricRule({
  *         name: 'F',

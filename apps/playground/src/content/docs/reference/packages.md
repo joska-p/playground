@@ -21,6 +21,7 @@ Generated docs are served from [`/docs/api/`](../../api/):
 | Package            | Docs                                                       |
 | ------------------ | ---------------------------------------------------------- |
 | [`@repo/glaze`](../../api/glaze/) | 2D rendering toolkit — CPU/GPU surfaces, shaders, React. |
+| [`@repo/l-system-engine`](../../api/l-system-engine/) | Grammar-agnostic L-system rewriting engine — pure symbol rewriting with rule factories, seeding, and validation. |
 | [`@repo/pixel`](../../api/pixel/) | Browser image-manipulation engine — typed step pipelines over a Web Worker pool. |
 | [`@repo/pixel-manipulator`](../../api/pixel-manipulator/) | React workbench for image manipulation — upload, chain steps, inspect results. |
 | [`@repo/randomart-engine`](../../api/randomart-engine/) | Grammar-driven expression trees compiling to CPU pixels and GLSL. |

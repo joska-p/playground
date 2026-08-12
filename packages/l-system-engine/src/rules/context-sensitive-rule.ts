@@ -1,5 +1,8 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
+/**
+ * Options for {@link contextSensitiveRule} — the matched name plus optional left/right context.
+ */
 export type ContextSensitiveOptions = {
     /** Name of the symbol this rule matches. */
     readonly name: string;
@@ -24,9 +27,6 @@ const DEFAULT_IGNORED = new Set(['[', ']']);
 /**
  * Finds the nearest non-bracket neighbor to the left of `index`. Returns null when no such neighbor
  * exists.
- * @param word
- * @param index
- * @param ignored
  */
 function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string>): LSymbol | null {
     for (let i = index - 1; i >= 0; i--) {
@@ -39,9 +39,6 @@ function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string
 /**
  * Finds the nearest non-bracket neighbor to the right of `index`. Returns null when no such
  * neighbor exists.
- * @param word
- * @param index
- * @param ignored
  */
 function findRightNeighbor(
     word: Word,
@@ -58,7 +55,6 @@ function findRightNeighbor(
 /**
  * Matches a symbol by name, optionally checking left and/or right neighbors. Bracket symbols `[`
  * and `]` are skipped during context lookup by default (configurable via `ignoreBrackets: false`).
- * @param options
  * @example
  *     contextSensitiveRule({
  *         name: 'a',
