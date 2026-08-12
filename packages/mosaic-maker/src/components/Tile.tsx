@@ -10,7 +10,7 @@ export type TileProps = {
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
     const commonProps = {
-        fill: `var(${String(colors[shape.colorIndex])})`,
+        fill: `var(${colors[shape.colorIndex]})`,
         className: 'transition-all duration-500'
     };
 
@@ -55,11 +55,6 @@ function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
 
 function Tile({ name, colors, rotation, className }: TileProps) {
     const definition = TILE_REGISTRY[name];
-
-    if (!definition) {
-        console.warn(`Tile pattern "${name}" not found in registry.`);
-        return null;
-    }
 
     return (
         <svg

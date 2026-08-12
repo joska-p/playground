@@ -59,7 +59,6 @@ function DisplaySection() {
             const exportR = correlatedRGB ? treeR.args[0] : treeR;
             const exportG = correlatedRGB ? treeR.args[1] : treeG;
             const exportB = correlatedRGB ? treeR.args[2] : treeB;
-            if (!exportR || !exportG || !exportB) return;
 
             const currentTime = randomartStore.getState().time;
 
