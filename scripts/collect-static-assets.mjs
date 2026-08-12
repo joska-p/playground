@@ -21,9 +21,11 @@ const targets = [
     ['packages/radu-machine-learning/dist-docs', 'docs/api/radu-machine-learning'],
     ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine'],
     ['packages/randomart-engine-next/dist-docs', 'docs/api/randomart-engine-next'],
+    ['packages/sequence-engine/dist-docs', 'docs/api/sequence-engine'],
     ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer'],
     ['packages/three-stage/dist-docs', 'docs/api/three-stage'],
-    ['packages/ui/dist-docs', 'docs/api/ui']
+    ['packages/ui/dist-docs', 'docs/api/ui'],
+    ['packages/worker-pool/dist-docs', 'docs/api/worker-pool']
 ];
 
 for (const [src, dest] of targets) {

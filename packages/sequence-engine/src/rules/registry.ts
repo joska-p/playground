@@ -23,14 +23,21 @@ const initialRules = [
     sternDiatomicRule
 ] as const;
 
-// Extract union types for RuleId and RuleName
+/** Union of all initial rule ID string literals. */
 export type RuleId = (typeof initialRules)[number]['id']; // e.g., "recaman" | "fibonacci" | ...
+
+/** Union of all initial rule display names. */
 export type RuleName = (typeof initialRules)[number]['name']; // e.g., "Recaman's Rule" | "Fibonacci" | ...
 
 // Create a mutable array for runtime use
+/** Global registry of available sequence rules. */
 const allRules: SequenceRule[] = [...initialRules];
 
-// Function to register a new rule
+/**
+ * Registers a new sequence rule into the global rule registry.
+ *
+ * @param rule - The sequence rule to add.
+ */
 export function registerRule(rule: SequenceRule) {
     allRules.push(rule);
 }

@@ -1,0 +1,24 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/engine.ts",
+        "src/rules/registry.ts",
+        "src/rules/types.ts",
+        "src/rules/recaman.ts"
+    ],
+    "out": "dist-docs",
+    "readme": "./README.md",
+    "tsconfig": "./tsconfig.json",
+    "theme": "hierarchy",
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "externalSymbolLinkMappings": {
+        "@types/node": {
+            "*": "#"
+        }
+    },
+    "githubPages": false,
+    "sort": ["kind", "alphabetical"]
+}

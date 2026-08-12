@@ -1,6 +1,15 @@
+---
+title: 'Worker Pool'
+coordinates: '/infrastructure/worker-pool'
+status: 'Active'
+date_discovered: 2025-06-01
+---
+
 # @repo/worker-pool
 
 > You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.
+
+---
 
 ## Purpose
 
@@ -11,37 +20,6 @@ This package does that. You provide three hooks (`workerFactory`, `serialize`, `
 Three packages (`automa`, `graph-viz`, `pixel`) each invented their own version of this same boilerplate. This module extracts the common shape into a single, testable interface.
 
 ## Spec
-
-### Public API
-
-```typescript
-// @repo/worker-pool
-export class WorkerPool<TTask, TResult> {
-    constructor(config: WorkerPoolConfig<TTask, TResult>);
-    run(task: TTask): Promise<TResult>;
-    teardown(): void;
-}
-
-export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
-
-export type WorkerPoolConfig<TTask, TResult> = {
-    /** Creates a fresh Worker. Consumer chooses URL, blob, inline import, etc. */
-    workerFactory: () => Worker;
-    /** Max pool size. Default: min(hardwareConcurrency, 4). */
-    maxPoolSize?: number;
-    /** Serialise the typed task into a postMessage payload + optional transferables. */
-    serialize: (task: TTask) => { message: unknown; transfer?: Transferable[] };
-    /** Extract a typed result from the worker's response message. */
-    deserialize: (event: MessageEvent) => WorkerResult<TResult>;
-};
-
-// @repo/worker-pool/mock
-export class MockWorkerPool<TTask, TResult> {
-    constructor(handler: (task: TTask) => TResult);
-    run(task: TTask): Promise<TResult>;
-    teardown(): void;
-}
-```
 
 ### Behavior contract
 

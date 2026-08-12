@@ -118,16 +118,6 @@ State management for optional persistence is abstracted via the
 adapters live in consumers (e.g., `LocalStoragePresetStore` in
 `@repo/sequence-renderer`).
 
-## Exports
-
-| Path              | Exports                                                                |
-| :---------------- | :--------------------------------------------------------------------- |
-| `.`               | `generateSequence`                                                     |
-| `./rules`         | `getAllRules`, `registerRule`                                          |
-| `./rules/types`   | `SequenceRule`, `NextStepOptions`                                      |
-| `./rules/recaman` | `recamanRule`                                                          |
-| `./types`         | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |
-
 ---
 
 _See [@repo/sequence-renderer](/docs/reference/packages/sequence-renderer) for the canvas rendering layer, Fourier DFT computation, and interactive controls._

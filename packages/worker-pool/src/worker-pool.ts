@@ -13,17 +13,32 @@ type QueuedJob<TTask, TResult> = {
     reject: (error: Error) => void;
 };
 
+/**
+ * Manages a pool of Web Workers for concurrent background task processing.
+ * Handles lazy worker creation, task queuing, serialization, and cleanup.
+ */
 export class WorkerPool<TTask, TResult> {
     private config: WorkerPoolConfig<TTask, TResult>;
     private pool: PoolEntry[] = [];
     private queue: QueuedJob<TTask, TResult>[] = [];
     private maxPoolSize: number;
 
+    /**
+     * Initializes a new WorkerPool instance.
+     *
+     * @param config - Configuration containing factory function, max pool size, and serializers.
+     */
     constructor(config: WorkerPoolConfig<TTask, TResult>) {
         this.config = config;
         this.maxPoolSize = config.maxPoolSize ?? 4;
     }
 
+    /**
+     * Dispatches a task to an available worker or queues it until a worker becomes free.
+     *
+     * @param task - The task payload to process.
+     * @returns A promise resolving to the typed worker result.
+     */
     run(task: TTask): Promise<TResult> {
         const entry = this.acquireWorker();
 
@@ -43,6 +58,9 @@ export class WorkerPool<TTask, TResult> {
         });
     }
 
+    /**
+     * Terminates all active workers and rejects any pending queued tasks.
+     */
     teardown(): void {
         const err = new Error('pool torn down');
         for (const job of this.queue) {

@@ -33,8 +33,10 @@ Generated docs are served from [`/docs/api/`](../../api/):
 | [`@repo/radu-machine-learning`](../../api/radu-machine-learning/) | A gallery of hand-drawn stroke data with a sketchpad that plots your own drawings against the dataset's feature space.             |
 | [`@repo/randomart-engine`](../../api/randomart-engine/)           | Grammar-driven expression trees compiling to CPU pixels and GLSL.                                                                  |
 | [`@repo/randomart-engine-next`](../../api/randomart-engine-next/) | Seed-deterministic expression trees compiling to CPU evaluation and GLSL fragment shaders, with operator/rule/behavior registries. |
+| [`@repo/sequence-engine`](../../api/sequence-engine/)             | Mathematical sequence generation engine — rule definitions, step evaluation, and preset persistence interface.                     |
 | [`@repo/sequence-renderer`](../../api/sequence-renderer/)         | Interactive canvas that unfurls mathematical sequences — Fourier epicycles, a layer stack, and an orbitable viewport.              |
 | [`@repo/three-stage`](../../api/three-stage/)                     | 3D scene explorer — swappable geometries, materials, light rigs, and R3F debug gizmos.                                             |
 | [`@repo/ui`](../../api/ui/)                                       | Design system and React component library — Tailwind CSS v4, CVA variants, and Gruvbox aesthetic.                                   |
+| [`@repo/worker-pool`](../../api/worker-pool/)                     | Web Worker pool management — task dispatch, concurrency limits, FIFO queuing, transferables, and graceful teardown.               |
 
 New packages are added here as they ship docs (`pnpm build:docs && pnpm collect-assets`).
