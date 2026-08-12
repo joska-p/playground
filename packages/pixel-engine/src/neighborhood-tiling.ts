@@ -67,6 +67,12 @@ function blitTile({
     }
 }
 
+/**
+ * Runs a neighborhood manipulation using tiled processing with halo padding to bound peak memory usage.
+ *
+ * @param params - Source PixelData, manipulation definition, and options.
+ * @returns Resulting PixelData image.
+ */
 export function runNeighborhoodTiled({
     source,
     definition,
@@ -122,3 +128,4 @@ export function runNeighborhoodTiled({
     }
     return destinationImage;
 }
+

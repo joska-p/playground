@@ -27,6 +27,12 @@ function buildAutoDownscaleStep({
     };
 }
 
+/**
+ * Executes an image manipulation pipeline over a source PixelData, returning intermediate snapshots after each step.
+ *
+ * @param params - Object containing source PixelData, pipeline steps array, and PipelineContext.
+ * @returns Array of PixelData snapshots representing the state after each step.
+ */
 export function runPipeline({
     source,
     steps,
@@ -61,3 +67,4 @@ export function runPipeline({
 
     return snapshots;
 }
+

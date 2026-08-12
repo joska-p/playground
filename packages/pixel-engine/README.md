@@ -28,7 +28,23 @@ place to look.
 ## Quick Launch
 
 ```bash
-pnpm dev --filter @repo/playground
+pnpm add @repo/pixel-engine
+```
+
+```ts
+import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
+import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
+import { PixelData } from '@repo/pixel-engine/pixel-data';
+import { Registry } from '@repo/pixel-engine/registry';
+
+const registry = Registry.from(ALL_MANIPULATIONS);
+const source = new PixelData(512, 512);
+
+const snapshots = runPipeline({
+    source,
+    steps: [{ id: 'brightness', options: { amount: 20 } }],
+    context: { registry, maximumPixels: 2048 * 2048 }
+});
 ```
 
 ## Field Notes
@@ -53,20 +69,6 @@ pnpm dev --filter @repo/playground
   `ImageData` copies between steps.
 
 ---
-
-## Exports
-
-```typescript
-import { BufferManager } from '@repo/pixel-engine/buffer-manager';
-import { FusionScheduler } from '@repo/pixel-engine/fusion-scheduler';
-import { defineManip } from '@repo/pixel-engine/manipulation-factories';
-import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
-import { runNeighborhoodTiled } from '@repo/pixel-engine/neighborhood-tiling';
-import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
-import { Registry } from '@repo/pixel-engine/registry';
-import { dispatchStep } from '@repo/pixel-engine/step-dispatcher';
-import type { Step, ManipulationDefinition, ArgDefinition, Access } from '@repo/pixel-engine/types';
-```
 
 ## Architecture
 

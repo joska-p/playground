@@ -1,7 +1,7 @@
 ---
 title: 'L-System Engine'
 coordinates: '/algorithms/rewriting'
-status: 'Active'
+status: 'Draft (Agent Generated)'
 date_discovered: 2025-06-01
 ---
 
@@ -10,6 +10,9 @@ date_discovered: 2025-06-01
 > A grammar-agnostic L-system rewriting engine — pure symbol rewriting with
 > no knowledge of angles, turtles, or rendering. Feed it a grammar, get a
 > sequence of symbols back.
+
+> [!NOTE]
+> **Status: Draft (Agent Generated).** This package was generated with agent assistance and is currently undergoing testing and expansion refinements.
 
 ---
 

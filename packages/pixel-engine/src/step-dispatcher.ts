@@ -58,6 +58,11 @@ const executors: Record<string, ExecutorFunction> = {
     }
 };
 
+/**
+ * Dispatches a single pipeline step based on its access mode (pixel, neighborhood, or global).
+ *
+ * @param params - Step configuration, context, buffer manager, and scheduler.
+ */
 export function dispatchStep({
     step,
     context,
@@ -77,3 +82,4 @@ export function dispatchStep({
         executor({ definition, options, context, bufferManager, scheduler });
     }
 }
+

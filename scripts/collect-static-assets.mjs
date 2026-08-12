@@ -9,14 +9,21 @@ const targets = [
     // Package docs are generated per-package by `build:docs` (TypeDoc → dist-docs)
     // and merged into the site at build time. Add each documented package here:
     ['packages/art-canvas/dist-docs', 'docs/api/art-canvas'],
+    ['packages/automa/dist-docs', 'docs/api/automa'],
+    ['packages/automa-engine/dist-docs', 'docs/api/automa-engine'],
+    ['packages/fracture/dist-docs', 'docs/api/fracture'],
     ['packages/glaze/dist-docs', 'docs/api/glaze'],
     ['packages/l-system-engine/dist-docs', 'docs/api/l-system-engine'],
+    ['packages/palette-engine/dist-docs', 'docs/api/palette-engine'],
     ['packages/pixel/dist-docs', 'docs/api/pixel'],
+    ['packages/pixel-engine/dist-docs', 'docs/api/pixel-engine'],
     ['packages/pixel-manipulator/dist-docs', 'docs/api/pixel-manipulator'],
     ['packages/radu-machine-learning/dist-docs', 'docs/api/radu-machine-learning'],
     ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine'],
     ['packages/randomart-engine-next/dist-docs', 'docs/api/randomart-engine-next'],
-    ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer']
+    ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer'],
+    ['packages/three-stage/dist-docs', 'docs/api/three-stage'],
+    ['packages/ui/dist-docs', 'docs/api/ui']
 ];
 
 for (const [src, dest] of targets) {

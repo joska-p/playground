@@ -1,85 +1,95 @@
-# Creative Playground — Session de tri du Kanban (suite)
+# Creative Playground — Migration du système de documentation
 
-Tu es un agent d'ingénierie qui m'aide à inventorier le monorepo **Creative
-Playground** (Turborepo, pnpm, React 19, Astro, React Compiler) et à trier le
-GitHub Project "Le Bazar Créatif" (board Kanban). Réponds-moi en français.
+Tu es un agent d'ingénierie qui m'aide à finaliser la migration du système de
+documentation du monorepo **Creative Playground** (Turborepo, pnpm, React 19,
+Astro). Réponds-moi en français.
 
-## Rituel de la session
+## Skill de documentation
 
-On parcourt `packages/` et `apps/` un par un, **ordre alphabétique**. Pour chaque
-package :
+Le skill `documenting` est disponible dans `.agents/skills/documenting/SKILL.md`.
+Il définit le contrat du système de documentation en deux volets :
 
-1. Je (joska-p) te décris l'état réel : but, niveau de finition, envies d'évolution.
-2. Tu consultes le code/README si besoin, puis tu PROPOSES les cartes Kanban
-   utiles. Règle : jamais de carte vague — chaque carte doit être une tâche
-   actionnable ("je me lève, j'ouvre le board, je sais quoi faire").
-3. Tu crées les cartes validées avec `./scripts/kanban.sh add`, puis tu passes
-   au package suivant. Je valide toujours avant de créer.
+1. **README (`packages/<pkg>/README.md`)** : Concept uniquement — titre + tagline,
+   raison d'être, démarrage rapide, exemples d'utilisation, patterns & pièges.
+   Jamais un inventaire complet de l'API.
+2. **API Reference** : Générée automatiquement via TypeDoc à partir des commentaires TSDoc (`/** */`)
+   sur les symboles exportés — ne doit jamais être rédigée à la main.
 
-## Board & script
+### Pipeline de publication
 
-- Script : `./scripts/kanban.sh` (depuis la racine)
-    - `add "TITRE" [-s STATUS] [-p PRIORITY] [-e EFFORT] [-b BODY]`
-    - `idea "TITRE"` (Backlog/Low) · `wip "TITRE"` (In Progress/High)
-    - `list` · `status <ID> <STATUS>` · `priority <ID> <PRIO>` · `effort <ID> <LEVEL>` · `delete <ID>` · `board`
-    - `queue` (voir la file) · `enqueue <FIELD> <ID> <VALUE>` · `drain` (rejouer la file)
-    - STATUS : Backlog | Todo | In Progress | Done · PRIORITY : Low | Medium | High | Urgent
-    - EFFORT : 1 | 2 | 3 | 5 | 8 (Fibonacci — quick win = High + effort ≤ 2)
-- ⚠️ Rate limit GitHub : les opérations échouées sont mises en file
-  `scripts/kanban.queue` (gitignoré). `drain` les rejoue lentement (défaut 15 s
-  par op, `KANBAN_DELAY` pour régler) en vérifiant le quota GraphQL avant chaque
-  opération. Ne pas lancer de lots de `gh project` à la chaîne (limite burst).
+1. `packages/<pkg>/typedoc.json` + script `"build:docs": "typedoc"`.
+2. `pnpm build:docs` → génération HTML static dans `dist-docs/`.
+3. Enregistrement dans `scripts/collect-static-assets.mjs` et ajout à la liste `apps/playground/src/content/docs/reference/packages.md`.
+4. `pnpm collect-assets` → servi sur `/docs/api/<pkg>/`.
 
-## Progression
+---
 
-Déjà triés : **art-canvas** (README réécrit → carte Done), **automa** (2 cartes
-créées), **automa-engine** (stable, rien à faire), **config-eslint** (revue
-faite — README complet, stable, rien à faire), **config-typescript** (revue
-faite — README désynchronisé d'app.json → carte créée, effort 1), **fracture**
-(revue faite — passe lint/types ; carte remplacée par "framework de fractals"),
-**mandelbrot** (revue faite — 22 lint + 5 TS errors, aucun script
-lint/check-types → carte High "Fix erreurs lint + TS", effort 3), **glaze**
-(revue "finale" faite — 71 tests OK, lint/types OK, typedoc OK ; carte "Corriger
-le README" créée, effort 2), **graph-viz** (en pause / trop complexe ; 2 cartes
-créées : fix 6 erreurs ESLint + README update status 'Paused'),
-**image-to-particles** (setup brut ; 3 cartes créées : vector fields, extraction
-particle-lib / vector-field-lib, intégration playground), **l-system-engine** &
-**l-system** (draft 100% agent ne fonctionnant pas ; 3 cartes créées : audit 3D,
-README status 'Draft', fix visualiseur turtle 3D), **mosaic-maker** (projet
-fondateur quasiment terminé ; 2 cartes créées : revue UX & export SVG/PNG),
-**oeis-signal** (nouveau package signaux paresseux ; 2 cartes créées + 1 mise à
-jour : modules OEIS, transformations middle, démo playground), **palette-engine**
-& **palette-generator** (UI en chantier ; 2 cartes créées + 1 mise à jour :
-parcours UX, nouvelles règles OKLCh, doc), **pixel-engine**, **pixel** &
-**pixel-manipulator** (lapin seam carving & 3 packages ; 3 cartes créées + 1 mise
-à jour : fusionner pixel-engine dans pixel, réparer vue comparée, seam carving).
+## Étaient traités dans la session
 
-Prochain package : **radu-machine-learning** → randomart-engine / randomart-engine-next / randomart / randomart-next → real-life → sequence-engine / sequence-renderer → three-stage → ui → worker-pool → apps (apps/playground)
+Toutes les cartes prioritaires et les packages cibles de cette session ont été complétés avec succès et leurs statuts mis à jour sur le board Kanban :
+- `🛠️ [Docs]: Choisir l'outil d'API doc` (TypeDoc + plugins validé)
+- `🛠️ [Docs] automa-engine: README + API`
+- `🛠️ [Docs] automa: README + API`
+- `🛠️ [Docs] fracture: README + API`
+- `🛠️ [Docs] pixel-engine: README + API`
+- `🛠️ [Docs] palette-engine: README + API`
+- `🛠️ [Docs] graph-viz: Mettre à jour le README (status 'Paused')`
+- `🛠️ [Docs] l-system & l-system-engine: Indiquer le statut 'Draft'`
+- `🛠️ [Docs] three-stage: README + API`
+- `🛠️ [Docs] ui: README + API`
+- `🛠️ [Docs] playground: README + Architecture du site`
 
-## État du board
+---
 
-Lance `./scripts/kanban.sh list` pour l'état exact. En résumé (Backlog sauf
-mention) : la décision outil docs (High), le refactor docs par package (une
-carte "🛠️ [Docs] <pkg>: README + API" pour chaque package non documenté), les
-cartes créées pendant le tri (Mandelbrot, OEIS Signal, Randomart doublon,
-Primordial Noise, Drafts Ideas, Fracture, Glaze, Repo README, Repo nettoyage,
-Art-Canvas atlas, Automa éditeur de règles / algorithmic art) + cette session
-(config-typescript README aligné, mandelbrot fix lint+TS High, glaze README
-fix).
+## État des lieux des packages du Monorepo
 
-## Fils en cours (importants)
+### Packages implémentant le nouveau système (16 packages)
 
-1. **Architecture fractals (nouvelle direction)** — hiérarchie en 3 couches :
-   **glaze** = lib graphique (début d'une "nouvelle ère" : se faire ses propres
-   outils) → **fracture** = moteur abstrait de fractals → **mandelbrot** =
-   app standalone construite SUR fracture, avec les implémentations (Original,
-   DoubleSplit, Perturbation). Glaze garde TypeDoc/TSDoc pour l'instant.
-   Cartes liées : fracture "framework de fractals" (effort 5), mandelbrot fix
-   lint+TS (High).
-2. **Refactor doc system** — TypeDoc ne convient pas au FP ni aux composants
-   React. Une carte High "Choisir l'outil d'API doc" est prioritaire. Le système
-   actuel : README (concept) + TypeDoc (API) → `dist-docs` →
-   `scripts/collect-static-assets.mjs` → servi sur `/docs/api/<pkg>/`. Le double
-   registre manuel (collect-static-assets + reference/packages.md) est voulu.
-3. **Randomart vs randomart-next** : doublon potentiel à consolider.
-4. README racine : chemins `packages/engines/...` inexistants à corriger.
+Chacun de ces packages possède un `README.md` conceptuel, une configuration `typedoc.json`, le script `"build:docs": "typedoc"`, et est enregistré dans `scripts/collect-static-assets.mjs` ainsi que sur la page de référence [`apps/playground/src/content/docs/reference/packages.md`](../apps/playground/src/content/docs/reference/packages.md) :
+
+1. `@repo/art-canvas`
+2. `@repo/automa`
+3. `@repo/automa-engine`
+4. `@repo/fracture`
+5. `@repo/glaze`
+6. `@repo/l-system-engine`
+7. `@repo/palette-engine`
+8. `@repo/pixel`
+9. `@repo/pixel-engine`
+10. `@repo/pixel-manipulator`
+11. `@repo/radu-machine-learning`
+12. `@repo/randomart-engine`
+13. `@repo/randomart-engine-next`
+14. `@repo/sequence-renderer`
+15. `@repo/three-stage`
+16. `@repo/ui`
+
+---
+
+### Packages n'implémentant PAS encore le nouveau système (16 éléments)
+
+Voici la liste exacte des packages et applications qui n'ont pas encore été migrés vers le nouveau système de documentation (absence de `typedoc.json` / pipeline `build:docs` dédié) :
+
+#### 1. Moteurs & Librairies (à migrer pour la suite)
+- **`sequence-engine`** (`packages/sequence-engine`) — Moteur de calcul de séquences mathématiques.
+- **`worker-pool`** (`packages/worker-pool`) — Gestionnaire de pool de Web Workers.
+
+#### 2. Visualiseurs & Applications UI (Wrappers front-end)
+- **`graph-viz`** (`packages/graph-viz`) — Visualiseur de graphes *(Statut : Paused)*.
+- **`image-to-particles`** (`packages/image-to-particles`) — Expérimentation image-vers-particules.
+- **`l-system`** (`packages/l-system`) — Interface UI pour `l-system-engine` *(Statut : Draft)*.
+- **`mandelbrot`** (`packages/mandelbrot`) — Visualiseur de fractales Mandelbrot *(En cours de refactoring)*.
+- **`mosaic-maker`** (`packages/mosaic-maker`) — Application de génération de mosaïques.
+- **`oeis-signal`** (`packages/oeis-signal`) — Application de visualisation de séquences OEIS.
+- **`palette-generator`** (`packages/palette-generator`) — Interface UI pour `palette-engine`.
+- **`randomart`** (`packages/randomart`) — Interface UI pour `randomart-engine`.
+- **`randomart-next`** (`packages/randomart-next`) — Interface UI pour `randomart-engine-next`.
+- **`real-life`** (`packages/real-life`) — Expérimentation visuelle procédurale.
+
+#### 3. Configurations partagées / Outillage monorepo (Hors TypeDoc)
+- **`config-eslint`** (`packages/config-eslint`) — Package de règles ESLint partagées.
+- **`config-typescript`** (`packages/config-typescript`) — Package de configurations tsconfig partagées.
+
+#### 4. Applications Hub
+- **`playground`** (`apps/playground`) — Site Astro hub & portail de documentation (README architecture mis à jour, mais pas un package de bibliothèque TypeDoc).
+- **`storybook`** (`apps/storybook`) — Instance Storybook du monorepo.

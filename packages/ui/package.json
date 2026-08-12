@@ -24,6 +24,7 @@
         "./theme/*": "./src/theme/*.ts"
     },
     "scripts": {
+        "build:docs": "typedoc",
         "dev": "vite",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
@@ -56,6 +57,9 @@
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
+        "typedoc": "catalog:",
+        "typedoc-plugin-missing-exports": "catalog:",
+        "typedoc-theme-hierarchy": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
     }

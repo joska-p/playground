@@ -134,36 +134,7 @@ App.tsx (entry — renders GetStarted scene)
           └─ Spot (position, intensity, color, penumbra, angle + helper gizmo)
 ```
 
-## Geometry Library
-
-| Label     | Geometry                                 |
-| --------- | ---------------------------------------- |
-| Box       | `BoxGeometry(2, 2, 2)`                   |
-| TorusKnot | `TorusKnotGeometry(1, 0.4, 64, 8, 2, 3)` |
-| Sphere    | `SphereGeometry(2, 8, 8)`                |
-| Cylinder  | `CylinderGeometry(2, 2, 2, 8)`           |
-
-## Material Library
-
-| Label    | Three.js Material      |
-| -------- | ---------------------- |
-| Standard | `MeshStandardMaterial` |
-| Toon     | `MeshToonMaterial`     |
-| Basic    | `MeshBasicMaterial`    |
-| Lambert  | `MeshLambertMaterial`  |
-| Normal   | `MeshNormalMaterial`   |
-| Phong    | `MeshPhongMaterial`    |
-| Depth    | `MeshDepthMaterial`    |
-
-## Key Dependencies
-
-| Package              | Role                                          |
-| -------------------- | --------------------------------------------- |
-| `three`              | 3D rendering engine                           |
-| `@react-three/fiber` | React renderer for Three.js                   |
-| `@react-three/drei`  | R3F utilities (OrbitControls, helpers, gizmo) |
-| `leva`               | Debug GUI panel                               |
-
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

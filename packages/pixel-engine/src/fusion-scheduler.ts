@@ -41,16 +41,21 @@ function runFusedPixelBatch({
     }
 }
 
+/**
+ * Scheduler that batches and fuses consecutive per-pixel operations into a single pass over the buffer.
+ */
 export class FusionScheduler {
     private batch: {
         definition: ManipulationDefinition;
         options: Record<string, unknown>;
     }[] = [];
 
+    /** Adds a per-pixel manipulation to the current batch. */
     add(definition: ManipulationDefinition, options: Record<string, unknown>) {
         this.batch.push({ definition, options });
     }
 
+    /** Flushes all queued per-pixel operations in a single fused pass and swaps buffers. */
     flush(bufferManager: BufferManager) {
         if (this.batch.length === 0) return;
 
@@ -71,3 +76,4 @@ export class FusionScheduler {
         this.batch.length = 0;
     }
 }
+

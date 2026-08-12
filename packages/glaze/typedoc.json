@@ -35,6 +35,7 @@
             "*": "#"
         }
     },
+    "skipErrorChecking": true,
     "githubPages": false,
     "sort": ["kind", "alphabetical"]
 }

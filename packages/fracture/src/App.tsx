@@ -5,6 +5,11 @@ import { OriginalScene } from './components/OriginalScene';
 import { ControlPanel } from './components/ControlPanel';
 import { useRenderer } from './stores/viewStore';
 
+/**
+ * High-precision GLSL fractal renderer application component.
+ *
+ * Toggles between standard, double-single, and perturbation GLSL scene renderers.
+ */
 function App() {
     const renderer = useRenderer();
 
@@ -25,3 +30,4 @@ function App() {
 }
 
 export { App };
+

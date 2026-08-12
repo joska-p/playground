@@ -1,7 +1,7 @@
 ---
 title: 'L-System'
 coordinates: '/algorithms/fractals'
-status: 'Dormant'
+status: 'Draft (Agent Generated)'
 date_discovered: 2025-06-01
 ---
 
@@ -10,6 +10,9 @@ date_discovered: 2025-06-01
 > An interactive 3D fractal visualizer that turns L-system grammars into
 > turtle-graphics geometry — pick a grammar, watch it grow, tweak the angles
 > and watch the branches reshape themselves.
+
+> [!NOTE]
+> **Status: Draft (Agent Generated).** This package was generated with agent assistance and is currently undergoing testing and visualization refinements.
 
 ---
 

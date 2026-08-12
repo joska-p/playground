@@ -1,7 +1,7 @@
 ---
 title: 'Graph Viz'
 coordinates: '/algorithms/topology'
-status: 'Active'
+status: 'Paused'
 date_discovered: 2025-06-01
 ---
 
@@ -10,6 +10,9 @@ date_discovered: 2025-06-01
 > A codebase rendered as a galaxy — files become spheres and boxes floating
 > in 3D space, their dependency edges drawn as luminous threads, community
 > clusters glowing in twenty-four palette colours.
+
+> [!NOTE]
+> **Status: Paused.** Development is currently paused while evaluating performance optimizations for high-density 3D layout simulation and edge bundling algorithms.
 
 ---
 

@@ -1,0 +1,29 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/components/data-entry/index.ts",
+        "src/components/data-display/index.ts",
+        "src/components/navigation/index.ts",
+        "src/components/feedback/index.ts",
+        "src/components/control-panel/index.ts",
+        "src/components/widgets/index.ts",
+        "src/components/cards/index.ts",
+        "src/components/icons/index.ts"
+    ],
+    "out": "dist-docs",
+    "readme": "./README.md",
+    "tsconfig": "./tsconfig.app.json",
+    "theme": "hierarchy",
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "externalSymbolLinkMappings": {
+        "@types/react": {
+            "*": "#"
+        }
+    },
+    "skipErrorChecking": true,
+    "githubPages": false,
+    "sort": ["kind", "alphabetical"]
+}

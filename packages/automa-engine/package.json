@@ -15,6 +15,7 @@
         "./gpu/shaders/sim-step.frag": "./src/gpu/shaders/sim-step.frag"
     },
     "scripts": {
+        "build:docs": "typedoc",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",
@@ -28,6 +29,9 @@
         "@repo/config-typescript": "workspace:*",
         "@types/node": "catalog:",
         "eslint": "catalog:",
+        "typedoc": "catalog:",
+        "typedoc-plugin-missing-exports": "catalog:",
+        "typedoc-theme-hierarchy": "catalog:",
         "typescript": "catalog:"
     }
 }
