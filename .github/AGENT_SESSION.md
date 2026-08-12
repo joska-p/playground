@@ -40,10 +40,21 @@ faite — README désynchronisé d'app.json → carte créée, effort 1), **frac
 **mandelbrot** (revue faite — 22 lint + 5 TS errors, aucun script
 lint/check-types → carte High "Fix erreurs lint + TS", effort 3), **glaze**
 (revue "finale" faite — 71 tests OK, lint/types OK, typedoc OK ; carte "Corriger
-le README" créée, effort 2 — Priority/Effort de cette carte sont en file
-`scripts/kanban.queue` à drainer).
+le README" créée, effort 2), **graph-viz** (en pause / trop complexe ; 2 cartes
+créées : fix 6 erreurs ESLint + README update status 'Paused'),
+**image-to-particles** (setup brut ; 3 cartes créées : vector fields, extraction
+particle-lib / vector-field-lib, intégration playground), **l-system-engine** &
+**l-system** (draft 100% agent ne fonctionnant pas ; 3 cartes créées : audit 3D,
+README status 'Draft', fix visualiseur turtle 3D), **mosaic-maker** (projet
+fondateur quasiment terminé ; 2 cartes créées : revue UX & export SVG/PNG),
+**oeis-signal** (nouveau package signaux paresseux ; 2 cartes créées + 1 mise à
+jour : modules OEIS, transformations middle, démo playground), **palette-engine**
+& **palette-generator** (UI en chantier ; 2 cartes créées + 1 mise à jour :
+parcours UX, nouvelles règles OKLCh, doc), **pixel-engine**, **pixel** &
+**pixel-manipulator** (lapin seam carving & 3 packages ; 3 cartes créées + 1 mise
+à jour : fusionner pixel-engine dans pixel, réparer vue comparée, seam carving).
 
-Prochain package : **graph-viz** → image-to-particles → l-system → …
+Prochain package : **radu-machine-learning** → randomart-engine / randomart-engine-next / randomart / randomart-next → real-life → sequence-engine / sequence-renderer → three-stage → ui → worker-pool → apps (apps/playground)
 
 ## État du board
 

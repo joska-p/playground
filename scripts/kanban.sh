@@ -46,32 +46,32 @@ die() {
 
 PROJECT_ID=""
 FIELDS_JSON=""
-GH_FAIL=""
+GH_FAIL_FILE="${TMPDIR:-/tmp}/kanban_gh_fail.txt"
 
-# Exécute gh en capturant stderr. En cas d'échec, `GH_FAIL` contient le message
+# Exécute gh en capturant stderr. En cas d'échec, `GH_FAIL_FILE` contient le message
 # d'erreur (souvent "GraphQL: API rate limit exceeded") et la fonction renvoie 1.
 gh_call() {
   local out errfile
   errfile="$(mktemp)"
   if out="$(gh "$@" 2>"$errfile")"; then
     rm -f "$errfile"
-    GH_FAIL=""
+    rm -f "$GH_FAIL_FILE"
     printf '%s' "$out"
   else
-    GH_FAIL="$(cat "$errfile")"
+    cat "$errfile" > "$GH_FAIL_FILE"
     rm -f "$errfile"
     return 1
   fi
 }
 
 is_rate_limited() {
-  [[ "$GH_FAIL" == *"rate limit"* ]]
+  [[ -f "$GH_FAIL_FILE" ]] && grep -qiE "rate limit|unknown owner type" "$GH_FAIL_FILE"
 }
 
 # Résolution paresseuse + cache : un seul appel réseau par ressource par invocation.
 project_id() {
   if [[ -z "$PROJECT_ID" ]]; then
-    PROJECT_ID="$(gh_call project view "$PROJECT_NUMBER" --owner "$OWNER" --format json --jq .id)" || return 1
+    PROJECT_ID="$(gh_call project view "$PROJECT_NUMBER" --owner "$OWNER" --format json --jq .id)" || return 2
   fi
   printf '%s' "$PROJECT_ID"
 }
@@ -108,6 +108,7 @@ option_id() {
 set_field() { # $1 item_id, $2 field name, $3 option name
   local item="$1" fname="$2" oname="$3" pid fid oid expected
   pid="$(project_id)" || return 1
+  fields_json >/dev/null || return 2
   fid="$(field_id "$fname")"
   if [[ -z "$fid" ]]; then
     if is_rate_limited; then return 2; fi
@@ -131,11 +132,11 @@ set_field() { # $1 item_id, $2 field name, $3 option name
 create_item() { # $1 title, $2 body
   local title="$1" body="${2:-}"
   if [[ -n "$body" ]]; then
-    gh project item-create "$PROJECT_NUMBER" --owner "$OWNER" \
-      --title "$title" --body "$body" --format json --jq .id
+    gh_call project item-create "$PROJECT_NUMBER" --owner "$OWNER" \
+      --title "$title" --body "$body" --format json --jq .id || return 1
   else
-    gh project item-create "$PROJECT_NUMBER" --owner "$OWNER" \
-      --title "$title" --format json --jq .id
+    gh_call project item-create "$PROJECT_NUMBER" --owner "$OWNER" \
+      --title "$title" --format json --jq .id || return 1
   fi
 }
 
@@ -158,7 +159,18 @@ cmd_add() {
   [[ -z "$effort" || "$effort" =~ ^($VALID_EFFORT)$ ]] || die "Effort invalide: '$effort' (attendu: $VALID_EFFORT)."
 
   local item
-  item="$(create_item "$title" "$body")"
+  item="$(create_item "$title" "$body")" || true
+  if [[ -z "$item" ]]; then
+    if is_rate_limited; then
+      local args="-s $status -p $priority"
+      [[ -n "$effort" ]] && args="$args -e $effort"
+      [[ -n "$body" ]] && args="$args -b \"$body\""
+      enqueue ADD "$title" "$args"
+      return 0
+    fi
+    echo "❌ Échec de la création de la carte." >&2
+    return 1
+  fi
   local pending=""
   set_field "$item" Status "$status" || {
     if is_rate_limited; then enqueue Status "$item" "$status"; pending=", status en file"; else return 1; fi
@@ -263,8 +275,16 @@ cmd_drain() {
       return 0
     fi
     sleep "$QUEUE_DELAY"
-    if set_field "$item" "$field" "$value"; then
-      echo "✅ $field réglé: $value"
+    local success=0
+    if [[ "$field" == "ADD" ]]; then
+      # Rejouer cmd_add "item" value
+      eval "cmd_add \"\$item\" $value" && success=1 || success=0
+    else
+      set_field "$item" "$field" "$value" && success=1 || success=0
+    fi
+
+    if (( success == 1 )); then
+      echo "✅ $field exécuté: $item"
     else
       if is_rate_limited; then
         echo "⏸️  Rate limit — arrêt du drain, lignes restantes conservées."
