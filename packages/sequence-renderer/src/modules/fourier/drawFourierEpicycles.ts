@@ -54,7 +54,6 @@ export const drawFourierEpicycles: VisualLayer = {
 
             for (let i = 0; i < activeLimit; i++) {
                 const epi = epicycles[i];
-                if (!epi) continue;
                 const radius = epi.amplitude * layout.valueScale;
                 // Evaluate the Fourier series at this specific progress point
                 x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
@@ -81,7 +80,6 @@ export const drawFourierEpicycles: VisualLayer = {
 
             for (let i = 0; i < activeLimit; i++) {
                 const epi = epicycles[i];
-                if (!epi) continue;
 
                 const prevX = x;
                 const prevY = y;

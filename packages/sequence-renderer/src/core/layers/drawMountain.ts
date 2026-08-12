@@ -69,17 +69,14 @@ const drawMountain: VisualLayer = {
         ctx.fillStyle = gradient;
         ctx.beginPath();
         const d0 = data[0];
-        if (d0 === undefined) return;
         ctx.moveTo(offsetX + d0 * valueScale, offsetY);
 
         for (let i = 1; i < data.length; i++) {
             const d = data[i];
-            if (d === undefined) continue;
             ctx.lineTo(offsetX + d * valueScale, offsetY);
         }
 
         const dLast = data[data.length - 1];
-        if (dLast === undefined) return;
         ctx.lineTo(offsetX + dLast * valueScale, offsetY + gradHeight);
         ctx.lineTo(offsetX + d0 * valueScale, offsetY + gradHeight);
         ctx.closePath();

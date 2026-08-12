@@ -65,7 +65,6 @@ const drawConnectionLines: VisualLayer = {
         for (let i = 1; i < data.length; i++) {
             const d1 = data[i - 1];
             const d2 = data[i];
-            if (d1 === undefined || d2 === undefined) continue;
             const hue = ((i / data.length) * (hueCycle as number)) % 360;
             ctx.strokeStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
             ctx.beginPath();

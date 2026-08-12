@@ -38,7 +38,7 @@ export const drawRecamanArcs: VisualLayer = {
 
         data.forEach((value, index) => {
             const previousValue = data[index - 1];
-            if (index > 0 && previousValue !== undefined) {
+            if (index > 0) {
                 const middleValue = ((previousValue + value) / 2) * valueScale;
                 const radius = (Math.abs(value - previousValue) / 2) * valueScale;
                 ctx.beginPath();

@@ -6,7 +6,6 @@ function maxAbsInterval(data: number[]): number {
     for (let i = 1; i < data.length; i++) {
         const d1 = data[i];
         const d2 = data[i - 1];
-        if (d1 === undefined || d2 === undefined) continue;
         const abs = Math.abs(d1 - d2);
         if (abs > max) max = abs;
     }

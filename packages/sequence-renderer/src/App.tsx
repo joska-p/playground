@@ -5,6 +5,10 @@ import { register } from './modules/fourier';
 
 register();
 
+/**
+ * Full-screen sequence visualizer: a zoomable/panable canvas plus a controls
+ * panel for picking a rule, step count, seed, and the active layer stack.
+ */
 function App() {
     return (
         <div className="relative h-screen overflow-hidden">

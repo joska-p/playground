@@ -20,7 +20,7 @@ function generateSequence({
             current,
             sequence,
             seen,
-            seed
+            ...(seed && { seed })
         });
         sequence.push(current);
         seen.add(current);

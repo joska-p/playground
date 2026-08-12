@@ -177,8 +177,10 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
 - Never hand-edit `dist-docs/` (generated, gitignored).
 - Never re-run `pnpm build:docs` / `collect-assets` for other packages.
 - The lint gate ("lint clean") forces fixing pre-existing failures in the
-  package — run `lint` before editing to know the baseline. Common traps when
-  fixing them:
+  package — run `lint` **and `check-types`** before editing to know the
+  baseline (a pre-existing type error *in the package* is in scope and must be
+  fixed; see the sibling-package exception below). Common traps when fixing
+  them:
   - `jsdoc/require-param-description` fires on `@param` tags that exist but
     lack a description (the shared config keeps this one from
     `recommended-typescript-error`; `lint-fix` won't fix it). Fix aligned with
@@ -193,6 +195,13 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
     `exactOptionalPropertyTypes` you can't just drop `| undefined`. Fix: keep
     the prop optional and omit the key / use conditional spread
     (`...(x && { x })`) — never required `prop: T | undefined`.
+  - `check-types` compiles workspace dependencies' **source** (path-mapped
+    imports), so a committed type error in a sibling package can fail your
+    gate even when your package's own code is clean. **Pre-authorized
+    exception:** fix it with the minimal surgical change (typically the same
+    conditional-spread pattern above) and note it in the final summary. This
+    is the only change allowed outside `packages/<PACKAGE_NAME>` and the two
+    registration files.
 - Follow repo conventions: read `AGENTS.md`; load the `coding-style` skill
   before editing code; the package's README + existing code are the local spec.
 - Keep the README's `> tagline` and structure; just remove the API inventory.
@@ -208,4 +217,6 @@ HTML in `packages/<pkg>/dist-docs/` (README embedded as the overview page) →
   concept-only, accurate, and stable.
 - Package registered in `collect-static-assets.mjs` and the reference index.
 - All commands in the Verify section pass (lint-fix run before lint; lint clean).
-- No other package was modified.
+- No other package was modified — except the single pre-authorized minimal
+  fix to a dependency whose committed type error blocked this package's
+  `check-types`.

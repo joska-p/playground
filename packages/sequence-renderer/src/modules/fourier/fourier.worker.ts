@@ -12,7 +12,6 @@ self.onmessage = (event: MessageEvent<Float32Array>) => {
         for (let n = 0; n < N; n++) {
             const x = sequence[2 * n];
             const y = sequence[2 * n + 1];
-            if (x === undefined || y === undefined) break;
 
             const phi = (Math.PI * 2 * k * n) / N;
             re += x * Math.cos(phi) + y * Math.sin(phi);

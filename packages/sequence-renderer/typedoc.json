@@ -1,0 +1,21 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/App.tsx"
+    ],
+    "out": "dist-docs",
+    "readme": "./README.md",
+    "tsconfig": "./tsconfig.app.json",
+    "theme": "hierarchy",
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "externalSymbolLinkMappings": {
+        "@types/react": {
+            "*": "#"
+        }
+    },
+    "githubPages": false,
+    "sort": ["kind", "alphabetical"]
+}

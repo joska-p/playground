@@ -7,7 +7,7 @@ function clampSteps(steps: number, maxSteps: number): number {
 }
 
 function regenerateSequence(sequenceRule: SequenceRule, steps: number, seed?: string): number[] {
-    return generateSequence({ sequenceRule, steps, seed });
+    return generateSequence({ sequenceRule, steps, ...(seed && { seed }) });
 }
 
 export function setSequenceRule({ sequenceRule }: { sequenceRule: SequenceRule }) {

@@ -13,7 +13,8 @@ const targets = [
     ['packages/l-system-engine/dist-docs', 'docs/api/l-system-engine'],
     ['packages/pixel/dist-docs', 'docs/api/pixel'],
     ['packages/pixel-manipulator/dist-docs', 'docs/api/pixel-manipulator'],
-    ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine']
+    ['packages/randomart-engine/dist-docs', 'docs/api/randomart-engine'],
+    ['packages/sequence-renderer/dist-docs', 'docs/api/sequence-renderer']
 ];
 
 for (const [src, dest] of targets) {

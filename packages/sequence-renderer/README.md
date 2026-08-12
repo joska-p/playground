@@ -17,8 +17,8 @@ date_discovered: 2025-06-01
 
 Sequence Renderer is the browser-surface layer of a two-package sequence
 visualization system. It takes the pure generation logic from
-[`@repo/sequence-engine`](/docs/reference/packages/sequence-engine) and
-gives it a body: a `<canvas>` element, a Fourier DFT computation running
+[`@repo/sequence-engine`](https://github.com/joska-p/playground/tree/main/packages/sequence-engine)
+and gives it a body: a `<canvas>` element, a Fourier DFT computation running
 in a Web Worker, a configurable layer stack, and a Zustand store that
 bridges engine logic to React components.
 
@@ -31,35 +31,67 @@ the trace they leave behind. Changing the seed changes the phase;
 changing the rule changes the shape; changing the layer stack changes
 what you see and what stays hidden.
 
-State lives in a global Zustand store. Selector hooks let each component
-subscribe to exactly the slice it needs; mutation functions handle
-regeneration, layer toggling, and viewport changes. The component tree
-is small: an `App` shell, an `ErrorBoundary`, a `Sidebar` with controls,
-and the `SequenceCanvas` where the actual drawing happens.
+State lives in Zustand stores. Selector hooks subscribe each component to
+exactly the slice it needs; action functions handle rule changes,
+regeneration, layer toggling, and viewport updates. The component tree
+stays small: an `App` shell wrapped in an error boundary, the canvas that
+draws the sequence, and a controls panel.
 
-## Quick Launch
+## Quick Start
+
+Run the visualizer on its own:
 
 ```bash
 pnpm dev --filter @repo/sequence-renderer
 ```
 
-Or install it into your own project:
+Or embed it in your own project:
 
 ```bash
 pnpm add @repo/sequence-renderer
 ```
 
 ```tsx
-import { App } from '@repo/sequence-renderer';
+import { App } from '@repo/sequence-renderer/sequence-renderer';
+import '@repo/sequence-renderer/styles';
 
 export default function Page() {
     return <App />;
 }
 ```
 
-```tsx
-import '@repo/sequence-renderer/styles';
-```
+`App` fills its container — render it somewhere full-screen so the canvas has
+room. The `styles` import brings in the Tailwind theme the visualizer is styled
+with.
+
+## Usage
+
+`App` renders a full-screen canvas plus a controls panel:
+
+- **Sequence** — pick a rule from the engine's registry (Recamán, Fibonacci,
+  Collatz, and friends), slide the step count, and set the random seed. Every
+  change regenerates the sequence.
+- **Viewport** — reset the canvas zoom and pan.
+- **Layers** — the sequence is drawn as a stack of layers, each one a draw
+  function from a registry (baselines, plotted numbers, arcs, connection
+  lines, radial spokes, fills, charts, and Fourier epicycles). Toggle, add, or
+  remove layers and tweak their parameters.
+
+The canvas is interactive: scroll to zoom, drag to pan.
+
+## Patterns & Gotchas
+
+- **Determinism vs surprise.** The engine's rules are deterministic given a
+  seed, so the same seed and steps always regenerate the same sequence —
+  while different rules project the same seed into completely different
+  shapes.
+- **The DFT runs in a Web Worker.** The Fourier decomposition is offloaded to
+  a worker so large step counts don't block the main thread; the worker
+  returns harmonic data that the canvas renders as epicycles.
+- **Importing `App` has a side effect.** The Fourier rule is registered at
+  module level, so importing the app registers the `harmonic-path` rule in the
+  engine's registry before any sequence generation happens. This is
+  intentional — the rule needs to exist before the app runs.
 
 ## Field Notes
 
@@ -71,14 +103,11 @@ import '@repo/sequence-renderer/styles';
   as a sum of rotating circles, and watching those circles trace out a
   shape feels like seeing the mathematics breathe.
 
-- **Quirks & Anomalies:** The Fourier DFT computation runs entirely in a
-  Web Worker to avoid blocking the main thread during large step counts.
-  The worker returns harmonic data that the canvas then renders as
-  epicycles — each circle's radius and angular velocity derived from a
-  single DFT pass. The `harmonicPath` rule is registered at module level
-  in `App.tsx`, which means importing the app has a side effect. This is
-  intentional: the rule needs to exist before any sequence generation
-  happens, and module-level registration is the simplest guarantee.
+- **Quirks & Anomalies:** The `harmonicPath` rule is registered at module
+  level in `App.tsx`, which means importing the app has a side effect.
+  This is intentional: the rule needs to exist before any sequence
+  generation happens, and module-level registration is the simplest
+  guarantee.
 
 - **Future Horizons:** Animated playback that walks through the sequence
   term-by-term, letting the epicycles build up in real time. Export to
@@ -88,66 +117,5 @@ import '@repo/sequence-renderer/styles';
   raw DFT coefficients alongside the visual output.
 
 ---
-
-## Architecture
-
-```
-UI/Presentation (React components)
-    │
-    ▼
-Zustand Store (bridges engine logic ↔ UI components)
-    │
-    ▼
-core/           — Canvas rendering, layer system, types
-modules/fourier — DFT computation (Web Worker), Fourier epicycle rendering, harmonicPath rule
-    │
-    ▼
-@repo/sequence-engine (pure: sequence generation, rule types, PresetStore interface, built-in presets)
-```
-
-## State & Store
-
-The store uses a consistent Zustand pattern. Access state via selector
-hooks:
-
-```typescript
-const seed = useSeed(); // Random seed string
-const sequenceRule = useSequenceRule(); // Current SequenceRule
-const steps = useSequenceSteps(); // Step count
-const sequence = useSequenceSequence(); // Generated number array
-const layers = useLayersConfig(); // LayerConfigEntry[]
-const viewport = useViewport(); // CanvasViewport
-```
-
-| Mutation                             | Effect                                 |
-| :----------------------------------- | :------------------------------------- |
-| `setSequenceRule({ sequenceRule })`  | Change rule, clamp steps, regenerate   |
-| `setSequenceSteps({ steps })`        | Change step count, regenerate          |
-| `setSeed(seed)`                      | Change random seed, regenerate         |
-| `toggleLayer(layerId)`               | Enable/disable a layer                 |
-| `addLayer(layerId)`                  | Append a new layer with default params |
-| `updateLayerParams(layerId, params)` | Merge param overrides for a layer      |
-| `setViewport(...)`                   | Update viewport state                  |
-
-## Component Tree
-
-```
-App
-  ErrorBoundary
-    Sidebar (right panel)
-      Sidebar.Main
-        SequenceCanvas  — <canvas> with mouse wheel zoom + drag pan
-      Sidebar.Panel
-        SidebarControls
-          SequenceSelector      — Dropdown (rules)
-          Seed                  — Text input for random seed
-          StepsSlider           — Step count
-          LayerStackEditor      — Add/remove layers, toggle per-layer params
-          ViewportControls      — Zoom/Pan toggle + sliders
-```
-
----
-
-_See [@repo/sequence-engine](/docs/reference/packages/sequence-engine) for the pure generation engine, rule system, and PresetStore interface._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
