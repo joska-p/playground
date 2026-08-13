@@ -19,12 +19,11 @@ pnpm --filter @repo/<package> <cmd>
 
 ## Per-package source of truth
 
-When working inside a package, its **README + existing code are the local spec**:
-mirror the patterns the code already shows (exports, naming, structure, testing,
-gotchas) and keep the README accurate — it is part of the contract. The global
-`coding-style` skill supplies the general technique; this repo's docs and code
-supply the specifics. Follow the same pattern when building a new package:
-write the README as the local spec before the code.
+When working inside a package, follow the `documenting` and package-shape skills: package READMEs cover concepts/gotchas, while TSDoc + TypeDoc generate API references. Mirror existing code patterns.
+
+## GitHub Kanban
+
+- Use the custom mutation tool located at `/workspaces/playground/scripts/kanban.sh` when interacting with or updating the GitHub Kanban board.
 
 ## CodeGraph
 

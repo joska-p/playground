@@ -5,6 +5,7 @@ import { ManualControls } from '../../modules/manual/ManualControls';
 import { SeedControls } from '../../modules/seed/SeedControls';
 import type { InputMode } from '../../stores/ui/store';
 import { setInpuMode, useInputMode } from '../../stores/ui/store';
+import { SpiraleControls } from '../../modules/spirale/SpiraleControls';
 
 const inputModes: InputMode[] = ['spirale', 'seed', 'folded-space', 'atlas', 'manual'];
 const inputModeOptions = inputModes.map((mode) => ({
@@ -35,6 +36,9 @@ function ControlsPanel() {
                 </Select>
             </ControlRow>
 
+            <ControlConditional when={inputMode === 'spirale'}>
+                <SpiraleControls />
+            </ControlConditional>
             <ControlConditional when={inputMode === 'seed'}>
                 <SeedControls />
             </ControlConditional>
