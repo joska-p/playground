@@ -16,7 +16,7 @@
         "clean:tsbuildinfo": "find . -name '*.tsbuildinfo' -type f -not -path '*/node_modules/*' -delete",
         "clean:dist": "rm -rf dist packages/*/dist",
         "clean:docs": "rm -rf apps/playground/src/content/api",
-        "clean": "pnpm clean:*",
+        "clean": "pnpm clean:turbo && pnpm clean:modules && pnpm clean:tsbuildinfo && pnpm clean:dist && pnpm clean:docs",
         "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
         "gen": "turbo gen",
         "gen:new-package": "turbo gen run new-package",
