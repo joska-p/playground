@@ -11,13 +11,17 @@
         "lint-fix": "turbo run lint-fix",
         "format": "prettier --write .",
         "check-types": "turbo run check-types",
-        "fallow": "fallow",
+        "clean:turbo": "turbo run clean && rm -rf dist packages/*/.turbo",
+        "clean:modules": "find . -name node_modules -type d -prune -exec rm -rf {} +",
+        "clean:dist": "rm -rf dist packages/*/dist",
+        "clean:docs": "rm -rf dist-docs packages/*/dist-docs",
+        "clean:all": "pnpm clean:turbo && pnpm clean:modules && pnpm clean:dist && pnpm clean:docs",
+        "reset": "pnpm clean:all && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
         "gen": "turbo gen",
-        "graphify": "graphify update",
-        "clean": "turbo clean && turbo run clean && rm -rf node_modules && find . -name node_modules -type d -prune -exec rm -rf {} +",
-        "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
         "gen:new-package": "turbo gen run new-package",
-        "gen:project-pages": "turbo gen run project-pages"
+        "gen:project-pages": "turbo gen run project-pages",
+        "fallow": "fallow",
+        "graphify": "graphify update"
     },
     "devDependencies": {
         "@turbo/gen": "catalog:",
