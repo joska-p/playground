@@ -4,6 +4,7 @@ import { Manual } from '../modules/manual/Manual';
 import { SeedCanvas } from '../modules/seed/SeedCanvas';
 import { useInputMode } from '../stores/ui/store';
 import { ControlsPanel } from './controls/ControlsPanel';
+import { Spirale } from '../modules/spirale/Spirale';
 
 export function ArtCanvas() {
     const inputMode = useInputMode();
@@ -11,6 +12,7 @@ export function ArtCanvas() {
     return (
         <>
             <ControlsPanel />
+            {inputMode === 'spirale' && <Spirale />}
             {inputMode === 'seed' && <SeedCanvas />}
             {inputMode === 'folded-space' && <FoldedSpace />}
             {inputMode === 'atlas' && <Atlas />}

@@ -1,42 +1,36 @@
-const SCROLL_THRESHOLD = 40; // px from top before hiding kicks in
-const IDLE_DELAY = 2000; // ms before hiding after scroll stops
-
-let smartNavScrollHandler = null;
+let hideTimer = null;
+let isHovered = false;
+let lastScrollY = window.scrollY;
 
 const setupSmartNavbar = () => {
     const header = document.querySelector('header');
     const mobileMenu = document.getElementById('mobile-menu');
     if (!header) return;
 
-    if (smartNavScrollHandler) {
-        window.removeEventListener('scroll', smartNavScrollHandler);
-        smartNavScrollHandler = null;
-    }
-
-    let hideTimer = null;
-    let isHovered = false;
+    const SCROLL_THRESHOLD = 40;
+    const IDLE_DELAY = 2000;
 
     const isMobileMenuOpen = () => mobileMenu?.getAttribute('data-open') === 'true';
 
     const showNavbar = () => {
-        header.style.transform = 'translateY(0)';
-        header.style.opacity = '1';
-        header.style.pointerEvents = 'auto';
+        header.removeAttribute('data-hidden');
     };
 
     const hideNavbar = () => {
-        header.style.transform = 'translateY(-110%)';
-        header.style.opacity = '0';
-        header.style.pointerEvents = 'none';
+        if (window.scrollY > SCROLL_THRESHOLD && !isHovered && !isMobileMenuOpen()) {
+            header.setAttribute('data-hidden', 'true');
+        }
     };
 
     const scheduleHide = () => {
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => {
-            if (!isHovered && !isMobileMenuOpen() && window.scrollY > SCROLL_THRESHOLD) {
-                hideNavbar();
-            }
-        }, IDLE_DELAY);
+        if (window.scrollY > SCROLL_THRESHOLD) {
+            hideTimer = setTimeout(() => {
+                if (!isHovered && !isMobileMenuOpen()) {
+                    hideNavbar();
+                }
+            }, IDLE_DELAY);
+        }
     };
 
     header.addEventListener('mouseenter', () => {
@@ -47,22 +41,30 @@ const setupSmartNavbar = () => {
 
     header.addEventListener('mouseleave', () => {
         isHovered = false;
-        if (window.scrollY > SCROLL_THRESHOLD && !isMobileMenuOpen()) {
+        if (window.scrollY > SCROLL_THRESHOLD) {
             scheduleHide();
         }
     });
 
-    smartNavScrollHandler = () => {
-        if (window.scrollY <= SCROLL_THRESHOLD) {
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= SCROLL_THRESHOLD) {
             showNavbar();
             clearTimeout(hideTimer);
-        } else {
+        } else if (currentScrollY < lastScrollY) {
+            // Scrolling UP -> show navbar immediately
             showNavbar();
             scheduleHide();
+        } else if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
+            // Scrolling DOWN -> schedule hide
+            scheduleHide();
         }
+
+        lastScrollY = currentScrollY;
     };
 
-    window.addEventListener('scroll', smartNavScrollHandler, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 };
 
 setupSmartNavbar();

@@ -4,9 +4,9 @@ import { AtlasControls } from '../../modules/atlas/controls/AtlasControls';
 import { ManualControls } from '../../modules/manual/ManualControls';
 import { SeedControls } from '../../modules/seed/SeedControls';
 import type { InputMode } from '../../stores/ui/store';
-import { setUiMode, useInputMode } from '../../stores/ui/store';
+import { setInpuMode, useInputMode } from '../../stores/ui/store';
 
-const inputModes: InputMode[] = ['seed', 'folded-space', 'atlas', 'manual'];
+const inputModes: InputMode[] = ['spirale', 'seed', 'folded-space', 'atlas', 'manual'];
 const inputModeOptions = inputModes.map((mode) => ({
     label: mode.charAt(0).toUpperCase() + mode.slice(1),
     value: mode
@@ -21,7 +21,7 @@ function ControlsPanel() {
                 <Select
                     value={inputMode}
                     onChange={(e) => {
-                        setUiMode(e.target.value as InputMode);
+                        setInpuMode(e.target.value as InputMode);
                     }}
                 >
                     {inputModeOptions.map((opt) => (
