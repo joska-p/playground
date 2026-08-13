@@ -1,5 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
+    "extends": ["../../typedoc.base.json"],
     "entryPoints": [
         "src/config.ts",
         "src/grid.ts",
@@ -10,19 +11,6 @@
         "src/rules/registry.ts",
         "src/gpu/createSimulationEngine.ts"
     ],
-    "out": "dist-docs",
-    "readme": "./README.md",
     "tsconfig": "./tsconfig.json",
-    "theme": "hierarchy",
-    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
-    "excludePrivate": true,
-    "excludeProtected": true,
-    "excludeInternal": true,
-    "externalSymbolLinkMappings": {
-        "@types/node": {
-            "*": "#"
-        }
-    },
-    "githubPages": false,
-    "sort": ["kind", "alphabetical"]
+    "readme": "./README.md"
 }

@@ -1,0 +1,14 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "plugin": ["typedoc-plugin-missing-exports"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "externalSymbolLinkMappings": {
+        "@types/react": {
+            "*": "#"
+        }
+    },
+    "githubPages": false,
+    "sort": ["kind", "alphabetical"]
+}

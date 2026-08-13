@@ -1,0 +1,14 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "extends": ["./typedoc.base.json"],
+    "entryPointStrategy": "packages",
+    "entryPoints": ["packages/*"],
+    "plugin": ["typedoc-plugin-missing-exports", "typedoc-plugin-markdown"],
+    "out": "apps/playground/src/content/api",
+    "cleanOutputDir": true,
+    "hidePageHeader": true,
+    "hideBreadcrumbs": true,
+    "hidePageTitle": true,
+    "outputFileStrategy": "modules",
+    "flattenOutputFiles": true
+}

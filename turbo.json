@@ -3,7 +3,7 @@
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
         "build": {
-            "dependsOn": ["^build"],
+            "dependsOn": ["^build", "build:docs"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": [".astro/**", "dist/**", "storybook-static/**"]
         },
@@ -35,7 +35,18 @@
         },
         "build:docs": {
             "dependsOn": ["^build"],
-            "outputs": ["dist-docs/**"]
+            "inputs": [
+                "src/**",
+                "public/**",
+                "$TURBO_ROOT$/typedoc.base.json",
+                "$TURBO_ROOT$/typedoc.docs.json",
+                "$TURBO_ROOT$/scripts/generate-docs.mjs",
+                "$TURBO_ROOT$/packages/*/package.json",
+                "$TURBO_ROOT$/packages/*/typedoc.json",
+                "$TURBO_ROOT$/packages/*/src/**/*.{ts,tsx,tsx}",
+                "$TURBO_ROOT$/packages/*/README.md"
+            ],
+            "outputs": ["src/content/api/**"]
         }
     }
 }

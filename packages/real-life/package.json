@@ -8,7 +8,6 @@
         "./styles": "./src/styles/styles.css"
     },
     "scripts": {
-        "build:docs": "typedoc",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
@@ -29,9 +28,6 @@
     },
     "devDependencies": {
         "@types/three": "catalog:",
-        "typedoc": "catalog:",
-        "typedoc-plugin-missing-exports": "catalog:",
-        "typedoc-theme-hierarchy": "catalog:",
         "@babel/core": "catalog:",
         "eslint": "catalog:",
         "@repo/config-eslint": "workspace:*",

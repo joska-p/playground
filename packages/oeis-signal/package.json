@@ -9,7 +9,6 @@
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
-        "build:docs": "typedoc",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
@@ -28,9 +27,6 @@
     },
     "devDependencies": {
         "@babel/core": "catalog:",
-        "typedoc": "catalog:",
-        "typedoc-plugin-missing-exports": "catalog:",
-        "typedoc-theme-hierarchy": "catalog:",
         "eslint": "catalog:",
         "@repo/config-eslint": "workspace:*",
         "@repo/config-typescript": "workspace:*",

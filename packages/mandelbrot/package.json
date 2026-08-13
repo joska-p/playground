@@ -24,9 +24,6 @@
     },
     "devDependencies": {
         "@babel/core": "catalog:",
-        "typedoc": "catalog:",
-        "typedoc-plugin-missing-exports": "catalog:",
-        "typedoc-theme-hierarchy": "catalog:",
         "@repo/config-eslint": "workspace:*",
         "@repo/config-typescript": "workspace:*",
         "@rolldown/plugin-babel": "catalog:",

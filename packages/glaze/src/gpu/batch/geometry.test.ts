@@ -71,7 +71,7 @@ describe('tessellation helpers', () => {
         const ring = circleRing(0, 0, 5, 8);
         expect(ring).toHaveLength(8);
         expect(ring[0]).toEqual({ x: 5, y: 0 });
-        const mid = ring[2] as { x: number; y: number };
+        const mid = ring[2];
         expect(Math.hypot(mid.x, mid.y)).toBeCloseTo(5, 5);
     });
 

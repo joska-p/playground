@@ -28,7 +28,6 @@
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
-        "build:docs": "typedoc",
         "dev": "pnpm build:docs && vite --host",
         "preview": "vite preview --host",
         "lint": "eslint .",
@@ -61,9 +60,6 @@
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
-        "typedoc": "catalog:",
-        "typedoc-plugin-missing-exports": "catalog:",
-        "typedoc-theme-hierarchy": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:",
         "vitest": "catalog:"
