@@ -140,6 +140,19 @@ On image load, the system:
    a random initial velocity, and a staggered delay
    (`currentDelay += random * 5`).
 
+## Library Orientation
+
+Today this is a **single-package React component**, not an engine: the
+particle physics, image sampling, and the `<ImageToParticles>` UI live
+together in one package and are consumed as a drop-in component
+(`<ImageToParticles />` plus its stylesheet).
+
+The physics is deliberately isolated in `src/core/` (`config.ts`,
+`utils.ts`) so it can be lifted out later. The natural seam is a
+framework-agnostic particle engine (`particle-lib`) with vector-field
+support (`vector-field-lib`); when that split happens, this package keeps
+the component + sampling + styling and re-exports the extracted core.
+
 ## Exports
 
 | Export             | Path                                        | Description                           |

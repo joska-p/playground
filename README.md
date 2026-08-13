@@ -23,10 +23,10 @@ by [@jpotin](https://gitlab.com/jpotin)
 
 | Engine              | Description                     | Package                                                       |
 | ------------------- | ------------------------------- | ------------------------------------------------------------- |
-| **automa-engine**   | Cellular automata core          | [`@repo/automa-engine`](./packages/engines/automa-engine)     |
-| **sequence-engine** | Mathematical sequence generator | [`@repo/sequence-engine`](./packages/engines/sequence-engine) |
-| **palette-engine**  | Color spaces + harmony rules    | [`@repo/palette-engine`](./packages/engines/palette-engine)   |
-| **pixel-engine**    | Image manipulation core         | [`@repo/pixel-engine`](./packages/engines/pixel-engine)       |
+| **automa-engine**   | Cellular automata core          | [`@repo/automa-engine`](./packages/automa-engine)         |
+| **sequence-engine** | Mathematical sequence generator | [`@repo/sequence-engine`](./packages/sequence-engine)     |
+| **palette-engine**  | Color spaces + harmony rules    | [`@repo/palette-engine`](./packages/palette-engine)       |
+| **pixel-engine**    | Image manipulation core         | [`@repo/pixel-engine`](./packages/pixel-engine)           |
 
 ---
 

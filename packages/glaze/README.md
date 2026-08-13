@@ -49,7 +49,8 @@ import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
 export function Sketch() {
     return (
-        <GpuCanvas onDraw="{(surface)"> {
+        <GpuCanvas
+            onDraw={(surface) => {
                 surface.clear(0.05, 0.07, 0.09, 1);
                 surface.circle(200, 150, 60, '#e11d48');
                 surface.rect(30, 30, 120, 90, '#16a34a');
@@ -58,7 +59,6 @@ export function Sketch() {
         />
     );
 }
-
 ```
 
 #### Headless Surface Management (`useGpuSurface` / `useCpuSurface`)
@@ -67,7 +67,7 @@ If you want complete control over component rendering or want to hook engine ref
 
 ```tsx
 import { useEffect } from 'react';
-import { useGpuSurface } from '@repo/glaze/react/hooks/useGpuSurface';
+import { useGpuSurface } from '@repo/glaze/react/useGpuSurface';
 
 export function HeadlessSketch() {
     const { canvasRef, surfaceRef } = useGpuSurface({
@@ -237,16 +237,7 @@ Inputs and interactions remain cleanly separated:
 
 ```bash
 pnpm --filter @repo/glaze test
-
 ```
-
-## Contributing
-
-PRs welcome! See [CONTRIBUTING.md].
-
-## Changelog
-
-Follows SemVer. See [CHANGELOG.md].
 
 ---
 

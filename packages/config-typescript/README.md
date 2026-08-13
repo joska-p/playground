@@ -35,10 +35,21 @@ to include.
         "target": "es2023",
         "lib": ["ES2023", "DOM"],
         "module": "esnext",
-        "jsx": "react-jsx",
+        "types": ["vite/client"],
+        "allowArbitraryExtensions": true,
+        "skipLibCheck": true,
         "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
-        "noEmit": true
+        "moduleDetection": "force",
+        "jsx": "react-jsx",
+        "noEmit": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "erasableSyntaxOnly": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": false,
+        "exactOptionalPropertyTypes": true
     },
     "include": ["src"]
 }
@@ -46,9 +57,12 @@ to include.
 
 For Vite + React packages. Key choices:
 
+- **`types: ["vite/client"]`** — Vite's ambient types (`import.meta.env`, asset imports) without `@types/node`
 - **`verbatimModuleSyntax`** — enforces `import type` for type-only imports
 - **`erasableSyntaxOnly`** — no enums or namespaces (use `const` objects + `satisfies` instead)
-- **`exactOptionalPropertyTypes: false`** — relaxed because it fights with common patterns
+- **`exactOptionalPropertyTypes: true`** — distinguishes `prop?: T` from `prop: T | undefined`
+- **`noUncheckedIndexedAccess: false`** — relaxed from the strictest base because index access is pervasive in React/Vite code
+- **`allowImportingTsExtensions` + `allowArbitraryExtensions`** — enables `.ts`/`.tsx` import specifiers and exotic module extensions (CSS, JSON) under `noEmit`
 
 ### `node.json` — tooling / config packages
 
@@ -56,12 +70,21 @@ For Vite + React packages. Key choices:
 {
     "extends": "./base.json",
     "compilerOptions": {
+        "tsBuildInfoFile": "./.turbo/tsconfig.node.tsbuildinfo",
         "target": "es2023",
         "lib": ["ES2023"],
         "types": ["node"],
+        "skipLibCheck": true,
+        "noEmit": true,
         "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
-        "noEmit": true
+        "moduleDetection": "force",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "erasableSyntaxOnly": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true
     },
     "include": ["vite.config.ts"]
 }
@@ -69,6 +92,8 @@ For Vite + React packages. Key choices:
 
 For packages that only contain build config (like `vite.config.ts`).
 No DOM types, no JSX — just strict TypeScript for Node-adjacent tooling.
+Keeps `noUncheckedIndexedAccess` on (unlike `app.json`), since there's
+little index access in config files.
 
 ## Usage
 
