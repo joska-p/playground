@@ -17,7 +17,7 @@ date_discovered: 2025-06-01
 
 1. **Documentation Site**: Markdown content collections under `src/content/docs/` covering architecture explanations, conventions, how-to guides, and the package API reference.
 2. **Discovery Pages**: Dynamic showcase routes (`src/pages/discoveries/*.astro`) embedding interactive WebGL/Canvas visualizers and experiment applications.
-3. **Static Asset Hub**: Merges TypeDoc static API reference sites (`/docs/api/<pkg>/`) and Storybook (`/storybook/`) during build time via `scripts/collect-static-assets.mjs`.
+3. **Static Asset Hub**: Integrates TypeDoc-generated Markdown API references under `src/content/api/` and Storybook (`/storybook/`) during build time in `@repo/playground`.
 
 ## Quick Start
 
@@ -57,9 +57,8 @@ apps/playground/
 ## Documentation Pipeline
 
 1. Package source code is annotated with TSDoc (`/** */`).
-2. `pnpm build:docs` compiles each package's exports with TypeDoc into `packages/<pkg>/dist-docs/`.
-3. `pnpm build` in `@repo/playground` compiles Astro pages.
-4. `pnpm collect-assets` merges `packages/<pkg>/dist-docs/` into `apps/playground/dist/docs/api/<pkg>/`.
+2. `pnpm build-docs` runs TypeDoc centrally and generates Markdown API reference entries directly into `apps/playground/src/content/api/`.
+3. `pnpm build` in `@repo/playground` compiles Astro pages and documentation.
 
 ---
 

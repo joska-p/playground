@@ -19,6 +19,6 @@ tags:
 - The **API reference is generated** from the code: add TSDoc comments to
   exported symbols, then run:
     ```bash
-    pnpm build:docs && pnpm collect-assets
+    pnpm build-docs
     ```
-- Generated docs are served at `/docs/api/<package>/` and never edited by hand.
+- Generated docs are output directly to `apps/playground/src/content/api/` and served by `apps/playground` (Astro) at `/discoveries/<package>/`.

@@ -4,8 +4,7 @@
     "scripts": {
         "build": "turbo run build",
         "build-docs": "node ./scripts/generate-docs.mjs",
-        "collect-assets": "node ./scripts/collect-static-assets.mjs",
-        "deploy": "pnpm build && pnpm collect-assets",
+        "deploy": "pnpm build",
         "dev": "turbo run dev",
         "lint": "turbo run lint",
         "lint-fix": "turbo run lint-fix",
