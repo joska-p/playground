@@ -274,7 +274,7 @@ export class ShapeBatcher {
         for (let i = 0; i < segments; i++) {
             const a = ring[i];
             const b = ring[(i + 1) % segments];
-            if (a && b) this.#pushTriangle(center, a, b, color);
+            this.#pushTriangle(center, a, b, color);
         }
     }
 
@@ -295,7 +295,7 @@ export class ShapeBatcher {
             const b = outer[j];
             const c = inner[j];
             const d = inner[i];
-            if (a && b && c && d) this.#pushQuad(a, b, c, d, color);
+            this.#pushQuad(a, b, c, d, color);
         }
     }
 

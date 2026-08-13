@@ -32,6 +32,8 @@ export class StateBufferTargets {
 
     bindWrite(): void {
         const fbo = this.#framebuffers[this.#writeIndex()];
+        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
         this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, fbo);
         this.#gl.viewport(0, 0, this.#currentWidth, this.#currentHeight);
@@ -43,12 +45,16 @@ export class StateBufferTargets {
 
     getReadTexture(): WebGLTexture {
         const texture = this.#textures[this.#readIndex()];
+        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
         return texture;
     }
 
     getWriteTexture(): WebGLTexture {
         const texture = this.#textures[this.#writeIndex()];
+        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
         return texture;
     }

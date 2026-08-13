@@ -75,7 +75,7 @@ describe('createInteractionAdapter', () => {
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
         expect(onStart).toHaveBeenCalledTimes(1);
         const event = onStart.mock.calls[0]?.[0];
-        expect(event?.surface).toEqual({ input });
+        expect(event.surface).toEqual({ input });
         router.dispose();
         input.detach();
     });

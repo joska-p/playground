@@ -14,7 +14,7 @@ const HEX_RE = /^#([0-9a-f]{3,8})$/i;
 function parseHex(color: string): RGBA | null {
     const match = HEX_RE.exec(color);
     if (!match) return null;
-    let hex = match[1] ?? '';
+    let hex = match[1];
     if (hex.length === 3 || hex.length === 4) {
         let expanded = '';
         for (const channel of hex) expanded += channel + channel;
@@ -37,14 +37,11 @@ function parseChannel(token: string | undefined): number {
 function parseRgb(color: string): RGBA | null {
     const match = /^rgba?\(([^)]+)\)$/i.exec(color);
     if (!match) return null;
-    const parts = (match[1] ?? '').split(/[,/\s]+/).filter(Boolean);
+    const parts = match[1].split(/[,/\s]+/).filter(Boolean);
     if (parts.length < 3) return null;
-    const a =
-        parts[3] === undefined
-            ? 1
-            : parts[3].endsWith('%')
-              ? clamp01(parseFloat(parts[3]) / 100)
-              : clamp01(parseFloat(parts[3]));
+    const a = parts[3].endsWith('%')
+        ? clamp01(parseFloat(parts[3]) / 100)
+        : clamp01(parseFloat(parts[3]));
     return {
         r: parseChannel(parts[0]),
         g: parseChannel(parts[1]),
@@ -66,17 +63,14 @@ function hueToRgb(p: number, q: number, t: number): number {
 function parseHsl(color: string): RGBA | null {
     const match = /^hsla?\(([^)]+)\)$/i.exec(color);
     if (!match) return null;
-    const parts = (match[1] ?? '').split(/[,/\s]+/).filter(Boolean);
+    const parts = match[1].split(/[,/\s]+/).filter(Boolean);
     if (parts.length < 3) return null;
     const hue = (parseFloat(parts[0] ?? '0') % 360) / 360;
     const s = parseChannel(parts[1]);
     const l = parseChannel(parts[2]);
-    const a =
-        parts[3] === undefined
-            ? 1
-            : parts[3].endsWith('%')
-              ? clamp01(parseFloat(parts[3]) / 100)
-              : clamp01(parseFloat(parts[3]));
+    const a = parts[3].endsWith('%')
+        ? clamp01(parseFloat(parts[3]) / 100)
+        : clamp01(parseFloat(parts[3]));
     const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
     const p = 2 * l - q;
     return {

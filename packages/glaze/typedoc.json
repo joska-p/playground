@@ -23,7 +23,7 @@
         "src/react/useCpuSurface.ts",
         "src/react/useGpuSurface.ts"
     ],
-    "tsconfig": "./tsconfig.lib.json",
+    "tsconfig": "./tsconfig.json",
     "readme": "./README.md",
     "skipErrorChecking": true
 }

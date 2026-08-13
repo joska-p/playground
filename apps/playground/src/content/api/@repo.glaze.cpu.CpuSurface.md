@@ -1,0 +1,646 @@
+---
+title: cpu/CpuSurface
+package: "@repo/glaze"
+kind: module
+module: cpu/CpuSurface
+---
+
+## Classes
+
+### CpuSurface
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:24](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L24)
+
+Immediate-mode Canvas2D drawing. Draw calls are chainable and every method returns the surface;
+drawing happens in world space, with `applyCamera()` running automatically before each frame's
+callback. Per-frame state — `time` / `deltaTime` (seconds), `frameCount`, `width` / `height` (CSS
+px) — is updated just before the draw callback runs.
+
+#### Constructors
+
+##### Constructor
+
+> **new CpuSurface**(`config`): [`CpuSurface`](#cpusurface)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:48](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L48)
+
+###### Parameters
+
+###### config
+
+[`CpuSurfaceConfig`](#cpusurfaceconfig)
+
+###### Returns
+
+[`CpuSurface`](#cpusurface)
+
+#### Properties
+
+##### camera
+
+> `readonly` **camera**: [`Camera`](@repo.glaze.core.Camera.md#camera)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:36](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L36)
+
+##### canvas
+
+> `readonly` **canvas**: [`HTMLCanvasElement`](@repo.palette-engine.colorSpaces.<internal>.md#htmlcanvaselement)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:34](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L34)
+
+##### context
+
+> `readonly` **context**: [`CanvasRenderingContext2D`](@repo.glaze.gpu.shapes.TextRasterizer.<internal>.md#canvasrenderingcontext2d)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:35](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L35)
+
+##### deltaTime
+
+> **deltaTime**: `number` = `0`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:28](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L28)
+
+Seconds since the previous frame.
+
+##### dpr
+
+> `readonly` **dpr**: `number`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:33](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L33)
+
+##### frameCount
+
+> **frameCount**: `number` = `0`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:29](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L29)
+
+##### height
+
+> **height**: `number` = `0`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:32](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L32)
+
+##### input
+
+> `readonly` **input**: [`InputStore`](@repo.glaze.core.InputStore.md#inputstore)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:37](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L37)
+
+##### time
+
+> **time**: `number` = `0`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:26](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L26)
+
+Seconds since the frame loop started.
+
+##### width
+
+> **width**: `number` = `0`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:31](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L31)
+
+CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size.
+
+#### Accessors
+
+##### isRunning
+
+###### Get Signature
+
+> **get** **isRunning**(): `boolean`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:64](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L64)
+
+###### Returns
+
+`boolean`
+
+##### pointer
+
+###### Get Signature
+
+> **get** **pointer**(): [`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:73](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L73)
+
+Current pointer position in world coordinates.
+
+###### Returns
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+The pointer position, camera-transformed.
+
+#### Methods
+
+##### applyCamera()
+
+> **applyCamera**(): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:129](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L129)
+
+Resets the context transform, then applies the camera (`zoom` plus `x`/`y` pan) scaled by
+`dpr`. Runs automatically before each frame's draw callback; call manually before one-shot
+draws made outside the loop.
+
+###### Returns
+
+`this`
+
+This surface, for chaining.
+
+##### circle()
+
+###### Call Signature
+
+> **circle**(`x`, `y`, `radius`, `fill?`, `stroke?`, `lineWidth?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:175](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L175)
+
+###### Parameters
+
+###### x
+
+`number`
+
+###### y
+
+`number`
+
+###### radius
+
+`number`
+
+###### fill?
+
+`string`
+
+###### stroke?
+
+`string`
+
+###### lineWidth?
+
+`number`
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **circle**(`center`, `radius`, `style?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:183](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L183)
+
+###### Parameters
+
+###### center
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### radius
+
+`number`
+
+###### style?
+
+[`DrawStyle`](@repo.glaze.cpu.shapes.types.md#drawstyle)
+
+###### Returns
+
+`this`
+
+##### clear()
+
+> **clear**(`color`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:112](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L112)
+
+###### Parameters
+
+###### color
+
+`string`
+
+###### Returns
+
+`this`
+
+##### destroy()
+
+> **destroy**(): `void`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:295](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L295)
+
+###### Returns
+
+`void`
+
+##### line()
+
+###### Call Signature
+
+> **line**(`x1`, `y1`, `x2`, `y2`, `stroke?`, `lineWidth?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:210](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L210)
+
+###### Parameters
+
+###### x1
+
+`number`
+
+###### y1
+
+`number`
+
+###### x2
+
+`number`
+
+###### y2
+
+`number`
+
+###### stroke?
+
+`string`
+
+###### lineWidth?
+
+`number`
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **line**(`a`, `b`, `style?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:211](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L211)
+
+###### Parameters
+
+###### a
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### b
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### style?
+
+[`DrawStyle`](@repo.glaze.cpu.shapes.types.md#drawstyle)
+
+###### Returns
+
+`this`
+
+##### path()
+
+###### Call Signature
+
+> **path**(`points`, `fill?`, `stroke?`, `lineWidth?`, `closed?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:258](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L258)
+
+###### Parameters
+
+###### points
+
+readonly [`Point2D`](@repo.glaze.core.Camera.md#point2d)[]
+
+###### fill?
+
+`string`
+
+###### stroke?
+
+`string`
+
+###### lineWidth?
+
+`number`
+
+###### closed?
+
+`boolean`
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **path**(`points`, `style?`, `options?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:265](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L265)
+
+###### Parameters
+
+###### points
+
+readonly [`Point2D`](@repo.glaze.core.Camera.md#point2d)[]
+
+###### style?
+
+[`DrawStyle`](@repo.glaze.cpu.shapes.types.md#drawstyle)
+
+###### options?
+
+[`PathOptions`](@repo.glaze.cpu.shapes.types.md#pathoptions)
+
+###### Returns
+
+`this`
+
+##### rect()
+
+###### Call Signature
+
+> **rect**(`x`, `y`, `w`, `h`, `fill?`, `stroke?`, `lineWidth?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:137](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L137)
+
+###### Parameters
+
+###### x
+
+`number`
+
+###### y
+
+`number`
+
+###### w
+
+`number`
+
+###### h
+
+`number`
+
+###### fill?
+
+`string`
+
+###### stroke?
+
+`string`
+
+###### lineWidth?
+
+`number`
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **rect**(`rect`, `style?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:146](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L146)
+
+###### Parameters
+
+###### rect
+
+[`Rect`](@repo.glaze.cpu.shapes.types.md#rect)
+
+###### style?
+
+[`DrawStyle`](@repo.glaze.cpu.shapes.types.md#drawstyle)
+
+###### Returns
+
+`this`
+
+##### screenToWorld()
+
+> **screenToWorld**(`point`): [`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:77](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L77)
+
+###### Parameters
+
+###### point
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### Returns
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+##### setDraw()
+
+> **setDraw**(`newCpuDraw`): `void`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:90](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L90)
+
+Sets the per-frame draw callback. A non-null callback starts the rAF loop; `null` stops it.
+
+###### Parameters
+
+###### newCpuDraw
+
+[`CpuDraw`](#cpudraw) \| `null`
+
+The frame callback, or `null` to stop rendering.
+
+###### Returns
+
+`void`
+
+##### subscribe()
+
+> **subscribe**(`fn`): () => `void`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:103](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L103)
+
+Adds a draw callback, starting the loop if it is not running. The returned function removes
+the callback and stops the loop once none remain.
+
+###### Parameters
+
+###### fn
+
+[`CpuDraw`](#cpudraw)
+
+The frame callback.
+
+###### Returns
+
+Removes the callback and stops rendering when the last one is gone.
+
+() => `void`
+
+##### text()
+
+###### Call Signature
+
+> **text**(`text`, `x`, `y`, `fill?`, `fontSize?`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:230](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L230)
+
+###### Parameters
+
+###### text
+
+`string`
+
+###### x
+
+`number`
+
+###### y
+
+`number`
+
+###### fill?
+
+`string`
+
+###### fontSize?
+
+`number`
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **text**(`text`, `x`, `y`, `style`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:231](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L231)
+
+###### Parameters
+
+###### text
+
+`string`
+
+###### x
+
+`number`
+
+###### y
+
+`number`
+
+###### style
+
+[`TextStyle`](@repo.glaze.cpu.shapes.types.md#textstyle)
+
+###### Returns
+
+`this`
+
+###### Call Signature
+
+> **text**(`text`, `position`, `style`): `this`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:232](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L232)
+
+###### Parameters
+
+###### text
+
+`string`
+
+###### position
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### style
+
+[`TextStyle`](@repo.glaze.cpu.shapes.types.md#textstyle)
+
+###### Returns
+
+`this`
+
+##### worldToScreen()
+
+> **worldToScreen**(`point`): [`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:81](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L81)
+
+###### Parameters
+
+###### point
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+###### Returns
+
+[`Point2D`](@repo.glaze.core.Camera.md#point2d)
+
+## Interfaces
+
+### CpuSurfaceConfig
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:9](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L9)
+
+#### Properties
+
+##### camera?
+
+> `optional` **camera?**: [`Camera`](@repo.glaze.core.Camera.md#camera)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:11](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L11)
+
+##### canvas
+
+> **canvas**: [`HTMLCanvasElement`](@repo.palette-engine.colorSpaces.<internal>.md#htmlcanvaselement)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:10](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L10)
+
+##### dpr?
+
+> `optional` **dpr?**: `number`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:13](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L13)
+
+Backing-buffer pixel ratio; defaults to `window.devicePixelRatio` (or 1 off-browser).
+
+## Type Aliases
+
+### CpuDraw
+
+> **CpuDraw** = (`surface`) => `void`
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:16](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L16)
+
+#### Parameters
+
+##### surface
+
+[`CpuSurface`](#cpusurface)
+
+#### Returns
+
+`void`
+
+## Functions
+
+### createCpuSurface()
+
+> **createCpuSurface**(`config`): [`CpuSurface`](#cpusurface)
+
+Defined in: [packages/glaze/src/cpu/CpuSurface.ts:425](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/glaze/src/cpu/CpuSurface.ts#L425)
+
+#### Parameters
+
+##### config
+
+[`CpuSurfaceConfig`](#cpusurfaceconfig)
+
+#### Returns
+
+[`CpuSurface`](#cpusurface)

@@ -412,10 +412,10 @@ export class CpuSurface {
         this.#begin(fill, stroke, lineWidth);
         const context = this.context;
         const first = points[0];
-        if (first) context.moveTo(first.x, first.y);
+        context.moveTo(first.x, first.y);
         for (let i = 1; i < points.length; i++) {
             const point = points[i];
-            if (point) context.lineTo(point.x, point.y);
+            context.lineTo(point.x, point.y);
         }
         if (options?.closed ?? closed) context.closePath();
         this.#paintShape(fill, stroke, options);

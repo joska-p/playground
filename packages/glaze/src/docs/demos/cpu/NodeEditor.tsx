@@ -22,7 +22,6 @@ interface Drag {
 const hitNode = (nodes: Node[], point: Point2D): Node | null => {
     for (let i = nodes.length - 1; i >= 0; i--) {
         const node = nodes[i];
-        if (!node) continue;
         if (Math.hypot(node.x - point.x, node.y - point.y) <= HIT_RADIUS) return node;
     }
     return null;

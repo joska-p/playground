@@ -1,0 +1,231 @@
+---
+title: types
+package: "@repo/l-system-engine"
+kind: module
+module: types
+---
+
+## Type Aliases
+
+### Context
+
+> **Context** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:22](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L22)
+
+Information available to a rule during matching and production. The engine constructs a fresh
+Context for each symbol on each iteration.
+
+#### Properties
+
+##### index
+
+> `readonly` **index**: `number`
+
+Defined in: [packages/l-system-engine/src/types.ts:26](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L26)
+
+Position of the current symbol in the word.
+
+##### random
+
+> `readonly` **random**: () => `number`
+
+Defined in: [packages/l-system-engine/src/types.ts:28](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L28)
+
+Seeded random function — value in [0, 1). Same seed → same sequence.
+
+###### Returns
+
+`number`
+
+##### word
+
+> `readonly` **word**: [`Word`](#word-1)
+
+Defined in: [packages/l-system-engine/src/types.ts:24](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L24)
+
+The full current word (read-only).
+
+***
+
+### ExpandOptions
+
+> **ExpandOptions** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:61](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L61)
+
+Options accepted by `expand` and `steps`.
+
+#### Properties
+
+##### seed?
+
+> `readonly` `optional` **seed?**: `number`
+
+Defined in: [packages/l-system-engine/src/types.ts:63](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L63)
+
+Seed for the random number generator. Same seed → same output.
+
+***
+
+### Grammar
+
+> **Grammar** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:44](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L44)
+
+A complete grammar definition — everything the engine needs to expand.
+
+#### Properties
+
+##### axiom
+
+> `readonly` **axiom**: [`Word`](#word-1)
+
+Defined in: [packages/l-system-engine/src/types.ts:45](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L45)
+
+##### rules
+
+> `readonly` **rules**: readonly [`Rule`](#rule)[]
+
+Defined in: [packages/l-system-engine/src/types.ts:46](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L46)
+
+##### unmatchedSymbol?
+
+> `readonly` `optional` **unmatchedSymbol?**: `"keep"` \| `"remove"`
+
+Defined in: [packages/l-system-engine/src/types.ts:51](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L51)
+
+What to do when no rule matches a symbol. 'keep' (default) — pass it through unchanged.
+'remove' — drop it from the output.
+
+***
+
+### LSymbol
+
+> **LSymbol** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:9](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L9)
+
+The atomic unit of an L-system word.
+
+#### Properties
+
+##### metadata?
+
+> `readonly` `optional` **metadata?**: [`Readonly`](@repo.l-system-engine.engine.<internal>.md#readonly)\<[`Record`](@repo.l-system-engine.engine.<internal>.md#record)\<`string`, `unknown`\>\>
+
+Defined in: [packages/l-system-engine/src/types.ts:12](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L12)
+
+##### name
+
+> `readonly` **name**: `string`
+
+Defined in: [packages/l-system-engine/src/types.ts:10](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L10)
+
+##### params
+
+> `readonly` **params**: readonly [`Parameter`](#parameter)[]
+
+Defined in: [packages/l-system-engine/src/types.ts:11](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L11)
+
+***
+
+### Parameter
+
+> **Parameter** = `number`
+
+Defined in: [packages/l-system-engine/src/types.ts:6](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L6)
+
+A numeric parameter attached to a symbol. Parameters are positional.
+
+***
+
+### Rule
+
+> **Rule** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:32](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L32)
+
+The only contract the engine cares about. Every rule type implements this interface.
+
+#### Methods
+
+##### apply()
+
+> **apply**(`symbol`, `context`): [`Word`](#word-1)
+
+Defined in: [packages/l-system-engine/src/types.ts:40](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L40)
+
+Returns the replacement word for the matched symbol. Only called when match() returned true.
+
+###### Parameters
+
+###### symbol
+
+[`LSymbol`](#lsymbol)
+
+###### context
+
+[`Context`](#context)
+
+###### Returns
+
+[`Word`](#word-1)
+
+##### match()
+
+> **match**(`symbol`, `context`): `boolean`
+
+Defined in: [packages/l-system-engine/src/types.ts:37](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L37)
+
+Returns true if this rule applies to the symbol at context.index. The engine calls match() on
+each rule in order until one returns true.
+
+###### Parameters
+
+###### symbol
+
+[`LSymbol`](#lsymbol)
+
+###### context
+
+[`Context`](#context)
+
+###### Returns
+
+`boolean`
+
+***
+
+### ValidationError
+
+> **ValidationError** = `object`
+
+Defined in: [packages/l-system-engine/src/types.ts:55](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L55)
+
+A single validation problem found by `validate()`.
+
+#### Properties
+
+##### code
+
+> `readonly` **code**: `string`
+
+Defined in: [packages/l-system-engine/src/types.ts:56](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L56)
+
+##### message
+
+> `readonly` **message**: `string`
+
+Defined in: [packages/l-system-engine/src/types.ts:57](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L57)
+
+***
+
+### Word
+
+> **Word** = readonly [`LSymbol`](#lsymbol)[]
+
+Defined in: [packages/l-system-engine/src/types.ts:16](https://github.com/joska-p/playground/blob/f540aad548a4f8b54c8b2dc7de26bf81e2d8c83e/packages/l-system-engine/src/types.ts#L16)
+
+A sequence of symbols — the state of the grammar at one iteration.

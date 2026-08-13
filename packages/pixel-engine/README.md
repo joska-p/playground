@@ -85,8 +85,6 @@ pipelineRunner.run(config)
        └─ global      → flush scheduler → run transform function
 ```
 
-See the [pixel README](../../pixel/) for full usage docs.
-
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
