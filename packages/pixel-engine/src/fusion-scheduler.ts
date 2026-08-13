@@ -42,7 +42,8 @@ function runFusedPixelBatch({
 }
 
 /**
- * Scheduler that batches and fuses consecutive per-pixel operations into a single pass over the buffer.
+ * Scheduler that batches and fuses consecutive per-pixel operations into a single pass over the
+ * buffer.
  */
 export class FusionScheduler {
     private batch: {
@@ -76,4 +77,3 @@ export class FusionScheduler {
         this.batch.length = 0;
     }
 }
-

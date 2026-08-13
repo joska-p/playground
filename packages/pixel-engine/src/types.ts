@@ -93,4 +93,3 @@ export type PipelineContext = {
     registry: Registry;
     maximumPixels: number;
 };
-

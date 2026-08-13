@@ -1,11 +1,7 @@
-/**
- * Discriminated union representing the result returned from a worker task execution.
- */
+/** Discriminated union representing the result returned from a worker task execution. */
 export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
 
-/**
- * Configuration options for initializing a WorkerPool.
- */
+/** Configuration options for initializing a WorkerPool. */
 export type WorkerPoolConfig<TTask, TResult> = {
     /** Creates a fresh Worker instance. The consumer owns URL creation and bundler flags. */
     workerFactory: () => Worker;

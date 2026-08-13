@@ -1,8 +1,6 @@
 import type { ManipulationDefinition } from './types';
 
-/**
- * Registry storing manipulation definitions by unique string key.
- */
+/** Registry storing manipulation definitions by unique string key. */
 export class Registry {
     private readonly manipulationsMap = new Map<string, ManipulationDefinition>();
 
@@ -42,4 +40,3 @@ export class Registry {
         return definition;
     }
 }
-

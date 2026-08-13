@@ -1,17 +1,13 @@
 import { PixelData } from './pixel-data';
 
-/**
- * Double-buffered pixel array manager for ping-ponging image transforms.
- */
+/** Double-buffered pixel array manager for ping-ponging image transforms. */
 export class BufferManager {
     private buffers: [Uint8ClampedArray, Uint8ClampedArray];
     private pointer: 0 | 1 = 0;
     private imageWidth: number;
     private imageHeight: number;
 
-    /**
-     * @param source - Initial source pixel data.
-     */
+    /** Initializes the buffer manager with source pixel data. */
     constructor(source: PixelData) {
         this.buffers = [
             new Uint8ClampedArray(source.data),
@@ -63,4 +59,3 @@ export class BufferManager {
         this.imageHeight = pixelData.height;
     }
 }
-

@@ -1,16 +1,16 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": ["src/worker-pool.ts", "src/mock-worker-pool.ts"],
+    "entryPoints": ["src/App.tsx"],
     "out": "dist-docs",
     "readme": "./README.md",
-    "tsconfig": "./tsconfig.json",
+    "tsconfig": "./tsconfig.app.json",
     "theme": "hierarchy",
     "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeInternal": true,
     "externalSymbolLinkMappings": {
-        "@types/node": {
+        "@types/react": {
             "*": "#"
         }
     },

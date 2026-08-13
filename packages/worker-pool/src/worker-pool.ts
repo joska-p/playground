@@ -14,8 +14,8 @@ type QueuedJob<TTask, TResult> = {
 };
 
 /**
- * Manages a pool of Web Workers for concurrent background task processing.
- * Handles lazy worker creation, task queuing, serialization, and cleanup.
+ * Manages a pool of Web Workers for concurrent background task processing. Handles lazy worker
+ * creation, task queuing, serialization, and cleanup.
  */
 export class WorkerPool<TTask, TResult> {
     private config: WorkerPoolConfig<TTask, TResult>;
@@ -58,9 +58,7 @@ export class WorkerPool<TTask, TResult> {
         });
     }
 
-    /**
-     * Terminates all active workers and rejects any pending queued tasks.
-     */
+    /** Terminates all active workers and rejects any pending queued tasks. */
     teardown(): void {
         const err = new Error('pool torn down');
         for (const job of this.queue) {

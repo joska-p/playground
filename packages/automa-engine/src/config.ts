@@ -9,4 +9,3 @@ export const GRID_DEFAULT_SEED = 42;
 
 /** Worker message identifier for simulation step execution. */
 export const WORKER_MESSAGE_STEP = 'step';
-

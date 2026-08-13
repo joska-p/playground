@@ -52,9 +52,7 @@ const srgb: ColorSpaceDef = {
     getColor: (x, y, z) => new Color('srgb', [x / 255, y / 255, z / 255])
 };
 
-/**
- * Registry of supported 3D color space definitions (OKLab, OKLCh, HSL, sRGB).
- */
+/** Registry of supported 3D color space definitions (OKLab, OKLCh, HSL, sRGB). */
 const colorSpaces = { oklab, oklch, hsl, srgb };
 
 /** Valid color space key names. */
@@ -62,4 +60,3 @@ type ColorSpacesKey = keyof typeof colorSpaces;
 
 export { colorSpaces };
 export type { ColorSpacesKey };
-

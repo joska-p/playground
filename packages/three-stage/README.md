@@ -137,4 +137,3 @@ App.tsx (entry — renders GetStarted scene)
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

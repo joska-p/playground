@@ -3,7 +3,8 @@ import { ErrorBoundary } from '@repo/ui/feedback';
 import { GetStarted } from './components/GetStarted';
 
 /**
- * Main application component for Three Stage — renders interactive 3D scenes within an error boundary.
+ * Main application component for Three Stage — renders interactive 3D scenes within an error
+ * boundary.
  */
 function App() {
     return (

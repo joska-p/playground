@@ -49,4 +49,3 @@ function App({ rows = 300, cols = 400, seed, initialDensity }: AppProps) {
 
 export { App };
 export type { AppProps };
-

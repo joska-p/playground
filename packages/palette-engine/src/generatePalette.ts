@@ -15,4 +15,3 @@ function generatePalette(baseColor: Color, rule: Rule): Palette {
 }
 
 export { generatePalette };
-

@@ -31,4 +31,3 @@ export function defineManip<Options, Identifier extends string = string>(
 ): ManipulationDefinition<Options> & { id: Identifier } {
     return params;
 }
-

@@ -1,6 +1,4 @@
-/**
- * Framework-agnostic container holding RGBA pixel bytes and dimensions.
- */
+/** Framework-agnostic container holding RGBA pixel bytes and dimensions. */
 export class PixelData {
     /** The raw RGBA byte buffer. */
     readonly data: Uint8ClampedArray;
@@ -10,6 +8,8 @@ export class PixelData {
     readonly height: number;
 
     /**
+     * Create a new PixelData container.
+     *
      * @param width - Width of the image.
      * @param height - Height of the image.
      * @param data - Optional existing Uint8ClampedArray RGBA data buffer.
@@ -20,4 +20,3 @@ export class PixelData {
         this.data = data ?? new Uint8ClampedArray(width * height * 4);
     }
 }
-

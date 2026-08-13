@@ -57,4 +57,3 @@ export type Step = {
         options?: ManipulationLookup[Identifier];
     };
 }[keyof ManipulationLookup];
-

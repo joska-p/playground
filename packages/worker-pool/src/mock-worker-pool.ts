@@ -1,8 +1,6 @@
 type Handler<TTask, TResult> = (task: TTask) => TResult;
 
-/**
- * Synchronous mock implementation of WorkerPool for unit testing without Web Workers.
- */
+/** Synchronous mock implementation of WorkerPool for unit testing without Web Workers. */
 export class MockWorkerPool<TTask, TResult> {
     private handler: Handler<TTask, TResult>;
 
@@ -25,9 +23,7 @@ export class MockWorkerPool<TTask, TResult> {
         return Promise.resolve(this.handler(task));
     }
 
-    /**
-     * No-op teardown method for interface compatibility.
-     */
+    /** No-op teardown method for interface compatibility. */
     teardown(): void {
         return undefined;
     }
