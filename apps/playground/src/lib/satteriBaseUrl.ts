@@ -1,23 +1,19 @@
-import type { Node, Root } from 'mdast';
+import { defineMdastPlugin } from 'satteri';
+import type { Link } from 'mdast';
 
+// Prefix root-absolute links (single `/`) with the site base so they survive
+// deployment under a subpath (e.g. GitHub Pages `/playground`). Applied to every
+// content collection render; generated api pages rely on it for their `/api/...`
+// cross-links.
 export function remarkBaseUrl({ base }: { base: string }) {
     const cleanBase = base.replace(/\/$/, '');
 
-    return (tree: Root) => {
-        function walk(node: Node) {
-            // Look for Markdown link elements
-            if (node.type === 'link' && 'url' in node && typeof node.url === 'string') {
-                if (node.url.startsWith('/') && !node.url.startsWith('//')) {
-                    node.url = `${cleanBase}${node.url}`;
-                }
-            }
-
-            // Recursively walk through any children
-            if ('children' in node && Array.isArray(node.children)) {
-                node.children.forEach(walk);
+    return defineMdastPlugin({
+        name: 'base-url',
+        link(node: Link, ctx) {
+            if (node.url.startsWith('/') && !node.url.startsWith('//')) {
+                ctx.setProperty(node, 'url', `${cleanBase}${node.url}`);
             }
         }
-
-        walk(tree);
-    };
+    });
 }

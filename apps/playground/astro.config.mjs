@@ -7,6 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
 import process from 'node:process';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { remarkBaseUrl } from './src/lib/satteriBaseUrl';
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
@@ -140,7 +141,8 @@ export default defineConfig({
                 directive: true,
                 math: true,
                 headingAttributes: true
-            }
+            },
+            mdastPlugins: [remarkBaseUrl({ base: basePath })]
         })
     }
 });

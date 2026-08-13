@@ -3,8 +3,22 @@
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
         "build": {
+            "dependsOn": ["^build", "build:docs"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": [".astro/**", "dist/**", "storybook-static/**"]
+        },
+        "build:docs": {
+            "dependsOn": ["^build"],
+            "inputs": [
+                "$TURBO_ROOT$/typedoc.base.json",
+                "$TURBO_ROOT$/typedoc.docs.json",
+                "$TURBO_ROOT$/scripts/generate-docs.mjs",
+                "$TURBO_ROOT$/packages/*/src/**",
+                "$TURBO_ROOT$/packages/*/README.md",
+                "$TURBO_ROOT$/packages/*/typedoc.json",
+                "$TURBO_ROOT$/packages/*/tsconfig*.json"
+            ],
+            "outputs": ["src/content/api/**"]
         },
         "test": {
             "outputs": ["coverage/**", "playwright-report/**"]

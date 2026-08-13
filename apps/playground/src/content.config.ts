@@ -58,9 +58,21 @@ const projects = defineCollection({
     })
 });
 
+const api = defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/content/api', deferRender: true }),
+    schema: z.object({
+        title: z.string(),
+        package: z.string(),
+        kind: z.enum(['package', 'module', 'internal']),
+        module: z.string().optional(),
+        description: z.string().optional()
+    })
+});
+
 export const collections = {
     tags,
     docs,
     notes,
-    projects
+    projects,
+    api
 };

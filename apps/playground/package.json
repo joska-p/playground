@@ -9,6 +9,7 @@
     "scripts": {
         "prebuild": "cp -r ../../packages/radu-machine-learning/public/radu-img ./public/radu-img",
         "build": "astro build",
+        "build:docs": "node ../../scripts/generate-docs.mjs",
         "dev": "astro dev --host",
         "preview": "astro preview --host",
         "astro": "astro",
@@ -64,6 +65,7 @@
         "eslint": "^10.4.0",
         "eslint-plugin-astro": "^1.7.0",
         "rollup-plugin-visualizer": "^7.0.1",
+        "satteri": "0.9.4",
         "sharp": "^0.34.5",
         "tailwindcss": "^4.3.0",
         "typescript": "^6.0.3"

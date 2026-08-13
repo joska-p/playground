@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+
+type Props = {
+    pkg: string;
+    currentSlug: string;
+};
+
+const { pkg, currentSlug } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL || '/';
+
+function routeSlug(id: string): string {
+    return id.replace(/\.<internal>$/, '.internal');
+}
+
+const entries = await getCollection('api', (entry) => entry.data.package === pkg);
+const overview = entries.find((entry) => entry.data.kind === 'package');
+const modules = entries
+    .filter((entry) => entry.data.kind === 'module')
+    .sort((a, b) => (a.data.module ?? '').localeCompare(b.data.module ?? ''));
+---
+
+<aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
+    <nav
+        aria-label="Package API navigation"
+        class="min-h-full flex-1 overflow-y-auto p-3"
+    >
+        <div class="space-y-5 py-1">
+            <div>
+                <p class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold uppercase">
+                    API Reference
+                </p>
+                <ul class="space-y-0.5 pl-1.5">
+                    {
+                        overview && (
+                            <li>
+                                <a
+                                    aria-current={
+                                        currentSlug === routeSlug(overview.id) ? 'page' : undefined
+                                    }
+                                    class:list={[
+                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
+                                        {
+                                            'bg-primary/10 text-primary font-semibold':
+                                                currentSlug === routeSlug(overview.id),
+                                            'text-muted-foreground hover:bg-muted hover:text-foreground':
+                                                currentSlug !== routeSlug(overview.id)
+                                        }
+                                    ]}
+                                    href={`${baseUrl}api/${routeSlug(overview.id)}/`}
+                                >
+                                    <span
+                                        class:list={[
+                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
+                                            {
+                                                'bg-primary':
+                                                    currentSlug === routeSlug(overview.id),
+                                                'bg-border group-hover:bg-muted-foreground/50':
+                                                    currentSlug !== routeSlug(overview.id)
+                                            }
+                                        ]}
+                                    />
+                                    Overview
+                                </a>
+                            </li>
+                        )
+                    }
+                    {
+                        modules.map((mod) => (
+                            <li>
+                                <a
+                                    aria-current={
+                                        currentSlug === routeSlug(mod.id) ? 'page' : undefined
+                                    }
+                                    class:list={[
+                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
+                                        {
+                                            'bg-primary/10 text-primary font-semibold':
+                                                currentSlug === routeSlug(mod.id),
+                                            'text-muted-foreground hover:bg-muted hover:text-foreground':
+                                                currentSlug !== routeSlug(mod.id)
+                                        }
+                                    ]}
+                                    href={`${baseUrl}api/${routeSlug(mod.id)}/`}
+                                >
+                                    <span
+                                        class:list={[
+                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
+                                            {
+                                                'bg-primary': currentSlug === routeSlug(mod.id),
+                                                'bg-border group-hover:bg-muted-foreground/50':
+                                                    currentSlug !== routeSlug(mod.id)
+                                            }
+                                        ]}
+                                    />
+                                    {mod.data.module}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</aside>

@@ -351,6 +351,9 @@ importers:
             rollup-plugin-visualizer:
                 specifier: ^7.0.1
                 version: 7.0.1(rolldown@1.1.4)
+            satteri:
+                specifier: 0.9.4
+                version: 0.9.4
             sharp:
                 specifier: ^0.34.5
                 version: 0.34.5
@@ -11037,7 +11040,7 @@ snapshots:
 
     '@astrojs/compiler-binding-wasm32-wasi@0.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)':
         dependencies:
-            '@napi-rs/wasm-runtime': 1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)
+            '@napi-rs/wasm-runtime': 1.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)
         transitivePeerDependencies:
             - '@emnapi/core'
             - '@emnapi/runtime'
@@ -11351,7 +11354,7 @@ snapshots:
         dependencies:
             '@emnapi/core': 1.11.1
             '@emnapi/runtime': 1.11.1
-            '@napi-rs/wasm-runtime': 1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
+            '@napi-rs/wasm-runtime': 1.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
         optional: true
 
     '@bruits/satteri-win32-arm64-msvc@0.9.4':
@@ -11968,13 +11971,6 @@ snapshots:
             '@tybys/wasm-util': 0.10.3
         optional: true
 
-    '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)':
-        dependencies:
-            '@emnapi/core': 1.11.1
-            '@emnapi/runtime': 1.11.2
-            '@tybys/wasm-util': 0.10.3
-        optional: true
-
     '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
         dependencies:
             '@emnapi/core': 1.9.2
@@ -11986,6 +11982,13 @@ snapshots:
         dependencies:
             '@emnapi/core': 1.11.1
             '@emnapi/runtime': 1.11.1
+            '@tybys/wasm-util': 0.10.3
+        optional: true
+
+    '@napi-rs/wasm-runtime@1.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)':
+        dependencies:
+            '@emnapi/core': 1.11.1
+            '@emnapi/runtime': 1.11.2
             '@tybys/wasm-util': 0.10.3
         optional: true
 

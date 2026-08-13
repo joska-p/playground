@@ -28,7 +28,7 @@
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
-        "dev": "pnpm build:docs && vite --host",
+        "dev": "vite --host",
         "preview": "vite preview --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",

@@ -68,6 +68,28 @@ function extractDescription(content) {
     return match?.[1] ?? undefined;
 }
 
+// Relative links between generated pages (e.g. `](@repo.x.y.md#anchor)`) must point
+// at the site route that mirrors the flat collection id. Rewrite them to root-absolute
+// `/api/<id>/` links; the satteri mdast plugin prefixes the site base at build time.
+// The `<internal>` suffix is mapped to `.internal` so URLs carry no angle brackets.
+function rewriteApiLinks(content) {
+    return content.replace(
+        /(\]\()([^)]+?\.md)([^)]*)(\))/g,
+        (_match, open, target, rest, close) => {
+            if (target.startsWith('/') || target.startsWith('http')) {
+                return _match;
+            }
+            const hashIndex = rest.indexOf('#');
+            if (hashIndex === -1 && rest) {
+                return _match;
+            }
+            const hash = hashIndex >= 0 ? rest.slice(hashIndex) : '';
+            const slug = target.replace(/\.md$/, '').replace(/\.<internal>$/, '.internal');
+            return `${open}/api/${slug}/${hash}${close}`;
+        }
+    );
+}
+
 function toFrontmatter(meta) {
     const frontmatter = {
         title: meta.title,
@@ -99,7 +121,7 @@ for (const file of collectMdFiles(API_DIR)) {
         title = meta.module;
     }
     const description = meta.kind === 'package' ? extractDescription(content) : undefined;
-    writeFileSync(file, toFrontmatter({ ...meta, title, description }) + content);
+    writeFileSync(file, rewriteApiLinks(toFrontmatter({ ...meta, title, description }) + content));
     updated += 1;
 }
 

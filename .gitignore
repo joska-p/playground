@@ -70,6 +70,9 @@ dist-docs/
 build/
 storybook-static/
 
+# Generated API reference (typedoc output; build:docs regenerates it)
+apps/playground/src/content/api/
+
 # --- Dev tools & caches ---
 .turbo/
 *.tsbuildinfo
