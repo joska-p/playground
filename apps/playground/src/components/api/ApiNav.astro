@@ -1,66 +1,46 @@
 ---
-import { getCollection } from 'astro:content';
+import { apiIndex } from '../../lib/apiIndex';
 
 type Props = {
     pkg: string;
-    currentSlug: string;
 };
 
-const { pkg, currentSlug } = Astro.props;
+const { pkg } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL || '/';
-
-function routeSlug(id: string): string {
-    return id.replace(/\.<internal>$/, '.internal');
-}
-
-const entries = await getCollection('api', (entry) => entry.data.package === pkg);
-const overview = entries.find((entry) => entry.data.kind === 'package');
-const modules = entries
-    .filter((entry) => entry.data.kind === 'module')
-    .sort((a, b) => (a.data.module ?? '').localeCompare(b.data.module ?? ''));
+const pkgEntries = apiIndex.entries.filter((e) => e.package === pkg);
+const overviewEntry = pkgEntries.find((e) => e.kind === 'package');
+const modules = pkgEntries
+    .filter((e) => e.kind === 'module')
+    .sort((a, b) => (a.module ?? '').localeCompare(b.module ?? ''));
 ---
 
-<aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
+<aside
+    class="sticky top-24 hidden h-[calc(100vh-7rem)] w-60 shrink-0 flex-col overflow-y-auto md:flex"
+>
     <nav
-        aria-label="Package API navigation"
+        aria-label="API Reference navigation"
         class="min-h-full flex-1 overflow-y-auto p-3"
     >
         <div class="space-y-5 py-1">
             <div>
-                <p class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold uppercase">
+                <p
+                    class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold tracking-wider uppercase"
+                >
                     API Reference
                 </p>
-                <ul class="space-y-0.5 pl-1.5">
+                <ul
+                    class="space-y-0.5 pl-1.5"
+                    id="api-nav-list"
+                >
                     {
-                        overview && (
+                        overviewEntry && (
                             <li>
                                 <a
-                                    aria-current={
-                                        currentSlug === routeSlug(overview.id) ? 'page' : undefined
-                                    }
-                                    class:list={[
-                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
-                                        {
-                                            'bg-primary/10 text-primary font-semibold':
-                                                currentSlug === routeSlug(overview.id),
-                                            'text-muted-foreground hover:bg-muted hover:text-foreground':
-                                                currentSlug !== routeSlug(overview.id)
-                                        }
-                                    ]}
-                                    href={`${baseUrl}api/${routeSlug(overview.id)}/`}
+                                    data-target="overview"
+                                    class="group text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150"
+                                    href="#overview"
                                 >
-                                    <span
-                                        class:list={[
-                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
-                                            {
-                                                'bg-primary':
-                                                    currentSlug === routeSlug(overview.id),
-                                                'bg-border group-hover:bg-muted-foreground/50':
-                                                    currentSlug !== routeSlug(overview.id)
-                                            }
-                                        ]}
-                                    />
+                                    <span class="bg-border group-hover:bg-muted-foreground/50 h-1 w-1 shrink-0 rounded-full transition-colors" />
                                     Overview
                                 </a>
                             </li>
@@ -70,31 +50,12 @@ const modules = entries
                         modules.map((mod) => (
                             <li>
                                 <a
-                                    aria-current={
-                                        currentSlug === routeSlug(mod.id) ? 'page' : undefined
-                                    }
-                                    class:list={[
-                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
-                                        {
-                                            'bg-primary/10 text-primary font-semibold':
-                                                currentSlug === routeSlug(mod.id),
-                                            'text-muted-foreground hover:bg-muted hover:text-foreground':
-                                                currentSlug !== routeSlug(mod.id)
-                                        }
-                                    ]}
-                                    href={`${baseUrl}api/${routeSlug(mod.id)}/`}
+                                    data-target={mod.namespace}
+                                    class="group text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150"
+                                    href={`#${mod.namespace}`}
                                 >
-                                    <span
-                                        class:list={[
-                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
-                                            {
-                                                'bg-primary': currentSlug === routeSlug(mod.id),
-                                                'bg-border group-hover:bg-muted-foreground/50':
-                                                    currentSlug !== routeSlug(mod.id)
-                                            }
-                                        ]}
-                                    />
-                                    {mod.data.module}
+                                    <span class="bg-border group-hover:bg-muted-foreground/50 h-1 w-1 shrink-0 rounded-full transition-colors" />
+                                    {mod.module}
                                 </a>
                             </li>
                         ))
@@ -104,3 +65,54 @@ const modules = entries
         </div>
     </nav>
 </aside>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const links = document.querySelectorAll('#api-nav-list a');
+                    links.forEach((link) => {
+                        const target = link.getAttribute('data-target');
+                        const span = link.querySelector('span');
+                        if (target === id) {
+                            link.classList.remove(
+                                'text-muted-foreground',
+                                'hover:bg-muted',
+                                'hover:text-foreground'
+                            );
+                            link.classList.add('bg-primary/10', 'text-primary', 'font-semibold');
+                            if (span) {
+                                span.classList.remove(
+                                    'bg-border',
+                                    'group-hover:bg-muted-foreground/50'
+                                );
+                                span.classList.add('bg-primary');
+                            }
+                        } else {
+                            link.classList.remove('bg-primary/10', 'text-primary', 'font-semibold');
+                            link.classList.add(
+                                'text-muted-foreground',
+                                'hover:bg-muted',
+                                'hover:text-foreground'
+                            );
+                            if (span) {
+                                span.classList.remove('bg-primary');
+                                span.classList.add(
+                                    'bg-border',
+                                    'group-hover:bg-muted-foreground/50'
+                                );
+                            }
+                        }
+                    });
+                }
+            });
+        },
+        { rootMargin: '-20% 0% -60% 0%' }
+    );
+
+    document.querySelectorAll('article[id], section[id]').forEach((el) => {
+        observer.observe(el);
+    });
+</script>

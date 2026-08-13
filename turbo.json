@@ -2,12 +2,7 @@
     "$schema": "https://v2-10-7.turborepo.dev/schema.json",
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
-        "build": {
-            "dependsOn": ["^build", "build:docs"],
-            "inputs": ["$TURBO_DEFAULT$", ".env*"],
-            "outputs": [".astro/**", "dist/**", "storybook-static/**"]
-        },
-        "build:docs": {
+        "build-docs": {
             "dependsOn": ["^build"],
             "inputs": [
                 "$TURBO_ROOT$/typedoc.base.json",
@@ -16,9 +11,28 @@
                 "$TURBO_ROOT$/packages/*/src/**",
                 "$TURBO_ROOT$/packages/*/README.md",
                 "$TURBO_ROOT$/packages/*/typedoc.json",
-                "$TURBO_ROOT$/packages/*/tsconfig*.json"
+                "$TURBO_ROOT$/packages/*/tsconfig*.json",
+                "$TURBO_ROOT$/apps/playground/src/content/projects.yml"
             ],
             "outputs": ["src/content/api/**"]
+        },
+        "copy:radu": {
+            "inputs": ["$TURBO_ROOT$/packages/radu-machine-learning/public/radu-img/**"],
+            "outputs": ["public/radu-img/**"]
+        },
+        "copy:storybook": {
+            "dependsOn": ["@repo/storybook#build"],
+            "inputs": ["$TURBO_ROOT$/apps/storybook/storybook-static/**"],
+            "outputs": ["dist/storybook/**"]
+        },
+        "copy:all": {
+            "dependsOn": ["copy:radu"],
+            "cache": false
+        },
+        "build": {
+            "dependsOn": ["^build", "build-docs", "copy:all"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": [".astro/**", "dist/**", "public/**"]
         },
         "test": {
             "outputs": ["coverage/**", "playwright-report/**"]
@@ -31,6 +45,7 @@
             "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"]
         },
         "check-types": {
+            "dependsOn": ["build-docs"],
             "inputs": [
                 "src/**",
                 "tsconfig.json",

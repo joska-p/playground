@@ -15,7 +15,7 @@ date_discovered: 2024-04-01
 ## Essence
 
 Randomart is the visible half of a two-package system. The engine
-([`@repo/randomart-engine`](../randomart-engine/)) handles all the math —
+([`@repo/randomart-engine`](/discoveries/randomart-engine/)) handles all the math —
 grammar-driven AST generation, CPU evaluation, GLSL compilation, PNG export.
 This package handles everything the human sees and touches: a WebGL canvas that
 renders expression trees as fullscreen shaders, an inspector that peels back the

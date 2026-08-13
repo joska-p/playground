@@ -20,7 +20,7 @@
         "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
         "gen": "turbo gen",
         "gen:new-package": "turbo gen run new-package",
-        "gen:project-pages": "turbo gen run project-pages",
+        "gen:project-pages": "turbo gen project-pages",
         "fallow": "fallow",
         "graphify": "graphify update"
     },

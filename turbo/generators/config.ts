@@ -1,12 +1,22 @@
 import type { PlopTypes } from '@turbo/gen';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parse } from 'yaml';
 
-interface Project {
-    id: string;
+interface ApiIndexPackage {
+    package: string;
     packageDir: string;
-    [key: string]: unknown;
+    routeId: string;
+    title: string;
+    description: string | null;
+    keywords: string;
+    hasApp: boolean;
+    appImport: string;
+}
+
+interface ApiIndex {
+    version: number;
+    packages: ApiIndexPackage[];
+    entries: unknown[];
 }
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
@@ -37,19 +47,30 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     });
 
     plop.setGenerator('project-pages', {
-        description: 'Generate one Astro page per project from projects.yml',
+        description: 'Generate one Astro page per package/project from index.json',
         prompts: [],
         actions: () => {
-            // Adjust to your actual app path if this isn't at the repo root
-            const ymlPath = join(process.cwd(), 'apps/playground/src/content/projects.yml');
-            const projects = parse(readFileSync(ymlPath, 'utf-8')) as Project[];
+            const jsonPath = join(process.cwd(), 'apps/playground/src/content/api/index.json');
+            if (!existsSync(jsonPath)) {
+                throw new Error('run `pnpm build-docs` first');
+            }
+            const apiIndex = JSON.parse(readFileSync(jsonPath, 'utf-8')) as ApiIndex;
 
-            return projects.map((project) => ({
+            return apiIndex.packages.map((pkg) => ({
                 type: 'add',
-                path: 'apps/playground/src/pages/discoveries/{{id}}.astro',
+                path: `apps/playground/src/pages/discoveries/${pkg.routeId}.astro`,
                 templateFile: 'templates/project-pages/project-pages.astro.hbs',
-                data: { id: project.id, packageDir: project.packageDir },
-                force: true // overwrite on regeneration
+                data: {
+                    packageName: pkg.package,
+                    packageDir: pkg.packageDir,
+                    id: pkg.routeId,
+                    title: pkg.title,
+                    description: pkg.description || '',
+                    keywords: pkg.keywords,
+                    hasApp: pkg.hasApp,
+                    appImport: pkg.appImport
+                },
+                force: true
             }));
         }
     });

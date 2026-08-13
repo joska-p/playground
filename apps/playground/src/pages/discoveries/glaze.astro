@@ -4,9 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ApiNav from '../../components/api/ApiNav.astro';
 import { Hero } from '@repo/ui/data-display';
 import { entriesForPackage } from '../../lib/apiIndex';
-import { App } from '@repo/radu-machine-learning/radu-machine-learning';
+import { App } from '@repo/glaze/docs/GlazeDocs';
 
-const packageName = '@repo/radu-machine-learning';
+const packageName = '@repo/glaze';
 const pkgEntries = entriesForPackage(packageName);
 
 const overviewEntryInfo = pkgEntries.find((e) => e.kind === 'package');
@@ -41,14 +41,14 @@ const internalRenders = await Promise.all(
 ---
 
 <BaseLayout
-    title="Radu Machine Learning"
-    description="Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training."
-    keywords="machine-learning, data-viz, canvas"
+    title="@repo/glaze"
+    description=""
+    keywords=""
 >
     <Hero
         badgeText="Project"
-        title="Radu Machine Learning"
-        description="Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training."
+        title="@repo/glaze"
+        description=""
         variant="ghost"
     />
 

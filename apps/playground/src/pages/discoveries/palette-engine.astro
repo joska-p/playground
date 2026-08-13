@@ -4,9 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ApiNav from '../../components/api/ApiNav.astro';
 import { Hero } from '@repo/ui/data-display';
 import { entriesForPackage } from '../../lib/apiIndex';
-import { App } from '@repo/radu-machine-learning/radu-machine-learning';
 
-const packageName = '@repo/radu-machine-learning';
+const packageName = '@repo/palette-engine';
 const pkgEntries = entriesForPackage(packageName);
 
 const overviewEntryInfo = pkgEntries.find((e) => e.kind === 'package');
@@ -41,20 +40,16 @@ const internalRenders = await Promise.all(
 ---
 
 <BaseLayout
-    title="Radu Machine Learning"
-    description="Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training."
-    keywords="machine-learning, data-viz, canvas"
+    title="@repo/palette-engine"
+    description=""
+    keywords=""
 >
     <Hero
-        badgeText="Project"
-        title="Radu Machine Learning"
-        description="Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training."
+        badgeText="@repo/palette-engine"
+        title="@repo/palette-engine"
+        description=""
         variant="ghost"
     />
-
-    <section class="w-full">
-        <App client:only="react" />
-    </section>
 
     <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
         <ApiNav pkg={packageName} />

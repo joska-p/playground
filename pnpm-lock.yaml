@@ -251,6 +251,9 @@ importers:
             '@repo/fracture':
                 specifier: workspace:*
                 version: link:../../packages/fracture
+            '@repo/glaze':
+                specifier: workspace:*
+                version: link:../../packages/glaze
             '@repo/graph-viz':
                 specifier: workspace:*
                 version: link:../../packages/graph-viz
@@ -260,9 +263,15 @@ importers:
             '@repo/l-system':
                 specifier: workspace:*
                 version: link:../../packages/l-system
+            '@repo/mandelbrot':
+                specifier: workspace:*
+                version: link:../../packages/mandelbrot
             '@repo/mosaic-maker':
                 specifier: workspace:*
                 version: link:../../packages/mosaic-maker
+            '@repo/oeis-signal':
+                specifier: workspace:*
+                version: link:../../packages/oeis-signal
             '@repo/palette-generator':
                 specifier: workspace:*
                 version: link:../../packages/palette-generator
