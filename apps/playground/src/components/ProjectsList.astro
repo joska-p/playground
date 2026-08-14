@@ -35,9 +35,11 @@ const CARD_COLORS = ['#7f9cf5', '#f472b6', '#34d399', '#fbbf24', '#60a5fa', '#a7
                     <SciFiCard
                         cardId={toCanadianSyllabics.fromHash(project.data.package).substring(0, 8)}
                         cardTitle={project.data.title}
-                        classification={project.data.description}
+                        classification={project.data.description ?? project.data.title}
                         color={color}
-                        density={toBraille.fromHash(project.data.description).substring(0, 8)}
+                        density={toBraille
+                            .fromHash(project.data.description ?? project.data.title)
+                            .substring(0, 8)}
                         resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
                         seed={stringToSeed(project.data.title)}
                     />
