@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 
 const packageName = '@repo/sequence-engine';
@@ -11,12 +10,5 @@ const packageName = '@repo/sequence-engine';
     description="Pure rule-based mathematical sequence generation engine with persistence abstractions."
     keywords="generative, math, engine"
 >
-    <Hero
-        badgeText="@repo/sequence-engine"
-        title="Sequence Engine"
-        description="Pure rule-based mathematical sequence generation engine with persistence abstractions."
-        variant="ghost"
-    />
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>

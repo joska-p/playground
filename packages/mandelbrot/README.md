@@ -1,9 +1,3 @@
----
-title: 'Mandelbrot Explorer'
-description: 'Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits.'
-hasApp: true
----
-
 # @repo/mandelbrot
 
 > Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision (BigInt) reference orbits.

@@ -1,9 +1,3 @@
----
-title: 'Mosaic Maker'
-description: 'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.'
-hasApp: true
----
-
 # @repo/mosaic-maker
 
 > A procedural engine that breathes color palettes into ordered grids of SVG

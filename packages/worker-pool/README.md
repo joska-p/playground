@@ -1,9 +1,3 @@
----
-title: 'Worker Pool'
-description: 'Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown.'
-hasApp: false
----
-
 # @repo/worker-pool
 
 > You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.

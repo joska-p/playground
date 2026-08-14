@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/mandelbrot';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/mandelbrot';
     description="Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits."
     keywords="generative, webgl, math, 2d, shader"
 >
-    <Hero
-        badgeText="Project"
-        title="Mandelbrot Explorer"
-        description="Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/sequence-renderer/sequence-renderer';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/sequence-renderer';
     description="Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
     keywords="generative, math, svg"
 >
-    <Hero
-        badgeText="Project"
-        title="Sequence Renderer"
-        description="Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

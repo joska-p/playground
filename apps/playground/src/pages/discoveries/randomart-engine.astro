@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 
 const packageName = '@repo/randomart-engine';
@@ -11,12 +10,5 @@ const packageName = '@repo/randomart-engine';
     description="Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders."
     keywords="generative, canvas, engine, shader"
 >
-    <Hero
-        badgeText="@repo/randomart-engine"
-        title="RandomArt Engine"
-        description="Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders."
-        variant="ghost"
-    />
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>

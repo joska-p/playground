@@ -1,9 +1,3 @@
----
-title: 'Fracture'
-description: 'Interactive WebGL2 fractal explorer — Mandelbrot and Julia sets with deep-zoom perturbation and double-single emulation.'
-hasApp: true
----
-
 # @repo/fracture
 
 > A high-precision GLSL fractal renderer — exploring Mandelbrot and Julia sets through deep perturbation and double-single emulation.

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/mosaic-maker/mosaic-maker';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/mosaic-maker';
     description="Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
     keywords="generative, canvas, zustand"
 >
-    <Hero
-        badgeText="Project"
-        title="Mosaic Maker"
-        description="Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

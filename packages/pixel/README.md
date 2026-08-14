@@ -1,9 +1,3 @@
----
-title: 'Pixel'
-description: 'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.'
-hasApp: true
----
-
 # @repo/pixel
 
 > A pipeline that translates raw pixel data through chains of transforms, each

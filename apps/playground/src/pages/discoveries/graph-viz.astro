@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/graph-viz/graph-viz';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/graph-viz';
     description="Interactive graph, click nodes, search, filter by community."
     keywords="data-viz, graph, d3"
 >
-    <Hero
-        badgeText="Project"
-        title="Graphify"
-        description="Interactive graph, click nodes, search, filter by community."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

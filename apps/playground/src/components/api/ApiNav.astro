@@ -1,19 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
-import { anchorId } from '../../content/loaders/api-docs';
-
 type Props = {
-    pkg: string;
+    entry?: any;
+    pkg?: string;
 };
 
-const { pkg } = Astro.props;
-
-const pkgEntries = await getCollection('api', (entry) => entry.data.package === pkg);
-
-const overviewEntry = pkgEntries.find((e) => e.data.kind === 'package');
-const modules = pkgEntries
-    .filter((e) => e.data.kind === 'module')
-    .sort((a, b) => (a.data.module ?? '').localeCompare(b.data.module ?? ''));
+const { entry } = Astro.props;
 
 const linkBase =
     'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150';
@@ -34,39 +25,35 @@ const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
                 <p
                     class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold tracking-wider uppercase"
                 >
-                    API Reference
+                    Reference
                 </p>
                 <ul
                     id="api-nav-list"
                     class="space-y-0.5 pl-1.5"
                 >
+                    <li>
+                        <a
+                            data-target="overview"
+                            class:list={[linkBase, linkIdle]}
+                            href="#overview"
+                        >
+                            <span class:list={[dotBase, dotIdle]}></span>
+                            Overview
+                        </a>
+                    </li>
                     {
-                        overviewEntry && (
+                        entry && entry.data.typedoc && (
                             <li>
                                 <a
-                                    data-target="overview"
+                                    data-target="api"
                                     class:list={[linkBase, linkIdle]}
-                                    href="#overview"
+                                    href="#api"
                                 >
                                     <span class:list={[dotBase, dotIdle]} />
-                                    Overview
+                                    API Reference
                                 </a>
                             </li>
                         )
-                    }
-                    {
-                        modules.map((mod) => (
-                            <li>
-                                <a
-                                    data-target={anchorId(mod.data.module ?? mod.data.title)}
-                                    class:list={[linkBase, linkIdle]}
-                                    href={`#${anchorId(mod.data.module ?? mod.data.title)}`}
-                                >
-                                    <span class:list={[dotBase, dotIdle]} />
-                                    {mod.data.module}
-                                </a>
-                            </li>
-                        ))
                     }
                 </ul>
             </div>

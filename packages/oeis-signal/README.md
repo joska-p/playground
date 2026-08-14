@@ -1,9 +1,3 @@
----
-title: 'OEIS Signal'
-description: 'Personal composable signal and visualization package for integer sequences.'
-hasApp: true
----
-
 # @repo/oeis-signal
 
 > Personal composable signal + visualization package for integer sequences.

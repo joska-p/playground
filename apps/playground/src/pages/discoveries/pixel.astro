@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/pixel/pixel';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/pixel';
     description="Interactive API documentation for the browser-based image manipulation pipeline with live visual examples."
     keywords="image, pipeline, docs"
 >
-    <Hero
-        badgeText="Project"
-        title="Pixel"
-        description="Interactive API documentation for the browser-based image manipulation pipeline with live visual examples."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

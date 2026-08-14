@@ -1,9 +1,3 @@
----
-title: 'Automa'
-description: "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering."
-hasApp: true
----
-
 # @repo/automa
 
 > An interactive cellular automaton — paint life onto a GPU-driven grid, watch it evolve under pluggable rules.

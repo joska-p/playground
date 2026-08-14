@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/pixel-manipulator/pixel-manipulator';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/pixel-manipulator';
     description="A tool for manipulating images using canvas and web workers."
     keywords="image, canvas"
 >
-    <Hero
-        badgeText="Project"
-        title="Pixel Manipulator"
-        description="A tool for manipulating images using canvas and web workers."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/art-canvas/art-canvas';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/art-canvas';
     description='Create "art" in the canvas using shaders and logarithmic.'
     keywords="random, webgl"
 >
-    <Hero
-        badgeText="Project"
-        title="Art canvas"
-        description='Create "art" in the canvas using shaders and logarithmic.'
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

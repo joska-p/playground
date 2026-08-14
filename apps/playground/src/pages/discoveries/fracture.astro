@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/fracture/fracture';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/fracture';
     description="Interactive fractal with WebGL rendering."
     keywords="generative, three-js, 3d, webgl"
 >
-    <Hero
-        badgeText="Project"
-        title="Fracture"
-        description="Interactive fractal with WebGL rendering."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

@@ -1,9 +1,3 @@
----
-title: 'Radu Machine Learning'
-description: 'Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training.'
-hasApp: true
----
-
 # @repo/radu-machine-learning
 
 > A quiet gallery of hand-drawn strokes — every scribble, car, and house

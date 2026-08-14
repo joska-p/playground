@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/l-system/l-system';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/l-system';
     description="An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics."
     keywords="generative, three-js, 3d, webgl, simulation"
 >
-    <Hero
-        badgeText="Project"
-        title="L-System"
-        description="An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

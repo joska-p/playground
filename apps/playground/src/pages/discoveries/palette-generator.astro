@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/palette-generator/palette-generator';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/palette-generator';
     description="Generate harmonious color schemes using mathematical color theory models."
     keywords="color, design, theory"
 >
-    <Hero
-        badgeText="Project"
-        title="Palettes Generator"
-        description="Generate harmonious color schemes using mathematical color theory models."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

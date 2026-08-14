@@ -1,9 +1,3 @@
----
-title: 'RandomArt-next'
-description: 'Generate unique abstract art from any text string using seeded randomness and math expression trees.'
-hasApp: true
----
-
 # @repo/randomart-next
 
 > The next-generation face of expression-tree art — pick a grammar preset, tune

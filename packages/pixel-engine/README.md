@@ -1,9 +1,3 @@
----
-title: 'Pixel Engine'
-description: 'Framework-agnostic image manipulation pipeline with fused transforms, tiled convolutions, and buffer management.'
-hasApp: false
----
-
 # @repo/pixel-engine
 
 > The bare-metal core — a pure TypeScript image pipeline that translates raw

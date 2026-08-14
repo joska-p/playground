@@ -43,7 +43,6 @@
             "inputs": ["src/**", "eslint.config.*", "tsconfig*.json"]
         },
         "check-types": {
-            "dependsOn": ["build-docs"],
             "inputs": [
                 "src/**",
                 "tsconfig.json",

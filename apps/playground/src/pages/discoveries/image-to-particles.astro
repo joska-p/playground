@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/image-to-particles/image-to-particles';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/image-to-particles';
     description="Deconstruct images into physics-based particle systems with real-time interaction."
     keywords="image, physics, canvas"
 >
-    <Hero
-        badgeText="Project"
-        title="Image to Particles"
-        description="Deconstruct images into physics-based particle systems with real-time interaction."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

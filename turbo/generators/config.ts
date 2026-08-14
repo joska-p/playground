@@ -13,19 +13,6 @@ interface PackageEntry {
     appImport: string;
 }
 
-function readFrontmatter(filePath: string): Record<string, unknown> {
-    const raw = readFileSync(filePath, 'utf8');
-    if (!raw.startsWith('---')) return {};
-    const end = raw.indexOf('\n---', 3);
-    if (end === -1) return {};
-    try {
-        const parsed = YAML.parse(raw.slice(3, end));
-        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
-    } catch {
-        return {};
-    }
-}
-
 function getAppImport(pkgName: string, pkgJson: Record<string, unknown>) {
     const exports = pkgJson.exports as Record<string, unknown> | undefined;
     if (!exports) return { hasApp: false, appImport: '' };
@@ -100,7 +87,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 const pkgName = `@repo/${packageDir}`;
                 const readmePath = join(process.cwd(), 'packages', packageDir, 'README.md');
                 if (!existsSync(readmePath)) continue;
-                const meta = readFrontmatter(readmePath);
 
                 const pkgJsonPath = join(process.cwd(), 'packages', packageDir, 'package.json');
                 const pkgJson = existsSync(pkgJsonPath)
@@ -108,13 +94,20 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                     : {};
                 const appInfo = getAppImport(pkgName, pkgJson);
 
+                const title = packageDir
+                    .split('-')
+                    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(' ');
+                const description =
+                    typeof pkgJson.description === 'string' ? pkgJson.description : null;
+
                 packages.push({
                     package: pkgName,
                     packageDir,
-                    title: String(meta.title || pkgName),
-                    description: meta.description ? String(meta.description) : null,
+                    title,
+                    description,
                     keywords: '',
-                    hasApp: Boolean(meta.hasApp),
+                    hasApp: appInfo.hasApp,
                     appImport: appInfo.appImport
                 });
             }

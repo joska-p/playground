@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/real-life/real-life';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/real-life';
     description="A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay."
     keywords="simulation, three-js, webgl, generative"
 >
-    <Hero
-        badgeText="Project"
-        title="Real Life"
-        description="A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

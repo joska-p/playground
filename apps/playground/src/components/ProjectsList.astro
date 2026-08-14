@@ -5,7 +5,7 @@ import { toBraille, toOgham, toCanadianSyllabics } from '../utils/format';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}discoveries/`;
-const allProjects = await getCollection('api', (entry) => entry.data.kind === 'package');
+const allProjects = await getCollection('api');
 const sortedProjects = allProjects.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 function stringToSeed(str: string): number {

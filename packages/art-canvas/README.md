@@ -1,9 +1,3 @@
----
-title: 'Art Canvas'
-description: 'A modular WebGL workshop for shader experiments — each idea lives as its own module.'
-hasApp: true
----
-
 # @repo/art-canvas
 
 > A drop-bag for shader experiments — a WebGL workshop container where each

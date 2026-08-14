@@ -1,6 +1,5 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "plugin": ["typedoc-plugin-markdown"],
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeInternal": true,
@@ -12,12 +11,5 @@
     },
     "githubPages": false,
     "sort": ["kind", "alphabetical"],
-    "fileExtension": ".mdx",
-    "useHTMLEncodedBrackets": true,
-    "outputFileStrategy": "modules",
-    "flattenOutputFiles": true,
-    "hidePageHeader": true,
-    "hideBreadcrumbs": true,
-    "hidePageTitle": true,
     "cleanOutputDir": false
 }

@@ -1,9 +1,3 @@
----
-title: 'Palette Engine'
-description: 'Pure engine mapping base colors to harmonious palettes across OKLab, OKLCh, HSL, and sRGB color spaces.'
-hasApp: false
----
-
 # @repo/palette-engine
 
 > A pure engine that maps a base color to harmonious palettes — four color

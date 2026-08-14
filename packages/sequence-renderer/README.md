@@ -1,9 +1,3 @@
----
-title: 'Sequence Renderer'
-description: 'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.'
-hasApp: true
----
-
 # @repo/sequence-renderer
 
 > A canvas that unfurls mathematical sequences into visible form — Fourier

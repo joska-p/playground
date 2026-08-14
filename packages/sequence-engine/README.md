@@ -1,9 +1,3 @@
----
-title: 'Sequence Engine'
-description: 'Pure rule-based mathematical sequence generation engine with persistence abstractions.'
-hasApp: false
----
-
 # @repo/sequence-engine
 
 > A pure engine that turns mathematical rules into numbered sequences —

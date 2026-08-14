@@ -1,9 +1,3 @@
----
-title: 'Graphify'
-description: 'Interactive 3D force-directed graph of the codebase — click nodes, search, filter by community.'
-hasApp: true
----
-
 # @repo/graph-viz
 
 > A codebase rendered as a galaxy — files become spheres and boxes floating

@@ -1,9 +1,3 @@
----
-title: 'Three Stage'
-description: 'A 3D stage for rendering and animating Three.js objects with live Leva controls.'
-hasApp: true
----
-
 # @repo/three-stage
 
 > A 3D scene explorer where geometry, materials, and lighting are all

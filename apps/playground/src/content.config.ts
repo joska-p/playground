@@ -50,11 +50,9 @@ const api = defineCollection({
     schema: z.object({
         title: z.string(),
         package: z.string(),
-        kind: z.enum(['package', 'module', 'internal']),
-        module: z.string().optional(),
         description: z.string().optional(),
-        // Package-level metadata, present on `kind === 'package'` entries
-        hasApp: z.boolean().default(false)
+        hasApp: z.boolean(),
+        typedoc: z.any()
     })
 });
 

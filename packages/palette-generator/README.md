@@ -1,9 +1,3 @@
----
-title: 'Palettes Generator'
-description: 'Generate harmonious color schemes using mathematical color theory models.'
-hasApp: true
----
-
 # @repo/palette-generator
 
 > A color-picking experience that renders four color spaces as interactive

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/oeis-signal';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/oeis-signal';
     description="Personal composable signal and visualization package for integer sequences."
     keywords="math, sequence, signal, canvas"
 >
-    <Hero
-        badgeText="Project"
-        title="OEIS Signal"
-        description="Personal composable signal and visualization package for integer sequences."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 
 const packageName = '@repo/palette-engine';
@@ -11,12 +10,5 @@ const packageName = '@repo/palette-engine';
     description="Pure engine mapping base colors to harmonious palettes across OKLab, OKLCh, HSL, and sRGB color spaces."
     keywords="color, design, engine, theory"
 >
-    <Hero
-        badgeText="@repo/palette-engine"
-        title="Palette Engine"
-        description="Pure engine mapping base colors to harmonious palettes across OKLab, OKLCh, HSL, and sRGB color spaces."
-        variant="ghost"
-    />
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>

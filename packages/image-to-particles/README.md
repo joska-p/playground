@@ -1,9 +1,3 @@
----
-title: 'Image to Particles'
-description: 'Deconstruct images into physics-based particle systems with real-time interaction.'
-hasApp: true
----
-
 # @repo/image-to-particles
 
 > An image disintegrates into thousands of particles that tumble from the

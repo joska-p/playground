@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/automa/automa';
 
@@ -12,13 +11,6 @@ const packageName = '@repo/automa';
     description="Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering."
     keywords="simulation, three-js, webgl"
 >
-    <Hero
-        badgeText="Project"
-        title="Automa"
-        description="Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering."
-        variant="ghost"
-    />
-
     <section class="w-full">
         <App client:only="react" />
     </section>

@@ -1,9 +1,3 @@
----
-title: 'RandomArt'
-description: 'Generate unique abstract art from any text string using seeded randomness and math expression trees.'
-hasApp: true
----
-
 # @repo/randomart
 
 > A React window into expression-tree art — type a seed phrase, watch a

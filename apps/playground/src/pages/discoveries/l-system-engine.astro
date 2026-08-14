@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 import PackageDoc from '../../components/api/PackageDoc.astro';
 
 const packageName = '@repo/l-system-engine';
@@ -11,12 +10,5 @@ const packageName = '@repo/l-system-engine';
     description="Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules."
     keywords="generative, engine, grammar, math"
 >
-    <Hero
-        badgeText="@repo/l-system-engine"
-        title="L-System Engine"
-        description="Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules."
-        variant="ghost"
-    />
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>
