@@ -201,6 +201,29 @@ if (existsSync(PACKAGES_DIR)) {
     }
 }
 
+// Ensure every package has an overview .md file from README if missing
+for (const pkg of packagesInfo) {
+    const apiFilename = `${pkg.package.replace(/\//g, '.')}.md`;
+    const apiFilePath = path.join(API_DIR, apiFilename);
+    const readmePath = path.join(PACKAGES_DIR, pkg.packageDir, 'README.md');
+
+    if (!existsSync(apiFilePath) && existsSync(readmePath)) {
+        let readmeContent = readFileSync(readmePath, 'utf8');
+        if (readmeContent.startsWith('---')) {
+            const endFm = readmeContent.indexOf('---\n\n', 3);
+            if (endFm !== -1) {
+                readmeContent = readmeContent.slice(endFm + 5);
+            } else {
+                const endFmAlt = readmeContent.indexOf('---\n', 3);
+                if (endFmAlt !== -1) {
+                    readmeContent = readmeContent.slice(endFmAlt + 4);
+                }
+            }
+        }
+        writeFileSync(apiFilePath, readmeContent);
+    }
+}
+
 // Process markdown files
 const entriesInfo = [];
 let updatedCount = 0;

@@ -1,43 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ApiNav from '../../components/api/ApiNav.astro';
 import { Hero } from '@repo/ui/data-display';
-import { entriesForPackage } from '../../lib/apiIndex';
+import PackageDoc from '../../components/api/PackageDoc.astro';
 import { App } from '@repo/graph-viz/graph-viz';
 
 const packageName = '@repo/graph-viz';
-const pkgEntries = entriesForPackage(packageName);
-
-const overviewEntryInfo = pkgEntries.find((e) => e.kind === 'package');
-const moduleEntryInfos = pkgEntries
-    .filter((e) => e.kind === 'module')
-    .sort((a, b) => (a.module ?? '').localeCompare(b.module ?? ''));
-const internalEntryInfos = pkgEntries
-    .filter((e) => e.kind === 'internal')
-    .sort((a, b) => a.id.localeCompare(b.id));
-
-const contentCollection = await getCollection('api', (entry) => entry.data.package === packageName);
-const contentMap = new Map(contentCollection.map((e) => [e.id, e]));
-
-const overviewContent = overviewEntryInfo ? contentMap.get(overviewEntryInfo.id) : undefined;
-const overviewRender = overviewContent ? await render(overviewContent) : null;
-
-const moduleRenders = await Promise.all(
-    moduleEntryInfos.map(async (info) => {
-        const content = contentMap.get(info.id);
-        const rendered = content ? await render(content) : null;
-        return { info, rendered };
-    })
-);
-
-const internalRenders = await Promise.all(
-    internalEntryInfos.map(async (info) => {
-        const content = contentMap.get(info.id);
-        const rendered = content ? await render(content) : null;
-        return { info, rendered };
-    })
-);
 ---
 
 <BaseLayout
@@ -56,51 +23,5 @@ const internalRenders = await Promise.all(
         <App client:only="react" />
     </section>
 
-    <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
-        <ApiNav pkg={packageName} />
-
-        <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-16">
-            {
-                overviewEntryInfo && overviewRender && (
-                    <article
-                        id={overviewEntryInfo.namespace}
-                        class="prose prose-playground bg-surface/5 text-foreground max-w-none rounded-xl p-[clamp(1.5rem,3vw,2.5rem)] shadow-md backdrop-blur-xs"
-                    >
-                        <overviewRender.Content />
-                    </article>
-                )
-            }
-
-            {
-                moduleRenders.map(
-                    ({ info, rendered }) =>
-                        rendered && (
-                            <section
-                                id={info.namespace}
-                                class="prose prose-playground bg-surface/5 text-foreground max-w-none rounded-xl p-[clamp(1.5rem,3vw,2.5rem)] shadow-md backdrop-blur-xs"
-                            >
-                                <rendered.Content />
-                            </section>
-                        )
-                )
-            }
-
-            {
-                internalRenders.map(
-                    ({ info, rendered }) =>
-                        rendered && (
-                            <section
-                                id={info.namespace}
-                                class="prose prose-playground bg-surface/5 text-foreground/70 border-border/50 max-w-none rounded-xl border border-dashed p-[clamp(1.5rem,3vw,2.5rem)] shadow-md backdrop-blur-xs"
-                            >
-                                <div class="text-muted-foreground mb-4 font-mono text-xs uppercase">
-                                    Internal Implementation
-                                </div>
-                                <rendered.Content />
-                            </section>
-                        )
-                )
-            }
-        </div>
-    </div>
+    <PackageDoc packageName={packageName} />
 </BaseLayout>

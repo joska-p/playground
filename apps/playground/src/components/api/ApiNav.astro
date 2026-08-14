@@ -12,6 +12,9 @@ const overviewEntry = pkgEntries.find((e) => e.kind === 'package');
 const modules = pkgEntries
     .filter((e) => e.kind === 'module')
     .sort((a, b) => (a.module ?? '').localeCompare(b.module ?? ''));
+const internals = pkgEntries
+    .filter((e) => e.kind === 'internal')
+    .sort((a, b) => a.id.localeCompare(b.id));
 ---
 
 <aside
@@ -62,6 +65,32 @@ const modules = pkgEntries
                     }
                 </ul>
             </div>
+            {
+                internals.length > 0 && (
+                    <div>
+                        <p class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold tracking-wider uppercase">
+                            Internals
+                        </p>
+                        <ul
+                            class="space-y-0.5 pl-1.5"
+                            id="api-nav-list"
+                        >
+                            {internals.map((item) => (
+                                <li>
+                                    <a
+                                        data-target={item.namespace}
+                                        class="group text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150"
+                                        href={`#${item.namespace}`}
+                                    >
+                                        <span class="bg-border group-hover:bg-muted-foreground/50 h-1 w-1 shrink-0 rounded-full transition-colors" />
+                                        {item.module ? `${item.module} (internal)` : 'Internal'}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
         </div>
     </nav>
 </aside>
@@ -72,7 +101,7 @@ const modules = pkgEntries
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const id = entry.target.id;
-                    const links = document.querySelectorAll('#api-nav-list a');
+                    const links = document.querySelectorAll('nav a[data-target]');
                     links.forEach((link) => {
                         const target = link.getAttribute('data-target');
                         const span = link.querySelector('span');
