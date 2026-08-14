@@ -1,9 +1,9 @@
 ---
-title: 'Graph Viz'
-coordinates: '/algorithms/topology'
-status: 'Paused'
-date_discovered: 2025-06-01
+title: "Graphify"
+description: "Interactive 3D force-directed graph of the codebase — click nodes, search, filter by community."
+hasApp: true
 ---
+
 
 # @repo/graph-viz
 

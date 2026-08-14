@@ -1,17 +1,9 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/components/data-entry/index.ts",
-        "src/components/data-display/index.ts",
-        "src/components/navigation/index.ts",
-        "src/components/feedback/index.ts",
-        "src/components/control-panel/index.ts",
-        "src/components/widgets/index.ts",
-        "src/components/cards/index.ts",
-        "src/components/icons/index.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.app.json",
     "readme": "./README.md",
-    "skipErrorChecking": true
+    "out": "../../apps/playground/src/content/api",
+    "entryPoints": []
 }

@@ -1,9 +1,9 @@
 ---
-title: 'Sequence Engine'
-coordinates: '/math/algorithms'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Sequence Engine"
+description: "Pure rule-based mathematical sequence generation engine with persistence abstractions."
+hasApp: false
 ---
+
 
 # @repo/sequence-engine
 

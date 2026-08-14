@@ -1,18 +1,20 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/types.ts",
-        "src/pixel-data.ts",
-        "src/buffer-manager.ts",
-        "src/fusion-scheduler.ts",
-        "src/manipulation-factories.ts",
-        "src/neighborhood-tiling.ts",
-        "src/pipeline-runner.ts",
-        "src/registry.ts",
-        "src/step-dispatcher.ts",
-        "src/manipulations/manifest.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/pixel-data.ts",
+        "./src/buffer-manager.ts",
+        "./src/fusion-scheduler.ts",
+        "./src/manipulation-factories.ts",
+        "./src/manipulations/manifest.ts",
+        "./src/neighborhood-tiling.ts",
+        "./src/pipeline-runner.ts",
+        "./src/registry.ts",
+        "./src/step-dispatcher.ts",
+        "./src/types.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

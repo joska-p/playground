@@ -1,9 +1,9 @@
 ---
-title: 'Three Stage'
-coordinates: '/visuals/3d'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Three Stage"
+description: "A 3D stage for rendering and animating Three.js objects with live Leva controls."
+hasApp: true
 ---
+
 
 # @repo/three-stage
 

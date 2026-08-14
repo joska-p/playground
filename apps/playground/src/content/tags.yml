@@ -1,3 +1,7 @@
+- id: 2d
+  title: 2D
+  description: Two-dimensional graphics, drawing, and rendering.
+
 - id: 3d
   title: 3D
   description: Three-dimensional graphics and rendering.
@@ -24,6 +28,10 @@
   title: Complex Systems
   description: Emergent behavior, self-organization, and systems where simple rules produce unpredictable global patterns. Cellular automata, collective dynamics, and phase transitions.
 
+- id: config
+  title: Configuration
+  description: Shared workspace configuration — ESLint presets, TypeScript baselines, and build tooling that keep every package consistent.
+
 - id: conventions
   title: Conventions
   description: Design and coding conventions — naming, structure, patterns, and style guides that keep the monorepo consistent.
@@ -47,16 +55,28 @@
   title: Docs
   description: Documentation and API reference tooling.
 
+- id: engine
+  title: Engine
+  description: Framework-agnostic pure computation engines — simulation, rewriting, color mapping, and image pipelines with no UI or DOM dependencies.
+
 - id: explanation
   title: Explanations
   description: Deep dives into architecture, engine patterns, and the mental model behind the codebase. Understanding over instruction.
   icon: lightbulb
+
+- id: framework
+  title: Framework
+  description: Reusable rendering and drawing frameworks — 2D immediacy, WebGL shader surfaces, and state-buffer simulation.
 
 - id: generative
   title: Generative Art
   description: Procedural patterns and mathematical visualizations that create art from algorithms. Includes randomart sequence renderers, and L-system fractals.
   icon: generative
   order: 0
+
+- id: grammar
+  title: Grammar
+  description: Grammar-driven generation — expression trees, rewriting systems, and rule-based symbol manipulation.
 
 - id: graph
   title: Graph
@@ -72,6 +92,10 @@
   description: Transform, deconstruct, and manipulate images through pixel pipelines, Web Workers, and creative algorithms. Canvas 2D + typed arrays.
   icon: image
   order: 2
+
+- id: infrastructure
+  title: Infrastructure
+  description: Cross-cutting infrastructure — worker pooling, queuing, buffer management, and pipeline concurrency.
 
 - id: l-system
   title: L-System
@@ -120,9 +144,17 @@
   description: Technical specs, API documentation, and design token catalogs. The source of truth for packages and conventions.
   icon: code
 
+- id: sequence
+  title: Sequences
+  description: Mathematical sequence generation — Recamán, Fibonacci, Fourier epicycles, and rule-based integer sequences with pluggable renderers.
+
 - id: shader
   title: Shaders
   description: GLSL fragment and vertex shaders for GPU-accelerated rendering. Procedural textures, post-processing effects, and real-time pixel manipulation on the graphics card.
+
+- id: signal
+  title: Signal Processing
+  description: Composable signal abstractions over integer sequences — transform, combine, and visualize numeric data.
 
 - id: simulation
   title: Simulation

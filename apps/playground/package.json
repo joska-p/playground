@@ -13,7 +13,7 @@
         "prebuild": "pnpm run copy:all",
         "postbuild": "pnpm run copy:storybook",
         "build": "astro build",
-        "build-docs": "node ../../scripts/generate-docs.mjs",
+        "build-docs": "node ../../scripts/build-docs.mjs",
         "dev": "astro dev --host",
         "preview": "astro preview --host",
         "astro": "astro",

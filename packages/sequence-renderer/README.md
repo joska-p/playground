@@ -1,9 +1,9 @@
 ---
-title: 'Sequence Renderer'
-coordinates: '/math/visuals'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Sequence Renderer"
+description: "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
+hasApp: true
 ---
+
 
 # @repo/sequence-renderer
 

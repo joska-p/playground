@@ -1,9 +1,9 @@
 ---
-title: 'Randomart Engine Next'
-coordinates: '/algorithms/generative'
-status: 'Active'
-date_discovered: 2026-07-15
+title: "RandomArt Engine Next"
+description: "Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces."
+hasApp: false
 ---
+
 
 # @repo/randomart-engine-next
 

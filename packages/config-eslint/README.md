@@ -1,3 +1,9 @@
+---
+title: "ESLint Config"
+description: "Workspace ESLint configuration package for TypeScript and React."
+hasApp: false
+---
+
 # @repo/config-eslint
 
 > Shared ESLint configuration for the monorepo — strict TypeScript checking, import discipline, and React hooks, all wired up through a single factory function.

@@ -1,9 +1,9 @@
 ---
-title: 'Pixel Engine'
-coordinates: '/algorithms/visuals'
-status: 'Active'
-date_discovered: 2024-01-15
+title: "Pixel Engine"
+description: "Framework-agnostic image manipulation pipeline with fused transforms, tiled convolutions, and buffer management."
+hasApp: false
 ---
+
 
 # @repo/pixel-engine
 

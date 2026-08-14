@@ -1,9 +1,9 @@
 ---
-title: 'Automa Engine'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Automa Engine"
+description: "Pure simulation engine converting birth/survive lookup tables and multi-state rules into evolving cellular automata."
+hasApp: false
 ---
+
 
 # @repo/automa-engine
 

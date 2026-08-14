@@ -1,9 +1,9 @@
 ---
-title: 'Randomart'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2024-04-01
+title: "RandomArt"
+description: "Generate unique abstract art from any text string using seeded randomness and math expression trees."
+hasApp: true
 ---
+
 
 # @repo/randomart
 

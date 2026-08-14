@@ -1,9 +1,9 @@
 ---
-title: 'Pixel'
-coordinates: '/algorithms/visuals'
-status: 'Active'
-date_discovered: 2024-01-15
+title: "Pixel"
+description: "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples."
+hasApp: true
 ---
+
 
 # @repo/pixel
 

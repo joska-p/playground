@@ -1,9 +1,9 @@
 ---
-title: 'Radu Machine Learning'
-coordinates: '/data/stroke-archive'
-status: 'Dormant'
-date_discovered: 2022-12-06
+title: "Radu Machine Learning"
+description: "Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training."
+hasApp: true
 ---
+
 
 # @repo/radu-machine-learning
 

@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import ApiNav from '../../../components/api/ApiNav.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+    const modules = await getCollection('api', (entry) => entry.data.kind === 'module');
+
+    return modules.map((entry) => {
+        const packageDir = entry.data.package.replace(/^@repo\//, '');
+        const modulePath = (entry.data.module ?? entry.data.title ?? entry.id)
+            .replace(/\.mdx?$/, '')
+            .replace(/\//g, '-');
+        return { params: { packageDir, modulePath }, props: { entry } };
+    });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+    <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
+        <ApiNav pkg={entry.data.package} />
+
+        <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-12">
+            <article
+                class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+            >
+                <div class="text-primary mb-4 font-mono text-[10px] font-bold tracking-widest uppercase">
+                    Module // {entry.data.module}
+                </div>
+                <Content />
+            </article>
+        </div>
+    </div>
+</BaseLayout>

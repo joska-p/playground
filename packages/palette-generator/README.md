@@ -1,9 +1,9 @@
 ---
-title: 'Palette Generator'
-coordinates: '/visuals/color'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Palettes Generator"
+description: "Generate harmonious color schemes using mathematical color theory models."
+hasApp: true
 ---
+
 
 # @repo/palette-generator
 

@@ -1,3 +1,9 @@
+---
+title: "Glaze"
+description: "2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures."
+hasApp: true
+---
+
 # @repo/glaze
 
 > p5-style drawing immediacy and three.js-style shader freedom, in one package.

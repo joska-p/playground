@@ -1,9 +1,9 @@
 ---
-title: 'Automa'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Automa"
+description: "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering."
+hasApp: true
 ---
+
 
 # @repo/automa
 

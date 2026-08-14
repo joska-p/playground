@@ -1,15 +1,17 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/types.ts",
-        "src/colorSpaces.ts",
-        "src/generatePalette.ts",
-        "src/rules/analogous.ts",
-        "src/rules/complementary.ts",
-        "src/rules/monochromatic.ts",
-        "src/rules/triadic.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/colorSpaces.ts",
+        "./src/generatePalette.ts",
+        "./src/rules/analogous.ts",
+        "./src/rules/complementary.ts",
+        "./src/rules/monochromatic.ts",
+        "./src/rules/triadic.ts",
+        "./src/types.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

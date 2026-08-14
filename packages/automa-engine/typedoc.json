@@ -1,16 +1,18 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/config.ts",
-        "src/grid.ts",
-        "src/cpu/engine.ts",
-        "src/cpu/worker.ts",
-        "src/creature/builtin.ts",
-        "src/creature/registry.ts",
-        "src/rules/registry.ts",
-        "src/gpu/createSimulationEngine.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/cpu/engine.ts",
+        "./src/cpu/worker.ts",
+        "./src/config.ts",
+        "./src/grid.ts",
+        "./src/creature/builtin.ts",
+        "./src/creature/registry.ts",
+        "./src/rules/registry.ts",
+        "./src/gpu/createSimulationEngine.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

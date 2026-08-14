@@ -1,20 +1,22 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/types.ts",
-        "src/tree/build.ts",
-        "src/tree/evaluate.ts",
-        "src/tree/generate.ts",
-        "src/grammar/registry.ts",
-        "src/random/SeededRandom.ts",
-        "src/animation/behaviors.ts",
-        "src/compile/compileToGLSL.ts",
-        "src/compile/glslLibrary.ts",
-        "src/format/treePrinter.ts",
-        "src/render/cpu-renderer.ts",
-        "src/png-export.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/animation/behaviors.ts",
+        "./src/compile/compileToGLSL.ts",
+        "./src/compile/glslLibrary.ts",
+        "./src/format/treePrinter.ts",
+        "./src/grammar/registry.ts",
+        "./src/random/SeededRandom.ts",
+        "./src/render/cpu-renderer.ts",
+        "./src/tree/build.ts",
+        "./src/tree/evaluate.ts",
+        "./src/tree/generate.ts",
+        "./src/types.ts",
+        "./src/png-export.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

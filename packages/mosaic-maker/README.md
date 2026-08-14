@@ -1,9 +1,9 @@
 ---
-title: 'Mosaic Maker'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2024-03-10
+title: "Mosaic Maker"
+description: "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
+hasApp: true
 ---
+
 
 # @repo/mosaic-maker
 

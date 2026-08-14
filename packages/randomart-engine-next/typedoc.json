@@ -1,18 +1,20 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/types.ts",
-        "src/tree.ts",
-        "src/prng.ts",
-        "src/format.ts",
-        "src/compileToGLSL.ts",
-        "src/glsl-library.ts",
-        "src/glsl-color-spaces.ts",
-        "src/grammar/operators/registry.ts",
-        "src/grammar/rules/registry.ts",
-        "src/behaviors/registry.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/types.ts",
+        "./src/tree.ts",
+        "./src/prng.ts",
+        "./src/format.ts",
+        "./src/compileToGLSL.ts",
+        "./src/glsl-library.ts",
+        "./src/glsl-color-spaces.ts",
+        "./src/grammar/operators/registry.ts",
+        "./src/grammar/rules/registry.ts",
+        "./src/behaviors/registry.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

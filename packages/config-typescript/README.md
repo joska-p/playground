@@ -1,3 +1,9 @@
+---
+title: "TypeScript Config"
+description: "Workspace shared tsconfig baselines for monorepo packages and apps."
+hasApp: false
+---
+
 # @repo/config-typescript
 
 > Shared TypeScript configurations for the monorepo — strictest base, browser app, and Node tooling, all extending `@tsconfig/strictest`.

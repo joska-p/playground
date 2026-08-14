@@ -1,9 +1,9 @@
 ---
-title: 'Pixel Manipulator'
-coordinates: '/visuals/pipelines'
-status: 'Active'
-date_discovered: 2024-01-15
+title: "Pixel Manipulator"
+description: "Interactive React workbench for browser image manipulation — build, run, and inspect pixel workflows."
+hasApp: true
 ---
+
 
 # @repo/pixel-manipulator
 

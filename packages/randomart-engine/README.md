@@ -1,9 +1,9 @@
 ---
-title: 'Randomart Engine'
-coordinates: '/algorithms/generative'
-status: 'Active'
-date_discovered: 2024-04-01
+title: "RandomArt Engine"
+description: "Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders."
+hasApp: false
 ---
+
 
 # @repo/randomart-engine
 

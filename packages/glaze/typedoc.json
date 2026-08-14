@@ -1,29 +1,31 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/core/FrameLoop.ts",
-        "src/core/Camera.ts",
-        "src/core/CameraControls.ts",
-        "src/core/InputStore.ts",
-        "src/core/gestures.ts",
-        "src/cpu/CpuSurface.ts",
-        "src/cpu/shapes/types.ts",
-        "src/gpu/GpuSurface.ts",
-        "src/gpu/StateBuffer.ts",
-        "src/gpu/batch/ShapeBatcher.ts",
-        "src/gpu/batch/geometry.ts",
-        "src/gpu/shader/compileProgram.ts",
-        "src/gpu/shader/setUniforms.ts",
-        "src/gpu/shader/Program.ts",
-        "src/gpu/shapes/TextRasterizer.ts",
-        "src/react/interactions.ts",
-        "src/react/CpuCanvas.tsx",
-        "src/react/GpuCanvas.tsx",
-        "src/react/useCpuSurface.ts",
-        "src/react/useGpuSurface.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
+    "entryPoints": [
+        "./src/core/FrameLoop.ts",
+        "./src/core/Camera.ts",
+        "./src/core/CameraControls.ts",
+        "./src/core/InputStore.ts",
+        "./src/core/gestures.ts",
+        "./src/cpu/CpuSurface.ts",
+        "./src/cpu/shapes/types.ts",
+        "./src/gpu/GpuSurface.ts",
+        "./src/gpu/StateBuffer.ts",
+        "./src/gpu/batch/ShapeBatcher.ts",
+        "./src/gpu/batch/geometry.ts",
+        "./src/gpu/shader/compileProgram.ts",
+        "./src/gpu/shader/setUniforms.ts",
+        "./src/gpu/shader/Program.ts",
+        "./src/gpu/shapes/TextRasterizer.ts",
+        "./src/react/interactions.ts",
+        "./src/react/CpuCanvas.tsx",
+        "./src/react/GpuCanvas.tsx",
+        "./src/react/useCpuSurface.ts",
+        "./src/react/useGpuSurface.ts",
+        "./src/docs/GlazeDocs.tsx"
+    ],
     "readme": "./README.md",
-    "skipErrorChecking": true
+    "out": "../../apps/playground/src/content/api"
 }

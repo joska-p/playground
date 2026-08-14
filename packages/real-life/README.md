@@ -1,9 +1,9 @@
 ---
-title: 'Real Life'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-15
+title: "Real Life"
+description: "A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay."
+hasApp: true
 ---
+
 
 # @repo/real-life
 

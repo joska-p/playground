@@ -1,9 +1,9 @@
 ---
-title: 'Worker Pool'
-coordinates: '/infrastructure/worker-pool'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Worker Pool"
+description: "Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown."
+hasApp: false
 ---
+
 
 # @repo/worker-pool
 

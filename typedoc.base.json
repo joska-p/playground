@@ -1,6 +1,10 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "plugin": ["typedoc-plugin-missing-exports"],
+    "plugin": [
+        "typedoc-plugin-markdown",
+        "typedoc-plugin-frontmatter",
+        "./scripts/docs/frontmatter.mjs"
+    ],
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeInternal": true,
@@ -11,5 +15,13 @@
         }
     },
     "githubPages": false,
-    "sort": ["kind", "alphabetical"]
+    "sort": ["kind", "alphabetical"],
+    "fileExtension": ".mdx",
+    "useHTMLEncodedBrackets": true,
+    "outputFileStrategy": "modules",
+    "flattenOutputFiles": true,
+    "hidePageHeader": true,
+    "hideBreadcrumbs": true,
+    "hidePageTitle": true,
+    "cleanOutputDir": false
 }

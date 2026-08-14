@@ -44,28 +44,16 @@ const notes = defineCollection({
     })
 });
 
-const projects = defineCollection({
-    loader: file('src/content/projects.yml'),
-    schema: z.object({
-        title: z.string(),
-        description: z.string(),
-        iconName: iconNameSchema,
-        packageDir: z.string(),
-        featured: z.boolean().default(false),
-        order: z.number().default(0),
-        // First tag is the main tag — controls the visual style
-        tags: z.array(reference('tags'))
-    })
-});
-
 const api = defineCollection({
-    loader: glob({ pattern: '**/*.md', base: './src/content/api', deferRender: true }),
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/api' }),
     schema: z.object({
         title: z.string(),
         package: z.string(),
         kind: z.enum(['package', 'module', 'internal']),
         module: z.string().optional(),
-        description: z.string().optional()
+        description: z.string().optional(),
+        // Package-level metadata, present on `kind === 'package'` entries
+        hasApp: z.boolean().default(false)
     })
 });
 
@@ -73,6 +61,5 @@ export const collections = {
     tags,
     docs,
     notes,
-    projects,
     api
 };

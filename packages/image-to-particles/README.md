@@ -1,9 +1,9 @@
 ---
-title: 'Image to Particles'
-coordinates: '/visuals/particles'
-status: 'Active'
-date_discovered: 2025-06-15
+title: "Image to Particles"
+description: "Deconstruct images into physics-based particle systems with real-time interaction."
+hasApp: true
 ---
+
 
 # @repo/image-to-particles
 

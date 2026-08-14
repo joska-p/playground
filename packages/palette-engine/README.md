@@ -1,9 +1,9 @@
 ---
-title: 'Palette Engine'
-coordinates: '/visuals/color'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Palette Engine"
+description: "Pure engine mapping base colors to harmonious palettes across OKLab, OKLCh, HSL, and sRGB color spaces."
+hasApp: false
 ---
+
 
 # @repo/palette-engine
 

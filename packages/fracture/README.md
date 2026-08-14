@@ -1,9 +1,9 @@
 ---
-title: 'Fracture'
-coordinates: '/visuals/fractals'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Fracture"
+description: "Interactive WebGL2 fractal explorer — Mandelbrot and Julia sets with deep-zoom perturbation and double-single emulation."
+hasApp: true
 ---
+
 
 # @repo/fracture
 

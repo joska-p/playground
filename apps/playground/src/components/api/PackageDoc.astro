@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ApiNav from './ApiNav.astro';
-import { entriesForPackage } from '../../lib/apiIndex';
 
 type Props = {
     packageName: string;
@@ -9,86 +8,23 @@ type Props = {
 
 const { packageName } = Astro.props;
 
-const pkgEntries = entriesForPackage(packageName);
-
-const overviewEntryInfo = pkgEntries.find((e) => e.kind === 'package');
-const moduleEntryInfos = pkgEntries
-    .filter((e) => e.kind === 'module')
-    .sort((a, b) => (a.module ?? '').localeCompare(b.module ?? ''));
-const internalEntryInfos = pkgEntries
-    .filter((e) => e.kind === 'internal')
-    .sort((a, b) => a.id.localeCompare(b.id));
-
-const contentCollection = await getCollection('api', (entry) => entry.data.package === packageName);
-const contentMap = new Map(contentCollection.map((e) => [e.id, e]));
-
-const overviewContent = overviewEntryInfo ? contentMap.get(overviewEntryInfo.id) : undefined;
-const overviewRender = overviewContent ? await render(overviewContent) : null;
-
-const moduleRenders = await Promise.all(
-    moduleEntryInfos.map(async (info) => {
-        const content = contentMap.get(info.id);
-        const rendered = content ? await render(content) : null;
-        return { info, rendered };
-    })
-);
-
-const internalRenders = await Promise.all(
-    internalEntryInfos.map(async (info) => {
-        const content = contentMap.get(info.id);
-        const rendered = content ? await render(content) : null;
-        return { info, rendered };
-    })
-);
+const overview = (
+    await getCollection('api', (entry) => entry.data.package === packageName && entry.data.kind === 'package')
+)[0];
+const overviewRender = overview ? await render(overview) : null;
 ---
 
 <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
     <ApiNav pkg={packageName} />
 
     <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-12">
-        {
-            overviewEntryInfo && overviewRender && (
-                <article
-                    id={overviewEntryInfo.namespace}
-                    class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
-                >
-                    <overviewRender.Content />
-                </article>
-            )
-        }
-
-        {
-            moduleRenders.map(
-                ({ info, rendered }) =>
-                    rendered && (
-                        <section
-                            id={info.namespace}
-                            class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
-                        >
-                            <div class="text-primary mb-4 font-mono text-[10px] font-bold tracking-widest uppercase">
-                                Module // {info.module}
-                            </div>
-                            <rendered.Content />
-                        </section>
-                    )
-            )
-        }
-
-        {
-            internalRenders.map(
-                ({ info, rendered }) =>
-                    rendered && (
-                        <section
-                            id={info.namespace}
-                            class="prose prose-playground bg-surface/5 text-foreground/75 border-border/60 max-w-none rounded-xl border border-dashed p-[clamp(1.5rem,3vw,2.5rem)] shadow-md backdrop-blur-xs transition-all"
-                        >
-                            <div class="text-muted-foreground mb-4 font-mono text-[10px] font-bold tracking-widest uppercase">
-                                Internal Implementation // {info.module ?? info.id}
-                            </div>
-                            <rendered.Content />
-                        </section>
-                    )
-            )
-        }
+        {overviewRender && (
+            <article
+                id="overview"
+                class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+            >
+                <overviewRender.Content />
+            </article>
+        )}
     </div>
 </div>

@@ -1,12 +1,14 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "src/engine.ts",
-        "src/rules/registry.ts",
-        "src/rules/types.ts",
-        "src/rules/recaman.ts"
+    "extends": [
+        "../../typedoc.base.json"
     ],
-    "tsconfig": "./tsconfig.json",
-    "readme": "./README.md"
+    "entryPoints": [
+        "./src/engine.ts",
+        "./src/rules/registry.ts",
+        "./src/rules/types.ts",
+        "./src/rules/recaman.ts"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api"
 }

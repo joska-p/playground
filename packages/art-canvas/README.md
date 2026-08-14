@@ -1,9 +1,9 @@
 ---
-title: 'Art Canvas'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-01
+title: "Art Canvas"
+description: "A modular WebGL workshop for shader experiments — each idea lives as its own module."
+hasApp: true
 ---
+
 
 # @repo/art-canvas
 

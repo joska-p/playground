@@ -1,9 +1,9 @@
 ---
-title: 'L-System'
-coordinates: '/algorithms/fractals'
-status: 'Draft (Agent Generated)'
-date_discovered: 2025-06-01
+title: "L-System"
+description: "An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics."
+hasApp: true
 ---
+
 
 # @repo/l-system
 

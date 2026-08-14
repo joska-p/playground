@@ -1,7 +1,9 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["../../typedoc.base.json"],
-    "entryPoints": ["src/App.tsx"],
-    "tsconfig": "./tsconfig.app.json",
-    "readme": "./README.md"
+    "extends": [
+        "../../typedoc.base.json"
+    ],
+    "readme": "./README.md",
+    "out": "../../apps/playground/src/content/api",
+    "entryPoints": []
 }

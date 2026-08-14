@@ -1,9 +1,9 @@
 ---
-title: 'L-System Engine'
-coordinates: '/algorithms/rewriting'
-status: 'Draft (Agent Generated)'
-date_discovered: 2025-06-01
+title: "L-System Engine"
+description: "Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules."
+hasApp: false
 ---
+
 
 # @repo/l-system-engine
 

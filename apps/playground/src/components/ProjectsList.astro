@@ -5,7 +5,7 @@ import { toBraille, toOgham, toCanadianSyllabics } from '../utils/format';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}discoveries/`;
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection('api', (entry) => entry.data.kind === 'package');
 const sortedProjects = allProjects.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 function stringToSeed(str: string): number {
@@ -17,24 +17,28 @@ function stringToSeed(str: string): number {
     }
     return Math.abs(hash);
 }
+
+// Temporary: fixed palette picked by hash — iterate later.
+const CARD_COLORS = ['#7f9cf5', '#f472b6', '#34d399', '#fbbf24', '#60a5fa', '#a78bfa'];
 ---
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
     {
         sortedProjects.map((project) => {
-            const mainTag = project.data.tags[0].id;
+            const packageDir = project.data.package.replace(/^@repo\//, '');
+            const color = CARD_COLORS[stringToSeed(project.data.title) % CARD_COLORS.length];
             return (
                 <a
-                    href={`${projectsBaseUrl}${project.id}/#main`}
+                    href={`${projectsBaseUrl}${packageDir}/#main`}
                     title={project.data.title}
                 >
                     <SciFiCard
                         cardId={toCanadianSyllabics
-                            .fromHash(project.data.tags[0].id)
+                            .fromHash(project.data.package)
                             .substring(0, 8)}
                         cardTitle={project.data.title}
                         classification={project.data.description}
-                        color={`var(--tags-${mainTag})`}
+                        color={color}
                         density={toBraille.fromHash(project.data.description).substring(0, 8)}
                         resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
                         seed={stringToSeed(project.data.title)}
