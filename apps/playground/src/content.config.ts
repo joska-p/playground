@@ -2,6 +2,7 @@ import { iconNames } from '@repo/ui/icons';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection, reference } from 'astro:content';
+import { apiDocsLoader } from './content/loaders/api-docs';
 
 const iconNameSchema = z.enum(iconNames);
 
@@ -45,7 +46,7 @@ const notes = defineCollection({
 });
 
 const api = defineCollection({
-    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/api' }),
+    loader: apiDocsLoader(),
     schema: z.object({
         title: z.string(),
         package: z.string(),

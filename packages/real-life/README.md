@@ -1,9 +1,8 @@
 ---
-title: "Real Life"
+title: 'Real Life'
 description: "A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay."
 hasApp: true
 ---
-
 
 # @repo/real-life
 

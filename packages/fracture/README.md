@@ -1,9 +1,8 @@
 ---
-title: "Fracture"
-description: "Interactive WebGL2 fractal explorer — Mandelbrot and Julia sets with deep-zoom perturbation and double-single emulation."
+title: 'Fracture'
+description: 'Interactive WebGL2 fractal explorer — Mandelbrot and Julia sets with deep-zoom perturbation and double-single emulation.'
 hasApp: true
 ---
-
 
 # @repo/fracture
 

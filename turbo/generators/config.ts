@@ -42,7 +42,9 @@ function getAppImport(pkgName: string, pkgJson: Record<string, unknown>) {
 
     let matched = tsxExports.find((e) => e.val.endsWith('/App.tsx') || e.val === './src/App.tsx');
     if (!matched) {
-        matched = tsxExports.find((e) => e.val.includes('/src/docs/') || e.val.startsWith('./src/docs/'));
+        matched = tsxExports.find(
+            (e) => e.val.includes('/src/docs/') || e.val.startsWith('./src/docs/')
+        );
     }
     if (!matched) {
         matched = tsxExports[0];
@@ -83,25 +85,22 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         description: 'Generate one Astro page per package/project from the api content collection',
         prompts: [],
         actions: () => {
-            const apiDir = join(process.cwd(), 'apps/playground/src/content/api');
-            const files = existsSync(apiDir)
-                ? readdirSync(apiDir).filter((f) => f.endsWith('.mdx'))
+            const genRoot = join(process.cwd(), 'apps/playground/.generated/api-docs');
+            const pkgDirs = existsSync(genRoot)
+                ? readdirSync(genRoot, { withFileTypes: true })
+                      .filter((d) => d.isDirectory())
+                      .map((d) => d.name)
                 : [];
-            if (files.length === 0) {
+            if (pkgDirs.length === 0) {
                 throw new Error('run `pnpm build-docs` first');
             }
 
             const packages: PackageEntry[] = [];
-            for (const file of files) {
-                const dottedName = file.replace(/\.mdx$/, '');
-                const parts = dottedName.split('.');
-                if (parts[0] !== '@repo' || parts.length < 2) continue;
-
-                const frontmatter = readFrontmatter(join(apiDir, file));
-                if (frontmatter.kind !== 'package') continue;
-
-                const pkgName = String(frontmatter.package);
-                const packageDir = parts[1];
+            for (const packageDir of pkgDirs) {
+                const pkgName = `@repo/${packageDir}`;
+                const readmePath = join(process.cwd(), 'packages', packageDir, 'README.md');
+                if (!existsSync(readmePath)) continue;
+                const meta = readFrontmatter(readmePath);
 
                 const pkgJsonPath = join(process.cwd(), 'packages', packageDir, 'package.json');
                 const pkgJson = existsSync(pkgJsonPath)
@@ -112,10 +111,10 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 packages.push({
                     package: pkgName,
                     packageDir,
-                    title: String(frontmatter.title || pkgName),
-                    description: frontmatter.description ? String(frontmatter.description) : null,
+                    title: String(meta.title || pkgName),
+                    description: meta.description ? String(meta.description) : null,
                     keywords: '',
-                    hasApp: Boolean(frontmatter.hasApp),
+                    hasApp: Boolean(meta.hasApp),
                     appImport: appInfo.appImport
                 });
             }

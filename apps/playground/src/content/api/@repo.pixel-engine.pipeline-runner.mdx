@@ -1,0 +1,41 @@
+---
+package: '@repo/pixel-engine'
+kind: module
+module: pipeline-runner
+title: pipeline-runner
+---
+
+## Functions
+
+### runPipeline()
+
+> **runPipeline**(`params`): [`PixelData`](pixel-data.mdx#pixeldata)[]
+
+Defined in: [pipeline-runner.ts:37](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/pipeline-runner.ts#L37)
+
+Executes an image manipulation pipeline over a source PixelData, returning intermediate snapshots
+after each step.
+
+#### Parameters
+
+##### params
+
+Object containing source PixelData, pipeline steps array, and PipelineContext.
+
+###### context
+
+[`PipelineContext`](types.mdx#pipelinecontext)
+
+###### source
+
+[`PixelData`](pixel-data.mdx#pixeldata)
+
+###### steps
+
+`object`[]
+
+#### Returns
+
+[`PixelData`](pixel-data.mdx#pixeldata)[]
+
+Array of PixelData snapshots representing the state after each step.

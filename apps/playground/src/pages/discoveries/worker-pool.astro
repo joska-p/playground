@@ -6,14 +6,17 @@ import PackageDoc from '../../components/api/PackageDoc.astro';
 const packageName = '@repo/worker-pool';
 ---
 
-<BaseLayout title="Worker Pool" description="Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown." keywords="infrastructure, worker-pool, webgl, pipeline">
+<BaseLayout
+    title="Worker Pool"
+    description="Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown."
+    keywords="infrastructure, worker-pool, webgl, pipeline"
+>
     <Hero
         badgeText="@repo/worker-pool"
         title="Worker Pool"
         description="Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown."
         variant="ghost"
     />
-
 
     <PackageDoc packageName={packageName} />
 </BaseLayout>

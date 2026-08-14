@@ -1,6 +1,6 @@
 ---
-title: "OEIS Signal"
-description: "Personal composable signal and visualization package for integer sequences."
+title: 'OEIS Signal'
+description: 'Personal composable signal and visualization package for integer sequences.'
 hasApp: true
 ---
 

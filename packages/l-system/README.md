@@ -1,9 +1,8 @@
 ---
-title: "L-System"
-description: "An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics."
+title: 'L-System'
+description: 'An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.'
 hasApp: true
 ---
-
 
 # @repo/l-system
 

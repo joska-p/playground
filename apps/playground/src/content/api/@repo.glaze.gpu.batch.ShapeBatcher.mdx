@@ -1,0 +1,173 @@
+---
+package: '@repo/glaze'
+kind: module
+module: gpu/batch/ShapeBatcher
+title: gpu/batch/ShapeBatcher
+---
+
+## Classes
+
+### ShapeBatcher
+
+Defined in: [gpu/batch/ShapeBatcher.ts:84](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L84)
+
+Batches every shape into one dynamic vertex buffer and a single draw call per flush — the
+pixelate2d approach ported to glaze. Shapes are tessellated on the CPU (position + RGBA per
+vertex) and drawn through one shared program with a single `u_projection` uniform, instead of a
+fullscreen fragment pass per shape.
+
+#### Constructors
+
+##### Constructor
+
+> **new ShapeBatcher**(`options`): [`ShapeBatcher`](#shapebatcher)
+
+Defined in: [gpu/batch/ShapeBatcher.ts:97](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L97)
+
+###### Parameters
+
+###### options
+
+[`ShapeBatcherOptions`](#shapebatcheroptions)
+
+###### Returns
+
+[`ShapeBatcher`](#shapebatcher)
+
+#### Methods
+
+##### destroy()
+
+> **destroy**(): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:187](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L187)
+
+###### Returns
+
+`void`
+
+##### drawCircle()
+
+> **drawCircle**(`center`, `radius`, `style`): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:104](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L104)
+
+###### Parameters
+
+###### center
+
+[`Point2D`](core.Camera.mdx#point2d)
+
+###### radius
+
+`number`
+
+###### style
+
+[`DrawStyle`](cpu.shapes.types.mdx#drawstyle)
+
+###### Returns
+
+`void`
+
+##### drawLine()
+
+> **drawLine**(`a`, `b`, `style`): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:136](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L136)
+
+###### Parameters
+
+###### a
+
+[`Point2D`](core.Camera.mdx#point2d)
+
+###### b
+
+[`Point2D`](core.Camera.mdx#point2d)
+
+###### style
+
+[`DrawStyle`](cpu.shapes.types.mdx#drawstyle)
+
+###### Returns
+
+`void`
+
+##### drawRect()
+
+> **drawRect**(`rect`, `style`): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:121](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L121)
+
+###### Parameters
+
+###### rect
+
+[`Rect`](cpu.shapes.types.mdx#rect)
+
+###### style
+
+[`DrawStyle`](cpu.shapes.types.mdx#drawstyle)
+
+###### Returns
+
+`void`
+
+##### flush()
+
+> **flush**(): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:144](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L144)
+
+###### Returns
+
+`void`
+
+##### reinitialize()
+
+> **reinitialize**(): `void`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:182](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L182)
+
+###### Returns
+
+`void`
+
+## Interfaces
+
+### ShapeBatcherOptions
+
+Defined in: [gpu/batch/ShapeBatcher.ts:39](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L39)
+
+#### Properties
+
+##### camera
+
+> **camera**: [`Camera`](core.Camera.mdx#camera)
+
+Defined in: [gpu/batch/ShapeBatcher.ts:41](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L41)
+
+##### getViewport
+
+> **getViewport**: () => `object`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:42](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L42)
+
+###### Returns
+
+`object`
+
+###### height
+
+> **height**: `number`
+
+###### width
+
+> **width**: `number`
+
+##### gl
+
+> **gl**: `WebGL2RenderingContext`
+
+Defined in: [gpu/batch/ShapeBatcher.ts:40](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/batch/ShapeBatcher.ts#L40)

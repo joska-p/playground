@@ -1,0 +1,152 @@
+---
+package: '@repo/automa-engine'
+kind: module
+module: gpu/createSimulationEngine
+title: gpu/createSimulationEngine
+---
+
+## Type Aliases
+
+### SimulationEngine
+
+> **SimulationEngine** = `ReturnType`&lt;_typeof_ [`createSimulationEngine`](#createsimulationengine)&gt;
+
+Defined in: [gpu/createSimulationEngine.ts:4](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/gpu/createSimulationEngine.ts#L4)
+
+## Functions
+
+### createSimulationEngine()
+
+> **createSimulationEngine**(`gl`, `width`, `height`, `simShaderSource`, `paintShaderSource`): `object`
+
+Defined in: [gpu/createSimulationEngine.ts:6](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/gpu/createSimulationEngine.ts#L6)
+
+#### Parameters
+
+##### gl
+
+`WebGL2RenderingContext`
+
+##### width
+
+`number`
+
+##### height
+
+`number`
+
+##### simShaderSource
+
+`string`
+
+##### paintShaderSource
+
+`string`
+
+#### Returns
+
+`object`
+
+##### height
+
+###### Get Signature
+
+> **get** **height**(): `number`
+
+###### Returns
+
+`number`
+
+##### width
+
+###### Get Signature
+
+> **get** **width**(): `number`
+
+###### Returns
+
+`number`
+
+##### destroy()
+
+> **destroy**(): `void`
+
+###### Returns
+
+`void`
+
+##### getDisplayTexture()
+
+> **getDisplayTexture**(): `WebGLTexture`
+
+###### Returns
+
+`WebGLTexture`
+
+##### init()
+
+> **init**(`data`): `void`
+
+###### Parameters
+
+###### data
+
+`Uint8Array`
+
+###### Returns
+
+`void`
+
+##### paint()
+
+> **paint**(`col`, `row`, `value`): `void`
+
+###### Parameters
+
+###### col
+
+`number`
+
+###### row
+
+`number`
+
+###### value
+
+`number`
+
+###### Returns
+
+`void`
+
+##### resize()
+
+> **resize**(`width`, `height`): `void`
+
+###### Parameters
+
+###### width
+
+`number`
+
+###### height
+
+`number`
+
+###### Returns
+
+`void`
+
+##### step()
+
+> **step**(`rule`): `void`
+
+###### Parameters
+
+###### rule
+
+[`Rule`](rules.registry.mdx#rule)
+
+###### Returns
+
+`void`

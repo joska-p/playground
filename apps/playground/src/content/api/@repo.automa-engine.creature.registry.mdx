@@ -1,0 +1,70 @@
+---
+package: '@repo/automa-engine'
+kind: module
+module: creature/registry
+title: creature/registry
+---
+
+## Type Aliases
+
+### Creature
+
+> **Creature** = `object`
+
+Defined in: [creature/registry.ts:22](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L22)
+
+#### Properties
+
+##### cells
+
+> `readonly` **cells**: `number`[][]
+
+Defined in: [creature/registry.ts:27](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L27)
+
+##### height
+
+> `readonly` **height**: `number`
+
+Defined in: [creature/registry.ts:26](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L26)
+
+##### id
+
+> `readonly` **id**: `string`
+
+Defined in: [creature/registry.ts:23](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L23)
+
+##### name
+
+> `readonly` **name**: `string`
+
+Defined in: [creature/registry.ts:24](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L24)
+
+##### width
+
+> `readonly` **width**: `number`
+
+Defined in: [creature/registry.ts:25](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L25)
+
+---
+
+### CreatureId
+
+> **CreatureId** = _typeof_ [`allCreatures`](#allcreatures)\[`number`\]\[`"id"`\]
+
+Defined in: [creature/registry.ts:51](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L51)
+
+## Variables
+
+### allCreatures
+
+> `const` **allCreatures**: readonly \[\{ `cells`: \[\[`1`, `1`\], \[`1`, `1`\]\]; `height`: `2`; `id`: `"block"`; `name`: `"Block"`; `width`: `2`; \}, \{ `cells`: \[\[`0`, `1`, `1`, `0`\], \[`1`, `0`, `0`, `1`\], \[`0`, `1`, `1`, `0`\]\]; `height`: `3`; `id`: `"beehive"`; `name`: `"Beehive"`; `width`: `4`; \}, \{ `cells`: \[\[`0`, `1`, `1`, `0`\], \[`1`, `0`, `0`, `1`\], \[`0`, `1`, `0`, `1`\], \[`0`, `0`, `1`, `0`\]\]; `height`: `4`; `id`: `"loaf"`; `name`: `"Loaf"`; `width`: `4`; \}, \{ `cells`: \[\[`1`, `1`, `1`\]\]; `height`: `1`; `id`: `"blinker"`; `name`: `"Blinker"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `1`, `1`, `1`\], \[`1`, `1`, `1`, `0`\]\]; `height`: `2`; `id`: `"toad"`; `name`: `"Toad"`; `width`: `4`; \}, \{ `cells`: \[\[`1`, `1`, `0`, `0`\], \[`1`, `1`, `0`, `0`\], \[`0`, `0`, `1`, `1`\], \[`0`, `0`, `1`, `1`\]\]; `height`: `4`; `id`: `"beacon"`; `name`: `"Beacon"`; `width`: `4`; \}, \{ `cells`: \[\[`0`, `0`, `1`, `1`, `1`, `0`, `0`, `0`, `1`, `1`, `1`, `0`, `0`\], \[`0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`\], \[`1`, `0`, `0`, `0`, `0`, `1`, `0`, `1`, `0`, `0`, `0`, `0`, `1`\], \[`1`, `0`, `0`, `0`, `0`, `1`, `0`, `1`, `0`, `0`, `0`, `0`, `1`\], \[`1`, `0`, `0`, `0`, `0`, `1`, `0`, `1`, `0`, `0`, `0`, `0`, `1`\], \[`0`, `0`, `1`, `1`, `1`, `0`, `0`, `0`, `1`, `1`, `1`, `0`, `0`\]\]; `height`: `13`; `id`: `"pulsar"`; `name`: `"Pulsar"`; `width`: `13`; \}, \{ `cells`: \[\[`0`, `1`, `0`\], \[`0`, `1`, `0`\], \[`1`, `0`, `1`\], \[`0`, `1`, `0`\], \[`0`, `1`, `0`\], \[`0`, `1`, `0`\], \[`0`, `1`, `0`\], \[`1`, `0`, `1`\], \[`0`, `1`, `0`\], \[`0`, `1`, `0`\]\]; `height`: `10`; `id`: `"pentadecathlon"`; `name`: `"Pentadecathlon"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `0`, `1`\], \[`1`, `0`, `1`\], \[`0`, `1`, `1`\]\]; `height`: `3`; `id`: `"glider"`; `name`: `"Glider"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `1`, `1`, `1`, `1`\], \[`1`, `0`, `0`, `0`, `1`\], \[`0`, `0`, `0`, `0`, `1`\], \[`1`, `0`, `0`, `1`, `0`\]\]; `height`: `4`; `id`: `"lwss"`; `name`: `"LWSS"`; `width`: `5`; \}, \{ `cells`: \[\[`0`, `0`, `1`, `0`, `0`, `0`\], \[`1`, `0`, `0`, `0`, `1`, `0`\], \[`0`, `0`, `0`, `0`, `0`, `1`\], \[`1`, `0`, `0`, `0`, `0`, `1`\], \[`0`, `1`, `1`, `1`, `1`, `1`\]\]; `height`: `5`; `id`: `"mwss"`; `name`: `"MWSS"`; `width`: `6`; \}, \{ `cells`: \[\[`0`, `1`, `1`\], \[`1`, `1`, `0`\], \[`0`, `1`, `0`\]\]; `height`: `3`; `id`: `"r-pentomino"`; `name`: `"R-pentomino"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `0`, `0`, `0`, `0`, `0`, `1`, `0`\], \[`1`, `1`, `0`, `0`, `0`, `0`, `0`, `0`\], \[`0`, `1`, `0`, `0`, `0`, `1`, `1`, `1`\]\]; `height`: `3`; `id`: `"diehard"`; `name`: `"Diehard"`; `width`: `8`; \}, \{ `cells`: \[\[`0`, `1`, `0`, `0`, `0`, `0`, `0`\], \[`0`, `0`, `0`, `1`, `0`, `0`, `0`\], \[`1`, `1`, `0`, `0`, `1`, `1`, `1`\]\]; `height`: `3`; `id`: `"acorn"`; `name`: `"Acorn"`; `width`: `7`; \}, \{ `cells`: \[\[`1`, `1`, `1`\], \[`1`, `0`, `1`\], \[`1`, `0`, `1`\]\]; `height`: `3`; `id`: `"pi-heptomino"`; `name`: `"Pi-heptomino"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `1`, `1`\], \[`1`, `1`, `0`\], \[`0`, `1`, `0`\], \[`0`, `1`, `0`\]\]; `height`: `4`; `id`: `"b-heptomino"`; `name`: `"B-heptomino"`; `width`: `3`; \}, \{ `cells`: \[\[`0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`\], \[`0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `0`, `1`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`\], \[`0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `1`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `1`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `1`\], \[`0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `0`, `0`, `0`, `1`, `0`, `0`, `0`, `0`, `1`, `1`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `0`, `1`, `1`\]\]; `height`: `9`; `id`: `"gosper-glider-gun"`; `name`: `"Gosper Glider Gun"`; `width`: `36`; \}, \{ `cells`: \[\[`1`\]\]; `height`: `1`; `id`: `"pixel"`; `name`: `"Pixel"`; `width`: `1`; \}\]
+
+Defined in: [creature/registry.ts:30](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L30)
+
+---
+
+### creatures
+
+> `const` **creatures**: `Record`&lt;`"block"` \| `"beehive"` \| `"loaf"` \| `"blinker"` \| `"toad"` \| `"beacon"` \| `"pulsar"` \| `"pentadecathlon"` \| `"glider"` \| `"lwss"` \| `"mwss"` \| `"r-pentomino"` \| `"diehard"` \| `"acorn"` \| `"pi-heptomino"` \| `"b-heptomino"` \| `"gosper-glider-gun"` \| `"pixel"`, [`Creature`](#creature)&gt;
+
+Defined in: [creature/registry.ts:53](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/automa-engine/src/creature/registry.ts#L53)

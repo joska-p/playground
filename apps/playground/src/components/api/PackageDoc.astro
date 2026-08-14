@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ApiNav from './ApiNav.astro';
+import { anchorId } from '../../content/loaders/api-docs';
 
 type Props = {
     packageName: string;
@@ -8,23 +9,46 @@ type Props = {
 
 const { packageName } = Astro.props;
 
-const overview = (
-    await getCollection('api', (entry) => entry.data.package === packageName && entry.data.kind === 'package')
-)[0];
+const pkgEntries = await getCollection('api', (entry) => entry.data.package === packageName);
+
+const overview = pkgEntries.find((e) => e.data.kind === 'package');
 const overviewRender = overview ? await render(overview) : null;
+
+const modules = pkgEntries
+    .filter((e) => e.data.kind === 'module')
+    .sort((a, b) => (a.data.module ?? '').localeCompare(b.data.module ?? ''));
+const moduleRenders = await Promise.all(
+    modules.map(async (entry) => ({ entry, rendered: await render(entry) }))
+);
 ---
 
 <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
     <ApiNav pkg={packageName} />
 
     <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-12">
-        {overviewRender && (
-            <article
-                id="overview"
-                class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
-            >
-                <overviewRender.Content />
-            </article>
-        )}
+        {
+            overviewRender && (
+                <article
+                    id="overview"
+                    class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+                >
+                    <overviewRender.Content />
+                </article>
+            )
+        }
+
+        {
+            moduleRenders.map(({ entry, rendered }) => (
+                <article
+                    id={anchorId(entry.data.module ?? entry.data.title)}
+                    class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+                >
+                    <div class="text-primary mb-4 font-mono text-[10px] font-bold tracking-widest uppercase">
+                        Module // {entry.data.module}
+                    </div>
+                    <rendered.Content />
+                </article>
+            ))
+        }
     </div>
 </div>

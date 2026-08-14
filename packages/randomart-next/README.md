@@ -1,9 +1,8 @@
 ---
-title: "RandomArt-next"
-description: "Generate unique abstract art from any text string using seeded randomness and math expression trees."
+title: 'RandomArt-next'
+description: 'Generate unique abstract art from any text string using seeded randomness and math expression trees.'
 hasApp: true
 ---
-
 
 # @repo/randomart-next
 
@@ -35,7 +34,7 @@ Two modes share one app:
 
 - **Play** — a fullscreen shader canvas, an inspector that peels the AST into a
   tree view and math formula, and a control panel that reshapes the output live.
-- **Test** — the *Operator CPU/GPU Compare* gallery: every operator the engine
+- **Test** — the _Operator CPU/GPU Compare_ gallery: every operator the engine
   registers renders side-by-side on CPU and GPU (GPU via
   `@repo/glaze/react/GpuCanvas`). A visual catalogue and a smoke test in one
   screen.

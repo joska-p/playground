@@ -7,6 +7,9 @@ dist/
 # generated types
 .astro/
 
+# generated api docs (typedoc output; build-docs regenerates it)
+.generated/
+
 # dependencies
 node_modules/
 

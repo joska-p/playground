@@ -1,0 +1,151 @@
+---
+package: '@repo/glaze'
+kind: module
+module: gpu/shader/Program
+title: gpu/shader/Program
+---
+
+## Classes
+
+### Program
+
+Defined in: [gpu/shader/Program.ts:14](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L14)
+
+A compiled fragment program rendered as a fullscreen triangle. Owns its WebGL program, VAO, and
+texture-unit allocation; call `destroy()` to release the GPU resources.
+
+#### Constructors
+
+##### Constructor
+
+> **new Program**(`gl`, `fragmentSource`, `vertexSource?`): [`Program`](#program)
+
+Defined in: [gpu/shader/Program.ts:23](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L23)
+
+###### Parameters
+
+###### gl
+
+`WebGL2RenderingContext`
+
+###### fragmentSource
+
+`string`
+
+###### vertexSource?
+
+`string` = `FULLSCREEN_TRIANGLE`
+
+###### Returns
+
+[`Program`](#program)
+
+#### Accessors
+
+##### program
+
+###### Get Signature
+
+> **get** **program**(): `WebGLProgram`
+
+Defined in: [gpu/shader/Program.ts:35](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L35)
+
+###### Returns
+
+`WebGLProgram`
+
+##### uniforms
+
+###### Get Signature
+
+> **get** **uniforms**(): `Map`&lt;`string`, [`UniformEntry`](gpu.shader.compileProgram.mdx#uniformentry)&gt;
+
+Defined in: [gpu/shader/Program.ts:39](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L39)
+
+###### Returns
+
+`Map`&lt;`string`, [`UniformEntry`](gpu.shader.compileProgram.mdx#uniformentry)&gt;
+
+#### Methods
+
+##### destroy()
+
+> **destroy**(): `void`
+
+Defined in: [gpu/shader/Program.ts:69](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L69)
+
+###### Returns
+
+`void`
+
+##### reinitialize()
+
+> **reinitialize**(): `void`
+
+Defined in: [gpu/shader/Program.ts:61](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L61)
+
+###### Returns
+
+`void`
+
+##### render()
+
+> **render**(): `void`
+
+Defined in: [gpu/shader/Program.ts:53](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L53)
+
+###### Returns
+
+`void`
+
+##### setUniforms()
+
+> **setUniforms**(`values`): `void`
+
+Defined in: [gpu/shader/Program.ts:48](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L48)
+
+###### Parameters
+
+###### values
+
+`Record`&lt;`string`, [`UniformValue`](gpu.shader.compileProgram.mdx#uniformvalue)&gt;
+
+###### Returns
+
+`void`
+
+##### use()
+
+> **use**(): `void`
+
+Defined in: [gpu/shader/Program.ts:43](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L43)
+
+###### Returns
+
+`void`
+
+## Functions
+
+### createProgram()
+
+> **createProgram**(`gl`, `fragmentSource`, `vertexSource?`): [`Program`](#program)
+
+Defined in: [gpu/shader/Program.ts:78](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/Program.ts#L78)
+
+#### Parameters
+
+##### gl
+
+`WebGL2RenderingContext`
+
+##### fragmentSource
+
+`string`
+
+##### vertexSource?
+
+`string`
+
+#### Returns
+
+[`Program`](#program)

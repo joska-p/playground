@@ -1,9 +1,8 @@
 ---
-title: "Mosaic Maker"
-description: "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
+title: 'Mosaic Maker'
+description: 'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.'
 hasApp: true
 ---
-
 
 # @repo/mosaic-maker
 

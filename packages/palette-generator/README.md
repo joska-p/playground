@@ -1,9 +1,8 @@
 ---
-title: "Palettes Generator"
-description: "Generate harmonious color schemes using mathematical color theory models."
+title: 'Palettes Generator'
+description: 'Generate harmonious color schemes using mathematical color theory models.'
 hasApp: true
 ---
-
 
 # @repo/palette-generator
 

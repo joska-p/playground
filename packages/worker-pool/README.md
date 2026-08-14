@@ -1,9 +1,8 @@
 ---
-title: "Worker Pool"
-description: "Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown."
+title: 'Worker Pool'
+description: 'Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown.'
 hasApp: false
 ---
-
 
 # @repo/worker-pool
 

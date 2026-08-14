@@ -1,9 +1,8 @@
 ---
-title: "Pixel Manipulator"
-description: "Interactive React workbench for browser image manipulation — build, run, and inspect pixel workflows."
+title: 'Pixel Manipulator'
+description: 'Interactive React workbench for browser image manipulation — build, run, and inspect pixel workflows.'
 hasApp: true
 ---
-
 
 # @repo/pixel-manipulator
 

@@ -1,8 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": [
-        "../../typedoc.base.json"
-    ],
+    "extends": ["../../typedoc.base.json"],
     "entryPoints": [
         "./src/pixel-data.ts",
         "./src/buffer-manager.ts",
@@ -15,6 +13,5 @@
         "./src/step-dispatcher.ts",
         "./src/types.ts"
     ],
-    "readme": "./README.md",
-    "out": "../../apps/playground/src/content/api"
+    "readme": "./README.md"
 }

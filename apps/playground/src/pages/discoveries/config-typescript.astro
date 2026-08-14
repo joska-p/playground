@@ -6,14 +6,17 @@ import PackageDoc from '../../components/api/PackageDoc.astro';
 const packageName = '@repo/config-typescript';
 ---
 
-<BaseLayout title="TypeScript Config" description="Workspace shared tsconfig baselines for monorepo packages and apps." keywords="config, infrastructure">
+<BaseLayout
+    title="TypeScript Config"
+    description="Workspace shared tsconfig baselines for monorepo packages and apps."
+    keywords="config, infrastructure"
+>
     <Hero
         badgeText="@repo/config-typescript"
         title="TypeScript Config"
         description="Workspace shared tsconfig baselines for monorepo packages and apps."
         variant="ghost"
     />
-
 
     <PackageDoc packageName={packageName} />
 </BaseLayout>

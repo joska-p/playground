@@ -1,0 +1,82 @@
+---
+package: '@repo/worker-pool'
+kind: module
+module: mock-worker-pool
+title: mock-worker-pool
+---
+
+## Classes
+
+### MockWorkerPool
+
+Defined in: [mock-worker-pool.ts:4](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/mock-worker-pool.ts#L4)
+
+Synchronous mock implementation of WorkerPool for unit testing without Web Workers.
+
+#### Type Parameters
+
+##### TTask
+
+`TTask`
+
+##### TResult
+
+`TResult`
+
+#### Constructors
+
+##### Constructor
+
+> **new MockWorkerPool**&lt;`TTask`, `TResult`&gt;(`handler`): [`MockWorkerPool`](#mockworkerpool)&lt;`TTask`, `TResult`&gt;
+
+Defined in: [mock-worker-pool.ts:12](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/mock-worker-pool.ts#L12)
+
+Initializes a MockWorkerPool with a synchronous handler function.
+
+###### Parameters
+
+###### handler
+
+`Handler`&lt;`TTask`, `TResult`&gt;
+
+Function that produces a result directly from a task.
+
+###### Returns
+
+[`MockWorkerPool`](#mockworkerpool)&lt;`TTask`, `TResult`&gt;
+
+#### Methods
+
+##### run()
+
+> **run**(`task`): `Promise`&lt;`TResult`&gt;
+
+Defined in: [mock-worker-pool.ts:22](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/mock-worker-pool.ts#L22)
+
+Executes the task inline via the handler and returns a resolved promise.
+
+###### Parameters
+
+###### task
+
+`TTask`
+
+The task payload.
+
+###### Returns
+
+`Promise`&lt;`TResult`&gt;
+
+Promise resolving immediately to the handler result.
+
+##### teardown()
+
+> **teardown**(): `void`
+
+Defined in: [mock-worker-pool.ts:27](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/mock-worker-pool.ts#L27)
+
+No-op teardown method for interface compatibility.
+
+###### Returns
+
+`void`

@@ -1,9 +1,8 @@
 ---
-title: "L-System Engine"
-description: "Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules."
+title: 'L-System Engine'
+description: 'Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules.'
 hasApp: false
 ---
-
 
 # @repo/l-system-engine
 

@@ -1,0 +1,58 @@
+---
+package: '@repo/sequence-engine'
+kind: module
+module: rules/registry
+title: rules/registry
+---
+
+## Type Aliases
+
+### RuleId
+
+> **RuleId** = _typeof_ `initialRules`\[`number`\]\[`"id"`\]
+
+Defined in: [rules/registry.ts:27](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/sequence-engine/src/rules/registry.ts#L27)
+
+Union of all initial rule ID string literals.
+
+---
+
+### RuleName
+
+> **RuleName** = _typeof_ `initialRules`\[`number`\]\[`"name"`\]
+
+Defined in: [rules/registry.ts:30](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/sequence-engine/src/rules/registry.ts#L30)
+
+Union of all initial rule display names.
+
+## Variables
+
+### allRules
+
+> `const` **allRules**: [`SequenceRule`](rules.types.mdx#sequencerule)[]
+
+Defined in: [rules/registry.ts:34](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/sequence-engine/src/rules/registry.ts#L34)
+
+Global registry of available sequence rules.
+
+## Functions
+
+### registerRule()
+
+> **registerRule**(`rule`): `void`
+
+Defined in: [rules/registry.ts:41](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/sequence-engine/src/rules/registry.ts#L41)
+
+Registers a new sequence rule into the global rule registry.
+
+#### Parameters
+
+##### rule
+
+[`SequenceRule`](rules.types.mdx#sequencerule)
+
+The sequence rule to add.
+
+#### Returns
+
+`void`

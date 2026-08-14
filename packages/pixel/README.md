@@ -1,9 +1,8 @@
 ---
-title: "Pixel"
-description: "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples."
+title: 'Pixel'
+description: 'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.'
 hasApp: true
 ---
-
 
 # @repo/pixel
 

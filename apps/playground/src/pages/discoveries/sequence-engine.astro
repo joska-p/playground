@@ -6,14 +6,17 @@ import PackageDoc from '../../components/api/PackageDoc.astro';
 const packageName = '@repo/sequence-engine';
 ---
 
-<BaseLayout title="Sequence Engine" description="Pure rule-based mathematical sequence generation engine with persistence abstractions." keywords="generative, math, engine">
+<BaseLayout
+    title="Sequence Engine"
+    description="Pure rule-based mathematical sequence generation engine with persistence abstractions."
+    keywords="generative, math, engine"
+>
     <Hero
         badgeText="@repo/sequence-engine"
         title="Sequence Engine"
         description="Pure rule-based mathematical sequence generation engine with persistence abstractions."
         variant="ghost"
     />
-
 
     <PackageDoc packageName={packageName} />
 </BaseLayout>

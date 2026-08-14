@@ -1,0 +1,104 @@
+---
+package: '@repo/glaze'
+kind: module
+module: gpu/shader/setUniforms
+title: gpu/shader/setUniforms
+---
+
+## Functions
+
+### createStandardUniformValues()
+
+> **createStandardUniformValues**(`width`, `height`, `dpr`, `mouse?`, `camera?`, `time?`): `Record`&lt;`string`, [`UniformValue`](gpu.shader.compileProgram.mdx#uniformvalue)&gt;
+
+Defined in: [gpu/shader/setUniforms.ts:107](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/setUniforms.ts#L107)
+
+The standard per-frame uniforms shared by every program: `u_resolution` (device px), `u_aspect`,
+`u_mouse` (normalized 0..1, y-flipped), `u_camera` (CSS-px offset + zoom), `u_dpr`, and `u_time`
+(seconds). Omitted inputs fall back to neutral defaults.
+
+#### Parameters
+
+##### width
+
+`number`
+
+Viewport width in CSS px.
+
+##### height
+
+`number`
+
+Viewport height in CSS px.
+
+##### dpr
+
+`number`
+
+The device pixel ratio.
+
+##### mouse?
+
+[`Point2D`](core.Camera.mdx#point2d)
+
+Pointer position in CSS px; defaults to top-left.
+
+##### camera?
+
+[`Camera`](core.Camera.mdx#camera)
+
+The view transform; defaults to identity.
+
+##### time?
+
+`number`
+
+Seconds since the loop started; defaults to 0.
+
+#### Returns
+
+`Record`&lt;`string`, [`UniformValue`](gpu.shader.compileProgram.mdx#uniformvalue)&gt;
+
+A uniform map ready for `setUniforms`.
+
+---
+
+### setUniforms()
+
+> **setUniforms**(`gl`, `uniforms`, `values`, `nextTextureUnit?`): `void`
+
+Defined in: [gpu/shader/setUniforms.ts:81](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/gpu/shader/setUniforms.ts#L81)
+
+Uploads uniforms to the bound program. Names with no matching active uniform are silently
+ignored, so one map can feed programs with different uniform sets. `WebGLTexture` values bind the
+texture to the next unit supplied by `nextTextureUnit` and set the sampler to it.
+
+#### Parameters
+
+##### gl
+
+`WebGL2RenderingContext`
+
+The WebGL2 context.
+
+##### uniforms
+
+`Map`&lt;`string`, [`UniformEntry`](gpu.shader.compileProgram.mdx#uniformentry)&gt;
+
+The program's active uniform locations.
+
+##### values
+
+`Record`&lt;`string`, [`UniformValue`](gpu.shader.compileProgram.mdx#uniformvalue)&gt;
+
+The values to upload, keyed by uniform name.
+
+##### nextTextureUnit?
+
+() => `number`
+
+Supplies texture units for `WebGLTexture` values, in binding order.
+
+#### Returns
+
+`void`

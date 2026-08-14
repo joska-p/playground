@@ -1,9 +1,8 @@
 ---
-title: "Sequence Renderer"
-description: "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
+title: 'Sequence Renderer'
+description: 'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.'
 hasApp: true
 ---
-
 
 # @repo/sequence-renderer
 

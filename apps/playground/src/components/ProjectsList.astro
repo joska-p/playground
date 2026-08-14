@@ -33,9 +33,7 @@ const CARD_COLORS = ['#7f9cf5', '#f472b6', '#34d399', '#fbbf24', '#60a5fa', '#a7
                     title={project.data.title}
                 >
                     <SciFiCard
-                        cardId={toCanadianSyllabics
-                            .fromHash(project.data.package)
-                            .substring(0, 8)}
+                        cardId={toCanadianSyllabics.fromHash(project.data.package).substring(0, 8)}
                         cardTitle={project.data.title}
                         classification={project.data.description}
                         color={color}

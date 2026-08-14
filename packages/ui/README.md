@@ -1,6 +1,6 @@
 ---
-title: "UI Kit"
-description: "React component library — Tailwind CSS v4, CVA variants, Gruvbox theme."
+title: 'UI Kit'
+description: 'React component library — Tailwind CSS v4, CVA variants, Gruvbox theme.'
 hasApp: true
 ---
 

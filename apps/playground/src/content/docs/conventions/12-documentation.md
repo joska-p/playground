@@ -21,4 +21,4 @@ tags:
     ```bash
     pnpm build-docs
     ```
-- Generated docs are output directly to `apps/playground/src/content/api/` and served by `apps/playground` (Astro) at `/discoveries/<package>/`.
+- Generated docs are output to `apps/playground/.generated/api-docs/`, loaded into the `api` content collection by a custom loader, and served by `apps/playground` (Astro) at `/discoveries/<package>/` — one page per package with the README overview and every module as an anchored section.

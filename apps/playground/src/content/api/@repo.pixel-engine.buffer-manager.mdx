@@ -1,0 +1,136 @@
+---
+package: '@repo/pixel-engine'
+kind: module
+module: buffer-manager
+title: buffer-manager
+---
+
+## Classes
+
+### BufferManager
+
+Defined in: [buffer-manager.ts:4](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L4)
+
+Double-buffered pixel array manager for ping-ponging image transforms.
+
+#### Constructors
+
+##### Constructor
+
+> **new BufferManager**(`source`): [`BufferManager`](#buffermanager)
+
+Defined in: [buffer-manager.ts:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L11)
+
+Initializes the buffer manager with source pixel data.
+
+###### Parameters
+
+###### source
+
+[`PixelData`](pixel-data.mdx#pixeldata)
+
+###### Returns
+
+[`BufferManager`](#buffermanager)
+
+#### Accessors
+
+##### current
+
+###### Get Signature
+
+> **get** **current**(): `Uint8ClampedArray`&lt;`ArrayBufferLike`&gt;
+
+Defined in: [buffer-manager.ts:21](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L21)
+
+Gets the active current buffer.
+
+###### Returns
+
+`Uint8ClampedArray`&lt;`ArrayBufferLike`&gt;
+
+##### height
+
+###### Get Signature
+
+> **get** **height**(): `number`
+
+Defined in: [buffer-manager.ts:36](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L36)
+
+Height of the managed image.
+
+###### Returns
+
+`number`
+
+##### other
+
+###### Get Signature
+
+> **get** **other**(): `Uint8ClampedArray`&lt;`ArrayBufferLike`&gt; \| `undefined`
+
+Defined in: [buffer-manager.ts:26](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L26)
+
+Gets the secondary target buffer.
+
+###### Returns
+
+`Uint8ClampedArray`&lt;`ArrayBufferLike`&gt; \| `undefined`
+
+##### width
+
+###### Get Signature
+
+> **get** **width**(): `number`
+
+Defined in: [buffer-manager.ts:31](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L31)
+
+Width of the managed image.
+
+###### Returns
+
+`number`
+
+#### Methods
+
+##### replaceWith()
+
+> **replaceWith**(`pixelData`): `void`
+
+Defined in: [buffer-manager.ts:53](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L53)
+
+Replaces current state with new PixelData, resizing buffers if necessary.
+
+###### Parameters
+
+###### pixelData
+
+[`PixelData`](pixel-data.mdx#pixeldata)
+
+###### Returns
+
+`void`
+
+##### snapshot()
+
+> **snapshot**(): [`PixelData`](pixel-data.mdx#pixeldata)
+
+Defined in: [buffer-manager.ts:46](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L46)
+
+Creates a copy snapshot of the current buffer as PixelData.
+
+###### Returns
+
+[`PixelData`](pixel-data.mdx#pixeldata)
+
+##### swap()
+
+> **swap**(): `void`
+
+Defined in: [buffer-manager.ts:41](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/pixel-engine/src/buffer-manager.ts#L41)
+
+Swaps current and target buffers.
+
+###### Returns
+
+`void`

@@ -1,0 +1,185 @@
+---
+package: '@repo/worker-pool'
+kind: module
+module: worker-pool
+title: worker-pool
+---
+
+## Classes
+
+### WorkerPool
+
+Defined in: [worker-pool.ts:20](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/worker-pool.ts#L20)
+
+Manages a pool of Web Workers for concurrent background task processing. Handles lazy worker
+creation, task queuing, serialization, and cleanup.
+
+#### Type Parameters
+
+##### TTask
+
+`TTask`
+
+##### TResult
+
+`TResult`
+
+#### Constructors
+
+##### Constructor
+
+> **new WorkerPool**&lt;`TTask`, `TResult`&gt;(`config`): [`WorkerPool`](#workerpool)&lt;`TTask`, `TResult`&gt;
+
+Defined in: [worker-pool.ts:31](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/worker-pool.ts#L31)
+
+Initializes a new WorkerPool instance.
+
+###### Parameters
+
+###### config
+
+[`WorkerPoolConfig`](#workerpoolconfig)&lt;`TTask`, `TResult`&gt;
+
+Configuration containing factory function, max pool size, and serializers.
+
+###### Returns
+
+[`WorkerPool`](#workerpool)&lt;`TTask`, `TResult`&gt;
+
+#### Methods
+
+##### run()
+
+> **run**(`task`): `Promise`&lt;`TResult`&gt;
+
+Defined in: [worker-pool.ts:42](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/worker-pool.ts#L42)
+
+Dispatches a task to an available worker or queues it until a worker becomes free.
+
+###### Parameters
+
+###### task
+
+`TTask`
+
+The task payload to process.
+
+###### Returns
+
+`Promise`&lt;`TResult`&gt;
+
+A promise resolving to the typed worker result.
+
+##### teardown()
+
+> **teardown**(): `void`
+
+Defined in: [worker-pool.ts:62](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/worker-pool.ts#L62)
+
+Terminates all active workers and rejects any pending queued tasks.
+
+###### Returns
+
+`void`
+
+## Type Aliases
+
+### WorkerPoolConfig
+
+> **WorkerPoolConfig**&lt;`TTask`, `TResult`&gt; = `object`
+
+Defined in: [types.ts:5](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L5)
+
+Configuration options for initializing a WorkerPool.
+
+#### Type Parameters
+
+##### TTask
+
+`TTask`
+
+##### TResult
+
+`TResult`
+
+#### Properties
+
+##### deserialize
+
+> **deserialize**: (`event`) => [`WorkerResult`](#workerresult)&lt;`TResult`&gt;
+
+Defined in: [types.ts:13](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L13)
+
+Deserializes a worker MessageEvent into a typed WorkerResult.
+
+###### Parameters
+
+###### event
+
+`MessageEvent`
+
+###### Returns
+
+[`WorkerResult`](#workerresult)&lt;`TResult`&gt;
+
+##### maxPoolSize?
+
+> `optional` **maxPoolSize?**: `number`
+
+Defined in: [types.ts:9](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L9)
+
+Maximum number of workers allowed in the pool. Defaults to 4.
+
+##### serialize
+
+> **serialize**: (`task`) => `object`
+
+Defined in: [types.ts:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L11)
+
+Serializes a typed task into a postMessage payload and optional transferable objects.
+
+###### Parameters
+
+###### task
+
+`TTask`
+
+###### Returns
+
+`object`
+
+###### message
+
+> **message**: `unknown`
+
+###### transfer?
+
+> `optional` **transfer?**: `Transferable`[]
+
+##### workerFactory
+
+> **workerFactory**: () => `Worker`
+
+Defined in: [types.ts:7](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L7)
+
+Creates a fresh Worker instance. The consumer owns URL creation and bundler flags.
+
+###### Returns
+
+`Worker`
+
+---
+
+### WorkerResult
+
+> **WorkerResult**&lt;`T`&gt; = \{ `ok`: `true`; `value`: `T`; \} \| \{ `error`: `Error`; `ok`: `false`; \}
+
+Defined in: [types.ts:2](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/worker-pool/src/types.ts#L2)
+
+Discriminated union representing the result returned from a worker task execution.
+
+#### Type Parameters
+
+##### T
+
+`T`

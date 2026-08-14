@@ -1,9 +1,8 @@
 ---
-title: "Graphify"
-description: "Interactive 3D force-directed graph of the codebase — click nodes, search, filter by community."
+title: 'Graphify'
+description: 'Interactive 3D force-directed graph of the codebase — click nodes, search, filter by community.'
 hasApp: true
 ---
-
 
 # @repo/graph-viz
 

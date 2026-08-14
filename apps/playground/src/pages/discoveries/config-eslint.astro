@@ -6,14 +6,17 @@ import PackageDoc from '../../components/api/PackageDoc.astro';
 const packageName = '@repo/config-eslint';
 ---
 
-<BaseLayout title="ESLint Config" description="Workspace ESLint configuration package for TypeScript and React." keywords="config, infrastructure">
+<BaseLayout
+    title="ESLint Config"
+    description="Workspace ESLint configuration package for TypeScript and React."
+    keywords="config, infrastructure"
+>
     <Hero
         badgeText="@repo/config-eslint"
         title="ESLint Config"
         description="Workspace ESLint configuration package for TypeScript and React."
         variant="ghost"
     />
-
 
     <PackageDoc packageName={packageName} />
 </BaseLayout>

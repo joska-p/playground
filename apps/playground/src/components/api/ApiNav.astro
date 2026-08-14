@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { anchorId } from '../../content/loaders/api-docs';
 
 type Props = {
     pkg: string;
@@ -14,13 +15,13 @@ const modules = pkgEntries
     .filter((e) => e.data.kind === 'module')
     .sort((a, b) => (a.data.module ?? '').localeCompare(b.data.module ?? ''));
 
-const basePath = `/discoveries/${pkg.replace(/^@repo\//, '')}/`;
-
-const modulePath = (module: string) =>
-    module.replace(/\.mdx?$/, '').replace(/\//g, '-') || module;
-
-const currentPath = Astro.url.pathname;
-const isActive = (href: string) => currentPath.replace(/\/$/, '') === href.replace(/\/$/, '');
+const linkBase =
+    'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150';
+const linkActive = 'bg-primary/10 text-primary font-semibold';
+const linkIdle = 'text-muted-foreground hover:bg-muted hover:text-foreground';
+const dotBase = 'h-1 w-1 shrink-0 rounded-full transition-colors';
+const dotActive = 'bg-primary';
+const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
 ---
 
 <aside
@@ -37,60 +38,73 @@ const isActive = (href: string) => currentPath.replace(/\/$/, '') === href.repla
                 >
                     API Reference
                 </p>
-                <ul class="space-y-0.5 pl-1.5">
+                <ul
+                    id="api-nav-list"
+                    class="space-y-0.5 pl-1.5"
+                >
                     {
                         overviewEntry && (
                             <li>
                                 <a
-                                    class:list={[
-                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
-                                        isActive(basePath)
-                                            ? 'bg-primary/10 text-primary font-semibold'
-                                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                                    ]}
-                                    href={basePath}
+                                    data-target="overview"
+                                    class:list={[linkBase, linkIdle]}
+                                    href="#overview"
                                 >
-                                    <span
-                                        class:list={[
-                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
-                                            isActive(basePath)
-                                                ? 'bg-primary'
-                                                : 'bg-border group-hover:bg-muted-foreground/50'
-                                        ]}
-                                    />
+                                    <span class:list={[dotBase, dotIdle]} />
                                     Overview
                                 </a>
                             </li>
                         )
                     }
-                    {modules.map((mod) => {
-                        const href = `${basePath}${modulePath(mod.data.module ?? mod.data.title)}/`;
-                        return (
+                    {
+                        modules.map((mod) => (
                             <li>
                                 <a
-                                    class:list={[
-                                        'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
-                                        isActive(href)
-                                            ? 'bg-primary/10 text-primary font-semibold'
-                                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                                    ]}
-                                    href={href}
+                                    data-target={anchorId(mod.data.module ?? mod.data.title)}
+                                    class:list={[linkBase, linkIdle]}
+                                    href={`#${anchorId(mod.data.module ?? mod.data.title)}`}
                                 >
-                                    <span
-                                        class:list={[
-                                            'h-1 w-1 shrink-0 rounded-full transition-colors',
-                                            isActive(href)
-                                                ? 'bg-primary'
-                                                : 'bg-border group-hover:bg-muted-foreground/50'
-                                        ]}
-                                    />
+                                    <span class:list={[dotBase, dotIdle]} />
                                     {mod.data.module}
                                 </a>
                             </li>
-                        );
-                    })}
+                        ))
+                    }
                 </ul>
             </div>
         </div>
     </nav>
 </aside>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const links = document.querySelectorAll('#api-nav-list a');
+                    links.forEach((link) => {
+                        const span = link.querySelector('span');
+                        const isActive = link.getAttribute('data-target') === id;
+                        link.classList.toggle('bg-primary/10', isActive);
+                        link.classList.toggle('text-primary', isActive);
+                        link.classList.toggle('font-semibold', isActive);
+                        link.classList.toggle('text-muted-foreground', !isActive);
+                        link.classList.toggle('hover:bg-muted', !isActive);
+                        link.classList.toggle('hover:text-foreground', !isActive);
+                        if (span) {
+                            span.classList.toggle('bg-primary', isActive);
+                            span.classList.toggle('bg-border', !isActive);
+                            span.classList.toggle('group-hover:bg-muted-foreground/50', !isActive);
+                        }
+                    });
+                }
+            });
+        },
+        { rootMargin: '-20% 0% -60% 0%' }
+    );
+
+    document.querySelectorAll('article[id], section[id]').forEach((el) => {
+        observer.observe(el);
+    });
+</script>

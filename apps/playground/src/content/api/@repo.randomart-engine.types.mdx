@@ -1,0 +1,330 @@
+---
+package: '@repo/randomart-engine'
+kind: module
+module: types
+title: types
+---
+
+## Type Aliases
+
+### AnimationBehavior
+
+> **AnimationBehavior** = `object`
+
+Defined in: [types.ts:67](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L67)
+
+A post-processing effect (spatial or color) whose `applyCode` emits GLSL against the compiled
+shader.
+
+#### Properties
+
+##### applyCode
+
+> **applyCode**: (`ctx`) => `string`
+
+Defined in: [types.ts:72](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L72)
+
+###### Parameters
+
+###### ctx
+
+[`ApplyCodeContext`](#applycodecontext)
+
+###### Returns
+
+`string`
+
+##### glslFunction?
+
+> `optional` **glslFunction?**: `string`
+
+Defined in: [types.ts:70](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L70)
+
+##### id
+
+> **id**: `string`
+
+Defined in: [types.ts:68](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L68)
+
+##### name
+
+> **name**: `string`
+
+Defined in: [types.ts:69](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L69)
+
+##### noiseDependencies?
+
+> `optional` **noiseDependencies?**: [`GlslFunctionsIds`](compile.glslLibrary.mdx#glslfunctionsids)[]
+
+Defined in: [types.ts:73](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L73)
+
+##### type
+
+> **type**: `"spatial"` \| `"color"`
+
+Defined in: [types.ts:71](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L71)
+
+---
+
+### ApplyCodeContext
+
+> **ApplyCodeContext** = `object`
+
+Defined in: [types.ts:56](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L56)
+
+The GLSL variable names injected into an [AnimationBehavior](#animationbehavior)'s `applyCode` — the surface
+each behavior mutates.
+
+#### Properties
+
+##### color
+
+> **color**: `string`
+
+Defined in: [types.ts:60](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L60)
+
+##### spatial
+
+> **spatial**: `string`
+
+Defined in: [types.ts:59](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L59)
+
+##### speed
+
+> **speed**: `string`
+
+Defined in: [types.ts:58](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L58)
+
+##### time
+
+> **time**: `string`
+
+Defined in: [types.ts:57](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L57)
+
+---
+
+### ExpressionNode
+
+> **ExpressionNode** = `object`
+
+Defined in: [types.ts:10](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L10)
+
+A node in the expression tree — a recursive AST of mathematical operations. `ruleId` names the
+grammar rule (e.g. `"sin"`, `"add"`, `"constant"`), `args` hold the child nodes, and
+`constantValue` is set when `ruleId === "constant"`.
+
+#### Properties
+
+##### args
+
+> **args**: [`ExpressionNode`](#expressionnode)[]
+
+Defined in: [types.ts:12](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L12)
+
+##### constantValue?
+
+> `optional` **constantValue?**: `number`
+
+Defined in: [types.ts:13](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L13)
+
+##### ruleId
+
+> **ruleId**: `string`
+
+Defined in: [types.ts:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L11)
+
+---
+
+### GrammarRule
+
+> **GrammarRule** = `object`
+
+Defined in: [types.ts:21](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L21)
+
+The contract every grammar operator implements — the plugin interface that makes the grammar
+extensible. Each rule knows how to build a node, evaluate it, and render it to GLSL, math
+notation, and a tree view.
+
+#### Properties
+
+##### arity
+
+> **arity**: `number`
+
+Defined in: [types.ts:24](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L24)
+
+##### buildNode
+
+> **buildNode**: (`rng`, `buildChild`) => [`ExpressionNode`](#expressionnode)
+
+Defined in: [types.ts:39](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L39)
+
+###### Parameters
+
+###### rng
+
+[`SeededRandom`](random.SeededRandom.mdx#seededrandom)
+
+###### buildChild
+
+() => [`ExpressionNode`](#expressionnode)
+
+###### Returns
+
+[`ExpressionNode`](#expressionnode)
+
+##### category
+
+> **category**: `"structural"` \| `"terminal"`
+
+Defined in: [types.ts:26](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L26)
+
+##### evaluate
+
+> **evaluate**: (`args`, `x`, `y`, `t`, `node?`) => `number`
+
+Defined in: [types.ts:28](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L28)
+
+###### Parameters
+
+###### args
+
+() => `number`[]
+
+###### x
+
+`number`
+
+###### y
+
+`number`
+
+###### t
+
+`number`
+
+###### node?
+
+[`ExpressionNode`](#expressionnode)
+
+###### Returns
+
+`number`
+
+##### id
+
+> **id**: `string`
+
+Defined in: [types.ts:22](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L22)
+
+##### name
+
+> **name**: `string`
+
+Defined in: [types.ts:23](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L23)
+
+##### noiseDependencies?
+
+> `optional` **noiseDependencies?**: [`GlslFunctionsIds`](compile.glslLibrary.mdx#glslfunctionsids)[]
+
+Defined in: [types.ts:40](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L40)
+
+##### toGLSL
+
+> **toGLSL**: (`args`, `node?`) => `string`
+
+Defined in: [types.ts:36](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L36)
+
+###### Parameters
+
+###### args
+
+`string`[]
+
+###### node?
+
+[`ExpressionNode`](#expressionnode)
+
+###### Returns
+
+`string`
+
+##### toMathString
+
+> **toMathString**: (`args`, `node?`) => `string`
+
+Defined in: [types.ts:35](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L35)
+
+###### Parameters
+
+###### args
+
+`string`[]
+
+###### node?
+
+[`ExpressionNode`](#expressionnode)
+
+###### Returns
+
+`string`
+
+##### toTreeView
+
+> **toTreeView**: (`args`, `depth`, `node?`) => `string`
+
+Defined in: [types.ts:37](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L37)
+
+###### Parameters
+
+###### args
+
+`string`[]
+
+###### depth
+
+`number`
+
+###### node?
+
+[`ExpressionNode`](#expressionnode)
+
+###### Returns
+
+`string`
+
+##### weight
+
+> **weight**: `number`
+
+Defined in: [types.ts:25](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L25)
+
+---
+
+### RuleId
+
+> **RuleId** = [`RuleId`](grammar.registry.mdx#ruleid)
+
+Defined in: [types.ts:44](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L44)
+
+Union of the ids of every rule registered in the grammar.
+
+---
+
+### RuleWeight
+
+> **RuleWeight** = `Record`&lt;[`RuleId`](#ruleid-1), `number`&gt;
+
+Defined in: [types.ts:47](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L47)
+
+A weight for every rule id — the full grammar weighting.
+
+---
+
+### RuleWeights
+
+> **RuleWeights** = `Partial`&lt;[`RuleWeight`](#ruleweight)&gt;
+
+Defined in: [types.ts:50](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/types.ts#L50)
+
+A partial weight map for overriding selected rules' default weights.

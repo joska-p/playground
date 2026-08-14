@@ -1,6 +1,6 @@
 ---
-title: "Glaze"
-description: "2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures."
+title: 'Glaze'
+description: '2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures.'
 hasApp: true
 ---
 

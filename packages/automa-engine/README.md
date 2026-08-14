@@ -1,9 +1,8 @@
 ---
-title: "Automa Engine"
-description: "Pure simulation engine converting birth/survive lookup tables and multi-state rules into evolving cellular automata."
+title: 'Automa Engine'
+description: 'Pure simulation engine converting birth/survive lookup tables and multi-state rules into evolving cellular automata.'
 hasApp: false
 ---
-
 
 # @repo/automa-engine
 

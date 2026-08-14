@@ -1,0 +1,50 @@
+---
+package: '@repo/randomart-engine'
+kind: module
+module: format/treePrinter
+title: format/treePrinter
+---
+
+## Functions
+
+### nodeToMathString()
+
+> **nodeToMathString**(`node`): `string`
+
+Defined in: [format/treePrinter.ts:5](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/format/treePrinter.ts#L5)
+
+Renders a tree as an infix math expression, e.g. `(sin(π · x) + y)`.
+
+#### Parameters
+
+##### node
+
+[`ExpressionNode`](types.mdx#expressionnode)
+
+#### Returns
+
+`string`
+
+---
+
+### nodeToTreeView()
+
+> **nodeToTreeView**(`node`, `depth?`): `string`
+
+Defined in: [format/treePrinter.ts:17](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/format/treePrinter.ts#L17)
+
+Renders a tree as an indented ASCII tree view, for debugging.
+
+#### Parameters
+
+##### node
+
+[`ExpressionNode`](types.mdx#expressionnode)
+
+##### depth?
+
+`number` = `0`
+
+#### Returns
+
+`string`

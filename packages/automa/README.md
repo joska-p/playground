@@ -1,9 +1,8 @@
 ---
-title: "Automa"
+title: 'Automa'
 description: "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering."
 hasApp: true
 ---
-
 
 # @repo/automa
 

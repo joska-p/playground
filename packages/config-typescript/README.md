@@ -1,6 +1,6 @@
 ---
-title: "TypeScript Config"
-description: "Workspace shared tsconfig baselines for monorepo packages and apps."
+title: 'TypeScript Config'
+description: 'Workspace shared tsconfig baselines for monorepo packages and apps.'
 hasApp: false
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: "ESLint Config"
-description: "Workspace ESLint configuration package for TypeScript and React."
+title: 'ESLint Config'
+description: 'Workspace ESLint configuration package for TypeScript and React.'
 hasApp: false
 ---
 

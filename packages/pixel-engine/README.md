@@ -1,9 +1,8 @@
 ---
-title: "Pixel Engine"
-description: "Framework-agnostic image manipulation pipeline with fused transforms, tiled convolutions, and buffer management."
+title: 'Pixel Engine'
+description: 'Framework-agnostic image manipulation pipeline with fused transforms, tiled convolutions, and buffer management.'
 hasApp: false
 ---
-
 
 # @repo/pixel-engine
 

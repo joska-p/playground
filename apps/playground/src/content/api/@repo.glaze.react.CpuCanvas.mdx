@@ -1,0 +1,142 @@
+---
+package: '@repo/glaze'
+kind: module
+module: react/CpuCanvas
+title: react/CpuCanvas
+---
+
+## Interfaces
+
+### CpuCanvasProps
+
+Defined in: [react/CpuCanvas.tsx:6](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L6)
+
+Surface construction options. `initialCamera` is applied only when no `camera` instance is given.
+
+#### Extends
+
+- [`CpuSurfaceOptions`](react.useCpuSurface.mdx#cpusurfaceoptions)
+
+#### Properties
+
+##### camera?
+
+> `optional` **camera?**: [`Camera`](core.Camera.mdx#camera)
+
+Defined in: [react/useCpuSurface.ts:9](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/useCpuSurface.ts#L9)
+
+###### Inherited from
+
+[`CpuSurfaceOptions`](react.useCpuSurface.mdx#cpusurfaceoptions).[`camera`](react.useCpuSurface.mdx#camera)
+
+##### cameraControls?
+
+> `optional` **cameraControls?**: [`CameraControls`](core.CameraControls.mdx#cameracontrols)
+
+Defined in: [react/useCpuSurface.ts:10](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/useCpuSurface.ts#L10)
+
+###### Inherited from
+
+[`CpuSurfaceOptions`](react.useCpuSurface.mdx#cpusurfaceoptions).[`cameraControls`](react.useCpuSurface.mdx#cameracontrols)
+
+##### canvasInteractions?
+
+> `optional` **canvasInteractions?**: [`CanvasInteractions`](react.interactions.mdx#canvasinteractions)&lt;[`CpuSurface`](cpu.CpuSurface.mdx#cpusurface)&gt;
+
+Defined in: [react/CpuCanvas.tsx:9](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L9)
+
+##### className?
+
+> `optional` **className?**: `string`
+
+Defined in: [react/CpuCanvas.tsx:10](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L10)
+
+##### dpr?
+
+> `optional` **dpr?**: `number`
+
+Defined in: [react/useCpuSurface.ts:17](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/useCpuSurface.ts#L17)
+
+###### Inherited from
+
+[`CpuSurfaceOptions`](react.useCpuSurface.mdx#cpusurfaceoptions).[`dpr`](react.useCpuSurface.mdx#dpr)
+
+##### initialCamera?
+
+> `optional` **initialCamera?**: `object`
+
+Defined in: [react/useCpuSurface.ts:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/useCpuSurface.ts#L11)
+
+###### maxZoom?
+
+> `optional` **maxZoom?**: `number`
+
+###### minZoom?
+
+> `optional` **minZoom?**: `number`
+
+###### pan?
+
+> `optional` **pan?**: `object`
+
+###### pan.x
+
+> **x**: `number`
+
+###### pan.y
+
+> **y**: `number`
+
+###### zoom?
+
+> `optional` **zoom?**: `number`
+
+###### Inherited from
+
+[`CpuSurfaceOptions`](react.useCpuSurface.mdx#cpusurfaceoptions).[`initialCamera`](react.useCpuSurface.mdx#initialcamera)
+
+##### onDraw?
+
+> `optional` **onDraw?**: [`CpuDraw`](cpu.CpuSurface.mdx#cpudraw)
+
+Defined in: [react/CpuCanvas.tsx:7](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L7)
+
+##### onSurface?
+
+> `optional` **onSurface?**: (`surface`) => `void`
+
+Defined in: [react/CpuCanvas.tsx:8](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L8)
+
+###### Parameters
+
+###### surface
+
+[`CpuSurface`](cpu.CpuSurface.mdx#cpusurface)
+
+###### Returns
+
+`void`
+
+##### style?
+
+> `optional` **style?**: [`CSSProperties`](#)
+
+Defined in: [react/CpuCanvas.tsx:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L11)
+
+## Functions
+
+### CpuCanvas()
+
+> **CpuCanvas**(`__namedParameters`): [`Element`](#)
+
+Defined in: [react/CpuCanvas.tsx:14](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/glaze/src/react/CpuCanvas.tsx#L14)
+
+#### Parameters
+
+##### \_\_namedParameters
+
+[`CpuCanvasProps`](#cpucanvasprops)
+
+#### Returns
+
+[`Element`](#)

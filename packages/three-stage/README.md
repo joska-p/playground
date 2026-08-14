@@ -1,9 +1,8 @@
 ---
-title: "Three Stage"
-description: "A 3D stage for rendering and animating Three.js objects with live Leva controls."
+title: 'Three Stage'
+description: 'A 3D stage for rendering and animating Three.js objects with live Leva controls.'
 hasApp: true
 ---
-
 
 # @repo/three-stage
 

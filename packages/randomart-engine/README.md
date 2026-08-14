@@ -1,9 +1,8 @@
 ---
-title: "RandomArt Engine"
-description: "Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders."
+title: 'RandomArt Engine'
+description: 'Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders.'
 hasApp: false
 ---
-
 
 # @repo/randomart-engine
 

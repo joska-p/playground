@@ -1,9 +1,8 @@
 ---
-title: "RandomArt Engine Next"
-description: "Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces."
+title: 'RandomArt Engine Next'
+description: 'Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces.'
 hasApp: false
 ---
-
 
 # @repo/randomart-engine-next
 

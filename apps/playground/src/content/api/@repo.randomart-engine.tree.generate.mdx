@@ -1,0 +1,130 @@
+---
+package: '@repo/randomart-engine'
+kind: module
+module: tree/generate
+title: tree/generate
+---
+
+## Type Aliases
+
+### TreeConfig
+
+> **TreeConfig** = `object`
+
+Defined in: [tree/generate.ts:7](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L7)
+
+Options controlling tree generation.
+
+#### Properties
+
+##### correlated
+
+> **correlated**: `boolean`
+
+Defined in: [tree/generate.ts:11](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L11)
+
+##### enabledRuleIds
+
+> **enabledRuleIds**: [`RuleId`](types.mdx#ruleid-1)[]
+
+Defined in: [tree/generate.ts:10](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L10)
+
+##### maxDepth
+
+> **maxDepth**: `number`
+
+Defined in: [tree/generate.ts:9](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L9)
+
+##### ruleWeights
+
+> **ruleWeights**: [`RuleWeights`](types.mdx#ruleweights)
+
+Defined in: [tree/generate.ts:12](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L12)
+
+##### seedText
+
+> **seedText**: `string`
+
+Defined in: [tree/generate.ts:8](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L8)
+
+---
+
+### TreeOutput
+
+> **TreeOutput** = `object`
+
+Defined in: [tree/generate.ts:16](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L16)
+
+The generated per-channel trees plus the PRNG instances that produced them.
+
+#### Properties
+
+##### rngB
+
+> **rngB**: [`SeededRandom`](random.SeededRandom.mdx#seededrandom)
+
+Defined in: [tree/generate.ts:22](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L22)
+
+##### rngG
+
+> **rngG**: [`SeededRandom`](random.SeededRandom.mdx#seededrandom)
+
+Defined in: [tree/generate.ts:21](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L21)
+
+##### rngR
+
+> **rngR**: [`SeededRandom`](random.SeededRandom.mdx#seededrandom)
+
+Defined in: [tree/generate.ts:20](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L20)
+
+##### treeB
+
+> **treeB**: [`ExpressionNode`](types.mdx#expressionnode)
+
+Defined in: [tree/generate.ts:19](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L19)
+
+##### treeG
+
+> **treeG**: [`ExpressionNode`](types.mdx#expressionnode)
+
+Defined in: [tree/generate.ts:18](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L18)
+
+##### treeR
+
+> **treeR**: [`ExpressionNode`](types.mdx#expressionnode)
+
+Defined in: [tree/generate.ts:17](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L17)
+
+## Functions
+
+### generateTrees()
+
+> **generateTrees**(`config`): [`TreeOutput`](#treeoutput)
+
+Defined in: [tree/generate.ts:40](https://github.com/joska-p/playground/blob/b4f351259e36f80b1230d3ac42dacf689d4443d9/packages/randomart-engine/src/tree/generate.ts#L40)
+
+Generates one expression tree per color channel from a seed string. In correlated mode all
+channels share a single PRNG stream; otherwise each channel gets its own PRNG, which produces
+visibly different art for the same seed.
+
+#### Parameters
+
+##### config
+
+[`TreeConfig`](#treeconfig)
+
+#### Returns
+
+[`TreeOutput`](#treeoutput)
+
+#### Example
+
+````ts
+    const { treeR, treeG, treeB } = generateTrees({
+        seedText: 'hello world',
+        maxDepth: 8,
+        enabledRuleIds: ['x', 'y', 'sin', 'cos', 'add', 'constant'],
+        correlated: false
+    });
+    ```;
+````

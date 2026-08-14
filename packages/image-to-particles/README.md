@@ -1,9 +1,8 @@
 ---
-title: "Image to Particles"
-description: "Deconstruct images into physics-based particle systems with real-time interaction."
+title: 'Image to Particles'
+description: 'Deconstruct images into physics-based particle systems with real-time interaction.'
 hasApp: true
 ---
-
 
 # @repo/image-to-particles
 
