@@ -1,25 +1,16 @@
 export type SeededRandom = {
-    /** Returns the next pseudo-random float in [0, 1). */
     next: () => number;
-    /** Picks a uniformly random element from a non-empty array. */
     pick: <T>(arr: readonly T[]) => T;
-    /** Picks a random element, weighted by each item's optional `weight` (defaults to 1). */
     pickWeighted: <T extends { weight?: number }>(arr: readonly T[]) => T;
-    /** Returns a random number in [min, max], formatted as a string with fixed decimal precision. */
     range: (min: number, max: number, precision?: number) => string;
-    /** Log of raw draws from `next()`, capped at HISTORY_LIMIT entries. Useful for debugging/replay. */
+    /** Raw draws from `next()`, for debugging/replay. */
     readonly rollHistory: readonly number[];
-    /** Hash of the seed string used to initialize this generator. */
     readonly initialHash: number;
 };
 
 const HISTORY_LIMIT = 1024;
 
-/**
- * Asserts a value is not undefined and returns it, narrowing the type. Prefer this over the `!`
- * non-null assertion operator: it performs the same narrowing but fails loudly at runtime if the
- * assumption was wrong, instead of silently letting `undefined` flow through.
- */
+/** Prefer over the `!` operator: same narrowing, but fails loudly at runtime if the assumption was wrong. */
 function assertDefined<T>(value: T | undefined, message = 'Expected value to be defined'): T {
     if (value === undefined) throw new Error(message);
     return value;
@@ -76,9 +67,7 @@ export function createSeededRandom(seedString: string): SeededRandom {
         const totalWeight = arr.reduce((sum, item) => sum + (item.weight ?? 1), 0);
         let target = next() * totalWeight;
 
-        // Walk the array subtracting weights; the item that makes the running
-        // total cross zero is our pick. Falls back to the last item to guard
-        // against floating-point rounding leaving `target` just above 0.
+        // Floating-point rounding can leave `target` just above 0 at the end of the loop.
         for (const item of arr) {
             target -= item.weight ?? 1;
             if (target <= 0) return item;

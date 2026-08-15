@@ -25,15 +25,6 @@ function countActiveNeighbors(
     );
 }
 
-/**
- * Advances a grid simulation by one step using CPU evaluation according to the provided Rule.
- *
- * @param rule - Active B/S rule specification.
- * @param current - Current grid state buffer.
- * @param next - Target buffer for the evolved step.
- * @param cols - Number of columns.
- * @param rows - Number of rows.
- */
 function evolve(
     rule: Rule,
     current: Uint8Array,
@@ -49,6 +40,7 @@ function evolve(
         const col = index % cols;
 
         if (cellState > 1) {
+            // Decaying cell: age toward maxState, then reset to dead.
             next[index] = cellState === maxState ? 0 : cellState + 1;
             continue;
         }

@@ -18,7 +18,6 @@ const ClassicTemplate: ShaderTemplate = {
       vec2 uv0 = uv;
       vec3 finalColor = vec3(0.0);
 
-      // Palette vectors
       vec3 a = ${palette.a}; vec3 b = ${palette.b}; vec3 c = ${palette.c}; vec3 d = ${palette.d};
 
       for (float i = 0.0; i < 3.0; i++) {
@@ -28,7 +27,6 @@ const ClassicTemplate: ShaderTemplate = {
         float wave = abs(sin(dist * 8.0 - u_time * 1.5));
         ${effectBlock}
 
-        // Cosine Palette evaluation
         vec3 col = a + b * cos(6.28318 * (c * (dist + i * 0.15 + u_time * 0.05) + d));
         finalColor += col * (smoothstep(0.5, 0.0, abs(dist)) * 0.6);
       }

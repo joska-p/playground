@@ -61,7 +61,6 @@ function AtlasControls() {
         });
     };
 
-    // Memoize offset for UI info cards
     const seedOffset = useMemo(() => {
         let hash = 0;
         for (let i = 0; i < seed.length; i++) {

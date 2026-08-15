@@ -1,5 +1,4 @@
-// GLSL 300 ES fragment shader — Three.js ShaderMaterial class removed.
-// QuadPipeline provides the vertex shader; only the fragment program is needed.
+// GLSL 300 ES fragment shader — QuadPipeline provides the vertex shader; only the fragment program is needed here.
 export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
   precision highp float;
 
@@ -14,8 +13,7 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
   in vec2 vUv;
   out vec4 fragColor;
 
-  // Binet's Approximation: rounds (phi^n / sqrt(5))
-  // This completely avoids pow(negative_number, n) which returns NaN on several GPUs
+  // Binet's formula: avoids pow(negative, n) which returns NaN on several GPUs
   float fibonacci(float n) {
       float phi = (1.0 + sqrt(5.0)) / 2.0;
       return floor(pow(phi, n) / sqrt(5.0) + 0.5);
@@ -39,7 +37,6 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
       return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r.x;
   }
 
-  // Half moon / Arc SDF (crescent shapes)
   float sdArc(in vec2 p, in float ta, in float tb, in float r) {
       vec2 sca = vec2(sin(ta), cos(ta));
       vec2 scb = vec2(sin(tb), cos(tb));
@@ -55,7 +52,6 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
       return vec2(v.x * c - v.y * s, v.x * s + v.y * c);
   }
 
-  // Color palettes matching visual themes
   vec3 getPalette(float id, float factor) {
       if (id < 0.5) {
           // Cyberpunk Neon
@@ -75,7 +71,6 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
   void main() {
     vec2 uv = vUv;
 
-    // Coordinate system glitch offsets driven by parameter
     if (uGlitch > 0.02) {
         float glitchLine = step(0.97 - (uGlitch * 0.02), sin(uv.y * 60.0 + u_time * 12.0));
         uv.x += glitchLine * sin(uv.y * 180.0) * 0.04 * uGlitch;
@@ -85,17 +80,15 @@ export const SYLLABIC_FIBONACCI_FRAGMENT = `#version 300 es
     vec2 gridUv = fract(uv * gridCount);
     vec2 cellId = floor(uv * gridCount);
 
-    // Constructing the sequence layout index
     float fibIndex = cellId.x + cellId.y * gridCount.x + floor(uSeedOffset);
 
-    // Constrain sequence to preventing GLSL float precision limit cracks
+    // mod 24: keep the sequence within GLSL float precision limits
     float fibVal = fibonacci(mod(fibIndex, 24.0));
     float signal = mod(fibVal, uModulo);
 
-    // Angle mapping based on fractional modulo index (rotational linguistics)
+    // Rotational grammar: full circle per modulo step
     float angle = signal * ((2.0 * 3.1415926) / uModulo);
 
-    // Drawing shapes relative to cell center
     vec2 p = gridUv - 0.5;
     p = rotate(p, angle);
 
