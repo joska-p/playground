@@ -23,10 +23,6 @@
 @source '../../node_modules/@repo/real-life';
 @source '../../node_modules/@repo/radu-machine-learning';
 
-@view-transition {
-    navigation: auto;
-}
-
 @theme inline {
     --font-sans: var(--font-jetbrains-mono);
 }
@@ -51,8 +47,4 @@
             opacity: 0;
         }
     }
-}
-
-@view-transition {
-    navigation: auto;
 }
