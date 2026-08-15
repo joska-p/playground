@@ -8,7 +8,8 @@
     },
     "scripts": {
         "copy:radu": "cp -r ../../packages/radu-machine-learning/public/radu-img ./public/radu-img",
-        "prebuild": "pnpm run copy:radu",
+        "build:docs": "node ../../scripts/build-docs.mjs",
+        "prebuild": "pnpm run copy:radu && pnpm build:docs",
         "build": "astro build",
         "dev": "astro dev --host",
         "preview": "astro preview --host",

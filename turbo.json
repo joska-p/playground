@@ -13,17 +13,17 @@
                 "$TURBO_ROOT$/packages/*/tsconfig*.json"
             ]
         },
+        "build": {
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": [".astro/**", "dist/**", "public/**"]
+        },
         "copy:radu": {
             "inputs": ["$TURBO_ROOT$/packages/radu-machine-learning/public/radu-img/**"],
             "outputs": ["public/radu-img/**"]
         },
-        "copy:storybook": {
+        "copy:storybook-static": {
             "inputs": ["$TURBO_ROOT$/apps/storybook/storybook-static/**"],
             "outputs": ["dist/storybook/**"]
-        },
-        "build": {
-            "inputs": ["$TURBO_DEFAULT$", ".env*"],
-            "outputs": [".astro/**", "dist/**", "public/**"]
         },
         "test": {
             "outputs": ["coverage/**", "playwright-report/**"]
