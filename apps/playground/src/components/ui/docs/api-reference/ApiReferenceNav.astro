@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { kindLabel } from './kind-labels';
+import { extractAllSymbols, symbolId, pluralize } from './typedoc-utils';
 
 type Props = {
     entry?: CollectionEntry<'api'> | undefined;
@@ -8,17 +9,16 @@ type Props = {
 
 const { entry } = Astro.props;
 const typedoc = entry?.data?.typedoc;
-const children = typedoc?.children ?? [];
 
-function slugify(name: string): string {
-    return name.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
-}
+// Uses the same traversal as ApiReference.astro (via extractAllSymbols) to
+// guarantee every nav link points to an anchor that actually exists in the
+// rendered content, even when TypeDoc groups exports under
+// Modules/Namespaces.
+const symbols = typedoc ? extractAllSymbols(typedoc) : [];
 
-// Group symbols by kind
-const groupedMembers = children.reduce<Record<string, typeof children>>((acc, child) => {
-    const label = kindLabel(child.kind);
-    if (!acc[label]) acc[label] = [];
-    acc[label].push(child);
+const groupedMembers = symbols.reduce<Record<string, typeof symbols>>((acc, symbol) => {
+    const label = kindLabel(symbol.kind);
+    (acc[label] ??= []).push(symbol);
     return acc;
 }, {});
 
@@ -37,16 +37,14 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
         class="min-h-full flex-1 p-2"
     >
         <div class="space-y-8">
-            {/* Main Sections */}
-            <div>
-                <span
-                    class="text-muted-foreground/60 block px-3 pb-2 text-xs font-bold tracking-widest uppercase"
-                >
-                    Navigation
-                </span>
-                <ul class="space-y-1">
-                    {
-                        entry && (
+            {/* Main sections */}
+            {
+                entry && (
+                    <div>
+                        <span class="text-muted-foreground/60 block px-3 pb-2 text-xs font-bold tracking-widest uppercase">
+                            Navigation
+                        </span>
+                        <ul class="space-y-1">
                             <li>
                                 <a
                                     data-target="overview"
@@ -57,10 +55,6 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
                                     Overview
                                 </a>
                             </li>
-                        )
-                    }
-                    {
-                        entry && (
                             <li>
                                 <a
                                     data-target="api"
@@ -71,30 +65,34 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
                                     API Reference
                                 </a>
                             </li>
-                        )
-                    }
-                </ul>
-            </div>
+                        </ul>
+                    </div>
+                )
+            }
 
-            {/* Symbols List grouped by Kind */}
+            {/* Symbols grouped by kind */}
             {
                 Object.entries(groupedMembers).map(([kind, items]) => (
                     <div class="space-y-2">
                         <span class="text-muted-foreground/60 block px-3 text-xs font-bold tracking-widest uppercase">
-                            {kind}s
+                            {pluralize(kind)}
                         </span>
-                        <ul class="border-border/40 ml-3 space-y-1 border-l-2 pl-2">
+                        <ul class="border-border/40 ml-3 min-w-0 space-y-1 border-l-2 pl-2">
                             {items.map((item) => {
-                                const targetId = `symbol-${slugify(item.name)}`;
+                                const targetId = symbolId(item.name);
                                 return (
-                                    <li>
+                                    <li class="min-w-0">
                                         <a
                                             data-target={targetId}
-                                            class:list={[linkBase, linkIdle, 'font-mono text-xs']}
+                                            class:list={[
+                                                linkBase,
+                                                linkIdle,
+                                                'min-w-0 font-mono text-xs'
+                                            ]}
                                             href={`#${targetId}`}
                                         >
                                             <span class:list={[indicatorBase, indicatorIdle]} />
-                                            <span class="truncate">{item.name}</span>
+                                            <span class="min-w-0 truncate">{item.name}</span>
                                         </a>
                                     </li>
                                 );
@@ -125,23 +123,24 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        links.forEach((link) => {
-                            const span = link.querySelector('span');
-                            const isActive = link.getAttribute('data-target') === id;
+                    if (!entry.isIntersecting) return;
 
-                            link.classList.toggle('bg-primary/10', isActive);
-                            link.classList.toggle('text-primary', isActive);
-                            link.classList.toggle('font-bold', isActive);
-                            link.classList.toggle('text-muted-foreground', !isActive);
+                    const id = entry.target.id;
+                    links.forEach((link) => {
+                        // The first <span> in a link is always the
+                        // indicator dot (see markup above), whether or not
+                        // there is a second span for the symbol name.
+                        const dot = link.querySelector('span');
+                        const isActive = link.getAttribute('data-target') === id;
 
-                            if (span) {
-                                span.classList.toggle('bg-primary', isActive);
-                                span.classList.toggle('bg-border', !isActive);
-                            }
-                        });
-                    }
+                        link.classList.toggle('bg-primary/10', isActive);
+                        link.classList.toggle('text-primary', isActive);
+                        link.classList.toggle('font-bold', isActive);
+                        link.classList.toggle('text-muted-foreground', !isActive);
+
+                        dot?.classList.toggle('bg-primary', isActive);
+                        dot?.classList.toggle('bg-border', !isActive);
+                    });
                 });
             },
             { rootMargin: '-15% 0% -65% 0%', threshold: 0.1 }

@@ -50,7 +50,7 @@ pnpm build-docs
 pnpm gen:project-pages
 ```
 
-- `pnpm build-docs` (`scripts/build-docs.mjs`) is a **root script**: it runs TypeDoc once per package and writes `apps/playground/.generated/api-docs/<package-dir>/docs.json` (raw TypeDoc JSON, gitignored). It is decoupled from `astro build` — run it before building or dev-ing the app.
+- `pnpm build-docs` runs the `build:docs` turbo root task (which executes `scripts/build-docs.mjs`): it runs TypeDoc once per package and writes `apps/playground/.generated/api-docs/<package-dir>/docs.json` (raw TypeDoc JSON, gitignored). It is cached by turbo and decoupled from `astro build` — run it before building or dev-ing the app.
 - The custom content loader (`apps/playground/src/content/loaders/api-docs.ts`) reads each `docs.json`, merges the package's README and `package.json` metadata (`description`, `hasApp`), and serves it as the `api` content collection — one entry per package.
 - `pnpm gen:project-pages` reads the generated docs and generates a static Astro page at `/discoveries/<package-dir>/` for every package. It never overwrites an existing page — prefer writing discovery pages by hand.
 

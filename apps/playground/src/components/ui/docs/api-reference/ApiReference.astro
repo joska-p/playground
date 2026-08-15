@@ -1,52 +1,19 @@
 ---
 import type { JSONOutput } from 'typedoc';
 import { kindLabel } from './kind-labels';
+import { extractAllSymbols, commentOf, getText, formatType, symbolId } from './typedoc-utils';
 
 type Props = {
     typedoc: JSONOutput.ProjectReflection;
 };
 
 const { typedoc } = Astro.props;
-
-// Helper pour récupérer tous les membres utiles (soit directs, soit à l'intérieur des modules)
-function extractAllSymbols(node: JSONOutput.ProjectReflection): JSONOutput.DeclarationReflection[] {
-    const symbols: JSONOutput.DeclarationReflection[] = [];
-
-    function traverse(item: JSONOutput.DeclarationReflection | JSONOutput.ProjectReflection) {
-        if (!item.children) return;
-
-        for (const child of item.children) {
-            // Kind 2 = Module / Kind 4 = Namespace -> On descend d'un niveau
-            if (child.kind === 2 || child.kind === 4) {
-                traverse(child);
-            } else {
-                symbols.push(child);
-            }
-        }
-    }
-
-    traverse(node);
-    return symbols;
-}
-
 const symbols = extractAllSymbols(typedoc);
-
-function commentOf(reflection?: { comment?: JSONOutput.Comment }): JSONOutput.Comment | undefined {
-    return reflection?.comment;
-}
-
-function getText(parts?: JSONOutput.CommentDisplayPart[]): string {
-    return parts?.map((p) => p.text).join('') ?? '';
-}
-
-function slugify(name: string): string {
-    return name.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
-}
 ---
 
 {
     symbols.length === 0 ? (
-        <p class="text-muted-foreground text-base">Aucun membre exporté trouvé.</p>
+        <p class="text-muted-foreground text-base">No exported member found.</p>
     ) : (
         <div class="space-y-12">
             {symbols.map((symbol) => {
@@ -54,24 +21,23 @@ function slugify(name: string): string {
                 const summary = commentOf(symbol)?.summary ?? commentOf(signature)?.summary;
                 const blockTags = commentOf(symbol)?.blockTags ?? commentOf(signature)?.blockTags;
                 const examples = blockTags?.filter((tag) => tag.tag === '@example') ?? [];
-                const elementId = `symbol-${slugify(symbol.name)}`;
 
                 return (
                     <article
-                        id={elementId}
-                        class="border-border/40 bg-surface/30 scroll-mt-28 space-y-6 rounded-xl border p-6 shadow-xs"
+                        id={symbolId(symbol.name)}
+                        class="border-border/40 bg-surface/30 max-w-full scroll-mt-28 space-y-6 overflow-hidden rounded-xl border p-6 shadow-xs"
                     >
-                        {/* Title & Badge */}
-                        <div class="border-border/30 flex items-center gap-3 border-b pb-4">
+                        {/* Title & kind badge */}
+                        <div class="border-border/30 flex flex-wrap items-center gap-3 border-b pb-4">
                             <span class="bg-primary/10 text-primary rounded-md px-2.5 py-1 font-mono text-xs font-bold tracking-wide uppercase">
                                 {kindLabel(symbol.kind)}
                             </span>
-                            <h3 class="text-foreground font-mono text-xl font-bold tracking-tight">
+                            <h3 class="text-foreground wrap-break-words min-w-0 font-mono text-xl font-bold tracking-tight">
                                 {symbol.name}
                             </h3>
                         </div>
 
-                        {/* Summary / Docstrings */}
+                        {/* Summary / docstring */}
                         {summary && summary.length > 0 && (
                             <p class="text-foreground/90 text-base leading-relaxed">
                                 {getText(summary)}
@@ -82,21 +48,21 @@ function slugify(name: string): string {
                         {examples.length > 0 && (
                             <div class="space-y-2 pt-2">
                                 <span class="text-muted-foreground text-xs font-bold tracking-widest uppercase">
-                                    Exemple
+                                    Example
                                 </span>
                                 {examples.map((example) => (
-                                    <pre class="bg-muted/40 border-border/30 overflow-x-auto rounded-lg border p-4 font-mono text-sm leading-relaxed">
+                                    <pre class="bg-muted/40 border-border/30 max-w-full overflow-x-auto rounded-lg border p-4 font-mono text-sm leading-relaxed">
                                         <code>{getText(example.content)}</code>
                                     </pre>
                                 ))}
                             </div>
                         )}
 
-                        {/* Members / Methods / Properties (Pour les Classes et Interfaces) */}
+                        {/* Members / methods (classes and interfaces) */}
                         {symbol.children && symbol.children.length > 0 && (
                             <div class="space-y-4 pt-4">
                                 <h4 class="text-foreground border-border/20 border-b pb-2 text-sm font-bold tracking-wider uppercase">
-                                    Membres & Méthodes ({symbol.children.length})
+                                    Members & Methods ({symbol.children.length})
                                 </h4>
                                 <div class="space-y-4">
                                     {symbol.children.map((member) => {
@@ -106,41 +72,38 @@ function slugify(name: string): string {
                                             commentOf(memSig)?.summary;
 
                                         return (
-                                            <div class="bg-muted/20 border-border/20 space-y-2 rounded-lg border p-4 font-mono">
-                                                <div class="flex items-center gap-2">
+                                            <div class="bg-muted/20 border-border/20 min-w-0 space-y-2 rounded-lg border p-4 font-mono">
+                                                <div class="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
                                                     <span class="text-muted-foreground text-xs font-semibold">
                                                         [{kindLabel(member.kind)}]
                                                     </span>
-                                                    <span class="text-foreground text-sm font-bold">
+                                                    <span class="text-foreground wrap-break-words text-sm font-bold">
                                                         {member.name}
                                                     </span>
                                                     {member.type && (
-                                                        <span class="text-primary text-xs">
-                                                            :{' '}
-                                                            {member.type.type === 'intrinsic'
-                                                                ? member.type.name
-                                                                : JSON.stringify(member.type)}
+                                                        <span class="text-primary wrap-break-words min-w-0 text-xs">
+                                                            : {formatType(member.type)}
                                                         </span>
                                                     )}
                                                 </div>
 
-                                                {/* Parameters (si méthode / fonction) */}
+                                                {/* Parameters (method / function) */}
                                                 {memSig?.parameters &&
                                                     memSig.parameters.length > 0 && (
-                                                        <div class="text-muted-foreground border-border/40 border-l-2 pl-4 text-xs">
+                                                        <div class="text-muted-foreground border-border/40 min-w-0 border-l-2 pl-4 text-xs">
                                                             <span class="text-foreground font-semibold">
-                                                                Paramètres :
+                                                                Parameters:
                                                             </span>
                                                             <ul class="mt-1 list-disc space-y-1 pl-4">
                                                                 {memSig.parameters.map((param) => (
-                                                                    <li>
+                                                                    <li class="wrap-break-words">
                                                                         <span class="text-foreground font-semibold">
                                                                             {param.name}
                                                                         </span>
                                                                         {param.type && (
-                                                                            <span class="prose-pre">
+                                                                            <span>
                                                                                 :{' '}
-                                                                                {JSON.stringify(
+                                                                                {formatType(
                                                                                     param.type
                                                                                 )}
                                                                             </span>
@@ -151,7 +114,7 @@ function slugify(name: string): string {
                                                         </div>
                                                     )}
 
-                                                {/* Member Comment */}
+                                                {/* Member comment */}
                                                 {memSummary && memSummary.length > 0 && (
                                                     <p class="text-muted-foreground pt-1 font-sans text-xs">
                                                         {getText(memSummary)}

@@ -9,9 +9,8 @@
     "scripts": {
         "copy:radu": "cp -r ../../packages/radu-machine-learning/public/radu-img ./public/radu-img",
         "copy:storybook": "mkdir -p ./dist/storybook && cp -r ../../apps/storybook/storybook-static/. ./dist/storybook/",
-        "copy:all": "pnpm copy:radu, pnpm copy:storybook",
-        "prebuild": "pnpm copy:all",
-        "postbuild": "pnpm copy:storybook",
+        "copy:all": "pnpm run copy:radu && pnpm run copy:storybook",
+        "prebuild": "pnpm run copy:all",
         "build": "astro build",
         "dev": "astro dev --host",
         "preview": "astro preview --host",

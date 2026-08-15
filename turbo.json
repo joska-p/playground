@@ -2,6 +2,17 @@
     "$schema": "https://v2-10-7.turborepo.dev/schema.json",
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
+        "build:docs": {
+            "outputs": ["apps/playground/.generated/api-docs/**"],
+            "inputs": [
+                "$TURBO_ROOT$/typedoc.base.json",
+                "$TURBO_ROOT$/scripts/build-docs.mjs",
+                "$TURBO_ROOT$/packages/*/src/**",
+                "$TURBO_ROOT$/packages/*/README.md",
+                "$TURBO_ROOT$/packages/*/typedoc.json",
+                "$TURBO_ROOT$/packages/*/tsconfig*.json"
+            ]
+        },
         "copy:radu": {
             "inputs": ["$TURBO_ROOT$/packages/radu-machine-learning/public/radu-img/**"],
             "outputs": ["public/radu-img/**"]
