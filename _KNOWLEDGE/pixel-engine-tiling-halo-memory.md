@@ -5,6 +5,7 @@ de voisinage par tuiles de 512 px au lieu de toute l'image : la convolution n'a 
 morceau à la fois, donc le pic mémoire ne dépend plus de la taille de l'image.
 
 Deux pièges à retenir :
+
 - **halo** = rayon de la manipulation (`radius`). Chaque tuile est prélevée avec une bordure de
   `radius` px autour d'elle, sinon les bords de tuile ressembleraient à des bords d'image
   (artefacts de bordure en damier). `extractTile`/`blitTile` font le décalage

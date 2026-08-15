@@ -61,7 +61,10 @@ export type BuildTreeProps = {
     seedText?: string;
 };
 
-/** Forces terminals at `maxDepth` and operators above `rule.minDepth`, so trees never run forever nor collapse to a leaf too early. */
+/**
+ * Forces terminals at `maxDepth` and operators above `rule.minDepth`, so trees never run forever
+ * nor collapse to a leaf too early.
+ */
 export function buildTree({
     rule,
     maxDepth,

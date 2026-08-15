@@ -40,8 +40,8 @@ export const randomartStore = createStore<RandomartState>()(
 );
 
 /**
- * Rebuilds the trees in the same setState that applies the config change, so the store never
- * holds a config that doesn't match its trees.
+ * Rebuilds the trees in the same setState that applies the config change, so the store never holds
+ * a config that doesn't match its trees.
  */
 export function updateTreeConfig(
     updater: (state: RandomartState) => Partial<RandomartState>,

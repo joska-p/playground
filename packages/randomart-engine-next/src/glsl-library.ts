@@ -103,8 +103,8 @@ export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 /**
- * Concatenated source of the requested functions plus their dependencies, dependencies first —
- * GLSL won't compile a call before its declaration. Throws on dependency cycles.
+ * Concatenated source of the requested functions plus their dependencies, dependencies first — GLSL
+ * won't compile a call before its declaration. Throws on dependency cycles.
  */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();

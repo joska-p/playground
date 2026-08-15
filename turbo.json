@@ -18,16 +18,10 @@
             "outputs": ["public/radu-img/**"]
         },
         "copy:storybook": {
-            "dependsOn": ["@repo/storybook#build"],
             "inputs": ["$TURBO_ROOT$/apps/storybook/storybook-static/**"],
             "outputs": ["dist/storybook/**"]
         },
-        "copy:all": {
-            "dependsOn": ["copy:radu"],
-            "cache": false
-        },
         "build": {
-            "dependsOn": ["^build", "copy:all"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": [".astro/**", "dist/**", "public/**"]
         },

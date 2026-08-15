@@ -5,6 +5,7 @@ Le pipeline pixel-engine passe par `BufferManager` : deux `Uint8ClampedArray` de
 `swap()` inverse la pointe — on ne recrée jamais un buffer pour un simple étage pixel (coûteux).
 
 Points à retenir :
+
 - `snapshot()` renvoie une **copie** `PixelData`, pas une référence au buffer interne : les étapes
   globales reçoivent un objet autonome, et les snapshots intermédiaires de `runPipeline` ne sont
   pas invalidés par les `swap()` suivants.

@@ -29,8 +29,8 @@ function toGLSLVec3([r, g, b]: [number, number, number]): string {
 }
 
 /**
- * Same mapping as valueToRGB, generated into GLSL so the GPU preview matches the CPU one.
- * The mix() calls duplicate the lerp() calls above — keep both in sync.
+ * Same mapping as valueToRGB, generated into GLSL so the GPU preview matches the CPU one. The mix()
+ * calls duplicate the lerp() calls above — keep both in sync.
  */
 export function colormapGLSL(): string {
     return `

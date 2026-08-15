@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "storybook dev -p 6006",
-        "build": "storybook build",
+        "copy:static": "mkdir -p ../../apps/playground/dist/storybook && cp -r ./storybook-static/. ../../apps/playground/dist/storybook",
+        "build": "storybook build && pnpm run copy:static",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",

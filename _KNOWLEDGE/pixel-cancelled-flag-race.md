@@ -9,6 +9,7 @@ Le `.then` ne touche au state que si `!cancelled`. Quand les deps changent, Reac
 de l'effet précédent → l'ancienne promesse devient inopérante.
 
 À noter :
+
 - Pas d'`AbortController`/`cancel` réel : le worker continue de tourner, on ignore juste son résultat.
   Pour du travail coûteux il vaut mieux terminer/annuler au niveau du pool.
 - `steps` en dep est un piège classique : s'il n'est pas référentiellement stable (re-créé à chaque
