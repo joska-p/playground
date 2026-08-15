@@ -74,29 +74,20 @@ export default function createConfig(dirname) {
                     }
                 ],
 
-                // --- JSDoc / Anti-bruit pour TypeScript ---
-                // 'jsdoc/check-alignment': 'error',
-                // 'jsdoc/check-indentation': 'error',
-                // 'jsdoc/multiline-blocks': 'error',
-
-                // Les types TS suffisent: pas de @param/@returns obligatoires
-                // ni de mise en forme stricte — les commentaires restent des one-liners.
-                'jsdoc/tag-lines': 'off',
-                'jsdoc/require-param': 'off',
-                'jsdoc/require-returns': 'off',
-                'jsdoc/check-param-names': 'off',
-
                 // On interdit le doublon de types dans les commentaires (ex: @param {number} x)
-                'jsdoc/no-types': 'error',
-                'jsdoc/require-param-type': 'off',
                 'jsdoc/require-returns-type': 'off',
                 'jsdoc/require-property-type': 'off',
 
-                // On force la présence d'une description si un bloc JSDoc est ouvert
-                'jsdoc/require-description': 'warn',
-
-                // Pas besoin de forcer les commentaires sur absolument chaque fonction/type
-                'jsdoc/require-jsdoc': 'off'
+                // Commentaires et JSDoc — maximum de silence
+                'jsdoc/require-jsdoc': 'off',
+                'jsdoc/require-description': 'off',
+                'jsdoc/require-param': 'off',
+                'jsdoc/require-returns': 'off',
+                'jsdoc/require-param-description': 'off',
+                'jsdoc/require-returns-description': 'off',
+                'jsdoc/check-param-names': 'off',
+                'jsdoc/tag-lines': 'off',
+                'jsdoc/no-types': 'error'
             }
         },
         {

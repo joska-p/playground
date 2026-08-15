@@ -10,6 +10,27 @@ Always run from repo root:
 pnpm --filter @repo/<package> <cmd>
 ```
 
+## Skills = the living rules
+
+The skills are the set of plain-English rules that define how we write code.
+They are the main source of taste and conventions.
+
+### Feedback loop (important)
+
+After any non-trivial change:
+
+1. Check if the current skills already cover what was done.
+2. If you notice a recurring pattern that is not yet written as a rule,
+   or if an existing rule is wrong / too vague / contradictory,
+   propose a small update to the relevant skill.
+3. Keep every skill short and focused. Prefer deleting or merging over accumulating.
+
+The goal is that the rules slowly get better over time, instead of staying frozen.
+
+## Language
+
+See the language skill. Code and documentation stay in English. Creative conversation with the human stays in French.
+
 ## Deep docs (on-demand, not always loaded)
 
 - **Conventions (code)** → `./apps/playground/src/content/docs/conventions/01-overview.md`
@@ -19,7 +40,7 @@ pnpm --filter @repo/<package> <cmd>
 
 ## Per-package source of truth
 
-When working inside a package, follow the `documenting` and package-shape skills: package READMEs cover concepts/gotchas, while TSDoc + TypeDoc generate API references. Mirror existing code patterns.
+When working inside a package, follow the `documenting` and `package-shape` skills: package READMEs cover concepts/gotchas, while TSDoc + TypeDoc generate API references. Mirror existing code patterns.
 
 ## GitHub Kanban
 
