@@ -6,7 +6,6 @@ import { WorkerPool } from '@repo/worker-pool/worker-pool';
 
 export type { ArgDefinition, Step };
 
-/** Registry entry describing a manipulation's access mode, UI copy, and option definitions. */
 export type ManipulationInfo = {
     readonly id: string;
     readonly access: 'pixel' | 'neighborhood' | 'global';
@@ -17,7 +16,6 @@ export type ManipulationInfo = {
     readonly argDefinitions: readonly ArgDefinition[];
 };
 
-/** Input to `pixel.run()`: the source `ImageData` and the ordered `Step`s to apply. */
 export type RunConfig = {
     sourceImageData: ImageData;
     steps: readonly Step[];
@@ -34,15 +32,12 @@ function isSerializedImageDataArray(data: unknown): data is SerializedImageData[
     return (
         Array.isArray(data) &&
         data.every((item: unknown) => {
-            // 1. Verify it's a non-null object first
             if (typeof item !== 'object' || item === null) {
                 return false;
             }
 
-            // 2. Cast to a Record so the linter knows property access is safe
             const obj = item as Record<string, unknown>;
 
-            // 3. Perform your runtime checks safely
             return (
                 'data' in obj &&
                 'width' in obj &&
@@ -116,17 +111,11 @@ function buildCatalog(): Record<string, ManipulationInfo> {
 
 const MANIPULATIONS = buildCatalog();
 
-/**
- * The package's single facade: run pipelines over `ImageData`, browse the manipulation catalog, and
- * manage the worker pool.
- */
 export const pixel = {
-    /** All registered manipulations, keyed by id. */
     get manipulations(): Readonly<Record<string, ManipulationInfo>> {
         return MANIPULATIONS;
     },
 
-    /** Manipulations filtered to one access mode (`pixel`, `neighborhood`, or `global`). */
     getManipulationsByAccess(
         access: 'pixel' | 'neighborhood' | 'global'
     ): Record<string, ManipulationInfo> {
@@ -137,12 +126,10 @@ export const pixel = {
         return result;
     },
 
-    /** Runs `steps` against the source and resolves with one `ImageData` snapshot per step. */
     run(config: RunConfig): Promise<ImageData[]> {
         return pool.run(config);
     },
 
-    /** Terminates the worker pool and clears any pending work. */
     teardown(): void {
         pool.teardown();
     }

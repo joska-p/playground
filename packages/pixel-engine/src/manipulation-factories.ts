@@ -20,12 +20,6 @@ type DefineManipParams<Options, Identifier extends string> = {
     | { access: 'global'; execute: WholeImageFunction<Options> }
 );
 
-/**
- * Factory helper for creating typed manipulation definitions.
- *
- * @param params - Manipulation properties including access mode, UI metadata, and execute function.
- * @returns Strongly-typed manipulation definition.
- */
 export function defineManip<Options, Identifier extends string = string>(
     params: DefineManipParams<Options, Identifier>
 ): ManipulationDefinition<Options> & { id: Identifier } {

@@ -6,7 +6,6 @@ function lerp(a: number, b: number, t: number): number {
     return a + (b - a) * t;
 }
 
-/** CPU-side value -> RGB mapping, used by the 2D canvas renderer. */
 export function valueToRGB(value: number): [number, number, number] {
     const t = Math.max(-1, Math.min(1, value));
     if (t < 0) {
@@ -30,9 +29,8 @@ function toGLSLVec3([r, g, b]: [number, number, number]): string {
 }
 
 /**
- * GLSL source for the identical value -> color mapping, injected into fragment shaders so the GPU
- * renderer stays visually consistent with ValueCanvasCPU. Keep this in lockstep with valueToRGB
- * above.
+ * Same mapping as valueToRGB, generated into GLSL so the GPU preview matches the CPU one.
+ * The mix() calls duplicate the lerp() calls above — keep both in sync.
  */
 export function colormapGLSL(): string {
     return `

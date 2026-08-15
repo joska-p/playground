@@ -3,7 +3,6 @@ import type { Registry } from './registry';
 
 // ─── UI Metadata ──────────────────────────────────────────────────────────────
 
-/** UI argument slider/field definition for a manipulation option. */
 export type ArgDefinition = {
     key: string;
     label: string;
@@ -12,7 +11,6 @@ export type ArgDefinition = {
     step: number;
 };
 
-/** Metadata for displaying a manipulation in the UI. */
 export type ManipulationUIMetadata = {
     name: string;
     description: string;
@@ -23,7 +21,6 @@ export type ManipulationUIMetadata = {
 
 // ─── Manipulation Function Parameters ────────────────────────────────────────
 
-/** Parameters passed to a per-pixel transform function. */
 export type PixelParameters<Options> = {
     options: Options;
     red: number;
@@ -32,7 +29,6 @@ export type PixelParameters<Options> = {
     alpha: number;
 };
 
-/** Parameters passed to a neighborhood convolution function. */
 export type NeighborhoodParameters<Options> = {
     options: Options;
     source: Uint8ClampedArray;
@@ -41,7 +37,6 @@ export type NeighborhoodParameters<Options> = {
     height: number;
 };
 
-/** Parameters passed to a global whole-image transform function. */
 export type WholeImageParameters<Options> = {
     options: Options;
     imageData: PixelData;
@@ -49,17 +44,14 @@ export type WholeImageParameters<Options> = {
 
 // ─── Manipulation Function Signatures ────────────────────────────────────────
 
-/** Per-pixel transform function returning RGBA tuple. */
 export type PixelFunction<
     Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: PixelParameters<Options>) => [number, number, number, number];
 
-/** Neighborhood convolution function modifying destination array in place. */
 export type NeighborhoodFunction<
     Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: NeighborhoodParameters<Options>) => void;
 
-/** Global whole-image transform function returning PixelData. */
 export type WholeImageFunction<
     Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: WholeImageParameters<Options>) => PixelData;
@@ -67,8 +59,8 @@ export type WholeImageFunction<
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
 /**
- * Standardized definition for any image manipulation. The 'options' property is a type-only marker
- * to simplify Step derivation.
+ * The `options` property is never read at runtime: it only carries the option type so the manifest
+ * can derive the typed `Step` union.
  */
 export type ManipulationDefinition<
     Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
@@ -88,7 +80,6 @@ export type ManipulationDefinition<
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 
-/** Context provided to the pipeline runner containing registry and constraints. */
 export type PipelineContext = {
     registry: Registry;
     maximumPixels: number;

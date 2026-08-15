@@ -2,8 +2,7 @@ import { getAllRules } from '../grammar/registry';
 import type { SeededRandom } from '../random/SeededRandom';
 import type { ExpressionNode, GrammarRule } from '../types';
 
-// Depth below which the shared structureRng drives category selection,
-// keeping the overall tree shape consistent across R/G/B channels.
+// Above this depth the shared structureRng drives decisions, so R/G/B trees keep the same overall shape
 const STRUCTURE_RNG_DEPTH = 3;
 
 function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
@@ -19,10 +18,8 @@ function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
     return rules.length - 1;
 }
 
-// Builds the candidate pool by rolling each structural rule independently
-// against structuralProbability. Each rule gets its own RNG draw, so different
-// seeds produce pools of different sizes — this per-rule variance is what drives
-// tree variety. Terminals are always included as a guaranteed fallback.
+// Each rule gets its own RNG draw, so seeds yield pools of different sizes — that per-rule
+// variance is what drives tree variety. Terminals are always included as a guaranteed fallback.
 function buildPool(
     rng: SeededRandom,
     rules: GrammarRule[],
@@ -34,14 +31,12 @@ function buildPool(
             pool.push(rule);
         }
     }
-    // If no terminals were in the rule set somehow, fall back to all terminals
     return pool.length > 0 ? pool : rules.filter((r) => r.category === 'terminal');
 }
 
 /**
- * Builds one expression tree, recursively picking rules from a pool weighted by each rule's
- * `weight`. Structural decisions at shallow depth come from `structureRng` (shared across channels)
- * so R/G/B trees share shape; deeper nodes use `channelRng`.
+ * Shallow nodes are picked by `structureRng` (shared across channels) so R/G/B trees share shape;
+ * deeper nodes use `channelRng`, which is what makes each channel differ.
  */
 export function buildTree(
     structureRng: SeededRandom,

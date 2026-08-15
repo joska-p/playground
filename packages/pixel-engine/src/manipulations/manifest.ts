@@ -20,7 +20,6 @@ import { rotate90Cw } from './whole/rotate-90cw';
 
 // ─── Single Source of Truth ─────────────────────────────────────────────────
 
-/** Array of all built-in manipulation definitions supported by the engine. */
 export const ALL_MANIPULATIONS = [
     brightness,
     contrast,
@@ -50,7 +49,7 @@ type ManipulationLookup = {
     ]: Manipulation['options'];
 };
 
-/** Strongly-typed step union derived from ALL_MANIPULATIONS manifest. */
+/** Derived from the manifest so ids and option types can never drift from the built-in list. */
 export type Step = {
     [Identifier in keyof ManipulationLookup]: {
         id: Identifier;

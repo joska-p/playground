@@ -1,6 +1,5 @@
 import type { AnimationBehavior } from '../types';
 
-/** Rotates the color hue over time. */
 export const hueShiftBehavior: AnimationBehavior = {
     id: 'hue-shift',
     name: 'Hue Shift',
@@ -19,7 +18,6 @@ vec3 hueRotate(vec3 color, float angle) {
     applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
 };
 
-/** Scales the coordinate field, breathing in and out. */
 export const zoomBehavior: AnimationBehavior = {
     id: 'zoom',
     name: 'Zoom',
@@ -28,7 +26,6 @@ export const zoomBehavior: AnimationBehavior = {
     applyCode: ({ time, speed, spatial }) => `${spatial} *= (1.0 + 0.5 * sin(${time} * ${speed}));`
 };
 
-/** Adds concentric ripples to the coordinate field. */
 export const rippleBehavior: AnimationBehavior = {
     id: 'ripple',
     name: 'Ripple',
@@ -38,7 +35,6 @@ export const rippleBehavior: AnimationBehavior = {
         `${spatial} += 0.1 * sin(${spatial} * 5.0 + ${time} * ${speed});`
 };
 
-/** Rotates the coordinate field around its origin. */
 export const rotateBehavior: AnimationBehavior = {
     id: 'rotate',
     name: 'Rotate',
@@ -53,7 +49,6 @@ mat2 rotate2d(float _angle){
         `${spatial} = rotate2d(${time} * ${speed} * 0.5) * ${spatial};`
 };
 
-/** Twists the coordinate field into a swirl, strongest at the center. */
 export const swirlBehavior: AnimationBehavior = {
     id: 'swirl',
     name: 'Swirl',
@@ -69,7 +64,6 @@ vec2 swirl(vec2 coords, float angle) {
         `${spatial} = swirl(${spatial}, sin(${time} * ${speed}) * 2.0);`
 };
 
-/** Translates the coordinate field steadily over time. */
 export const driftBehavior: AnimationBehavior = {
     id: 'drift',
     name: 'Drift',
@@ -78,7 +72,6 @@ export const driftBehavior: AnimationBehavior = {
     applyCode: ({ time, speed, spatial }) => `${spatial} += ${time} * ${speed} * 0.1;`
 };
 
-/** Scales coordinates outward over time. */
 export const expandBehavior: AnimationBehavior = {
     id: 'expand',
     name: 'Expand',
@@ -87,7 +80,6 @@ export const expandBehavior: AnimationBehavior = {
     applyCode: ({ time, speed, spatial }) => `${spatial} /= (1.0 + ${time} * ${speed} * 0.1);`
 };
 
-/** Mirrors the coordinate field into a six-fold kaleidoscope. */
 export const kaleidoscopeBehavior: AnimationBehavior = {
     id: 'kaleidoscope',
     name: 'Kaleidoscope',
@@ -113,7 +105,6 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
         `${spatial} = kaleidoscope(${spatial}, ${time}, ${speed});`
 };
 
-/** Warps coordinates with layered sine-based domain warping. */
 export const domainWarpBehavior: AnimationBehavior = {
     id: 'domain-warp',
     name: 'Warp',
@@ -131,7 +122,6 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
         `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
 };
 
-/** Tiles the field with mirrored repeats. */
 export const mirrorTileBehavior: AnimationBehavior = {
     id: 'mirror-tile',
     name: 'Mirror',
@@ -141,7 +131,6 @@ export const mirrorTileBehavior: AnimationBehavior = {
         `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
 };
 
-/** Maps coordinates through an endless tunnel projection. */
 export const tunnelBehavior: AnimationBehavior = {
     id: 'tunnel',
     name: 'Tunnel',
@@ -157,7 +146,6 @@ vec2 tunnel(vec2 coords, float t, float speed) {
     applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
 };
 
-/** Pulses the contrast of the color. */
 export const contrastPulseBehavior: AnimationBehavior = {
     id: 'contrast-pulse',
     name: 'Pulse',
@@ -171,7 +159,6 @@ vec3 contrastPulse(vec3 color, float t, float speed) {
     applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
 };
 
-/** Wanders the field along golden-ratio sinusoids. */
 export const goldenWanderBehavior: AnimationBehavior = {
     id: 'golden-wander',
     name: 'Wander',
@@ -186,7 +173,6 @@ export const goldenWanderBehavior: AnimationBehavior = {
     }
 };
 
-/** Crawls coordinates along smooth-noise offsets. */
 export const noiseCrawlBehavior: AnimationBehavior = {
     id: 'noise-crawl',
     name: 'Crawl',
@@ -200,7 +186,6 @@ export const noiseCrawlBehavior: AnimationBehavior = {
         ].join('\n  ')
 };
 
-/** Drifts the color tint through smooth noise. */
 export const colorDriftBehavior: AnimationBehavior = {
     id: 'color-drift',
     name: 'Color Drift',
@@ -215,7 +200,6 @@ export const colorDriftBehavior: AnimationBehavior = {
         ].join('\n  ')
 };
 
-/** Applies a Recamán-inspired trigonometric warp. */
 export const recamanPulseBehavior: AnimationBehavior = {
     id: 'recaman-pulse',
     name: 'Recamán',
@@ -241,7 +225,6 @@ vec2 recamanWarp(vec2 coords, float t, float speed) {
         `${spatial} = recamanWarp(${spatial}, ${time}, ${speed});`
 };
 
-/** Draws a neon outline on luminance edges. */
 export const edgeDetectBehavior: AnimationBehavior = {
     id: 'edge-detect',
     name: 'Contour',
@@ -274,7 +257,6 @@ vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
         `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
 };
 
-/** Pushes coordinates away from the pointer. */
 export const mouseProximityBehavior: AnimationBehavior = {
     id: 'mouse-proximity',
     name: 'Mouse Field',
@@ -290,7 +272,6 @@ export const mouseProximityBehavior: AnimationBehavior = {
     }
 };
 
-/** Snaps coordinates to a coarse animated pixel grid. */
 export const pixelationBehavior: AnimationBehavior = {
     id: 'pixelation',
     name: 'Pixelation',
@@ -304,7 +285,6 @@ export const pixelationBehavior: AnimationBehavior = {
     }
 };
 
-/** Cross-fades the color to its inverse. */
 export const inversionBehavior: AnimationBehavior = {
     id: 'inversion',
     name: 'Inversion',
@@ -314,7 +294,6 @@ export const inversionBehavior: AnimationBehavior = {
         `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
 };
 
-/** Splits the red and blue channels along the field direction. */
 export const chromaticAberrationBehavior: AnimationBehavior = {
     id: 'chromatic-aberration',
     name: 'Aberration',
@@ -330,7 +309,6 @@ export const chromaticAberrationBehavior: AnimationBehavior = {
     }
 };
 
-/** Darkens the frame edges into a breathing vignette. */
 export const vignetteBehavior: AnimationBehavior = {
     id: 'vignette',
     name: 'Vignette',
@@ -346,7 +324,6 @@ export const vignetteBehavior: AnimationBehavior = {
     }
 };
 
-/** Adds animated film grain. */
 export const filmGrainBehavior: AnimationBehavior = {
     id: 'film-grain',
     name: 'Grain',
@@ -362,7 +339,6 @@ export const filmGrainBehavior: AnimationBehavior = {
     }
 };
 
-/** Overlays animated scan lines. */
 export const scanLinesBehavior: AnimationBehavior = {
     id: 'scan-lines',
     name: 'Scan',
@@ -377,7 +353,6 @@ export const scanLinesBehavior: AnimationBehavior = {
     }
 };
 
-/** Warps the field through a living Voronoi partition. */
 export const voronoiBehavior: AnimationBehavior = {
     id: 'voronoi',
     name: 'Voronoi',
@@ -413,10 +388,7 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
         `${spatial} = voronoiWarp(${spatial}, ${time}, ${speed});`
 };
 
-/**
- * Every built-in animation behavior, in registration order — the default catalog passed to
- * `compileToGLSL`.
- */
+/** Default catalog of built-in behaviors, passed to `compileToGLSL`. */
 export const animationRegistry: AnimationBehavior[] = [
     hueShiftBehavior,
     zoomBehavior,

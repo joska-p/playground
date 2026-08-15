@@ -1,10 +1,8 @@
 import type { ManipulationDefinition } from './types';
 
-/** Registry storing manipulation definitions by unique string key. */
 export class Registry {
     private readonly manipulationsMap = new Map<string, ManipulationDefinition>();
 
-    /** Creates a Registry populated from an array of manipulation definitions. */
     static from(definitions: readonly ManipulationDefinition[]) {
         const registry = new Registry();
         for (const definition of definitions) {
@@ -13,7 +11,6 @@ export class Registry {
         return registry;
     }
 
-    /** Registers a manipulation definition. */
     register(definition: ManipulationDefinition) {
         if (!definition.id) {
             throw new Error(`[pixel-engine] Manipulation must have a non-empty string identifier`);
@@ -31,7 +28,6 @@ export class Registry {
         this.manipulationsMap.set(definition.id, definition);
     }
 
-    /** Retrieves a registered manipulation by ID. */
     get(identifier: string) {
         const definition = this.manipulationsMap.get(identifier);
         if (!definition) {

@@ -2,7 +2,6 @@ import type { OperatorId } from './grammar/operators/registry.js';
 import { getOperator } from './grammar/operators/registry.js';
 import { toStructuredView, type Node } from './tree.js';
 
-/** A node rendered for display — a label, its operator id, an optional constant, and children. */
 export type TreeView = {
     label: string;
     type: OperatorId;
@@ -10,7 +9,6 @@ export type TreeView = {
     children?: TreeView[];
 };
 
-/** Render the tree as a math expression, e.g. `((x + y) / 2)`. */
 export function toMathString(node: Node): string {
     const op = getOperator(node.type);
     const resolvedArgs: Record<string, string> = {};
@@ -23,7 +21,6 @@ export function toMathString(node: Node): string {
     return op.toMathString({ args: resolvedArgs });
 }
 
-/** Render the tree as an ASCII tree diagram. */
 export function toTreeView(node: Node): string {
     return renderTreeView(toStructuredView(node));
 }

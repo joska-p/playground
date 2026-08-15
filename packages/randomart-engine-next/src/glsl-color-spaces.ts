@@ -1,4 +1,3 @@
-/** The color space the compiled shader interprets its expression value in. */
 export type ColorSpaceId = 'srgb' | 'oklch' | 'oklab' | 'hsl';
 
 const OKLCH_TO_SRGB_GLSL = `\
@@ -58,10 +57,6 @@ const COLOR_SPACE_GLSL: Record<string, string> = {
     hsl: HSL_TO_SRGB_GLSL
 };
 
-/**
- * Wrap a raw GLSL color expression so it lands in `color`, converting from the given color space to
- * sRGB when needed.
- */
 export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorSpaceId): string {
     switch (colorSpace) {
         case 'oklch':
@@ -90,7 +85,6 @@ export function wrapWithColorSpaceConversion(rawExpr: string, colorSpace: ColorS
     }
 }
 
-/** The GLSL conversion function source for a color space, or '' for `srgb`. */
 export function getColorSpaceGlslFunction(colorSpace: ColorSpaceId): string {
     return COLOR_SPACE_GLSL[colorSpace] ?? '';
 }

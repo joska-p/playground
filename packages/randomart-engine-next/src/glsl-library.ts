@@ -1,17 +1,6 @@
-/**
- * Reusable GLSL helper-function definitions.
- *
- * Each entry is a self-contained GLSL function (noise, hash, recaman, etc.) that expression nodes
- * can reference in their `toGLSL()` output. The dependency resolver in this module emits them in
- * topological order so every function's dependencies are defined before use.
- *
- * Ported from randomart-engine/src/compile/glslLibrary.ts (S6).
- */
-
-/** GLSL literal string for π, used across operator GLSL output. */
+// Ported from randomart-engine/src/compile/glslLibrary.ts — the two copies must stay in sync.
 export const GLSL_PI = '3.141592653589793';
 
-/** A self-contained GLSL helper function, optionally depending on other entries. */
 export type GlslFunction = {
     id: string;
     glsl: string;
@@ -100,7 +89,6 @@ const fbmNoise = {
 }`
 } as const satisfies GlslFunction;
 
-/** The built-in GLSL helper library (noise, hashing, pseudo-Recaman). */
 export const glslFunctions = [
     random2d,
     hash1,
@@ -110,17 +98,13 @@ export const glslFunctions = [
     fbmNoise
 ] as const satisfies GlslFunction[];
 
-/** Union of the ids of every built-in GLSL helper function. */
 export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 
-/** Lookup map from helper id to its {@link GlslFunction} definition. */
 export const glslFunctionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 /**
- * Given a list of required GLSL function IDs, returns the concatenated GLSL source with
- * dependencies resolved in topological order.
- *
- * Throws on dependency cycles.
+ * Concatenated source of the requested functions plus their dependencies, dependencies first —
+ * GLSL won't compile a call before its declaration. Throws on dependency cycles.
  */
 export function resolveGlslDeps(requiredIds: string[]): string {
     const visited = new Set<string>();

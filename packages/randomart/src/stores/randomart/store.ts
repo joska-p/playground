@@ -40,8 +40,8 @@ export const randomartStore = createStore<RandomartState>()(
 );
 
 /**
- * Centrally batches updates to tree configuration fields and safely recalculates the generative
- * math trees within the exact same atomic state transition.
+ * Rebuilds the trees in the same setState that applies the config change, so the store never
+ * holds a config that doesn't match its trees.
  */
 export function updateTreeConfig(
     updater: (state: RandomartState) => Partial<RandomartState>,
@@ -50,7 +50,8 @@ export function updateTreeConfig(
     const currentState = randomartStore.getState();
     const partialNext = updater(currentState);
 
-    // Create an integrated next state frame to calculate next trees cleanly
+    // Regenerate against the merged state, not the current one: the updater may change the seed,
+    // depth or weights, and the new trees must match that pending change.
     const nextState = { ...currentState, ...partialNext };
 
     const recalculatedTrees = generateTrees({

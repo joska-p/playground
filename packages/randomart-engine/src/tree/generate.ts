@@ -3,7 +3,6 @@ import { SeededRandom } from '../random/SeededRandom';
 import type { ExpressionNode, GrammarRule, RuleId, RuleWeights } from '../types';
 import { buildTree } from './build';
 
-/** Options controlling tree generation. */
 export type TreeConfig = {
     seedText: string;
     maxDepth: number;
@@ -12,7 +11,6 @@ export type TreeConfig = {
     ruleWeights: RuleWeights;
 };
 
-/** The generated per-channel trees plus the PRNG instances that produced them. */
 export type TreeOutput = {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
@@ -23,19 +21,9 @@ export type TreeOutput = {
 };
 
 /**
- * Generates one expression tree per color channel from a seed string. In correlated mode all
- * channels share a single PRNG stream; otherwise each channel gets its own PRNG, which produces
- * visibly different art for the same seed.
- *
- * @example
- *     ```ts
- *     const { treeR, treeG, treeB } = generateTrees({
- *         seedText: 'hello world',
- *         maxDepth: 8,
- *         enabledRuleIds: ['x', 'y', 'sin', 'cos', 'add', 'constant'],
- *         correlated: false
- *     });
- *     ```;
+ * With `correlated`, all channels draw from one PRNG stream so they stay visually similar for a
+ * seed; otherwise each channel gets its own stream and the same seed produces clearly different art
+ * per channel.
  */
 export function generateTrees(config: TreeConfig): TreeOutput {
     const rules = getAllRules()
@@ -46,8 +34,7 @@ export function generateTrees(config: TreeConfig): TreeOutput {
         }) satisfies GrammarRule[];
 
     if (config.correlated) {
-        // All three channels share one RNG stream so they get the same structural
-        // decisions, but they're built as separate trees — no aliasing.
+        // One shared stream, so the three trees get the same structural decisions
         const rng = new SeededRandom(config.seedText + '_rgb');
         return {
             treeR: buildTree(rng, rng, 0, config.maxDepth, rules),
@@ -59,7 +46,7 @@ export function generateTrees(config: TreeConfig): TreeOutput {
         };
     }
 
-    // Mix the base seed string with unique properties so structural hashes change completely
+    // Salt each seed so a channel never accidentally matches the structure stream
     const structureRng = new SeededRandom(`${config.seedText}_struct_${String(config.maxDepth)}`);
     const rngR = new SeededRandom(`${config.seedText}_red`);
     const rngG = new SeededRandom(`${config.seedText}_green`);

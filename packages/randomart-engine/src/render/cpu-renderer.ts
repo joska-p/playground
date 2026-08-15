@@ -1,16 +1,11 @@
 import { evaluateNode } from '../tree/evaluate';
 import type { ExpressionNode } from '../types';
 
-// Maps an expression output in [-1, 1] to an 8-bit channel value in [0, 255],
-// mirroring the `(value + 1.0) / 2.0` normalization used in the GLSL shader.
+// Must match the `(value + 1.0) / 2.0` normalization in the GLSL shader, or CPU and GPU renders diverge.
 function toChannel(value: number): number {
     return Math.floor(((value + 1) / 2) * 255);
 }
 
-/**
- * Renders the three channel trees into an RGBA pixel buffer, evaluating every pixel on the CPU.
- * Expression values in [-1, 1] map to 8-bit channels, mirroring the GLSL shader's normalization.
- */
 export function renderTreesToBuffer(
     treeR: ExpressionNode,
     treeG: ExpressionNode,

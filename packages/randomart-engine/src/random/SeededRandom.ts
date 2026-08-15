@@ -1,21 +1,15 @@
 const HISTORY_LIMIT = 1024;
 
-/**
- * A deterministic seeded PRNG (Mulberry32) that reproduces the same sequence of values for the same
- * seed string — the engine's source of reproducible variety.
- */
+/** Same seed string always yields the same sequence of values. */
 export class SeededRandom {
     private seed: number;
 
-    /** Hash of the seed string, stable across runs. */
     public readonly initialHash: number;
 
-    /** The most recent values produced by {@link next}, capped at a fixed limit. */
     public choiceHistory: number[] = [];
 
-    /** Creates a PRNG from a seed string; the same string always yields the same sequence. */
     constructor(seedString: string) {
-        // A more robust string hashing algorithm (MurmurHash-inspired)
+        // MurmurHash-style hashing, so short seed strings don't collide
         let hash = 2166136261;
         for (let i = 0; i < seedString.length; i++) {
             hash ^= seedString.charCodeAt(i);
@@ -25,8 +19,7 @@ export class SeededRandom {
         this.seed = this.initialHash;
     }
 
-    // Mulberry32 generator: excellent distribution for procedural generation
-    /** Returns the next pseudorandom float in [0, 1). */
+    // Mulberry32: good distribution for procedural generation
     next(): number {
         let z = (this.seed += 0x6d2b79f5);
         z = Math.imul(z ^ (z >>> 15), z | 1);

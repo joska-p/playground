@@ -13,7 +13,7 @@ type RuleCanvasProps = {
     renderMode: RenderMode;
 };
 
-/** Single entry point every card/panel uses instead of picking a canvas directly. */
+/** Single entry point so cards never pick between the CPU/GPU canvases themselves. */
 export function RuleCanvas({ rule, seed, resolution, t, sizePx, renderMode }: RuleCanvasProps) {
     if (renderMode === 'gpu') {
         return (

@@ -1,15 +1,8 @@
-/**
- * Minimal, dependency-free PNG encoder.
- *
- * We only need to write true-color (RGB) images, so this implements just the subset of the PNG spec
- * required for that: signature, IHDR, a single IDAT chunk holding zlib-deflated scanlines (each
- * prefixed with filter byte 0), and IEND. Compression is provided by Node's built-in `zlib`, so no
- * third-party dependency is needed.
- */
+// Minimal PNG encoder: this package only writes true-color images, so it implements just that
+// subset of the spec and uses Node's built-in zlib instead of a third-party dependency.
 
 import { deflateSync } from 'node:zlib';
 
-/** Precomputed CRC-32 lookup table (used by PNG chunk checksums). */
 const CRC_TABLE: number[] = (() => {
     const table = new Array<number>(256);
     for (let n = 0; n < 256; n++) {
@@ -31,7 +24,6 @@ function crc32(buf: Buffer): number {
     return (crc ^ 0xffffffff) >>> 0;
 }
 
-/** Build a single PNG chunk: length + type + data + CRC. */
 function chunk(type: string, data: Buffer): Buffer {
     const typeBuf = Buffer.from(type, 'ascii');
     const lenBuf = Buffer.alloc(4);
@@ -41,14 +33,6 @@ function chunk(type: string, data: Buffer): Buffer {
     return Buffer.concat([lenBuf, typeBuf, data, crcBuf]);
 }
 
-/**
- * Encode an RGB pixel buffer into a PNG.
- *
- * @param rgb Raw pixel data, length must be `width * height * 3` (R,G,B).
- * @param width Image width in pixels.
- * @param height Image height in pixels.
- * @returns Encoded PNG as a Buffer.
- */
 export function encodePNG(rgb: Uint8Array, width: number, height: number): Buffer {
     const expected = width * height * 3;
     if (rgb.length !== expected) {
@@ -66,7 +50,7 @@ export function encodePNG(rgb: Uint8Array, width: number, height: number): Buffe
     ihdr.writeUInt8(0, 11); // filter
     ihdr.writeUInt8(0, 12); // interlace
 
-    // Add the mandatory per-scanline filter byte (0 = none).
+    // PNG requires one filter byte (0 = none) before every scanline
     const stride = width * 3;
     const raw = Buffer.alloc((stride + 1) * height);
     for (let y = 0; y < height; y++) {

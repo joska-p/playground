@@ -1,10 +1,6 @@
 import type { GrammarRule } from '@repo/randomart-engine/types';
 
-/**
- * Filters rules by category and a case-insensitive name/id search query. Plain function (not
- * memoized) - the React Compiler handles memoizing the call site, so there's no need to hand-roll
- * useMemo here.
- */
+/** Not memoized on purpose: the React Compiler handles the call site, no hand-rolled useMemo. */
 export function useFilteredRules(
     rules: GrammarRule[],
     query: string,

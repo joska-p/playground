@@ -33,7 +33,6 @@ export type CollectNoiseDependenciesProps = {
     deps: Set<string>;
 };
 
-// TODO: see usage in compileToGLSL line ~71
 function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps): void {
     const operator = getOperator(node.type);
     if (operator.noiseDependencies) {
@@ -42,7 +41,6 @@ function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps)
         }
     }
 
-    // Recursively inspect keys mapped inside the unified args dictionary
     for (const name of operator.argNames) {
         const child = node.args[name];
         if (child && typeof child !== 'number') {
@@ -78,11 +76,9 @@ export type compileColorExpressionProps = {
 };
 
 function compileColorExpression({ treeR, treeG, treeB }: compileColorExpressionProps): string {
-    // Pass down the target coordinate variable variable name string ('p')
     return `vec3(${toGLSL(treeR, 'p')}, ${toGLSL(treeG, 'p')}, ${toGLSL(treeB, 'p')})`;
 }
 
-/** Options for {@link compileToShader}: the seed, the three trees, behaviors, and color space. */
 export type CompileToShaderProps = {
     seedText: string;
     treeR: Node;
@@ -92,10 +88,6 @@ export type CompileToShaderProps = {
     colorSpace?: ColorSpaceId;
 };
 
-/**
- * Compile the three channel trees into a self-contained GLSL ES 3.0 fragment shader, injecting
- * behavior code, color-space conversion, and the resolved noise helper functions.
- */
 export function compileToShader({
     seedText,
     treeR,

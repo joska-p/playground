@@ -1,18 +1,9 @@
-/**
- * Color-palette handling for mapping expression values to pixels.
- *
- * An expression value v in [-1, 1] is normalized to t in [0, 1] and mapped onto a palette by linear
- * interpolation between adjacent stops. When no palette is supplied we fall back to a grayscale
- * gradient, as specified by the task.
- */
-
 export type RGB = {
     r: number;
     g: number;
     b: number;
 };
 
-/** Parse a `#rgb` or `#rrggbb` hex color into RGB (0-255). */
 export function parseHex(hex: string): RGB {
     let h = hex.trim().replace(/^#/, '');
     if (h.length === 3) {
@@ -31,13 +22,7 @@ export function parseHex(hex: string): RGB {
     };
 }
 
-/**
- * Build a color mapper from a palette of hex strings.
- *
- * @param palette Optional list of hex colors. If omitted or empty, a grayscale gradient (black ->
- *   white) is used.
- * @returns A function mapping v in [-1, 1] to an RGB triple.
- */
+/** Interpolates palette colors; without a palette it falls back to a grayscale gradient. */
 export function createColorMapper(palette?: string[]): (v: number) => RGB {
     const stops: RGB[] =
         palette && palette.length > 0

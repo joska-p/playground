@@ -3,7 +3,6 @@ import type { AnimationBehavior, ExpressionNode } from '@repo/randomart-engine/t
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 
-// WebGL2 GLSL ES 3.00 Vertex Shader
 const VERTEX_SHADER_SOURCE = `#version 300 es
 in vec2 a_position;
 out vec2 v_texCoord;
@@ -20,9 +19,8 @@ export type UniformLocs = {
     mouse: WebGLUniformLocation | null;
 };
 
-/** Owns shader compilation and the resulting WebGLProgram lifecycle. */
 export function useShaderProgram(
-    glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
+    glRef: React.RefObject<WebGL2RenderingContext | null>,
     bitmapSize: BitmapSize,
     trees: {
         treeR: ExpressionNode;
@@ -44,8 +42,8 @@ export function useShaderProgram(
         const gl = glRef.current;
         if (!gl) return;
 
-        // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
-        // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
+        // compileToGLSL must emit "#version 300 es", read "v_texCoord" and write "fragColor",
+        // otherwise the link below fails silently on first render.
         const fragmentShaderSource = compileToGLSL(
             trees.treeR,
             trees.treeG,
@@ -61,7 +59,6 @@ export function useShaderProgram(
             return;
         }
 
-        // Clean up old program
         const oldProgram = programRef.current;
         if (oldProgram) {
             gl.deleteProgram(oldProgram);
@@ -70,12 +67,10 @@ export function useShaderProgram(
         programRef.current = program;
         gl.useProgram(program);
 
-        // Bind position attribute
         const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
         gl.enableVertexAttribArray(positionAttributeLocation);
         gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-        // Cache uniform locations
         const locs: UniformLocs = {
             time: gl.getUniformLocation(program, 'u_time'),
             animSpeed: gl.getUniformLocation(program, 'u_animSpeed'),
@@ -84,7 +79,6 @@ export function useShaderProgram(
         };
         uniformLocsRef.current = locs;
 
-        // Update resolution uniform
         const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
         if (resolutionLocation) {
             gl.uniform2f(resolutionLocation, bitmapSize.width, bitmapSize.height);
@@ -110,10 +104,6 @@ export function useShaderProgram(
 
     return { programRef, uniformLocsRef };
 }
-
-// ---------------------------------------------------------------------------
-// WebGL2 boilerplate (pure functions)
-// ---------------------------------------------------------------------------
 
 function createShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
     const shader = gl.createShader(type);

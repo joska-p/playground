@@ -4,10 +4,9 @@ import { randomartStore, updateTreeConfig } from '../../stores/randomart/store';
 import type { RandomartState } from '../../stores/randomart/types';
 
 /**
- * The "recipe" needed to reproduce an image and its animation state: the inputs to `generateTrees`,
- * plus the animation frame (`time`) and which behaviors are active. `mode`, `activeChannel`, and
- * `running` are still excluded as pure UI/playback state. The derived trees themselves are excluded
- * too — they're recomputed on import.
+ * The inputs needed to reproduce an image: what `generateTrees` takes, plus the animation frame
+ * (`time`) and active behaviors. `mode`, `activeChannel`, and `running` are pure UI state and stay
+ * out; the derived trees are recomputed on import.
  */
 type RandomartRecipe = {
     seedText: RandomartState['seedText'];
@@ -99,9 +98,8 @@ export function StateIOButtons() {
                     throw new Error('File does not contain a valid randomart recipe');
                 }
 
-                // updateTreeConfig recomputes trees from the recipe and merges the
-                // result into the store (running/time/animationSpeed/mode/etc. are
-                // left untouched).
+                // updateTreeConfig recomputes the trees from the recipe; running/time/speed/mode
+                // and the rest are left untouched.
                 updateTreeConfig(() => parsed, 'state/importRecipe');
             } catch (err) {
                 console.error('Failed to import recipe:', err);
