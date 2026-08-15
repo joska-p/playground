@@ -26,8 +26,8 @@ Partially rolled out — only some packages have docs yet; new packages should a
 3. A custom loader (`apps/playground/src/content/loaders/api-docs.ts`) reads that dir and serves it as the `api` content collection — a package entry from the README frontmatter plus one entry per module.
 4. `apps/playground` (Astro) renders one page per package at `/discoveries/<pkgDir>/`: the README overview (`#overview`) plus every module as an anchored section (`#<module-path>`), navigated by an in-page scrollspy sidebar.
 
-Config templates: `packages/glaze/typedoc.json` (React, `@types/react` mapping), `packages/randomart-engine/typedoc.json` (non-React, `@types/node`), `packages/art-canvas/typedoc.json` (app: single entry point file). Glaze is the *config* template, not a style authority.
+Config templates: `packages/glaze/typedoc.json` (React, `@types/react` mapping), `packages/randomart-engine/typedoc.json` (non-React, `@types/node`), `packages/art-canvas/typedoc.json` (app: single entry point file). Glaze is the _config_ template, not a style authority.
 
 ## Maintenance
 
-API changes → regenerate, nothing to edit. Update the README only when *concepts* change. Re-run: `pnpm build-docs`.
+API changes → regenerate, nothing to edit. Update the README only when _concepts_ change. Re-run: `pnpm build-docs`.

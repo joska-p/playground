@@ -1,7 +1,10 @@
 /** `time` and `delta` are in seconds. */
 export type FrameCallback = (time: number, delta: number) => void;
 
-/** rAF dispatcher; starts on the first subscriber, stops when the last one leaves, so an idle surface never keeps ticking. */
+/**
+ * RAF dispatcher; starts on the first subscriber, stops when the last one leaves, so an idle
+ * surface never keeps ticking.
+ */
 export class FrameLoop {
     readonly #callbacks = new Set<FrameCallback>();
     #rafId = 0;

@@ -29,7 +29,10 @@ function withVersionDirective(source: string): string {
     return `#version 300 es\n${stripped}`;
 }
 
-/** Compiles + links a shader pair, auto-injecting `#version 300 es`; throws the driver log on failure. */
+/**
+ * Compiles + links a shader pair, auto-injecting `#version 300 es`; throws the driver log on
+ * failure.
+ */
 export function compileProgram(
     gl: WebGL2RenderingContext,
     fragmentSource: string,

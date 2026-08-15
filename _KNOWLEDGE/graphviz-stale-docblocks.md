@@ -6,7 +6,7 @@ En nettoyant `packages/graph-viz`, deux commentaires mentaient sur le code :
    "(empty = show all)" — en réalité, un set vide cache TOUT (`writeInstanceData` teste
    `visibleCommunities.has(node.community)`, qui renvoie false). Le commentaire décrivait une
    intention/aspiration, pas le comportement réel. Piège classique : on documente ce qu'on
-   *veut* que le champ fasse, pas ce que le code fait.
+   _veut_ que le champ fasse, pas ce que le code fait.
 
 2. **Provenance devenue fausse.** Le chemin d'entrée `prepare.ts` était commenté
    "repo-root-level graphify-out/graph.json", mais `resolve(__dirname, '../../data/graph.json')`

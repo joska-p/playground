@@ -10,15 +10,15 @@ A map, not a checklist — deviating is fine if the package README notes why.
 
 ## src/ directories
 
-| Dir          | Role                                                                  |
-| ------------ | --------------------------------------------------------------------- |
-| `core/`      | Pure logic — no React, no DOM, no store imports. Runs anywhere.       |
-| `components/`| React components, one file per component.                             |
-| `stores/`    | Zustand stores, each domain in its own subdirectory.                  |
-| `hooks/`     | React hooks.                                                          |
-| `utils/`     | Default home for pure helpers.                                        |
-| `lib/`       | Third-party wrappers only (initialization, adapter). Rarely used.     |
-| `data/`      | Static data files only (JSON, images) — never code.                   |
+| Dir           | Role                                                              |
+| ------------- | ----------------------------------------------------------------- |
+| `core/`       | Pure logic — no React, no DOM, no store imports. Runs anywhere.   |
+| `components/` | React components, one file per component.                         |
+| `stores/`     | Zustand stores, each domain in its own subdirectory.              |
+| `hooks/`      | React hooks.                                                      |
+| `utils/`      | Default home for pure helpers.                                    |
+| `lib/`        | Third-party wrappers only (initialization, adapter). Rarely used. |
+| `data/`       | Static data files only (JSON, images) — never code.               |
 
 - No top-level files in `src/`.
 - A `core/` domain past ~200 lines → split into a subdirectory (`core/parser/`).
@@ -35,7 +35,7 @@ A Bridge earns its place only when state is read from more than one place or mus
 
 ## Pluggable behavior → definition/registry split
 
-Trigger: "how do I add a new *kind* of X" (a rule, a tile shape, a manipulation).
+Trigger: "how do I add a new _kind_ of X" (a rule, a tile shape, a manipulation).
 
 - **Definitions** — plain data or factory functions, keyed by id, serializable (worker-safe).
 - **Registry** — how the UI finds definitions. Pick by need: `Map` for fetch-by-id, array for list-all, facade for a few definitions.

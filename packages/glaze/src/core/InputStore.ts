@@ -21,7 +21,10 @@ export interface InputHandlers {
     onContextMenu?: (event: MouseEvent) => void;
 }
 
-/** Raw input signal bus for a canvas; transient state (`wasKeyPressed`, `wheelDelta`) is cleared by `endFrame()`. */
+/**
+ * Raw input signal bus for a canvas; transient state (`wasKeyPressed`, `wheelDelta`) is cleared by
+ * `endFrame()`.
+ */
 export class InputStore {
     readonly pointer: Point2D = { x: 0, y: 0 };
     readonly pointerDelta: Point2D = { x: 0, y: 0 };

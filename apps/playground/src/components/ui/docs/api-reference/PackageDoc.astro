@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
-import ApiNav from './ApiNav.astro';
-import { ApiView } from './ApiView';
+import ApiReference from './ApiReference.astro';
+import ApiReferenceNav from './ApiReferenceNav.astro';
 
 type Props = {
     packageName: string;
@@ -14,7 +14,7 @@ const { Content } = entry ? await render(entry) : { Content: null };
 ---
 
 <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
-    <ApiNav entry={entry} />
+    <ApiReferenceNav entry={entry} />
 
     <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-12">
         {
@@ -29,18 +29,15 @@ const { Content } = entry ? await render(entry) : { Content: null };
         }
 
         {
-            entry && entry.data.typedoc && (
+            entry && (
                 <article
                     id="api"
                     class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
                 >
-                    <div class="text-primary mb-4 font-mono text-[10px] font-bold tracking-widest uppercase">
+                    <div class="text-primary mb-4 font-mono text-xs font-bold tracking-widest uppercase">
                         API Reference // Structured Model
                     </div>
-                    <ApiView
-                        client:load
-                        typedoc={entry.data.typedoc}
-                    />
+                    <ApiReference typedoc={entry.data.typedoc} />
                 </article>
             )
         }

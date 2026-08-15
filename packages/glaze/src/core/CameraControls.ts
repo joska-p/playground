@@ -1,6 +1,9 @@
 import { Camera, clamp, DEFAULT_ZOOM_BOUNDS, type Point2D, type ZoomBounds } from './Camera';
 
-/** All camera mutation goes through here, so bounds and focal-point math are enforced in exactly one place. */
+/**
+ * All camera mutation goes through here, so bounds and focal-point math are enforced in exactly one
+ * place.
+ */
 export interface CameraControls {
     panTo(position: Point2D): void;
     panBy(dx: number, dy: number): void;

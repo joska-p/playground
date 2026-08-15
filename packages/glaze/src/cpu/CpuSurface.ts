@@ -15,7 +15,10 @@ export interface CpuSurfaceConfig {
 
 export type CpuDraw = (surface: CpuSurface) => void;
 
-/** Immediate-mode Canvas2D drawing in world space; `applyCamera()` runs automatically before each frame's callback. */
+/**
+ * Immediate-mode Canvas2D drawing in world space; `applyCamera()` runs automatically before each
+ * frame's callback.
+ */
 export class CpuSurface {
     /** Seconds since the frame loop started. */
     time = 0;

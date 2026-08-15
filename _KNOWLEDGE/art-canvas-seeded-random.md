@@ -4,13 +4,13 @@
 
 - **Avant : 55 commentaires / Après : 26** sur 6 fichiers (`seeded-random.ts`, `classic.ts`, `SyllabicFibonacciMaterial.ts`, `AtlasControls.tsx`, `foldedSpace.ts`, `manual.ts`). Tous les commentaires restants sont des "pourquoi" vérifiés.
 - Règles appliquées :
-  - Commentaire = uniquement un *pourquoi* (décision, contrainte, piège, intention, contrat d'entrée invisible).
-  - Un nom de fonction/variable lisible → pas de commentaire.
-  - Les magic numbers (palettes, matrices de color-space) méritent un label/ancre de standard — c'est le seul cas "quoi" toléré, car indérivable.
-  - "xxx was removed" / historique pur → git log, pas le code.
-  - Banners décoratifs (`// ---`) → supprimer ; si le texte porte une info (ancre de standard), le garder en commentaire simple.
-  - Une étape numérotée (`// 1.`) = duplication du quoi → le détail vit dans _KNOWLEDGE, l'ancre reste dans le code.
-  - Commentaire qui justifie un pattern obsolète = signal que le pattern l'est peut-être (useMemo).
+    - Commentaire = uniquement un _pourquoi_ (décision, contrainte, piège, intention, contrat d'entrée invisible).
+    - Un nom de fonction/variable lisible → pas de commentaire.
+    - Les magic numbers (palettes, matrices de color-space) méritent un label/ancre de standard — c'est le seul cas "quoi" toléré, car indérivable.
+    - "xxx was removed" / historique pur → git log, pas le code.
+    - Banners décoratifs (`// ---`) → supprimer ; si le texte porte une info (ancre de standard), le garder en commentaire simple.
+    - Une étape numérotée (`// 1.`) = duplication du quoi → le détail vit dans _KNOWLEDGE, l'ancre reste dans le code.
+    - Commentaire qui justifie un pattern obsolète = signal que le pattern l'est peut-être (useMemo).
 
 ## Pipeline OKLCH → sRGB (Björn Ottosson) — manual.ts
 
@@ -22,12 +22,12 @@ Référence complète, extraite du code (magic numbers indérivables) :
 4. **LMS → linear sRGB** : 4.0767416621 / -3.3077115913 / 0.2309699292 (r), -1.2684380046 / 2.6097574011 / -0.3413193965 (g), -0.0041960863 / -0.7034186147 / 1.7076147010 (b).
 5. **Gamma sRGB** : `x ≤ 0.0031308 → x·12.92`, sinon `1.055·x^(1/2.4) − 0.055`. Branchless via `mix(highPart, lowPart, lessThanEqual(...))` — commentaire "cheaper than branching on the GPU" = pourquoi légitime.
 
-Leçon : les étapes numérotées (`// 1.`, `// 2.`…) dans le code décrivent le *quoi* ; le détail vaut mieux dans _KNOWLEDGE. Le contrat d'entrée (radians) et l'ancrage au standard restent dans le code.
+Leçon : les étapes numérotées (`// 1.`, `// 2.`…) dans le code décrivent le _quoi_ ; le détail vaut mieux dans _KNOWLEDGE. Le contrat d'entrée (radians) et l'ancrage au standard restent dans le code.
 
 ## Pattern shader "neon glow" (foldedSpace.ts)
 
 - `wave = abs(sin(...)); wave = 0.02 / wave;` — l'inverse d'une vague crée des pics fins et brillants (effet néon / glow).
-- Le commentaire original "Compute neon waves" décrivait le *quoi* ; le vrai "pourquoi" = le truc de l'inverse. Aujourd'hui le commentaire porte le truc, pas le résultat.
+- Le commentaire original "Compute neon waves" décrivait le _quoi_ ; le vrai "pourquoi" = le truc de l'inverse. Aujourd'hui le commentaire porte le truc, pas le résultat.
 
 ## Pattern récurrent : en-tête shader QuadPipeline
 
@@ -65,7 +65,7 @@ Matière brute, pas encore triée.
 
 - Helper local non-exporté : `assertDefined<T>(value: T | undefined, message?)`.
 - Même narrowing que `!` mais échoue loud au runtime (`throw new Error`) au lieu de laisser `undefined` circuler.
-- Utilisé dans `pick` et `pickWeighted` là où on a *prouvé* que l'index est valide — c'est donc un invariant vérifié à chaud, pas juste un garde.
+- Utilisé dans `pick` et `pickWeighted` là où on a _prouvé_ que l'index est valide — c'est donc un invariant vérifié à chaud, pas juste un garde.
 - Lesson : chaque usage d'`assertDefined` devrait être accompagné du commentaire "pourquoi c'est safe" (cf. pick : index borné par `[0,1)`).
 
 ## Piège float : `pickWeighted`

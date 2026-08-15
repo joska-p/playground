@@ -18,13 +18,13 @@ Sources: `apps/playground/src/content/docs/conventions/13-imports-exports.md` an
 
 ## Naming
 
-| Prefix      | Use for                                    | Example          |
-| ----------- | ------------------------------------------ | ---------------- |
-| `create*`   | Instantiate from config                    | `createRule`     |
-| `define*`   | Build a type-safe config/definition object | `defineManip`    |
-| `parse*`    | String → structured data                   | `parseRule`      |
-| `build*`    | Assemble from existing parts               | `buildTree`      |
-| `get*`/`use*` | Access existing data                     | `getCreature`, `useRows` |
+| Prefix        | Use for                                    | Example                  |
+| ------------- | ------------------------------------------ | ------------------------ |
+| `create*`     | Instantiate from config                    | `createRule`             |
+| `define*`     | Build a type-safe config/definition object | `defineManip`            |
+| `parse*`      | String → structured data                   | `parseRule`              |
+| `build*`      | Assemble from existing parts               | `buildTree`              |
+| `get*`/`use*` | Access existing data                       | `getCreature`, `useRows` |
 
 Never `*Factory` / `factory*`.
 

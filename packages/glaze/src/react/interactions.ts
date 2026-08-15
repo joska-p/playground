@@ -1,7 +1,10 @@
 import type { Gesture, InteractionEvent, PanOptions, ZoomOptions } from '../core/gestures';
 import { PanGesture, ZoomGesture } from '../core/gestures';
 
-/** `InteractionEvent` with a non-null `surface` — the pipeline only routes events while a surface is mounted. */
+/**
+ * `InteractionEvent` with a non-null `surface` — the pipeline only routes events while a surface is
+ * mounted.
+ */
 export interface LiveInteractionEvent<TEvent, TSurface> extends Omit<
     InteractionEvent<TEvent, TSurface>,
     'surface'

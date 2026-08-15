@@ -68,7 +68,10 @@ function setUniformValue(
     }
 }
 
-/** Uploads uniforms; names with no matching active uniform are silently ignored, so one map can feed programs with different uniform sets. */
+/**
+ * Uploads uniforms; names with no matching active uniform are silently ignored, so one map can feed
+ * programs with different uniform sets.
+ */
 export function setUniforms(
     gl: WebGL2RenderingContext,
     uniforms: Map<string, UniformEntry>,

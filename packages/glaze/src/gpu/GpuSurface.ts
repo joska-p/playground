@@ -232,7 +232,10 @@ export class GpuSurface {
         return this;
     }
 
-    /** Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike `CpuSurface.clear`'s color strings. */
+    /**
+     * Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike `CpuSurface.clear`'s
+     * color strings.
+     */
     clear(r = 0, g = 0, b = 0, a = 1): this {
         this.#flushBatch();
         if (this.#lost) return this;

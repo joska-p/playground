@@ -1,7 +1,8 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+
 type Props = {
-    entry?: any;
-    pkg?: string;
+    entry?: CollectionEntry<'api'> | undefined;
 };
 
 const { entry } = Astro.props;
@@ -17,13 +18,13 @@ const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
     class="sticky top-24 hidden h-[calc(100vh-7rem)] w-60 shrink-0 flex-col overflow-y-auto md:flex"
 >
     <nav
-        aria-label="API Reference navigation"
+        aria-label="API reference navigation"
         class="min-h-full flex-1 overflow-y-auto p-3"
     >
         <div class="space-y-5 py-1">
             <div>
                 <p
-                    class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-[9px] font-bold tracking-wider uppercase"
+                    class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-xs font-bold tracking-wider uppercase"
                 >
                     Reference
                 </p>
@@ -42,7 +43,7 @@ const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
                         </a>
                     </li>
                     {
-                        entry && entry.data.typedoc && (
+                        entry && (
                             <li>
                                 <a
                                     data-target="api"

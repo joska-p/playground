@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { Loader } from 'astro/loaders';
+import type { JSONOutput } from 'typedoc';
 
 function findRepoRoot(start: string): string {
     let dir = path.resolve(start);
@@ -72,9 +73,11 @@ export function apiDocsLoader(): Loader {
 
                 if (!existsSync(jsonPath)) continue;
 
-                let typedocData: unknown;
+                let typedocData: JSONOutput.ProjectReflection | undefined;
                 try {
-                    typedocData = JSON.parse(readFileSync(jsonPath, 'utf8'));
+                    typedocData = JSON.parse(
+                        readFileSync(jsonPath, 'utf8')
+                    ) as JSONOutput.ProjectReflection;
                 } catch (err) {
                     logger.error(`[api-docs] failed to parse ${jsonPath}: ${String(err)}`);
                     continue;

@@ -7,5 +7,5 @@ Toute chaîne **non reconnue → magenta** (`(1, 0, 1, 1)`). C'est un signal vis
 magenta dans la scène, c'est une couleur invalide quelque part — et ça marche sur les deux
 surfaces (CPU et GPU partagent le même parsing).
 
-Leçon : une valeur d'erreur *visible* (couleur criarde) vaut mieux qu'un échec silencieux pour un
+Leçon : une valeur d'erreur _visible_ (couleur criarde) vaut mieux qu'un échec silencieux pour un
 débogage rapide.

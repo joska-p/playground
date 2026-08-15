@@ -13,4 +13,3 @@ explicitement, il faut l'omettre via un spread conditionnel
 
 Leçon : quand une option a un défaut intelligent côté bas niveau, les facades ne doivent pas
 ré-appliquer un défaut plus bête.
-

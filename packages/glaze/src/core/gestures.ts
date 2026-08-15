@@ -20,7 +20,10 @@ export interface InteractionEvent<TEvent, TSurface> {
     surface: TSurface | null;
 }
 
-/** Every gesture receives every event and decides to handle or ignore it. Custom gestures replace the built-ins — there is no consume protocol. */
+/**
+ * Every gesture receives every event and decides to handle or ignore it. Custom gestures replace
+ * the built-ins — there is no consume protocol.
+ */
 export interface Gesture<TSurface> {
     onStart?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
     onMove?: (event: InteractionEvent<PointerEvent, TSurface>) => void;
@@ -93,7 +96,10 @@ function matchesButton(button: number, filter?: number | number[]): boolean {
     return Array.isArray(filter) ? filter.includes(button) : filter === button;
 }
 
-/** Reads `cameraControls`, `getSurface`, and `gestures` from its options at event time, so they can be swapped without re-subscribing. */
+/**
+ * Reads `cameraControls`, `getSurface`, and `gestures` from its options at event time, so they can
+ * be swapped without re-subscribing.
+ */
 export class InputRouter<TSurface> {
     readonly #options: InputRouterOptions<TSurface>;
     readonly #dispose: () => void;

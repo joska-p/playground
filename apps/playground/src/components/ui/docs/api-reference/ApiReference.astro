@@ -1,0 +1,116 @@
+---
+import type { JSONOutput } from 'typedoc';
+import { kindLabel } from './kind-labels';
+
+type Props = {
+    typedoc: JSONOutput.ProjectReflection;
+};
+
+const { typedoc } = Astro.props;
+
+const children = typedoc.children ?? [];
+
+function commentOf(reflection?: { comment?: JSONOutput.Comment }): JSONOutput.Comment | undefined {
+    return reflection?.comment;
+}
+---
+
+{
+    children.length === 0 ? (
+        <p class="text-muted-foreground text-sm">No exported members found.</p>
+    ) : (
+        <div class="space-y-4">
+            {children.map((child) => {
+                const signature = child.signatures?.[0];
+                const summary = commentOf(child)?.summary ?? commentOf(signature)?.summary;
+                const blockTags = commentOf(child)?.blockTags ?? commentOf(signature)?.blockTags;
+                const examples = blockTags?.filter((tag) => tag.tag === '@example') ?? [];
+                const hasDetails = Boolean(
+                    child.typeParameters?.length || child.children?.length || child.type
+                );
+
+                return (
+                    <div class="border-border/30 bg-surface/20 space-y-3 rounded-lg border p-4">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-primary/10 text-primary rounded px-2 py-0.5 font-mono text-xs font-bold uppercase">
+                                {kindLabel(child.kind)}
+                            </span>
+                            <h4 class="font-mono text-sm font-semibold">{child.name}</h4>
+                        </div>
+
+                        {summary && summary.length > 0 && (
+                            <p class="text-sm opacity-90">
+                                {summary.map((part) => part.text).join('')}
+                            </p>
+                        )}
+
+                        {examples.length > 0 && (
+                            <div class="mt-2 space-y-1">
+                                <span class="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                                    Example:
+                                </span>
+                                {examples.map((example) => (
+                                    <pre class="bg-muted/50 overflow-x-auto rounded p-2 font-mono text-xs">
+                                        <code>
+                                            {example.content.map((part) => part.text).join('')}
+                                        </code>
+                                    </pre>
+                                ))}
+                            </div>
+                        )}
+
+                        {hasDetails && (
+                            <details class="group">
+                                <summary class="text-muted-foreground hover:text-foreground cursor-pointer text-xs transition-colors select-none marker:hidden">
+                                    <span class="group-open:hidden">Expand details +</span>
+                                    <span class="hidden group-open:inline">Collapse details</span>
+                                </summary>
+                                <div class="border-border/20 text-muted-foreground mt-3 space-y-2 border-t pt-3 font-mono text-xs">
+                                    {child.typeParameters && child.typeParameters.length > 0 && (
+                                        <div>
+                                            <span class="font-semibold">Type Parameters:</span>
+                                            <ul class="mt-1 list-disc pl-4">
+                                                {child.typeParameters.map((tp) => (
+                                                    <li>{tp.name}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {child.type && (
+                                        <div>
+                                            <span class="font-semibold">Type:</span>{' '}
+                                            <span class="text-foreground">
+                                                {JSON.stringify(child.type)}
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {child.children && child.children.length > 0 && (
+                                        <div>
+                                            <span class="font-semibold">
+                                                Members / Children ({child.children.length}):
+                                            </span>
+                                            <div class="mt-2 space-y-2">
+                                                {child.children.map((grand) => (
+                                                    <div class="bg-muted/20 rounded p-2">
+                                                        <span class="text-foreground font-bold">
+                                                            {grand.name}
+                                                        </span>
+                                                        <span class="ml-2 text-xs opacity-75">
+                                                            ({kindLabel(grand.kind)})
+                                                        </span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </details>
+                        )}
+                    </div>
+                );
+            })}
+        </div>
+    )
+}

@@ -2,6 +2,7 @@ import { iconNames } from '@repo/ui/icons';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection, reference } from 'astro:content';
+import type { JSONOutput } from 'typedoc';
 import { apiDocsLoader } from './content/loaders/api-docs';
 
 const iconNameSchema = z.enum(iconNames);
@@ -52,7 +53,7 @@ const api = defineCollection({
         package: z.string(),
         description: z.string().optional(),
         hasApp: z.boolean(),
-        typedoc: z.any()
+        typedoc: z.custom<JSONOutput.ProjectReflection>()
     })
 });
 

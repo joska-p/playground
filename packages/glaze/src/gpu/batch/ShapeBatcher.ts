@@ -74,7 +74,10 @@ function compileProgram(
     return program;
 }
 
-/** Batches every shape into one dynamic vertex buffer, drawn in a single call per flush — the pixelate2d approach ported to glaze. */
+/**
+ * Batches every shape into one dynamic vertex buffer, drawn in a single call per flush — the
+ * pixelate2d approach ported to glaze.
+ */
 export class ShapeBatcher {
     readonly #gl: WebGL2RenderingContext;
     readonly #camera: Camera;

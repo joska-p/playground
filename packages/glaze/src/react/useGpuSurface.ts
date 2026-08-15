@@ -17,7 +17,10 @@ export interface GpuSurfaceOptions {
     dpr?: number;
 }
 
-/** Manages a `GpuSurface` for a `<canvas>`: attach the returned `canvasRef`; the surface is created on mount and destroyed on detach/unmount. */
+/**
+ * Manages a `GpuSurface` for a `<canvas>`: attach the returned `canvasRef`; the surface is created
+ * on mount and destroyed on detach/unmount.
+ */
 export function useGpuSurface(options: GpuSurfaceOptions = {}) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const surfaceRef = useRef<GpuSurface | null>(null);

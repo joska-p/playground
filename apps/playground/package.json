@@ -75,6 +75,7 @@
         "satteri": "0.9.4",
         "sharp": "^0.34.5",
         "tailwindcss": "^4.3.0",
+        "typedoc": "catalog:",
         "typescript": "^6.0.3"
     }
 }

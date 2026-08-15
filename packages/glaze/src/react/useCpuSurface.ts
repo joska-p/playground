@@ -17,7 +17,10 @@ export interface CpuSurfaceOptions {
     dpr?: number;
 }
 
-/** Manages a `CpuSurface` for a `<canvas>`: attach the returned `canvasRef`; the surface is created on mount and destroyed on detach/unmount. */
+/**
+ * Manages a `CpuSurface` for a `<canvas>`: attach the returned `canvasRef`; the surface is created
+ * on mount and destroyed on detach/unmount.
+ */
 export function useCpuSurface(options: CpuSurfaceOptions = {}) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const surfaceRef = useRef<CpuSurface | null>(null);

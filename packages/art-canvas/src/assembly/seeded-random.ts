@@ -10,7 +10,10 @@ export type SeededRandom = {
 
 const HISTORY_LIMIT = 1024;
 
-/** Prefer over the `!` operator: same narrowing, but fails loudly at runtime if the assumption was wrong. */
+/**
+ * Prefer over the `!` operator: same narrowing, but fails loudly at runtime if the assumption was
+ * wrong.
+ */
 function assertDefined<T>(value: T | undefined, message = 'Expected value to be defined'): T {
     if (value === undefined) throw new Error(message);
     return value;

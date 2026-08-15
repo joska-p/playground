@@ -4,7 +4,10 @@ import type { GpuDraw } from '../../../gpu/GpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
-/** Structural contract satisfied by both `CpuSurface` and `GpuSurface`, so one scene function drives both — only `clear` differs. */
+/**
+ * Structural contract satisfied by both `CpuSurface` and `GpuSurface`, so one scene function drives
+ * both — only `clear` differs.
+ */
 interface ShapeSurface {
     width: number;
     height: number;
