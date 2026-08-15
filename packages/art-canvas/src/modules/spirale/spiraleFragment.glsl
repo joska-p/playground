@@ -5,9 +5,8 @@ in vec2 vUv;
 out vec4 fragColor;
 
 uniform vec2 u_resolution;
-uniform float u_time;
+uniform float u_controled_time;
 uniform float u_gap;
-uniform bool u_isPlaying;
 
 const float TWO_PI = 6.283185307179586;
 
@@ -116,7 +115,7 @@ void main() {
 
     // Define how fast the pen draws (radians per second)
     float drawSpeed = 12.0;
-    float currentMaxTheta = u_time * drawSpeed;
+    float currentMaxTheta = u_controled_time * drawSpeed;
 
     // Smoothly cut off the line right at the current pen tip location
     float penDelta = fwidth(totalTheta);
@@ -127,8 +126,8 @@ void main() {
     mask *= drawProgressMask;
 
     // Plotter aesthetic rendering
-    vec3 paperColor = vec3(0.97, 0.96, 0.93);
-    vec3 inkColor = vec3(0.05, 0.05, 0.1);
+    vec3 inkColor = vec3(0.97, 0.96, 0.93);
+    vec3 paperColor = vec3(0.05, 0.05, 0.1);
     vec3 color = mix(paperColor, inkColor, mask);
 
     fragColor = vec4(color, 1.0);

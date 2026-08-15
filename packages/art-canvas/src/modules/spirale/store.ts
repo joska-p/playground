@@ -19,6 +19,10 @@ export const setIsPlaying = (isPlaying: boolean) => {
     store.setState({ isPlaying });
 };
 
+export const toggleIsPlaying = () => {
+    store.setState({ isPlaying: !store.getState().isPlaying });
+};
+
 export const useGap = () => {
     const gap = useStore(store, (state) => state.gap);
     return gap;
