@@ -2,7 +2,7 @@
     "name": "playground",
     "private": true,
     "scripts": {
-        "build": "turbo run build",
+        "build": "pnpm build-docs && turbo run build",
         "build-docs": "node ./scripts/build-docs.mjs",
         "deploy": "pnpm build",
         "dev": "turbo run dev",
@@ -35,8 +35,6 @@
         "prettier-plugin-tailwindcss": "catalog:",
         "turbo": "catalog:",
         "typedoc": "catalog:",
-        "typedoc-plugin-markdown": "^4.12.0",
-        "typedoc-plugin-missing-exports": "catalog:",
         "typescript": "catalog:",
         "yaml": "catalog:"
     },

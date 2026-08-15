@@ -21,12 +21,14 @@ Partially rolled out — only some packages have docs yet; new packages should a
 
 ## Pipeline
 
-1. `packages/<pkg>/typedoc.json` + `typedoc*` devDependencies (catalog).
-2. `pnpm build-docs` → `scripts/build-docs.mjs` runs TypeDoc once per package into `apps/playground/.generated/api-docs/<pkgDir>/` (flat `README.mdx` + one `<dot.path>.mdx` per module; gitignored).
-3. A custom loader (`apps/playground/src/content/loaders/api-docs.ts`) reads that dir and serves it as the `api` content collection — a package entry from the README frontmatter plus one entry per module.
-4. `apps/playground` (Astro) renders one page per package at `/discoveries/<pkgDir>/`: the README overview (`#overview`) plus every module as an anchored section (`#<module-path>`), navigated by an in-page scrollspy sidebar.
+1. `packages/<pkg>/typedoc.json` (extends `typedoc.base.json`) lists `entryPoints` for packages with a public API; readme-only packages use `"entryPoints": []`.
+2. `pnpm build-docs` (root script `scripts/build-docs.mjs`) runs TypeDoc once per package and writes `apps/playground/.generated/api-docs/<pkgDir>/docs.json` (raw JSON; gitignored). Decoupled from `astro build` — run it first.
+3. The custom loader (`apps/playground/src/content/loaders/api-docs.ts`) reads each `docs.json`, merges the package README + `package.json` metadata (`description`, `hasApp`), and serves it as the `api` content collection — one entry per package.
+4. `apps/playground` (Astro) renders one page per package at `/discoveries/<pkgDir>/`: the README overview (`#overview`) plus the API reference (`#api`) with each exported symbol as an anchored section (`#symbol-<name>`), navigated by an in-page scrollspy sidebar.
 
-Config templates: `packages/glaze/typedoc.json` (React, `@types/react` mapping), `packages/randomart-engine/typedoc.json` (non-React, `@types/node`), `packages/art-canvas/typedoc.json` (app: single entry point file). Glaze is the _config_ template, not a style authority.
+`title`, `description`, and `hasApp` come from `package.json` — the README has no frontmatter.
+
+Config templates: `packages/glaze/typedoc.json` (React, `@types/react` mapping), `packages/randomart-engine/typedoc.json` (non-React, `@types/node`), `packages/automa-engine/typedoc.json` (multi-module engine). Glaze is the _config_ template, not a style authority.
 
 ## Maintenance
 

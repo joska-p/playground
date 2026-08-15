@@ -8,107 +8,162 @@ type Props = {
 
 const { typedoc } = Astro.props;
 
-const children = typedoc.children ?? [];
+// Helper pour récupérer tous les membres utiles (soit directs, soit à l'intérieur des modules)
+function extractAllSymbols(node: JSONOutput.ProjectReflection): JSONOutput.DeclarationReflection[] {
+    const symbols: JSONOutput.DeclarationReflection[] = [];
+
+    function traverse(item: JSONOutput.DeclarationReflection | JSONOutput.ProjectReflection) {
+        if (!item.children) return;
+
+        for (const child of item.children) {
+            // Kind 2 = Module / Kind 4 = Namespace -> On descend d'un niveau
+            if (child.kind === 2 || child.kind === 4) {
+                traverse(child);
+            } else {
+                symbols.push(child);
+            }
+        }
+    }
+
+    traverse(node);
+    return symbols;
+}
+
+const symbols = extractAllSymbols(typedoc);
 
 function commentOf(reflection?: { comment?: JSONOutput.Comment }): JSONOutput.Comment | undefined {
     return reflection?.comment;
 }
+
+function getText(parts?: JSONOutput.CommentDisplayPart[]): string {
+    return parts?.map((p) => p.text).join('') ?? '';
+}
+
+function slugify(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+}
 ---
 
 {
-    children.length === 0 ? (
-        <p class="text-muted-foreground text-sm">No exported members found.</p>
+    symbols.length === 0 ? (
+        <p class="text-muted-foreground text-base">Aucun membre exporté trouvé.</p>
     ) : (
-        <div class="space-y-4">
-            {children.map((child) => {
-                const signature = child.signatures?.[0];
-                const summary = commentOf(child)?.summary ?? commentOf(signature)?.summary;
-                const blockTags = commentOf(child)?.blockTags ?? commentOf(signature)?.blockTags;
+        <div class="space-y-12">
+            {symbols.map((symbol) => {
+                const signature = symbol.signatures?.[0];
+                const summary = commentOf(symbol)?.summary ?? commentOf(signature)?.summary;
+                const blockTags = commentOf(symbol)?.blockTags ?? commentOf(signature)?.blockTags;
                 const examples = blockTags?.filter((tag) => tag.tag === '@example') ?? [];
-                const hasDetails = Boolean(
-                    child.typeParameters?.length || child.children?.length || child.type
-                );
+                const elementId = `symbol-${slugify(symbol.name)}`;
 
                 return (
-                    <div class="border-border/30 bg-surface/20 space-y-3 rounded-lg border p-4">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-primary/10 text-primary rounded px-2 py-0.5 font-mono text-xs font-bold uppercase">
-                                {kindLabel(child.kind)}
+                    <article
+                        id={elementId}
+                        class="border-border/40 bg-surface/30 scroll-mt-28 space-y-6 rounded-xl border p-6 shadow-xs"
+                    >
+                        {/* Title & Badge */}
+                        <div class="border-border/30 flex items-center gap-3 border-b pb-4">
+                            <span class="bg-primary/10 text-primary rounded-md px-2.5 py-1 font-mono text-xs font-bold tracking-wide uppercase">
+                                {kindLabel(symbol.kind)}
                             </span>
-                            <h4 class="font-mono text-sm font-semibold">{child.name}</h4>
+                            <h3 class="text-foreground font-mono text-xl font-bold tracking-tight">
+                                {symbol.name}
+                            </h3>
                         </div>
 
+                        {/* Summary / Docstrings */}
                         {summary && summary.length > 0 && (
-                            <p class="text-sm opacity-90">
-                                {summary.map((part) => part.text).join('')}
+                            <p class="text-foreground/90 text-base leading-relaxed">
+                                {getText(summary)}
                             </p>
                         )}
 
+                        {/* Examples */}
                         {examples.length > 0 && (
-                            <div class="mt-2 space-y-1">
-                                <span class="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-                                    Example:
+                            <div class="space-y-2 pt-2">
+                                <span class="text-muted-foreground text-xs font-bold tracking-widest uppercase">
+                                    Exemple
                                 </span>
                                 {examples.map((example) => (
-                                    <pre class="bg-muted/50 overflow-x-auto rounded p-2 font-mono text-xs">
-                                        <code>
-                                            {example.content.map((part) => part.text).join('')}
-                                        </code>
+                                    <pre class="bg-muted/40 border-border/30 overflow-x-auto rounded-lg border p-4 font-mono text-sm leading-relaxed">
+                                        <code>{getText(example.content)}</code>
                                     </pre>
                                 ))}
                             </div>
                         )}
 
-                        {hasDetails && (
-                            <details class="group">
-                                <summary class="text-muted-foreground hover:text-foreground cursor-pointer text-xs transition-colors select-none marker:hidden">
-                                    <span class="group-open:hidden">Expand details +</span>
-                                    <span class="hidden group-open:inline">Collapse details</span>
-                                </summary>
-                                <div class="border-border/20 text-muted-foreground mt-3 space-y-2 border-t pt-3 font-mono text-xs">
-                                    {child.typeParameters && child.typeParameters.length > 0 && (
-                                        <div>
-                                            <span class="font-semibold">Type Parameters:</span>
-                                            <ul class="mt-1 list-disc pl-4">
-                                                {child.typeParameters.map((tp) => (
-                                                    <li>{tp.name}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
+                        {/* Members / Methods / Properties (Pour les Classes et Interfaces) */}
+                        {symbol.children && symbol.children.length > 0 && (
+                            <div class="space-y-4 pt-4">
+                                <h4 class="text-foreground border-border/20 border-b pb-2 text-sm font-bold tracking-wider uppercase">
+                                    Membres & Méthodes ({symbol.children.length})
+                                </h4>
+                                <div class="space-y-4">
+                                    {symbol.children.map((member) => {
+                                        const memSig = member.signatures?.[0];
+                                        const memSummary =
+                                            commentOf(member)?.summary ??
+                                            commentOf(memSig)?.summary;
 
-                                    {child.type && (
-                                        <div>
-                                            <span class="font-semibold">Type:</span>{' '}
-                                            <span class="text-foreground">
-                                                {JSON.stringify(child.type)}
-                                            </span>
-                                        </div>
-                                    )}
+                                        return (
+                                            <div class="bg-muted/20 border-border/20 space-y-2 rounded-lg border p-4 font-mono">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-muted-foreground text-xs font-semibold">
+                                                        [{kindLabel(member.kind)}]
+                                                    </span>
+                                                    <span class="text-foreground text-sm font-bold">
+                                                        {member.name}
+                                                    </span>
+                                                    {member.type && (
+                                                        <span class="text-primary text-xs">
+                                                            :{' '}
+                                                            {member.type.type === 'intrinsic'
+                                                                ? member.type.name
+                                                                : JSON.stringify(member.type)}
+                                                        </span>
+                                                    )}
+                                                </div>
 
-                                    {child.children && child.children.length > 0 && (
-                                        <div>
-                                            <span class="font-semibold">
-                                                Members / Children ({child.children.length}):
-                                            </span>
-                                            <div class="mt-2 space-y-2">
-                                                {child.children.map((grand) => (
-                                                    <div class="bg-muted/20 rounded p-2">
-                                                        <span class="text-foreground font-bold">
-                                                            {grand.name}
-                                                        </span>
-                                                        <span class="ml-2 text-xs opacity-75">
-                                                            ({kindLabel(grand.kind)})
-                                                        </span>
-                                                    </div>
-                                                ))}
+                                                {/* Parameters (si méthode / fonction) */}
+                                                {memSig?.parameters &&
+                                                    memSig.parameters.length > 0 && (
+                                                        <div class="text-muted-foreground border-border/40 border-l-2 pl-4 text-xs">
+                                                            <span class="text-foreground font-semibold">
+                                                                Paramètres :
+                                                            </span>
+                                                            <ul class="mt-1 list-disc space-y-1 pl-4">
+                                                                {memSig.parameters.map((param) => (
+                                                                    <li>
+                                                                        <span class="text-foreground font-semibold">
+                                                                            {param.name}
+                                                                        </span>
+                                                                        {param.type && (
+                                                                            <span class="prose-pre">
+                                                                                :{' '}
+                                                                                {JSON.stringify(
+                                                                                    param.type
+                                                                                )}
+                                                                            </span>
+                                                                        )}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+
+                                                {/* Member Comment */}
+                                                {memSummary && memSummary.length > 0 && (
+                                                    <p class="text-muted-foreground pt-1 font-sans text-xs">
+                                                        {getText(memSummary)}
+                                                    </p>
+                                                )}
                                             </div>
-                                        </div>
-                                    )}
+                                        );
+                                    })}
                                 </div>
-                            </details>
+                            </div>
                         )}
-                    </div>
+                    </article>
                 );
             })}
         </div>

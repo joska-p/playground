@@ -74,8 +74,6 @@ catalog:
     'tailwindcss': '^4.3.0'
     'three': '^0.184.0'
     'typedoc': '^0.28.20'
-    'typedoc-theme-hierarchy': '^6.0.0'
-    'typedoc-plugin-missing-exports': '^4.1.4'
     'tsx': '^4.23.0'
     'turbo': '^2.10.7'
     'typescript': '~6.0.3'

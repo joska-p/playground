@@ -1,47 +1,64 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { kindLabel } from './kind-labels';
 
 type Props = {
     entry?: CollectionEntry<'api'> | undefined;
 };
 
 const { entry } = Astro.props;
+const typedoc = entry?.data?.typedoc;
+const children = typedoc?.children ?? [];
+
+function slugify(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+}
+
+// Group symbols by kind
+const groupedMembers = children.reduce<Record<string, typeof children>>((acc, child) => {
+    const label = kindLabel(child.kind);
+    if (!acc[label]) acc[label] = [];
+    acc[label].push(child);
+    return acc;
+}, {});
 
 const linkBase =
-    'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150';
-const linkIdle = 'text-muted-foreground hover:bg-muted hover:text-foreground';
-const dotBase = 'h-1 w-1 shrink-0 rounded-full transition-colors';
-const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
+    'group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150';
+const linkIdle = 'text-muted-foreground hover:bg-muted/60 hover:text-foreground';
+const indicatorBase = 'h-1.5 w-1.5 shrink-0 rounded-full transition-colors';
+const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
 ---
 
 <aside
-    class="sticky top-24 hidden h-[calc(100vh-7rem)] w-60 shrink-0 flex-col overflow-y-auto md:flex"
+    class="sticky top-24 hidden h-[calc(100vh-7rem)] w-64 shrink-0 flex-col overflow-y-auto md:flex"
 >
     <nav
         aria-label="API reference navigation"
-        class="min-h-full flex-1 overflow-y-auto p-3"
+        class="min-h-full flex-1 p-2"
     >
-        <div class="space-y-5 py-1">
+        <div class="space-y-8">
+            {/* Main Sections */}
             <div>
-                <p
-                    class="text-muted-foreground/50 mb-1.5 px-2 py-1 text-xs font-bold tracking-wider uppercase"
+                <span
+                    class="text-muted-foreground/60 block px-3 pb-2 text-xs font-bold tracking-widest uppercase"
                 >
-                    Reference
-                </p>
-                <ul
-                    id="api-nav-list"
-                    class="space-y-0.5 pl-1.5"
-                >
-                    <li>
-                        <a
-                            data-target="overview"
-                            class:list={[linkBase, linkIdle]}
-                            href="#overview"
-                        >
-                            <span class:list={[dotBase, dotIdle]}></span>
-                            Overview
-                        </a>
-                    </li>
+                    Navigation
+                </span>
+                <ul class="space-y-1">
+                    {
+                        entry && (
+                            <li>
+                                <a
+                                    data-target="overview"
+                                    class:list={[linkBase, linkIdle]}
+                                    href="#overview"
+                                >
+                                    <span class:list={[indicatorBase, indicatorIdle]} />
+                                    Overview
+                                </a>
+                            </li>
+                        )
+                    }
                     {
                         entry && (
                             <li>
@@ -50,7 +67,7 @@ const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
                                     class:list={[linkBase, linkIdle]}
                                     href="#api"
                                 >
-                                    <span class:list={[dotBase, dotIdle]} />
+                                    <span class:list={[indicatorBase, indicatorIdle]} />
                                     API Reference
                                 </a>
                             </li>
@@ -58,39 +75,81 @@ const dotIdle = 'bg-border group-hover:bg-muted-foreground/50';
                     }
                 </ul>
             </div>
+
+            {/* Symbols List grouped by Kind */}
+            {
+                Object.entries(groupedMembers).map(([kind, items]) => (
+                    <div class="space-y-2">
+                        <span class="text-muted-foreground/60 block px-3 text-xs font-bold tracking-widest uppercase">
+                            {kind}s
+                        </span>
+                        <ul class="border-border/40 ml-3 space-y-1 border-l-2 pl-2">
+                            {items.map((item) => {
+                                const targetId = `symbol-${slugify(item.name)}`;
+                                return (
+                                    <li>
+                                        <a
+                                            data-target={targetId}
+                                            class:list={[linkBase, linkIdle, 'font-mono text-xs']}
+                                            href={`#${targetId}`}
+                                        >
+                                            <span class:list={[indicatorBase, indicatorIdle]} />
+                                            <span class="truncate">{item.name}</span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                ))
+            }
         </div>
     </nav>
 </aside>
 
 <script>
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    const links = document.querySelectorAll('#api-nav-list a');
-                    links.forEach((link) => {
-                        const span = link.querySelector('span');
-                        const isActive = link.getAttribute('data-target') === id;
-                        link.classList.toggle('bg-primary/10', isActive);
-                        link.classList.toggle('text-primary', isActive);
-                        link.classList.toggle('font-semibold', isActive);
-                        link.classList.toggle('text-muted-foreground', !isActive);
-                        link.classList.toggle('hover:bg-muted', !isActive);
-                        link.classList.toggle('hover:text-foreground', !isActive);
-                        if (span) {
-                            span.classList.toggle('bg-primary', isActive);
-                            span.classList.toggle('bg-border', !isActive);
-                            span.classList.toggle('group-hover:bg-muted-foreground/50', !isActive);
-                        }
-                    });
-                }
-            });
-        },
-        { rootMargin: '-20% 0% -60% 0%' }
-    );
+    function setupScrollSpy() {
+        const links = document.querySelectorAll<HTMLAnchorElement>(
+            'nav[aria-label="API reference navigation"] a[data-target]'
+        );
+        const targets = new Map<string, HTMLElement>();
 
-    document.querySelectorAll('article[id], section[id]').forEach((el) => {
-        observer.observe(el);
-    });
+        links.forEach((link) => {
+            const targetId = link.getAttribute('data-target');
+            if (targetId) {
+                const el = document.getElementById(targetId);
+                if (el) targets.set(targetId, el);
+            }
+        });
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        links.forEach((link) => {
+                            const span = link.querySelector('span');
+                            const isActive = link.getAttribute('data-target') === id;
+
+                            link.classList.toggle('bg-primary/10', isActive);
+                            link.classList.toggle('text-primary', isActive);
+                            link.classList.toggle('font-bold', isActive);
+                            link.classList.toggle('text-muted-foreground', !isActive);
+
+                            if (span) {
+                                span.classList.toggle('bg-primary', isActive);
+                                span.classList.toggle('bg-border', !isActive);
+                            }
+                        });
+                    }
+                });
+            },
+            { rootMargin: '-15% 0% -65% 0%', threshold: 0.1 }
+        );
+
+        targets.forEach((el) => observer.observe(el));
+    }
+
+    document.addEventListener('astro:page-load', setupScrollSpy);
+    setupScrollSpy();
 </script>
