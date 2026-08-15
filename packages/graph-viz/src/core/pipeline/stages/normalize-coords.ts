@@ -1,13 +1,10 @@
-/**
- * Stage 3: Scale simulation coordinates to a predictable range for rendering. Default target range
- * is [-500, 500].
- */
+/** Bring positions into a predictable range for rendering. */
 import type { SimNode } from './sim-types.js';
 
 // ── Configuration ────────────────────────────────────────────────────────────
 
 export type NormalizeConfig = {
-    /** Absolute value of the maximum coordinate after scaling */
+    /** Max distance from the origin after scaling */
     targetMax: number;
 };
 

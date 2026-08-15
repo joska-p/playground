@@ -1,11 +1,7 @@
 import { createProgram, type Program } from './shader/Program';
 import type { UniformValue } from './shader/compileProgram';
 
-/**
- * Ping-pong render targets: two RGBA8 textures each attached to their own framebuffer. `step()`
- * renders into the write target while sampling the read target, then swaps them so the result
- * becomes the input of the next step.
- */
+/** Ping-pong render targets; `swap()` exchanges the read and write roles. */
 // fallow-ignore-next-line unused-export -- public types of createStateBuffer, consumed via the factory's return type
 export class StateBufferTargets {
     readonly #gl: WebGL2RenderingContext;
@@ -32,8 +28,7 @@ export class StateBufferTargets {
 
     bindWrite(): void {
         const fbo = this.#framebuffers[this.#writeIndex()];
-        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
         if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
         this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, fbo);
         this.#gl.viewport(0, 0, this.#currentWidth, this.#currentHeight);
@@ -45,16 +40,14 @@ export class StateBufferTargets {
 
     getReadTexture(): WebGLTexture {
         const texture = this.#textures[this.#readIndex()];
-        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
         if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
         return texture;
     }
 
     getWriteTexture(): WebGLTexture {
         const texture = this.#textures[this.#writeIndex()];
-        // typedoc is flaggin "Type 'undefined' is not assignable to type 'WebGLFramebuffer | null'."
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
         if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
         return texture;
     }
@@ -113,8 +106,7 @@ export class StateBufferTargets {
     #createTarget(width: number, height: number): [WebGLTexture, WebGLFramebuffer] {
         const gl = this.#gl;
         const texture = gl.createTexture();
-        // even with WebGL2, createTexture can return null if the context is lost or if there are insufficient resources.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createTexture() as non-null, but the WebGL spec allows null on failure
         if (!texture) {
             throw new Error('Glaze: StateBuffer texture creation failed');
         }
@@ -137,8 +129,7 @@ export class StateBufferTargets {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
         const fbo = gl.createFramebuffer();
-        // even with WebGL2, createFramebuffer can return null if the context is lost or if there are insufficient resources.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createFramebuffer() as non-null, but the WebGL spec allows null on failure
         if (!fbo) {
             gl.deleteTexture(texture);
             throw new Error('Glaze: StateBuffer framebuffer creation failed');
@@ -195,13 +186,8 @@ export class StateBufferTargets {
 }
 
 /**
- * A GPU state buffer: a ping-pong texture pair holding evolving state, plus the fullscreen-triangle
- * programs that step it. Each `step()` renders the active program into the write target while
- * sampling the previous state via the `u_state` sampler (bound to texture unit 0), then swaps the
- * pair.
- *
- * The typical flow is `init(data)` → `useProgram(name)` → `setUniforms(values)` → `step()`, reading
- * the live state back with `getTexture()`.
+ * Ping-pong texture pair holding evolving state, stepped by shader programs. Typical flow:
+ * `init(data)` → `useProgram(name)` → `setUniforms(values)` → `step()`.
  */
 // fallow-ignore-next-line unused-export -- public return type of createStateBuffer
 export class StateBuffer {

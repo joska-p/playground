@@ -1,7 +1,4 @@
-/**
- * Simulation-internal node type. Extends the d3 datum so it can go into the force simulation. Not
- * exported to consumers — only used within the pipeline stages.
- */
+/** Simulation-internal node — d3-force writes the optional position/velocity fields itself. */
 export type SimNode = {
     index?: number;
     id: string;

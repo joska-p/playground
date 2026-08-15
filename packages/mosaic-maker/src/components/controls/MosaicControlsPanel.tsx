@@ -28,7 +28,6 @@ function useSliderState(
     const [value, setValue] = useState(defaultValue);
     const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-    // Clear timeout on unmount
     useEffect(() => {
         return () => {
             if (debounceRef.current) {

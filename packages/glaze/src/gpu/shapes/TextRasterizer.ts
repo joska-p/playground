@@ -47,11 +47,7 @@ export interface TextRaster {
     height: number;
 }
 
-/**
- * Rasterizes text on an offscreen 2D canvas and uploads it as a texture, cached by (text, font) in
- * an LRU of 128 entries. Rasterization runs at 2× the requested size so edges stay crisp when
- * scaled.
- */
+/** Rasterizes text to a texture via an offscreen canvas, at 2× size so edges stay crisp when scaled. */
 export class TextRasterizer {
     readonly #gl: WebGL2RenderingContext;
     readonly #canvas: HTMLCanvasElement;

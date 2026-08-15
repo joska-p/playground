@@ -15,7 +15,7 @@ import {
 export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
-    /** Backing-buffer pixel ratio; defaults to `window.devicePixelRatio` (or 1 off-browser). */
+    /** Defaults to `window.devicePixelRatio` (1 off-browser). */
     dpr?: number;
 }
 
@@ -28,11 +28,8 @@ const buildStyle = (fill?: string, stroke?: string, lineWidth?: number): DrawSty
 });
 
 /**
- * WebGL2 surface with the same chainable, world-space drawing model as `CpuSurface`. Shapes are
- * tessellated into one shared vertex buffer and drawn in a single batched call; `createProgram` /
- * `renderProgram` add fullscreen shader passes. Per-frame state — `time` / `deltaTime` (seconds),
- * `width` / `height` (CSS px) — is updated before each draw callback, and context loss/restore is
- * handled internally.
+ * WebGL2 surface sharing `CpuSurface`'s chainable, world-space drawing model. Context loss/restore
+ * is handled internally.
  */
 export class GpuSurface {
     /** Seconds since the frame loop started. */
@@ -92,11 +89,7 @@ export class GpuSurface {
         return this.#loop.isRunning;
     }
 
-    /**
-     * Current pointer position in world coordinates.
-     *
-     * @returns The pointer position, camera-transformed.
-     */
+    /** Pointer position in world coordinates (camera-transformed). */
     get pointer(): Point2D {
         return this.camera.screenToWorld(this.input.pointer);
     }
@@ -109,28 +102,13 @@ export class GpuSurface {
         return this.camera.worldToScreen(point);
     }
 
-    /**
-     * Compiles a fragment shader (over the default fullscreen-triangle vertex shader) into a
-     * program owned by this surface: it is destroyed with the surface and recompiled on context
-     * restore.
-     *
-     * @param fragmentSource The fragment shader source.
-     * @param vertexSource The vertex shader source; defaults to a fullscreen triangle.
-     * @returns The compiled program.
-     */
+    /** Creates a program owned by this surface: destroyed with it, recompiled on context restore. */
     createProgram(fragmentSource: string, vertexSource?: string): Program {
         const program = createProgram(this.gl, fragmentSource, vertexSource);
         this.#programs.add(program);
         return program;
     }
 
-    /**
-     * Flushes pending batched shapes, applies the standard per-frame uniforms, then renders the
-     * program as a fullscreen triangle.
-     *
-     * @param program The program to render.
-     * @returns This surface, for chaining.
-     */
     renderProgram(program: Program): this {
         this.#flushBatch();
         if (this.#lost) return this;
@@ -254,16 +232,7 @@ export class GpuSurface {
         return this;
     }
 
-    /**
-     * Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike the color-string
-     * `CpuSurface.clear`.
-     *
-     * @param r Red, 0..1.
-     * @param g Green, 0..1.
-     * @param b Blue, 0..1.
-     * @param a Alpha, 0..1.
-     * @returns This surface, for chaining.
-     */
+    /** Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike `CpuSurface.clear`'s color strings. */
     clear(r = 0, g = 0, b = 0, a = 1): this {
         this.#flushBatch();
         if (this.#lost) return this;
@@ -272,11 +241,6 @@ export class GpuSurface {
         return this;
     }
 
-    /**
-     * Sets the per-frame draw callback. A non-null callback starts the rAF loop; `null` stops it.
-     *
-     * @param fn The frame callback, or `null` to stop rendering.
-     */
     setDraw(fn: GpuDraw | null): void {
         this.#draw = fn;
         if (fn && this.#subscribers.size === 0) this.#startRendering();

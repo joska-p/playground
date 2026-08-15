@@ -1,4 +1,3 @@
-/** Stage 2: Run the d3-force-3d simulation to compute layout positions. */
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } from 'd3-force-3d';
 import type { SimLink, SimNode } from './sim-types.js';
 

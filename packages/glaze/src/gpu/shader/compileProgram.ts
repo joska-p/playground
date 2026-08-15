@@ -16,10 +16,7 @@ export interface UniformEntry {
     size: number;
 }
 
-/**
- * A uniform value. A `WebGLTexture` binds the texture to the next available texture unit and sets
- * the sampler to that unit.
- */
+/** Uniform values; a `WebGLTexture` is bound to a texture unit automatically. */
 export type UniformValue = number | number[] | Float32Array | Int32Array | WebGLTexture;
 
 export interface CompiledShaderProgram {
@@ -32,15 +29,7 @@ function withVersionDirective(source: string): string {
     return `#version 300 es\n${stripped}`;
 }
 
-/**
- * Compiles and links a fragment + vertex shader pair, injecting the `#version 300 es` directive if
- * absent. Throws with the driver log on any failure; the returned map holds the active uniforms.
- *
- * @param gl The WebGL2 context.
- * @param fragmentSource The fragment shader source; the version directive is optional.
- * @param vertexSource The vertex shader source; defaults to `FULLSCREEN_TRIANGLE`.
- * @returns The linked program and its uniform locations.
- */
+/** Compiles + links a shader pair, auto-injecting `#version 300 es`; throws the driver log on failure. */
 export function compileProgram(
     gl: WebGL2RenderingContext,
     fragmentSource: string,

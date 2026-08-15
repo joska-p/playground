@@ -6,9 +6,9 @@ import { useGpuSurface, type GpuSurfaceOptions } from './useGpuSurface';
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
 
 export interface GpuCanvasProps extends GpuSurfaceOptions {
-    /** Fragment shader source for a fullscreen program; compiled on mount and recompiled on change. */
+    /** Compiled on mount and recompiled on change. */
     fragmentShader?: string;
-    /** Per-frame uniforms computed from the surface before each draw. */
+    /** Computed from the surface before each frame's draw. */
     uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
     onDraw?: GpuDraw;
     onSurface?: (surface: GpuSurface) => void;

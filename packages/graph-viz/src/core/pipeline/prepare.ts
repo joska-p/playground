@@ -1,4 +1,4 @@
-/** CLI entrypoint — file I/O and shell execution only. All computation is delegated to the pipeline. */
+/** File I/O and shell only — all computation is delegated to the pipeline. */
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -11,11 +11,8 @@ import type { RawGraph } from './stages/parse-graph.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-/** Input: repo-root-level graphify-out/graph.json */
 const inputPath = resolve(__dirname, '../../data/graph.json');
-/** Output: written next to this script */
 const outputPath = resolve(__dirname, '../../data/processed-graph.json');
-/** Checksum sentinel — stored next to the output */
 const checksumPath = resolve(__dirname, '../../data/processed-checksum');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

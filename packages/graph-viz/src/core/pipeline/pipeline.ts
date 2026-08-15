@@ -1,7 +1,4 @@
-/**
- * Pure data pipeline orchestrator. Composes the four stages: parse → simulate → normalise → build
- * output. Returns `{ result, stats }` — no I/O, no side effects.
- */
+/** Pure data flow — no I/O, no side effects; the CLI shell handles files. */
 import type { GraphData } from './graphData.schema.js';
 import { buildOutput } from './stages/build-output.js';
 import { normalizeCoords, type NormalizeConfig } from './stages/normalize-coords.js';

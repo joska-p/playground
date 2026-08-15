@@ -11,7 +11,7 @@ const POINTER_HANDLER_BY_EVENT: Record<PointerEventName, PointerHandlerName> = {
     pointercancel: 'onPointerCancel'
 };
 
-/** Subscriber callbacks for raw input. `point` is canvas-relative in CSS pixels. */
+/** `point` is canvas-relative, in CSS pixels. */
 export interface InputHandlers {
     onPointerDown?: (event: PointerEvent, point: Point2D) => void;
     onPointerMove?: (event: PointerEvent, point: Point2D) => void;
@@ -21,11 +21,7 @@ export interface InputHandlers {
     onContextMenu?: (event: MouseEvent) => void;
 }
 
-/**
- * Raw pointer, wheel, and keyboard signal bus attached to a canvas. Pointer positions are
- * canvas-relative CSS pixels; transient state (`wasKeyPressed`, `wheelDelta`) is cleared by
- * `endFrame()`.
- */
+/** Raw input signal bus for a canvas; transient state (`wasKeyPressed`, `wheelDelta`) is cleared by `endFrame()`. */
 export class InputStore {
     readonly pointer: Point2D = { x: 0, y: 0 };
     readonly pointerDelta: Point2D = { x: 0, y: 0 };
@@ -62,10 +58,7 @@ export class InputStore {
         };
     }
 
-    /**
-     * Clears per-frame state: the `wasKeyPressed` set and the accumulated `wheelDelta`. Call once
-     * per frame.
-     */
+    /** Clears per-frame state; call once per frame. */
     endFrame(): void {
         this.#pressed.clear();
         this.wheelDelta = 0;

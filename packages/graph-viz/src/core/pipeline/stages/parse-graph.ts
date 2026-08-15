@@ -1,7 +1,3 @@
-/**
- * Stage 1: Parse raw graph JSON into simulation-ready nodes and links, computing in/out degree for
- * each node.
- */
 import type { SimLink, SimNode } from './sim-types.js';
 
 // ── Raw input types (mirrors graphify output) ────────────────────────────────

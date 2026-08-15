@@ -1,9 +1,6 @@
 import type { Camera, Point2D } from '../../core/Camera';
 
-/**
- * GL 3x3 matrix in column-major order (element `i` = row `i % 3`, column `i / 3`), fed straight
- * into `uniformMatrix3fv`.
- */
+/** 3x3 matrix in the layout WebGL expects; `uniformMatrix3fv` takes it as-is. */
 export type Mat3 = readonly [
     number,
     number,
@@ -37,35 +34,16 @@ export function sameMat3(a: Mat3, b: Mat3): boolean {
     return true;
 }
 
-/**
- * World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`.
- *
- * @param camera The current view transform.
- * @returns The column-major camera transform.
- */
+/** World → screen (CSS px, y-down): `screen = world * zoom + camera.xy`. */
 export function cameraMatrix(camera: Camera): Mat3 {
     return [camera.zoom, 0, 0, 0, camera.zoom, 0, camera.x, camera.y, 1];
 }
 
-/**
- * Screen (CSS px, y-down) → NDC.
- *
- * @param width Viewport width in CSS px.
- * @param height Viewport height in CSS px.
- * @returns The column-major viewport transform.
- */
+/** Screen (CSS px, y-down) → the -1..1 box GL draws in. */
 export function viewportMatrix(width: number, height: number): Mat3 {
     return [2 / width, 0, 0, 0, -2 / height, 0, -1, 1, 1];
 }
 
-/**
- * World → NDC for a single batched draw call, composing `viewportMatrix` after `cameraMatrix`.
- *
- * @param camera The current view transform.
- * @param width Viewport width in CSS px.
- * @param height Viewport height in CSS px.
- * @returns The combined column-major projection.
- */
 export function projectionFor(camera: Camera, width: number, height: number): Mat3 {
     return multiplyMat3(viewportMatrix(width, height), cameraMatrix(camera));
 }
@@ -78,37 +56,17 @@ const MAX_CAP_SEGMENTS = 32;
 const clamp = (value: number, min: number, max: number): number =>
     Math.max(min, Math.min(max, value));
 
-/**
- * Tessellation of a circle scales with its screen size (radius × zoom), clamped to 12..128.
- *
- * @param radius Circle radius in world units.
- * @param zoom Current camera zoom.
- * @returns The number of ring segments.
- */
+/** More segments for bigger circles on screen (radius × zoom), so zoomed circles stay smooth. */
 export function circleSegments(radius: number, zoom: number): number {
     return clamp(Math.round(radius * zoom), MIN_CIRCLE_SEGMENTS, MAX_CIRCLE_SEGMENTS);
 }
 
-/**
- * Tessellation of a line cap scales with its screen width (width × zoom), clamped to 4..32.
- *
- * @param width Line width in world units.
- * @param zoom Current camera zoom.
- * @returns The number of cap segments.
- */
+/** More segments for thicker lines on screen (width × zoom), so zoomed lines stay round. */
 export function capSegments(width: number, zoom: number): number {
     return clamp(Math.round(width * zoom), MIN_CAP_SEGMENTS, MAX_CAP_SEGMENTS);
 }
 
-/**
- * `segments` points around the ring, starting at angle 0 (positive x).
- *
- * @param cx Ring center x.
- * @param cy Ring center y.
- * @param radius Ring radius.
- * @param segments Number of vertices.
- * @returns Ring vertices in world coordinates.
- */
+/** Ring vertices, starting at angle 0 (positive x). */
 export function circleRing(cx: number, cy: number, radius: number, segments: number): Point2D[] {
     const points: Point2D[] = [];
     for (let i = 0; i < segments; i++) {
@@ -134,13 +92,6 @@ export function rectStrokeVertices(): number {
     return 24;
 }
 
-/**
- * Center quad plus two rounded caps.
- *
- * @param width Line width in world units.
- * @param zoom Current camera zoom.
- * @returns The vertex count for a line at the given screen width.
- */
 export function lineVertices(width: number, zoom: number): number {
     return 6 + 2 * capSegments(width, zoom) * 3;
 }

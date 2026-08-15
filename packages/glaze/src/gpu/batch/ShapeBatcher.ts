@@ -61,8 +61,7 @@ function compileProgram(
     fragmentSource: string
 ): WebGLProgram {
     const program = gl.createProgram();
-    // gl.createProgram() can return null if the context is lost, but we don't expect that to happen here. If it does, we throw an error.
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createProgram() as non-null, but the WebGL spec allows null on failure
     if (!program) throw new Error('Glaze: batcher program creation failed');
     gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vertexSource));
     gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource));
@@ -75,12 +74,7 @@ function compileProgram(
     return program;
 }
 
-/**
- * Batches every shape into one dynamic vertex buffer and a single draw call per flush — the
- * pixelate2d approach ported to glaze. Shapes are tessellated on the CPU (position + RGBA per
- * vertex) and drawn through one shared program with a single `u_projection` uniform, instead of a
- * fullscreen fragment pass per shape.
- */
+/** Batches every shape into one dynamic vertex buffer, drawn in a single call per flush — the pixelate2d approach ported to glaze. */
 export class ShapeBatcher {
     readonly #gl: WebGL2RenderingContext;
     readonly #camera: Camera;

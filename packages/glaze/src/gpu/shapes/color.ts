@@ -117,13 +117,7 @@ function parseViaCanvas(color: string): RGBA | null {
     return parseRgb(normalized);
 }
 
-/**
- * Parses any CSS color — hex, `rgb()`/`rgba()`, `hsl()`/`hsla()`, named colors, falling back to the
- * browser's own parser — into normalized 0..1 RGBA. Unrecognized strings resolve to magenta.
- *
- * @param color Any CSS color string.
- * @returns The parsed color as normalized RGBA.
- */
+/** Parses any CSS color to normalized 0..1 RGBA; unrecognized strings resolve to magenta. */
 export function parseColor(color: Color): RGBA {
     if (color.startsWith('#')) {
         const hex = parseHex(color);

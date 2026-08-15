@@ -1,11 +1,7 @@
 import type { Gesture, InteractionEvent, PanOptions, ZoomOptions } from '../core/gestures';
 import { PanGesture, ZoomGesture } from '../core/gestures';
 
-/**
- * An interaction event for a mounted surface. The pipeline only routes events while a surface is
- * mounted, so consumer handlers receive this — `surface` is always present and needs no defensive
- * check.
- */
+/** `InteractionEvent` with a non-null `surface` — the pipeline only routes events while a surface is mounted. */
 export interface LiveInteractionEvent<TEvent, TSurface> extends Omit<
     InteractionEvent<TEvent, TSurface>,
     'surface'
@@ -14,19 +10,9 @@ export interface LiveInteractionEvent<TEvent, TSurface> extends Omit<
 }
 
 /**
- * The consumer-facing interaction config. Physical events map onto readable action cycles:
- * `pointerdown` -> `onStart`, `pointermove` -> `onMove`, `pointerup` / `pointercancel` -> `onEnd`,
- * `wheel` -> `onZoom`.
- *
- * Handlers replace the built-in gestures: providing `onStart` or `onMove` turns the default pan off
- * (you own the drag cycle — drive the camera with `event.cameraControls` if you want it to pan),
- * and providing `onZoom` turns the default zoom off. `onEnd` and `onContextMenu` are delivered in
- * addition to the built-ins, so captured state (like an active drag) is always released. `pan` /
- * `zoom` configure the built-in gestures; `false` turns one off, an options object configures it,
- * and omitting it keeps the default behavior.
- *
- * Handlers only fire while a surface is mounted, so they receive a `LiveInteractionEvent` whose
- * `surface` is always present.
+ * `onStart` / `onMove` / `onZoom` replace the built-in pan/zoom; `onEnd` / `onContextMenu` run
+ * alongside, so drag state always gets released. `pan` / `zoom` configure the built-ins (`false`
+ * disables).
  */
 export interface CanvasInteractions<TSurface> {
     pan?: boolean | PanOptions;
@@ -45,14 +31,6 @@ function withSurface<TEvent, TSurface>(
     if (event.surface) run({ ...event, surface: event.surface });
 }
 
-/**
- * Adapts the consumer `CanvasInteractions` config into the pipeline. Custom lifecycle handlers are
- * wrapped to receive a live surface and replace the matching built-in gesture: `onStart` / `onMove`
- * suppress pan, `onZoom` suppresses zoom. `onEnd` / `onContextMenu` run alongside the built-ins.
- *
- * @param interactions Consumer config; defaults to built-in pan + zoom.
- * @returns The pipeline gestures.
- */
 export function createInteractionAdapter<TSurface>(
     interactions: CanvasInteractions<TSurface> = {}
 ): Gesture<TSurface>[] {

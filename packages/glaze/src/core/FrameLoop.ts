@@ -1,13 +1,7 @@
-/**
- * A per-frame callback. `time` is seconds since the rAF clock started; `delta` is seconds since the
- * previous frame.
- */
+/** `time` and `delta` are in seconds. */
 export type FrameCallback = (time: number, delta: number) => void;
 
-/**
- * A `requestAnimationFrame` dispatcher. Subscribing auto-starts the loop; the loop stops when the
- * last subscriber unsubscribes, so an idle surface never keeps ticking.
- */
+/** rAF dispatcher; starts on the first subscriber, stops when the last one leaves, so an idle surface never keeps ticking. */
 export class FrameLoop {
     readonly #callbacks = new Set<FrameCallback>();
     #rafId = 0;
