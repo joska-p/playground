@@ -57,7 +57,7 @@ apps/playground/
 ## Documentation Pipeline
 
 1. Package source code is annotated with TSDoc (`/** */`).
-2. `pnpm build-docs` runs TypeDoc centrally and generates Markdown API reference entries directly into `apps/playground/src/content/api/`.
+2. `pnpm generate-typedoc-json` runs TypeDoc centrally and generates TypeDoc JSON data into `apps/playground/.generated/api-docs/`.
 3. `pnpm build` in `@repo/playground` compiles Astro pages and documentation.
 
 ---

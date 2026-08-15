@@ -79,7 +79,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                       .map((d) => d.name)
                 : [];
             if (pkgDirs.length === 0) {
-                throw new Error('run `pnpm build-docs` first');
+                throw new Error('run `pnpm generate-typedoc-json` first');
             }
 
             const packages: PackageEntry[] = [];

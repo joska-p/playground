@@ -55,7 +55,7 @@ export function apiDocsLoader(): Loader {
 
             if (!existsSync(genRoot)) {
                 logger.warn(
-                    `[api-docs] no generated docs at ${genRoot}; run \`pnpm build-docs\` first`
+                    `[api-docs] no generated docs at ${genRoot}; run \`pnpm generate-typedoc-json\` first`
                 );
                 return;
             }

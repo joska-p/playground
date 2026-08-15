@@ -49,12 +49,12 @@ for (const entry of readdirSync(PACKAGES_DIR, { withFileTypes: true })) {
         // typedoc already printed its own error via stdio: 'inherit' above;
         // this just keeps one broken package from taking the whole build down.
         console.warn(
-            `[build-docs] "${pkgDir}" failed to build, skipping (see typedoc output above)`
+            `[generate-typedoc-json] "${pkgDir}" failed to build, skipping (see typedoc output above)`
         );
     }
 }
 
-const summary = [`[build-docs] generated api docs for ${built} package(s) into ${OUT_DIR}`];
+const summary = [`[generate-typedoc-json] generated api docs for ${built} package(s) into ${OUT_DIR}`];
 if (failed > 0) {
     summary.push(`${failed} failed: ${failedPackages.join(', ')}`);
 }

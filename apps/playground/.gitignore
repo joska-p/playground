@@ -7,7 +7,7 @@ dist/
 # generated types
 .astro/
 
-# generated api docs (typedoc output; build-docs regenerates it)
+# generated api docs (typedoc output; generate-typedoc-json regenerates it)
 .generated/
 
 # dependencies

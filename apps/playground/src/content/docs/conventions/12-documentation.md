@@ -19,6 +19,6 @@ tags:
 - The **API reference is generated** from the code: add TSDoc comments to
   exported symbols, then run:
     ```bash
-    pnpm build-docs
+    pnpm generate-typedoc-json
     ```
 - Generated docs are output to `apps/playground/.generated/api-docs/`, loaded into the `api` content collection by a custom loader, and served by `apps/playground` (Astro) at `/discoveries/<package>/` — one page per package with the README overview and every exported symbol as an anchored section.

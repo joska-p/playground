@@ -69,7 +69,7 @@ dist-docs/
 build/
 storybook-static/
 
-# Generated API reference (typedoc output; build-docs regenerates it)
+# Generated API reference (typedoc output; generate-typedoc-json regenerates it)
 apps/playground/.generated/
 
 # --- Dev tools & caches ---
