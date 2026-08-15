@@ -1,60 +1,31 @@
 # @repo/automa
 
 > An interactive cellular automaton — paint life onto a GPU-driven grid, watch it evolve under pluggable rules.
+> Current Status: 🟢 Stable
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc.
 
 ---
 
-## Essence
+## 🎯 Intention & Concept
 
-`@repo/automa` is the interactive WebGL2 workbench half of the cellular automaton ecosystem. It wraps the pure simulation engine ([`@repo/automa-engine`](/docs/reference/packages/automa-engine)) in an interactive R3F / Glaze canvas with GPGPU stepping, brush painting, creature stamp patterns, and a rule selector.
+`@repo/automa` is the interactive WebGL2 workbench half of the cellular automaton ecosystem. It wraps the pure simulation engine (`@repo/automa-engine`) in an interactive React Three Fiber / Glaze canvas featuring GPGPU step computation, real-time mouse brush painting, predefined creature stamp patterns (Gliders, Pulsars, Gosper Guns), and a dynamic rule selector.
 
-State lives on the GPU. The grid is uploaded once as a texture, then transformed in-place by GLSL compute shaders on a ping-pong state buffer — zero-copy to display.
+State lives entirely on the GPU. The grid is uploaded once as a texture and transformed in-place by GLSL compute shaders running on a ping-pong state buffer, achieving zero-copy rendering directly to the display at 60 FPS.
 
-## Quick Launch
+## 🥷 Brainstorming, Inspirations & Credits
+* **Visual Inspo:** GPGPU cellular automata, Conway's Game of Life, HighLife, Brian's Brain.
+* **Math / Papers:** Cellular automata theory (John Conway, Rudy Rucker, Stephen Wolfram totalistic rules).
+* **Borrowed Code & Algorithms:** Glaze WebGL2 GPGPU ping-pong buffer patterns and React Three Fiber rendering pipeline.
 
-```bash
-pnpm dev --filter @repo/automa
-```
+## ⚠️ Patterns & Gotchas
 
-Or embed the React component:
+- **Ping-Pong State Buffers:** The GPGPU simulation ping-pongs two WebGL textures. Brushes and creature stamps write directly into the active state texture between frame steps to ensure smooth interactivity without stalling the simulation loop.
 
-```tsx
-import { App } from '@repo/automa/automa';
+## 📚 References
 
-export default function Page() {
-    return (
-        <App
-            rows={300}
-            cols={400}
-        />
-    );
-}
-```
-
-```tsx
-import '@repo/automa/styles';
-```
-
-## Field Notes
-
-- **The Catalyst:** Translating cellular automata from CPU loops into fragment shaders allows stepping millions of cells per second at 60 FPS while keeping the UI responsive.
-- **Quirks & Anomalies:** The GPGPU state buffer ping-pongs two WebGL textures. Brushes and creature stamps write directly into the active state texture between frame steps.
-- **Future Horizons:** Custom rule GLSL shader generator that compiles user B/S rules into fragment shaders on the fly.
+- [Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+- [Tsoding Conway implementation](https://github.com/tsoding/conway)
 
 ---
-
-## Architecture
-
-```
-@repo/automa-engine (B/S rules & presets)
-  │
-  ▼
-@repo/automa (React / Glaze / WebGL2 UI layer)
-  ├─ App.tsx (Controls, rule selector, speed slider)
-  ├─ GpuCanvas (Glaze state buffer + fragment shader)
-  └─ Creature stamps (Glider, Pulsar, Gosper Gun)
-```
-
----
-
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/automa/`._

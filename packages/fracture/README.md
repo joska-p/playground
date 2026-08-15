@@ -1,58 +1,33 @@
 # @repo/fracture
 
 > A high-precision GLSL fractal renderer — exploring Mandelbrot and Julia sets through deep perturbation and double-single emulation.
+> Current Status: 🟢 Stable
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc.
 
 ---
 
-## Essence
+## 🎯 Intention & Concept
 
 `@repo/fracture` is a WebGL2 fractal explorer that renders complex orbit dynamics directly on the GPU. It provides multiple GLSL shader pipelines — from standard single-precision float orbits to double-single (DS) emulation for deep zooming without precision loss artifacts.
 
-State management is cleanly split between param stores (holding zoom, pan coordinates, max iterations, and Julia constants) and view stores (active renderer mode and UI overlay states).
+State management is cleanly split between parameter stores (holding zoom, pan coordinates, max iterations, and Julia constants) and view stores (active renderer mode and UI overlay states), orchestrated with React 19 architecture.
 
-## Quick Launch
+## 🥷 Brainstorming, Inspirations & Credits
 
-```bash
-pnpm dev --filter @repo/fracture
-```
+- **Visual Inspo:** Mandelbrot and Julia fractal sets, deep-zoom visualizations, GPU-accelerated orbit dynamics.
+- **Math / Papers:** Complex number arithmetic, IEEE-754 float precision limits, double-single floating-point emulation, perturbation theory.
+- **Borrowed Code & Algorithms:** WebGL2 shader render pipelines, React 19 `<Activity>` boundaries, Zustand parameter/view stores.
 
-Or embed the React component:
+## ⚠️ Patterns & Gotchas
 
-```tsx
-import { App } from '@repo/fracture/fracture';
+- **Floating-Point Precision:** Standard IEEE-754 single-precision `float` limits in WebGL shaders pixelate at ~$10^{-7}$ zoom scales, addressed via double-single arithmetic and perturbation pipelines.
+- **Pipeline Switching:** Uses React 19 `<Activity>` boundaries to keep alternate GLSL scene pipelines mounted and pre-warmed during live renderer switching.
 
-export default function Page() {
-    return <App />;
-}
-```
+## 📚 References
 
-```tsx
-import '@repo/fracture/styles';
-```
-
-## Field Notes
-
-- **The Catalyst:** Overcoming standard IEEE-754 single-precision `float` limits in WebGL shaders (which pixelate at ~$10^{-7}$ zoom scales) by implementing double-single math (`vec2` high + low float pairs).
-- **Quirks & Anomalies:** Uses React 19 `<Activity>` boundaries to keep alternate GLSL scene pipelines mounted and pre-warmed while switching render strategies in real time.
-- **Future Horizons:** Extracting the core GLSL perturbation and paramStore modules into a reusable `@repo/fracture-engine` package shared with Mandelbrot visualizers.
+- [Tsoding FracTcl](https://github.com/tsoding/FracTcl)
 
 ---
 
-## Architecture
-
-```
-@repo/fracture
-  ├─ App.tsx (React 19 Activity pipeline switcher)
-  ├─ components/
-  │   ├─ OriginalScene.tsx (Standard GLSL Mandelbrot shader)
-  │   ├─ DoubleSplitScene.tsx (Double-single precision emulation shader)
-  │   ├─ PerturbationScene.tsx (Perturbation theory orbit shader)
-  │   └─ ControlPanel.tsx (Floating UI controls & parameter sliders)
-  └─ stores/
-      ├─ paramStore.ts (Zoom, offset, iterations, Julia parameters)
-      └─ viewStore.ts (Active renderer selection)
-```
-
----
-
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/fracture/`._

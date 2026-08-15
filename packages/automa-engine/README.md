@@ -1,166 +1,34 @@
 # @repo/automa-engine
 
-> A pure simulation engine that turns birth/survive lookup tables into
-> evolving grids — a generic `evolve` function that knows nothing about
-> rendering, only about neighbour counts and state transitions.
+> A pure simulation engine that turns birth/survive lookup tables into evolving grids — a generic `evolve` function that knows nothing about rendering, only about neighbour counts and state transitions.
+> Current Status: 🟢 Stable
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc.
 
 ---
 
-## Essence
+## 🎯 Intention & Concept
 
-Automa Engine is the logic half of a two-package cellular automaton system.
-It defines the rule model, the `evolve` function, and the Web Worker
-boundary — everything the React layer ([`@repo/automa`](/docs/reference/packages/automa))
-doesn't need to know about.
+`@repo/automa-engine` is the pure simulation engine of the cellular automaton ecosystem. It defines the core rule model, the generic `evolve` function, and the Web Worker boundary — remaining completely agnostic of rendering layers or UI concerns.
 
-The interesting tension is between _generality_ and _familiarity_. Rules are
-plain data objects: a `birth[]` lookup, a `survive[]` lookup, a `stateCount`.
-Conway's Game of Life is just `birth[3] = true`, `survive[2] = survive[3] =
-true` — no special-casing, no subclasses, no strategy pattern. B/S notation
-like `B3/S23` is parsed once into these arrays at registration time. The
-`evolve` function reads them at runtime and doesn't care which rule it's
-running.
+The core design centers on the tension between generality and familiarity. Rules are represented as plain data objects consisting of a `birth[]` lookup, a `survive[]` lookup, and a `stateCount`. Classic rules like Conway's Game of Life (`B3/S23`) or HighLife (`B36/S23`) are parsed once into lookup arrays at registration time. The generic `evolve` function evaluates neighbor counts against these arrays at runtime without requiring rule-specific conditional branches.
 
-Multi-state rules (`stateCount > 2`) add an aging layer: state 0 is dead,
-state 1 is alive (counts toward neighbour totals), and states 2 through N−1
-are dying — they age by +1 each tick, ignore neighbours, and don't breed.
-This single mechanism powers Brian's Brain and similar oscillating automata
-without any rule-specific code.
+Multi-state rules (`stateCount > 2`) introduce an aging layer where state 0 represents dead cells, state 1 represents active cells (contributing to neighbor counts), and states 2 through N-1 represent decaying states that age by +1 each tick without breeding. This unified mechanism powers oscillations in automata like Brian's Brain without custom logic.
 
-## Quick Launch
+## 🥷 Brainstorming, Inspirations & Credits
+* **Visual Inspo:** Conway's Game of Life, HighLife, Brian's Brain.
+* **Math / Papers:** Totalistic cellular automata theory and lookup table optimizations.
+* **Borrowed Code & Algorithms:** Web Worker thread boundary utilizing `Transferable` ArrayBuffers via `@repo/worker-pool` for zero-copy grid transfers.
 
-```bash
-pnpm add @repo/automa-engine
-```
+## ⚠️ Patterns & Gotchas
 
-```ts
-import { parseRule } from '@repo/automa-engine';
-import { registerRule } from '@repo/automa-engine';
+- **Transferable Ownership:** The Web Worker boundary utilizes `Transferable` buffers for zero-copy grid transfer. The `Uint8Array` ownership transfers across threads, meaning the main thread cannot access the buffer while the worker is processing it.
+- **Single Worker Pool:** The simulation worker pool is configured with `maxPoolSize: 1` (one worker, one simulation at a time), which is optimized for playground interactivity but requires scaling for concurrent simulations.
 
-const myRule = parseRule('my-rule', 'My Rule', 'B1/S', 2);
-registerRule(myRule);
-```
+## 📚 References
 
-The rule will automatically appear in the UI selector.
-
-## Field Notes
-
-- **The Catalyst:** The observation that every cellular automaton library
-  hard-codes its most popular rules as special cases — `if (rule === 'life')`
-  scattered through the evolve loop. Automa Engine takes the opposite
-  approach: rules are data, the evolve function is generic, and new rules are
-  registered at runtime. The B/S notation parser means you can write
-  `B36/S23` and get HighLife without writing a single `if` statement.
-
-- **Quirks & Anomalies:** The Web Worker boundary uses `Transferable` buffers
-  for zero-copy grid transfer — the `Uint8Array` ownership is literally
-  transferred across the thread boundary, so the main thread can't read it
-  until the worker sends it back. This means the grid is _never_ accessible
-  on both threads simultaneously, which is correct but feels precarious if
-  you're not expecting it. Also, the pool is configured with `maxPoolSize: 1`
-  — one worker, one simulation at a time — which is fine for a playground but
-  would need rethinking for concurrent simulations.
-
-- **Future Horizons:** Conditional rules where birth/survive depend on the
-  current state of the cell itself, not just neighbour counts (totalistic
-  variants). A streaming API for real-time rule composition — swap the rule
-  mid-simulation without resetting the grid. WebAssembly evolve for
-  performance-critical multi-state rules where the JS lookup table isn't
-  fast enough.
+- [Conway's Game of Life - Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+- [Tsoding Conway implementation](https://github.com/tsoding/conway)
 
 ---
-
-## Rule System
-
-Rules are plain data objects — no custom `if/else` per rule type.
-
-```ts
-type Rule = {
-    id: string;
-    name: string;
-    stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
-    birth: readonly boolean[]; // length 9, index = neighbor count
-    survive: readonly boolean[]; // length 9, index = neighbor count
-};
-```
-
-**B/S notation** is parsed into lookup arrays. `parseRule(id, name, 'B3/S23')`
-produces `birth[3] = true`, `survive[2] = survive[3] = true`.
-
-### Built-in rules
-
-| Rule                  | ID             | Notation  | States | Behavior                                       |
-| --------------------- | -------------- | --------- | ------ | ---------------------------------------------- |
-| Conway's Game of Life | `conway`       | `B3/S23`  | 2      | Classic — birth on 3, survive on 2 or 3        |
-| HighLife              | `highlife`     | `B36/S23` | 2      | Conway + B6 — self-replicating patterns emerge |
-| Brian's Brain         | `brians-brain` | `B2/S`    | 3      | Birth on 2, no survival, refractory decay      |
-
-### Multi-state mechanics
-
-When `stateCount > 2`, the evolve function adds an aging layer:
-
-- State **0** — Dead
-- State **1** — Alive (counts toward neighbour totals)
-- States **2** to **N−1** — Dying: age by +1 each tick, ignore neighbours, don't breed
-
-This is the entire mechanism. Brian's Brain uses `stateCount = 3`: alive
-cells decay to state 2, state 2 decays to state 0 (dead). No rule-specific
-decay logic — the engine just reads `stateCount` and handles it.
-
-### Registering a new rule
-
-```ts
-import { parseRule } from '@repo/automa-engine';
-import { registerRule } from '@repo/automa-engine';
-
-const myRule = parseRule('my-rule', 'My Rule', 'B1/S', 2);
-registerRule(myRule);
-```
-
-For multi-state rules, pass the `stateCount` as the fourth argument:
-
-```ts
-const briansBrain = parseRule('brians-brain', "Brian's Brain", 'B2/S', 3);
-```
-
-## Evolve Function
-
-The `evolve` function in `engine.ts` is fully generic. It reads `birth[]` and
-`survive[]` from the rule object, counts alive neighbours for each cell, and
-applies the lookup. For multi-state rules, it additionally increments the age
-of dying cells. The function takes a flat `Uint8Array` grid and returns a new
-one — no mutation of the input.
-
-## Web Worker Boundary
-
-Simulation runs in a Web Worker via `@repo/worker-pool` to avoid blocking
-the UI thread. The pool is configured with `maxPoolSize: 1` and uses
-`Transferable` buffers for zero-copy grid transfer — the `Uint8Array`
-ownership crosses the thread boundary without copying.
-
-```
-Main thread
-  └─ send grid (Transferable) → Worker
-       └─ evolve(grid, rule) → new grid
-  ← receive grid (Transferable) ← Worker
-```
-
-## File Layout
-
-```
-src/
-  engine.ts          Generic evolve (lookup tables + multi-state aging)
-  worker.ts          Off-main-thread step, Transferable ArrayBuffers
-  grid.ts            Grid allocation / seeding
-  rules/
-    types.ts         Rule type definition
-    parse.ts         B/S notation → Rule
-    registry.ts      Rule registry (register / get / getAll)
-    conway.ts        Conway's Game of Life
-    highlife.ts      HighLife
-    brians-brain.ts  Brian's Brain
-```
-
----
-
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/automa-engine/`._
