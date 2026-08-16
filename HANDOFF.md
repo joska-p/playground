@@ -14,14 +14,14 @@ Template source: `drafts/ui-design/HANDOFF-template.md`. Report reference: `draf
 
 1. **Purged dead-weight components/hooks** from `packages/ui` (no importers outside storybook), with their stories and exports:
 
-   - `data-entry`: `HelperText`, `Radio`
-   - `data-display`: `Carousel`/`CarouselSlide`, `ChangelogItem`, `MenuItem`, `Popover`
-   - `feedback`: `Alert`, `Dialog` (+Actions/Body/Description/Footer/Title), `ToastProvider`/`ToastViewport`/`useToast`
-   - `widgets`: `EdgeFieldCanvas`, `EdgeFieldMask`, `EdgeFieldSvg` (+ orphaned edge-field images)
-   - `cards`: `CategoryCard`, `ProjectCard`
-   - hooks: `useToastQueue`, `useFloatingNavState`, `useTabsState` (orphans — unused even by their components)
-   - stories: `HelperText`, `Radio`, `Carousel`, `ChangelogItem`, `MenuItem`, `Popover`, `Alert`, `Dialog`, `Toast`, `CategoryCard`, `ProjectCard`
-   - removed `./dialog` deep export from `packages/ui/package.json`
+    - `data-entry`: `HelperText`, `Radio`
+    - `data-display`: `Carousel`/`CarouselSlide`, `ChangelogItem`, `MenuItem`, `Popover`
+    - `feedback`: `Alert`, `Dialog` (+Actions/Body/Description/Footer/Title), `ToastProvider`/`ToastViewport`/`useToast`
+    - `widgets`: `EdgeFieldCanvas`, `EdgeFieldMask`, `EdgeFieldSvg` (+ orphaned edge-field images)
+    - `cards`: `CategoryCard`, `ProjectCard`
+    - hooks: `useToastQueue`, `useFloatingNavState`, `useTabsState` (orphans — unused even by their components)
+    - stories: `HelperText`, `Radio`, `Carousel`, `ChangelogItem`, `MenuItem`, `Popover`, `Alert`, `Dialog`, `Toast`, `CategoryCard`, `ProjectCard`
+    - removed `./dialog` deep export from `packages/ui/package.json`
 
 2. **Fixed turbo template** `turbo/generators/templates/new-package/src/components/Demo.tsx`: `Card` now from `@repo/ui/data-display`, `CardDescription`/`CardTitle` from `@repo/ui/cards`, `CardFooter` removed (kept the Reset button).
 
@@ -31,14 +31,14 @@ Template source: `drafts/ui-design/HANDOFF-template.md`. Report reference: `draf
 
 ### Architecture learnings (important for Phase 2)
 
-- The usage report counts consumers **outside** `packages/ui` only. It missed that the lib's **own Atlas showcase** (`packages/ui/src/atlas`, live at `/discoveries/ui` via `@repo/ui/ui`) uses several "dead weight" components. Per user decision (same rule as Sidebar: *keep anything with real usage*), these are **KEPT**:
-  - `FloatingNav` → `atlas/AtlasNav.tsx`
-  - `Tabs`/`TabsContent`/`TabsList`/`TabsTrigger` → `atlas/CartographerStats.tsx`
-  - `NotificationItem` → `atlas/AtlasFooter.tsx`
-  - `SvgExportPanel`, `EdgeFieldOriginal` → `atlas/index.tsx`
-  - `DefaultFallback` → `ErrorBoundary.tsx`; `CardBody`, `CardLink` → `DocCard.tsx`; `CardDescription`, `CardTitle` → turbo template
-  - `Sidebar` (+ `Sidebar.Main/Panel/Toggle`) → `graph-viz`, `palette-generator`, `pixel` (user confirmed KEEP)
-  - `Spinner` → internal use in `Switch.tsx` (kept in `widgets/index.ts`)
+- The usage report counts consumers **outside** `packages/ui` only. It missed that the lib's **own Atlas showcase** (`packages/ui/src/atlas`, live at `/discoveries/ui` via `@repo/ui/ui`) uses several "dead weight" components. Per user decision (same rule as Sidebar: _keep anything with real usage_), these are **KEPT**:
+    - `FloatingNav` → `atlas/AtlasNav.tsx`
+    - `Tabs`/`TabsContent`/`TabsList`/`TabsTrigger` → `atlas/CartographerStats.tsx`
+    - `NotificationItem` → `atlas/AtlasFooter.tsx`
+    - `SvgExportPanel`, `EdgeFieldOriginal` → `atlas/index.tsx`
+    - `DefaultFallback` → `ErrorBoundary.tsx`; `CardBody`, `CardLink` → `DocCard.tsx`; `CardDescription`, `CardTitle` → turbo template
+    - `Sidebar` (+ `Sidebar.Main/Panel/Toggle`) → `graph-viz`, `palette-generator`, `pixel` (user confirmed KEEP)
+    - `Spinner` → internal use in `Switch.tsx` (kept in `widgets/index.ts`)
 - `packages/ui` has **no root `index.ts`** — every consumer imports a deep-path submodule mapped in `package.json` `exports`.
 - Edge-field images (`edge-field.png/webp`, `edge-field-mask.webp`) were only used by the deleted components.
 
