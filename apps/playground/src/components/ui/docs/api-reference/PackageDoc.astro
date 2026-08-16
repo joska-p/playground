@@ -10,11 +10,13 @@ type Props = {
 const { packageName } = Astro.props;
 const pkgDir = packageName.replace('@repo/', '');
 const entry = await getEntry('api', pkgDir);
+const symbolIdMap = entry?.data?.typedoc?.symbolIdMap;
+const hasReference = symbolIdMap && Object.keys(symbolIdMap).length > 0;
 const { Content } = entry ? await render(entry) : { Content: null };
 ---
 
 <div class="mx-auto flex max-w-7xl justify-center gap-12 px-6 py-10">
-    <ApiReferenceNav entry={entry} />
+    {entry && hasReference && <ApiReferenceNav entry={entry} />}
 
     <div class="flex max-w-4xl min-w-0 flex-1 flex-col gap-12">
         {
@@ -29,7 +31,7 @@ const { Content } = entry ? await render(entry) : { Content: null };
         }
 
         {
-            entry && (
+            entry && hasReference && (
                 <article
                     id="api"
                     class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
