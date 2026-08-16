@@ -1,7 +1,6 @@
 import type Color from 'colorjs.io';
 import type { Rule } from '../types';
 
-/** Monochromatic color rule. Different shades, tints, and tones of the same hue. */
 const monochromatic: Rule = {
     apply: (color: Color) => {
         const base = color.clone().to('oklch');

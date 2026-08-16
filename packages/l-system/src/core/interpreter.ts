@@ -2,47 +2,30 @@ import type { Word } from '@repo/l-system-engine/types';
 import * as THREE from 'three';
 
 export type TurtleOptions = {
-    /** Angle in degrees to turn on + / - symbols. */
     angle: number;
-    /** Initial length of each forward step. */
     stepLength: number;
-    /** Multiply step length by this factor each iteration (parametric). */
     lengthFactor: number;
-    /** Initial line width. */
     lineWidth: number;
-    /** Multiply line width by this factor per branch depth. */
     widthFactor: number;
 };
 
 export type LineSegment = {
     start: THREE.Vector3;
     end: THREE.Vector3;
-    /** Depth at which this segment was drawn — used for colouring. */
+    /** Branch depth — used for colouring. */
     depth: number;
 };
 
 type TurtleState = {
     position: THREE.Vector3;
-    /** Unit direction vector. */
     direction: THREE.Vector3;
-    /** Up vector — for 3D rolls. */
+    /** Needed for 3D rolls. */
     up: THREE.Vector3;
     depth: number;
 };
 
 const DEG = Math.PI / 180;
 
-/**
- * Interprets a Word as 3D turtle-graphics commands and returns line segments.
- *
- * Symbol mapping: F / f → move forward (F draws, f moves silently)
- *
- * - → yaw left by angle
- * - → yaw right by angle
- *
- * ^ → pitch up by angle & → pitch down by angle \ → roll left by angle / → roll right by angle | →
- * turn around 180° [ → push state ] → pop state
- */
 export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     const segments: LineSegment[] = [];
     const stack: TurtleState[] = [];

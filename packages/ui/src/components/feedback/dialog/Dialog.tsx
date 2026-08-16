@@ -14,9 +14,9 @@ import {
 
 export interface DialogProps
     extends Omit<HTMLAttributes<HTMLDialogElement>, 'open'>, DialogVariants {
-    /** Controls whether the dialog is open (required for stateless mode) */
+    /** Required for stateless mode: callers own the open state. */
     open?: boolean;
-    /** Called when the dialog is closed by the browser (Esc, backdrop click, etc.) */
+    /** Fired by the native `<dialog>` close event (Esc, backdrop click) — not by the component. */
     onClose?: () => void;
     children: ReactNode;
 }

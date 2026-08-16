@@ -6,7 +6,7 @@ export interface ToastOptions {
     title: ReactNode;
     description?: ReactNode;
     variant?: ColorVariant;
-    /** Milliseconds before auto-dismiss. Defaults to 4000. Pass 0 to disable. */
+    /** 0 disables auto-dismiss. */
     duration?: number;
 }
 
@@ -15,13 +15,6 @@ export type ToastItem = {
     exiting?: boolean;
 } & ToastOptions;
 
-/**
- * UseToastQueue — the state hook behind the toast system. `ToastProvider` and `ToastViewport` are
- * both stateless; this hook is where the toast list, id counter, and dismiss timers actually live.
- *
- * Const queue = useToastQueue(); queue.toast({ title: "saved" }); <ToastProvider
- * toasts={queue.toasts} dismiss={queue.dismiss}>...</ToastProvider>
- */
 export function useToastQueue() {
     const [toasts, setToasts] = useState<ToastItem[]>([]);
     const idRef = useRef(0);

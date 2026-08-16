@@ -1,14 +1,11 @@
 /**
- * View state + camera math for the Mandelbrot viewer.
- *
- * The center is stored in arbitrary precision (BigFloat) so it never loses detail as we zoom.
- * `zoom` is the base-2 log of linear magnification, i.e. magnification = 2^zoom. Pixel spacing
- * (complex units per device pixel) is derived from zoom and shrinks exponentially with depth.
+ * View state + camera math. The center is stored in BigFloat so it never loses detail while
+ * zooming; `zoom` is log2 of linear magnification.
  */
 
 import { type BigFloat, add, fromNumber, withPrec } from '../big-float';
 
-/** Complex-plane height shown at zoom 0. Classic full view is ~3 units tall. */
+/** Complex-plane height at zoom 0 (full view). */
 export const BASE_SPAN_Y = 3.0;
 
 export type View = {
@@ -23,7 +20,6 @@ export function precisionForZoom(zoom: number): number {
     return Math.max(64, Math.ceil(zoom) + 52);
 }
 
-/** Complex units per device pixel at the current zoom + canvas height. */
 export function pixelSpacing(zoom: number, heightPx: number): number {
     return (BASE_SPAN_Y * Math.pow(2, -zoom)) / Math.max(1, heightPx);
 }
@@ -38,7 +34,6 @@ export function initialView(): View {
     };
 }
 
-/** Ensure both coordinates carry enough precision for the current zoom. */
 export function reprecision(view: View): View {
     const prec = precisionForZoom(view.zoom);
     if (view.cx.prec === prec) return view;
@@ -49,7 +44,7 @@ export function reprecision(view: View): View {
     };
 }
 
-/** Pan by a device-pixel delta (drag). Moves the center opposite the drag. */
+/** Pan by a device-pixel delta; the center moves opposite the drag. */
 export function panByPixels(view: View, dxPx: number, dyPx: number, heightPx: number): View {
     const s = pixelSpacing(view.zoom, heightPx);
     const prec = precisionForZoom(view.zoom);
@@ -61,10 +56,9 @@ export function panByPixels(view: View, dxPx: number, dyPx: number, heightPx: nu
 }
 
 /**
- * Zoom by `dZoom` (in log2 magnification) about a screen anchor, keeping the complex point under
- * that anchor fixed.
+ * Zoom about a screen anchor, keeping the complex point under it fixed. NewCenter = center + offset
  *
- * NewCenter = center + offset * (1 - 2^-dZoom)
+ * - (1 - 2^-dZoom)
  */
 export function zoomAtPixel(
     view: View,
@@ -89,7 +83,6 @@ export function zoomAtPixel(
     });
 }
 
-/** Human-readable magnification, e.g. "1.0e6x". */
 export function formatMagnification(zoom: number): string {
     const log10 = (zoom * Math.LN2) / Math.LN10;
     if (log10 < 3) {

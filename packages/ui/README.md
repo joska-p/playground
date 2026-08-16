@@ -1,78 +1,42 @@
 # @repo/ui
 
-React component library — Tailwind CSS v4, CVA variants, Gruvbox theme.
+> A React component library with a Gruvbox-inspired design system — CVA variants, Tailwind CSS v4 tokens, and a strict "stateless components, stateful hooks" architecture.
+> Current Status: 🟢 Stable
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc. Interactive component docs live in Storybook.
 
 ---
 
-## Quick Start
+## 🎯 Intention & Concept
 
-```bash
-pnpm --filter @repo/ui dev
-```
+`@repo/ui` is the shared UI kit for the playground. It is not a generic headless library: every component is opinionated toward the project's aesthetic (Gruvbox palette, OKLCH color drifting, subtle neon glows) and the app's common needs (control panels, data cards, experiment grids).
 
-Import by category or individual component:
+Two architectural rules drive everything:
 
-```tsx
-import { Button, Input } from '@repo/ui/data-entry';
-import { Badge, Card } from '@repo/ui/data-display';
-import { Alert, Dialog } from '@repo/ui/feedback';
-```
+- **Stateless components, stateful hooks.** Components never own state — `<ThemeProvider>`, `<Tabs>`, and the toast system are fully controlled; the actual `useState` calls live in sibling hooks (`useThemeState`, `useTabsState`, `useToastQueue`). The tree stays pure, and state is reusable without the component.
+- **One color system, one source of truth.** Every component accepts the same `variant` prop, and `COLOR_CLASSES` is the single canonical map each component's CVA config spreads from.
 
-## Directory Structure
+## 🥷 Brainstorming, Inspirations & Credits
 
-```
-src/
-  components/
-    cards/            # ProjectCard, EdgeCard, DocCard, CategoryCard…
-    control-panel/    # ControlPanel, ControlRow, ControlSection…
-    data-display/     # Badge, Card, Accordion, Hero, Popover…
-    data-entry/       # Button, Input, Select, Slider, Switch…
-    feedback/         # Alert, Dialog, Toast, ErrorBoundary…
-    icons/            # Icon component + createIcon factory
-    navigation/       # FloatingNav, Tabs
-    widgets/          # Sidebar, Spinner, ColorPalette, EdgeField
-  hooks/              # useSidebarState, useResizeObserver, useThemeState…
-  lib/                # cn() utility
-  styles/             # Gruvbox theme CSS
-  theme/              # ThemeProvider, useTheme
-```
+- **Visual Inspo:** Gruvbox color palette, ambient "breathing" UI with slow OKLCH hue drift, subtle neon-tube glows on cards.
+- **Math / Papers:** OKLCH perceptually-uniform color space — hue rotation keeps brightness constant, which makes it ideal for organic color animation.
+- **Borrowed Code & Algorithms:** CVA variant recipes, Tailwind CSS v4 `@theme` tokens, `cn()` = clsx + tailwind-merge, shadcn-style component conventions.
 
-## Component Guidelines
+## ⚠️ Patterns & Gotchas
 
-| Rule              | Convention                                                                                       |
-| ----------------- | ------------------------------------------------------------------------------------------------ |
-| **File naming**   | Kebab-case directories (`button/`), PascalCase component files (`Button.tsx`)                    |
-| **Variants**      | Co-located `variants.ts` using CVA. Export `<name>Variants` (function) + `<Name>Variants` (type) |
-| **Props**         | `interface` extending native HTML attrs + variant type. Named `<Component>Props`                 |
-| **Refs**          | React 19 style — `ref` as a destructured prop, no `forwardRef`                                   |
-| **Styling**       | `cn(variantsFn({ variant }), className)` — always wrap with `cn()` for consumer overrides        |
-| **CSS tokens**    | No hardcoded colors/radii. Use Tailwind scale values. `style` only for dynamic CSS vars          |
-| **Exports**       | Named exports only. No `export default`. No root barrel                                          |
-| **Barrels**       | Per-category `index.ts` — explicit named re-exports, no `export *`                               |
-| **Loading**       | `loading` prop → inject `<Spinner />`, set `disabled` + `aria-busy`                              |
-| **Accessibility** | `:focus-visible` outlines, `active:scale-[.97]`, `disabled:pointer-events-none`                  |
-| **Layout**        | CSS Grid by default. Flexbox for single-axis only. Intrinsic over breakpoints                    |
+- **Theming:** the theme CSS uses split `--*-l / --*-c / --*-h` channels so JS animates single raw numbers per frame (60fps "breathing") instead of full color strings. The base palette block is the single source of truth — every semantic/tag token is a pure `var()` alias.
+- **Variant colors:** `COLOR_VARIABLE_CLASSES` sets `--variant-color`, and composed components (ProjectCard, DocCard, CategoryCard) get their accent through CardLink's `accent` prop — there is no per-card `category` mapping.
+- **Height-collapse animation:** `ControlConditional` collapses via the `grid-template-rows: 0fr → 1fr` trick — a plain CSS transition, no measuring JS.
+- **Opting out of shared behavior:** CategoryCard cancels CardLink's `hover:-translate-y-0.5` by passing `hover:translate-y-0` — `cn`'s tailwind-merge resolves the conflict, the standard way to tweak a composed component without forking it.
+- **EdgeField:** the edge-detection look exists in three forms — live SVG filter chain, live WebGL2 fragment shader (same pipeline, per-pixel), and a baked webp mask (the alpha channel _is_ the contour pattern, applied via `mask-image` so `--glow-color` stays dynamic). See `_KNOWLEDGE/ui-edgefield-baked-mask.md`.
+- **Dialog:** fully controlled — `open` comes from the caller, `onClose` fires from the native `<dialog>` close event (Esc, backdrop click).
+- **Label `required`:** purely visual — shows a `*` and does _not_ set the HTML `required` attribute.
 
-## Adding a Component
+## 📚 References
 
-1. Create `src/components/<category>/<component-name>/ComponentName.tsx`
-2. Add `variants.ts` with CVA recipe if the component has visual variants
-3. Export props interface: `export interface ComponentNameProps extends HTMLAttributes<HTMLElement>, Variants`
-4. Use named export: `export function ComponentName({ ... }: ComponentNameProps)`
-5. Add barrel re-exports in `src/components/<category>/index.ts`
-6. Add `package.json` export entry if it should be individually importable
-
-## Conventions
-
-This package follows [project conventions](/docs/conventions/01-overview.md):
-
-- [Package Structure](/docs/conventions/02-package-structure/)
-- [CSS Tokens](/docs/conventions/09-ui-css-tokens/)
-- [Responsive Layout](/docs/conventions/10-ui-responsive-layout/)
-- [Dynamic Tailwind Colors](/docs/conventions/11-dynamic-tailwind-colors/)
-- [Imports & Exports](/docs/conventions/13-imports-exports/)
-- [TypeScript Style](/docs/conventions/15-typescript-style/)
+- [Storybook (component docs)](https://joska-p.github.io/playground/storybook/)
+- [Project Conventions](/docs/conventions/01-overview.md)
 
 ---
 
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/ui/`._

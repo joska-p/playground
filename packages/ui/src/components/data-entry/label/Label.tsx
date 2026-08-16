@@ -3,7 +3,7 @@ import { cn } from '../../../lib/cn';
 import { labelVariants, type LabelVariants } from './variants';
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, LabelVariants {
-    /** Shows a colored "*" after the label text. */
+    /** Visual only — shows a `*`; does NOT set the HTML `required` attribute. */
     required?: boolean;
     ref?: Ref<HTMLLabelElement>;
 }

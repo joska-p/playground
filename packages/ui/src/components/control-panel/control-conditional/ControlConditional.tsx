@@ -8,13 +8,8 @@ export interface ControlConditionalProps {
 }
 
 /**
- * Shows or folds away a run of ControlRows depending on `when` — e.g. only reveal "noise seed" once
- * "noise" is switched on. Fully controlled: `when` comes from whatever state the app already has (a
- * Switch's `checked`, a Select's `value`), there's nothing owned here — consistent with "stateless
- * components, stateful hooks".
- *
- * Animated with the `grid-template-rows: 0fr → 1fr` trick, so it's a plain CSS transition and the
- * content's height (not just its opacity) collapses to zero — no measuring, no JS, no layout jump.
+ * Fully controlled by `when` — no state owned here. Height collapses via the `grid-template-rows:
+ * 0fr → 1fr` trick, so it's a plain CSS transition with no measuring.
  */
 export function ControlConditional({ when, className, children }: ControlConditionalProps) {
     return (

@@ -1,21 +1,8 @@
 /**
- * pg_lab-ui — global theme stylesheet
- * -----------------------------------
- * Import this ONCE at the root of your app:
- *   import "pg-lab-ui/styles/globals.css"
- *
- * Everything here is deliberately still plain CSS. These are the
- * "CSS-only features that need no React equivalent" from the original
- * design (see the react-guide section of the source file):
- *   :has(), :focus-within, @starting-style, color-mix() are all kept
- *   in CSS — only the *stateful* pieces (open/checked/aria-*) come
- *   from React props/attributes.
+ * Global theme stylesheet — import once at the root.
+ * Deliberately plain CSS: stateless CSS features (:has, :focus-within, @starting-style, color-mix)
+ * live here; only stateful pieces (open/checked/aria-*) come from React props/attributes.
  */
-
-/**
-  * pg_lab-ui — global theme stylesheet
-  * -----------------------------------
-  */
 
 @theme inline {
     /* Semantic color mappings for Tailwind utilities */

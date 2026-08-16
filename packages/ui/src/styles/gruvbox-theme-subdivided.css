@@ -1,50 +1,11 @@
 /**
- * ---------------------------------------------------------------------
- * OKLCH Color Space & Variable Split Architecture
- * ---------------------------------------------------------------------
- * * WHAT IS OKLCH?
- * OKLCH is a perceptually uniform color space.
- * - L (Lightness): Perceived brightness (0.0 to 1.0)
- * - C (Chroma): Color intensity or saturation (0.0 to ~0.4)
- * - H (Hue): The color angle on a color wheel (0 to 360 degrees)
- * * WHY USE OKLCH FOR THIS THEME?
- * In standard color spaces like HSL or RGB, shifting the hue causes
- * massive, jarring changes in perceived brightness. For example, pure
- * yellow looks much brighter than pure blue, even if their "Lightness"
- * value in HSL is identical. OKLCH fixes this. If you rotate the Hue
- * in OKLCH, the perceived brightness and intensity remain perfectly
- * uniform, making it the absolute best choice for organic, ambient
- * color drifting.
- * * WHY ARE THE VARIABLES SPLIT?
- * To achieve a 60fps "breathing" UI effect, we need to mathematically
- * animate the colors via JavaScript. Forcing the browser to parse and
- * update full color strings (e.g., "oklch(0.7 0.1 200)") on every single
- * frame is terrible for performance.
- * * Instead, we isolate the channels:
- * --primary-l: 0.693;
- * --primary-c: 0.042;
- * --primary-h: 169.768; <-- JS only updates this single raw number
- * * The base token then automatically reconstructs itself:
- * --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
- * * This allows JavaScript to smoothly sweep the `--primary-h` value
- * back and forth, letting the CSS engine handle the color composition
- * natively and efficiently.
- * ---------------------------------------------------------------------
- * * SINGLE SOURCE OF TRUTH
- * There is exactly ONE place where a real numeric L/C/H triplet is
- * written down per mode: the BASE PALETTE block below. Every semantic
- * token (--primary, --destructive, ...) and every --tags-* token is a
- * pure var() alias back to one of those base channels. This means:
- * - Retuning a base hue (e.g. --blue-h) updates every token derived
- *   from it automatically.
- * - A drift script can target ANY single channel var — a base color
- *   (--blue-h), a semantic token (--primary-h), or nothing tag-specific
- *   at all, since tags simply reference the reconstructed base color.
- * - Setting a var directly via JS (element.style.setProperty) on :root
- *   overrides the var() reference for that one token, so you can still
- *   "unlink" and animate a single semantic token independently if
- *   needed without touching the base hue.
- * ---------------------------------------------------------------------
+ * OKLCH theme with split L/C/H channels.
+ * - OKLCH is perceptually uniform: rotating the hue keeps brightness constant, ideal for drifting
+ *   colors.
+ * - Channels are split into --*-l / --*-c / --*-h so JS animates single raw numbers per frame
+ *   instead of full color strings.
+ * - The base palette block below is the single source of truth; every semantic/tag token is a pure
+ *   var() alias back to one of those channels.
  */
 
 @theme inline {

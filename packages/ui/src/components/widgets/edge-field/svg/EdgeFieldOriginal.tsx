@@ -1,25 +1,7 @@
-/**
- * EdgeField
- *
- * The whole "the page went through an edge-detection filter" illusion lives here. Pipeline inside
- * each SVG <filter>:
- *
- * 1. FeTurbulence -> generate organic fractal noise (the "surface")
- * 2. FeComponentTransfer (discrete) -> posterize the noise into flat bands, like a topographic height
- *    map
- * 3. FeColorMatrix (matrix) -> desaturate the bands to grayscale
- * 4. FeConvolveMatrix (Laplacian kernel) -> the actual edge detection: it lights up only where bands
- *    meet, i.e. the contour lines
- * 5. FeColorMatrix (luminanceToAlpha) -> turn edge brightness into alpha
- * 6. FeFlood + feComposite(in) -> paint those edges with the glow color
- * 7. FeGaussianBlur + feMerge -> bloom so the lines actually glow
- *
- * We render it twice: a calm base layer, and a "hot" layer in a different hue that is masked to the
- * cursor so the filter appears to charge up where you look.
- */
-
-// Laplacian edge-detection kernel (8-neighbour). Sums to zero, so flat areas
-// go black and only transitions survive -> contour outlines.
+// Rendered twice: a calm base layer, plus a "hot" layer masked to the cursor so
+// the filter appears to charge up where you look.
+// The edge-detection look comes from an SVG filter chain: feTurbulence -> posterize ->
+// feConvolveMatrix (Laplacian) -> luminanceToAlpha -> flood with the glow color + blur.
 const EDGE_KERNEL = '1 1 1 1 -8 1 1 1 1';
 
 // Posterization steps -> the number of contour "rings" in the field.

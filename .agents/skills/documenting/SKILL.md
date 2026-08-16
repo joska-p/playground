@@ -6,6 +6,7 @@ description: Use when documenting a package, generating docs, or modifying packa
 # Documenting Packages
 
 When performing this task, read the Single Source of Truth (SSOT) documentation files:
+
 - `/workspaces/playground/apps/playground/src/content/docs/how-to/documenting-packages.md`
 - `/workspaces/playground/apps/playground/src/content/docs/conventions/12-documentation.md`
 

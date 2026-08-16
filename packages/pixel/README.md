@@ -1,118 +1,39 @@
 # @repo/pixel
 
-> A pipeline that translates raw pixel data through chains of transforms, each
-> step breathing a new visual texture into the image.
+> A pipeline that translates raw pixel data through chains of transforms, each step breathing a new visual texture into the image — all off the main thread, with zero image-processing dependencies.
+> Current Status: 🟢 Stable
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc.
 
 ---
 
-## Essence
+## 🎯 Intention & Concept
 
-Pixel is a TypeScript-native image manipulation engine that runs entirely in the
-browser. It gives you a declarative pipeline: declare the steps, hand over an
-`ImageData`, and watch it pass through a choreography of per-pixel fusions,
-neighborhood convolutions, and geometry-bending global transforms — all
-orchestrated across a Web Worker pool without touching a single line of
-off-thread code.
+Pixel is a TypeScript-native image manipulation engine that runs entirely in the browser. It gives you a declarative pipeline: declare the steps, hand over an `ImageData`, and watch it pass through a choreography of per-pixel fusions, neighborhood convolutions, and geometry-bending global transforms — all orchestrated across a Web Worker pool without touching a single line of off-thread code.
 
-The goal is simple: zero external image-processing dependencies, full
-compile-time safety on every step and option shape, and a single facade that
-hides the machinery of worker pools, buffer management, and fusion scheduling.
+The goal is simple: zero external image-processing dependencies, full compile-time safety on every step and option shape, and a single facade that hides the machinery of worker pools, buffer management, and fusion scheduling.
 
-## Quick Launch
+`@repo/pixel` is the React-friendly facade. The bare-metal core (pure functions and classes, no DOM or Workers) lives in `@repo/pixel-engine`; this package adds the worker pool, the step manifest, and the docs UI.
 
-```bash
-pnpm dev --filter @repo/playground
-```
+## 🥷 Brainstorming, Inspirations & Credits
 
-Or install it into your own project:
+- **Visual Inspo:** classic photo-editing filter stacks (grayscale, sepia, brightness, contrast).
+- **Math / Papers:** per-pixel color transforms, convolution kernels (neighborhood ops).
+- **Borrowed Code & Algorithms:** worker-pool dispatch pattern (shared with `@repo/worker-pool`), `Transferable` buffers for zero-copy, typed step manifest.
 
-```bash
-pnpm add @repo/pixel
-```
+## ⚠️ Patterns & Gotchas
 
-```typescript
-import { pixel } from '@repo/pixel/api/pixel';
+- **`Step` is compile-time-safe.** The type is derived from the manipulation manifest — invalid step IDs and option shapes are caught at compile time (`{ id: 'brightness', options: { wrong: 1.2 } }` is a type error).
+- **Steps are fused, snapshots aren't.** Consecutive pixel operations collapse into a single pass by the fusion scheduler — but every step still yields its own `ImageData` snapshot in the results.
+- **Fences flush the scheduler.** Neighborhood and global ops flush pending fusions before they run — matters when composing aggressive contrast stretches with sharpening kernels.
+- **Off-thread by design.** Execution runs through a worker pool with `Transferable` buffers; large images never stall the UI thread. Call `pixel.teardown()` on app unmount to terminate workers and clear the queue.
+- **One facade.** `pixel.run({ sourceImageData, steps })` returns one snapshot per step; work is queued when all workers are busy.
 
-const results = await pixel.run({
-    sourceImageData: imageData,
-    steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }]
-});
-// results[0] = grayscale, results[1] = brightness
-```
+## 📚 References
 
-## Usage Examples
-
-### Run a pipeline
-
-```typescript
-import { pixel } from '@repo/pixel/api/pixel';
-
-const snapshots = await pixel.run({
-    sourceImageData: imageData,
-    steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }]
-});
-```
-
-Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker
-pool (up to `hardwareConcurrency` workers). If all workers are busy the job is
-queued.
-
-### Browse available manipulations
-
-```typescript
-import { pixel } from '@repo/pixel/api/pixel';
-
-// All manipulations (pixel, neighborhood, global)
-pixel.manipulations;
-
-// Filter by access type
-pixel.getManipulationsByAccess('pixel');
-pixel.getManipulationsByAccess('neighborhood');
-pixel.getManipulationsByAccess('global');
-```
-
-### Compile-time-safe steps
-
-The `Step` type is derived from the manipulation manifest — invalid step IDs and
-option shapes are caught at compile time:
-
-```typescript
-import type { Step } from '@repo/pixel/api/pixel';
-
-const preset: Step = { id: 'brightness', options: { value: 1.2 } }; // OK
-const bad: Step = { id: 'brightness', options: { wrong: 1.2 } }; // type error
-```
-
-### Teardown
-
-```typescript
-import { pixel } from '@repo/pixel/api/pixel';
-
-// On app teardown — terminates workers and clears queue
-pixel.teardown();
-```
-
-## Field Notes
-
-- **The Catalyst:** The realization that every browser-based image editor
-  reaches for the same off-the-shelf canvas filters or C++ WASM modules. What
-  if the entire pipeline — from per-pixel math to convolution tiling — lived in
-  pure TypeScript, fully typed, fully observable?
-
-- **Quirks & Anomalies:** Consecutive pixel operations are silently fused into a
-  single pass by the fusion scheduler. You write three steps; the engine
-  executes one loop. The intermediate snapshots still appear in the results, but
-  the pixels only touch memory once. Neighborhood and global ops act as fences,
-  flushing the scheduler before they run — a detail that matters when you're
-  composing aggressive contrast stretches with sharpening kernels. Execution
-  runs off-thread through a worker pool with `Transferable` buffers, so large
-  images never stall the UI thread.
-
-- **Future Horizons:** A plugin manifest that lets you register custom
-  manipulations at runtime, tiling strategies that adapt to available memory
-  pressure, and a streaming mode for processing video frames without the
-  overhead of full `ImageData` copies between steps.
+- [MDN — ImageData](https://developer.mozilla.org/en-US/docs/Web/API/ImageData)
+- [MDN — Transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects)
 
 ---
 
-_Part of [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/pixel/`._

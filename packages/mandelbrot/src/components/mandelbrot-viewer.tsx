@@ -1,10 +1,7 @@
 /**
- * The Mandelbrot viewer, wired onto `@repo/glaze`.
- *
- * GpuCanvas is a pure GL surface + frame loop: glaze supplies the fullscreen triangle and compiles
- * `FRAGMENT_SRC`; this component feeds it per-frame uniforms. All view math stays in BigFloat land
- * (`view.ts`); only the spacing + reference offset are translated at the canvas boundary. glaze's
- * float32 Camera is deliberately not used for pan/zoom — it can't hold arbitrary-depth zoom.
+ * Mandelbrot viewer wired onto `@repo/glaze`. glaze's float32 Camera is deliberately not used for
+ * pan/zoom — it can't hold arbitrary-depth zoom — so all view math lives in BigFloat (`view.ts`)
+ * and only spacing + reference offset cross into float uniforms.
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -53,14 +50,12 @@ export function MandelbrotViewer() {
     const viewRef = useRef<View>(initialView());
     const lookRef = useRef<LookState>(DEFAULT_LOOK);
 
-    // Reference-orbit bookkeeping.
     const refCenterRef = useRef<View | null>(null);
     const refLengthRef = useRef(0);
     const computingRef = useRef(false);
     const supersederRef = useRef(new Superseder());
 
-    // Raw-GL orbit texture + the last orbit (needed to re-upload after a
-    // context restore, since app-created textures are dead afterwards).
+    // Last orbit is kept so a context restore can re-upload it (app-created textures die with it).
     const texturesRef = useRef<OrbitTexture | null>(null);
     const lastOrbitRef = useRef<OrbitResult | null>(null);
     const orbitVersionRef = useRef(0);
@@ -110,15 +105,13 @@ export function MandelbrotViewer() {
         }
     };
 
-    // These closures only read refs and stable setState, so their identity never
-    // matters — hold them behind refs so effects/listeners keep stable deps
-    // without useCallback (the compiler can't memoize this imperative component).
+    // These closures only read refs and stable setState, so their identity never matters — hold
+    // them behind refs to keep effect/listener deps stable without useCallback.
     const updateHudRef = useRef(updateHud);
     const requestReferenceRef = useRef(requestReference);
 
-    // Pan/zoom handlers drive the BigFloat view. Built once via a lazy state
-    // initializer so the object's identity is stable across renders and glaze's
-    // interaction controller attaches its listeners once.
+    // Built once via a lazy initializer so the object's identity is stable across renders and
+    // glaze's interaction controller attaches its listeners once.
     const [interactions] = useState<CanvasInteractions<GpuSurface>>(() => {
         let dragging = false;
         let lastX = 0;
@@ -127,7 +120,6 @@ export function MandelbrotViewer() {
         const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 
         const maybeRecompute = () => {
-            // Recompute reference if we've panned/zoomed far from the current ref.
             const view = viewRef.current;
             const ref = refCenterRef.current;
             const canvas = canvasRef.current;
@@ -190,13 +182,11 @@ export function MandelbrotViewer() {
         };
     });
 
-    // Keep refs in sync with the look state driven by the panel.
     useEffect(() => {
         lookRef.current = look;
     }, [look]);
 
-    // Dispose the orbit texture with the component; the glaze runtime owns its
-    // own resources and cleans those up when the canvas unmounts.
+    // Dispose the orbit texture with the component; glaze owns and cleans up its own resources.
     useEffect(() => {
         return () => {
             texturesRef.current?.dispose();
@@ -204,8 +194,8 @@ export function MandelbrotViewer() {
         };
     }, []);
 
-    // Glaze recompiles its programs on context restore, but our raw-GL orbit
-    // texture is dead afterwards; recreate + re-upload the last orbit.
+    // Glaze recompiles its programs on context restore, but our raw-GL texture is dead afterwards
+    // — recreate and re-upload the last orbit.
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -220,12 +210,11 @@ export function MandelbrotViewer() {
         };
     }, []);
 
-    // First reference orbit on mount.
     useEffect(() => {
         void requestReferenceRef.current(viewRef.current);
     }, []);
 
-    // Recompute reference when maxIter changes (orbit length depends on it).
+    // Orbit length depends on maxIter, so recompute when it changes.
     useEffect(() => {
         void requestReferenceRef.current(viewRef.current);
     }, [look.maxIter]);
@@ -278,8 +267,8 @@ export function MandelbrotViewer() {
                         return {};
                     }
 
-                    // Lazily create the texture on the glaze-owned context and
-                    // upload each new orbit exactly once.
+                    // Lazily create the texture on the glaze-owned context; upload each new orbit
+                    // exactly once.
                     let texture = texturesRef.current;
                     if (!texture || orbitVersionRef.current !== uploadedVersionRef.current) {
                         if (!texture) {
@@ -306,8 +295,8 @@ export function MandelbrotViewer() {
 
                     const spacing = pixelSpacing(view.zoom, devH);
                     const rv = reprecision(view);
-                    // Offset of the reference point from the view center, in
-                    // complex units (the shader's uRefOffset contract).
+                    // Reference offset from the view center, in complex units (the shader's
+                    // uRefOffset contract).
                     const refOffsetX = toNumber(rv.cx) - toNumber(refCenter.cx);
                     const refOffsetY = toNumber(rv.cy) - toNumber(refCenter.cy);
 

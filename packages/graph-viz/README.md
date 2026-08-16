@@ -30,6 +30,11 @@ The core technical tension lies between _computational density_ and _visual legi
 - **Strict Zod Validation:** The processed graph payload is validated against a Zod schema immediately at module scope in `App.tsx`. Malformed data triggers an accessible error alert (`role="alert"`) instead of partial rendering.
 - **Compiler-Driven Memoization:** Relying on the React Compiler (`no need for useMemo or useCallback`) requires maintaining strict immutability boundaries between the static content store and dynamic view store.
 
+## 📚 References
+
+- [d3-force-3d](https://github.com/vasturiano/d3-force-3d)
+- [three.js InstancedMesh](https://threejs.org/docs/#api/en/objects/InstancedMesh)
+
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/graph-viz/`._

@@ -1,10 +1,7 @@
 import type Color from 'colorjs.io';
 import type { Rule } from '../types';
 
-/**
- * Analogous color rule. Returns the base color and colors adjacent to it on the hue wheel (+/- 30
- * degrees).
- */
+/** Base hue plus its neighbors −30° / +30° on the hue wheel. */
 const analogous: Rule = {
     apply: (color: Color) => {
         const base = color.clone().to('oklch');

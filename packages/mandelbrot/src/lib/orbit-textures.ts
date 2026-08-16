@@ -1,11 +1,7 @@
 /**
- * Fixed-width RG32F texture holding the reference orbit the perturbation shader samples (RG = (Zx,
- * Zy) per texel).
- *
- * Owns the texture's lifetime for the given GL context. Uploads reuse the buffer via
- * `texSubImage2D` when the orbit still fits in the current row count; only a longer orbit forces a
- * reallocation (`texImage2D`). Pass the raw `WebGLTexture` as the `uRef` uniform and let glaze bind
- * it.
+ * Reference orbit as an RG32F texture (each texel holds Z in its RG channels). Uploads reuse the
+ * buffer via `texSubImage2D` while the orbit still fits in the current row count; only a longer
+ * orbit forces a fresh allocation.
  */
 
 export const REF_TEX_WIDTH = 2048;
@@ -40,7 +36,7 @@ export function createOrbitTexture(gl: WebGL2RenderingContext): OrbitTexture {
         upload(data, count): void {
             const w = REF_TEX_WIDTH;
             const h = Math.max(1, Math.ceil(count / w));
-            // Pad to width*height texels (RG = 2 floats each).
+            // Pad to full rows (RG = 2 floats per texel).
             const padded = new Float32Array(w * h * 2);
             padded.set(data.subarray(0, count * 2));
 

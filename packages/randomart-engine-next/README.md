@@ -1,153 +1,39 @@
 # @repo/randomart-engine-next
 
-> A grammar-driven expression-tree engine that turns a text seed into three
-> channel trees (R, G, B), each compiling to both a CPU-evaluable function and a
-> GLSL fragment shader — the next generation of randomart.
+> A grammar-driven expression-tree engine that turns a text seed into three channel trees (R, G, B), each compiling to both a CPU-evaluable function and a GLSL fragment shader — the next generation of randomart.
+> Current Status: 🧪 WIP
+
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. API inventory is automatically handled by TypeDoc.
 
 ---
 
-## Essence
+## 🎯 Intention & Concept
 
-Random Art (Andrej Bauer, 1999) replaces meaningless strings — SSH key
-fingerprints, passwords, hashes — with structured images humans can compare at
-a glance. The engine's job is the math behind one such image: take a seed
-string, derive a deterministic random stream from it, and use that stream to
-grow three expression trees (one per RGB channel) over a grammar of
-mathematical operators. Every tree describes a function from a pixel coordinate
-`(x, y)` in `[-1, 1]` to a value, so evaluating it at every pixel of a grid
-rasterizes the image.
+Random Art (Andrej Bauer, 1999) replaces meaningless strings — SSH fingerprints, passwords, hashes — with structured images humans can compare at a glance. The engine's job is the math behind one such image: take a seed string, derive a deterministic random stream from it, and use that stream to grow three expression trees (one per RGB channel) over a grammar of mathematical operators. Every tree describes a function from a pixel coordinate `(x, y)` in `[-1, 1]` to a value, so evaluating it at every pixel of a grid rasterizes the image.
 
-The central idea, shared with its predecessor `@repo/randomart-engine`, is
-_what_ separated from _where_: the same tree can be walked node-by-node on the
-CPU (`evaluate`) for export, debugging, and non-WebGL contexts, or compiled
-into a single GLSL fragment shader (`compileToShader`) so every pixel runs in
-parallel on the GPU. Same AST, two runtimes.
+The central idea, shared with `@repo/randomart-engine`, is _what_ separated from _where_: the same tree can be walked node-by-node on the CPU (`evaluate`) or compiled into a single GLSL fragment shader (`compileToShader`). Same AST, two runtimes.
 
-What "next" adds is a cleaner seam between the pieces. Grammar **operators**,
-**rules** (which operators a generator may use and how deep it may grow), and
-**behaviors** (per-shader spatial/color post-processing) each live behind their
-own subpath registry, and the shader compiler folds in color-space conversion
-(`srgb`, `oklch`, `oklab`, `hsl`) and a dependency-resolved GLSL helper library
-for noise functions.
+What "next" adds is a cleaner seam between the pieces. Grammar **operators**, **rules** (which operators a generator may use and how deep it may grow), and **behaviors** (per-shader spatial/color post-processing) each live behind their own subpath registry, and the shader compiler folds in color-space conversion (`srgb`, `oklch`, `oklab`, `hsl`) plus a dependency-resolved GLSL helper library for noise functions.
 
-## Quick Start
+## 🥷 Brainstorming, Inspirations & Credits
 
-```bash
-pnpm add @repo/randomart-engine-next
-```
+- **Visual Inspo:** hash-visualization and identicon aesthetics (drunken-bishop, OpenSSH-style randomart).
+- **Math / Papers:** Andrej Bauer's Random Art; FNV-1a hash + mulberry32 PRNG; expression-tree generative systems.
+- **Borrowed Code & Algorithms:** mulberry32 stream generator, FNV-1a hashing, Fisher-Yates shuffle; the dual-stream PRNG split (structure vs channels) pioneered in `@repo/randomart-engine`.
 
-```ts
-import { getRule } from '@repo/randomart-engine-next/rules';
-import { buildChannelTrees } from '@repo/randomart-engine-next/tree';
-import { compileToShader } from '@repo/randomart-engine-next/compileToGLSL';
-import { evaluate } from '@repo/randomart-engine-next/tree';
+## ⚠️ Patterns & Gotchas
 
-const rule = getRule('classic');
-const { treeR, treeG, treeB } = buildChannelTrees({ seedText: 'Deux choses lune', rule });
+- **Same seed, same art.** The PRNG is an FNV-1a hash of the seed string feeding a mulberry32 generator — fully deterministic, so a seed is a reproducible artwork. The `random` operator is the one deliberate exception: a per-pixel hash rather than a stream draw, so it is position-dependent but frame-stable.
+- **Structural vs channel randomness.** Structure decisions (tree branching) and channel variation (how R/G/B differ) come from separate RNG streams — which is why `correlated` mode produces visibly different art from the default split mode with the same seed.
+- **Subpath registries, not a root export.** Operators, rules, and behaviors are separate entry points (`/operators`, `/rules`, `/behaviors`) plus a types barrel (`/types`) — there is no root `@repo/randomart-engine-next` export.
+- **GLSL dependency resolution.** Operators and behaviors declare shared helper functions (noise, hashing, `rotate2d`, …) that are emitted exactly once in topological order (`resolveGlslDeps`). Never inline a helper that may already be defined, or the shader will fail to compile.
+- **Values stay in `[-1, 1]`.** Every operator maps `[-1, 1]` into `[-1, 1]` so trees can't blow up to infinity; combinators like `sum` halve their operands to stay in range.
+- **`shuffle` never consumes the main stream.** `seededShuffle` runs on its own mini-LCG so shuffling operator lists doesn't shift the rest of the generation.
 
-// CPU: value of the red channel at a normalized coordinate in [-1, 1]:
-const red = evaluate(treeR, 0.5, 0.25);
+## 📚 References
 
-// GPU: the same trees as a fragment shader source string:
-const shader = compileToShader({ seedText: 'Deux choses lune', treeR, treeG, treeB });
-```
-
-The package also ships a CLI for generating PNGs from a seed without writing
-code:
-
-```bash
-pnpm randomart "hello world" out.png --rule paper --size 512
-```
-
-## Usage Examples
-
-### Deterministic channel trees
-
-`buildChannelTrees` grows three correlated-but-varied trees. By default each
-channel gets its own PRNG (`createDualRng`), so structural decisions are shared
-across channels while per-channel variation diverges. Pass `correlated: true`
-to share one RNG stream across all three channels.
-
-```ts
-import { getRule } from '@repo/randomart-engine-next/rules';
-import { buildChannelTrees } from '@repo/randomart-engine-next/tree';
-
-const rule = getRule('paper');
-const { treeR } = buildChannelTrees({ seedText: 'seed', rule, correlated: true });
-```
-
-### Custom rules from the registries
-
-The grammar is open. `operators` and `rules` expose the registered symbols and
-their metadata, so a UI can build pickers and the generator can be restricted
-to any subset:
-
-```ts
-import { getOperatorKinds } from '@repo/randomart-engine-next/operators';
-import { listRules } from '@repo/randomart-engine-next/rules';
-
-const operatorGroups = getOperatorKinds(); // e.g. Terminals / Transforms / Combinators
-const rules = listRules(); // e.g. classic, paper, flow, fat
-```
-
-### Shader post-processing behaviors
-
-Behaviors are the animation layer: spatial effects mutate the coordinate `p`,
-color effects mutate `color`, and each one injects its own GLSL helpers with
-resolved dependencies before the shader is assembled:
-
-```ts
-import { compileToShader } from '@repo/randomart-engine-next/compileToGLSL';
-import { getBehavior } from '@repo/randomart-engine-next/behaviors';
-
-const shader = compileToShader({
-    seedText,
-    treeR,
-    treeG,
-    treeB,
-    behaviors: [getBehavior('swirl'), getBehavior('hue-shift')],
-    colorSpace: 'oklch'
-});
-```
-
-## Patterns & Gotchas
-
-- **Same seed, same art.** The PRNG (`SeededRandom`) is an FNV-1a hash of the
-  seed string feeding a mulberry32 generator — fully deterministic, so a seed
-  is a reproducible artwork. The `random` operator is the one deliberate
-  exception: it is a per-pixel hash rather than a stream draw, so it is
-  position-dependent but frame-stable.
-- **Structural vs channel randomness.** Structure decisions (how the tree
-  branches) and channel variation (how R/G/B differ) come from separate RNGs,
-  which is why `correlated` mode produces visibly different art from the
-  default split mode with the same seed.
-- **Subpath registries, not a root export.** Operators, rules, and behaviors
-  are separate entry points (`/operators`, `/rules`, `/behaviors`) plus a
-  types barrel (`/types`). Import each from its own subpath — there is no
-  root `@repo/randomart-engine-next` export.
-- **GLSL dependency resolution.** Operators and behaviors declare shared
-  helper functions (noise, hashing, `rotate2d`, ...) that are emitted exactly
-  once in topological order (`resolveGlslDeps`) — never inline a helper that
-  may already be defined, or the shader will fail to compile.
-- **Values stay in `[-1, 1]`.** Every operator is scaled to map `[-1, 1]` into
-  `[-1, 1]` so trees can't blow up to infinity; combinators like `sum` halve
-  their operands to stay in range.
-
-## Field Notes
-
-- **The Catalyst:** The realization that a random-art engine's real complexity
-  is not tree generation but the _seams_ — operators, rules, behaviors, and the
-  GLSL helpers they share. The redesign exists to make those seams first-class
-  subpath exports instead of one monolithic grammar registry.
-- **Quirks & Anomalies:** With `exactOptionalPropertyTypes`, shader options like
-  `behaviors` are omitted entirely when unused rather than passed as
-  `undefined`. CPU evaluation and the GLSL path describe the same function —
-  each operator defines both `evaluate` and `toGLSL` — so a shader compiles to
-  the same image the CPU rasterizer produces, within float precision.
-- **Future Horizons:** A WebGPU compute path over the same trees, more
-  color-space conversions, and a visual grammar editor where operators are
-  drag-and-droppable into new rules.
+- [Andrej Bauer — Random Art](https://www.randomart.org/)
 
 ---
 
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/randomart-engine-next/`._

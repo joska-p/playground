@@ -1,8 +1,7 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
-/** One weighted production choice. Weights across a rule's productions must sum to 1.0. */
+/** Weights across one rule's productions must sum to 1.0. */
 export type StochasticProduction = {
-    /** Relative probability of this production being chosen. */
     readonly weight: number;
     readonly produce: Word;
 };
@@ -15,19 +14,7 @@ export type StochasticRule = {
     readonly [STOCHASTIC_PRODUCTIONS_KEY]: readonly StochasticProduction[];
 } & Rule;
 
-/**
- * Matches any symbol whose name equals `name`. On each application, picks one of the given
- * productions randomly, weighted by `weight`, using `context.random`.
- *
- * Weights must sum to 1.0 (±0.001 tolerance). Validation is deferred to `validate()` — this factory
- * does not throw.
- *
- * @example
- *     stochasticRule('F', [
- *         { weight: 0.7, produce: [symbol('F'), symbol('F')] },
- *         { weight: 0.3, produce: [symbol('F')] }
- *     ]);
- */
+/** Weight validation is deferred to `validate()` — this factory never throws. */
 export function stochasticRule(
     name: string,
     productions: readonly StochasticProduction[]

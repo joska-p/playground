@@ -54,7 +54,9 @@ for (const entry of readdirSync(PACKAGES_DIR, { withFileTypes: true })) {
     }
 }
 
-const summary = [`[generate-typedoc-json] generated api docs for ${built} package(s) into ${OUT_DIR}`];
+const summary = [
+    `[generate-typedoc-json] generated api docs for ${built} package(s) into ${OUT_DIR}`
+];
 if (failed > 0) {
     summary.push(`${failed} failed: ${failedPackages.join(', ')}`);
 }

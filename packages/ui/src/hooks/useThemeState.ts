@@ -4,13 +4,6 @@ export type Theme = 'dark' | 'light';
 
 const STORAGE_KEY = 'pg-lab-theme';
 
-/**
- * UseThemeState — the state hook for <ThemeProvider>. `ThemeProvider` is a stateless component;
- * this hook is where the actual `useState` call and DOM/localStorage side effects live.
- *
- * Const theme = useThemeState(); <ThemeProvider theme={theme.theme} setTheme={theme.setTheme}
- * toggleTheme={theme.toggleTheme}>
- */
 export function useThemeState(defaultTheme: Theme = 'dark', persist = true) {
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window === 'undefined') return defaultTheme;

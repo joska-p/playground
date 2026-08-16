@@ -3,8 +3,6 @@
     "private": true,
     "scripts": {
         "build": "turbo run build",
-        "generate-typedoc-json": "turbo run generate-typedoc-json",
-        "build-docs": "turbo run generate-typedoc-json",
         "deploy": "pnpm build",
         "dev": "turbo run dev",
         "lint": "turbo run lint",

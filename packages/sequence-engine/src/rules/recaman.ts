@@ -1,6 +1,5 @@
 import type { SequenceRule } from './types';
 
-/** Recamán's sequence rule: jump backward by n if positive and unseen, else jump forward. */
 export const recamanRule = {
     id: 'recaman',
     name: "Recaman's Rule",

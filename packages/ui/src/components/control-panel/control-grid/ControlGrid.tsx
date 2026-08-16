@@ -16,9 +16,8 @@ const COLUMN_CLASS: Record<2 | 3 | 4 | 5 | 6, string> = {
 };
 
 /**
- * Arranges several small controls side by side — an x/y/z vector, an RGB triplet. Unlike
- * ControlRow, this doesn't change with orientation: each cell is already narrow enough to sit
- * comfortably in portrait, so adding a landscape variant would just be motion for its own sake.
+ * Side-by-side fields stay compact enough that, unlike ControlRow, no portrait/landscape split is
+ * needed.
  */
 export function ControlGrid({ columns = 3, className, children }: ControlGridProps) {
     return <div className={cn('grid gap-2', COLUMN_CLASS[columns], className)}>{children}</div>;

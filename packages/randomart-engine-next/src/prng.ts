@@ -1,33 +1,21 @@
 /**
- * Deterministic pseudo-random stream derived from a text seed.
- *
- * The random-art scheme requires a repeatable stream of bits/numbers derived from the seed so that
- * the same seed always produces the same art. We use a small FNV-1a hash to fold the UTF-8 bytes of
- * the seed into a 32-bit state and then a mulberry32 generator to expand that state into a stream.
- * This keeps the library dependency-free while still being well-distributed.
+ * A text seed → deterministic stream: FNV-1a folds the UTF-8 bytes into a 32-bit state, mulberry32
+ * expands it. Dependency-free yet well-distributed, so the same seed always reproduces the same
+ * art.
  */
 
 const textEncoder = new TextEncoder();
 
-/** FNV-1a 32-bit hash of a string (proper UTF-8 encoding). */
 function fnv1a(text: string): number {
     let hash = 0x811c9dc5;
     const bytes = textEncoder.encode(text);
     for (const byte of bytes) {
         hash ^= byte;
-        // 32-bit FNV prime multiply, done with shifts to stay in 32-bit range.
         hash = Math.imul(hash, 0x01000193);
     }
     return hash >>> 0;
 }
 
-/**
- * A deterministic number/byte generator seeded from a string.
- *
- * `next()` returns a float in [0, 1); `nextByte()` returns an int in [0, 255]; `nextInt(n)` returns
- * an int in [0, n). The sequence is fully determined by the seed string, matching the
- * reproducibility requirement of hash visualization.
- */
 export class SeededRandom {
     private state: number;
 
@@ -37,7 +25,6 @@ export class SeededRandom {
         if (this.state === 0) this.state = 0x1;
     }
 
-    /** Mulberry32 step -> float in [0, 1). */
     next(): number {
         this.state = (this.state + 0x6d2b79f5) >>> 0;
         let t = this.state;
@@ -46,39 +33,25 @@ export class SeededRandom {
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     }
 
-    /** Integer in [0, n). */
     nextInt(n: number): number {
         return Math.floor(this.next() * n);
     }
 
-    /** Integer in [0, 255]. */
     nextByte(): number {
         return this.nextInt(256);
     }
 
-    /** Float in [min, max). */
     nextRange(min: number, max: number): number {
         return min + this.next() * (max - min);
     }
 }
 
-/**
- * A pair of structure and channel RNGs for correlated-but-varied generation.
- *
- * The structure RNG drives tree-shape decisions that should be consistent across R/G/B channels;
- * the channel RNGs provide per-channel variation.
- */
+/** Tree-shape decisions stay identical across R/G/B while channel values diverge — two streams. */
 export type DualRng = {
     structure: SeededRandom;
     channels: [SeededRandom, SeededRandom, SeededRandom];
 };
 
-/**
- * Create dual RNGs for uncorrelated (per-channel) generation.
- *
- * The structure RNG is seeded independently from each channel RNG so that structural decisions vary
- * across seeds but stay consistent across channels within a single seed.
- */
 export function createDualRng(seedText: string, maxDepth: number): DualRng {
     return {
         structure: new SeededRandom(`${seedText}_struct_${String(maxDepth)}`),
@@ -90,23 +63,12 @@ export function createDualRng(seedText: string, maxDepth: number): DualRng {
     };
 }
 
-/**
- * Create dual RNGs for fully-correlated generation.
- *
- * All three channels share one RNG instance so structural decisions are identical across R/G/B —
- * the channels diverge only because the expression tree is built as separate instances.
- */
 export function createCorrelatedRng(seedText: string): DualRng {
     const rng = new SeededRandom(`${seedText}_rgb`);
     return { structure: rng, channels: [rng, rng, rng] };
 }
 
-/**
- * Deterministic Fisher-Yates shuffle using a separate mini-LCG.
- *
- * This does NOT consume from any {@link SeededRandom} instance, so callers can shuffle operator
- * lists (or anything else) without affecting the main RNG stream used for tree generation.
- */
+/** Separate mini-LCG, so shuffling never consumes the tree-generation stream. */
 export function seededShuffle<T>(arr: readonly T[], seedText: string): T[] {
     const result = [...arr];
     let s = fnv1a(seedText);

@@ -16,7 +16,7 @@ The core tension explored here is the bridge between abstract rewriting rules an
 ## 🥷 Brainstorming, Inspirations & Credits
 
 - **Visual Inspo:** Lindenmayer system plant growth, fractal trees, space-filling curves, biological branching.
-- **Math / Papers:** Aristid Lindenmayer (1968), *Mathematical Models for Cellular Interactions in Development*; Prusinkiewicz & Hanan, *The Algorithmic Beauty of Plants*.
+- **Math / Papers:** Aristid Lindenmayer (1968), _Mathematical Models for Cellular Interactions in Development_; Prusinkiewicz & Hanan, _The Algorithmic Beauty of Plants_.
 - **Borrowed Code & Algorithms:** 3D turtle-graphics interpreter using quaternion multiplication for yaw/pitch/roll rotations and stack-based push/pop branch state management.
 
 ## ⚠️ Patterns & Gotchas

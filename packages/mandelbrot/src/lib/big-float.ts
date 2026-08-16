@@ -1,30 +1,17 @@
 /**
- * BigFloat: binary fixed-point real numbers backed by BigInt.
- *
- * A value is represented as `m * 2^(-prec)`, where `m` is an arbitrary precision signed integer
- * (BigInt) and `prec` is the number of fractional bits. All BigFloats that interact must share the
+ * Binary fixed-point real backed by BigInt: `m * 2^-prec`. All values that interact must share the
  * same `prec`.
- *
- * For Mandelbrot deep-zoom we only need arbitrary precision for a _single_ point (the reference
- * orbit center); every per-pixel value stays bounded and lives in ordinary floats on the GPU. That
- * is why fixed-point (rather than a full arbitrary-precision float) is enough here and stays fast:
- * the integer part of every coordinate we care about is tiny (|x| < 2), so the mantissa grows only
- * with zoom depth.
- *
- * No third-party dependencies — just native BigInt.
  */
 
 export type BigFloat = {
-    /** Signed mantissa. The real value is `m / 2^prec`. */
     readonly m: bigint;
-    /** Number of fractional bits. */
     readonly prec: number;
 };
 
 const ZERO = BigInt(0);
 const ONE = BigInt(1);
 
-/** Arithmetic right shift with round-to-nearest (ties away from zero). */
+/** Round-to-nearest shift — truncation would drift across many rescale steps. */
 function shrRound(x: bigint, n: number): bigint {
     if (n <= 0) return x << BigInt(-n);
     const bn = BigInt(n);
@@ -33,17 +20,14 @@ function shrRound(x: bigint, n: number): bigint {
     return -((-x + half) >> bn);
 }
 
-/** Create a BigFloat from a JS number at the given precision. */
 export function fromNumber(value: number, prec: number): BigFloat {
     if (!Number.isFinite(value)) return { m: ZERO, prec };
-    // Decompose into integer + fractional using scaling by 2^prec.
-    // We build it in chunks to avoid precision loss for large prec.
     const negative = value < 0;
     let v = Math.abs(value);
     const intPart = Math.floor(v);
     v -= intPart;
     let m = BigInt(intPart) << BigInt(prec);
-    // Accumulate fractional bits 30 at a time (safe for double mantissa).
+    // Accumulate the fraction 30 bits at a time: a double mantissa only has 53 exact bits.
     let shift = 0;
     const CHUNK = 30;
     while (v > 0 && shift < prec) {
@@ -57,7 +41,7 @@ export function fromNumber(value: number, prec: number): BigFloat {
     return { m: negative ? -m : m, prec };
 }
 
-/** Convert to a JS number (may lose precision, used for display / GPU scale). */
+/** May lose precision; only for display and GPU scale. */
 export function toNumber(a: BigFloat): number {
     const neg = a.m < ZERO;
     const m = neg ? -a.m : a.m;
@@ -69,7 +53,6 @@ export function toNumber(a: BigFloat): number {
     return neg ? -value : value;
 }
 
-/** Re-scale a BigFloat to a new precision (grows/shrinks fractional bits). */
 export function withPrec(a: BigFloat, prec: number): BigFloat {
     if (a.prec === prec) return a;
     return { m: shrRound(a.m, a.prec - prec), prec };
@@ -96,7 +79,7 @@ export function mul(a: BigFloat, b: BigFloat): BigFloat {
     return { m: shrRound(am * bm, prec), prec };
 }
 
-/** Multiply by a small integer (exact, cheap). */
+/** Exact — no rounding, unlike `mul`. */
 export function mulInt(a: BigFloat, k: number): BigFloat {
     return { m: a.m * BigInt(k), prec: a.prec };
 }

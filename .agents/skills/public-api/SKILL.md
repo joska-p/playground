@@ -6,6 +6,7 @@ description: Use when defining package exports in package.json, writing cross-pa
 # Public API & Naming
 
 When performing this task, read the Single Source of Truth (SSOT) documentation files:
+
 - `/workspaces/playground/apps/playground/src/content/docs/conventions/13-imports-exports.md`
 - `/workspaces/playground/apps/playground/src/content/docs/conventions/14-factory-creator-functions.md`
 

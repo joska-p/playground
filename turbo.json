@@ -2,8 +2,8 @@
     "$schema": "https://v2-10-7.turborepo.dev/schema.json",
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
-        "generate-typedoc-json": {
-            "outputs": ["apps/playground/.generated/api-docs/**"],
+        "build:generate-typedoc-json": {
+            "outputs": ["$TURBO_ROOT$/apps/playground/.generated/api-docs/**"],
             "inputs": [
                 "$TURBO_ROOT$/typedoc.base.json",
                 "$TURBO_ROOT$/scripts/generate-typedoc-json.mjs",
@@ -14,7 +14,7 @@
             ]
         },
         "build": {
-            "dependsOn": ["generate-typedoc-json"],
+            "dependsOn": ["build:generate-typedoc-json"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": [".astro/**", "dist/**", "public/**"]
         },

@@ -28,7 +28,7 @@ tags:
 - **Single Responsibility**: One idea per file or module.
 - **Eliminate bloat**: Cut unused features or dead code that exist only "to be shown".
 - **Extract shared logic on real duplicate usage**: Extract shared helpers when a second real consumer appears, but never build premature abstractions. Duplicate over abstract when in doubt.
-- **High-value comments**: Add comments only to explain *why* (non-obvious decisions, constraints, pitfalls). Never comment *what* the code does — names and types carry that meaning.
+- **High-value comments**: Add comments only to explain _why_ (non-obvious decisions, constraints, pitfalls). Never comment _what_ the code does — names and types carry that meaning.
 - **Declarative mechanisms**: Prefer small, declarative callbacks or hooks over manual imperative loops or boilerplate subscriptions.
 
 ## Structure for Understanding

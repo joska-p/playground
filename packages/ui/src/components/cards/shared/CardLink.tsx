@@ -7,13 +7,8 @@ export type CardLinkProps = {
 } & Omit<ComponentProps<'a'>, 'href'>;
 
 /**
- * The anchor-rooted sibling of Card. Card wraps content that has its own nested actions; CardLink
- * is for cards where the entire surface is the click target.
- *
- * The edge is a neon tube: a crisp inset line at accent saturation, then two falloff rings (kept
- * tight — this is a subtle glow, not a sign). Lit softly at rest, a bit brighter and slightly wider
- * on hover, but the hover rings pull spread _in_, not out, so the glow intensifies without smearing
- * further across neighboring cards.
+ * Anchor-rooted sibling of Card — for cards where the whole surface is the click target (Card wraps
+ * content that has its own nested actions).
  */
 export function CardLink({
     href,

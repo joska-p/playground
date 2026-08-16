@@ -13,11 +13,7 @@ export type DocCardProps = {
     iconName?: IconName;
 } & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
-/**
- * A doc card — folded-corner decoration, a type badge, the same hover arrow as ProjectCard. `type`
- * is now purely a display label (it used to double as the lookup key for `--category-${type}`);
- * color comes in separately through CardLink's `accent`.
- */
+/** `type` is a pure display label — color comes separately through CardLink's `accent`. */
 function DocCard({
     title,
     description,

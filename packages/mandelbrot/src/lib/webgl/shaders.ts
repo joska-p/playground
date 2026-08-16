@@ -1,29 +1,13 @@
 /**
- * Fragment shader source for the perturbation-theory Mandelbrot renderer (WebGL2 / GLSL ES 3.00).
- * Rendered by @repo/glaze's fullscreen triangle; this string needs no varyings — it positions
- * pixels via `gl_FragCoord` only.
+ * Perturbation renderer (WebGL2 / GLSL ES 3.00). Each pixel iterates the small delta from a stored
+ * reference orbit instead of Z itself, so deep zoom needs no per-pixel arbitrary precision.
  *
- * ## Strategy
- *
- * The CPU hands us a high-precision _reference orbit_ (Z_0, Z_1, ...) stored as an RG32F texture.
- * Each pixel only iterates the small delta δ from that reference: δ_{n+1} = 2·Z_n·δ_n + δ_n² + δc.
- *
- * Two tricks keep this accurate and deep:
- *
- * 1. Δ is carried in emulated double precision ("double-single", a vec2 of hi/lo floats). Naive
- *    single-float perturbation suffers catastrophic cancellation → visible glitches; df32 largely
- *    removes them.
- * 2. Zhuoran _rebasing_: whenever the full value |Z+δ| drops below |δ| (or we run past the end of the
- *    reference), we reset δ to the full value and restart the reference index. This lets a single
- *    reference cover the whole screen without glitch blobs.
- *
- * Depth cues:
- *
- * - Derivative dz/dc gives a Distance Estimate (crisp glowing border) AND a surface normal for
- *   directional lighting (embossed 3D relief).
- *
- * Color: log-scaled smooth iteration count mapped through OKLCH (perceptual), converted to sRGB
- * entirely in-shader — no color library.
+ * - Delta is carried as a hi/lo float pair: single-float perturbation suffers catastrophic
+ *   cancellation, which shows up as visible glitches.
+ * - When the full value drops below the delta, the delta is rebased to the full value and the
+ *   reference index restarts — one reference then covers the whole screen.
+ * - Dz/dc gives a distance estimate (crisp glowing border) and a surface normal for directional
+ *   lighting (embossed relief).
  */
 
 export const FRAGMENT_SRC = /* glsl */ `

@@ -2,29 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 
-/**
- * EdgeFieldCanvas
- *
- * The same effect as EdgeField.tsx, but computed live on the GPU instead of baked to an image. This
- * is the version to reach for if you want to tweak parameters in real time, animate it, or bring
- * back cursor interactivity — all three are nearly free here because the whole pipeline runs
- * per-pixel in a fragment shader instead of as multi-pass SVG filter primitives.
- *
- * How each old feX primitive maps to this shader: feTurbulence -> fbm() / valueNoise(), a
- * hand-rolled value noise (simplex would look slightly more organic; value noise is easier to read
- * if you're learning from this) feComponentTransfer -> the `floor(n * BANDS) / BANDS` line
- * (discrete) (posterizing the noise into flat bands) feConvolveMatrix -> edgeDetect(), which
- * samples banded() at the (Laplacian) same 3x3 offsets as the old kernel — but since there's no
- * source texture, each "tap" re-evaluates the noise function itself feColorMatrix -> abs(sum) in
- * edgeDetect() — same idea as (luminanceToAlpha) turning edge brightness into alpha feFlood +
- * feComposite -> mixing u_colorCold / u_colorHot into the final color based on the edge value
- * feGaussianBlur + feMerge-> the second, wider-spaced edgeDetect() call blended in as a cheap bloom
- * approximation
- *
- * This assumes prefers-reduced-motion is handled at the mount site (don't render <EdgeFieldCanvas
- * /> at all if the user prefers reduced motion), matching how EdgeField.tsx is gated elsewhere in
- * the app.
- */
+// Live GPU version of the SVG edge-detection effect: same pipeline, but per-pixel in a fragment
+// shader (feTurbulence -> fbm(), posterize -> banded(), Laplacian -> edgeDetect(), bloom -> the
+// second wider edgeDetect() pass). The caller must gate this on prefers-reduced-motion.
 
 const VERTEX_SRC = `#version 300 es
 // Fullscreen triangle: 3 vertices that cover the whole viewport with no

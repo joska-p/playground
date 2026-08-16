@@ -1,10 +1,7 @@
 import type Color from 'colorjs.io';
 import type { Rule } from '../types';
 
-/**
- * Complementary color rule. Returns the base color and its complement (180 degrees shift in hue).
- * It also includes some variations in lightness/chroma for a more useful palette.
- */
+/** Base + its 180°-opposite hue, each with light/dark variants so the palette isn't just two colors. */
 const complementary: Rule = {
     apply: (color: Color) => {
         const base = color.clone().to('oklch');

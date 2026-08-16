@@ -10,10 +10,8 @@ export interface ThemeProviderProps {
 }
 
 /**
- * ThemeProvider — stateless. It never calls `useState` itself; `theme`, `setTheme`, and
- * `toggleTheme` are supplied by the caller (typically from the `useThemeState` hook) and simply
- * relayed through context. Dark is the CSS `:root` default, so this provider is entirely optional —
- * apps that never render it still get the dark theme for free.
+ * Stateless relay — state comes from the caller (useThemeState). Optional: dark is the CSS `:root`
+ * default, so the app works even without rendering this.
  */
 export function ThemeProvider({ theme, setTheme, toggleTheme, children }: ThemeProviderProps) {
     return (

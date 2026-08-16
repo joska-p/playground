@@ -7,14 +7,6 @@ function isStochasticRule(rule: object): rule is StochasticRule {
     return STOCHASTIC_PRODUCTIONS_KEY in rule;
 }
 
-/**
- * Validates a grammar definition and returns a list of errors. An empty array means the grammar is
- * valid.
- *
- * Checks performed:
- *
- * - Stochastic rule weights sum to 1.0 (±0.001 tolerance).
- */
 export function validate(grammar: Grammar): ValidationError[] {
     const errors: ValidationError[] = [];
 

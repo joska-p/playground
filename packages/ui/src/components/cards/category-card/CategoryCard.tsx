@@ -13,12 +13,8 @@ export type CategoryCardProps = {
 } & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
- * A category tile — centered icon, a divider that switches to the accent color on hover, count +
- * label below. Unlike ProjectCard/ DocCard it doesn't lift on hover, just glows, so it cancels
- * CardLink's base `hover:-translate-y-0.5` with `hover:translate-y-0` (same specificity group,
- * `cn`'s tailwind-merge resolves it — the standard way to opt a composed card out of one shared
- * behavior without forking the base component). `id` is gone along with it: accent comes in through
- * CardLink, same as everywhere else.
+ * Doesn't lift on hover like the other cards — cancels CardLink's `hover:-translate-y-0.5` via
+ * cn/tailwind-merge.
  */
 function CategoryCard({
     label,

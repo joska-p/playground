@@ -1,21 +1,4 @@
-/**
- * SvgExportPanel — TEMPORARY dev tool.
- *
- * Wrap whatever live SVG(s) you want a raster of (e.g. your original EdgeField component) as
- * `children`. It renders them completely normally — so the browser evaluates the real feTurbulence
- * / feConvolveMatrix chain exactly as on screen — then a small floating panel lets you export a PNG
- * or WebP at a resolution you choose.
- *
- * If `children` contains more than one <svg> (e.g. a base + hot layer), they're all captured and
- * composited in DOM order onto one canvas, matching how they're stacked visually.
- *
- * Usage: <SvgExportPanel filename="edge-field"> <EdgeFieldOriginal /> </SvgExportPanel>
- *
- * Mount this somewhere in your app temporarily, click Export, grab the file from your downloads,
- * then remove SvgExportPanel (and go back to rendering <EdgeFieldOriginal /> directly, or swap in
- * the static rasterized version).
- */
-
+/** TEMPORARY dev tool — mounts a floating panel that rasterizes live `<svg>` children to PNG/WebP. */
 import { useRef, useState, type ReactNode } from 'react';
 
 interface SvgExportPanelProps {
@@ -70,7 +53,6 @@ export function SvgExportPanel({
 
     return (
         <div>
-            {/* The live SVG(s) being captured, rendered exactly as normal. */}
             <div ref={containerRef}>{children}</div>
 
             <div
@@ -177,9 +159,8 @@ export function SvgExportPanel({
 }
 
 /**
- * Serializes each live <svg>, rasterizes them individually at the target resolution, then
- * composites them onto one canvas in DOM order (so a base + hot layer stack ends up in the same
- * relationship as on screen).
+ * Rasterizes each live `<svg>` at the target resolution, then composites them onto one canvas in
+ * DOM order.
  */
 async function exportSvgsAsImage(
     svgEls: SVGSVGElement[],

@@ -14,9 +14,10 @@ This README acts as the local concept spec — focusing on the "why", the mathem
 State lives entirely on the GPU. The grid is uploaded once as a texture and transformed in-place by GLSL compute shaders running on a ping-pong state buffer, achieving zero-copy rendering directly to the display at 60 FPS.
 
 ## 🥷 Brainstorming, Inspirations & Credits
-* **Visual Inspo:** GPGPU cellular automata, Conway's Game of Life, HighLife, Brian's Brain.
-* **Math / Papers:** Cellular automata theory (John Conway, Rudy Rucker, Stephen Wolfram totalistic rules).
-* **Borrowed Code & Algorithms:** Glaze WebGL2 GPGPU ping-pong buffer patterns and React Three Fiber rendering pipeline.
+
+- **Visual Inspo:** GPGPU cellular automata, Conway's Game of Life, HighLife, Brian's Brain.
+- **Math / Papers:** Cellular automata theory (John Conway, Rudy Rucker, Stephen Wolfram totalistic rules).
+- **Borrowed Code & Algorithms:** Glaze WebGL2 GPGPU ping-pong buffer patterns and React Three Fiber rendering pipeline.
 
 ## ⚠️ Patterns & Gotchas
 
@@ -28,4 +29,5 @@ State lives entirely on the GPU. The grid is uploaded once as a texture and tran
 - [Tsoding Conway implementation](https://github.com/tsoding/conway)
 
 ---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/automa/`._

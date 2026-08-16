@@ -16,9 +16,10 @@ The core design centers on the tension between generality and familiarity. Rules
 Multi-state rules (`stateCount > 2`) introduce an aging layer where state 0 represents dead cells, state 1 represents active cells (contributing to neighbor counts), and states 2 through N-1 represent decaying states that age by +1 each tick without breeding. This unified mechanism powers oscillations in automata like Brian's Brain without custom logic.
 
 ## 🥷 Brainstorming, Inspirations & Credits
-* **Visual Inspo:** Conway's Game of Life, HighLife, Brian's Brain.
-* **Math / Papers:** Totalistic cellular automata theory and lookup table optimizations.
-* **Borrowed Code & Algorithms:** Web Worker thread boundary utilizing `Transferable` ArrayBuffers via `@repo/worker-pool` for zero-copy grid transfers.
+
+- **Visual Inspo:** Conway's Game of Life, HighLife, Brian's Brain.
+- **Math / Papers:** Totalistic cellular automata theory and lookup table optimizations.
+- **Borrowed Code & Algorithms:** Web Worker thread boundary utilizing `Transferable` ArrayBuffers via `@repo/worker-pool` for zero-copy grid transfers.
 
 ## ⚠️ Patterns & Gotchas
 
@@ -31,4 +32,5 @@ Multi-state rules (`stateCount > 2`) introduce an aging layer where state 0 repr
 - [Tsoding Conway implementation](https://github.com/tsoding/conway)
 
 ---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground). Technical API reference generated at `/docs/api/automa-engine/`._

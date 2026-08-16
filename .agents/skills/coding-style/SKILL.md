@@ -6,6 +6,7 @@ description: Use when editing, refactoring, or creating TypeScript/React code to
 # Coding Style
 
 When performing this task, read the Single Source of Truth (SSOT) documentation file:
+
 - `/workspaces/playground/apps/playground/src/content/docs/conventions/17-coding-style.md`
 
 Use your `read` tool to load that file and follow its instructions.

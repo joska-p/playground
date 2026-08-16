@@ -5,7 +5,7 @@ export type Viz = {
     readonly id: string;
     readonly name: string;
 
-    /** Called every frame. The viz is free to pull from the signal as needed. */
+    /** Called every frame — the viz pulls from the signal as it needs. */
     render(
         signal: Signal,
         surface: CpuSurface // Surface | GpuRuntime – we keep it loose for now

@@ -1,7 +1,7 @@
 import type Color from 'colorjs.io';
 import type { Rule } from '../types';
 
-/** Triadic color rule. Three colors evenly spaced around the color wheel (120 degrees apart). */
+/** Three colors 120° apart around the hue wheel. */
 const triadic: Rule = {
     apply: (color: Color) => {
         const base = color.clone().to('oklch');

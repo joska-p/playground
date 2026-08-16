@@ -10,12 +10,6 @@ export interface ControlSubsectionProps {
     children: ReactNode;
 }
 
-/**
- * One level of nesting below ControlSection — same disclosure mechanism, deliberately quieter: no
- * accent dot, no uppercase, just a left rail so depth stays legible without adding chrome per
- * level. Nest as many as you like; each is independent, so "advanced" can stay collapsed while its
- * siblings are open.
- */
 export function ControlSubsection({
     ref,
     title,

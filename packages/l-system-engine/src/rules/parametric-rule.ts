@@ -1,34 +1,11 @@
 import type { LSymbol, Parameter, Rule, Word } from '../types';
 
-/** Options for {@link parametricRule} — the matched name, an optional guard, and the production. */
 export type ParametricOptions = {
-    /** Name of the symbol this rule matches. */
     readonly name: string;
-    /**
-     * Optional guard predicate evaluated against the symbol's parameters. The rule only fires when
-     * the guard returns true (or when omitted).
-     */
     readonly guard?: (params: readonly Parameter[]) => boolean;
-    /** Produces a replacement word from the matched symbol's parameters. */
     readonly produce: (params: readonly Parameter[]) => Word;
 };
 
-/**
- * Matches a symbol by name and an optional guard predicate on its parameters. The production is a
- * function that receives the current parameters and returns a new word — enabling parameter
- * transformations at each step.
- *
- * @example
- *     parametricRule({
- *         name: 'F',
- *         guard: ([length]) => length > 0.01,
- *         produce: ([length]) => [
- *             symbol('F', length * 0.5),
- *             symbol('+'),
- *             symbol('F', length * 0.5)
- *         ]
- *     });
- */
 export function parametricRule(options: ParametricOptions): Rule {
     return {
         match(sym: LSymbol): boolean {

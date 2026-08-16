@@ -15,10 +15,8 @@ export type ProjectCardProps = {
 } & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
- * A project/experiment card — icon top-right, a gradient hairline that sweeps in on hover, tags
- * along the bottom. No `category` prop anymore: color comes in through CardLink's `accent`, same as
- * every other card. This component doesn't know or care what "generative" or "shader" means — that
- * mapping lives with whoever's calling it.
+ * No `category` mapping here — color comes through CardLink's `accent`, and the caller decides what
+ * means what.
  */
 function ProjectCard({
     title,

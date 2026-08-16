@@ -1,9 +1,5 @@
 import type { Budget, Signal } from './types';
 
-/**
- * Creates a simple lazy signal from a pure function a(n). Perfect for sequences like n, n²,
- * triangular numbers, etc.
- */
 export function createSimpleSignal(fn: (n: number) => number, budget: Budget): Signal {
     let n = 0;
     let produced = 0;

@@ -9,11 +9,12 @@ This README acts as the local concept spec — focusing on the "why", the mathem
 
 ## 🎯 Intention & Concept
 
-`@repo/glaze` is built on a unifying premise: **a shape on the canvas and a shader on the canvas are the same mechanism.** 
+`@repo/glaze` is built on a unifying premise: **a shape on the canvas and a shader on the canvas are the same mechanism.**
 
 Drawing primitives (`surface.circle`, `surface.rect`, `surface.line`, `surface.text`) offer immediate-mode immediacy akin to p5.js, while custom programs (fragment shaders with uniforms rendered via fullscreen triangles) provide full three.js-style freedom when procedural rendering is required. Under the hood on WebGL2, both share a single pipeline: vector shapes are CPU-tessellated and batched into draw calls, while custom programs execute full-screen render passes.
 
 The toolkit provides two sibling runtimes over a shared foundation:
+
 - **`CpuSurface`**: Immediate-mode Canvas2D wrapper with chainable fluent draw methods.
 - **`GpuSurface`**: WebGL2 surface supporting shape drawing, custom shader programs, and `StateBuffer` for GPGPU simulations on ping-pong texture pairs.
 
