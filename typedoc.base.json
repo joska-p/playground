@@ -4,11 +4,7 @@
     "excludeProtected": true,
     "excludeInternal": true,
     "excludeExternals": true,
-    "externalSymbolLinkMappings": {
-        "@types/react": {
-            "*": "#"
-        }
-    },
+    "disableSources": true,
     "githubPages": false,
     "sort": ["kind", "alphabetical"],
     "cleanOutputDir": false
