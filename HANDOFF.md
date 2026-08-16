@@ -1,6 +1,6 @@
 # HANDOFF — UI Refonte
 
-Template source: `drafts/ui-design/HANDOFF-template.md`. Report reference: `drafts/ui-design/ui-library-usage-report.md`.
+Template source: `drafts/ui-design/HANDOFF-template.md`. Report reference: [refined: "drafts/ui-design/rapport.md", raw: "drafts/ui-design/ui-library-usage-report.md"].
 
 ## Phase 1 — Purge, Fixes & Handoff Setup
 

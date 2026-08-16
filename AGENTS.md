@@ -20,9 +20,7 @@ They are the main source of taste and conventions.
 After any non-trivial change:
 
 1. Check if the current skills already cover what was done.
-2. If you notice a recurring pattern that is not yet written as a rule,
-   or if an existing rule is wrong / too vague / contradictory,
-   propose a small update to the relevant skill.
+2. If you notice a recurring pattern... propose a small update at the end of the task, not during the coding phase. Ask the human for approval before modifying the skill files.
 3. Keep every skill short and focused. Prefer deleting or merging over accumulating.
 
 The goal is that the rules slowly get better over time, instead of staying frozen.
@@ -50,3 +48,18 @@ When working inside a package, follow the `documenting` and `package-shape` skil
 
 - **MCP tool** (when available): `codegraph_explore` answers most code questions in one call — the relevant symbols' verbatim source plus the call paths between them, including dynamic-dispatch hops grep can't follow. Name a file or symbol in the query to read its current line-numbered source. If it's listed but deferred, load it by name via tool search.
 - **Shell** (always works): `codegraph explore "<symbol names or question>"` prints the same output.
+
+## Pedagogy and Communication
+
+- Explain before coding: Before writing a complex block of code, briefly explain the chosen approach in the chat (2-3 sentences max) so the human can validate the logic.
+  -Vocabulary: If you use a specific design pattern or programming concept (e.g., "Recursion", "Promise", "Factory"), define it in one simple sentence when you first use it.
+
+## Incremental Delivery
+
+- Small patches: Never write huge blocks of code at once. Deliver features in small, testable increments (max ~50 lines of code per response if possible).
+- Focus: Only modify what is necessary to fulfill the current request. Do not refactor unrelated code unless explicitly asked.
+- Wait for validation: After delivering a small patch (max ~50 lines), stop and wait for the human to test or approve before writing the next increment. Do not assume it works just because you wrote it.
+
+## Shell Safety
+
+- Always explain what a shell command will do before running it if it modifies files (git, mv, rm, scripts). Read-only commands (ls, cat, codegraph explore) can be run freely.
