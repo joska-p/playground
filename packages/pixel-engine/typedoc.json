@@ -1,17 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
     "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "./src/pixel-data.ts",
-        "./src/buffer-manager.ts",
-        "./src/fusion-scheduler.ts",
-        "./src/manipulation-factories.ts",
-        "./src/manipulations/manifest.ts",
-        "./src/neighborhood-tiling.ts",
-        "./src/pipeline-runner.ts",
-        "./src/registry.ts",
-        "./src/step-dispatcher.ts",
-        "./src/types.ts"
-    ],
+    "entryPoints": [],
     "readme": "./README.md"
 }

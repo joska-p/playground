@@ -1,6 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
     "extends": ["../../typedoc.base.json"],
-    "entryPoints": ["./src/worker-pool.ts", "./src/mock-worker-pool.ts"],
+    "entryPoints": [],
     "readme": "./README.md"
 }

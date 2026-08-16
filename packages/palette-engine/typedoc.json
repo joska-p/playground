@@ -1,14 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
     "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "./src/colorSpaces.ts",
-        "./src/generatePalette.ts",
-        "./src/rules/analogous.ts",
-        "./src/rules/complementary.ts",
-        "./src/rules/monochromatic.ts",
-        "./src/rules/triadic.ts",
-        "./src/types.ts"
-    ],
+    "entryPoints": [],
     "readme": "./README.md"
 }

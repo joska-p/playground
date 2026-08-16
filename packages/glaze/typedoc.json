@@ -16,13 +16,7 @@
         "./src/gpu/shader/compileProgram.ts",
         "./src/gpu/shader/setUniforms.ts",
         "./src/gpu/shader/Program.ts",
-        "./src/gpu/shapes/TextRasterizer.ts",
-        "./src/react/interactions.ts",
-        "./src/react/CpuCanvas.tsx",
-        "./src/react/GpuCanvas.tsx",
-        "./src/react/useCpuSurface.ts",
-        "./src/react/useGpuSurface.ts",
-        "./src/docs/GlazeDocs.tsx"
+        "./src/gpu/shapes/TextRasterizer.ts"
     ],
     "readme": "./README.md"
 }

@@ -1,15 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
     "extends": ["../../typedoc.base.json"],
-    "entryPoints": [
-        "./src/cpu/engine.ts",
-        "./src/cpu/worker.ts",
-        "./src/config.ts",
-        "./src/grid.ts",
-        "./src/creature/builtin.ts",
-        "./src/creature/registry.ts",
-        "./src/rules/registry.ts",
-        "./src/gpu/createSimulationEngine.ts"
-    ],
+    "entryPoints": [],
     "readme": "./README.md"
 }
