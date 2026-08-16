@@ -11,11 +11,4 @@ export type { SidebarPanelProps } from './sidebar/SidebarPanel';
 export { SidebarToggle } from './sidebar/SidebarToggle';
 export type { SidebarToggleProps } from './sidebar/SidebarToggle';
 
-export { EdgeFieldCanvas } from './edge-field/canvas/EdgeFieldCanvas';
-export { EdgeFieldMask } from './edge-field/mask/EdgeFieldMask';
-export { EdgeFieldOriginal } from './edge-field/svg/EdgeFieldOriginal';
-export { EdgeFieldSvg } from './edge-field/svg/EdgeFieldSvg';
-
 export { Spinner } from './spinner/Spinner';
-
-export { SvgExportPanel } from './SvgExportPanel';

@@ -17,7 +17,7 @@ function Xaxis({
                 x2={WIDTH - MARGIN.right}
                 y2={HEIGHT - MARGIN.bottom}
                 stroke="currentColor"
-                className="text-gray-300"
+                className="text-foreground-muted"
             />
             {xTicks.map((tick, i) => (
                 <g key={i}>
@@ -27,7 +27,7 @@ function Xaxis({
                         x2={xScale(tick)}
                         y2={HEIGHT - MARGIN.bottom + 5}
                         stroke="currentColor"
-                        className="text-gray-300"
+                        className="text-foreground-muted"
                     />
                     <text
                         x={xScale(tick)}
@@ -36,7 +36,7 @@ function Xaxis({
                         dominantBaseline="hanging"
                         fontSize={12}
                         fill="currentColor"
-                        className="text-gray-500"
+                        className="text-foreground-dim"
                     >
                         {tick.toFixed(1)}
                     </text>
@@ -49,7 +49,7 @@ function Xaxis({
                     textAnchor="end"
                     fontSize={12}
                     fill="currentColor"
-                    className="font-medium text-gray-600"
+                    className="font-medium text-foreground-muted"
                 >
                     {xName}
                 </text>

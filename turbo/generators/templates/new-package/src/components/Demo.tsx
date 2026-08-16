@@ -1,12 +1,6 @@
-import { Badge } from '@repo/ui/data-display';
-import { Button } from '@repo/ui/data-entry';
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardTitle,
-} from '@repo/ui/data-display';
-import { Input } from '@repo/ui/data-entry';
+import { Badge, Card } from '@repo/ui/data-display';
+import { Button, Input } from '@repo/ui/data-entry';
+import { CardDescription, CardTitle } from '@repo/ui/cards';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useState } from 'react';
 import { demoSchema } from '../demo.schema.ts';
@@ -99,7 +93,7 @@ function Demo() {
           </div>
 
           {count > 0 && (
-            <CardFooter>
+            <div className="px-4 pb-4">
               <Button
                 variant="ghost"
                 onClick={resetDemo}
@@ -107,7 +101,7 @@ function Demo() {
               >
                 Reset
               </Button>
-            </CardFooter>
+            </div>
           )}
         </Card>
       </div>

@@ -11,7 +11,7 @@ function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-overlay"
             onClick={onClose}
             role="dialog"
             aria-modal="true"

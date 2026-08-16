@@ -35,7 +35,7 @@ export function Switch({
 
     const track = (
         <span className={cn(switchVariants({ variant }), className)}>
-            {loading && <Spinner className="absolute inset-0 m-auto h-3.5 w-3.5 text-white" />}
+            {loading && <Spinner className="absolute inset-0 m-auto h-3.5 w-3.5 text-primary-foreground" />}
         </span>
     );
 

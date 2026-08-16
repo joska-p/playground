@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PackageDoc from '../../components/ui/docs/api-reference/PackageDoc.astro';
-import { App } from '@repo/ui/ui';
 
 const packageName = '@repo/ui';
 ---
@@ -11,9 +10,5 @@ const packageName = '@repo/ui';
     description="React component library — Tailwind CSS v4, CVA variants, Gruvbox theme."
     keywords="react, components, tailwind"
 >
-    <section class="min-h-screen w-full">
-        <App client:only="react" />
-    </section>
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>

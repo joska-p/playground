@@ -44,17 +44,17 @@ export function ChannelTabs() {
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-                <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                <h4 className="text-foreground-muted text-xs font-semibold tracking-wider uppercase">
                     Color Channels
                 </h4>
-                <span className="text-muted-foreground/80 flex items-center gap-1 text-xs">
+                <span className="text-foreground-muted/80 flex items-center gap-1 text-xs">
                     {correlated ? (
                         <>
-                            <LinkIcon className="h-3 w-3 text-amber-500" /> Linked (RGB Sync)
+                            <LinkIcon className="h-3 w-3 text-yellow" /> Linked (RGB Sync)
                         </>
                     ) : (
                         <>
-                            <SplitIcon className="h-3 w-3 text-blue-400" /> Independent
+                            <SplitIcon className="h-3 w-3 text-blue" /> Independent
                         </>
                     )}
                 </span>
@@ -62,7 +62,7 @@ export function ChannelTabs() {
 
             <div
                 className={cn('grid grid-cols-3 gap-2', {
-                    'rounded-lg p-1 ring-1 ring-amber-500/20': correlated
+                    'rounded-lg p-1 ring-1 ring-yellow/20': correlated
                 })}
             >
                 {channels.map((channel) => {
@@ -81,7 +81,7 @@ export function ChannelTabs() {
                             disabled={correlated}
                             variant="primary"
                             className={cn('inline-flex flex-col text-xs break-all', {
-                                'bg-background text-muted-foreground hover:text-primary-foreground':
+                                'bg-background text-foreground-muted hover:text-primary-foreground':
                                     !isSelected,
                                 'cursor-not-allowed opacity-60': correlated
                             })}

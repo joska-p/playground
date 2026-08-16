@@ -38,7 +38,7 @@ export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
                 )}
             </div>
             {error && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400">
+                <div className="absolute inset-0 flex items-center justify-center bg-overlay p-1 text-center text-[10px] text-destructive">
                     {error}
                 </div>
             )}

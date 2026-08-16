@@ -4,7 +4,6 @@
     "version": "0.0.0",
     "type": "module",
     "exports": {
-        "./ui": "./src/App.tsx",
         "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
         "./styles": "./src/styles/styles.css",
         "./data-entry": "./src/components/data-entry/index.ts",
@@ -17,17 +16,14 @@
         "./icons": "./src/components/icons/index.ts",
         "./button": "./src/components/data-entry/button/Button.tsx",
         "./card": "./src/components/data-display/card/Card.tsx",
-        "./dialog": "./src/components/feedback/dialog/Dialog.tsx",
         "./sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",
         "./hooks/*": "./src/hooks/*.ts",
         "./lib/*": "./src/lib/*.ts",
         "./theme/*": "./src/theme/*.ts"
     },
     "scripts": {
-        "dev": "vite",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
         "check-types": "tsc -b"
     },
     "dependencies": {

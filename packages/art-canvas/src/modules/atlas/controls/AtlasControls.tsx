@@ -102,8 +102,8 @@ function AtlasControls() {
                         <Button
                             className={
                                 symbolType === btn.id
-                                    ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
-                                    : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+                                    ? 'border-aqua/80 bg-aqua/15 text-aqua'
+                                    : 'border-border bg-surface/60 text-foreground-muted hover:border-foreground-dim'
                             }
                             key={btn.id}
                             onClick={() => {
@@ -121,8 +121,8 @@ function AtlasControls() {
                         <Button
                             className={
                                 palette === btn.id
-                                    ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
-                                    : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+                                    ? 'border-aqua/80 bg-aqua/15 text-aqua'
+                                    : 'border-border bg-surface/60 text-foreground-muted hover:border-foreground-dim'
                             }
                             key={btn.id}
                             onClick={() => {
@@ -149,39 +149,39 @@ function AtlasControls() {
             </ControlSection>
 
             <ControlSection title="infos">
-                <div className="space-y-1 rounded-xl border border-slate-800/80 bg-slate-900/70 p-2.5 font-mono text-[9px] text-slate-400">
+                <div className="space-y-1 rounded-xl border border-border/80 bg-surface/70 p-2.5 font-mono text-[9px] text-foreground-muted">
                     <div className="flex justify-between">
                         <span>Coordinate Seed Index:</span>
-                        <span className="text-teal-400">#{seedOffset}</span>
+                        <span className="text-aqua">#{seedOffset}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Rotations per Modulo:</span>
-                        <span className="text-slate-200">360° / {modulo}</span>
+                        <span className="text-foreground">360° / {modulo}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Engine:</span>
-                        <span className="text-teal-500">React 19 + R3F v9</span>
+                        <span className="text-aqua">React 19 + R3F v9</span>
                     </div>
                 </div>
 
                 <div>
-                    <h3 className="text-xs font-bold text-slate-200">
+                    <h3 className="text-xs font-bold text-foreground">
                         The Rotational Grammar of Syllabics
                     </h3>
-                    <p className="mt-1 text-[10px] leading-normal text-slate-400">
+                    <p className="mt-1 text-[10px] leading-normal text-foreground-muted">
                         Unified Canadian Aboriginal Syllabics (UCAS) are fundamentally geometric and
                         rotational. A single shape is rotated (e.g., pointing ᐱ, ᐯ, ᐸ, ᐳ) to specify
                         vowel sounds.
                     </p>
-                    <p className="mt-1.5 font-mono text-[10px] text-teal-400/90">
+                    <p className="mt-1.5 font-mono text-[10px] text-aqua/90">
                         F(n) = F(n-1) + F(n-2) (mod {modulo})
                     </p>
                 </div>
 
-                <p className="font-mono text-xs text-slate-400">
+                <p className="font-mono text-xs text-foreground-muted">
                     Pisano Period: Rotational Matrices
                 </p>
-                <p className="mt-0.5 max-w-xs text-[10px] leading-normal text-slate-500">
+                <p className="mt-0.5 max-w-xs text-[10px] leading-normal text-foreground-dim">
                     Generating procedural textures mapped through the algebraic loop boundaries of
                     Fibonacci modulations.
                 </p>

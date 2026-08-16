@@ -17,7 +17,7 @@ function Yaxis({
                 x2={MARGIN.left}
                 y2={HEIGHT - MARGIN.bottom}
                 stroke="currentColor"
-                className="text-gray-300"
+                className="text-foreground-muted"
             />
             {yTicks.map((tick, i) => (
                 <g key={i}>
@@ -27,7 +27,7 @@ function Yaxis({
                         x2={MARGIN.left}
                         y2={yScale(tick)}
                         stroke="currentColor"
-                        className="text-gray-300"
+                        className="text-foreground-muted"
                     />
                     <text
                         x={MARGIN.left - 8}
@@ -36,7 +36,7 @@ function Yaxis({
                         dominantBaseline="middle"
                         fontSize={12}
                         fill="currentColor"
-                        className="text-gray-500"
+                        className="text-foreground-dim"
                     >
                         {tick.toFixed(1)}
                     </text>
@@ -49,7 +49,7 @@ function Yaxis({
                     textAnchor="start"
                     fontSize={12}
                     fill="currentColor"
-                    className="font-medium text-gray-600"
+                    className="font-medium text-foreground-muted"
                 >
                     {yName}
                 </text>
