@@ -16,7 +16,7 @@ import {
   useDemoCount,
   useDemoLastMessage,
   useDemoSubmissions,
-} from '../demoStore.ts';
+} from '../stores/demo/store.ts';
 
 function Demo() {
   const count = useDemoCount();

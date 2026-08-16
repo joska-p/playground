@@ -47,7 +47,9 @@ packages/<name>/
 │   ├── components/
 │   │   └── Demo.tsx                 # Public component — exported via package.json
 │   ├── demo.schema.ts               # Zod schema (runtime validation)
-│   ├── demoStore.ts                 # Zustand store (private, getter hooks + setter fns)
+│   ├── stores/
+│   │   └── demo/
+│   │       └── store.ts             # Zustand store (private, getter hooks + setter fns)
 │   ├── main.tsx                     # React DOM entry
 │   └── styles/
 │       └── global.css               # Tailwind v4 + @repo/ui/gruvbox-theme

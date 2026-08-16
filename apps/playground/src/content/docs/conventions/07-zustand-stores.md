@@ -33,14 +33,14 @@ tags:
 
 ## Splitting a growing store (guideline)
 
-**Guideline** — single-file store is fine under ~120 lines. Past that,
-split progressively, only as far as actually needed:
+**Guideline** — A single-file store is fine until it's actually hard to scan. Big files are OK when the store stays simple — don't split on line count alone.
+When it does get hard to scan, split progressively, only as far as actually needed:
 
 - **First split**: `store.ts` (the `create()` call + raw store export,
   internal only), `actions.ts` (mutators + async orchestration),
   `selectors.ts` (getter hooks). Three flat files — no subdirectories yet.
-- **If `actions.ts` or `selectors.ts` itself gets complicated or too
-  big**: split _that_ file into its own subdirectory (`actions/`,
+- **If `actions.ts` or `selectors.ts` itself gets complicated**:
+  split _that_ file into its own subdirectory (`actions/`,
   `selectors/`), either one file per function — named after what it
   exports, e.g. `useRows.ts` exports `useRows()` — or grouped by related
   concern if that reads better than one-file-per-function (e.g.
@@ -48,8 +48,5 @@ split progressively, only as far as actually needed:
 - `types.ts` — store-specific types, split off whenever it's more than a
   couple of lines.
 
-The 120-line number and "complicated or too big" are both judgment calls,
-not build-time checks — split earlier if a file is already hard to scan,
-or later if it's still simple past the threshold. The point is: don't
-create `actions/` and `selectors/` directories up front for a store that
+Don't create `actions/` and `selectors/` directories up front for a store that
 doesn't need them yet.

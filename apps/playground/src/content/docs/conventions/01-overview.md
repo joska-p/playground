@@ -26,6 +26,7 @@ tags:
 - [Factory & Creator Functions](/docs/conventions/14-factory-creator-functions/)
 - [TypeScript Style](/docs/conventions/15-typescript-style/)
 - [Performance](/docs/conventions/16-performance/)
+- [Coding Style](/docs/conventions/17-coding-style/)
 
 Write code that reads like a sentence. Prefer clarity over brevity, but cut every unnecessary word.
 

@@ -5,15 +5,9 @@ description: Use when writing CSS/Tailwind styling for @repo/ui components, usin
 
 # UI Styling
 
-## Tokens & Styling
+When performing this task, read the Single Source of Truth (SSOT) documentation files:
+- `/workspaces/playground/apps/playground/src/content/docs/conventions/09-ui-css-tokens.md`
+- `/workspaces/playground/apps/playground/src/content/docs/conventions/10-ui-responsive-layout.md`
+- `/workspaces/playground/apps/playground/src/content/docs/conventions/11-dynamic-tailwind-colors.md`
 
-- **Tokens only:** No hardcoded hex/px. Use `text-xs`, not `text-[11px]`.
-- **Dynamic Colors:** Never `style={{ color: val }}`. Inject the token variable locally:
-  `<div style={{ '--accent': val }} className="text-accent bg-accent/10" />`[cite: 1]
-
-## Layout Hierarchy
-
-- **Grid by default:** Use `grid` + `grid-cols-*`.
-- **Flexbox boundary:** Only for single-axis alignment (navbars) or text wrap (tags).
-- **Intrinsic design:** Favor `minmax()` grids over breakpoint overrides (`md:`, `lg:`).
-  `className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))]"`
+Use your `read` tool to load those files and follow their instructions.
