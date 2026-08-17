@@ -1,15 +1,17 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
-import { toggleIsPlaying, useIsPlaying, setGap, useGap } from './store';
+import { useClock, setGap, useGap } from './store';
 
 function SpiraleControls() {
-    const isPlaying = useIsPlaying();
+    const clock = useClock();
     const gap = useGap();
+
+    console.log(clock)
 
     return (
         <ControlSection title="manual">
             <ControlGrid columns={2}>
-                <Button onClick={toggleIsPlaying}>{isPlaying ? 'Stop' : 'Play'}</Button>
+                <Button onClick={() => clock.togglePlay()}>{clock.isPlaying ? 'Stop' : 'Play'}</Button>
                 <Slider
                     label="gap"
                     onChange={setGap}

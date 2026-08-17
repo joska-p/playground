@@ -5,6 +5,7 @@
     "type": "module",
     "exports": {
         "./core/FrameLoop": "./src/core/FrameLoop.ts",
+        "./core/Clock": "./src/core/Clock.ts",
         "./core/Camera": "./src/core/Camera.ts",
         "./core/CameraControls": "./src/core/CameraControls.ts",
         "./core/InputStore": "./src/core/InputStore.ts",

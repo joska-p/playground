@@ -87,7 +87,7 @@ export function setUniforms(
 
 /**
  * Standard per-frame uniforms for shaders (`u_resolution`, `u_aspect`, `u_mouse`, `u_camera`,
- * `u_dpr`, `u_time`); omitted inputs fall back to neutral defaults.
+ * `u_dpr`, `u_time`, `u_clockTime`); omitted inputs fall back to neutral defaults.
  */
 export function createStandardUniformValues(
     width: number,
@@ -95,7 +95,8 @@ export function createStandardUniformValues(
     dpr: number,
     mouse?: Point2D,
     camera?: Camera,
-    time?: number
+    time?: number,
+    clockTime?: number
 ): Record<string, UniformValue> {
     return {
         u_resolution: [width * dpr, height * dpr],
@@ -104,6 +105,7 @@ export function createStandardUniformValues(
             mouse === undefined ? [0, 1] : [width > 0 ? mouse.x / width : 0, 1 - mouse.y / height],
         u_camera: camera === undefined ? [0, 0, 1] : [camera.x, camera.y, camera.zoom],
         u_dpr: dpr,
-        u_time: time ?? 0
+        u_time: time ?? 0,
+        u_clockTime: clockTime ?? time ?? 0
     };
 }

@@ -39,9 +39,13 @@ function parseRgb(color: string): RGBA | null {
     if (!match) return null;
     const parts = match[1].split(/[,/\s]+/).filter(Boolean);
     if (parts.length < 3) return null;
-    const a = parts[3].endsWith('%')
-        ? clamp01(parseFloat(parts[3]) / 100)
-        : clamp01(parseFloat(parts[3]));
+    const alphaStr = parts[3] as string | undefined;
+    const a =
+        alphaStr !== undefined
+            ? alphaStr.endsWith('%')
+                ? clamp01(parseFloat(alphaStr) / 100)
+                : clamp01(parseFloat(alphaStr))
+            : 1;
     return {
         r: parseChannel(parts[0]),
         g: parseChannel(parts[1]),
@@ -68,9 +72,13 @@ function parseHsl(color: string): RGBA | null {
     const hue = (parseFloat(parts[0] ?? '0') % 360) / 360;
     const s = parseChannel(parts[1]);
     const l = parseChannel(parts[2]);
-    const a = parts[3].endsWith('%')
-        ? clamp01(parseFloat(parts[3]) / 100)
-        : clamp01(parseFloat(parts[3]));
+    const alphaStr = parts[3] as string | undefined;
+    const a =
+        alphaStr !== undefined
+            ? alphaStr.endsWith('%')
+                ? clamp01(parseFloat(alphaStr) / 100)
+                : clamp01(parseFloat(alphaStr))
+            : 1;
     const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
     const p = 2 * l - q;
     return {

@@ -1,4 +1,6 @@
 import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
+import type { Clock } from '../core/Clock';
+import { createClock, type ClockOptions } from '../core/Clock';
 import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
 import { createInputStore, type InputStore } from '../core/InputStore';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
@@ -17,6 +19,7 @@ export interface GpuSurfaceConfig {
     camera?: Camera;
     /** Defaults to `window.devicePixelRatio` (1 off-browser). */
     dpr?: number;
+    clockOptions?: ClockOptions;
 }
 
 export type GpuDraw = (surface: GpuSurface) => void;
@@ -45,6 +48,7 @@ export class GpuSurface {
     readonly gl: WebGL2RenderingContext;
     readonly camera: Camera;
     readonly input: InputStore;
+    readonly clock: Clock;
 
     readonly #loop = createFrameLoop();
     readonly #programs = new Set<Program>();
@@ -71,6 +75,7 @@ export class GpuSurface {
         this.gl = gl;
         this.camera = config.camera ?? defaultCamera();
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
+        this.clock = createClock(config.clockOptions);
         this.input = createInputStore();
         this.input.attach(this.canvas);
         this.#batch = new ShapeBatcher({
@@ -119,7 +124,8 @@ export class GpuSurface {
                 this.dpr,
                 this.input.pointer,
                 this.camera,
-                this.time
+                this.time,
+                this.clock.time
             )
         );
         program.render();
@@ -364,6 +370,7 @@ export class GpuSurface {
         this.deltaTime = deltaTime;
         this.width = this.#cssWidth;
         this.height = this.#cssHeight;
+        this.clock.update(deltaTime);
 
         const current = this.#draw;
         if (current) current(this);

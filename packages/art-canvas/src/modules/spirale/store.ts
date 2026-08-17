@@ -1,26 +1,22 @@
 import { createStore, useStore } from 'zustand';
+import type { Clock } from '@repo/glaze/core/Clock';
+import { createClock } from '@repo/glaze/core/Clock';
 
 export type StoreState = {
-    isPlaying: boolean;
+    clock: Clock;
     gap: number;
 };
 
+const newClock = createClock();
+
 const store = createStore<StoreState>(() => ({
-    isPlaying: false,
+    clock: newClock,
     gap: 0.05
 }));
 
-export const useIsPlaying = () => {
-    const isPlaying = useStore(store, (state) => state.isPlaying);
-    return isPlaying;
-};
-
-export const setIsPlaying = (isPlaying: boolean) => {
-    store.setState({ isPlaying });
-};
-
-export const toggleIsPlaying = () => {
-    store.setState({ isPlaying: !store.getState().isPlaying });
+export const useClock = () => {
+    const clock = useStore(store, (state) => state.clock);
+    return clock;
 };
 
 export const useGap = () => {

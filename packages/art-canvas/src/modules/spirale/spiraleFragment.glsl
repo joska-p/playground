@@ -5,7 +5,7 @@ in vec2 vUv;
 out vec4 fragColor;
 
 uniform vec2 u_resolution;
-uniform float u_controled_time;
+uniform float u_clockTime;
 uniform float u_gap;
 
 const float TWO_PI = 6.283185307179586;
@@ -115,7 +115,7 @@ void main() {
 
     // Define how fast the pen draws (radians per second)
     float drawSpeed = 12.0;
-    float currentMaxTheta = u_controled_time * drawSpeed;
+    float currentMaxTheta = u_clockTime * drawSpeed;
 
     // Smoothly cut off the line right at the current pen tip location
     float penDelta = fwidth(totalTheta);
