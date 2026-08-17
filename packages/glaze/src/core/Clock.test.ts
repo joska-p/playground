@@ -35,9 +35,9 @@ describe('Clock', () => {
         const clock = new Clock();
         clock.pause();
         expect(clock.isPlaying).toBe(false);
-        clock.toggle();
+        clock.togglePlay();
         expect(clock.isPlaying).toBe(true);
-        clock.toggle();
+        clock.togglePlay();
         expect(clock.isPlaying).toBe(false);
     });
 

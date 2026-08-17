@@ -1,17 +1,30 @@
+import { useSyncExternalStore } from 'react';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
-import { useClock, setGap, useGap } from './store';
+import { setGap, useGap, useClockStore } from './store';
+
+const noop = () => {
+    /* unsubscribe no-op */
+};
 
 function SpiraleControls() {
-    const clock = useClock();
     const gap = useGap();
+    const clockStore = useClockStore();
 
-    console.log(clock)
+    const isPlaying = useSyncExternalStore(
+        (onStoreChange) => clockStore?.subscribe(onStoreChange) ?? noop,
+        () => clockStore?.getIsPlaying() ?? true
+    );
 
     return (
-        <ControlSection title="manual">
+        <ControlSection title="spirale">
             <ControlGrid columns={2}>
-                <Button onClick={() => clock.togglePlay()}>{clock.isPlaying ? 'Stop' : 'Play'}</Button>
+                <Button
+                    onClick={() => clockStore?.togglePlay()}
+                    disabled={!clockStore}
+                >
+                    {isPlaying ? 'Pause' : 'Play'}
+                </Button>
                 <Slider
                     label="gap"
                     onChange={setGap}

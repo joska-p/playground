@@ -18,7 +18,7 @@ export class Clock {
 
     constructor(options: ClockOptions = {}) {
         this.#duration = options.duration;
-        this.#loop = options.loop ?? (options.duration !== undefined);
+        this.#loop = options.loop ?? options.duration !== undefined;
         this.#pingPong = options.pingPong ?? false;
         this.#speed = options.speed ?? 1;
         this.#isPlaying = options.autoStart ?? true;
@@ -62,18 +62,13 @@ export class Clock {
         return this;
     }
 
-    togglePlay(): this {
-        this.#isPlaying = !this.#isPlaying;
-        return this;
-    }
-
     pause(): this {
         this.#isPlaying = false;
         this.#deltaTime = 0;
         return this;
     }
 
-    toggle(): this {
+    togglePlay(): this {
         return this.#isPlaying ? this.pause() : this.play();
     }
 

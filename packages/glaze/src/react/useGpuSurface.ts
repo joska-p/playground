@@ -2,7 +2,11 @@ import { useRef } from 'react';
 import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
 import { Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
+import type { Clock } from '../core/Clock';
 import { InputRouter, type Gesture } from '../core/gestures';
+import type { ClockOptions } from '../core/Clock';
+import { createClockStore, type ClockStore } from './clockStore';
+export type { ClockStore } from './clockStore';
 
 /** `initialCamera` only applies when no `camera` instance is provided. */
 export interface GpuSurfaceOptions {
@@ -14,6 +18,8 @@ export interface GpuSurfaceOptions {
         minZoom?: number;
         maxZoom?: number;
     };
+    clock?: Clock;
+    clockOptions?: ClockOptions;
     dpr?: number;
 }
 
@@ -24,6 +30,7 @@ export interface GpuSurfaceOptions {
 export function useGpuSurface(options: GpuSurfaceOptions = {}) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const surfaceRef = useRef<GpuSurface | null>(null);
+    const clockStoreRef = useRef<ClockStore | null>(null);
     const inputRouterRef = useRef<InputRouter<GpuSurface> | null>(null);
     const gesturesRef = useRef<Gesture<GpuSurface>[]>([]);
 
@@ -35,6 +42,7 @@ export function useGpuSurface(options: GpuSurfaceOptions = {}) {
             surfaceRef.current.destroy();
             surfaceRef.current = null;
             inputRouterRef.current = null;
+            clockStoreRef.current = null;
         }
 
         canvasRef.current = canvasElement;
@@ -59,6 +67,10 @@ export function useGpuSurface(options: GpuSurfaceOptions = {}) {
             const surface = createGpuSurface({
                 canvas: canvasElement,
                 camera,
+                ...(options.clock !== undefined ? { clock: options.clock } : {}),
+                ...(options.clockOptions !== undefined
+                    ? { clockOptions: options.clockOptions }
+                    : {}),
                 ...(options.dpr !== undefined ? { dpr: options.dpr } : {})
             });
 
@@ -71,10 +83,11 @@ export function useGpuSurface(options: GpuSurfaceOptions = {}) {
                 }
             });
 
+            clockStoreRef.current = createClockStore(surface.clock);
             surfaceRef.current = surface;
             inputRouterRef.current = inputRouter;
         }
     };
 
-    return { canvasRef: setCanvasRef, surfaceRef, inputRouterRef, gesturesRef };
+    return { canvasRef: setCanvasRef, surfaceRef, inputRouterRef, gesturesRef, clockStoreRef };
 }

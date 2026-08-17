@@ -1,29 +1,28 @@
 import { createStore, useStore } from 'zustand';
-import type { Clock } from '@repo/glaze/core/Clock';
-import { createClock } from '@repo/glaze/core/Clock';
+import { createClock, type Clock } from '@repo/glaze/core/Clock';
+import type { ClockStore } from '@repo/glaze/react/clockStore';
 
-export type StoreState = {
+type StoreState = {
     clock: Clock;
     gap: number;
+    clockStore: ClockStore | null;
 };
 
-const newClock = createClock();
+const clock = createClock();
 
 const store = createStore<StoreState>(() => ({
-    clock: newClock,
-    gap: 0.05
+    clock,
+    gap: 0.05,
+    clockStore: null
 }));
 
-export const useClock = () => {
-    const clock = useStore(store, (state) => state.clock);
-    return clock;
-};
-
-export const useGap = () => {
-    const gap = useStore(store, (state) => state.gap);
-    return gap;
-};
-
+export const useClock = () => useStore(store, (s) => s.clock);
+export const useGap = () => useStore(store, (s) => s.gap);
 export const setGap = (gap: number) => {
     store.setState({ gap });
+};
+
+export const useClockStore = () => useStore(store, (s) => s.clockStore);
+export const setClockStore = (clockStore: ClockStore) => {
+    store.setState({ clockStore });
 };

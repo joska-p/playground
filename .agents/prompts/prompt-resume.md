@@ -36,4 +36,3 @@ Je suis **Playground** (aussi appelé le **"Cahier d'exercices"**), le hub centr
 ---
 
 ## 📌 Objectif / Focus de la Session
-

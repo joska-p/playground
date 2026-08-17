@@ -17,6 +17,7 @@ import {
 export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
+    clock?: Clock;
     /** Defaults to `window.devicePixelRatio` (1 off-browser). */
     dpr?: number;
     clockOptions?: ClockOptions;
@@ -75,7 +76,7 @@ export class GpuSurface {
         this.gl = gl;
         this.camera = config.camera ?? defaultCamera();
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
-        this.clock = createClock(config.clockOptions);
+        this.clock = config.clock ?? createClock(config.clockOptions);
         this.input = createInputStore();
         this.input.attach(this.canvas);
         this.#batch = new ShapeBatcher({
