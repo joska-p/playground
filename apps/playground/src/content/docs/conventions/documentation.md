@@ -8,16 +8,8 @@ tags:
 
 # Documentation
 
-## Contents
-
-- [Rule](#rule)
-
-## Rule
-
-- Each package's `README.md` documents **concepts** — purpose, quick start,
-  usage, gotchas. Keep it simple; it is the local spec, not an API inventory.
-- The **API reference is generated** from the code: add TSDoc comments to
-  exported symbols, then run:
+- **Do** use each package's `README.md` to document **concepts** — purpose, quick start, usage, gotchas. Keep it simple; it is the local spec, not an API inventory.
+- **Do** generate API reference from the code: add TSDoc comments to exported symbols, then run:
     ```bash
     pnpm generate-typedoc-json
     ```

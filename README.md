@@ -60,7 +60,7 @@ pnpm install && pnpm dev
 | Doc                                                                                            | Description                                                |
 | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [Documentation hub](https://joska-p.github.io/playground/docs/)                                | Documentation hub                                          |
-| [Conventions](https://joska-p.github.io/playground/docs/conventions/01-overview/)              | Code style, package structure, and common patterns         |
+| [Conventions](https://joska-p.github.io/playground/docs/conventions/overview/)               | Code style, package structure, and common patterns         |
 | [Architecture](https://joska-p.github.io/playground/docs/explanation/architecture/)            | System overview and principles                             |
 | [Engine Patterns](https://joska-p.github.io/playground/docs/explanation/engine-patterns/)      | How rules and visualizations work                          |
 | [Scaffolding Packages](https://joska-p.github.io/playground/docs/how-to/scaffolding-packages/) | Generate new packages with `turbo gen`                     |

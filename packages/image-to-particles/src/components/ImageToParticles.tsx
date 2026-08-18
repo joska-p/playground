@@ -157,7 +157,7 @@ export function ImageToParticles() {
             </Button>
             <canvas
                 ref={canvasRef}
-                className="bg-black"
+                className="bg-background"
             />
         </div>
     );

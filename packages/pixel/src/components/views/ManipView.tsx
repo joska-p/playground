@@ -54,7 +54,7 @@ function ManipView({
             }
         >
             <div className="flex items-center gap-3">
-                <span className="bg-accent) inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold text-white uppercase">
+                <span className="bg-accent inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold text-background uppercase">
                     {manip.type === 'neighborhood' ? 'NEIGHBOR' : manip.type.toUpperCase()}
                 </span>
                 <h2 className="text-2xl font-bold">{manip.label}</h2>
@@ -62,7 +62,7 @@ function ManipView({
             <p className="text-muted-foreground max-w-2xl text-sm">{manip.description}</p>
             <p className="text-xs opacity-60">{manip.path}</p>
 
-            <div className="border-border bg-muted/30 border-l-accent) max-w-2xl rounded-lg border border-l-2 p-4">
+            <div className="border-border bg-muted/30 border-l-accent max-w-2xl rounded-lg border border-l-2 p-4">
                 <h3 className="mb-1.5 text-xs font-semibold uppercase">How It Works</h3>
                 <p className="text-muted-foreground text-sm">{manip.longDescription}</p>
             </div>
@@ -75,7 +75,7 @@ function ManipView({
             )}
 
             <section>
-                <h3 className="border-b-accent) mb-3 inline-block border-b-2 pb-1 text-sm font-semibold uppercase">
+                <h3 className="border-b-accent mb-3 inline-block border-b-2 pb-1 text-sm font-semibold uppercase">
                     Try It Out
                 </h3>
                 <Card>
@@ -91,7 +91,7 @@ function ManipView({
             </section>
 
             <section>
-                <h3 className="border-b-accent) mb-3 inline-block border-b-2 pb-1 text-sm font-semibold uppercase">
+                <h3 className="border-b-accent mb-3 inline-block border-b-2 pb-1 text-sm font-semibold uppercase">
                     Code Sample
                 </h3>
                 <CodeBlock code={codeLines.join('\n')} />

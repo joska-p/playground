@@ -35,7 +35,7 @@ Two architectural rules drive everything:
 ## 📚 References
 
 - [Storybook (component docs)](https://joska-p.github.io/playground/storybook/)
-- [Project Conventions](/docs/conventions/01-overview.md)
+- [Project Conventions](/docs/conventions/overview.md)
 
 ---
 

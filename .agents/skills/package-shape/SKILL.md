@@ -9,6 +9,6 @@ When performing this task, read the Single Source of Truth (SSOT) documentation 
 
 - `/workspaces/playground/apps/playground/src/content/docs/explanation/architecture.md`
 - `/workspaces/playground/apps/playground/src/content/docs/explanation/engine-patterns.md`
-- `/workspaces/playground/apps/playground/src/content/docs/conventions/02-package-structure.md`
+- `/workspaces/playground/apps/playground/src/content/docs/conventions/packages.md`
 
 Use your `read` tool to load those files and follow their instructions.

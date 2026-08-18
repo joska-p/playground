@@ -10,7 +10,7 @@
 
 ---
 
-## Phase 2 — Migrate off-theme colors to OKLCH tokens 🔄 PLANNED
+## Phase 2 — Migrate off-theme colors to OKLCH tokens ✅ COMPLETED
 
 ### Scope (strict)
 
@@ -30,28 +30,41 @@
 
 Created Tailwind glow utilities in `gruvbox-theme.css` `@theme inline`: `shadow-glow-rest`, `shadow-glow-hover`, `shadow-glow-link`, `shadow-glow-btn`, `shadow-glow-logo`, `shadow-glow-logo-hover`, `shadow-glow-mobile`, `shadow-glow-active-link`. Added `--tw-shadow-color`, `--bg-glow-subtle`, and `@utility text-glow`. Rewrote all 5 nav components to use these utilities. Fixed 3 bugs (NavActions.astro lines 10/25, MobileMenu.astro line 38).
 
-### Lot 2 — `text-white` → tokens in `packages/pixel`
+**Files modified**: `packages/ui/src/styles/gruvbox-theme.css`, `apps/playground/src/layouts/nav-bar/NavBar.astro`, `NavLogo.astro` (unchanged), `NavLinks.astro`, `NavActions.astro`, `MobileMenu.astro`.
 
-**Files**:
+### Lot 2 — `text-white` → tokens in `packages/pixel` ✅ COMPLETED
 
-- `SwaggerSidebar.tsx`: 6× `text-white` → `text-background`
-- `PipelineView.tsx`: `text-white` → `text-background` + fix `bg-accent)` malformed
-- `ManipView.tsx`: `text-white` → `text-background` + fix `bg-accent)` malformed
+Replaced 8× `text-white` → `text-background` across SwaggerSidebar, PipelineView, ManipView. Fixed 7 malformed utility classes (`bg-accent)`, `border-l-accent)`, `border-b-accent)`) → correct Tailwind v4 syntax.
 
-### Lot 3 — Tokens in `packages/ui` + storybook
+**Files modified**: `packages/pixel/src/components/SwaggerSidebar.tsx`, `packages/pixel/src/components/views/PipelineView.tsx`, `packages/pixel/src/components/views/ManipView.tsx`.
 
-**Files**:
+### Lot 3 — Tokens in `packages/ui` + storybook ✅ COMPLETED
 
-- `apps/storybook/src/stories/widgets/Sidebar.stories.tsx`: `hover:bg-white/5` → `hover:bg-surface-raised/50`
-- `apps/storybook/src/stories/icons/Icon.stories.tsx`: `hover:bg-white/5` → `hover:bg-surface-raised/50`
-- `packages/image-to-particles/src/components/ImageToParticles.tsx`: `bg-black` → `bg-background`
+Replaced 2× `hover:bg-white/5` → `hover:bg-surface-raised/50` in Sidebar.stories.tsx and Icon.stories.tsx. Replaced `bg-black` → `bg-background` in ImageToParticles.tsx.
 
-### Lot 4 — Shared particle palette + `ProjectsList`
+**Files modified**: `apps/storybook/src/stories/widgets/Sidebar.stories.tsx`, `apps/storybook/src/stories/icons/Icon.stories.tsx`, `packages/image-to-particles/src/components/ImageToParticles.tsx`.
 
-**Files**:
+### Lot 4 — Shared particle palette + `ProjectsList` ✅ COMPLETED
 
-- `EdgeFieldHero.astro` + `BackgroundCanvas.astro`: extract duplicated 8-color particle palette into shared constant or CSS custom properties.
-- `ProjectsList.astro`: extract `CARD_COLORS` into shared constant with OKLCH equivalents.
+Extracted duplicated 8-color particle palette from `EdgeFieldHero.astro` and `BackgroundCanvas.astro` into `apps/playground/src/utils/palettes.ts`. Extracted `CARD_COLORS` from `ProjectsList.astro` into the same shared file. Added OKLCH equivalents for both palettes. Canvas components receive palette via `define:vars` + `window.__PARTICLE_PALETTE` (inline scripts can't use ES imports).
+
+**Files created**: `apps/playground/src/utils/palettes.ts`.
+**Files modified**: `apps/playground/src/components/ui/features/EdgeFieldHero.astro`, `apps/playground/src/components/ui/features/BackgroundCanvas.astro`, `apps/playground/src/components/ProjectsList.astro`.
+
+### Bugs discovered & fixed during Phase 2
+
+| File               | Line | Bug                                                 | Fixed in |
+| ------------------ | ---- | --------------------------------------------------- | -------- |
+| `NavActions.astro` | 10   | `hover:text--glow-color)` — missing opening `[var(` | Lot 1    |
+| `NavActions.astro` | 25   | Same malformation                                   | Lot 1    |
+| `MobileMenu.astro` | 38   | Stray backtick + missing `[var(`                    | Lot 1    |
+| `PipelineView.tsx` | 52   | `bg-accent)` — missing opening `(`                  | Lot 2    |
+| `ManipView.tsx`    | 57   | `bg-accent)` — same malformation                    | Lot 2    |
+| `PipelineView.tsx` | 105  | `border-l-accent)` — stray paren                    | Lot 2    |
+| `PipelineView.tsx` | 123  | `border-b-accent)` — stray paren                    | Lot 2    |
+| `ManipView.tsx`    | 65   | `border-l-accent)` — stray paren                    | Lot 2    |
+| `ManipView.tsx`    | 78   | `border-b-accent)` — stray paren                    | Lot 2    |
+| `ManipView.tsx`    | 94   | `border-b-accent)` — stray paren                    | Lot 2    |
 
 ### What is NOT migrated (by design)
 
@@ -63,16 +76,6 @@ Created Tailwind glow utilities in `gruvbox-theme.css` `@theme inline`: `shadow-
 | `<meta theme-color>` hex          | Browser chrome, not rendering                         |
 | Hex in `SvgExportPanel`           | SVG export output, not UI                             |
 | Canvas API draw hex (glaze demos) | Out of scope (not `packages/ui` or `apps/playground`) |
-
-### Bugs discovered during Phase 2 audit (to fix in Lots 1-2)
-
-| File               | Line | Bug                                                 |
-| ------------------ | ---- | --------------------------------------------------- |
-| `NavActions.astro` | 10   | `hover:text--glow-color)` — missing opening `[var(` |
-| `NavActions.astro` | 25   | Same malformation                                   |
-| `MobileMenu.astro` | 38   | Stray backtick + missing `[var(`                    |
-| `PipelineView.tsx` | 52   | `bg-accent)` — missing opening `(`                  |
-| `ManipView.tsx`    | 57   | `bg-accent)` — same malformation                    |
 
 ---
 
@@ -88,7 +91,7 @@ _Detailed plan to be defined after Phase 2 completion._
 
 1. Start by reading this `HANDOFF.md` file.
 2. Verify build is still green: `pnpm check-types` and `pnpm lint`.
-3. Begin with **Lot 1** (glow consolidation in nav-bar).
+3. Phase 2 is **complete** — all 4 lots are done. Begin **Phase 3** (UI Primitives Alignment).
 4. After each lot, run `pnpm check-types` to validate.
 5. Update this HANDOFF after each validated lot.
 6. If context gets too heavy, create a fresh HANDOFF entry and recommend a new session.

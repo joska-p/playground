@@ -45,8 +45,8 @@ packages/ui/src/components/Button/
 
 | Topic              | Link                                                                                                                 |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Component patterns | [docs/conventions/02-package-structure](https://joska-p.github.io/playground/docs/conventions/02-package-structure/) |
-| Design tokens      | [docs/conventions/09-ui-css-tokens](https://joska-p.github.io/playground/docs/conventions/09-ui-css-tokens/)         |
+| Component patterns | [docs/conventions/packages](https://joska-p.github.io/playground/docs/conventions/packages/)     |
+| Design tokens      | [docs/conventions/ui](https://joska-p.github.io/playground/docs/conventions/ui/)                 |
 | Live Storybook     | [https://joska-p.github.io/playground/storybook/](https://joska-p.github.io/playground/storybook/)                   |
 
 ---

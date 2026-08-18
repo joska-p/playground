@@ -63,7 +63,7 @@ export const NormalLeft: Story = {
                     {['Background', 'Shapes', 'Text Overlay'].map((layer) => (
                         <div
                             key={layer}
-                            className="text-foreground-muted cursor-pointer rounded px-2 py-1 text-xs hover:bg-white/5"
+                            className="text-foreground-muted cursor-pointer rounded px-2 py-1 text-xs hover:bg-surface-raised/50"
                         >
                             {layer}
                         </div>

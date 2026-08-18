@@ -36,7 +36,7 @@ export const AllIcons: Story = {
             {iconArray.map(({ name }) => (
                 <div
                     key={name}
-                    className="text-foreground-muted flex w-24 flex-col items-center gap-2 rounded-lg p-3 text-center text-xs hover:bg-white/5"
+                    className="text-foreground-muted flex w-24 flex-col items-center gap-2 rounded-lg p-3 text-center text-xs hover:bg-surface-raised/50"
                 >
                     <Icon
                         name={name as IconName}

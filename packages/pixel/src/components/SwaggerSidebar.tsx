@@ -10,12 +10,12 @@ type SwaggerSidebarProps = {
 };
 
 const BADGE_CLASSES: Record<string, string> = {
-    overview: 'bg-utility-4 text-white',
-    pixel: 'bg-utility-6 text-white',
-    neighborhood: 'bg-utility-3 text-white',
-    global: 'bg-utility-2 text-white',
-    pipeline: 'bg-utility-1 text-white',
-    internals: 'bg-utility-8 text-white'
+    overview: 'bg-utility-4 text-background',
+    pixel: 'bg-utility-6 text-background',
+    neighborhood: 'bg-utility-3 text-background',
+    global: 'bg-utility-2 text-background',
+    pipeline: 'bg-utility-1 text-background',
+    internals: 'bg-utility-8 text-background'
 };
 
 const BADGE_LABELS: Record<string, string> = {
@@ -130,7 +130,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                                                 className={cn(
                                                     'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors',
                                                     isActive
-                                                        ? 'bg-accent/20 text-foreground border-l-accent) border-l-2 pl-2 font-medium'
+                                                        ? 'bg-accent/20 text-foreground border-l-accent border-l-2 pl-2 font-medium'
                                                         : 'text-foreground/70 hover:bg-muted/50 hover:text-foreground border-l-2 border-l-transparent pl-2'
                                                 )}
                                             >
