@@ -13,7 +13,8 @@ RÈGLES D'EXECUTION STRICTES :
    - Si un test échoue ou qu'un composant obsolète bloque le build suite à une modification, ne passe pas plus de 2 essais dessus : commente le test ou le bout de code avec un `// TODO(refactor-ui): bypass temporary`, documente-le dans `HANDOFF.md`, et passe à la suite.
 
 ---
-MISSION ACTUELLE : Phase 1 — Purge, Fixes & Handoff Setup
+je ne sais plus on en était de cette refont. est ce que tu peux me faire un point ?
+MISSION ACTUELLE? / PRECEDENTE? : Phase 1 — Purge, Fixes & Handoff Setup
 
 1. Supprime physiquement les ~25 composants UI et hooks listés comme "dead weight" dans ton rapport (Dialog, Carousel, Popover, Sidebar, useToast, etc.) ainsi que leurs stories associées.
 2. Répare le fichier template `turbo/generators/templates/new-package/src/components/Demo.tsx` en corrigeant les imports de Card et en supprimant `CardFooter`.
@@ -27,3 +28,5 @@ VALIDATION & HANDOFF :
 CONTEXT DETAILLE: 
 - Le fichier '/workspaces/playground/drafts/ui-design/ui-library-usage-report.md'.
 - Le fichier '/workspaces/playground/drafts/ui-design/ui-library-usage-report-review.md'.
+
+je ne sais plus on en était de cette refont. est ce que tu peux me faire un point ?
