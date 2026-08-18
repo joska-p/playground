@@ -43,11 +43,11 @@ packages/ui/src/components/Button/
 
 ## 📖 Learn More
 
-| Topic              | Link                                                                                                                 |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Component patterns | [docs/conventions/packages](https://joska-p.github.io/playground/docs/conventions/packages/)     |
-| Design tokens      | [docs/conventions/ui](https://joska-p.github.io/playground/docs/conventions/ui/)                 |
-| Live Storybook     | [https://joska-p.github.io/playground/storybook/](https://joska-p.github.io/playground/storybook/)                   |
+| Topic              | Link                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
+| Component patterns | [docs/conventions/packages](https://joska-p.github.io/playground/docs/conventions/packages/)       |
+| Design tokens      | [docs/conventions/ui](https://joska-p.github.io/playground/docs/conventions/ui/)                   |
+| Live Storybook     | [https://joska-p.github.io/playground/storybook/](https://joska-p.github.io/playground/storybook/) |
 
 ---
 

@@ -43,7 +43,7 @@ const useNodesStore = create((set, get) => ({
     fetchNodes: async () => {
         const data = await fetchNodes(get().filters);
         set({ nodes: data });
-    },
+    }
 }));
 ```
 

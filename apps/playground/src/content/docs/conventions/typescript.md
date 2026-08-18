@@ -19,7 +19,9 @@ tags:
 type Props = BaseProps & { label: string };
 
 // ❌ Bad
-interface Props extends BaseProps { label: string }
+interface Props extends BaseProps {
+    label: string;
+}
 ```
 
 ## Naming as specification

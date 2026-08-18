@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Implement work based on a spec or tickets using TDD, then code-review."
+description: 'Implement work based on a spec or tickets using TDD, then code-review.'
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: "Review changes along two axes — Standards (coding conventions?) and Spec (requirements?). Runs both in parallel sub-agents."
+description: 'Review changes along two axes — Standards (coding conventions?) and Spec (requirements?). Runs both in parallel sub-agents.'
 disable-model-invocation: true
 ---
 
@@ -39,7 +39,7 @@ On top of the documented conventions, the Standards axis carries the **smell bas
 - **The repo overrides.** A documented convention always wins; where it endorses something the baseline would flag, suppress the smell.
 - **Always a judgement call.** Each smell is a labelled heuristic, never a hard violation.
 
-Each smell reads *what it is* → *how to fix*; match it against the diff:
+Each smell reads _what it is_ → _how to fix_; match it against the diff:
 
 - **Mysterious Name** — name doesn't reveal what it does. → rename.
 - **Duplicated Code** — same logic shape in multiple hunks/files. → extract.
