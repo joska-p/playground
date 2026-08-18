@@ -4,9 +4,9 @@ import { Hero } from '@repo/ui/data-display';
 import ProjectsList from '../components/ProjectsList.astro';
 import NotesList from '../components/NotesList.astro';
 import DocumentsList from '../components/DocumentsList.astro';
-import { toOgham } from '../utils/format';
+import { toCanadianSyllabics } from '../utils/format';
 
-const highlight = toOgham.fromHash('Recreational Programming');
+const highlight = toCanadianSyllabics.fromHash('Recreational Programming');
 ---
 
 <BaseLayout title="Cahier d'exercices">
