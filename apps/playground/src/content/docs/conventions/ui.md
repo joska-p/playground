@@ -62,8 +62,8 @@ Use CSS variables set via `style` + Tailwind's CSS variable shorthand:
 ```tsx
 // ✅ Tailwind v4
 <div
-  style={{ '--color-primary': dynamicValue }}
-  className="text-(--color-primary)"
+  style={{ '--var-x': dynamicValue }}
+  className="text-(--var-x)"
 />
 
 // ❌
