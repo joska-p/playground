@@ -53,6 +53,8 @@ Each file is a **chapter of the logbook**, not a single entry. You decide when t
 
 When you **add to an existing file**: place the new entry at the end, with its own date in the body (not in frontmatter — frontmatter date is the file creation date).
 
+**Time Window Calculation**: The `--since` parameter for `git log` MUST be calculated relative to the **date of the most recent entry** found in the logs you read during the "Gather context" step, not the file creation date. If the last entry is from `2026-08-01` and today is `2026-08-18`, you use `--since="17 days ago"`. This ensures a continuous timeline with no gaps.
+
 When you **create a new file**: use today's date in the filename. The frontmatter `date` field matches the filename date.
 
 # Narrative Continuity
