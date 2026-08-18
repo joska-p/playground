@@ -70,7 +70,7 @@ build/
 storybook-static/
 
 # Generated API reference (typedoc output; generate-typedoc-json regenerates it)
-apps/playground/.generated/
+codex/ateliers/typedoc-pipeline/.generated/
 
 # --- Dev tools & caches ---
 .turbo/

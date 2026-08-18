@@ -4,7 +4,7 @@ Monorepo pnpm + Turborepo | React 19 (Compiler: no `useMemo`/`useCallback`) useS
 
 ## Core Rules & SSOT
 
-- **Skills & Docs**: Official site documentation (`./apps/playground/src/content/docs/`) and skills are the Single Source of Truth (SSOT).
+- **Skills & Docs**: Official site documentation (`./codex/docs/`) and skills are the Single Source of Truth (SSOT).
 - **Language**: Code/docs in English. Creative conversation in French.
 - **Workflow & Feedback Loop**: Small incremental patches, explain before coding, respect shell safety. Propose skill/doc updates after non-trivial tasks when recurring patterns emerge (ask human approval).
 

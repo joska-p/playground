@@ -26,4 +26,3 @@ tags: [meta, style, audit]
 ```
 
 Sois direct, analytique et constructif. Évitez la flatterie, pointe les vrais défauts.
-text

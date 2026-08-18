@@ -15,7 +15,7 @@ date_discovered: 2025-06-01
 
 `@repo/playground` is the central hub of the monorepo. It serves three core purposes:
 
-1. **Documentation Site**: Markdown content collections under `src/content/docs/` covering architecture explanations, conventions, how-to guides, and the package API reference.
+1. **Documentation Site**: Markdown content collections under `codex/docs/` covering architecture explanations, conventions, how-to guides, and the package API reference.
 2. **Discovery Pages**: Dynamic showcase routes (`src/pages/discoveries/*.astro`) embedding interactive WebGL/Canvas visualizers and experiment applications.
 3. **Static Asset Hub**: Integrates TypeDoc-generated Markdown API references under `src/content/api/` and Storybook (`/storybook/`) during build time in `@repo/playground`.
 
@@ -57,7 +57,7 @@ apps/playground/
 ## Documentation Pipeline
 
 1. Package source code is annotated with TSDoc (`/** */`).
-2. `pnpm generate-typedoc-json` runs TypeDoc centrally and generates TypeDoc JSON data into `apps/playground/.generated/api-docs/`.
+2. `pnpm generate-typedoc-json` runs TypeDoc centrally and generates TypeDoc JSON data into `codex/ateliers/typedoc-pipeline/.generated/api-docs/`.
 3. `pnpm build` in `@repo/playground` compiles Astro pages and documentation.
 
 ---

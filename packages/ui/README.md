@@ -28,7 +28,7 @@ Two architectural rules drive everything:
 - **Variant colors:** `COLOR_VARIABLE_CLASSES` sets `--variant-color`, and composed components (ProjectCard, DocCard, CategoryCard) get their accent through CardLink's `accent` prop — there is no per-card `category` mapping.
 - **Height-collapse animation:** `ControlConditional` collapses via the `grid-template-rows: 0fr → 1fr` trick — a plain CSS transition, no measuring JS.
 - **Opting out of shared behavior:** CategoryCard cancels CardLink's `hover:-translate-y-0.5` by passing `hover:translate-y-0` — `cn`'s tailwind-merge resolves the conflict, the standard way to tweak a composed component without forking it.
-- **EdgeField:** the edge-detection look exists in three forms — live SVG filter chain, live WebGL2 fragment shader (same pipeline, per-pixel), and a baked webp mask (the alpha channel _is_ the contour pattern, applied via `mask-image` so `--glow-color` stays dynamic). See `_KNOWLEDGE/ui-edgefield-baked-mask.md`.
+- **EdgeField:** the edge-detection look exists in three forms — live SVG filter chain, live WebGL2 fragment shader (same pipeline, per-pixel), and a baked webp mask (the alpha channel _is_ the contour pattern, applied via `mask-image` so `--glow-color` stays dynamic). See `codex/knowledge/ui-edgefield-baked-mask.md`.
 - **Dialog:** fully controlled — `open` comes from the caller, `onClose` fires from the native `<dialog>` close event (Esc, backdrop click).
 - **Label `required`:** purely visual — shows a `*` and does _not_ set the HTML `required` attribute.
 

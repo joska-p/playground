@@ -50,7 +50,7 @@ pnpm generate-typedoc-json
 pnpm gen:project-pages
 ```
 
-- `pnpm generate-typedoc-json` runs the `generate-typedoc-json` turbo root task (which executes `scripts/generate-typedoc-json.mjs`): it runs TypeDoc once per package and writes `apps/playground/.generated/api-docs/<package-dir>/docs.json` (raw TypeDoc JSON, gitignored). It is cached by turbo and decoupled from `astro build` — run it before building or dev-ing the app.
+- `pnpm generate-typedoc-json` runs the `generate-typedoc-json` turbo root task (which executes `codex/ateliers/typedoc-pipeline/generate-typedoc-json.mjs`): it runs TypeDoc once per package and writes `codex/ateliers/typedoc-pipeline/.generated/api-docs/<package-dir>/docs.json` (raw TypeDoc JSON, gitignored). It is cached by turbo and decoupled from `astro build` — run it before building or dev-ing the app.
 - The custom content loader (`apps/playground/src/content/loaders/api-docs.ts`) reads each `docs.json`, merges the package's README and `package.json` metadata (`description`, `hasApp`), and serves it as the `api` content collection — one entry per package.
 - `pnpm gen:project-pages` reads the generated docs and generates a static Astro page at `/discoveries/<package-dir>/` for every package. It never overwrites an existing page — prefer writing discovery pages by hand.
 

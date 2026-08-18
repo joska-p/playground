@@ -13,7 +13,7 @@
         "clean:modules": "find . -name node_modules -type d -prune -exec rm -rf {} +",
         "clean:tsbuildinfo": "find . -name '*.tsbuildinfo' -type f -not -path '*/node_modules/*' -delete",
         "clean:dist": "rm -rf dist packages/*/dist",
-        "clean:docs": "rm -rf apps/playground/.generated",
+        "clean:docs": "rm -rf codex/ateliers/typedoc-pipeline/.generated",
         "clean": "pnpm clean:turbo && pnpm clean:modules && pnpm clean:tsbuildinfo && pnpm clean:dist && pnpm clean:docs",
         "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
         "gen": "turbo gen",

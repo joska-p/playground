@@ -7,6 +7,6 @@ description: Use when defining package exports in package.json, writing cross-pa
 
 When performing this task, read the Single Source of Truth (SSOT) documentation files:
 
-- `/workspaces/playground/apps/playground/src/content/docs/conventions/packages.md`
+- `/workspaces/playground/codex/docs/conventions/packages.md`
 
 Use your `read` tool to load those files and follow their instructions.

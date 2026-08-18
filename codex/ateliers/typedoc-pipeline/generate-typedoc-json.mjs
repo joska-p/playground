@@ -15,7 +15,7 @@ function findRepoRoot(start) {
 
 const ROOT = findRepoRoot(process.cwd());
 const PACKAGES_DIR = path.join(ROOT, 'packages');
-const OUT_DIR = path.join(ROOT, 'apps/playground/.generated/api-docs');
+const OUT_DIR = path.join(ROOT, 'codex/ateliers/typedoc-pipeline/.generated/api-docs');
 
 rmSync(OUT_DIR, { recursive: true, force: true });
 mkdirSync(OUT_DIR, { recursive: true });

@@ -3,10 +3,10 @@
     "ui": "stream-with-experimental-timestamps",
     "tasks": {
         "build:generate-typedoc-json": {
-            "outputs": ["$TURBO_ROOT$/apps/playground/.generated/api-docs/**"],
+            "outputs": ["$TURBO_ROOT$/codex/ateliers/typedoc-pipeline/.generated/api-docs/**"],
             "inputs": [
                 "$TURBO_ROOT$/typedoc.base.json",
-                "$TURBO_ROOT$/scripts/generate-typedoc-json.mjs",
+                "$TURBO_ROOT$/codex/ateliers/typedoc-pipeline/generate-typedoc-json.mjs",
                 "$TURBO_ROOT$/packages/*/src/**",
                 "$TURBO_ROOT$/packages/*/README.md",
                 "$TURBO_ROOT$/packages/*/typedoc.json",

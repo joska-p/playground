@@ -7,8 +7,8 @@ description: Use when designing a new package, organizing src/ directories, stru
 
 When performing this task, read the Single Source of Truth (SSOT) documentation files:
 
-- `/workspaces/playground/apps/playground/src/content/docs/explanation/architecture.md`
-- `/workspaces/playground/apps/playground/src/content/docs/explanation/engine-patterns.md`
-- `/workspaces/playground/apps/playground/src/content/docs/conventions/packages.md`
+- `/workspaces/playground/codex/docs/explanation/architecture.md`
+- `/workspaces/playground/codex/docs/explanation/engine-patterns.md`
+- `/workspaces/playground/codex/docs/conventions/packages.md`
 
 Use your `read` tool to load those files and follow their instructions.

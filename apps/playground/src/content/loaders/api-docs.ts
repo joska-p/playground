@@ -50,7 +50,7 @@ export function apiDocsLoader(): Loader {
             const { store, config, logger } = context;
             const appRoot = fileURLToPath(config.root);
             const repoRoot = findRepoRoot(appRoot);
-            const genRoot = path.join(appRoot, '.generated', 'api-docs');
+            const genRoot = path.join(repoRoot, 'codex', 'ateliers', 'typedoc-pipeline', '.generated', 'api-docs');
             const packagesDir = path.join(repoRoot, 'packages');
 
             if (!existsSync(genRoot)) {

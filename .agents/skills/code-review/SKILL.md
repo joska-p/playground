@@ -32,7 +32,7 @@ Look for the originating spec, in this order:
 
 ### 3. Identify the standards sources
 
-Read the conventions docs: `apps/playground/src/content/docs/conventions/overview.md` and the linked thematic files.
+Read the conventions docs: `codex/docs/conventions/overview.md` and the linked thematic files.
 
 On top of the documented conventions, the Standards axis carries the **smell baseline** — a fixed set of Fowler code smells (_Refactoring_, ch.3) that applies even when docs say nothing. Two rules bind it:
 

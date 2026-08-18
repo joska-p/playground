@@ -8,7 +8,7 @@
     },
     "scripts": {
         "copy:radu": "cp -r ../../packages/radu-machine-learning/public/radu-img ./public/radu-img",
-        "generate-typedoc-json": "node ../../scripts/generate-typedoc-json.mjs",
+        "generate-typedoc-json": "node ../../codex/ateliers/typedoc-pipeline/generate-typedoc-json.mjs",
         "build:generate-typedoc-json": "pnpm generate-typedoc-json",
         "prebuild": "pnpm run copy:radu && pnpm build:generate-typedoc-json",
         "build": "astro build",
