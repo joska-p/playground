@@ -10,7 +10,6 @@ const routes = [
     { label: 'Docs', href: `${baseUrl}docs/`, icon: 'docs' }
 ];
 
-const credits = ['Astro', 'React', 'Tailwind', 'Turborepo', 'Storybook', 'TypeScript'];
 const { class: className } = Astro.props;
 ---
 
@@ -33,12 +32,8 @@ const { class: className } = Astro.props;
                             class="bg-primary group-hover:bg-accent relative h-2.5 w-2.5 rounded-full transition-colors group-hover:scale-110"
                         ></span>
                     </span>
-                    PG_LAB,
+                    PG_LAB, <a href=`${baseUrl}stats.html`>Bundle stats</a>
                 </a>
-                <p class="text-muted-foreground/50 text-xs">
-                    <slot>Made with creativity.</slot>{' '}
-                    <a href=`${baseUrl}stats.html`>Bundle stats</a>
-                </p>
             </div>
 
             <nav
@@ -117,17 +112,6 @@ const { class: className } = Astro.props;
         </div>
 
         <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div class="flex flex-wrap items-center justify-center gap-2 md:justify-start">
-                <span class="text-muted-foreground/40 mr-2 text-xs uppercase">Built with</span>
-                {
-                    credits.map((name) => (
-                        <span class="border-border/40 bg-muted/20 text-muted-foreground/60 hover:border-primary/40 hover:bg-primary/10 hover:text-primary cursor-default rounded-full border px-3 py-1 text-xs font-semibold uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm">
-                            {name}
-                        </span>
-                    ))
-                }
-            </div>
-
             <div class="text-muted-foreground/40 text-xs">
                 © {new Date().getFullYear()} PG_LAB
             </div>

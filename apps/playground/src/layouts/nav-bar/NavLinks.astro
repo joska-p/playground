@@ -1,8 +1,5 @@
 ---
-type Route = {
-    label: string;
-    href: string;
-};
+import { isActiveRoute, type Route } from './navUtils';
 
 type Props = {
     routes: Route[];
@@ -11,13 +8,6 @@ type Props = {
 };
 
 const { routes, currentPath, baseUrl } = Astro.props;
-
-const isActive = (href: string): boolean => {
-    if (href === baseUrl) {
-        return currentPath === href || currentPath === href + '/';
-    }
-    return currentPath.startsWith(href);
-};
 ---
 
 <nav
@@ -26,11 +16,11 @@ const isActive = (href: string): boolean => {
 >
     {
         routes.map((route) => {
-            const active = isActive(route.href);
+            const active = isActiveRoute(route.href, currentPath, baseUrl);
             return (
                 <a
                     aria-current={active ? 'page' : false}
-                    class="text-foreground-muted data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 pointer-events-auto relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 hover:bg-glow-subtle hover:text-glow hover:shadow-glow-link hover:shadow-glow-color active:translate-y-0 active:scale-95 data-active:shadow-[0_0_20px_-3px_var(--primary),0_0_5px_-1px_var(--primary)]"
+                    class="text-foreground-muted data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 hover:text-glow hover:shadow-glow-link hover:shadow-glow-color pointer-events-auto relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 active:scale-95 data-active:shadow-[0_0_20px_-3px_var(--primary),0_0_5px_-1px_var(--primary)]"
                     data-active={active ? '' : undefined}
                     href={route.href}
                 >

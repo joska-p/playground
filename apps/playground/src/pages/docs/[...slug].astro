@@ -2,7 +2,6 @@
 import { render, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DocNav from '../../components/ui/docs/DocNav.astro';
-import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
     const docs = await getCollection('docs');
@@ -26,20 +25,9 @@ if (!doc) {
 }
 
 const { Content } = await render(doc);
-const mainTag = doc.data.tags[0].id;
-const allTags = await getCollection('tags');
-const tagEntry = allTags.find((tag) => tag.id === mainTag);
-const heroTitle = tagEntry?.data.title ?? mainTag;
 ---
 
 <BaseLayout title={doc.data.title}>
-    <Hero
-        badgeText="Documentation"
-        description={doc.data.description ?? ''}
-        highlight="Knowledge"
-        title={heroTitle}
-        variant="ghost"
-    />
     <div class="flex justify-center">
         <article
             class="prose prose-playground bg-surface/5 text-foreground t max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-xs"

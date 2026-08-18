@@ -24,8 +24,8 @@ interface HeroProps extends HTMLAttributes<HTMLElement>, HeroVariants {
 
 function Hero({
     badgeText,
-    title = 'Creative',
-    highlight = 'Playground',
+    title,
+    highlight,
     description,
     children,
     variant,

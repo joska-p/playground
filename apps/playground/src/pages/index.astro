@@ -1,66 +1,39 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Hero, SectionHeader } from '@repo/ui/data-display';
-import Footer from '../layouts/Footer.astro';
+import { Hero } from '@repo/ui/data-display';
 import ProjectsList from '../components/ProjectsList.astro';
 import NotesList from '../components/NotesList.astro';
 import DocumentsList from '../components/DocumentsList.astro';
-import { toBraille, toOgham } from '../utils/format';
+import { toOgham } from '../utils/format';
 
-const highlight = toBraille.fromHash("Cahier d'exercices");
-const badgeText = toOgham.fromHash('Recreational Programming');
+const highlight = toOgham.fromHash('Recreational Programming');
 ---
 
 <BaseLayout title="Cahier d'exercices">
     <Hero
-        badgeText={badgeText}
-        description="A personal archive of uncharted logic, visual phenomena, and mathematical playgrounds. Built not to be finished, but to discover what happens next."
         highlight={highlight}
         title="Cahier d'exercices"
         variant="ghost"
     />
+
+    <section
+        class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+        id="discoveries"
+    >
+        <ProjectsList />
+    </section>
+
+    <section
+        class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+        id="notes"
+    >
+        <NotesList />
+    </section>
+
+    <section
+        class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+        id="documents"
+    >
+        <DocumentsList />
+    </section>
 </BaseLayout>
-
-<section
-    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
-    id="discoveries"
->
-    <SectionHeader
-        className="mb-12"
-        description="Experiments catalogued in the field — live prototypes and visual investigations."
-        iconName="bluesky"
-        title="Discoveries"
-    />
-    <ProjectsList />
-</section>
-
-<section
-    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
-    id="notes"
->
-    <SectionHeader
-        className="mb-12"
-        description="Reflective writing, logs, and observations from the research process."
-        iconName="bluesky"
-        title="Field Notes"
-    />
-    <NotesList />
-</section>
-
-<section
-    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
-    id="documents"
->
-    <SectionHeader
-        align="center"
-        className="mb-12"
-        description="Technical references, guides, and the collective manual."
-        iconName="bluesky"
-        title="Codex"
-    />
-    <DocumentsList />
-</section>
-
-<Footer>
-    <span slot="default">Crafted with creativity.</span>
-</Footer>

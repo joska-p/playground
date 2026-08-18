@@ -2,7 +2,6 @@
 import { render, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Footer from '../../layouts/Footer.astro';
-import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
     const notes = await getCollection('notes');
@@ -20,37 +19,10 @@ export async function getStaticPaths() {
 }
 
 const { note } = Astro.props;
-
-if (!note) {
-    return Astro.redirect('/404');
-}
-
 const { Content } = await render(note);
-const mainTag = note.data.tags?.[0].id || 'other';
-const allTags = await getCollection('tags');
-const tagEntry = allTags.find((tag) => tag.id === mainTag);
-
-const date = new Date(note.data.date);
-const formattedDate = date.toLocaleDateString('fr-FR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-} as const);
 ---
 
-<BaseLayout
-    katex={true}
-    title={note.data.title}
->
-    <Hero
-        badgeText={formattedDate}
-        description={note.data.description ?? ''}
-        highlight={tagEntry?.data.title ?? mainTag}
-        title={note.data.title}
-        variant="ghost"
-    />
-
+<BaseLayout title={note.data.title}>
     <article
         class="prose prose-playground bg-surface/5 text-foreground t mx-auto max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-xs"
     >
