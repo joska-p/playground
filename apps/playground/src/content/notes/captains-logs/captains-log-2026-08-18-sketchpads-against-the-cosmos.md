@@ -1,6 +1,6 @@
 ---
 title: "Captain's Log: Stardate 2026.231"
-description: "From codebase purge to sketchpad deployment: a season of radical transformation across the Playground Monorepo."
+description: 'From codebase purge to sketchpad deployment: a season of radical transformation across the Playground Monorepo.'
 date: 2026-08-18
 featured: false
 order: 0
@@ -144,6 +144,6 @@ Les dépendances obsolètes ont été supprimées, les fonctionnalités inutilis
 
 ---
 
-*Le vaisseau est en bonne forme. L'équipage est motivé. Les étoiles nous appellent.*
+_Le vaisseau est en bonne forme. L'équipage est motivé. Les étoiles nous appellent._
 
 **Fin du log.**

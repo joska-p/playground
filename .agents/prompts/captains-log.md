@@ -71,9 +71,9 @@ Do **not** maintain a separate "bible" or continuity file. The logs themselves a
 
 1. **Gather context** — Read the 2-3 most recent log files in the `captains-logs/` directory.
 2. **Run git log analysis** for the desired period:
-   ```bash
-   git log --since="1 month ago" --pretty=format:"- %s (%an)" --stat
-   ```
+    ```bash
+    git log --since="1 month ago" --pretty=format:"- %s (%an)" --stat
+    ```
 3. **Résumé console** — En français naturel, affiche en console un résumé factuel de ce que le `git log` te montre. C'est pour ton contexte, pas pour le fichier.
 4. **Decide structure** — Should this be a new file or a new entry in the existing one? Apply the splitting rules above.
 5. **Write the file** to:
