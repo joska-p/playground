@@ -65,9 +65,30 @@
     --color-tags-worker-pool: var(--tags-worker-pool);
     --color-tags-zustand: var(--tags-zustand);
 
+    /* Glow shadow utilities */
+    --tw-shadow: 0 0 0 currentColor;
+    --tw-shadow-color: var(--glow-color);
+    --shadow-glow-rest: inset 0 1px 0 0 currentColor, 0 1px 28px -10px currentColor;
+    --shadow-glow-hover: inset 0 1px 0 0 currentColor, 0 4px 44px -10px currentColor, 0 0 2px 0 currentColor;
+    --shadow-glow-link: 0 0 14px -4px currentColor;
+    --shadow-glow-btn: 0 0 0 1px currentColor, 0 0 16px -4px currentColor;
+    --shadow-glow-logo: 0 0 8px 1px currentColor;
+    --shadow-glow-logo-hover: 0 0 12px 2px currentColor;
+    --shadow-glow-mobile: inset 0 1px 0 0 currentColor, 0 30px 60px -20px currentColor, 0 25px 50px -12px rgb(0 0 0/0.35);
+    --shadow-glow-active-link: 0 0 20px -3px currentColor, 0 0 5px -1px currentColor;
+
+    /* Glow background utility */
+    --tw-bg-opacity: 1;
+    --bg-glow-subtle: oklch(from var(--glow-color) l c h / calc(var(--tw-bg-opacity) * 0.12));
+
     /* Typography */
     --font-sans: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
     --font-mono: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@utility text-glow {
+    color: var(--glow-color);
+    text-shadow: 0 0 14px -4px currentColor;
 }
 
 @utility prose-playground {

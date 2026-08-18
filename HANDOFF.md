@@ -1,61 +1,94 @@
 # HANDOFF — UI Refonte
 
-Template source: `drafts/ui-design/HANDOFF-template.md`. Report reference: [refined: "drafts/ui-design/rapport.md", raw: "drafts/ui-design/ui-library-usage-report.md"].
+## Phase 1 — Purge, Fixes & Handoff Setup ✅ COMPLETED
 
-## Phase 1 — Purge, Fixes & Handoff Setup
+### Architecture learnings
 
-### Build status
+- `packages/ui` has **no root `index.ts`** — every consumer imports a deep-path submodule via `package.json` `exports`.
+- The lib's own **Atlas showcase** (`packages/ui/src/atlas`) uses several "dead weight" components — these were **KEPT** per user decision: `FloatingNav`, `Tabs`/`TabsContent`/`TabsList`/`TabsTrigger`, `NotificationItem`, `SvgExportPanel`, `EdgeFieldOriginal`, `DefaultFallback`, `CardBody`, `CardLink`, `CardDescription`, `CardTitle`, `Sidebar` (+subcomponents), `Spinner`.
+- If the Atlas showcase is redesigned later, purge its showcase-only components together with `packages/ui/src/atlas`.
 
-- `pnpm check-types` → **29/29 tasks OK** (incl. `astro check` 0 errors).
-- Lint (`@repo/ui`, `@repo/storybook`, `@repo/playground`) → clean.
-- No test broken, no `TODO(refactor-ui)` bypass needed.
+---
 
-### Tasks accomplished
+## Phase 2 — Migrate off-theme colors to OKLCH tokens 🔄 PLANNED
 
-1. **Purged dead-weight components/hooks** from `packages/ui` (no importers outside storybook), with their stories and exports:
+### Scope (strict)
 
-    - `data-entry`: `HelperText`, `Radio`
-    - `data-display`: `Carousel`/`CarouselSlide`, `ChangelogItem`, `MenuItem`, `Popover`
-    - `feedback`: `Alert`, `Dialog` (+Actions/Body/Description/Footer/Title), `ToastProvider`/`ToastViewport`/`useToast`
-    - `widgets`: `EdgeFieldCanvas`, `EdgeFieldMask`, `EdgeFieldSvg` (+ orphaned edge-field images)
-    - `cards`: `CategoryCard`, `ProjectCard`
-    - hooks: `useToastQueue`, `useFloatingNavState`, `useTabsState` (orphans — unused even by their components)
-    - stories: `HelperText`, `Radio`, `Carousel`, `ChangelogItem`, `MenuItem`, `Popover`, `Alert`, `Dialog`, `Toast`, `CategoryCard`, `ProjectCard`
-    - removed `./dialog` deep export from `packages/ui/package.json`
+- **In scope**: `packages/ui/` and `apps/playground/` only.
+- **Out of scope**: All other packages (`glaze`, `pixel`, `randomart`, `sequence-renderer`, etc.), 3D defaults (`three-stage`), GLSL shaders, storybook demo data (ColorSwatch/ColorPalette), browser `<meta theme-color>`.
 
-2. **Fixed turbo template** `turbo/generators/templates/new-package/src/components/Demo.tsx`: `Card` now from `@repo/ui/data-display`, `CardDescription`/`CardTitle` from `@repo/ui/cards`, `CardFooter` removed (kept the Reset button).
+### Theme file — `gruvbox-theme.css` is the ONLY active theme
 
-3. **Fixed `NavLinks.astro`**: `--primar` → `--primary`; `hover:text--glow-color)` → `hover:text-[var(--glow-color)]`.
+- **Active**: `packages/ui/src/styles/gruvbox-theme.css` (imported by 20+ packages via `@repo/ui/gruvbox-theme` export).
+- **Dead artifacts (do not touch)**:
+    - `gruvbox-theme-parametric.css` — zero imports, experimental calc()-based derivation.
+    - `gruvbox-theme-original.css` — zero imports, earlier version with `@layer components`.
+    - `gruvbox-theme-subdivided.css` — zero imports, experimental L/C/H channel split.
+- `gruvbox-theme.css` already defines `--glow-color`, `--glow-strength-rest/hover`, `--overlay`, `--color-overlay`.
 
-4. **Fixed `Switch.tsx`**: knob spinner `text-white` → `text-primary-foreground`.
+### Lot 1 — Glow consolidation (nav-bar) ✅ COMPLETED
 
-### Architecture learnings (important for Phase 2)
+Created Tailwind glow utilities in `gruvbox-theme.css` `@theme inline`: `shadow-glow-rest`, `shadow-glow-hover`, `shadow-glow-link`, `shadow-glow-btn`, `shadow-glow-logo`, `shadow-glow-logo-hover`, `shadow-glow-mobile`, `shadow-glow-active-link`. Added `--tw-shadow-color`, `--bg-glow-subtle`, and `@utility text-glow`. Rewrote all 5 nav components to use these utilities. Fixed 3 bugs (NavActions.astro lines 10/25, MobileMenu.astro line 38).
 
-- The usage report counts consumers **outside** `packages/ui` only. It missed that the lib's **own Atlas showcase** (`packages/ui/src/atlas`, live at `/discoveries/ui` via `@repo/ui/ui`) uses several "dead weight" components. Per user decision (same rule as Sidebar: _keep anything with real usage_), these are **KEPT**:
-    - `FloatingNav` → `atlas/AtlasNav.tsx`
-    - `Tabs`/`TabsContent`/`TabsList`/`TabsTrigger` → `atlas/CartographerStats.tsx`
-    - `NotificationItem` → `atlas/AtlasFooter.tsx`
-    - `SvgExportPanel`, `EdgeFieldOriginal` → `atlas/index.tsx`
-    - `DefaultFallback` → `ErrorBoundary.tsx`; `CardBody`, `CardLink` → `DocCard.tsx`; `CardDescription`, `CardTitle` → turbo template
-    - `Sidebar` (+ `Sidebar.Main/Panel/Toggle`) → `graph-viz`, `palette-generator`, `pixel` (user confirmed KEEP)
-    - `Spinner` → internal use in `Switch.tsx` (kept in `widgets/index.ts`)
-- `packages/ui` has **no root `index.ts`** — every consumer imports a deep-path submodule mapped in `package.json` `exports`.
-- Edge-field images (`edge-field.png/webp`, `edge-field-mask.webp`) were only used by the deleted components.
+### Lot 2 — `text-white` → tokens in `packages/pixel`
 
-### Tests / code temporarily bypassed
+**Files**:
 
-- None.
+- `SwaggerSidebar.tsx`: 6× `text-white` → `text-background`
+- `PipelineView.tsx`: `text-white` → `text-background` + fix `bg-accent)` malformed
+- `ManipView.tsx`: `text-white` → `text-background` + fix `bg-accent)` malformed
 
-## Next session — Phase 2: Migrate off-theme Tailwind colors to OKLCH tokens
+### Lot 3 — Tokens in `packages/ui` + storybook
 
-Reference: report §3 (67 off-token Tailwind classes + 33 hardcoded hex/oklch). Theme tokens: `gruvbox` (Tailwind v4): semantic (`background`, `surface`, `surface-raised`, `foreground*`, `border`, `primary*`, `secondary*`, `destructive*`, `accent*`, `warning*`), palette (`red`, `green`, `yellow`, `blue`, `purple`, `aqua`, `orange`), `tags-*`, fonts `sans`/`mono`.
+**Files**:
 
-1. **Hotspots first**: `packages/art-canvas/src/modules/atlas/controls/AtlasControls.tsx` (slate/teal), `apps/playground/src/layouts/nav-bar/NavLogo.astro` (oklch literals duplicating `--surface-raised`/`--glow-color`), `packages/radu-machine-learning/src/components/chart/Xaxis.tsx` + `Yaxis.tsx` (gray), `ChannelTabs.tsx` in `randomart` + `randomart-next` (amber-500/blue-400), `ValueCanvasCPU/GPU.tsx` (red/black overlays).
-2. **Promote a "glow" utility** for the ~20 `var(--glow-color)` arbitrary classes in the nav (`NavLinks`, `NavLogo`, `NavActions`, `MobileMenu`, `NavBar`) + `SciFiCard.tsx` (`drop-shadow-[0_0_6px_var(--variant-color)]`) — e.g. `--shadow-glow` / `--glow-border` theme tokens.
-3. White/black: `bg-black/70` overlays (canvas/lightbox) and `text-white` canvas views are intentional; consider an `overlay`/`on-canvas` token.
-4. `SvgExportPanel.tsx` hardcoded hex (#fff/#555/…) is SVG export output — document, don't tokenize.
+- `apps/storybook/src/stories/widgets/Sidebar.stories.tsx`: `hover:bg-white/5` → `hover:bg-surface-raised/50`
+- `apps/storybook/src/stories/icons/Icon.stories.tsx`: `hover:bg-white/5` → `hover:bg-surface-raised/50`
+- `packages/image-to-particles/src/components/ImageToParticles.tsx`: `bg-black` → `bg-background`
 
-### Notes
+### Lot 4 — Shared particle palette + `ProjectsList`
 
-- Re-check storybook stories when migrating classes: stories render components, keep them token-consistent.
-- If Phase 2 decides the Atlas showcase itself is to be redesigned/replaced, purge the kept showcase-only components (`FloatingNav`, `Tabs`, `NotificationItem`, `SvgExportPanel`, `EdgeFieldOriginal`) together with `packages/ui/src/atlas`.
+**Files**:
+
+- `EdgeFieldHero.astro` + `BackgroundCanvas.astro`: extract duplicated 8-color particle palette into shared constant or CSS custom properties.
+- `ProjectsList.astro`: extract `CARD_COLORS` into shared constant with OKLCH equivalents.
+
+### What is NOT migrated (by design)
+
+| Category                          | Reason                                                |
+| --------------------------------- | ----------------------------------------------------- |
+| Hex in GLSL/shaders               | GPU-side, not CSS                                     |
+| Hex in `three-stage` (3D lights)  | THREE.js defaults, user-controlled via leva           |
+| Hex in storybook demo data        | Intentional palette showcase                          |
+| `<meta theme-color>` hex          | Browser chrome, not rendering                         |
+| Hex in `SvgExportPanel`           | SVG export output, not UI                             |
+| Canvas API draw hex (glaze demos) | Out of scope (not `packages/ui` or `apps/playground`) |
+
+### Bugs discovered during Phase 2 audit (to fix in Lots 1-2)
+
+| File               | Line | Bug                                                 |
+| ------------------ | ---- | --------------------------------------------------- |
+| `NavActions.astro` | 10   | `hover:text--glow-color)` — missing opening `[var(` |
+| `NavActions.astro` | 25   | Same malformation                                   |
+| `MobileMenu.astro` | 38   | Stray backtick + missing `[var(`                    |
+| `PipelineView.tsx` | 52   | `bg-accent)` — missing opening `(`                  |
+| `ManipView.tsx`    | 57   | `bg-accent)` — same malformation                    |
+
+---
+
+## Phase 3 — UI Primitives Alignment ⏳ NOT STARTED
+
+Typographic grid overhaul for `ControlPanel` and `Card` (monospace, uppercase, normalized sizes). Extend `accentColor` injection system (validated on `SciFiCard`) to all components needing dynamic color variation, constrained to OKLCH hues only.
+
+_Detailed plan to be defined after Phase 2 completion._
+
+---
+
+## Instructions for next session
+
+1. Start by reading this `HANDOFF.md` file.
+2. Verify build is still green: `pnpm check-types` and `pnpm lint`.
+3. Begin with **Lot 1** (glow consolidation in nav-bar).
+4. After each lot, run `pnpm check-types` to validate.
+5. Update this HANDOFF after each validated lot.
+6. If context gets too heavy, create a fresh HANDOFF entry and recommend a new session.
