@@ -1,6 +1,7 @@
 ---
 name: writing-for-agents
-description: "Reference for writing documents agents consume — skills, AGENTS.md, pointers. Use when creating or editing these."
+description: 'Reference for writing documents agents consume — skills, AGENTS.md, pointers. Use when creating or editing these.'
+disable-model-invocation: true
 ---
 
 # Writing for Agents

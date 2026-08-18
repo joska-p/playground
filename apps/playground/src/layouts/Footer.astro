@@ -44,7 +44,7 @@ const icons: Record<string, string> = {
                         rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                         target={link.href.startsWith('http') ? '_blank' : undefined}
                     >
-                        <span set:html={icons[link.icon]} />
+                        <span>{icons[link.icon]}</span>
                         {link.label}
                     </a>
                 ))
