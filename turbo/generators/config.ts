@@ -72,7 +72,14 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         description: 'Generate one Astro page per package/project from the api content collection',
         prompts: [],
         actions: () => {
-            const genRoot = join(process.cwd(), 'codex', 'ateliers', 'typedoc-pipeline', '.generated', 'api-docs');
+            const genRoot = join(
+                process.cwd(),
+                'codex',
+                'ateliers',
+                'typedoc-pipeline',
+                '.generated',
+                'api-docs'
+            );
             const pkgDirs = existsSync(genRoot)
                 ? readdirSync(genRoot, { withFileTypes: true })
                       .filter((d) => d.isDirectory())
