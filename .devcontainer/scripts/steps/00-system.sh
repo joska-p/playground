@@ -16,6 +16,7 @@ step_system_setup() {
   # - bat: cat clone with syntax highlighting
   # - htop, curl, wget, procps: essential sysadmin tools
   sudo apt-get install -y \
+    iputils-ping \
     ripgrep \
     fd-find \
     jq \
