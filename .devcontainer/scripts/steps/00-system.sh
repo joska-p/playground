@@ -26,6 +26,7 @@ step_system_setup() {
     curl \
     wget \
     procps \
+    gh \
     build-essential
 
   # --- Deb-specific binary aliases -------------------------------------------
