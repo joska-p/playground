@@ -5,6 +5,7 @@
 **Description :** Préférer toujours les tokens CSS existants (`--variant-color`, `--primary`, `--foreground-muted`, etc.) ou les classes Tailwind standard (`border-(--variant-color)/20`, `bg-(--variant-color)/5`) aux `color-mix` inline. Si un effet complexe est nécessaire, le centraliser dans un token CSS dans le thème.
 
 **Lien codebase :**
+
 - `packages/ui/src/components/cards/shared/CardLink.tsx` (nettoyé)
 - `packages/ui/src/components/cards/sci-fi-card/variants.ts` (nettoyé)
 - `packages/ui/src/components/cards/doc-card/DocCard.tsx` (nettoyé)

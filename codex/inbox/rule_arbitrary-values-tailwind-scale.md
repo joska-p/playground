@@ -14,20 +14,22 @@ Inventaire des tokens arbitraires a révélé des patterns répétitifs : `ring-
 **Règle :** Pour chaque valeur arbitraire bracket, chercher la valeur Tailwind scale la plus proche.
 
 **Convention d'arrondi :**
+
 - Texte : arrondir vers le haut (privilegier la lisibilité)
 - Espacement/layout : arrondir vers le bas
 
 **Mapping appliqué :**
 
-| Avant | Après | Raison |
-|-------|-------|--------|
-| `ring-[3px]` | `ring-3` | Scale Tailwind existe (taille de ring standard) |
-| `text-[13px]` | `text-xs` | 12px, arrondi vers le bas |
-| `text-[14px]` | `text-sm` | 14px, match exact |
-| `text-[12px]` | `text-xs` | 12px, match exact |
-| `text-[9px]` | `text-xs` | 12px, arrondi vers le haut |
+| Avant         | Après     | Raison                                          |
+| ------------- | --------- | ----------------------------------------------- |
+| `ring-[3px]`  | `ring-3`  | Scale Tailwind existe (taille de ring standard) |
+| `text-[13px]` | `text-xs` | 12px, arrondi vers le bas                       |
+| `text-[14px]` | `text-sm` | 14px, match exact                               |
+| `text-[12px]` | `text-xs` | 12px, match exact                               |
+| `text-[9px]`  | `text-xs` | 12px, arrondi vers le haut                      |
 
 **Exceptions (garder les brackets) :**
+
 - `clamp()` pour le layout responsive — c'est intrinsèque, pas du token
 - `grid-cols-[repeat(auto-fit,...)]` — layout intrinsèque
 - `max-h-[NNvh]`, `w-[NNch]` — dimensions viewport/caractère, contexte spécifique

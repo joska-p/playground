@@ -39,6 +39,7 @@ rg -o -g '*.{tsx,ts,jsx,js,astro,css}' --pcre2 \
 ```
 
 **Notes :**
+
 - Utiliser `--pcre2` pour les groupes de capture dans rg
 - Les fichiers `*.astro` doivent être inclus (Astro est le framework de l'app playground)
 - Exclure les fichiers `*-original.css` (archives, pas le theme actif)

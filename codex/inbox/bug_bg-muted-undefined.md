@@ -6,7 +6,7 @@
 
 Le token de remplacement est `bg-surface` — c'est le background "recessed/base" du design system. `bg-muted` est un autre résidu shadcn/ui.
 
-Cas particulier : `bg-muted-foreground/50` et `bg-muted-foreground/60` (2 usages dans NavCategory.astro et ApiReferenceNav.astro) utilisaient un token *foreground* comme background — doublement incorrect. Remplacé par `bg-foreground-dim/{50,60}`.
+Cas particulier : `bg-muted-foreground/50` et `bg-muted-foreground/60` (2 usages dans NavCategory.astro et ApiReferenceNav.astro) utilisaient un token _foreground_ comme background — doublement incorrect. Remplacé par `bg-foreground-dim/{50,60}`.
 
 **Lien codebase :** `apps/playground/src/components/ui/docs/` (TokenTable, TypographyTable, RadiusTable, NavCategory, ApiReference, ApiReferenceNav), `apps/playground/src/pages/404.astro`
 

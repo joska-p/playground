@@ -14,11 +14,13 @@ Le codebase avait deux conventions en concurrence : `muted-foreground` (shadcn/u
 `foreground-dim` est le seul token valide pour tout ce qui est texte secondaire, placeholder, label de section, icône de chevron, etc.
 
 **Tokens interdits (jamais définis) :**
+
 - `muted-foreground` → utiliser `foreground-dim`
 - `bg-muted-foreground` → utiliser `bg-foreground-dim` (rare, et conceptuellement douteux d'utiliser un foreground comme background)
 - `--muted-foreground` dans CSS → utiliser `var(--foreground-dim)`
 
 **Token orphelin (défini mais jamais utilisé) :**
+
 - `foreground-muted` — existe dans le theme mais zéro consommation. Considérer la suppression ou un rôle distinct.
 
 **Règle :** Tout nouveau composant qui a besoin de texte "de second plan" utilise `text-foreground-dim`. Pas de créer de nouveau token pour ça.

@@ -1,6 +1,7 @@
 # Rescoping en cours de session
 
 **Corps :** L'utilisateur a rescopé le brief de redesign en cours de session. Le brief initial était ambitieux (3 variantes visuelles, thème paramétrique, etc.). Après exploration de la codebase, il a décidé de :
+
 - Pas de variantes de thème (juste light/dark)
 - Pas de touching aux packages existants
 - Juste uniformiser et simplifier les composants UI

@@ -1,6 +1,7 @@
 # L'utilisateur privilégie la simplicité radicale
 
 **Corps :** L'utilisateur a une forte aversion pour le code qui "en fait trop". Il préfère :
+
 - 2 tokens à 8 tokens
 - 0 color-mix à 14 color-mix
 - Des classes simples (`border-(--variant-color)/20`) à des expressions CSS complexes

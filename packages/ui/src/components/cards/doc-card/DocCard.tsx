@@ -41,9 +41,7 @@ function DocCard({
 
             <CardBody className="flex-1 flex-col gap-4">
                 {/* Type badge */}
-                <div
-                    className="flex w-fit items-center gap-2 rounded-md bg-(--variant-color)/10 px-2 py-1 text-xs font-semibold text-(--variant-color) uppercase border border-(--variant-color)/25"
-                >
+                <div className="flex w-fit items-center gap-2 rounded-md bg-(--variant-color)/10 px-2 py-1 text-xs font-semibold text-(--variant-color) uppercase border border-(--variant-color)/25">
                     {iconName && (
                         <Icon
                             name={iconName}

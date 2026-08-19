@@ -38,8 +38,10 @@
     --bg-glow-subtle: oklch(from var(--glow-color) l c h / calc(var(--tw-bg-opacity) * 0.12));
 
     /* Glow ring tokens */
-    --glow-ring-rest: inset 0 0 0 1px oklch(from var(--glow-color) l c h / var(--glow-strength-rest));
-    --glow-ring-hover: inset 0 0 0 1px oklch(from var(--glow-color) l c h / var(--glow-strength-hover));
+    --glow-ring-rest: inset 0 0 0 1px
+        oklch(from var(--glow-color) l c h / var(--glow-strength-rest));
+    --glow-ring-hover: inset 0 0 0 1px
+        oklch(from var(--glow-color) l c h / var(--glow-strength-hover));
 
     /* Transitions */
     --transition-fast: 150ms ease-in-out;

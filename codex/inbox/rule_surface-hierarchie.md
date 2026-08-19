@@ -13,10 +13,10 @@ Question posée : faut-il conserver les deux tokens `surface` et `surface-raised
 
 Les deux tokens ont des rôles sémantiquement distincts et propres :
 
-| Token | Rôle | Exemples |
-|-------|------|----------|
-| `surface` | Base/recessed — champs de formulaire, panneaux flottants | Input, Textarea, Select, ControlPanel |
-| `surface-raised` | Éléments interactifs/prominents — boutons, badges, cards | Button default, Badge, Card, Sidebar |
+| Token            | Rôle                                                     | Exemples                              |
+| ---------------- | -------------------------------------------------------- | ------------------------------------- |
+| `surface`        | Base/recessed — champs de formulaire, panneaux flottants | Input, Textarea, Select, ControlPanel |
+| `surface-raised` | Éléments interactifs/prominents — boutons, badges, cards | Button default, Badge, Card, Sidebar  |
 
 Delta de lightness OKLCH : 6.7% (dark mode), 2.8% (light mode). Suit les conventions Material Design d'élévation.
 
