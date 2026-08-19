@@ -16,7 +16,7 @@ const { tokens } = Astro.props;
     <div class="overflow-x-auto">
         <table class="w-full border-collapse text-left text-sm">
             <thead>
-                <tr class="border-border bg-muted/30 border-b">
+                <tr class="border-border bg-surface/30 border-b">
                     <th class="text-foreground px-4 py-3 font-semibold">Token</th>
                     <th class="text-foreground px-4 py-3 font-semibold">Preview</th>
                     <th class="text-foreground px-4 py-3 font-semibold">Font Stack</th>
@@ -25,9 +25,9 @@ const { tokens } = Astro.props;
             <tbody class="divide-border divide-y">
                 {
                     tokens.map((token) => (
-                        <tr class="hover:bg-muted/10 transition-colors">
+                        <tr class="hover:bg-surface/10 transition-colors">
                             <td class="px-4 py-4 align-top">
-                                <code class="bg-muted text-primary rounded px-2 py-0.5 text-xs font-medium">
+                                <code class="bg-surface text-primary rounded px-2 py-0.5 text-xs font-medium">
                                     {token.name}
                                 </code>
                             </td>
@@ -41,7 +41,7 @@ const { tokens } = Astro.props;
                                     {token.example}
                                 </div>
                             </td>
-                            <td class="text-muted-foreground max-w-xs px-4 py-4 align-top text-xs break-all">
+                            <td class="text-foreground-dim max-w-xs px-4 py-4 align-top text-xs break-all">
                                 {token.stack}
                             </td>
                         </tr>

@@ -25,7 +25,13 @@ Two architectural rules drive everything:
 ## ⚠️ Patterns & Gotchas
 
 - **Theming:** the theme CSS uses split `--*-l / --*-c / --*-h` channels so JS animates single raw numbers per frame (60fps "breathing") instead of full color strings. The base palette block is the single source of truth — every semantic/tag token is a pure `var()` alias.
-- **Variant colors:** `COLOR_VARIABLE_CLASSES` sets `--variant-color`, and composed components (ProjectCard, DocCard, CategoryCard) get their accent through CardLink's `accent` prop — there is no per-card `category` mapping.
+- **Token vocabulary:**
+    - `foreground-dim` is the canonical "de-emphasized text" token (placeholders, labels, secondary text). There is no `muted-foreground` — it was a dead reference from shadcn/ui, now removed.
+    - `surface` = base/recessed layer (form fields, floating panels). `surface-raised` = elevated/interactive elements (buttons, badges, cards, sidebars). Both are needed.
+    - `bg-muted` is not a valid token. Use `bg-surface` instead.
+    - Focus ring width: always `ring-3` (3px), never `ring-[3px]`.
+    - Text sizes: always Tailwind scale (`text-xs`, `text-sm`). Arbitrary values like `text-[13px]` are avoided.
+- **Variant colors:** Each CVA config defines its own `[--variant-color:var(--{variant})]` mapping inline. Composed components (ProjectCard, DocCard, CategoryCard) get their accent through CardLink's `accent` prop — there is no per-card `category` mapping. The `--variant-color` CSS variable cascades to children, which consume it at different opacities (`bg-(--variant-color)/10`, `border-(--variant-color)/25`). This pattern is intentional — it cannot be replaced by static theme tokens because the value is per-instance and dynamic.
 - **Height-collapse animation:** `ControlConditional` collapses via the `grid-template-rows: 0fr → 1fr` trick — a plain CSS transition, no measuring JS.
 - **Opting out of shared behavior:** CategoryCard cancels CardLink's `hover:-translate-y-0.5` by passing `hover:translate-y-0` — `cn`'s tailwind-merge resolves the conflict, the standard way to tweak a composed component without forking it.
 - **EdgeField:** the edge-detection look exists in three forms — live SVG filter chain, live WebGL2 fragment shader (same pipeline, per-pixel), and a baked webp mask (the alpha channel _is_ the contour pattern, applied via `mask-image` so `--glow-color` stays dynamic). See `codex/knowledge/ui-edgefield-baked-mask.md`.

@@ -7,7 +7,7 @@ export type CardDescriptionProps = {} & ComponentProps<'p'>;
 export function CardDescription({ className, children, ...props }: CardDescriptionProps) {
     return (
         <p
-            className={cn('text-muted-foreground text-sm', className)}
+            className={cn('text-foreground-dim text-sm', className)}
             {...props}
         >
             {children}

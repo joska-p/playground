@@ -32,9 +32,9 @@ export function DefaultFallback({
         >
             <div className="flex items-center gap-3">
                 <TriangleAlert className={cn('h-4 w-4 shrink-0', fallbackIconColor[key])} />
-                <p className="text-foreground text-[14px] font-medium">{title}</p>
+                <p className="text-foreground text-sm font-medium">{title}</p>
             </div>
-            <p className="text-foreground-muted text-[12px] leading-relaxed">
+            <p className="text-foreground-dim text-xs leading-relaxed">
                 {description ?? error.message}
             </p>
             <Button

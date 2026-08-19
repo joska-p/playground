@@ -24,9 +24,9 @@ const groupedMembers = symbols.reduce<Record<string, typeof symbols>>((acc, symb
 
 const linkBase =
     'group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150';
-const linkIdle = 'text-muted-foreground hover:bg-muted/60 hover:text-foreground';
+const linkIdle = 'text-foreground-dim hover:bg-surface/60 hover:text-foreground';
 const indicatorBase = 'h-1.5 w-1.5 shrink-0 rounded-full transition-colors';
-const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
+const indicatorIdle = 'bg-border group-hover:bg-foreground-dim/60';
 ---
 
 <aside
@@ -41,7 +41,7 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
             {
                 entry && (
                     <div>
-                        <span class="text-muted-foreground/60 block px-3 pb-2 text-xs font-bold tracking-widest uppercase">
+                        <span class="text-foreground-dim/60 block px-3 pb-2 text-xs font-bold tracking-widest uppercase">
                             Navigation
                         </span>
                         <ul class="space-y-1">
@@ -74,7 +74,7 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
             {
                 Object.entries(groupedMembers).map(([kind, items]) => (
                     <div class="space-y-2">
-                        <span class="text-muted-foreground/60 block px-3 text-xs font-bold tracking-widest uppercase">
+                        <span class="text-foreground-dim/60 block px-3 text-xs font-bold tracking-widest uppercase">
                             {pluralize(kind)}
                         </span>
                         <ul class="border-border/40 ml-3 min-w-0 space-y-1 border-l-2 pl-2">
@@ -136,7 +136,7 @@ const indicatorIdle = 'bg-border group-hover:bg-muted-foreground/60';
                         link.classList.toggle('bg-primary/10', isActive);
                         link.classList.toggle('text-primary', isActive);
                         link.classList.toggle('font-bold', isActive);
-                        link.classList.toggle('text-muted-foreground', !isActive);
+                        link.classList.toggle('text-foreground-dim', !isActive);
 
                         dot?.classList.toggle('bg-primary', isActive);
                         dot?.classList.toggle('bg-border', !isActive);

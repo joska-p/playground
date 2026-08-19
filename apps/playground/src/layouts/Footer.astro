@@ -20,9 +20,9 @@ const icons: Record<string, string> = {
         class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row lg:px-8"
     >
         <!-- Left: Copyright + Bundle -->
-        <div class="text-muted-foreground/50 flex items-center gap-3 text-xs">
+        <div class="text-foreground-dim/50 flex items-center gap-3 text-xs">
             <span>© {new Date().getFullYear()} PG_LAB</span>
-            <span class="text-muted-foreground/20">·</span>
+            <span class="text-foreground-dim/20">·</span>
             <a
                 href={`${baseUrl}stats.html`}
                 class="hover:text-primary transition-colors"
@@ -39,7 +39,7 @@ const icons: Record<string, string> = {
             {
                 routes.map((link) => (
                     <a
-                        class="text-muted-foreground/60 hover:text-primary flex items-center gap-2 text-xs font-medium transition-colors"
+                        class="text-foreground-dim/60 hover:text-primary flex items-center gap-2 text-xs font-medium transition-colors"
                         href={link.href}
                         rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                         target={link.href.startsWith('http') ? '_blank' : undefined}

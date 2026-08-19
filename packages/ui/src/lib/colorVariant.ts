@@ -23,15 +23,6 @@ export const COLOR_CLASSES: Record<ColorVariant, string> = {
     destructive: 'bg-destructive text-destructive-foreground'
 };
 
-export const COLOR_VARIABLE_CLASSES: Record<ColorVariant, string> = {
-    default: '[--variant-color:var(--foreground-dim)]',
-    primary: '[--variant-color:var(--primary)]',
-    secondary: '[--variant-color:var(--secondary)]',
-    accent: '[--variant-color:var(--accent)]',
-    warning: '[--variant-color:var(--warning)]',
-    destructive: '[--variant-color:var(--destructive)]'
-};
-
 export const COLOR_GRADIENT_FROM: Record<ColorVariant, string> = {
     default: 'from-foreground-dim',
     primary: 'from-primary',

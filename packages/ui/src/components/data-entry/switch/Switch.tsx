@@ -52,7 +52,7 @@ export function Switch({
     return (
         <label
             htmlFor={id}
-            className="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"
+            className="flex cursor-pointer items-center gap-2.5 text-xs select-none"
         >
             {input}
             {track}

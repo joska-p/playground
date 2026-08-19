@@ -6,19 +6,19 @@ export const inputVariants = cva(
         variants: {
             variant: {
                 default:
-                    'border-border focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15',
+                    'border-border focus-within:border-foreground-dim focus-within:ring-3 focus-within:ring-foreground-dim/15',
                 primary:
-                    'border-primary focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/15',
+                    'border-primary focus-within:border-primary focus-within:ring-3 focus-within:ring-primary/15',
                 secondary:
-                    'border-secondary focus-within:border-secondary focus-within:ring-[3px] focus-within:ring-secondary/15',
-                accent: 'border-accent focus-within:border-accent focus-within:ring-[3px] focus-within:ring-accent/15',
+                    'border-secondary focus-within:border-secondary focus-within:ring-3 focus-within:ring-secondary/15',
+                accent: 'border-accent focus-within:border-accent focus-within:ring-3 focus-within:ring-accent/15',
                 warning:
-                    'border-warning focus-within:border-warning focus-within:ring-[3px] focus-within:ring-warning/15',
+                    'border-warning focus-within:border-warning focus-within:ring-3 focus-within:ring-warning/15',
                 destructive:
-                    'border-destructive focus-within:border-destructive focus-within:ring-[3px] focus-within:ring-destructive/15',
-                ghost: 'border-transparent focus-within:border-transparent focus-within:ring-[3px] focus-within:ring-transparent',
+                    'border-destructive focus-within:border-destructive focus-within:ring-3 focus-within:ring-destructive/15',
+                ghost: 'border-transparent focus-within:border-transparent focus-within:ring-3 focus-within:ring-transparent',
                 outline:
-                    'border-border focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15'
+                    'border-border focus-within:border-foreground-dim focus-within:ring-3 focus-within:ring-foreground-dim/15'
             },
             size: {
                 sm: 'h-8 min-w-10 text-sm',

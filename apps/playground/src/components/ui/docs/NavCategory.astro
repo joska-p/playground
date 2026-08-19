@@ -40,13 +40,13 @@ const hasActiveArticle = docs.some((category) => {
                 className="h-4 w-4 shrink-0 text-(--variant-color)"
                 name={category[0].data.iconName ?? 'bluesky'}
             />
-            <span class="text-muted-foreground/50 text-[9px] font-bold uppercase">
+            <span class="text-foreground-dim/50 text-xs font-bold uppercase">
                 {category[0].data.title}
             </span>
         </div>
 
         <svg
-            class="text-muted-foreground/40 h-2.5 w-2.5 transition-transform duration-200 group-open/category:rotate-90"
+            class="text-foreground-dim/40 h-2.5 w-2.5 transition-transform duration-200 group-open/category:rotate-90"
             fill="none"
             stroke="currentColor"
             stroke-width="2.5"
@@ -75,7 +75,7 @@ const hasActiveArticle = docs.some((category) => {
                                 'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
                                 {
                                     'bg-primary/10 text-primary font-semibold': isActive,
-                                    'text-muted-foreground hover:bg-muted hover:text-foreground':
+                                    'text-foreground-dim hover:bg-surface hover:text-foreground':
                                         !isActive
                                 }
                             ]}
@@ -86,7 +86,7 @@ const hasActiveArticle = docs.some((category) => {
                                     'h-1 w-1 shrink-0 rounded-full transition-colors',
                                     {
                                         'bg-primary': isActive,
-                                        'bg-border group-hover:bg-muted-foreground/50': !isActive
+                                        'bg-border group-hover:bg-foreground-dim/50': !isActive
                                     }
                                 ]}
                             />

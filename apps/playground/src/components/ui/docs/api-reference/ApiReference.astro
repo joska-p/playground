@@ -13,7 +13,7 @@ const symbols = extractAllSymbols(typedoc);
 
 {
     symbols.length === 0 ? (
-        <p class="text-muted-foreground text-base">No exported member found.</p>
+        <p class="text-foreground-dim text-base">No exported member found.</p>
     ) : (
         <div class="space-y-12">
             {symbols.map((symbol) => {
@@ -47,11 +47,11 @@ const symbols = extractAllSymbols(typedoc);
                         {/* Examples */}
                         {examples.length > 0 && (
                             <div class="space-y-2 pt-2">
-                                <span class="text-muted-foreground text-xs font-bold tracking-widest uppercase">
+                                <span class="text-foreground-dim text-xs font-bold tracking-widest uppercase">
                                     Example
                                 </span>
                                 {examples.map((example) => (
-                                    <pre class="bg-muted/40 border-border/30 max-w-full overflow-x-auto rounded-lg border p-4 font-mono text-sm leading-relaxed">
+                                    <pre class="bg-surface/40 border-border/30 max-w-full overflow-x-auto rounded-lg border p-4 font-mono text-sm leading-relaxed">
                                         <code>{getText(example.content)}</code>
                                     </pre>
                                 ))}
@@ -72,9 +72,9 @@ const symbols = extractAllSymbols(typedoc);
                                             commentOf(memSig)?.summary;
 
                                         return (
-                                            <div class="bg-muted/20 border-border/20 min-w-0 space-y-2 rounded-lg border p-4 font-mono">
+                                            <div class="bg-surface/20 border-border/20 min-w-0 space-y-2 rounded-lg border p-4 font-mono">
                                                 <div class="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
-                                                    <span class="text-muted-foreground text-xs font-semibold">
+                                                    <span class="text-foreground-dim text-xs font-semibold">
                                                         [{kindLabel(member.kind)}]
                                                     </span>
                                                     <span class="text-foreground wrap-break-words text-sm font-bold">
@@ -90,7 +90,7 @@ const symbols = extractAllSymbols(typedoc);
                                                 {/* Parameters (method / function) */}
                                                 {memSig?.parameters &&
                                                     memSig.parameters.length > 0 && (
-                                                        <div class="text-muted-foreground border-border/40 min-w-0 border-l-2 pl-4 text-xs">
+                                                        <div class="text-foreground-dim border-border/40 min-w-0 border-l-2 pl-4 text-xs">
                                                             <span class="text-foreground font-semibold">
                                                                 Parameters:
                                                             </span>
@@ -116,7 +116,7 @@ const symbols = extractAllSymbols(typedoc);
 
                                                 {/* Member comment */}
                                                 {memSummary && memSummary.length > 0 && (
-                                                    <p class="text-muted-foreground pt-1 font-sans text-xs">
+                                                    <p class="text-foreground-dim pt-1 font-sans text-xs">
                                                         {getText(memSummary)}
                                                     </p>
                                                 )}
