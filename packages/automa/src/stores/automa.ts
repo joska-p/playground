@@ -3,14 +3,14 @@ import {
     GRID_DEFAULT_DENSITY,
     GRID_DEFAULT_ROWS,
     GRID_DEFAULT_SEED
-} from '@repo/automa-engine/config';
-import type { Creature, CreatureId } from '@repo/automa-engine/creature/registry';
-import { createGrid, seedGrid } from '@repo/automa-engine/grid';
-import type { RuleId } from '@repo/automa-engine/rules/registry';
-import { rules } from '@repo/automa-engine/rules/registry';
+} from '../engine/config';
+import type { Creature, CreatureId } from '../engine/creature/registry';
+import { createGrid, seedGrid } from '../engine/grid';
+import type { RuleId } from '../engine/rules/registry';
+import { rules } from '../engine/rules/registry';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
-import type { SimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
+import type { SimulationEngine } from '../engine/gpu/createSimulationEngine';
 import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../lib/constants';
 import { computeDerivedColors } from '../lib/colors';
 

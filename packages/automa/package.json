@@ -15,7 +15,6 @@
         "check-types": "tsc -b"
     },
     "dependencies": {
-        "@repo/automa-engine": "workspace:*",
         "@repo/glaze": "workspace:*",
         "@repo/ui": "workspace:*",
         "zustand": "catalog:"

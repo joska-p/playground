@@ -1,4 +1,7 @@
 {
     "extends": "@repo/config-typescript/app.json",
+    "compilerOptions": {
+        "lib": ["ES2023", "DOM", "webworker"]
+    },
     "include": ["src"]
 }

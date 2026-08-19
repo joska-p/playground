@@ -1,5 +1,5 @@
-import { createSimulationEngine } from '@repo/automa-engine/gpu/createSimulationEngine';
-import simStepShader from '@repo/automa-engine/gpu/shaders/sim-step.frag?raw';
+import { createSimulationEngine } from '../../engine/gpu/createSimulationEngine';
+import simStepShader from '../../engine/gpu/shaders/sim-step.frag?raw';
 import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 import type { UniformValue } from '@repo/glaze/gpu/shader/compileProgram';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';

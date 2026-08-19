@@ -1,4 +1,4 @@
-import { allRules, rules, type RuleId } from '@repo/automa-engine/rules/registry';
+import { allRules, rules, type RuleId } from '../../engine/rules/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
 import { setRule, setStateColor, useRuleId, useStateColors } from '../../stores/automa';

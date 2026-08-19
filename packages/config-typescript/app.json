@@ -2,24 +2,10 @@
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "./base.json",
     "compilerOptions": {
-        "target": "es2023",
-        "lib": ["ES2023", "DOM"],
-        "module": "esnext",
+        "lib": ["ES2023", "DOM", "DOM.Iterable"],
         "types": ["vite/client"],
-        "allowArbitraryExtensions": true,
-        "skipLibCheck": true,
-        "moduleResolution": "bundler",
-        "allowImportingTsExtensions": true,
-        "verbatimModuleSyntax": true,
-        "moduleDetection": "force",
         "jsx": "react-jsx",
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "erasableSyntaxOnly": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": false,
-        "exactOptionalPropertyTypes": true
+        "allowArbitraryExtensions": true
     },
     "include": ["src"]
 }

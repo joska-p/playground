@@ -1,6 +1,6 @@
 # Pattern — automate cellulaire multi-états (décroissance/trail)
 
-`packages/automa-engine/src/cpu/engine.ts` :
+`packages/automa/src/engine/cpu/engine.ts` :
 
 - `state 1` = cellule vivante, soumise aux règles B/S (`rule.birth` / `rule.survive`).
 - `state > 1` = cellule en décomposition : elle compte vers `maxState` (= `rule.stateCount - 1`)

@@ -4,7 +4,6 @@
         { "path": "packages/worker-pool" },
         { "path": "packages/palette-engine" },
         { "path": "packages/l-system-engine" },
-        { "path": "packages/automa-engine" },
         { "path": "packages/sequence-engine" },
         { "path": "packages/pixel-engine" },
         { "path": "packages/randomart-engine" },

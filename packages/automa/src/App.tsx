@@ -1,4 +1,4 @@
-import { GRID_DEFAULT_DENSITY } from '@repo/automa-engine/config';
+import { GRID_DEFAULT_DENSITY } from './engine/config';
 import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
 import { CellMesh } from './components/canvas/CellMesh.tsx';

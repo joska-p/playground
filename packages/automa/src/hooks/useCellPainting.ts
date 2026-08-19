@@ -1,4 +1,4 @@
-import { creatures } from '@repo/automa-engine/creature/registry';
+import { creatures } from '../engine/creature/registry';
 import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 import type { CanvasInteractions, LiveInteractionEvent } from '@repo/glaze/react/interactions';
 import { useRef } from 'react';

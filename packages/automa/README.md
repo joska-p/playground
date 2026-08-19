@@ -9,7 +9,7 @@ This README acts as the local concept spec — focusing on the "why", the mathem
 
 ## 🎯 Intention & Concept
 
-`@repo/automa` is the interactive WebGL2 workbench half of the cellular automaton ecosystem. It wraps the pure simulation engine (`@repo/automa-engine`) in an interactive React Three Fiber / Glaze canvas featuring GPGPU step computation, real-time mouse brush painting, predefined creature stamp patterns (Gliders, Pulsars, Gosper Guns), and a dynamic rule selector.
+`@repo/automa` is the interactive WebGL2 cellular automaton workbench. The simulation engine lives in `src/engine/` — an interactive React Three Fiber / Glaze canvas featuring GPGPU step computation, real-time mouse brush painting, predefined creature stamp patterns (Gliders, Pulsars, Gosper Guns), and a dynamic rule selector.
 
 State lives entirely on the GPU. The grid is uploaded once as a texture and transformed in-place by GLSL compute shaders running on a ping-pong state buffer, achieving zero-copy rendering directly to the display at 60 FPS.
 

@@ -1,4 +1,4 @@
-import { allCreatures, type CreatureId } from '@repo/automa-engine/creature/registry';
+import { allCreatures, type CreatureId } from '../../engine/creature/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
 import { setPaletteBrush, usePaletteBrush } from '../../stores/automa';
