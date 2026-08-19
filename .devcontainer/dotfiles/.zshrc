@@ -42,13 +42,6 @@ export HISTSIZE=50000
 export HISTFILESIZE=100000
 export HISTCONTROL=ignoredups:erasedups
 
-# --- Secrets ---
-# Put your API keys here, one per line:
-#   export GITLAB_TOKEN=glpat-xxxx
-#   export VERCEL_TOKEN=xxxx
-#   export ANTHROPIC_API_KEY=sk-ant-xxxx
-[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
-
 # --- Aliases ---
 alias ll='ls -lah --color=auto'
 alias gs='git status'
@@ -59,5 +52,3 @@ alias ipy='ipython'
 alias jl='jupyter lab --no-browser --port=8888'
 alias serve='npx serve'
 alias bat='batcat'
-
-. "$HOME/.local/bin/env"
