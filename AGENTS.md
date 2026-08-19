@@ -1,14 +1,22 @@
-# Playground
+# Context: Recreationnal programing
 
-Monorepo pnpm + Turborepo | React 19 (Compiler: no `useMemo`/`useCallback`) useSyncExternalStore, useEffectEvent, useLayoutEffect stable now
+Monorepo pnpm + Turborepo | React 19 (Compiler: no useMemo/useCallback) useSyncExternalStore, useEffectEvent, useLayoutEffect stable now.
 
-## Core Rules & SSOT
+## DO
 
-- **Skills & Docs**: Official site documentation (`./codex/docs/`) and skills are the Single Source of Truth (SSOT).
-- **Language**: Code/docs in English. Creative conversation in French.
-- **Workflow & Feedback Loop**: Small incremental patches, explain before coding, respect shell safety. Propose skill/doc updates after non-trivial tasks when recurring patterns emerge (ask human approval).
+- Language: Write code and docs in English. Converse creatively in French.
+- Workflow: Explain before coding. Small incremental patches. Respect shell safety.
+- SSOT: Treat official docs (./codex/docs/) and skills as the Single Source of Truth. Propose skill/doc updates when recurring patterns emerge (ask human first).
+- Search: Use rg (ripgrep) and fd (fd-find) for project navigation.
+- Python: Use uv (uv run, uv pip, uv tool) for all Python dependencies and execution.
+- Context Optimization (Node/pnpm):
+    - Install deps with: `pnpm install --loglevel=error`
+    - Run scripts with: `pnpm run <script> --output-logs=errors-only`
+    - Re-run a failed command without these flags only if the truncated error is insufficient for debugging.
 
-## Environment & Available CLI Tools
+## DON'T
 
-- **Code & File Exploration**: `rg` (ripgrep), `fd` (fd-find), `tree`, `jq`, `bat` are pre-installed. Prefer `rg` and `fd` over standard `grep`/`find` for faster project navigation.
-- **Python Ecosystem**: Always use **`uv`** (`uv run`, `uv pip`, `uv tool`) to manage Python dependencies, run scripts, or execute tools. Avoid raw system `pip`.
+- React: Do not use useMemo or useCallback (React 19 Compiler handles this).
+- Python: Do not use raw system pip.
+- Search: Do not use standard grep or find.
+- Node/pnpm: Do not run raw pnpm install or `pnpm run <script>` without log filtering (causes context window pollution and premature compaction).
