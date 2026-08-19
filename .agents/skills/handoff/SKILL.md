@@ -5,7 +5,7 @@ argument-hint: 'What will the next session be used for?'
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to `@/_TEMP/opencode/`.
+Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to `./_TEMP/handoff/`.
 
 Include a "suggested skills" section naming which skills the next agent should call.
 

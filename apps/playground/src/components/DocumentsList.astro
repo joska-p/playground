@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { DocCard } from '@repo/ui/cards';
 import type { CSSProperties } from 'react';
+import { hashToColor } from '../utils/tag-colors';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const docsBaseUrl = `${baseUrl}docs/`;
@@ -14,7 +15,7 @@ const sortedDocs = allDocs.sort((a, b) => a.data.title.localeCompare(b.data.titl
         sortedDocs.map((doc) => {
             const mainTag = doc.data.tags[0].id;
             const cardStyle = {
-                '--variant-color': `var(--tags-${mainTag})`
+                '--variant-color': hashToColor(doc.data.title)
             } as CSSProperties;
             const docUrl = `${docsBaseUrl}${doc.id}/#main`;
             return (

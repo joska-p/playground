@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { SciFiCard } from '@repo/ui/cards';
+import { hashToColor } from '../utils/tag-colors';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const notesBaseUrl = `${baseUrl}notes/`;
@@ -12,7 +13,7 @@ function stringToSeed(str: string): number {
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
         hash = (hash << 5) - hash + char;
-        hash = hash & hash; // Convert to 32bit integer
+        hash = hash & hash;
     }
     return Math.abs(hash);
 }
@@ -38,7 +39,7 @@ function stringToSeed(str: string): number {
                         cardId={note.data.tags[0].id}
                         cardTitle={note.data.description ?? 'NC'}
                         classification={note.data.title}
-                        color={`var(--tags-${mainTag})`}
+                        color={hashToColor(note.data.title)}
                         density={String(seed)}
                         resolution={date}
                         seed={seed}

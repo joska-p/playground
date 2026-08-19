@@ -20,7 +20,7 @@ const { routes, currentPath, baseUrl } = Astro.props;
             return (
                 <a
                     aria-current={active ? 'page' : false}
-                    class="text-foreground-muted data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 hover:text-glow hover:shadow-glow-link hover:shadow-glow-color pointer-events-auto relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 active:scale-95 data-active:shadow-[0_0_20px_-3px_var(--primary),0_0_5px_-1px_var(--primary)]"
+                    class="text-foreground-muted data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 hover:text-glow hover:shadow-glow-rest pointer-events-auto relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 active:scale-95 data-active:shadow-[0_0_20px_-3px_var(--primary),0_0_5px_-1px_var(--primary)]"
                     data-active={active ? '' : undefined}
                     href={route.href}
                 >

@@ -1,6 +1,7 @@
 ---
 import { Icon } from '@repo/ui/icons';
 import { getCollection } from 'astro:content';
+import { hashToColor } from '../../../utils/tag-colors';
 const baseUrl = import.meta.env.BASE_URL || '/';
 const docsBaseUrl = `${baseUrl}docs/`;
 
@@ -31,7 +32,7 @@ const hasActiveArticle = docs.some((category) => {
         <div
             class="flex items-center gap-2"
             style={{
-                '--variant-color': `var(--tags-${category[0].id}, var(--color-primary))`
+                '--variant-color': hashToColor(category[0].id)
             }}
         >
             <Icon

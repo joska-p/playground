@@ -51,13 +51,10 @@ export function SectionHeader({
             {description && (
                 <p
                     className={cn(
-                        'max-w-xl text-sm leading-relaxed',
+                        'max-w-xl text-sm leading-relaxed text-foreground-muted',
                         { 'text-center': isCenter },
                         { 'ml-10': !isCenter }
                     )}
-                    style={{
-                        color: `color-mix(in srgb, var(--variant-color, currentColor) 80%, transparent)`
-                    }}
                 >
                     {description}
                 </p>

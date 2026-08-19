@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const sciFiCardVariants = cva(
-    'border-[color-mix(in_oklch,var(--variant-color)_22%,transparent)] bg-[color-mix(in_oklch,var(--variant-color)_5%,transparent)] backdrop-blur relative aspect-square overflow-hidden border p-5 group hover:border-[color-mix(in_oklch,var(--variant-color)_95%,transparent)]',
+    'border-(--variant-color)/20 bg-(--variant-color)/5 backdrop-blur relative aspect-square overflow-hidden border p-5 group hover:border-(--variant-color)/95',
     {
         variants: {
             variant: {

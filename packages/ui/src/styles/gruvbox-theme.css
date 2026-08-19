@@ -19,70 +19,32 @@
     --color-warning-foreground: var(--warning-foreground);
     --color-overlay: var(--overlay);
 
-    /* Base palette */
+    /* Utility palette — 5 core colors */
     --color-red: var(--red);
     --color-green: var(--green);
     --color-yellow: var(--yellow);
     --color-blue: var(--blue);
-    --color-purple: var(--purple);
-    --color-aqua: var(--aqua);
     --color-orange: var(--orange);
 
-    /* Tags semantic colors */
-    --color-tags-canvas: var(--tags-canvas);
-    --color-tags-cellular-automata: var(--tags-cellular-automata);
-    --color-tags-charts: var(--tags-charts);
-    --color-tags-color: var(--tags-color);
-    --color-tags-complex-systems: var(--tags-complex-systems);
-    --color-tags-conventions: var(--tags-conventions);
-    --color-tags-3d: var(--tags-3d);
-    --color-tags-data-viz: var(--tags-data-viz);
-    --color-tags-design: var(--tags-design);
-    --color-tags-docs: var(--tags-docs);
-    --color-tags-explanation: var(--tags-explanation);
-    --color-tags-generative: var(--tags-generative);
-    --color-tags-graph: var(--tags-graph);
-    --color-tags-how-to: var(--tags-how-to);
-    --color-tags-image: var(--tags-image);
-    --color-tags-l-system: var(--tags-l-system);
-    --color-tags-log: var(--tags-log);
-    --color-tags-machine-learning: var(--tags-machine-learning);
-    --color-tags-math: var(--tags-math);
-    --color-tags-particle-system: var(--tags-particle-system);
-    --color-tags-philosophy: var(--tags-philosophy);
-    --color-tags-physics: var(--tags-physics);
-    --color-tags-pipeline: var(--tags-pipeline);
-    --color-tags-procedural: var(--tags-procedural);
-    --color-tags-random: var(--tags-random);
-    --color-tags-reference: var(--tags-reference);
-    --color-tags-shader: var(--tags-shader);
-    --color-tags-simulation: var(--tags-simulation);
-    --color-tags-svg: var(--tags-svg);
-    --color-tags-theory: var(--tags-theory);
-    --color-tags-three-js: var(--tags-three-js);
-    --color-tags-tutorial: var(--tags-tutorial);
-    --color-tags-webgl: var(--tags-webgl);
-    --color-tags-worker-pool: var(--tags-worker-pool);
-    --color-tags-zustand: var(--tags-zustand);
-
-    /* Glow shadow utilities */
+    /* Glow shadow utilities — simplified */
     --tw-shadow: 0 0 0 currentColor;
     --tw-shadow-color: var(--glow-color);
     --shadow-glow-rest: inset 0 1px 0 0 currentColor, 0 1px 28px -10px currentColor;
     --shadow-glow-hover:
         inset 0 1px 0 0 currentColor, 0 4px 44px -10px currentColor, 0 0 2px 0 currentColor;
-    --shadow-glow-link: 0 0 14px -4px currentColor;
-    --shadow-glow-btn: 0 0 0 1px currentColor, 0 0 16px -4px currentColor;
-    --shadow-glow-logo: 0 0 8px 1px currentColor;
-    --shadow-glow-logo-hover: 0 0 12px 2px currentColor;
-    --shadow-glow-mobile:
-        inset 0 1px 0 0 currentColor, 0 30px 60px -20px currentColor,
-        0 25px 50px -12px rgb(0 0 0/0.35);
-    --shadow-glow-active-link: 0 0 20px -3px currentColor, 0 0 5px -1px currentColor;
 
     /* Glow background utility */
     --tw-bg-opacity: 1;
     --bg-glow-subtle: oklch(from var(--glow-color) l c h / calc(var(--tw-bg-opacity) * 0.12));
+
+    /* Glow ring tokens */
+    --glow-ring-rest: inset 0 0 0 1px oklch(from var(--glow-color) l c h / var(--glow-strength-rest));
+    --glow-ring-hover: inset 0 0 0 1px oklch(from var(--glow-color) l c h / var(--glow-strength-hover));
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 200ms ease-in-out;
+    --transition-slow: 300ms ease-in-out;
 
     /* Typography */
     --font-sans: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
@@ -92,6 +54,33 @@
 @utility text-glow {
     color: var(--glow-color);
     text-shadow: 0 0 14px -4px currentColor;
+}
+
+@utility glass-panel {
+    background: oklch(from var(--surface) l c h / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+}
+
+@utility glow-active {
+    box-shadow: var(--shadow-glow-rest);
+    transition: box-shadow 200ms ease-in-out;
+}
+
+@utility glow-active-hover {
+    box-shadow: var(--shadow-glow-hover);
+}
+
+@utility transition-fast {
+    transition: all var(--transition-fast);
+}
+
+@utility transition-normal {
+    transition: all var(--transition-normal);
+}
+
+@utility transition-slow {
+    transition: all var(--transition-slow);
 }
 
 @utility prose-playground {
@@ -149,56 +138,17 @@
         --warning: oklch(0.832 0.159 82.987);
         --warning-foreground: oklch(0.241 0.005 219.672);
 
+        /* Utility palette */
         --red: oklch(0.66 0.218 30.392);
         --green: oklch(0.765 0.158 110.835);
         --yellow: oklch(0.832 0.159 82.987);
         --blue: oklch(0.693 0.042 169.768);
-        --purple: oklch(0.705 0.098 2.189);
-        --aqua: oklch(0.756 0.108 137.676);
         --orange: oklch(0.731 0.182 51.693);
 
         --glow-color: oklch(0.75 0.15 90);
         --glow-strength-rest: 45%;
         --glow-strength-hover: 70%;
         --overlay: oklch(0 0 0 / 0.7);
-
-        /* Semantic aliases */
-        --tags-3d: oklch(0.68 0.13 200); /* blue-cyan */
-        --tags-canvas: oklch(0.71 0.14 78); /* yellow-gold */
-        --tags-cellular-automata: oklch(0.59 0.11 155); /* aqua */
-        --tags-charts: oklch(0.62 0.13 135); /* green (same as data-viz) */
-        --tags-color: oklch(0.731 0.182 51.693); /* orange (existing) */
-        --tags-complex-systems: oklch(0.65 0.12 280); /* purple */
-        --tags-conventions: oklch(0.731 0.182 51.693); /* orange (existing) */
-        --tags-d3: oklch(0.693 0.042 169.768); /* blue (existing primary) */
-        --tags-data-viz: oklch(0.62 0.13 135); /* green (existing) */
-        --tags-design: oklch(0.705 0.098 2.189); /* purple-pink (existing accent) */
-        --tags-docs: oklch(0.69 0.035 76.307); /* muted foreground */
-        --tags-explanation: oklch(0.65 0.15 45); /* orange (existing) */
-        --tags-generative: oklch(0.71 0.14 78); /* yellow (existing) */
-        --tags-graph: oklch(0.693 0.042 169.768); /* blue */
-        --tags-how-to: oklch(0.52 0.09 200); /* blue (existing) */
-        --tags-image: oklch(0.52 0.09 200); /* blue (existing) */
-        --tags-l-system: oklch(0.71 0.14 78); /* yellow */
-        --tags-log: oklch(0.52 0.09 200); /* blue (existing) */
-        --tags-machine-learning: oklch(0.58 0.12 320); /* purple */
-        --tags-math: oklch(0.58 0.12 320); /* purple (existing) */
-        --tags-particle-system: oklch(0.756 0.108 137.676); /* aqua */
-        --tags-philosophy: oklch(0.65 0.08 250); /* soft blue-purple */
-        --tags-physics: oklch(0.59 0.11 155); /* aqua */
-        --tags-pipeline: oklch(0.693 0.042 169.768); /* blue */
-        --tags-procedural: oklch(0.71 0.14 78); /* yellow */
-        --tags-random: oklch(0.58 0.12 320); /* purple (existing) */
-        --tags-reference: oklch(0.62 0.13 135); /* green (existing) */
-        --tags-shader: oklch(0.68 0.13 200); /* bright blue-cyan */
-        --tags-simulation: oklch(0.59 0.11 155); /* aqua (existing) */
-        --tags-svg: oklch(0.693 0.042 169.768); /* blue */
-        --tags-theory: oklch(0.705 0.098 2.189); /* purple-pink */
-        --tags-three-js: oklch(0.68 0.13 200); /* blue-cyan */
-        --tags-tutorial: oklch(0.71 0.14 78); /* yellow (existing) */
-        --tags-webgl: oklch(0.68 0.13 200); /* blue-cyan */
-        --tags-worker-pool: oklch(0.69 0.035 76.307); /* muted */
-        --tags-zustand: oklch(0.765 0.158 110.835); /* green (secondary) */
     }
 
     html[data-theme='light'] {
@@ -221,12 +171,11 @@
         --warning: oklch(0.618 0.128 70.674);
         --warning-foreground: oklch(0.956 0.055 96.155);
 
+        /* Utility palette */
         --red: oklch(0.437 0.179 28.26);
         --green: oklch(0.546 0.112 106.464);
         --yellow: oklch(0.618 0.128 70.674);
         --blue: oklch(0.471 0.082 215.806);
-        --purple: oklch(0.489 0.124 344.276);
-        --aqua: oklch(0.534 0.082 155.401);
         --orange: oklch(0.513 0.162 39.297);
 
         --shadow-sm: 0 1px 3px oklch(0.344 0.007 48.523 / 0.06);
@@ -237,44 +186,6 @@
         --glow-strength-rest: 30%;
         --glow-strength-hover: 55%;
         --overlay: oklch(0 0 0 / 0.6);
-
-        /* Semantic aliases */
-        --tags-3d: oklch(0.45 0.11 200);
-        --tags-canvas: oklch(0.55 0.13 78);
-        --tags-cellular-automata: oklch(0.43 0.1 155);
-        --tags-charts: oklch(0.45 0.12 135);
-        --tags-color: oklch(0.48 0.15 25);
-        --tags-complex-systems: oklch(0.42 0.11 280);
-        --tags-conventions: oklch(0.48 0.15 25);
-        --tags-d3: oklch(0.471 0.082 215.806);
-        --tags-data-viz: oklch(0.45 0.12 135);
-        --tags-design: oklch(0.489 0.124 344.276);
-        --tags-docs: oklch(0.482 0.018 61.042);
-        --tags-explanation: oklch(0.52 0.14 45);
-        --tags-generative: oklch(0.55 0.13 78);
-        --tags-graph: oklch(0.471 0.082 215.806);
-        --tags-how-to: oklch(0.48 0.15 25);
-        --tags-image: oklch(0.4 0.1 200);
-        --tags-l-system: oklch(0.55 0.13 78);
-        --tags-log: oklch(0.4 0.1 200);
-        --tags-machine-learning: oklch(0.42 0.11 320);
-        --tags-math: oklch(0.42 0.11 320);
-        --tags-particle-system: oklch(0.43 0.1 155);
-        --tags-philosophy: oklch(0.4 0.08 250);
-        --tags-physics: oklch(0.43 0.1 155);
-        --tags-pipeline: oklch(0.471 0.082 215.806);
-        --tags-procedural: oklch(0.55 0.13 78);
-        --tags-random: oklch(0.42 0.11 320);
-        --tags-reference: oklch(0.45 0.12 135);
-        --tags-shader: oklch(0.45 0.11 200);
-        --tags-simulation: oklch(0.43 0.1 155);
-        --tags-svg: oklch(0.471 0.082 215.806);
-        --tags-theory: oklch(0.489 0.124 344.276);
-        --tags-three-js: oklch(0.45 0.11 200);
-        --tags-tutorial: oklch(0.55 0.13 78);
-        --tags-webgl: oklch(0.45 0.11 200);
-        --tags-worker-pool: oklch(0.482 0.018 61.042);
-        --tags-zustand: oklch(0.546 0.112 106.464);
     }
 
     html {
