@@ -41,7 +41,7 @@ function parseArgs(argv: string[]): ParsedArgs {
     const positionals: string[] = [];
 
     for (let i = 0; i < argv.length; i++) {
-        const arg = argv[i]!;
+        const arg = argv[i];
         switch (arg) {
             case '-h':
             case '--help':
@@ -49,14 +49,12 @@ function parseArgs(argv: string[]): ParsedArgs {
                 break;
             case '--rule': {
                 const val = argv[++i];
-                if (val === undefined) throw new Error('--rule requires a value.');
                 if (!ruleIds.includes(val as RuleId)) throw new Error(`Invalid rule id "${val}".`);
                 result.ruleId = val as RuleId;
                 break;
             }
             case '--size': {
                 const val = argv[++i];
-                if (val === undefined) throw new Error('--size requires a value.');
                 const n = Number(val);
                 if (!Number.isInteger(n)) {
                     throw new Error(`--size must be an integer (received "${val}").`);
@@ -73,8 +71,6 @@ function parseArgs(argv: string[]): ParsedArgs {
         }
     }
 
-    if (positionals[0] !== undefined) result.textSeed = positionals[0];
-    if (positionals[1] !== undefined) result.outputFile = positionals[1];
     return result;
 }
 

@@ -33,7 +33,7 @@ export function createColorMapper(palette?: string[]): (v: number) => RGB {
               ];
 
     if (stops.length === 1) {
-        const only = stops[0]!;
+        const only = stops[0];
         return () => only;
     }
 
@@ -42,8 +42,8 @@ export function createColorMapper(palette?: string[]): (v: number) => RGB {
         const scaled = t * (stops.length - 1);
         const i = Math.min(stops.length - 2, Math.floor(scaled));
         const frac = scaled - i;
-        const a = stops[i]!;
-        const b = stops[i + 1]!;
+        const a = stops[i];
+        const b = stops[i + 1];
         return {
             r: Math.round(a.r + (b.r - a.r) * frac),
             g: Math.round(a.g + (b.g - a.g) * frac),

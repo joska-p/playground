@@ -32,7 +32,7 @@ export const constOp = {
         const num = Number(args['value']);
         return isNaN(num) ? '0.0000' : num.toFixed(4);
     },
-    toMathString: ({ args }) => `${args['value'] ?? 0}`
+    toMathString: ({ args }) => args['value'] ?? 0
 } as const satisfies Operator;
 
 export const radialOp = {

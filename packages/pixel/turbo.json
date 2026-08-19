@@ -1,8 +1,0 @@
-{
-    "extends": ["//"],
-    "tasks": {
-        "check-types": {
-            "dependsOn": ["@repo/pixel-engine#check-types", "@repo/ui#build"]
-        }
-    }
-}

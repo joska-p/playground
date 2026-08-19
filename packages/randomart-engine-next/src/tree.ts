@@ -50,7 +50,7 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
         threshold -= operator.weight;
         if (threshold <= 0) return operator;
     }
-    return pool[pool.length - 1]!;
+    return pool[pool.length - 1];
 }
 
 export type BuildTreeProps = {
@@ -126,7 +126,7 @@ export function evaluate(node: Node, x: number, y: number, t = 0): number {
 
     for (const name of operator.argNames) {
         const value = node.args[name];
-        resolvedArgs[name] = typeof value === 'number' ? value : evaluate(value!, x, y, t);
+        resolvedArgs[name] = typeof value === 'number' ? value : evaluate(value, x, y, t);
     }
 
     return operator.evaluate({ args: resolvedArgs, ctx });
@@ -138,7 +138,7 @@ export function toGLSL(node: Node, coordVar = 'p'): string {
 
     for (const name of op.argNames) {
         const val = node.args[name];
-        resolvedArgs[name] = typeof val === 'number' ? val.toFixed(4) : toGLSL(val!, coordVar);
+        resolvedArgs[name] = typeof val === 'number' ? val.toFixed(4) : toGLSL(val, coordVar);
     }
 
     return op.toGLSL({ args: resolvedArgs, coordVar });

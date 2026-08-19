@@ -19,7 +19,7 @@ function crc32(buf: Buffer): number {
     let crc = 0xffffffff;
     for (const byte of buf.values()) {
         const idx = (crc ^ byte) & 0xff;
-        crc = CRC_TABLE[idx]! ^ (crc >>> 8);
+        crc = CRC_TABLE[idx] ^ (crc >>> 8);
     }
     return (crc ^ 0xffffffff) >>> 0;
 }

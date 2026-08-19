@@ -15,7 +15,7 @@ export function toMathString(node: Node): string {
 
     for (const name of op.argNames) {
         const val = node.args[name];
-        resolvedArgs[name] = typeof val === 'number' ? String(val) : toMathString(val!);
+        resolvedArgs[name] = typeof val === 'number' ? String(val) : toMathString(val);
     }
 
     return op.toMathString({ args: resolvedArgs });

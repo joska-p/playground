@@ -11,9 +11,6 @@
                 "src/config.ts"
             ],
             "outputs": ["src/data/graph-prepared.json"]
-        },
-        "check-types": {
-            "dependsOn": ["@repo/ui#build"]
         }
     }
 }
