@@ -24,9 +24,7 @@ export function CardLink({
             className={cn(
                 'group relative flex flex-col overflow-hidden rounded-lg border border-transparent',
                 'bg-(--variant-color)/10 backdrop-blur-xs',
-                'shadow-glow-rest',
                 'transition-all duration-300 ease-out hover:-translate-y-0.5',
-                'hover:shadow-glow-hover',
                 'focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
                 className
             )}
