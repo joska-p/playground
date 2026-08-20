@@ -5,7 +5,6 @@ Monorepo pnpm + Turborepo | React 19 (Compiler: no useMemo/useCallback) useSyncE
 ## DO
 
 - Language: Write code and docs in English. Converse creatively in French.
-- Workflow: Explain before coding. Small incremental patches. Respect shell safety.
 - SSOT: Treat official docs (./codex/docs/) and skills as the Single Source of Truth. Propose skill/doc updates when recurring patterns emerge (ask human first).
 - Search: Use rg (ripgrep) and fd (fd-find) for project navigation.
 - Python: Use uv (uv run, uv pip, uv tool) for all Python dependencies and execution.

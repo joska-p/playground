@@ -11,7 +11,6 @@ function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
     let threshold = rng.next() * totalWeight;
     for (let i = 0; i < rules.length; i++) {
         const rule = rules[i];
-        if (!rule) continue;
         threshold -= rule.weight;
         if (threshold <= 0) return i;
     }
@@ -52,10 +51,6 @@ export function buildTree(
     const pool = buildPool(rngToUse, availableRules, structuralProbability);
     const idx = weightedPick(rngToUse, pool);
     const rule = pool[idx];
-
-    if (!rule) {
-        throw new Error('No rule found to build node');
-    }
 
     return rule.buildNode(rngToUse, () =>
         buildTree(structureRng, channelRng, currentDepth + 1, maxDepth, rules)

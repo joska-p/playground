@@ -1,4 +1,4 @@
-import { usePixel } from '../../hooks/usePixel';
+import { usePixel } from '../../../react/usePixel';
 import { imageDataToUrl } from '../helpers';
 
 const STEPS = [

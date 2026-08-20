@@ -3,7 +3,9 @@ import { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
 import type { PixelData } from './pixel-data';
 import { dispatchStep } from './step-dispatcher';
-import type { PipelineContext } from './types';
+import type { ArgDefinition, PipelineContext } from './types';
+
+export type { ArgDefinition, Step };
 
 function buildAutoDownscaleStep({
     source,
@@ -27,7 +29,7 @@ function buildAutoDownscaleStep({
     };
 }
 
-export function runPipeline({
+export function processImage({
     source,
     steps,
     context
@@ -44,7 +46,7 @@ export function runPipeline({
 
     if (downscale) {
         console.warn(
-            `[pixel-engine] Auto-scaling source image to within ${String(downscale.options.maximumPixels)} pixels.`
+            `[pixel] Auto-scaling source image to within ${String(downscale.options.maximumPixels)} pixels.`
         );
     }
 

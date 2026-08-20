@@ -12,7 +12,6 @@ export function validate(grammar: Grammar): ValidationError[] {
 
     for (let i = 0; i < grammar.rules.length; i++) {
         const rule = grammar.rules[i];
-        if (!rule) continue;
 
         if (isStochasticRule(rule)) {
             const productions = rule[STOCHASTIC_PRODUCTIONS_KEY];

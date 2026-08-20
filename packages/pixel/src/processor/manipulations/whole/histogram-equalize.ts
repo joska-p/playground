@@ -19,7 +19,7 @@ export const histogramEqualize = defineManip({
             hist[l] = (hist[l] ?? 0) + 1;
         }
         const cdf = new Uint32Array(256);
-        cdf[0] = hist[0] ?? 0;
+        cdf[0] = hist[0];
         for (let i = 1; i < 256; i++) cdf[i] = (cdf[i - 1] ?? 0) + (hist[i] ?? 0);
         let cdfMin = 0;
         for (let i = 0; i < 256; i++) {

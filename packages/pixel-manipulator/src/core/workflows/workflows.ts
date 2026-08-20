@@ -1,4 +1,4 @@
-import type { Step } from '@repo/pixel/api/pixel';
+import type { Step } from '@repo/pixel/processor';
 
 type WorkflowPresetStep = Step;
 

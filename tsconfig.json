@@ -15,7 +15,6 @@
         { "path": "packages/palette-engine" },
         { "path": "packages/palette-generator" },
         { "path": "packages/pixel" },
-        { "path": "packages/pixel-engine" },
         { "path": "packages/pixel-manipulator" },
         { "path": "packages/radu-machine-learning" },
         { "path": "packages/randomart" },

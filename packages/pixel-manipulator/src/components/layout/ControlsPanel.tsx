@@ -1,4 +1,4 @@
-import { pixel } from '@repo/pixel/api/pixel';
+import { getManipulations } from '@repo/pixel/worker';
 import { ControlGrid, ControlPanel, ControlSection } from '@repo/ui/control-panel';
 import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';
@@ -16,12 +16,12 @@ import { WorkflowControls } from '../workflow/WorkflowControls';
 function ControlsPanel() {
     const isProcessing = useIsProcessing();
     const [selectedManip, setSelectedManip] = useState(
-        () => Object.keys(pixel.manipulations)[0] ?? ''
+        () => Object.keys(getManipulations())[0] ?? ''
     );
 
-    const manipulationIds = Object.keys(pixel.manipulations);
+    const manipulationIds = Object.keys(getManipulations());
     const manipulationOptions = manipulationIds.map((id) => ({
-        label: pixel.manipulations[id].name,
+        label: getManipulations()[id].name,
         value: id
     }));
 

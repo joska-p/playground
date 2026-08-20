@@ -1,8 +1,9 @@
-import type { Step } from '@repo/pixel-engine/manipulations/manifest';
-import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
-import { PixelData } from '@repo/pixel-engine/pixel-data';
-import type { ArgDefinition } from '@repo/pixel-engine/types';
+import type { Step } from '../processor/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '../processor/manipulations/manifest';
+import { PixelData } from '../processor/pixel-data';
+import type { ArgDefinition } from '../processor/types';
 import { WorkerPool } from '@repo/worker-pool/worker-pool';
+import { isSerializedImageDataArray } from './serialization';
 
 export type { ArgDefinition, Step };
 
@@ -21,34 +22,6 @@ export type RunConfig = {
     steps: readonly Step[];
     maximumPixels?: number;
 };
-
-type SerializedImageData = {
-    data: Uint8ClampedArray;
-    width: number;
-    height: number;
-};
-
-function isSerializedImageDataArray(data: unknown): data is SerializedImageData[] {
-    return (
-        Array.isArray(data) &&
-        data.every((item: unknown) => {
-            if (typeof item !== 'object' || item === null) {
-                return false;
-            }
-
-            const obj = item as Record<string, unknown>;
-
-            return (
-                'data' in obj &&
-                'width' in obj &&
-                'height' in obj &&
-                obj['data'] instanceof Uint8ClampedArray &&
-                typeof obj['width'] === 'number' &&
-                typeof obj['height'] === 'number'
-            );
-        })
-    );
-}
 
 const pool = new WorkerPool<RunConfig, ImageData[]>({
     maxPoolSize: navigator.hardwareConcurrency,
@@ -111,26 +84,24 @@ function buildCatalog(): Record<string, ManipulationInfo> {
 
 const MANIPULATIONS = buildCatalog();
 
-export const pixel = {
-    get manipulations(): Readonly<Record<string, ManipulationInfo>> {
-        return MANIPULATIONS;
-    },
+export function getManipulations(): Readonly<Record<string, ManipulationInfo>> {
+    return MANIPULATIONS;
+}
 
-    getManipulationsByAccess(
-        access: 'pixel' | 'neighborhood' | 'global'
-    ): Record<string, ManipulationInfo> {
-        const result: Record<string, ManipulationInfo> = {};
-        for (const [id, info] of Object.entries(MANIPULATIONS)) {
-            if (info.access === access) result[id] = info;
-        }
-        return result;
-    },
-
-    run(config: RunConfig): Promise<ImageData[]> {
-        return pool.run(config);
-    },
-
-    teardown(): void {
-        pool.teardown();
+export function getManipulationsByAccess(
+    access: 'pixel' | 'neighborhood' | 'global'
+): Record<string, ManipulationInfo> {
+    const result: Record<string, ManipulationInfo> = {};
+    for (const [id, info] of Object.entries(MANIPULATIONS)) {
+        if (info.access === access) result[id] = info;
     }
-};
+    return result;
+}
+
+export function processImageInWorker(config: RunConfig): Promise<ImageData[]> {
+    return pool.run(config);
+}
+
+export function teardownWorkerPool(): void {
+    pool.teardown();
+}

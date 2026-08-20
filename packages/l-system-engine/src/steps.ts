@@ -7,7 +7,7 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
 
     for (let i = 0; i < word.length; i++) {
         const sym = word[i];
-        if (!sym) continue;
+
         const context: Context = { word, index: i, random };
 
         let matched = false;

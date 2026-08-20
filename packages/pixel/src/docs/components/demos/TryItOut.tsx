@@ -1,6 +1,6 @@
 import { Slider } from '@repo/ui/data-entry';
 import { useEffect, useState } from 'react';
-import { pixel } from '../../api/pixel';
+import { processImageInWorker } from '../../../worker/process-image-in-worker';
 import type { ManipInfo } from '../data/pipeline-docs-data';
 import { imageDataToUrl } from '../helpers';
 
@@ -26,11 +26,10 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
             }
         }
 
-        pixel
-            .run({
-                sourceImageData: sourceData,
-                steps: [{ id: manip.id, options }]
-            })
+        processImageInWorker({
+            sourceImageData: sourceData,
+            steps: [{ id: manip.id, options }]
+        })
             .then((snapshots) => {
                 if (!cancelled && snapshots[0]) setResult(snapshots[0]);
             })

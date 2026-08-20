@@ -73,7 +73,5 @@ export function dispatchStep({
     const options = (step as { options?: Record<string, unknown> }).options ?? {};
 
     const executor = executors[definition.access];
-    if (executor) {
-        executor({ definition, options, context, bufferManager, scheduler });
-    }
+    executor({ definition, options, context, bufferManager, scheduler });
 }

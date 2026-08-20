@@ -1,6 +1,6 @@
-import type { Step } from '@repo/pixel-engine/manipulations/manifest';
+import type { Step } from '../processor/manipulations/manifest';
 import { useEffect, useState } from 'react';
-import { pixel } from '../api/pixel';
+import { processImageInWorker } from '../worker/process-image-in-worker';
 
 export function usePixel(sourceImageData: ImageData | null, steps: readonly Step[]) {
     const [result, setResult] = useState<ImageData[]>([]);
@@ -9,8 +9,7 @@ export function usePixel(sourceImageData: ImageData | null, steps: readonly Step
         if (!sourceImageData) return;
         let cancelled = false;
 
-        pixel
-            .run({ sourceImageData, steps })
+        processImageInWorker({ sourceImageData, steps })
             .then((pipelineResult) => {
                 if (!cancelled) setResult(pipelineResult);
             })

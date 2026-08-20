@@ -1,10 +1,10 @@
-import { pixel } from '@repo/pixel/api/pixel';
+import { getManipulations } from '@repo/pixel/worker';
 import { ControlRow } from '@repo/ui/control-panel';
 import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { addWorkflowStep } from '../../stores/manipulator/actions';
 
-const manipulationIds = Object.keys(pixel.manipulations);
+const manipulationIds = Object.keys(getManipulations());
 
 function ManipulationSelector() {
     const [manipulationId, setManipulationId] = useState(manipulationIds[0]);
@@ -22,7 +22,7 @@ function ManipulationSelector() {
                         key={id}
                         value={id}
                     >
-                        {pixel.manipulations[id].name}
+                        {getManipulations()[id].name}
                     </option>
                 ))}
             </Select>

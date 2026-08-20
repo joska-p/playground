@@ -1,4 +1,4 @@
-import { pixel } from '@repo/pixel/api/pixel';
+import { getManipulations } from '@repo/pixel/worker';
 import { ControlSection } from '@repo/ui/control-panel';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
 import { EmptyState } from '../shared/EmptyState';
@@ -22,7 +22,7 @@ function WorkflowControls() {
     return (
         <ControlSection title="workflow">
             {steps.map((step, index) => {
-                const manip = pixel.manipulations[step.id];
+                const manip = getManipulations()[step.id];
 
                 return (
                     <WorkflowNode

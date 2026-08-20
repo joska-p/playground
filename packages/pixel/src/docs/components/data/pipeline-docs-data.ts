@@ -1,4 +1,4 @@
-import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '../../../processor/manipulations/manifest';
 
 export type ParamDef = {
     key: string;

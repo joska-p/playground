@@ -1,8 +1,8 @@
-import type { Step } from '@repo/pixel-engine/manipulations/manifest';
-import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
-import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
-import { PixelData } from '@repo/pixel-engine/pixel-data';
-import { Registry } from '@repo/pixel-engine/registry';
+import type { Step } from '../processor/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '../processor/manipulations/manifest';
+import { processImage } from '../processor/process-image';
+import { PixelData } from '../processor/pixel-data';
+import { Registry } from '../processor/registry';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 
@@ -23,7 +23,7 @@ self.addEventListener('message', (event: MessageEvent<WorkerMessage>) => {
             sourceImageData.data
         );
 
-        const pipelineResult = runPipeline({
+        const pipelineResult = processImage({
             source,
             steps,
             context: {

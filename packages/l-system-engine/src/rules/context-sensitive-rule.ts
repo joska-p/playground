@@ -18,7 +18,7 @@ const DEFAULT_IGNORED = new Set(['[', ']']);
 function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string>): LSymbol | null {
     for (let i = index - 1; i >= 0; i--) {
         const sym = word[i];
-        if (sym && !ignored.has(sym.name)) return sym;
+        if (!ignored.has(sym.name)) return sym;
     }
     return null;
 }
@@ -30,7 +30,7 @@ function findRightNeighbor(
 ): LSymbol | null {
     for (let i = index + 1; i < word.length; i++) {
         const sym = word[i];
-        if (sym && !ignored.has(sym.name)) return sym;
+        if (!ignored.has(sym.name)) return sym;
     }
     return null;
 }

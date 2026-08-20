@@ -4,9 +4,13 @@
     "version": "0.0.0",
     "type": "module",
     "exports": {
-        "./api/pixel": "./src/api/pixel.ts",
-        "./hooks/usePixel": "./src/hooks/usePixel.ts",
-        "./pixel": "./src/App.tsx"
+        "./processor": "./src/processor/process-image.ts",
+        "./worker": "./src/worker/process-image-in-worker.ts",
+        "./worker/*": "./src/worker/*",
+        "./react": "./src/react/usePixel.ts",
+        "./react/*": "./src/react/*",
+        "./docs": "./src/docs/App.tsx",
+        "./docs/*": "./src/docs/*"
     },
     "scripts": {
         "dev": "vite --host",
@@ -18,13 +22,8 @@
         "clean": "rm -rf node_modules dist .turbo"
     },
     "dependencies": {
-        "@repo/pixel-engine": "workspace:*",
         "@repo/ui": "workspace:*",
         "@repo/worker-pool": "workspace:*"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",

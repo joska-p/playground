@@ -4,7 +4,7 @@ const WIDTH = 100;
 const LEVELS = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'] as const;
 
 function createCell(): string {
-    return LEVELS[Math.floor(Math.random() * LEVELS.length)] as string;
+    return LEVELS[Math.floor(Math.random() * LEVELS.length)];
 }
 
 function createRow(width: number) {

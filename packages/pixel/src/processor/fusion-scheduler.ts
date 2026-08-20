@@ -54,12 +54,6 @@ export class FusionScheduler {
     flush(bufferManager: BufferManager) {
         if (this.batch.length === 0) return;
 
-        if (!bufferManager.other) {
-            throw new Error(
-                "FusionScheduler: destination buffer ('bufferManager.other') is undefined."
-            );
-        }
-
         runFusedPixelBatch({
             source: bufferManager.current,
             destination: bufferManager.other,
