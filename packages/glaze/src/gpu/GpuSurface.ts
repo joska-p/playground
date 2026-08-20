@@ -6,6 +6,7 @@ import { createInputStore, type InputStore } from '../core/InputStore';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
+import { createStateBuffer, type StateBuffer } from './StateBuffer';
 import { createStandardUniformValues } from './shader/setUniforms';
 import {
     TextRasterizer,
@@ -53,6 +54,7 @@ export class GpuSurface {
 
     readonly #loop = createFrameLoop();
     readonly #programs = new Set<Program>();
+    readonly #buffers = new Set<StateBuffer>();
     readonly #subscribers = new Set<GpuDraw>();
     readonly #batch: ShapeBatcher;
     #draw: GpuDraw | null = null;
@@ -113,6 +115,13 @@ export class GpuSurface {
         const program = createProgram(this.gl, fragmentSource, vertexSource);
         this.#programs.add(program);
         return program;
+    }
+
+    /** Creates a StateBuffer owned by this surface: destroyed with it, resized on context restore. */
+    createStateBuffer(width: number, height: number): StateBuffer {
+        const buffer = createStateBuffer(this.gl, width, height);
+        this.#buffers.add(buffer);
+        return buffer;
     }
 
     renderProgram(program: Program): this {
@@ -274,6 +283,8 @@ export class GpuSurface {
         this.canvas.removeEventListener('webglcontextrestored', this.#onContextRestored);
         for (const program of this.#programs) program.destroy();
         this.#programs.clear();
+        for (const buffer of this.#buffers) buffer.destroy();
+        this.#buffers.clear();
         this.#textProgram = null;
         this.#batch.destroy();
         this.#textRasterizer?.destroy();
@@ -362,6 +373,7 @@ export class GpuSurface {
         this.#textRasterizer?.clear();
         this.#batch.reinitialize();
         for (const program of this.#programs) program.reinitialize();
+        for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
     #onFrame: FrameCallback = (time, deltaTime): void => {

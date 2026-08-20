@@ -1,7 +1,8 @@
 import { allRules, rules, type RuleId } from '../../engine/rules/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-import { setRule, setStateColor, useRuleId, useStateColors } from '../../stores/automa';
+import { useRuleId } from '../../engine/gpu/SimulationEngine';
+import { setRule, setStateColor, useStateColors } from '../../stores/automa';
 
 function RuleSection() {
     const ruleId = useRuleId();
@@ -20,12 +21,12 @@ function RuleSection() {
                         setRule(e.target.value as RuleId);
                     }}
                 >
-                    {allRules.map((rule) => (
+                    {allRules.map((r) => (
                         <option
-                            key={rule.id}
-                            value={rule.id}
+                            key={r.id}
+                            value={r.id}
                         >
-                            {rule.name}
+                            {r.name}
                         </option>
                     ))}
                 </Select>

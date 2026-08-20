@@ -1,9 +1,11 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
-import { clear, randomize, setToolMode, useBrushMode } from '../../stores/automa';
+import { setToolMode, useBrushMode } from '../../stores/automa';
+import { getSimulationEngine } from '../../engine/gpu/SimulationEngine';
 
 function EditSection() {
     const brushMode = useBrushMode();
+    const simulationEngine = getSimulationEngine();
 
     return (
         <ControlSection
@@ -13,7 +15,7 @@ function EditSection() {
             <ControlGrid columns={2}>
                 <Button
                     onClick={() => {
-                        randomize();
+                        simulationEngine.randomize();
                     }}
                 >
                     Randomize
@@ -22,7 +24,7 @@ function EditSection() {
                 <Button
                     variant="destructive"
                     onClick={() => {
-                        clear();
+                        simulationEngine.clear();
                     }}
                 >
                     Clear

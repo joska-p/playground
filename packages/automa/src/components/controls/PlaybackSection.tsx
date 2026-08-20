@@ -1,9 +1,10 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
 import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../lib/constants';
-import { setSpeed, step, toggleRunning, useRunning, useSpeedMs } from '../../stores/automa';
+import { getSimulationEngine, useRunning, useSpeedMs } from '../../engine/gpu/SimulationEngine';
 
 function PlaybackSection() {
+    const simulationEngine = getSimulationEngine();
     const running = useRunning();
     const speedMs = useSpeedMs();
 
@@ -15,13 +16,15 @@ function PlaybackSection() {
             <ControlGrid columns={2}>
                 <Button
                     variant="primary"
-                    onClick={toggleRunning}
+                    onClick={() => {
+                        simulationEngine.toggleRunning();
+                    }}
                 >
                     {running ? 'Pause' : 'Play'}
                 </Button>
                 <Button
                     onClick={() => {
-                        step();
+                        simulationEngine.step();
                     }}
                     disabled={running}
                 >
@@ -30,7 +33,9 @@ function PlaybackSection() {
                 <Slider
                     className="col-span-full"
                     value={speedMs}
-                    onChange={setSpeed}
+                    onChange={(speed) => {
+                        simulationEngine.setSpeed(speed);
+                    }}
                     min={SPEED_MIN_MS}
                     max={SPEED_MAX_MS}
                     step={SPEED_STEP_MS}
