@@ -16,9 +16,7 @@
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
         "check-types": "tsc -b",
-        "test": "vitest run",
         "clean": "rm -rf node_modules dist .turbo"
     },
     "dependencies": {
@@ -39,12 +37,10 @@
         "@vitejs/plugin-react": "catalog:",
         "babel-plugin-react-compiler": "catalog:",
         "eslint": "catalog:",
-        "happy-dom": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
-        "vite": "catalog:",
-        "vitest": "^4.1.7"
+        "vite": "catalog:"
     }
 }

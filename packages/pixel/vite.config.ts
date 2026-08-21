@@ -1,17 +1,12 @@
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
     resolve: {
         tsconfigPaths: true
     },
-    build: { sourcemap: true },
-    test: {
-        environment: 'happy-dom',
-        include: ['src/**/*.test.ts'],
-        setupFiles: ['./vitest.setup.ts']
-    }
+    build: { sourcemap: true }
 });
