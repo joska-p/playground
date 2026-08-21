@@ -1,9 +1,11 @@
 import { Menu, X } from 'lucide-react';
-import type { ButtonHTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
+
 import { useSidebarContext } from './useSidebarContext';
 import { sidebarToggleVariants } from './variants';
+import { cn } from '../../../lib/cn';
+import { type ColorVariant } from '../../../lib/colorVariant';
+
+import type { ButtonHTMLAttributes, Ref } from 'react';
 
 export type SidebarToggleProps = {
     variant?: ColorVariant;

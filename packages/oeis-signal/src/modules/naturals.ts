@@ -1,4 +1,5 @@
 import { createSimpleSignal } from '../core/create-simple-signal';
+
 import type { Budget, Module } from '../core/types';
 
 export const naturalsModule = {

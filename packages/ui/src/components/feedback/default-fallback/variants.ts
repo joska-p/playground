@@ -1,6 +1,7 @@
-import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
+
 import type { ColorVariant } from '../../../lib/colorVariant';
+import type { VariantProps } from 'class-variance-authority';
 
 export const defaultFallbackVariants = cva(
     'bg-surface rounded-lg border-l-4 p-5 flex backdrop-blur flex-col items-start gap-3',

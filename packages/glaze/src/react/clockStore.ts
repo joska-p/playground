@@ -1,8 +1,10 @@
-import type { Clock } from '../core/Clock';
 import { createObservable } from './observable';
+
+import type { Clock } from '../core/Clock';
 
 export function createClockStore(clock: Clock) {
     const observable = createObservable();
+
     return {
         clock,
         togglePlay() {

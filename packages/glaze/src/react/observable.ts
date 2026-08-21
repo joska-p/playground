@@ -12,6 +12,7 @@ export function createObservable() {
         },
         subscribe(fn: Notify): Unsubscribe {
             listeners.add(fn);
+
             return () => listeners.delete(fn);
         }
     };

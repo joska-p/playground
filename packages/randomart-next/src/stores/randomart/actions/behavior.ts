@@ -1,5 +1,6 @@
-import type { BehaviorId } from '@repo/randomart-engine-next/types';
 import { randomartStore } from '../store';
+
+import type { BehaviorId } from '@repo/randomart-engine-next/types';
 
 export function toggleBehavior(id: BehaviorId): void {
     const { activeBehaviorIds } = randomartStore.getState();

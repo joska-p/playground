@@ -1,6 +1,8 @@
 import * as THREE from 'three';
-import type { GraphNode } from '../core/pipeline/graphData.schema';
+
 import { CONFIG } from './config.ts';
+
+import type { GraphNode } from '../core/pipeline/graphData.schema';
 
 const DIM_COLOR = new THREE.Color(CONFIG.nodes.dimColor);
 const HIGHLIGHT_COLOR = new THREE.Color(CONFIG.nodes.highlightColor);
@@ -9,6 +11,7 @@ const tmpColor = new THREE.Color();
 
 function getNodeSize(node: GraphNode): number {
     const degree = node.inDegree + node.outDegree;
+
     return Math.log(degree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase;
 }
 
@@ -20,6 +23,7 @@ export function writeInstanceData(
     selectedNodeIdx: number | null
 ): void {
     let localIdx = 0;
+
     for (const globalIdx of globalIndices) {
         if (!nodes[globalIdx]) throw new Error(`Node at index ${globalIdx} is undefined`);
 
@@ -36,16 +40,20 @@ export function writeInstanceData(
             tmpColor.copy(DIM_COLOR);
         } else {
             tmpColor.set(node.color);
+
             if (globalIdx === selectedNodeIdx) {
                 tmpColor.lerp(HIGHLIGHT_COLOR, CONFIG.nodes.highlightLerp);
             }
         }
+
         mesh.setColorAt(localIdx, tmpColor);
         localIdx++;
     }
 
     mesh.instanceMatrix.needsUpdate = true;
+
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+
     mesh.computeBoundingSphere();
 }
 

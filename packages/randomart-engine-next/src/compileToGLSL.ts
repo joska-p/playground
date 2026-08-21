@@ -1,11 +1,12 @@
-import type { ApplyCodeContext, Behavior } from './behaviors/registry.js';
-import type { ColorSpaceId } from './glsl-color-spaces.js';
 import { getColorSpaceGlslFunction, wrapWithColorSpaceConversion } from './glsl-color-spaces.js';
 import { resolveGlslDeps } from './glsl-library.js';
 import { getOperator } from './grammar/operators/registry.js';
 import { seededShuffle } from './prng.js';
-import type { Node } from './tree.js';
 import { toGLSL } from './tree.js';
+
+import type { ApplyCodeContext, Behavior } from './behaviors/registry.js';
+import type { ColorSpaceId } from './glsl-color-spaces.js';
+import type { Node } from './tree.js';
 
 type BuildShaderPreambleProps = {
     noiseIds: string[];
@@ -18,12 +19,15 @@ function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps):
     const behaviorFunctions = behaviors
         .filter((behavior) => {
             if (seen.has(behavior.id)) return false;
+
             seen.add(behavior.id);
+
             return true;
         })
         .map((behavior) => behavior.glslFunction ?? '')
         .filter((fn) => fn.length > 0)
         .join('\n');
+
     return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
@@ -35,6 +39,7 @@ export type CollectNoiseDependenciesProps = {
 
 function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps): void {
     const operator = getOperator(node.type);
+
     if (operator.noiseDependencies) {
         for (const id of operator.noiseDependencies) {
             deps.add(id);
@@ -43,6 +48,7 @@ function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps)
 
     for (const name of operator.argNames) {
         const child = node.args[name];
+
         if (child && typeof child !== 'number') {
             collectNoiseDependencies({ node: child, deps });
         }
@@ -62,6 +68,7 @@ function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): strin
         spatial: 'p',
         color: 'color'
     };
+
     return behaviors
         .filter((behavior) => behavior.kind === behaviorType)
         .map((behavior) => behavior.applyCode(ctx))

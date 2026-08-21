@@ -1,12 +1,14 @@
 import { ControlSection, ControlPanel as Panel } from '@repo/ui/control-panel';
-import { setMode } from '../../stores/randomart/actions/config';
-import { useMode } from '../../stores/randomart/selectors';
-import type { Mode } from '../../stores/randomart/types';
-import { TestModeControls } from '../testMode/TestModeControls';
+
 import { AnimationSection } from './AnimationSection';
 import { ConfigSection } from './ConfigSection';
 import { DisplaySection } from './DisplaySection';
 import { GrammarSection } from './GrammarSection';
+import { setMode } from '../../stores/randomart/actions/config';
+import { useMode } from '../../stores/randomart/selectors';
+import { TestModeControls } from '../testMode/TestModeControls';
+
+import type { Mode } from '../../stores/randomart/types';
 
 const modeOptions = [
     { value: 'play', label: 'Play' },

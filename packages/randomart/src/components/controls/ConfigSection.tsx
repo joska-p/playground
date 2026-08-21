@@ -1,5 +1,6 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button, Input, Slider, Textarea } from '@repo/ui/data-entry';
+
 import { setAnimationSpeed, setMaxDepth, setSeedText } from '../../stores/randomart/actions/config';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
 import {

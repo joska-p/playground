@@ -1,12 +1,14 @@
 import { BEHAVIORS } from '@repo/randomart-engine-next/behaviors';
-import type { Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
-import { randomartStore } from '../stores/randomart/store';
-import type { UniformLocs } from './types';
+
 import { useAnimationLoop } from './useAnimationLoop';
 import { useShaderProgram } from './useShaderProgram';
 import { useWebGLContext } from './useWebGLContext';
+import { randomartStore } from '../stores/randomart/store';
+
+import type { UniformLocs } from './types';
+import type { Node } from '@repo/randomart-engine-next/types';
 
 export function useWebGLRenderer(
     canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -32,10 +34,12 @@ export function useWebGLRenderer(
 
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
 
         const handleMouseMove = (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
+
             mouseRef.current = {
                 x: (e.clientX - rect.left) * (canvas.width / rect.width),
                 y: (e.clientY - rect.top) * (canvas.height / rect.height)
@@ -43,6 +47,7 @@ export function useWebGLRenderer(
         };
 
         canvas.addEventListener('mousemove', handleMouseMove);
+
         return () => {
             canvas.removeEventListener('mousemove', handleMouseMove);
         };
@@ -67,8 +72,10 @@ export function useWebGLRenderer(
         speedRef.current = animationSpeed;
 
         const gl = glRef.current;
+
         if (!running && gl && programRef.current) {
             const { time, animSpeed, mouse } = uniformLocsRef.current;
+
             gl.uniform1f(time, timeRef.current);
             gl.uniform1f(animSpeed, speedRef.current);
             gl.uniform2f(mouse, mouseRef.current.x, mouseRef.current.y);
@@ -90,9 +97,11 @@ export function useWebGLRenderer(
             timeRef.current += deltaMs / 1000;
 
             const gl = glRef.current;
+
             if (!gl || !programRef.current) return;
 
             const { time, animSpeed, mouse } = uniformLocsRef.current;
+
             gl.uniform1f(time, timeRef.current);
             gl.uniform1f(animSpeed, speedRef.current);
             gl.uniform2f(mouse, mouseRef.current.x, mouseRef.current.y);

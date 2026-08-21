@@ -1,5 +1,6 @@
-import type { Gesture, InteractionEvent, PanOptions, ZoomOptions } from '../core/gestures';
 import { PanGesture, ZoomGesture } from '../core/gestures';
+
+import type { Gesture, InteractionEvent, PanOptions, ZoomOptions } from '../core/gestures';
 
 /**
  * `InteractionEvent` with a non-null `surface` — the pipeline only routes events while a surface is
@@ -40,22 +41,27 @@ export function createInteractionAdapter<TSurface>(
     const gestures: Gesture<TSurface>[] = [];
 
     const lifecycle: Gesture<TSurface> = {};
+
     if (interactions.onStart)
         lifecycle.onStart = (event: InteractionEvent<PointerEvent, TSurface>) => {
             withSurface(event, (e) => interactions.onStart?.(e));
         };
+
     if (interactions.onMove)
         lifecycle.onMove = (event: InteractionEvent<PointerEvent, TSurface>) => {
             withSurface(event, (e) => interactions.onMove?.(e));
         };
+
     if (interactions.onZoom)
         lifecycle.onZoom = (event: InteractionEvent<WheelEvent, TSurface>) => {
             withSurface(event, (e) => interactions.onZoom?.(e));
         };
+
     if (interactions.onEnd)
         lifecycle.onEnd = (event: InteractionEvent<PointerEvent, TSurface>) => {
             withSurface(event, (e) => interactions.onEnd?.(e));
         };
+
     if (interactions.onContextMenu)
         lifecycle.onContextMenu = (event: InteractionEvent<MouseEvent, TSurface>) => {
             withSurface(event, (e) => interactions.onContextMenu?.(e));
@@ -73,6 +79,7 @@ export function createInteractionAdapter<TSurface>(
 
     if (!interactions.onStart && !interactions.onMove && interactions.pan !== false)
         gestures.push(new PanGesture(typeof interactions.pan === 'object' ? interactions.pan : {}));
+
     if (!interactions.onZoom && interactions.zoom !== false)
         gestures.push(
             new ZoomGesture(typeof interactions.zoom === 'object' ? interactions.zoom : {})

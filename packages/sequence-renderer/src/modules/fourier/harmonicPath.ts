@@ -1,9 +1,11 @@
-import type { NextStepOptions, SequenceRule } from '@repo/sequence-engine/rules/types';
 import { SeededRandom } from './SeededRandom';
+
+import type { NextStepOptions, SequenceRule } from '@repo/sequence-engine/rules/types';
 
 function generateHarmonics(seed: string) {
     const rng = new SeededRandom(seed);
     const harmonics: { freqX: number; freqY: number; amp: number }[] = [];
+
     for (let i = 0; i < 4; i++) {
         harmonics.push({
             freqX: 1 + Math.floor(rng.next() * 12),
@@ -11,6 +13,7 @@ function generateHarmonics(seed: string) {
             amp: 150 / (i + 1)
         });
     }
+
     return harmonics;
 }
 
@@ -32,6 +35,7 @@ export const harmonicPathRule: SequenceRule = {
         const t = pairIndex / totalPairs;
 
         let value = 0;
+
         for (const layer of harmonics) {
             if (isYCoordinate) {
                 value += Math.cos(t * Math.PI * 2 * layer.freqY) * layer.amp;

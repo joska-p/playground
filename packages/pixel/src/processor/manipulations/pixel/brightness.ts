@@ -5,6 +5,7 @@ export const brightness = defineManip<{ value?: number }>({
     id: 'brightness',
     execute: ({ options, red, green, blue, alpha }) => {
         const value = options.value ?? 1;
+
         return [red * value, green * value, blue * value, alpha];
     },
     ui: {

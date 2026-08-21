@@ -1,8 +1,9 @@
 import { colorSpaces } from '@repo/palette-engine/colorSpaces';
 import { Slider } from '@repo/ui/data-entry';
 import { useRef, useState } from 'react';
-import { setPaletteBaseColor } from '../../../stores/palette/store';
+
 import { ColorSpaceCanvas } from './ColorSpaceCanvas';
+import { setPaletteBaseColor } from '../../../stores/palette/store';
 
 type ColorSliceProps = {
     spaceId?: keyof typeof colorSpaces;
@@ -18,7 +19,9 @@ function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) 
 
     const handlePointer = (e: React.PointerEvent<HTMLCanvasElement>) => {
         if (e.buttons !== 1) return;
+
         const rect = canvasRef.current?.getBoundingClientRect();
+
         if (!rect) return;
 
         const px = Math.max(0, Math.min(size, e.clientX - rect.left));

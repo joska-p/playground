@@ -1,5 +1,5 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
 import { Button } from '@repo/ui/data-entry';
+
 import { STRING_ARGS } from '../lib/evalHelpers';
 import {
     rerollRule,
@@ -12,6 +12,8 @@ import {
 } from '../store';
 import { RuleCanvas } from './canvas/RuleCanvas';
 import { Badge } from './ui/Badge';
+
+import type { GrammarRule } from '@repo/randomart-engine/types';
 
 const CARD_CANVAS_SIZE = 132;
 const CARD_CANVAS_SIZE_COMPARE = 96;

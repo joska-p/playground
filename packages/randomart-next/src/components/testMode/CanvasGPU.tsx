@@ -1,6 +1,8 @@
-import type { Node } from '@repo/randomart-engine-next/types';
-import { buildValueFragmentShader } from './buildValueShader';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
+import { buildValueFragmentShader } from './buildValueShader';
+
+import type { Node } from '@repo/randomart-engine-next/types';
 
 type CanvasGPUProps = {
     node: Node;

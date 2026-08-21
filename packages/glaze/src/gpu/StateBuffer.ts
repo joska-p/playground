@@ -1,4 +1,5 @@
 import { createProgram, type Program } from './shader/Program';
+
 import type { UniformValue } from './shader/compileProgram';
 
 /** Ping-pong render targets; `swap()` exchanges the read and write roles. */
@@ -30,6 +31,7 @@ export class StateBufferTargets {
         const fbo = this.#framebuffers[this.#writeIndex()];
 
         if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
+
         this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, fbo);
         this.#gl.viewport(0, 0, this.#currentWidth, this.#currentHeight);
     }
@@ -42,6 +44,7 @@ export class StateBufferTargets {
         const texture = this.#textures[this.#readIndex()];
 
         if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
+
         return texture;
     }
 
@@ -49,6 +52,7 @@ export class StateBufferTargets {
         const texture = this.#textures[this.#writeIndex()];
 
         if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
+
         return texture;
     }
 
@@ -64,9 +68,11 @@ export class StateBufferTargets {
         }
 
         const rgba = new Uint8Array(data.length * 4);
+
         for (let i = 0; i < data.length; i++) {
             const cell = data[i] ?? 0;
             const j = i * 4;
+
             rgba[j] = cell;
             rgba[j + 1] = 0;
             rgba[j + 2] = 0;
@@ -74,6 +80,7 @@ export class StateBufferTargets {
         }
 
         const gl = this.#gl;
+
         for (const texture of this.#textures) {
             gl.bindTexture(gl.TEXTURE_2D, texture);
             gl.texSubImage2D(
@@ -92,6 +99,7 @@ export class StateBufferTargets {
 
     resize(width: number, height: number): void {
         if (width === this.#currentWidth && height === this.#currentHeight) return;
+
         this.#destroyTargetPair();
         this.#createTargetPair(width, height);
         this.#currentWidth = width;
@@ -152,6 +160,7 @@ export class StateBufferTargets {
     #createTargetPair(width: number, height: number): void {
         const gl = this.#gl;
         const created: [WebGLTexture, WebGLFramebuffer][] = [];
+
         try {
             created.push(this.#createTarget(width, height));
             created.push(this.#createTarget(width, height));
@@ -162,6 +171,7 @@ export class StateBufferTargets {
                 gl.deleteTexture(texture);
                 gl.deleteFramebuffer(fbo);
             }
+
             throw error;
         } finally {
             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -170,8 +180,11 @@ export class StateBufferTargets {
 
     #destroyTargetPair(): void {
         const gl = this.#gl;
+
         for (const texture of this.#textures) gl.deleteTexture(texture);
+
         for (const fbo of this.#framebuffers) gl.deleteFramebuffer(fbo);
+
         this.#textures = [];
         this.#framebuffers = [];
     }
@@ -215,13 +228,16 @@ export class StateBuffer {
 
     addProgram(name: string, fragmentSource: string): void {
         const prior = this.#programs.get(name);
+
         if (prior) prior.destroy();
+
         this.#programs.set(name, createProgram(this.#gl, fragmentSource));
     }
 
     useProgram(name: string): void {
         if (!this.#programs.has(name))
             throw new Error(`Glaze: StateBuffer program "${name}" not found`);
+
         this.#activeName = name;
     }
 
@@ -231,15 +247,19 @@ export class StateBuffer {
 
     step(): void {
         const program = this.#activeProgram();
+
         program.use();
         const gl = this.#gl;
+
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.#targets.getReadTexture());
         this.#targets.bindWrite();
         const stateEntry = program.uniforms.get('u_state');
+
         if (stateEntry) {
             gl.uniform1i(stateEntry.location, 0);
         }
+
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         this.#targets.unbind();
         this.#targets.swap();
@@ -261,16 +281,19 @@ export class StateBuffer {
         for (const program of this.#programs.values()) {
             program.destroy();
         }
+
         this.#programs.clear();
         this.#targets.destroy();
     }
 
     #activeProgram(): Program {
         const program = this.#programs.get(this.#activeName ?? 'default');
+
         if (!program)
             throw new Error(
                 `Glaze: StateBuffer program "${this.#activeName ?? 'default'}" not found`
             );
+
         return program;
     }
 }

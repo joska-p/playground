@@ -166,6 +166,7 @@ export const goldenWanderBehavior: AnimationBehavior = {
     type: 'spatial',
     applyCode: ({ time, speed, spatial }) => {
         const phi = '1.6180339887';
+
         return [
             `float gw_t = ${time} * ${speed} * 0.3;`,
             `${spatial} += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`

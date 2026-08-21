@@ -1,5 +1,7 @@
 import { encode } from 'fast-png';
+
 import { renderTreesToBuffer } from './render/cpu-renderer';
+
 import type { ExpressionNode } from './types';
 
 export function renderTreesToPngBuffer(
@@ -17,6 +19,7 @@ export function renderTreesToPngBuffer(
         channels: 4,
         depth: 8
     });
+
     return new Uint8Array(encoded);
 }
 
@@ -28,5 +31,6 @@ export function renderTreesToPngBlob(
     time = 0
 ): Blob {
     const pngBuffer = renderTreesToPngBuffer(treeR, treeG, treeB, size, time);
+
     return new Blob([new Uint8Array(pngBuffer)], { type: 'image/png' });
 }

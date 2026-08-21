@@ -9,6 +9,7 @@ export const flipHorizontal = defineManip({
             for (let x = 0; x < width; x++) {
                 const si = (y * width + x) * 4;
                 const di = (y * width + (width - 1 - x)) * 4;
+
                 destination[di] = source[si] ?? 0;
                 destination[di + 1] = source[si + 1] ?? 0;
                 destination[di + 2] = source[si + 2] ?? 0;

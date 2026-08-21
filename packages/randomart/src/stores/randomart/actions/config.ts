@@ -1,7 +1,9 @@
-import type { RuleId } from '@repo/randomart-engine/grammar/registry';
 import { getInitialWeights, getRule } from '@repo/randomart-engine/grammar/registry';
+
 import { randomartStore, updateTreeConfig } from '../store';
+
 import type { Mode } from '../types';
+import type { RuleId } from '@repo/randomart-engine/grammar/registry';
 
 export function setMode(mode: Mode): void {
     randomartStore.setState({ mode }, false, 'config/setMode');
@@ -22,6 +24,7 @@ export function setAnimationSpeed(speed: number): void {
 export function toggleRule(ruleId: RuleId): void {
     updateTreeConfig((state) => {
         const rule = getRule(ruleId);
+
         if (!rule) return {};
 
         const isCurrentlyEnabled = state.enabledRuleIds.includes(ruleId);
@@ -29,6 +32,7 @@ export function toggleRule(ruleId: RuleId): void {
         if (isCurrentlyEnabled && rule.category === 'terminal') {
             const activeTerminalsCount = state.enabledRuleIds.filter((id) => {
                 const targetRule = getRule(id);
+
                 return targetRule?.category === 'terminal';
             }).length;
 
@@ -56,5 +60,6 @@ export function setRuleWeight(ruleId: string, weight: number): void {
 
 export function resetAllWeights(): void {
     const ruleWeights = getInitialWeights();
+
     updateTreeConfig(() => ({ ruleWeights }), 'config/resetAllWeights');
 }

@@ -1,6 +1,7 @@
 import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
+
 import { toggleRule } from '../../stores/randomart/actions/config';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors';
 
@@ -16,6 +17,7 @@ function GrammarSection() {
             <ControlGrid columns={3}>
                 {rules.map((rule) => {
                     const ruleId = rule.id as RuleId;
+
                     return (
                         <Button
                             key={`rule-${ruleId}`}

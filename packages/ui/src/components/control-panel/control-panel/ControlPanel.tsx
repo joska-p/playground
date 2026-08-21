@@ -1,8 +1,10 @@
 import { ChevronUp, SlidersHorizontal } from 'lucide-react';
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useState } from 'react';
+
 import { cn } from '../../../lib/cn';
 import { controlPanelVariants, type ControlPanelVariants } from '../variants';
+
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 
 export type Position = 'top' | 'bottom' | 'left' | 'right';
 

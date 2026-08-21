@@ -30,6 +30,7 @@ export const pixelRandomRule = {
     evaluate: (_args, x, y) => {
         const dot = Math.abs(x) * 12.9898 + Math.abs(y) * 78.233;
         const val = Math.sin(dot) * 43758.5453;
+
         return (val - Math.floor(val)) * 2.0 - 1.0;
     },
     toMathString: () => 'random',

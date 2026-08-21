@@ -23,26 +23,32 @@ export function createSymbolConverter(config: UnicodeBlockConfig): SymbolConvert
 
         fromText(input: string): string {
             let result = '';
+
             for (const char of input) {
                 const codePoint = char.codePointAt(0) ?? 0;
                 const index = codePoint % range;
+
                 result += lut[index];
             }
+
             return result;
         },
 
         fromHash(input: string, outputLength?: number): string {
             // Simple FNV-1a hash to produce a seed
             let seed = 0x811c9dc5;
+
             for (let i = 0; i < input.length; i++) {
                 seed ^= input.charCodeAt(i);
                 seed = Math.imul(seed, 0x01000193);
             }
+
             seed >>>= 0;
 
             // Deterministic PRNG
             const rand = () => {
                 seed = (seed * 1664525 + 1013904223) % 4294967296;
+
                 return seed / 4294967296;
             };
 
@@ -51,6 +57,7 @@ export function createSymbolConverter(config: UnicodeBlockConfig): SymbolConvert
 
             for (let i = 0; i < len; i++) {
                 const index = Math.floor(rand() * range);
+
                 result += lut[index];
             }
 

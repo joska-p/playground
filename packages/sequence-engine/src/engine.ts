@@ -23,6 +23,7 @@ function generateSequence({ sequenceRule, steps, seed }: GenerateSequenceOptions
         sequence.push(current);
         seen.add(current);
     }
+
     return sequence;
 }
 

@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
+
 import { CellMesh } from './components/canvas/CellMesh.tsx';
 import { ControlPanel } from './components/controls/ControlPanel';
 

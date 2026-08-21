@@ -1,5 +1,6 @@
 import { ControlSection } from '@repo/ui/control-panel';
 import { Button, Input } from '@repo/ui/data-entry';
+
 import { setCategory, setQuery, useCategory, useQuery } from '../store';
 
 const CATEGORIES = ['all', 'terminal', 'structural'] as const;

@@ -1,9 +1,10 @@
-import type { RuleId } from '@repo/randomart-engine/grammar/registry';
 import { getAllRules, getInitialWeights } from '@repo/randomart-engine/grammar/registry';
 import { generateTrees } from '@repo/randomart-engine/tree/generate';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
+
 import type { RandomartState } from './types';
+import type { RuleId } from '@repo/randomart-engine/grammar/registry';
 
 function generateInitial(): RandomartState {
     const mode = 'play';

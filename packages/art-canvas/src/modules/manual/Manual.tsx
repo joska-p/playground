@@ -1,4 +1,5 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
 import { manual } from './manual';
 import { useChroma, useDivisions, useLightness } from './store';
 

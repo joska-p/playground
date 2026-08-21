@@ -1,5 +1,3 @@
-import { drawFourierEpicycles } from '../../modules/fourier/drawFourierEpicycles';
-import type { VisualLayer } from '../types';
 import { drawBarChart } from './drawBarChart';
 import { drawBaseline } from './drawBaseline';
 import { drawConnectionLines } from './drawConnectionLines';
@@ -9,6 +7,9 @@ import { drawPlottedNumbers } from './drawPlottedNumbers';
 import { drawRadialSpokes } from './drawRadialSpokes';
 import { drawRecamanArcs } from './drawRecamanArcs';
 import { drawStemPlot } from './drawStemPlot';
+import { drawFourierEpicycles } from '../../modules/fourier/drawFourierEpicycles';
+
+import type { VisualLayer } from '../types';
 
 const layers: VisualLayer[] = [
     drawBaseline,

@@ -1,15 +1,17 @@
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
-import { resetAllWeights } from '../../stores/randomart/actions/config';
-import { updateTreeConfig } from '../../stores/randomart/store';
+
 import { WEIGHT_PRESETS, type PresetName } from './WeightPresets';
 import { WeightSliders } from './WeightSliders';
+import { resetAllWeights } from '../../stores/randomart/actions/config';
+import { updateTreeConfig } from '../../stores/randomart/store';
 
 export function FloatingWeightPanel() {
     const [open, setOpen] = useState(false);
 
     function applyPreset(name: PresetName) {
         const preset = WEIGHT_PRESETS[name];
+
         updateTreeConfig(() => ({ ruleWeights: { ...preset } }), `config/applyPreset (${name})`);
     }
 

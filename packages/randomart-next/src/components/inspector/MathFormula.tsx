@@ -1,4 +1,5 @@
 import { toMathString } from '@repo/randomart-engine-next/format';
+
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function MathFormula() {

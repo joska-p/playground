@@ -1,10 +1,12 @@
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import type { Group } from 'three';
+
 import { Branch } from './Branch';
 import { getDebugGeometry } from './getDebugGeometry';
 import { getSpawnPoints, type PresetName } from './getSpawnPoints';
 import { useLevaControls } from './useLevaControls';
+
+import type { Group } from 'three';
 
 export function Root() {
     const groupRef = useRef<Group>(null);

@@ -49,6 +49,7 @@ export function SpotLight() {
             }
         })
     });
+
     return (
         <spotLight
             intensity={intensity}

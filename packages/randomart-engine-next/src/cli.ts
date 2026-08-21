@@ -1,7 +1,9 @@
 import { writeFile } from 'node:fs/promises';
+
 import { toTreeView } from './format.js';
 import { generate } from './generate.js';
 import { listRules, ruleIds } from './grammar/rules/registry.js';
+
 import type { RuleId } from './types.js';
 
 const USAGE = `
@@ -42,6 +44,7 @@ function parseArgs(argv: string[]): ParsedArgs {
 
     for (let i = 0; i < argv.length; i++) {
         const arg = argv[i];
+
         switch (arg) {
             case '-h':
             case '--help':
@@ -49,16 +52,20 @@ function parseArgs(argv: string[]): ParsedArgs {
                 break;
             case '--rule': {
                 const val = argv[++i];
+
                 if (!ruleIds.includes(val as RuleId)) throw new Error(`Invalid rule id "${val}".`);
+
                 result.ruleId = val as RuleId;
                 break;
             }
             case '--size': {
                 const val = argv[++i];
                 const n = Number(val);
+
                 if (!Number.isInteger(n)) {
                     throw new Error(`--size must be an integer (received "${val}").`);
                 }
+
                 result.size = n;
                 break;
             }
@@ -66,6 +73,7 @@ function parseArgs(argv: string[]): ParsedArgs {
                 if (arg.startsWith('--')) {
                     throw new Error(`Unknown option "${arg}".`);
                 }
+
                 positionals.push(arg);
             }
         }
@@ -82,6 +90,7 @@ function fail(message: string): never {
 
 async function main(): Promise<void> {
     let parsed: ParsedArgs;
+
     try {
         parsed = parseArgs(process.argv.slice(2));
     } catch (err) {
@@ -94,6 +103,7 @@ async function main(): Promise<void> {
     }
 
     if (!parsed.textSeed) fail('Missing required argument <textseed>.');
+
     if (!parsed.outputFile) fail('Missing required argument <outputfile>.');
 
     const result = generate(parsed.textSeed, {

@@ -12,6 +12,7 @@ const uiStore = createStore<UiStoreState>(() => ({
 
 export const useInputMode = () => {
     const inputMode = useStore(uiStore, (state) => state.inputMode);
+
     return inputMode;
 };
 

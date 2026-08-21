@@ -1,7 +1,8 @@
-import type { Ref, TextareaHTMLAttributes } from 'react';
-import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
 import { textareaVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { ColorVariant } from '../../../lib/colorVariant';
+import type { Ref, TextareaHTMLAttributes } from 'react';
 
 export type TextareaProps = {
     variant?: ColorVariant;

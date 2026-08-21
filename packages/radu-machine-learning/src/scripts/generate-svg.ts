@@ -19,6 +19,7 @@ function generateSVG({
         .map((path) => {
             // Map [[x,y], [x,y]] into a space-separated coordinates string "x,y x,y"
             const points = path.map(([x, y]) => `${String(x)},${String(y)}`).join(' ');
+
             return `<polyline points="${points}" fill="none" stroke="${color}" stroke-width="${String(lineWidth)}" stroke-linecap="round" stroke-linejoin="round" />`;
         })
         .join('\n  ');

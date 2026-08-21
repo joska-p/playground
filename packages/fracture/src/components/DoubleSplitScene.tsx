@@ -1,8 +1,9 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
+
+import { ZOOM_WHEEL_SPEED } from '../core/camera';
 import { splitDouble } from '../core/doubleSplit';
 import { fractalParamsUniforms } from '../core/fractalUniforms';
-import { ZOOM_WHEEL_SPEED } from '../core/camera';
+import fragmentShader from '../core/mandelbrot-double-split.glsl?raw';
 import { useParams } from '../stores/createParamStore';
 import { doubleSplitStore } from '../stores/doubleSplitStore';
 

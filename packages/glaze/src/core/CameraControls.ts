@@ -27,6 +27,7 @@ export function createCameraControls(
     const zoomAt = (focalPoint: Point2D, zoom: number): void => {
         const next = clampZoom(zoom);
         const world = camera.screenToWorld(focalPoint);
+
         camera.x = focalPoint.x - world.x * next;
         camera.y = focalPoint.y - world.y * next;
         camera.zoom = next;

@@ -1,4 +1,3 @@
-import type { GlslFunctionsIds } from '../../glsl-library.js';
 import {
     divOp,
     greaterThanOp,
@@ -22,6 +21,8 @@ import {
     sinOp,
     sqrtOp
 } from './transforms.js';
+
+import type { GlslFunctionsIds } from '../../glsl-library.js';
 
 export type OperatorKind = 'terminal' | 'transform' | 'combinator';
 

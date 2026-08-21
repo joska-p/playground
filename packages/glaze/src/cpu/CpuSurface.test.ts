@@ -1,16 +1,20 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Camera } from '../core/Camera';
+
 import { CpuSurface } from './CpuSurface';
+import { Camera } from '../core/Camera';
 
 function surfaceWithCamera(camera: Camera): CpuSurface {
     const canvas = document.createElement('canvas');
+
     vi.spyOn(canvas, 'getContext').mockReturnValue({} as CanvasRenderingContext2D);
+
     return new CpuSurface({ canvas, camera });
 }
 
 describe('CpuSurface space conversions', () => {
     it('pointer is the cursor mapped into world space through the camera', () => {
         const surface = surfaceWithCamera(new Camera(10, 10, 2));
+
         surface.canvas.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 20, clientY: 30, bubbles: true })
         );
@@ -22,6 +26,7 @@ describe('CpuSurface space conversions', () => {
         const surface = surfaceWithCamera(new Camera(10, 10, 2));
         const screen = { x: 40, y: 50 };
         const world = surface.screenToWorld(screen);
+
         expect(world).toEqual({ x: 15, y: 20 });
         expect(surface.worldToScreen(world)).toEqual(screen);
         surface.destroy();

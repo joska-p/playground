@@ -1,6 +1,7 @@
 import { allRules } from '@repo/sequence-engine/rules';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Input, Select, Slider } from '@repo/ui/data-entry';
+
 import { setSeed, setSequenceRule, setSequenceSteps } from '../../stores/sequence/actions';
 import { useSeed, useSequenceRule, useSequenceSteps } from '../../stores/sequence/selectors';
 
@@ -19,6 +20,7 @@ function SequenceSection() {
                     value={sequenceRule.id}
                     onChange={(e) => {
                         const selectedRule = allRules.find((rule) => rule.id === e.target.value);
+
                         if (selectedRule) {
                             setSequenceRule({
                                 sequenceRule: selectedRule

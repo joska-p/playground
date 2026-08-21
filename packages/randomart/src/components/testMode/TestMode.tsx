@@ -1,4 +1,5 @@
 import { getAllRules } from '@repo/randomart-engine/grammar/registry';
+
 import { GrammarTestBench } from './grammar/GrammarTestBench';
 
 export function TestMode() {

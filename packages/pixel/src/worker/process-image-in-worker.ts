@@ -1,9 +1,11 @@
-import type { Step } from '../processor/manipulations/manifest';
+import { WorkerPool } from '@repo/worker-pool/worker-pool';
+
+import { isSerializedImageDataArray } from './serialization';
 import { ALL_MANIPULATIONS } from '../processor/manipulations/manifest';
 import { PixelData } from '../processor/pixel-data';
+
+import type { Step } from '../processor/manipulations/manifest';
 import type { ArgDefinition } from '../processor/types';
-import { WorkerPool } from '@repo/worker-pool/worker-pool';
-import { isSerializedImageDataArray } from './serialization';
 
 export type { ArgDefinition, Step };
 
@@ -36,6 +38,7 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
             task.sourceImageData.height,
             clampedCopy
         );
+
         return {
             message: {
                 sourceImageData: pixelData,
@@ -60,6 +63,7 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
             ok: true,
             value: event.data.map((r) => {
                 const clonedData = Uint8ClampedArray.from(r.data);
+
                 return new ImageData(clonedData, r.width, r.height);
             })
         };
@@ -68,6 +72,7 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
 
 function buildCatalog(): Record<string, ManipulationInfo> {
     const catalog: Record<string, ManipulationInfo> = {};
+
     for (const def of ALL_MANIPULATIONS) {
         catalog[def.id] = {
             id: def.id,
@@ -79,6 +84,7 @@ function buildCatalog(): Record<string, ManipulationInfo> {
             argDefinitions: def.ui.argDefinitions
         };
     }
+
     return catalog;
 }
 
@@ -92,9 +98,11 @@ export function getManipulationsByAccess(
     access: 'pixel' | 'neighborhood' | 'global'
 ): Record<string, ManipulationInfo> {
     const result: Record<string, ManipulationInfo> = {};
+
     for (const [id, info] of Object.entries(MANIPULATIONS)) {
         if (info.access === access) result[id] = info;
     }
+
     return result;
 }
 

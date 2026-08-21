@@ -1,4 +1,3 @@
-import type { ColorSpacesKey } from '@repo/palette-engine/colorSpaces';
 import { colorSpaces } from '@repo/palette-engine/colorSpaces';
 import { generatePalette } from '@repo/palette-engine/generatePalette';
 import { analogous } from '@repo/palette-engine/rules/analogous';
@@ -6,10 +5,14 @@ import { complementary } from '@repo/palette-engine/rules/complementary';
 import { monochromatic } from '@repo/palette-engine/rules/monochromatic';
 import { triadic } from '@repo/palette-engine/rules/triadic';
 import { Button } from '@repo/ui/data-entry';
-import { addPalette, usePaletteBaseColor } from '../../stores/palette/store';
+
 import { ColorSpaceControls } from './color-picker/ColorSpaceControls';
+import { addPalette, usePaletteBaseColor } from '../../stores/palette/store';
+
+import type { ColorSpacesKey } from '@repo/palette-engine/colorSpaces';
 
 const rules = { analogous, complementary, monochromatic, triadic } as const;
+
 type RuleKey = keyof typeof rules;
 
 function Controls() {
@@ -17,6 +20,7 @@ function Controls() {
 
     function handleGeneratePalette(color: typeof baseColor, ruleKey: RuleKey) {
         const palette = generatePalette(color, rules[ruleKey]);
+
         addPalette(palette);
     }
 

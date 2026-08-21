@@ -1,5 +1,6 @@
-import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from '../../../lib/cn';
+
+import type { ComponentProps, CSSProperties } from 'react';
 
 export type CardLinkProps = {
     href: string;

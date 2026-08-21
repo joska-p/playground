@@ -11,6 +11,7 @@ export const isActiveRoute = (href: string, currentPath: string, baseUrl: string
     if (href === baseUrl) {
         return currentPath === href || currentPath === href + '/';
     }
+
     return currentPath.startsWith(href);
 };
 

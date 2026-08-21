@@ -1,4 +1,3 @@
-import type { ManipulationDefinition } from '../types';
 import { boxBlur } from './neighborhood/box-blur';
 import { edgeDetect } from './neighborhood/edge-detect';
 import { gaussianBlur } from './neighborhood/gaussian-blur';
@@ -17,6 +16,8 @@ import { flipVertical } from './whole/flip-vertical';
 import { histogramEqualize } from './whole/histogram-equalize';
 import { resize } from './whole/resize';
 import { rotate90Cw } from './whole/rotate-90cw';
+
+import type { ManipulationDefinition } from '../types';
 
 // ─── Single Source of Truth ─────────────────────────────────────────────────
 

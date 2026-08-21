@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+
 import type { ColorVariant } from '../../../lib/colorVariant';
 
 export interface SidebarContextValue {

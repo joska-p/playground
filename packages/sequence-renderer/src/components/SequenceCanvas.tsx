@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+
 import { useCanvasInteraction } from '../hooks/useCanvasInteraction';
 import { useCanvasRenderer } from '../hooks/useCanvasRenderer';
 import { useSequenceSequence } from '../stores/sequence/selectors';

@@ -1,8 +1,10 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
+
 import { valueToRGB } from '../../lib/colormap';
 import { buildPreviewNode, makeDefaultEvalArgs } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
+
+import type { GrammarRule } from '@repo/randomart-engine/types';
 
 type ValueCanvasCPUProps = {
     rule: GrammarRule;
@@ -18,9 +20,11 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
 
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
+
         if (!ctx) return;
 
         const node = buildPreviewNode(rule, seed);
@@ -41,18 +45,22 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
                         buffer[idx + 2] = 0;
                     } else {
                         const [r, g, b] = valueToRGB(value);
+
                         buffer[idx] = r;
                         buffer[idx + 1] = g;
                         buffer[idx + 2] = b;
                     }
+
                     buffer[idx + 3] = 255;
                 }
             }
 
             ctx.putImageData(new ImageData(buffer, resolution, resolution), 0, 0);
+
             if (errorRef.current) errorRef.current.style.display = 'none';
         } catch (e) {
             const msg = e instanceof Error ? e.message : 'Render error';
+
             if (errorRef.current) {
                 errorRef.current.textContent = msg;
                 errorRef.current.style.display = 'flex';

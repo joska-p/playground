@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react';
 import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
+
 import { cn } from '../../../lib/cn';
 
 export interface ControlSubsectionProps {

@@ -1,4 +1,5 @@
 import { STOCHASTIC_PRODUCTIONS_KEY, type StochasticRule } from './rules/stochastic-rule';
+
 import type { Grammar, ValidationError } from './types';
 
 const WEIGHT_SUM_TOLERANCE = 0.001;
@@ -16,6 +17,7 @@ export function validate(grammar: Grammar): ValidationError[] {
         if (isStochasticRule(rule)) {
             const productions = rule[STOCHASTIC_PRODUCTIONS_KEY];
             const sum = productions.reduce((acc, p) => acc + p.weight, 0);
+
             if (Math.abs(sum - 1) > WEIGHT_SUM_TOLERANCE) {
                 errors.push({
                     code: 'STOCHASTIC_WEIGHT_SUM',

@@ -1,4 +1,5 @@
 import { clamp } from '../../util.js';
+
 import type { Operator } from './registry.js';
 
 export const sumOp = {
@@ -28,6 +29,7 @@ export const modOp = {
     argNames: ['a', 'b'],
     evaluate: ({ args }) => {
         if (Math.abs(args['b'] ?? 0.5) < 1e-6) return 0;
+
         return clamp(
             (args['a'] ?? 0.5) -
                 (args['b'] ?? 0.5) * Math.floor((args['a'] ?? 0.5) / (args['b'] ?? 0.5))
@@ -45,10 +47,12 @@ export const powOp = {
     argNames: ['base', 'exp'],
     evaluate: ({ args }) => {
         const ev = Math.max(-3.0, Math.min(3.0, args['exp'] ?? 0.5));
+
         return clamp(Math.sign(args['base'] ?? 0.5) * Math.pow(Math.abs(args['base'] ?? 0.5), ev));
     },
     toGLSL: ({ args }) => {
         const expExpr = `clamp(${args['exp'] ?? 0.5}, -3.0, 3.0)`;
+
         return `(sign(${args['base'] ?? 0.5}) * pow(abs(${args['base'] ?? 0.5}), ${expExpr}))`;
     },
     toMathString: ({ args }) => `(${args['base'] ?? 0.5}^${args['exp'] ?? 0.5})`
@@ -61,6 +65,7 @@ export const divOp = {
     argNames: ['a', 'b'],
     evaluate: ({ args }) => {
         if (Math.abs(args['b'] ?? 0.5) < 1e-6) return 0;
+
         return clamp((args['a'] ?? 0.5) / (args['b'] ?? 0.5));
     },
     toGLSL: ({ args }) =>
@@ -107,6 +112,7 @@ export const mixOp = {
     argNames: ['a', 'b', 'c', 'd'],
     evaluate: ({ args }) => {
         const t = clamp((((args['a'] ?? 0.5) + 1) / 2) * (((args['b'] ?? 0.5) + 1) / 2));
+
         return clamp((args['c'] ?? 0.5) * (1 - t) + (args['d'] ?? 0.5) * t);
     },
     toGLSL: ({ args }) =>

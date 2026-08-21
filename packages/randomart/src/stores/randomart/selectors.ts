@@ -1,6 +1,8 @@
-import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
+
 import { randomartStore } from './store';
+
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 
 // --- Mode Selectors ---
 export function useMode() {
@@ -61,6 +63,7 @@ export function useSelectedInitialHash(): number {
     return useStore(randomartStore, (s) => {
         const channel = s.activeChannel;
         const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+
         return rng.initialHash;
     });
 }
@@ -69,6 +72,7 @@ export function useSelectedChoiceCount(): number {
     return useStore(randomartStore, (s) => {
         const channel = s.activeChannel;
         const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+
         return rng.choiceHistory.length || 0;
     });
 }

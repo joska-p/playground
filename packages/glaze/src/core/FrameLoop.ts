@@ -21,9 +21,12 @@ export class FrameLoop {
 
     subscribe(cb: FrameCallback): () => void {
         this.#callbacks.add(cb);
+
         if (!this.#running) this.#start();
+
         return () => {
             this.#callbacks.delete(cb);
+
             if (this.#callbacks.size === 0) this.#stop();
         };
     }
@@ -35,6 +38,7 @@ export class FrameLoop {
 
     #start(): void {
         if (this.#running) return;
+
         this.#running = true;
         this.#lastTime = performance.now();
         this.#tick(this.#lastTime);
@@ -42,6 +46,7 @@ export class FrameLoop {
 
     #stop(): void {
         this.#running = false;
+
         if (this.#rafId) {
             cancelAnimationFrame(this.#rafId);
             this.#rafId = 0;
@@ -50,10 +55,14 @@ export class FrameLoop {
 
     #tick = (now: number): void => {
         if (!this.#running) return;
+
         const delta = (now - this.#lastTime) / 1000;
+
         this.#lastTime = now;
         const time = now / 1000;
+
         this.#rafId = requestAnimationFrame(this.#tick);
+
         for (const cb of this.#callbacks) {
             cb(time, delta);
         }

@@ -1,9 +1,11 @@
-import type { ColorSpaceId } from '@repo/randomart-engine-next/types';
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button, Textarea } from '@repo/ui/data-entry';
+
+import { RuleControls } from './RuleControls';
 import { setColorSpace, setSeedText } from '../../stores/randomart/actions/config';
 import { useColorSpace, useSeedText } from '../../stores/randomart/selectors';
-import { RuleControls } from './RuleControls';
+
+import type { ColorSpaceId } from '@repo/randomart-engine-next/types';
 
 const COLOR_SPACES: { id: ColorSpaceId; label: string }[] = [
     { id: 'srgb', label: 'sRGB' },

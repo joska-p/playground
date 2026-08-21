@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
-import type { GpuDraw, GpuSurface } from '../../../gpu/GpuSurface';
+
 import { createStateBuffer, type StateBuffer } from '../../../gpu/StateBuffer';
-import type { LiveInteractionEvent } from '../../../react/interactions';
 import { GpuCanvas } from '../../../react/GpuCanvas';
+
+import type { GpuDraw, GpuSurface } from '../../../gpu/GpuSurface';
+import type { LiveInteractionEvent } from '../../../react/interactions';
 
 const SIZE = 256;
 const INJECT_RADIUS = 0.025;
@@ -93,12 +95,16 @@ export function ReactionDiffusion() {
 
     const ensureBuffer = (surface: GpuSurface): StateBuffer => {
         const entry = bufferRef.current;
+
         if (entry?.surface === surface) return entry.buffer;
+
         entry?.buffer.destroy();
         const buffer = createStateBuffer(surface.gl, SIZE, SIZE);
+
         buffer.addProgram('simulate', simulateFragmentSource);
         buffer.init(new Uint8Array(SIZE * SIZE).fill(255));
         bufferRef.current = { surface, buffer };
+
         return buffer;
     };
 
@@ -112,6 +118,7 @@ export function ReactionDiffusion() {
 
     const onStart = ({ nativeEvent }: LiveInteractionEvent<PointerEvent, GpuSurface>): void => {
         if (nativeEvent.button !== 0) return;
+
         injecting.current = true;
     };
 
@@ -131,6 +138,7 @@ export function ReactionDiffusion() {
         // First ~4s: an automatic seeding brush writes the opening structure.
         if (surface.frameCount < 240) {
             const t = surface.frameCount / 60;
+
             uv = {
                 x: 0.25 + 0.2 * Math.sin(t * 0.6),
                 y: 0.25 + 0.3 * Math.sin(t * 0.9 + 2.0)

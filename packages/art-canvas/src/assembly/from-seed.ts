@@ -1,5 +1,3 @@
-import type { PalettePresetName } from '../palettes/registry';
-import type { MoodName } from './moods';
 import { pickEffects } from './pick-effects';
 import { pickModules } from './pick-modules';
 import { effectiveComplexity, pickMood } from './pick-mood';
@@ -7,6 +5,9 @@ import { pickPalette } from './pick-palette';
 import { pickTemplate } from './pick-template';
 import { resolveDeps } from './resolve-deps';
 import { createSeededRandom } from './seeded-random';
+
+import type { MoodName } from './moods';
+import type { PalettePresetName } from '../palettes/registry';
 
 export function generateShaderFromSeed(
     seed: string,
@@ -22,6 +23,7 @@ export function generateShaderFromSeed(
     const { effectBlock, effectModules } = pickEffects(rng, mood);
     const uniqueInjectedCode = resolveDeps(pickedTemplate, [...activeModules, ...effectModules]);
     const palette = pickPalette(rng, mood, selectedPalette);
+
     return pickedTemplate.generate({
         complexity: effComplexity,
         rng,

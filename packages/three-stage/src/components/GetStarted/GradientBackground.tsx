@@ -53,6 +53,7 @@ function getSpritesData({
         const scale = new THREE.Vector3(sizeModifier, sizeModifier, 1);
 
         const color = new THREE.Color().setHSL(hue, 1, sat);
+
         color.offsetHSL(0, 0, Math.random() * 0.2 - 0.1);
 
         return { id: i, position, scale, color };

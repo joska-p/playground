@@ -1,5 +1,6 @@
 import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
 import { Slider } from '@repo/ui/data-entry';
+
 import { setRuleWeight } from '../../stores/randomart/actions/config';
 import { useRuleWeights } from '../../stores/randomart/selectors';
 
@@ -11,6 +12,7 @@ export function WeightSliders() {
         <div className="flex flex-col gap-3">
             {rules.map((rule) => {
                 const currentWeight = ruleWeights[rule.id as RuleId];
+
                 return (
                     <div
                         key={rule.id}

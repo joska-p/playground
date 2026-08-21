@@ -1,15 +1,17 @@
 import { Card } from '@repo/ui/card';
 import { cn } from '@repo/ui/lib/cn';
 import { useEffect } from 'react';
+
 import { labelToColorMap } from '../constants';
 import { getDrawingLabels, getSamplesByStudents } from '../core/api';
-import type { Drawing } from '../core/types';
 import {
     setSelectedDrawingId,
     useBaseUrl,
     useScrollTargetId,
     useSelectedDrawingId
 } from '../stores/selection';
+
+import type { Drawing } from '../core/types';
 
 const students = getSamplesByStudents();
 const columnCount = getDrawingLabels().length + 1;
@@ -60,9 +62,11 @@ function Samples() {
 
     useEffect(() => {
         if (scrollTargetId === null) return;
+
         const drawingElement = document.querySelector(
             `[data-drawing-id="${String(scrollTargetId)}"]`
         );
+
         if (drawingElement) {
             drawingElement.scrollIntoView({
                 behavior: 'smooth',

@@ -1,8 +1,10 @@
 import { useRef } from 'react';
-import type { CpuDraw, CpuSurface } from '../../../cpu/CpuSurface';
-import type { Point2D } from '../../../core/Camera';
-import type { LiveInteractionEvent } from '../../../react/interactions';
+
 import { CpuCanvas } from '../../../react/CpuCanvas';
+
+import type { Point2D } from '../../../core/Camera';
+import type { CpuDraw, CpuSurface } from '../../../cpu/CpuSurface';
+import type { LiveInteractionEvent } from '../../../react/interactions';
 
 const NODE_RADIUS = 16;
 const HIT_RADIUS = 18;
@@ -22,8 +24,10 @@ interface Drag {
 const hitNode = (nodes: Node[], point: Point2D): Node | null => {
     for (let i = nodes.length - 1; i >= 0; i--) {
         const node = nodes[i];
+
         if (Math.hypot(node.x - point.x, node.y - point.y) <= HIT_RADIUS) return node;
     }
+
     return null;
 };
 
@@ -43,11 +47,14 @@ export function NodeEditor() {
     }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
         if (nativeEvent.button === 1) {
             panMode.current = true;
+
             return;
         }
+
         if (nativeEvent.button !== 0) return;
 
         const hit = hitNode(nodes.current, surface.pointer);
+
         if (hit) {
             drag.current = {
                 id: hit.id,
@@ -71,11 +78,16 @@ export function NodeEditor() {
     }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
         if (panMode.current) {
             cameraControls.panBy(input.pointerDelta.x, input.pointerDelta.y);
+
             return;
         }
+
         const active = drag.current;
+
         if (!active) return;
+
         const node = nodes.current.find((candidate) => candidate.id === active.id);
+
         if (node) {
             node.x = surface.pointer.x - active.offsetX;
             node.y = surface.pointer.y - active.offsetY;
@@ -85,17 +97,23 @@ export function NodeEditor() {
     const onEnd = ({ surface }: LiveInteractionEvent<PointerEvent, CpuSurface>): void => {
         if (panMode.current) {
             panMode.current = false;
+
             return;
         }
+
         const active = drag.current;
+
         if (!active) return;
+
         const target = hitNode(
             nodes.current.filter((candidate) => candidate.id !== active.id),
             surface.pointer
         );
+
         if (target && !alreadyConnected(edges.current, active.id, target.id)) {
             edges.current.push([active.id, target.id]);
         }
+
         drag.current = null;
     };
 
@@ -105,6 +123,7 @@ export function NodeEditor() {
     }: LiveInteractionEvent<MouseEvent, CpuSurface>): void => {
         nativeEvent.preventDefault();
         const hit = hitNode(nodes.current, surface.pointer);
+
         if (hit) {
             nodes.current = nodes.current.filter((node) => node.id !== hit.id);
             edges.current = edges.current.filter(([from, to]) => from !== hit.id && to !== hit.id);
@@ -117,18 +136,22 @@ export function NodeEditor() {
         for (const [fromId, toId] of edges.current) {
             const from = nodes.current.find((node) => node.id === fromId);
             const to = nodes.current.find((node) => node.id === toId);
+
             if (from && to) surface.line(from.x, from.y, to.x, to.y, '#334155', 2);
         }
 
         const active = drag.current;
         const pointer = surface.pointer;
+
         if (active) {
             const dragged = nodes.current.find((node) => node.id === active.id);
+
             if (dragged) {
                 const target = hitNode(
                     nodes.current.filter((node) => node.id !== active.id),
                     pointer
                 );
+
                 surface.line(
                     dragged.x,
                     dragged.y,
@@ -142,6 +165,7 @@ export function NodeEditor() {
 
         for (const node of nodes.current) {
             const isDragged = node.id === active?.id;
+
             surface
                 .circle(
                     node.x,

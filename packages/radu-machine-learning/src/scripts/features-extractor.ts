@@ -1,7 +1,9 @@
 import fs from 'fs';
-import { getPointCount } from '../core/api.ts';
-import type { FeatureSample, Path } from '../core/types.ts';
+
 import { CONSTANTS } from './constants.ts';
+import { getPointCount } from '../core/api.ts';
+
+import type { FeatureSample, Path } from '../core/types.ts';
 
 console.log('Extracting features...');
 
@@ -11,6 +13,7 @@ for (const sample of samples) {
     const paths = JSON.parse(
         fs.readFileSync(`${CONSTANTS.JSON_DIR}/${String(sample.id)}.json`, 'utf-8')
     ) as Path[];
+
     sample.point = [paths.length, getPointCount(paths)];
 }
 

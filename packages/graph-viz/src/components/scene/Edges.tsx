@@ -17,6 +17,7 @@ type EdgeGroupProps = {
 
 function EdgeGroup({ positions, color, opacity }: EdgeGroupProps) {
     if (positions.length === 0) return null;
+
     return (
         <lineSegments>
             <bufferGeometry>

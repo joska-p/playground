@@ -1,200 +1,138 @@
-import type { Creature } from '../creature/registry';
-import { createGrid, seedGrid } from '../grid';
-import { rules, type RuleId } from '../rules/registry';
-import type { StateBuffer } from '@repo/glaze/gpu/StateBuffer';
+import { createClock } from '@repo/glaze/core/Clock';
+
+import { AGE_DECAY_RATE, AGE_GROWTH_RATE, SPEED_DEFAULT_MS } from '../../lib/constants';
 import {
     GRID_DEFAULT_COLS,
     GRID_DEFAULT_DENSITY,
     GRID_DEFAULT_ROWS,
     GRID_DEFAULT_SEED
 } from '../config';
-import { SPEED_DEFAULT_MS } from '../../lib/constants';
-import { useSyncExternalStore } from 'react';
+import { createGrid, seedGrid } from '../grid';
+import { rules, type Rule } from '../rules/registry';
 
-export type SimState = Readonly<{
-    cols: number;
-    rows: number;
-    generation: number;
-    ruleId: RuleId;
-    running: boolean;
-    speedMs: number;
-    density: number;
-    seed: number;
-}>;
+import type { Creature } from '../creature/registry';
+import type { StateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
-export type InitialConfig = Partial<SimState>;
+export type SimulationOptions = {
+    rows?: number;
+    cols?: number;
+    rule?: Rule;
+    density?: number;
+    seed?: number;
+    speedMs?: number;
+    /** Notified whenever the generation counter changes (steps, paints, resets). */
+    onGenerationChange?: (generation: number) => void;
+};
+
+/** Upper bound per frame tick so a huge delta (tab switch) cannot stall a paint. */
+const MAX_STEPS_PER_TICK = 4;
 
 export class SimulationEngine {
     readonly #buffer: StateBuffer;
     readonly #birthBuffer = new Int32Array(9);
     readonly #surviveBuffer = new Int32Array(9);
+    readonly #clock = createClock({ autoStart: false });
+    readonly #onGenerationChange: ((generation: number) => void) | undefined;
 
-    // Encapsulated State
-    #state: SimState;
-    #playController: AbortController | null = null;
-    #listeners = new Set<() => void>();
+    #rule: Rule;
+    #rows: number;
+    #cols: number;
+    #density: number;
+    #seed: number;
+    #speedMs: number;
+    #generation = 0;
+    #accumulator = 0;
 
     constructor(
         buffer: StateBuffer,
         simShaderSource: string,
         paintShaderSource: string,
-        initialConfig?: InitialConfig
+        options: SimulationOptions = {}
     ) {
         this.#buffer = buffer;
         buffer.addProgram('default', simShaderSource);
         buffer.addProgram('paint', paintShaderSource);
 
-        this.#state = {
-            cols: initialConfig?.cols ?? GRID_DEFAULT_COLS,
-            rows: initialConfig?.rows ?? GRID_DEFAULT_ROWS,
-            generation: 0,
-            ruleId: initialConfig?.ruleId ?? 'conway',
-            running: false,
-            speedMs: initialConfig?.speedMs ?? SPEED_DEFAULT_MS,
-            density: initialConfig?.density ?? GRID_DEFAULT_DENSITY,
-            seed: initialConfig?.seed ?? GRID_DEFAULT_SEED
-        };
+        this.#rows = options.rows ?? GRID_DEFAULT_ROWS;
+        this.#cols = options.cols ?? GRID_DEFAULT_COLS;
+        this.#rule = options.rule ?? rules.conway;
+        this.#density = options.density ?? GRID_DEFAULT_DENSITY;
+        this.#seed = options.seed ?? GRID_DEFAULT_SEED;
+        this.#speedMs = options.speedMs ?? SPEED_DEFAULT_MS;
+        this.#onGenerationChange = options.onGenerationChange;
 
-        const grid = createGrid(this.#state.rows, this.#state.cols);
-        seedGrid(grid, this.#state.density, this.#state.seed);
+        const grid = createGrid(this.#rows, this.#cols);
+
+        seedGrid(grid, this.#density, this.#seed);
         this.#buffer.init(grid);
     }
 
-    // ── Subscription Management ──
+    // ── Frame-driven stepping ──
 
-    subscribe = (listener: () => void): (() => void) => {
-        this.#listeners.add(listener);
-        return () => this.#listeners.delete(listener);
-    };
+    /** Feed the surface's frame delta; runs generations while the clock plays. */
+    tick(deltaMs: number): void {
+        this.#clock.update(deltaMs);
 
-    getSnapshot = (): SimState => {
-        return this.#state;
-    };
+        if (!this.#clock.isPlaying) return;
 
-    #notify(): void {
-        for (const listener of this.#listeners) {
-            listener();
+        this.#accumulator += this.#clock.deltaTime;
+        let steps = 0;
+
+        while (this.#accumulator >= this.#speedMs && steps < MAX_STEPS_PER_TICK) {
+            this.step();
+            this.#accumulator -= this.#speedMs;
+            steps++;
         }
-    }
 
-    #updateState(partialState: Partial<SimState>): void {
-        this.#state = { ...this.#state, ...partialState };
-        this.#notify();
-    }
-
-    // ── GPU Shaders (Private) ──
-
-    #gpuStep(rule: {
-        birth: readonly boolean[];
-        survive: readonly boolean[];
-        stateCount: number;
-    }): void {
-        for (let i = 0; i < 9; i++) {
-            this.#birthBuffer[i] = rule.birth[i] ? 1 : 0;
-            this.#surviveBuffer[i] = rule.survive[i] ? 1 : 0;
-        }
-        this.#buffer.useProgram('default');
-        this.#buffer.setUniforms({
-            u_gridSize: [this.#buffer.width, this.#buffer.height],
-            u_birth: this.#birthBuffer,
-            u_survive: this.#surviveBuffer,
-            u_stateCount: rule.stateCount
-        });
-        this.#buffer.step();
-    }
-
-    #gpuPaint(col: number, row: number, value: number): void {
-        this.#buffer.useProgram('paint');
-        this.#buffer.setUniforms({
-            u_targetCell: [col, row],
-            u_value: value
-        });
-        this.#buffer.step();
-    }
-
-    // ── Public Simulation Controls ──
-
-    step(): void {
-        const rule = rules[this.#state.ruleId];
-        this.#gpuStep(rule);
-        this.#updateState({ generation: this.#state.generation + 1 });
+        if (steps === MAX_STEPS_PER_TICK) this.#accumulator = 0;
     }
 
     play(): void {
-        if (this.#state.running) return;
-
-        this.#playController?.abort();
-        this.#playController = new AbortController();
-        const { signal } = this.#playController;
-
-        this.#updateState({ running: true });
-
-        const loop = (): void => {
-            if (signal.aborted) return;
-            this.step();
-            setTimeout(loop, this.#state.speedMs);
-        };
-        loop();
+        this.#clock.play();
     }
 
     pause(): void {
-        this.#playController?.abort();
-        this.#playController = null;
-        this.#updateState({ running: false });
+        this.#clock.pause();
+        this.#accumulator = 0;
     }
 
-    toggleRunning(): void {
-        if (this.#state.running) {
-            this.pause();
-        } else {
-            this.play();
-        }
+    get running(): boolean {
+        return this.#clock.isPlaying;
     }
 
     setSpeed(ms: number): void {
-        this.#updateState({ speedMs: ms });
+        this.#speedMs = ms;
     }
 
-    setRule(id: RuleId): void {
-        this.#updateState({ ruleId: id });
+    setRule(rule: Rule): void {
+        this.#rule = rule;
     }
 
-    reinit(
-        rows: number,
-        cols: number,
-        density = this.#state.density,
-        seed = this.#state.seed
-    ): void {
-        this.#buffer.resize(cols, rows);
-        const grid = createGrid(rows, cols);
-        seedGrid(grid, density, seed);
-        this.#buffer.init(grid);
+    step(): void {
+        this.#gpuStep(this.#rule);
+        this.#setGeneration(this.#generation + 1);
+    }
 
-        this.#updateState({
-            rows,
-            cols,
-            density,
-            seed,
-            generation: 0
-        });
+    // ── Grid lifecycle ──
+
+    reinit(rows: number, cols: number): void {
+        this.#rows = rows;
+        this.#cols = cols;
+        this.#resetGrid(false);
     }
 
     clear(): void {
-        const grid = createGrid(this.#state.rows, this.#state.cols);
-        this.#buffer.init(grid);
-        this.#updateState({ generation: 0 });
+        this.#resetGrid(false);
     }
 
-    randomize(density = this.#state.density): void {
-        const grid = createGrid(this.#state.rows, this.#state.cols);
-        seedGrid(grid, density, this.#state.seed);
-        this.#buffer.init(grid);
-        this.#updateState({ density, generation: 0 });
+    randomize(density = this.#density): void {
+        this.#density = density;
+        this.#resetGrid(true);
     }
 
     paintCell(col: number, row: number, value: number): void {
         this.#gpuPaint(col, row, value);
-        this.#updateState({ generation: this.#state.generation + 1 });
+        this.#setGeneration(this.#generation + 1);
     }
 
     placeCreature(col: number, row: number, creature: Creature): void {
@@ -204,27 +142,31 @@ export class SimulationEngine {
 
         for (let y = 0; y < creature.height; y++) {
             const rowCells = creature.cells[y];
+
             for (let x = 0; x < creature.width; x++) {
                 const val = rowCells[x];
+
                 if (!val) continue;
+
                 const gx = col - offsetX + x;
                 const gy = row - offsetY + y;
+
                 if (gx < 0 || gx >= this.#buffer.width || gy < 0 || gy >= this.#buffer.height)
                     continue;
+
                 this.#gpuPaint(gx, gy, val);
                 changed = true;
             }
         }
 
         if (changed) {
-            this.#updateState({ generation: this.#state.generation + 1 });
+            this.#setGeneration(this.#generation + 1);
         }
     }
 
     destroy(): void {
         this.pause();
         this.#buffer.destroy();
-        this.#listeners.clear();
     }
 
     // ── Getters ──
@@ -240,28 +182,59 @@ export class SimulationEngine {
     get height(): number {
         return this.#buffer.height;
     }
+
+    get generation(): number {
+        return this.#generation;
+    }
+
+    get rule(): Rule {
+        return this.#rule;
+    }
+
+    // ── Internals ──
+
+    #resetGrid(seed: boolean): void {
+        const grid = createGrid(this.#rows, this.#cols);
+
+        if (seed) seedGrid(grid, this.#density, this.#seed);
+
+        if (this.#buffer.width !== this.#cols || this.#buffer.height !== this.#rows) {
+            this.#buffer.resize(this.#cols, this.#rows);
+        }
+
+        this.#buffer.init(grid);
+        this.#setGeneration(0);
+    }
+
+    #setGeneration(generation: number): void {
+        this.#generation = generation;
+        this.#onGenerationChange?.(generation);
+    }
+
+    #gpuStep(rule: Rule): void {
+        for (let i = 0; i < 9; i++) {
+            this.#birthBuffer[i] = rule.birth[i] ? 1 : 0;
+            this.#surviveBuffer[i] = rule.survive[i] ? 1 : 0;
+        }
+
+        this.#buffer.useProgram('default');
+        this.#buffer.setUniforms({
+            u_gridSize: [this.#buffer.width, this.#buffer.height],
+            u_birth: this.#birthBuffer,
+            u_survive: this.#surviveBuffer,
+            u_stateCount: rule.stateCount,
+            u_ageGrowth: AGE_GROWTH_RATE,
+            u_ageDecay: AGE_DECAY_RATE
+        });
+        this.#buffer.step();
+    }
+
+    #gpuPaint(col: number, row: number, value: number): void {
+        this.#buffer.useProgram('paint');
+        this.#buffer.setUniforms({
+            u_targetCell: [col, row],
+            u_value: value
+        });
+        this.#buffer.step();
+    }
 }
-
-// Singleton holder
-let engineInstance: SimulationEngine | null = null;
-
-export function setSimulationEngine(engine: SimulationEngine | null): void {
-    engineInstance = engine;
-}
-
-export function getSimulationEngine(): SimulationEngine {
-    if (!engineInstance) throw new Error('SimulationEngine not initialized');
-    return engineInstance;
-}
-
-// Universal Selector Hook for React
-export function useSimSelector<T>(selector: (state: SimState) => T): T {
-    const engine = getSimulationEngine();
-    return useSyncExternalStore(engine.subscribe, () => selector(engine.getSnapshot()));
-}
-
-// Specific Hooks using selector
-export const useGeneration = () => useSimSelector((s) => s.generation);
-export const useRunning = () => useSimSelector((s) => s.running);
-export const useSpeedMs = () => useSimSelector((s) => s.speedMs);
-export const useRuleId = () => useSimSelector((s) => s.ruleId);

@@ -1,5 +1,6 @@
 import { Billboard, Text } from '@react-three/drei';
 import * as THREE from 'three';
+
 import { CONFIG } from '../../core/config.ts';
 import { useCommunities } from '../../stores/content/selectors';
 import { useLabelsVisible, useVisibleCommunities } from '../../stores/view/selectors';
@@ -17,6 +18,7 @@ function CommunityLabels() {
         .filter((c) => visibleCommunities.has(c.id))
         .map((c) => {
             const color = new THREE.Color(c.color);
+
             color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
 
             return (

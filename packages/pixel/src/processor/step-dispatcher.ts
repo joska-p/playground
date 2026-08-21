@@ -1,8 +1,9 @@
+import { runNeighborhoodTiled } from './neighborhood-tiling';
+import { PixelData } from './pixel-data';
+
 import type { BufferManager } from './buffer-manager';
 import type { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
-import { runNeighborhoodTiled } from './neighborhood-tiling';
-import { PixelData } from './pixel-data';
 import type { ManipulationDefinition, PipelineContext } from './types';
 
 type ExecutorParameters = {
@@ -40,6 +41,7 @@ const executors: Record<string, ExecutorFunction> = {
             }
 
             const pixelData = new PixelData(bufferManager.width, bufferManager.height);
+
             pixelData.data.set(destination);
             bufferManager.replaceWith(pixelData);
         }
@@ -47,6 +49,7 @@ const executors: Record<string, ExecutorFunction> = {
 
     global: ({ definition, options, bufferManager, scheduler }) => {
         scheduler.flush(bufferManager);
+
         if (definition.access === 'global') {
             bufferManager.replaceWith(
                 definition.execute({
@@ -73,5 +76,6 @@ export function dispatchStep({
     const options = (step as { options?: Record<string, unknown> }).options ?? {};
 
     const executor = executors[definition.access];
+
     executor({ definition, options, context, bufferManager, scheduler });
 }

@@ -15,6 +15,7 @@ export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | n
     // Effect 1: Core WebGL Initialization (runs once)
     useEffect(() => {
         const canvasEl = canvasRef.current;
+
         if (!canvasEl) return;
 
         const gl = canvasEl.getContext('webgl2', {
@@ -25,12 +26,14 @@ export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | n
 
         if (!gl) {
             console.warn('WebGL not supported');
+
             return;
         }
 
         glRef.current = gl;
 
         const positionBuffer = gl.createBuffer();
+
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
 
@@ -44,9 +47,11 @@ export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | n
     useEffect(() => {
         const canvasEl = canvasRef.current;
         const gl = glRef.current;
+
         if (!canvasEl || !gl) return;
 
         const parentRect = canvasEl.parentElement?.getBoundingClientRect();
+
         if (!parentRect) throw new Error('Canvas must have a parent element');
 
         const dpr = window.devicePixelRatio || 1;

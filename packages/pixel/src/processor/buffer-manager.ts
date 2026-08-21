@@ -37,7 +37,9 @@ export class BufferManager {
 
     snapshot() {
         const pixelData = new PixelData(this.imageWidth, this.imageHeight);
+
         pixelData.data.set(this.current);
+
         return pixelData;
     }
 

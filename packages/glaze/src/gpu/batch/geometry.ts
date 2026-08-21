@@ -31,6 +31,7 @@ export function sameMat3(a: Mat3, b: Mat3): boolean {
     for (let i = 0; i < 9; i++) {
         if (a[i] !== b[i]) return false;
     }
+
     return true;
 }
 
@@ -69,10 +70,13 @@ export function capSegments(width: number, zoom: number): number {
 /** Ring vertices, starting at angle 0 (positive x). */
 export function circleRing(cx: number, cy: number, radius: number, segments: number): Point2D[] {
     const points: Point2D[] = [];
+
     for (let i = 0; i < segments; i++) {
         const angle = (i / segments) * Math.PI * 2;
+
         points.push({ x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius });
     }
+
     return points;
 }
 

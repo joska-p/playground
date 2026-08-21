@@ -1,6 +1,7 @@
-import type { HTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { useSidebarContext } from './useSidebarContext';
+import { cn } from '../../../lib/cn';
+
+import type { HTMLAttributes, Ref } from 'react';
 
 export type SidebarMainProps = {
     ref?: Ref<HTMLDivElement>;

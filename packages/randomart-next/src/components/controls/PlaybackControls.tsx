@@ -1,5 +1,6 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
+
 import { setAnimationSpeed } from '../../stores/randomart/actions/config';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
 import { useAnimationSpeed, useRunning } from '../../stores/randomart/selectors';

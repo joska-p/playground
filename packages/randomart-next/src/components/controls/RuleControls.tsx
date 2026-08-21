@@ -1,10 +1,12 @@
 import { listRuleGroups } from '@repo/randomart-engine-next/rules';
-import type { RuleId } from '@repo/randomart-engine-next/types';
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Checkbox, Select } from '@repo/ui/data-entry';
 import { cn } from '@repo/ui/lib/cn';
+
 import { selectRule, setCorrelatedRGB } from '../../stores/randomart/actions/config';
 import { useCorrelatedRGB, useSelectedRuleId } from '../../stores/randomart/selectors';
+
+import type { RuleId } from '@repo/randomart-engine-next/types';
 
 const RULE_GROUPS = listRuleGroups();
 

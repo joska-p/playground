@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+
 import { useImageUpload } from '../../../hooks/useImageUpload';
 import { useImageSource } from '../../../stores/manipulator/selectors';
 
@@ -13,6 +14,7 @@ export function useUploadZone() {
         e.preventDefault();
         e.stopPropagation();
         dragCounter.current++;
+
         if (e.dataTransfer.items.length > 0) {
             setIsDragging(true);
         }
@@ -22,6 +24,7 @@ export function useUploadZone() {
         e.preventDefault();
         e.stopPropagation();
         dragCounter.current--;
+
         if (dragCounter.current === 0) {
             setIsDragging(false);
         }
@@ -39,6 +42,7 @@ export function useUploadZone() {
         dragCounter.current = 0;
 
         const { files } = e.dataTransfer;
+
         if (files.length > 0) handleFileDrop(files[0]);
     };
 

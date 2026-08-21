@@ -10,7 +10,9 @@ export function parametricRule(options: ParametricOptions): Rule {
     return {
         match(sym: LSymbol): boolean {
             if (sym.name !== options.name) return false;
+
             if (options.guard !== undefined && !options.guard(sym.params)) return false;
+
             return true;
         },
         apply(sym: LSymbol): Word {

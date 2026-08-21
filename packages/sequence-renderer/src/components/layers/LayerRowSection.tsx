@@ -1,7 +1,9 @@
 import { ControlGrid, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Switch } from '@repo/ui/data-entry';
-import type { VisualLayer } from '../../core/types';
+
 import { LayerOptionSection } from './LayerOptionSection';
+
+import type { VisualLayer } from '../../core/types';
 
 type LayerRowSectionProps = {
     meta: VisualLayer;

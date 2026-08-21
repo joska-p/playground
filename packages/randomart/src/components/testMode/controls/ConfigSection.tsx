@@ -1,7 +1,9 @@
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select, Slider } from '@repo/ui/data-entry';
-import type { ArgPreset } from '../store';
+
 import { setArgPreset, setGlobalT, useArgPreset, useGlobalT } from '../store';
+
+import type { ArgPreset } from '../store';
 
 const PRESET_OPTIONS: { value: ArgPreset; label: string }[] = [
     { value: 'gradient', label: 'Gradient (x, y, t)' },

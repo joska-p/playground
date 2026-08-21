@@ -1,10 +1,11 @@
 import { compileToShader } from './compileToGLSL.js';
 import { toMathString } from './format.js';
-import type { RuleId } from './grammar/rules/registry.js';
 import { DEFAULT_RULE_ID, getRule } from './grammar/rules/registry.js';
 import { encodePNG } from './png.js';
-import type { Node } from './tree.js';
 import { buildChannelTrees, evaluate } from './tree.js';
+
+import type { RuleId } from './grammar/rules/registry.js';
+import type { Node } from './tree.js';
 
 export type GenerateOptions = {
     ruleId?: RuleId;
@@ -40,12 +41,15 @@ export function generate(
         }
 
         const ruleId = options.ruleId ?? DEFAULT_RULE_ID;
+
         if (options.enabledRuleIds && !options.enabledRuleIds.includes(ruleId)) {
             return { error: `Rule "${ruleId}" is not enabled.` };
         }
+
         const rule = getRule(ruleId);
 
         const size = options.size ?? DEFAULT_SIZE;
+
         if (!Number.isInteger(size) || size < 1 || size > MAX_SIZE) {
             return {
                 error: `size must be an integer between 1 and ${MAX_SIZE} (received ${String(
@@ -62,14 +66,17 @@ export function generate(
 
         // Rasterize: evaluate all three trees at each pixel's normalized coordinate.
         const pixels = new Uint8Array(size * size * 3);
+
         for (let py = 0; py < size; py++) {
             const y = (py / (size - 1 || 1)) * 2 - 1;
+
             for (let px = 0; px < size; px++) {
                 const x = (px / (size - 1 || 1)) * 2 - 1;
                 const r = Math.round((evaluate(treeR, x, y) + 1) * 127.5);
                 const g = Math.round((evaluate(treeG, x, y) + 1) * 127.5);
                 const b = Math.round((evaluate(treeB, x, y) + 1) * 127.5);
                 const idx = (py * size + px) * 3;
+
                 pixels[idx] = Math.max(0, Math.min(255, r));
                 pixels[idx + 1] = Math.max(0, Math.min(255, g));
                 pixels[idx + 2] = Math.max(0, Math.min(255, b));

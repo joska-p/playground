@@ -65,6 +65,7 @@ function initParticles(imageData: ImageData) {
 
     // Count visible pixels first
     let visiblePixels = 0;
+
     for (let i = 3; i < imageData.data.length; i += 4) {
         if ((imageData.data[i] ?? 0) > 128) visiblePixels++;
     }
@@ -113,6 +114,7 @@ function initParticles(imageData: ImageData) {
             }
         }
     }
+
     return particles;
 }
 

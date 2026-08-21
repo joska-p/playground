@@ -1,7 +1,8 @@
-import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import styles from './Accordion.module.css';
 import { accordionItemVariants, type AccordionItemVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react';
 
 export interface AccordionItemProps
     extends DetailsHTMLAttributes<HTMLDetailsElement>, AccordionItemVariants {

@@ -1,4 +1,5 @@
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } from 'd3-force-3d';
+
 import type { SimLink, SimNode } from './sim-types.js';
 
 export type ForceSimulation3D = {
@@ -67,6 +68,7 @@ export function runSimulation(
     for (let i = 0; i < cfg.ticks; i++) {
         simulation.tick();
     }
+
     simulation.stop();
     stats.push(`Simulation finished (${cfg.ticks} ticks)`);
 

@@ -1,4 +1,5 @@
 import { Accordion, AccordionItem } from '@repo/ui/data-display';
+
 import type { ReactNode } from 'react';
 
 function Code({ children }: { children: ReactNode }) {

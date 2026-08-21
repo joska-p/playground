@@ -14,6 +14,7 @@ function Display() {
             />
             {palettes.map((palette) => {
                 const paletteId = palette.colors.join();
+
                 return (
                     <div
                         key={paletteId}

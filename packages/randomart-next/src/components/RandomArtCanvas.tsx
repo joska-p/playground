@@ -1,7 +1,8 @@
 import { useRef } from 'react';
+
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
-import { useRunning, useTreeB, useTreeG, useTreeR } from '../stores/randomart/selectors';
 import { FloatingInspector } from './inspector/FloatingInspector';
+import { useRunning, useTreeB, useTreeG, useTreeR } from '../stores/randomart/selectors';
 
 export function RandomArtCanvas() {
     const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { FrameLoop, createFrameLoop } from './FrameLoop';
 
 let rafCallback: FrameRequestCallback | null = null;
@@ -9,6 +10,7 @@ const stubRaf = (): void => {
     cancelCalls = 0;
     vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback): number => {
         rafCallback = callback;
+
         return 1;
     });
     vi.stubGlobal('cancelAnimationFrame', (): void => {
@@ -18,7 +20,9 @@ const stubRaf = (): void => {
 
 const fireRaf = (time: number): void => {
     const callback = rafCallback;
+
     rafCallback = null;
+
     if (callback) callback(time);
 };
 
@@ -37,6 +41,7 @@ describe('FrameLoop', () => {
         vi.spyOn(performance, 'now').mockReturnValue(1000);
         const callback = vi.fn();
         const loop = new FrameLoop();
+
         loop.subscribe(callback);
         expect(loop.isRunning).toBe(true);
         expect(loop.subscriberCount).toBe(1);
@@ -48,6 +53,7 @@ describe('FrameLoop', () => {
         vi.spyOn(performance, 'now').mockReturnValue(1000);
         const callback = vi.fn();
         const loop = new FrameLoop();
+
         loop.subscribe(callback);
         fireRaf(1500);
         fireRaf(1700);
@@ -61,6 +67,7 @@ describe('FrameLoop', () => {
         const callback = vi.fn();
         const loop = new FrameLoop();
         const unsubscribe = loop.subscribe(callback);
+
         expect(loop.isRunning).toBe(true);
         unsubscribe();
         expect(loop.isRunning).toBe(false);
@@ -73,8 +80,10 @@ describe('FrameLoop', () => {
         const first = vi.fn();
         const loop = new FrameLoop();
         const unsubscribe = loop.subscribe(first);
+
         unsubscribe();
         const second = vi.fn();
+
         loop.subscribe(second);
         expect(loop.isRunning).toBe(true);
         expect(second).toHaveBeenCalledTimes(1);
@@ -85,6 +94,7 @@ describe('FrameLoop', () => {
         const loop = new FrameLoop();
         const unsubscribeA = loop.subscribe(vi.fn());
         const unsubscribeB = loop.subscribe(vi.fn());
+
         unsubscribeA();
         expect(loop.isRunning).toBe(true);
         expect(loop.subscriberCount).toBe(1);
@@ -96,6 +106,7 @@ describe('FrameLoop', () => {
         stubRaf();
         const callback = vi.fn();
         const loop = new FrameLoop();
+
         loop.subscribe(callback);
         loop.dispose();
         expect(loop.isRunning).toBe(false);

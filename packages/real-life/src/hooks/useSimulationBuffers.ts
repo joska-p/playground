@@ -17,6 +17,7 @@ export const useSimulationBuffers = (size: number) => {
 
     const swapBuffers = () => {
         const temp = readBuffer.current;
+
         readBuffer.current = writeBuffer.current;
         writeBuffer.current = temp;
     };

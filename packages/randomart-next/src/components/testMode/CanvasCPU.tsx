@@ -1,6 +1,7 @@
 import { evaluate } from '@repo/randomart-engine-next/tree';
-import type { Node } from '@repo/randomart-engine-next/types';
 import { useEffect, useRef } from 'react';
+
+import type { Node } from '@repo/randomart-engine-next/types';
 
 type CanvasCPUProps = {
     node: Node;
@@ -18,8 +19,11 @@ export function CanvasCPU({ node, resolution, sizePx }: CanvasCPUProps) {
 
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
+
         const ctx = canvas.getContext('2d');
+
         if (!ctx) return;
 
         const buffer = new Uint8ClampedArray(resolution * resolution * 4);
@@ -47,11 +51,13 @@ export function CanvasCPU({ node, resolution, sizePx }: CanvasCPUProps) {
                 }
 
                 ctx.putImageData(new ImageData(buffer, resolution, resolution), 0, 0);
+
                 if (errorRef.current) errorRef.current.style.display = 'none';
 
                 animationFrameId = requestAnimationFrame(renderLoop);
             } catch (e) {
                 const msg = e instanceof Error ? e.message : 'Render error';
+
                 if (errorRef.current) {
                     errorRef.current.textContent = msg;
                     errorRef.current.style.display = 'flex';

@@ -2,6 +2,8 @@ import { ControlGrid, ControlPanel, ControlRow, ControlSection } from '@repo/ui/
 import { Button, Slider } from '@repo/ui/data-entry';
 import { ColorPalette } from '@repo/ui/widgets';
 import { useEffect, useRef, useState } from 'react';
+
+import { TileSetControls } from './TileSetControls';
 import {
     CSS_VARS,
     DEFAULT_GAP_SIZE,
@@ -17,7 +19,6 @@ import {
 } from '../../stores/mosaic/selectors';
 import { shuffleObject } from '../../utils/random/shuffleObject';
 import { updateElementStyles } from '../../utils/updateElementStyles';
-import { TileSetControls } from './TileSetControls';
 
 function useSliderState(
     cssVar: string,
@@ -39,9 +40,11 @@ function useSliderState(
     const onChange = (newValue: number) => {
         setValue(newValue);
         mosaicRef.current?.style.setProperty(cssVar, `${String(newValue)}px`);
+
         if (debounceRef.current) {
             clearTimeout(debounceRef.current);
         }
+
         debounceRef.current = setTimeout(regenerateTiles, debounceMs);
     };
 
@@ -59,11 +62,13 @@ function MosaicControlsPanel() {
 
     function shuffleColors() {
         if (!mosaicRef.current) return;
+
         updateElementStyles(mosaicRef.current, shuffleObject(currentPalette));
     }
 
     function shuffleRotations() {
         if (!mosaicRef.current) return;
+
         updateElementStyles(mosaicRef.current, shuffleObject(initialRotations));
     }
 
@@ -152,6 +157,7 @@ function MosaicControlsPanel() {
                             palette['--color-3'],
                             palette['--color-4']
                         ];
+
                         return (
                             <ColorPalette
                                 key={palette.id}
@@ -163,6 +169,7 @@ function MosaicControlsPanel() {
                                 size="sm"
                                 onChange={(id) => {
                                     const selected = currentPalettes.find((p) => p.id === id);
+
                                     if (selected) applyPalette(selected);
                                 }}
                                 title={palette.id}

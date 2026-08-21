@@ -1,7 +1,9 @@
 import { useEffect, type CSSProperties } from 'react';
-import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
-import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
+
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
+import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
+
+import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 
 export interface CpuCanvasProps extends CpuSurfaceOptions {
     onDraw?: CpuDraw;
@@ -27,6 +29,7 @@ export function CpuCanvas({
 
     useEffect(() => {
         const surface = surfaceRef.current;
+
         if (!surface) return;
 
         onSurface?.(surface);

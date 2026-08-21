@@ -1,5 +1,6 @@
 import { ControlRow } from '@repo/ui/control-panel';
 import { Checkbox, Input, Slider } from '@repo/ui/data-entry';
+
 import type { ParamDescriptor } from '../../core/types';
 
 type Params = Record<string, ParamDescriptor>;

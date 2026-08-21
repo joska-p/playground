@@ -1,5 +1,6 @@
 import { ControlSection } from '@repo/ui/control-panel';
 import { Button, Input } from '@repo/ui/data-entry';
+
 import { rerollGlobalSeed, setSeed, useSeed } from '../store';
 
 export function SeedSection() {

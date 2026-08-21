@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
+
 import { ImageToParticles } from './components/ImageToParticles';
 
 function App() {

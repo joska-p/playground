@@ -1,7 +1,9 @@
 import { getRule } from '@repo/randomart-engine-next/rules';
-import type { ColorSpaceId, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
+
 import { randomartStore, updateTreeConfig } from '../store';
+
 import type { Mode } from '../types';
+import type { ColorSpaceId, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 
 export function setMode(mode: Mode): void {
     randomartStore.setState({ mode }, false, 'config/setMode');
@@ -33,6 +35,7 @@ export function setCorrelatedRGB(correlatedRGB: boolean): void {
 
 export function selectRule(ruleId: RuleId): void {
     const rule = getRule(ruleId);
+
     updateTreeConfig(
         () => ({
             selectedRuleId: ruleId,

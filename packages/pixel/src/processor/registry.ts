@@ -5,9 +5,11 @@ export class Registry {
 
     static from(definitions: readonly ManipulationDefinition[]) {
         const registry = new Registry();
+
         for (const definition of definitions) {
             registry.register(definition);
         }
+
         return registry;
     }
 
@@ -25,14 +27,17 @@ export class Registry {
         if (this.manipulationsMap.has(definition.id)) {
             console.warn(`[pixel] Overwriting existing manipulation "${definition.id}"`);
         }
+
         this.manipulationsMap.set(definition.id, definition);
     }
 
     get(identifier: string) {
         const definition = this.manipulationsMap.get(identifier);
+
         if (!definition) {
             throw new Error(`[pixel] Manipulation "${identifier}" is not registered.`);
         }
+
         return definition;
     }
 }

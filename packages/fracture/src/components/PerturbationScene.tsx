@@ -1,15 +1,16 @@
-import { useEffect, useRef } from 'react';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
+import { useEffect, useRef } from 'react';
+
+import { ZOOM_WHEEL_SPEED } from '../core/camera';
 import { createOrbitTextures, type OrbitTextures } from '../core/createOrbitTextures';
+import { fractalParamsUniforms } from '../core/fractalUniforms';
+import perturbationShader from '../core/mandelbrot-perturbation.frag?raw';
 import {
     computeMaxIterations,
     computeReferenceOrbit,
     computeSecondaryOrbit,
     type ReferenceOrbit
 } from '../core/perturbationOrbit';
-import { fractalParamsUniforms } from '../core/fractalUniforms';
-import { ZOOM_WHEEL_SPEED } from '../core/camera';
 import { useParams } from '../stores/createParamStore';
 import { perturbationStore } from '../stores/perturbationStore';
 
@@ -46,6 +47,7 @@ const WORLD_SCALE = 3.0;
 function splitDS(x: number): [number, number] {
     const hi = Math.fround(x); // nearest float32
     const lo = x - hi; // exact residual in float64, still exact as float32
+
     return [hi, lo];
 }
 
@@ -75,15 +77,20 @@ function PerturbationScene() {
     // textures are dead afterwards; recreate and re-upload the last orbits.
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
+
         const onRestored = () => {
             const orbits = orbitsRef.current;
+
             if (orbits) {
                 texturesRef.current?.dispose();
                 texturesRef.current?.upload(orbits.primary, orbits.secondary);
             }
         };
+
         canvas.addEventListener('webglcontextrestored', onRestored);
+
         return () => {
             canvas.removeEventListener('webglcontextrestored', onRestored);
         };
@@ -112,7 +119,9 @@ function PerturbationScene() {
                     // (the first frame runs only once the runtime is live).
                     if (!texturesRef.current) {
                         const gl = canvas.getContext('webgl2');
+
                         if (!gl) return {};
+
                         texturesRef.current = createOrbitTextures(gl);
                     }
 
@@ -177,6 +186,7 @@ function PerturbationScene() {
                     }
 
                     if (!orbitsRef.current) return {};
+
                     const { primary, secondary } = orbitsRef.current;
 
                     const [scaleHi, scaleLo] = splitDS(viewScale);

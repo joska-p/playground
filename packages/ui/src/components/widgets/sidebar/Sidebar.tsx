@@ -1,13 +1,15 @@
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useId } from 'react';
-import { useSidebarState } from '../../../hooks/useSidebarState';
-import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
+
 import { SidebarContext, type SidebarContextValue } from './SidebarContext';
 import { SidebarMain } from './SidebarMain';
 import { SidebarPanel } from './SidebarPanel';
 import { SidebarToggle } from './SidebarToggle';
 import { useSidebarContext } from './useSidebarContext';
+import { useSidebarState } from '../../../hooks/useSidebarState';
+import { cn } from '../../../lib/cn';
+import { type ColorVariant } from '../../../lib/colorVariant';
+
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 
 export type SidebarProps = {
     defaultOpen?: boolean;
@@ -43,17 +45,21 @@ function Sidebar({
 
     const toggle = () => {
         const next = !isOpen;
+
         if (!isControlled) internal.toggle();
+
         onOpenChange?.(next);
     };
 
     const open = () => {
         if (!isControlled) internal.open();
+
         onOpenChange?.(true);
     };
 
     const close = () => {
         if (!isControlled) internal.close();
+
         onOpenChange?.(false);
     };
 

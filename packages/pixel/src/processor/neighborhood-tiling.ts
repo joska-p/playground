@@ -1,4 +1,5 @@
 import { PixelData } from './pixel-data';
+
 import type { ManipulationDefinition } from './types';
 
 const TILE_SIZE = 512; // pixels per tile edge
@@ -27,13 +28,16 @@ function extractTile({
     const paddedHeight = paddedY2 - paddedY;
 
     const tile = new PixelData(paddedWidth, paddedHeight);
+
     for (let row = 0; row < paddedHeight; row++) {
         const sourceOffset = ((paddedY + row) * imageData.width + paddedX) * 4;
+
         tile.data.set(
             imageData.data.subarray(sourceOffset, sourceOffset + paddedWidth * 4),
             row * paddedWidth * 4
         );
     }
+
     return tile;
 }
 
@@ -60,6 +64,7 @@ function blitTile({
     for (let row = 0; row < tileHeight; row++) {
         const tileOffset = ((offsetY + row) * tile.width + offsetX) * 4;
         const destinationOffset = ((tileY + row) * destination.width + tileX) * 4;
+
         destination.data.set(
             tile.data.subarray(tileOffset, tileOffset + tileWidth * 4),
             destinationOffset
@@ -124,5 +129,6 @@ export function runNeighborhoodTiled({
             });
         }
     }
+
     return destinationImage;
 }

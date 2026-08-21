@@ -1,5 +1,6 @@
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
+
 import { getBehaviorKinds } from '../../../../randomart-engine-next/src/behaviors/registry';
 import { toggleBehavior } from '../../stores/randomart/actions/behavior';
 import { useActiveBehaviorIds } from '../../stores/randomart/selectors';

@@ -28,12 +28,15 @@ export function stochasticRule(
         apply(_sym: LSymbol, context: Context): Word {
             const r = context.random();
             let cumulative = 0;
+
             for (const production of productions) {
                 cumulative += production.weight;
+
                 if (r < cumulative) {
                     return production.produce;
                 }
             }
+
             // Floating-point rounding guard: return the last production.
             return productions[productions.length - 1]?.produce ?? [];
         }

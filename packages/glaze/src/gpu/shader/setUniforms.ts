@@ -1,5 +1,5 @@
-import type { Camera, Point2D } from '../../core/Camera';
 import type { UniformEntry, UniformValue } from './compileProgram';
+import type { Camera, Point2D } from '../../core/Camera';
 
 function isWebGLTextureValue(
     gl: WebGL2RenderingContext,
@@ -18,9 +18,11 @@ function setUniformValue(
 
     if (isWebGLTextureValue(gl, value)) {
         const unit = nextTextureUnit ? nextTextureUnit() : 0;
+
         gl.activeTexture(gl.TEXTURE0 + unit);
         gl.bindTexture(gl.TEXTURE_2D, value);
         gl.uniform1i(location, unit);
+
         return;
     }
 
@@ -28,12 +30,14 @@ function setUniformValue(
         case gl.FLOAT:
             if (typeof value === 'number') gl.uniform1f(location, value);
             else gl.uniform1fv(location, value as Float32List);
+
             break;
         case gl.INT:
         case gl.BOOL:
         case gl.SAMPLER_2D:
             if (typeof value === 'number') gl.uniform1i(location, value);
             else gl.uniform1iv(location, value as Int32List);
+
             break;
         case gl.FLOAT_VEC2:
             gl.uniform2fv(location, value as Float32List);
@@ -80,7 +84,9 @@ export function setUniforms(
 ): void {
     for (const [name, value] of Object.entries(values)) {
         const entry = uniforms.get(name);
+
         if (entry === undefined) continue;
+
         setUniformValue(gl, entry, value, nextTextureUnit);
     }
 }

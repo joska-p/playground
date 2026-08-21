@@ -1,11 +1,14 @@
 import { useRef } from 'react';
-import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
+
+import { createClockStore, type ClockStore } from './clockStore';
 import { Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
-import type { Clock } from '../core/Clock';
 import { InputRouter, type Gesture } from '../core/gestures';
+import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
+
+import type { Clock } from '../core/Clock';
 import type { ClockOptions } from '../core/Clock';
-import { createClockStore, type ClockStore } from './clockStore';
+
 export type { ClockStore } from './clockStore';
 
 /** `initialCamera` only applies when no `camera` instance is provided. */

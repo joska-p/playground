@@ -1,8 +1,10 @@
 import { Card } from '@repo/ui/data-display';
+
 import { CodeBlock } from '../CodeBlock';
-import { ParamTable } from '../ParamTable';
-import type { ManipInfo } from '../data/pipeline-docs-data';
 import { TryItOut } from '../demos/TryItOut';
+import { ParamTable } from '../ParamTable';
+
+import type { ManipInfo } from '../data/pipeline-docs-data';
 
 const TYPE_ACCENT: Record<string, string> = {
     pixel: 'var(--utility-6)',
@@ -34,6 +36,7 @@ function ManipView({
                   manip.params
                       .map((p) => {
                           const value = paramValues[`${manip.id}:${p.key}`] ?? p.default;
+
                           return `${p.key}: ${String(value)}`;
                       })
                       .join(', ') +

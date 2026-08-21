@@ -7,6 +7,7 @@ export const fibonacciRule = {
     maxSteps: 20,
     getNext: ({ index, current, sequence }) => {
         if (index <= 1) return index;
+
         return current + (sequence[index - 2] ?? 0);
     }
 } as const satisfies SequenceRule;

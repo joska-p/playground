@@ -1,7 +1,9 @@
 import { useRef } from 'react';
+
+import { GpuCanvas } from '../../../react/GpuCanvas';
+
 import type { GpuDraw } from '../../../gpu/GpuSurface';
 import type { Program } from '../../../gpu/shader/Program';
-import { GpuCanvas } from '../../../react/GpuCanvas';
 
 const gridFragmentSource = /* glsl */ `
     precision highp float;
@@ -44,13 +46,16 @@ export function CyberHud() {
         surface.clear(0, 0, 0, 1);
 
         let program = programRef.current;
+
         if (!program) {
             program = surface.createProgram(gridFragmentSource);
             programRef.current = program;
         }
+
         surface.renderProgram(program);
 
         const p = surface.pointer;
+
         surface
             .line(p.x - 18, p.y, p.x - 6, p.y, '#22d3ee', 2)
             .line(p.x + 6, p.y, p.x + 18, p.y, '#22d3ee', 2)

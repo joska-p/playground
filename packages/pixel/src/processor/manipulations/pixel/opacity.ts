@@ -5,6 +5,7 @@ export const opacity = defineManip<{ value?: number }>({
     id: 'opacity',
     execute: ({ options, red, green, blue, alpha }) => {
         const value = options.value ?? 1;
+
         return [red, green, blue, alpha * value];
     },
     ui: {

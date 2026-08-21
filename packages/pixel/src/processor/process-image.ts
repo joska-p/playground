@@ -1,8 +1,9 @@
 import { BufferManager } from './buffer-manager';
 import { FusionScheduler } from './fusion-scheduler';
+import { dispatchStep } from './step-dispatcher';
+
 import type { Step } from './manipulations/manifest';
 import type { PixelData } from './pixel-data';
-import { dispatchStep } from './step-dispatcher';
 import type { ArgDefinition, PipelineContext } from './types';
 
 export type { ArgDefinition, Step };

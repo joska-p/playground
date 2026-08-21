@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { readFileAsImageData } from '../core/file-reader';
 import { clearImageSource, setImageSource } from '../stores/manipulator/actions';
 
@@ -12,6 +13,7 @@ function useImageUpload() {
 
         try {
             const imageData = await readFileAsImageData(file);
+
             setImageSource({
                 id: 'source',
                 name: 'source',
@@ -25,7 +27,9 @@ function useImageUpload() {
 
     function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
         const file = event.target.files?.[0];
+
         if (!file) return;
+
         void processFile(file);
     }
 

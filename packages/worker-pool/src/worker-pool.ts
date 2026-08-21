@@ -34,7 +34,9 @@ export class WorkerPool<TTask, TResult> {
         if (this.pool.length < this.maxPoolSize) {
             const worker = this.config.workerFactory();
             const entry: PoolEntry = { worker, busy: false };
+
             this.pool.push(entry);
+
             return this.dispatch(entry, task);
         }
 
@@ -46,9 +48,11 @@ export class WorkerPool<TTask, TResult> {
     /** Rejects queued tasks too — otherwise their promises would hang forever. */
     teardown(): void {
         const err = new Error('pool torn down');
+
         for (const job of this.queue) {
             job.reject(err);
         }
+
         this.queue.length = 0;
         this.pool.forEach((entry) => {
             entry.worker.terminate();
@@ -69,6 +73,7 @@ export class WorkerPool<TTask, TResult> {
             const onMessage = (event: MessageEvent) => {
                 cleanup();
                 const result = this.config.deserialize(event);
+
                 if (result.ok) {
                     resolve(result.value);
                 } else {
@@ -101,10 +106,15 @@ export class WorkerPool<TTask, TResult> {
 
     private drainQueue(): void {
         if (this.queue.length === 0) return;
+
         const entry = this.acquireWorker();
+
         if (!entry) return;
+
         const job = this.queue.shift();
+
         if (!job) return;
+
         this.dispatch(entry, job.task).then(job.resolve, job.reject);
     }
 }

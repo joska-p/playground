@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { createCpuSurface, type CpuSurface } from '../cpu/CpuSurface';
+
 import { Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
 import { InputRouter, type Gesture } from '../core/gestures';
+import { createCpuSurface, type CpuSurface } from '../cpu/CpuSurface';
 
 /** `initialCamera` only applies when no `camera` instance is provided. */
 export interface CpuSurfaceOptions {

@@ -18,11 +18,13 @@ export function toggleEdges(): void {
 export function toggleCommunity(communityId: number): void {
     graphStore.setState((s) => {
         const next = new Set(s.visibleCommunities);
+
         if (next.has(communityId)) {
             next.delete(communityId);
         } else {
             next.add(communityId);
         }
+
         return { visibleCommunities: next };
     });
 }

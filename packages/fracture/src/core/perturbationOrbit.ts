@@ -18,6 +18,7 @@ export function computeMaxIterations(
     iterationCap: number
 ): number {
     const n = iterationBase + Math.log2(Math.max(1, zoom)) * 1.44269504089 * iterationScale;
+
     return Math.min(Math.floor(n), iterationCap);
 }
 
@@ -63,6 +64,7 @@ export function computeReferenceOrbit(
     const orbitLength = Math.min(capacity, Math.max(referenceIterations, maxIterations));
 
     const used = Math.min(orbitLength, referenceIterations);
+
     return {
         data: data.subarray(0, used * 2),
         orbitLength: used,
@@ -82,5 +84,6 @@ export function computeSecondaryOrbit(
     const offset = scale * 2.5;
     const re = centerRe + offset * 0.7;
     const im = centerIm + offset * 0.7;
+
     return computeReferenceOrbit(re, im, maxIterations, bailoutSquared);
 }

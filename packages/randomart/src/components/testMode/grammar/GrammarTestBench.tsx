@@ -1,9 +1,10 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
 import { useAnimationLoop } from '../hooks/useAnimationLoop';
 import { useFilteredRules } from '../hooks/useFilteredRules';
 import { setT, testModeStore, useAnimate, useCategory, useQuery } from '../store';
 import { DetailPanel } from './DetailPanel';
 import { SpecimenCard } from './SpecimenCard';
+
+import type { GrammarRule } from '@repo/randomart-engine/types';
 
 export function GrammarTestBench({ rules }: { rules: GrammarRule[] }) {
     const query = useQuery();
@@ -13,6 +14,7 @@ export function GrammarTestBench({ rules }: { rules: GrammarRule[] }) {
 
     useAnimationLoop(animate, (delta) => {
         const currentT = testModeStore.getState().t;
+
         setT(currentT + delta);
     });
 

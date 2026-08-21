@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Accordion, AccordionItem, Badge } from '@repo/ui/data-display';
+import { useState } from 'react';
+
 import { useCases, useCaseLevels } from './useCases';
 
 const levelName = (level: number): string =>
@@ -43,6 +44,7 @@ export function DemoGallery() {
             <Accordion>
                 {useCases.map((useCase) => {
                     const isOpen = openId === useCase.id;
+
                     return (
                         <AccordionItem
                             key={useCase.id}

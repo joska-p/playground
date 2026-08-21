@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+
 import type { Theme } from '../hooks/useThemeState';
 
 interface ThemeContextValue {
@@ -11,6 +12,8 @@ export const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function useTheme() {
     const ctx = useContext(ThemeContext);
+
     if (!ctx) throw new Error('useTheme must be used within a <ThemeProvider>');
+
     return ctx;
 }

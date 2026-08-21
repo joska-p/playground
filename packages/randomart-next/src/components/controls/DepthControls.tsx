@@ -1,5 +1,6 @@
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Slider } from '@repo/ui/data-entry';
+
 import { setMaxDepth, setMinDepth } from '../../stores/randomart/actions/config';
 import { useMaxDepth, useMinDepth } from '../../stores/randomart/selectors';
 

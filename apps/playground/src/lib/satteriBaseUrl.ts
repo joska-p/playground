@@ -1,4 +1,5 @@
 import { defineMdastPlugin } from 'satteri';
+
 import type { Link } from 'mdast';
 
 // Prefix root-absolute links (single `/`) with the site base so they survive

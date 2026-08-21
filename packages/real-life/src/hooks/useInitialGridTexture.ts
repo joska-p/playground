@@ -15,6 +15,8 @@ export function useInitialGridTexture(size = 512) {
     }
 
     const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+
     texture.needsUpdate = true;
+
     return texture;
 }

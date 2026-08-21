@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import type { CpuDraw } from '../../../cpu/CpuSurface';
-import type { GpuDraw } from '../../../gpu/GpuSurface';
+
 import { CpuCanvas } from '../../../react/CpuCanvas';
 import { GpuCanvas } from '../../../react/GpuCanvas';
+
+import type { CpuDraw } from '../../../cpu/CpuSurface';
+import type { GpuDraw } from '../../../gpu/GpuSurface';
 
 /**
  * Structural contract satisfied by both `CpuSurface` and `GpuSurface`, so one scene function drives
@@ -54,11 +56,14 @@ const makeStars = (count: number): Star[] =>
 
 const drawScene = (surface: ShapeSurface, stars: Star[]): void => {
     const twinkle = 0.6 + 0.4 * Math.sin(surface.time * 2);
+
     for (const star of stars) {
         const x = star.sx * surface.width;
         const y = ((star.sy + surface.time * star.drift) % 1) * surface.height;
+
         surface.circle(x, y, star.radius * twinkle, star.color);
     }
+
     surface.text(
         `${String(stars.length)} circles · frame ${String(surface.frameCount)}`,
         12,

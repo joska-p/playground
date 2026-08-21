@@ -2,11 +2,13 @@ import { Instances } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef } from 'react';
-import type { ShaderMaterial } from 'three';
 import { BoxGeometry, Euler, Vector3 } from 'three';
+
 import { createLeaves } from './createLeaves';
 import { Leaf } from './Leaf';
 import { leafMaterial } from './materials/leaf/leafMaterial';
+
+import type { ShaderMaterial } from 'three';
 
 type BranchProps = {
     position?: Vector3;

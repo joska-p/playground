@@ -1,4 +1,5 @@
 import { toGLSL } from '@repo/randomart-engine-next/tree';
+
 import type { Node } from '@repo/randomart-engine-next/types';
 
 export const VALUE_VERTEX_SHADER = /* glsl */ `

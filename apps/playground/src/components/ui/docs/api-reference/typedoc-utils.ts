@@ -42,6 +42,7 @@ export function extractAllSymbols(
     }
 
     traverse(node);
+
     return symbols;
 }
 
@@ -62,7 +63,9 @@ export function getText(parts?: JSONOutput.CommentDisplayPart[]): string {
  */
 export function pluralize(label: string): string {
     if (label.endsWith('y')) return `${label.slice(0, -1)}ies`;
+
     if (label.endsWith('s') || label.endsWith('x')) return `${label}es`;
+
     return `${label}s`;
 }
 
@@ -73,6 +76,7 @@ export function pluralize(label: string): string {
  */
 export function formatType(type?: JSONOutput.SomeType, depth = 0): string {
     if (!type) return 'unknown';
+
     if (depth > 4) return '…';
 
     switch (type.type) {
@@ -84,6 +88,7 @@ export function formatType(type?: JSONOutput.SomeType, depth = 0): string {
             const args = type.typeArguments?.length
                 ? `<${type.typeArguments.map((t) => formatType(t, depth + 1)).join(', ')}>`
                 : '';
+
             return `${type.name}${args}`;
         }
         case 'array':

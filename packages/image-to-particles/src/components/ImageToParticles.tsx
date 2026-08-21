@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { Button, Input } from '@repo/ui/data-entry';
+import { useEffect, useRef } from 'react';
+
 import {
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
@@ -35,6 +36,7 @@ export function ImageToParticles() {
 
     const resetParticles = () => {
         let currentDelay = 0;
+
         particles.current = particles.current.map((particle) => ({
             ...particle,
             x: particle.originX,
@@ -56,11 +58,13 @@ export function ImageToParticles() {
         if (!imageFile || !canvasRef.current) return;
 
         const ctx = canvasRef.current.getContext('2d');
+
         if (!ctx) {
             throw new Error('Could not get canvas context');
         }
 
         const image = new Image();
+
         image.src = imageFile;
 
         function cleanup() {
@@ -72,18 +76,23 @@ export function ImageToParticles() {
         image.onload = () => {
             try {
                 if (!canvasRef.current) return;
+
                 canvasRef.current.width = CANVAS_WIDTH;
                 canvasRef.current.height = CANVAS_HEIGHT;
 
                 const dimensions = calculateImageDimensions(image.width, image.height);
+
                 drawImageToCanvas(ctx, image, dimensions);
 
                 const imageData = ctx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
                 particles.current = initParticles(imageData);
 
                 function animate() {
                     if (!canvasRef.current) return;
+
                     const context = canvasRef.current.getContext('2d');
+
                     if (!context) return;
 
                     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
@@ -131,6 +140,7 @@ export function ImageToParticles() {
                 animate();
             } catch (error) {
                 if (error instanceof Error) throw new Error('Error processing image', error);
+
                 throw error;
             }
         };

@@ -1,6 +1,7 @@
-import type { CpuDraw } from '../../../cpu/CpuSurface';
-import type { Point2D } from '../../../core/Camera';
 import { CpuCanvas } from '../../../react/CpuCanvas';
+
+import type { Point2D } from '../../../core/Camera';
+import type { CpuDraw } from '../../../cpu/CpuSurface';
 
 const MINOR = 20;
 const MAJOR = 100;
@@ -8,9 +9,11 @@ const MINOR_CULL = 12;
 
 const range = (start: number, end: number, step: number): number[] => {
     const values: number[] = [];
+
     for (let value = Math.floor(start / step) * step; value <= end; value += step) {
         values.push(value);
     }
+
     return values;
 };
 
@@ -34,10 +37,13 @@ export function GraphPaper() {
 
         for (const x of range(min.x, max.x, step)) {
             const major = step === MAJOR || Math.round(x / MAJOR) === x / MAJOR;
+
             surface.line(x, min.y, x, max.y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
         }
+
         for (const y of range(min.y, max.y, step)) {
             const major = step === MAJOR || Math.round(y / MAJOR) === y / MAJOR;
+
             surface.line(min.x, y, max.x, y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
         }
 

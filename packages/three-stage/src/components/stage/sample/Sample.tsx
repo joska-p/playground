@@ -1,10 +1,12 @@
 import { useFrame } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useRef, useState } from 'react';
-import type * as THREE from 'three';
-import type { Mesh } from 'three';
+
 import { geometries } from '../../../utils/geometry';
 import { materials } from '../../../utils/material';
+
+import type * as THREE from 'three';
+import type { Mesh } from 'three';
 
 export function Sample() {
     const sampleRef = useRef<Mesh>(null);
@@ -21,6 +23,7 @@ export function Sample() {
             options: geometries.reduce<Record<string, THREE.BufferGeometry>>(
                 (accumulator, currentValue) => {
                     accumulator[currentValue.label] = currentValue.geometry();
+
                     return accumulator;
                 },
                 {}
@@ -35,6 +38,7 @@ export function Sample() {
             options: materials.reduce<Record<string, THREE.Material>>(
                 (accumulator, currentValue) => {
                     accumulator[currentValue.label] = currentValue.material();
+
                     return accumulator;
                 },
                 {}

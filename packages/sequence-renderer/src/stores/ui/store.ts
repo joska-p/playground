@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import type { LayerConfigEntry } from '../../core/types';
+
 import type { UiState } from './types';
+import type { LayerConfigEntry } from '../../core/types';
 
 const DEFAULT_LAYERS: LayerConfigEntry[] = [
     { id: 'baseline', enabled: true, params: {} },

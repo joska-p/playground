@@ -7,6 +7,7 @@ export const threshold = defineManip<{ threshold?: number }>({
         const threshold = options.threshold ?? 128;
         const l = red * 0.2126 + green * 0.7152 + blue * 0.0722;
         const v = l >= threshold ? 255 : 0;
+
         return [v, v, v, alpha];
     },
     ui: {

@@ -27,6 +27,7 @@ function parseRule<const TId extends string>({
     const cPart = parts.find((p) => p.startsWith('C'))?.replace('C', '') ?? '2';
 
     for (const ch of bPart) birth[Number(ch)] = true;
+
     for (const ch of sPart) survive[Number(ch)] = true;
 
     return {
@@ -51,6 +52,7 @@ type RuleId = (typeof allRules)[number]['id'];
 const rules = allRules.reduce(
     (acc, rule) => {
         acc[rule.id] = rule;
+
         return acc;
     },
     {} as Record<RuleId, Rule<RuleId>>

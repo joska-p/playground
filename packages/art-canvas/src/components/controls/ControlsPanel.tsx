@@ -1,11 +1,13 @@
 import { ControlConditional, ControlPanel, ControlRow } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
+
 import { AtlasControls } from '../../modules/atlas/controls/AtlasControls';
 import { ManualControls } from '../../modules/manual/ManualControls';
 import { SeedControls } from '../../modules/seed/SeedControls';
-import type { InputMode } from '../../stores/ui/store';
-import { setInpuMode, useInputMode } from '../../stores/ui/store';
 import { SpiraleControls } from '../../modules/spirale/SpiraleControls';
+import { setInpuMode, useInputMode } from '../../stores/ui/store';
+
+import type { InputMode } from '../../stores/ui/store';
 
 const inputModes: InputMode[] = ['spirale', 'seed', 'folded-space', 'atlas', 'manual'];
 const inputModeOptions = inputModes.map((mode) => ({

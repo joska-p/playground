@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
+
+import type { ReactNode } from 'react';
 
 export interface ControlGridProps {
     columns?: 2 | 3 | 4 | 5 | 6;

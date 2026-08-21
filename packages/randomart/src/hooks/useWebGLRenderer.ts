@@ -1,11 +1,13 @@
 import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
-import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
-import { randomartStore } from '../stores/randomart/store';
+
 import { useAnimationLoop } from './useAnimationLoop';
 import { useShaderProgram } from './useShaderProgram';
 import { useWebGLContext } from './useWebGLContext';
+import { randomartStore } from '../stores/randomart/store';
+
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 
 export function useWebGLRenderer(
     canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -36,10 +38,12 @@ export function useWebGLRenderer(
 
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
 
         const handleMouseMove = (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
+
             mouseRef.current = {
                 x: (e.clientX - rect.left) * (canvas.width / rect.width),
                 y: (e.clientY - rect.top) * (canvas.height / rect.height)
@@ -47,6 +51,7 @@ export function useWebGLRenderer(
         };
 
         canvas.addEventListener('mousemove', handleMouseMove);
+
         return () => {
             canvas.removeEventListener('mousemove', handleMouseMove);
         };
@@ -70,8 +75,10 @@ export function useWebGLRenderer(
 
         // Snapshot frame while paused, so speed changes still show up immediately
         const gl = glRef.current;
+
         if (!running && gl && programRef.current) {
             const { time, animSpeed } = uniformLocsRef.current;
+
             gl.uniform1f(time, timeRef.current);
             gl.uniform1f(animSpeed, speedRef.current);
             gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -93,9 +100,11 @@ export function useWebGLRenderer(
             timeRef.current += deltaMs / 1000;
 
             const gl = glRef.current;
+
             if (!gl || !programRef.current) return;
 
             const { time, animSpeed } = uniformLocsRef.current;
+
             gl.uniform1f(time, timeRef.current);
             gl.uniform1f(animSpeed, speedRef.current);
             gl.drawArrays(gl.TRIANGLES, 0, 6);

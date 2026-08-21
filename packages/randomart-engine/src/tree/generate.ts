@@ -1,7 +1,8 @@
+import { buildTree } from './build';
 import { getAllRules } from '../grammar/registry';
 import { SeededRandom } from '../random/SeededRandom';
+
 import type { ExpressionNode, GrammarRule, RuleId, RuleWeights } from '../types';
-import { buildTree } from './build';
 
 export type TreeConfig = {
     seedText: string;
@@ -30,12 +31,14 @@ export function generateTrees(config: TreeConfig): TreeOutput {
         .filter((rule) => config.enabledRuleIds.includes(rule.id as RuleId))
         .map((rule) => {
             const weightsOverride = config.ruleWeights[rule.id as RuleId] ?? rule.weight;
+
             return { ...rule, weight: weightsOverride };
         }) satisfies GrammarRule[];
 
     if (config.correlated) {
         // One shared stream, so the three trees get the same structural decisions
         const rng = new SeededRandom(config.seedText + '_rgb');
+
         return {
             treeR: buildTree(rng, rng, 0, config.maxDepth, rules),
             treeG: buildTree(rng, rng, 0, config.maxDepth, rules),

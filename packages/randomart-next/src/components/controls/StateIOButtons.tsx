@@ -1,6 +1,8 @@
 import { Button } from '@repo/ui/data-entry';
 import { useRef } from 'react';
+
 import { randomartStore, updateTreeConfig } from '../../stores/randomart/store';
+
 import type { RandomartState } from '../../stores/randomart/types';
 
 /**
@@ -30,6 +32,7 @@ function toRecipe(state: RandomartState): RandomartRecipe {
         activeBehaviorIds,
         correlatedRGB
     } = state;
+
     return {
         seedText,
         selectedRuleId,
@@ -47,7 +50,9 @@ function toRecipe(state: RandomartState): RandomartRecipe {
 // generateTrees.
 function isRandomartRecipe(value: unknown): value is RandomartRecipe {
     if (typeof value !== 'object' || value === null) return false;
+
     const v = value as Record<string, unknown>;
+
     return (
         typeof v['seedText'] === 'string' &&
         typeof v['selectedRuleId'] === 'string' &&
@@ -68,6 +73,7 @@ export function StateIOButtons() {
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement('a');
+
         a.href = url;
         a.download = 'randomart-recipe.json';
         document.body.appendChild(a);
@@ -82,6 +88,7 @@ export function StateIOButtons() {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         e.target.value = ''; // allow re-selecting the same file later
 
         if (!file) return;
@@ -91,9 +98,11 @@ export function StateIOButtons() {
         reader.onload = (event) => {
             try {
                 const text = event.target?.result;
+
                 if (typeof text !== 'string') throw new Error('File could not be read as text');
 
                 const parsed: unknown = JSON.parse(text);
+
                 if (!isRandomartRecipe(parsed)) {
                     throw new Error('File does not contain a valid randomart recipe');
                 }

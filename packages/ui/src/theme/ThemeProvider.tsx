@@ -1,6 +1,8 @@
 import { type ReactNode } from 'react';
-import type { Theme } from '../hooks/useThemeState';
+
 import { ThemeContext } from './useTheme';
+
+import type { Theme } from '../hooks/useThemeState';
 
 export interface ThemeProviderProps {
     theme: Theme;

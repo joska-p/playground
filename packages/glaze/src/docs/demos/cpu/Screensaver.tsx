@@ -1,5 +1,6 @@
-import type { CpuDraw } from '../../../cpu/CpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
+
+import type { CpuDraw } from '../../../cpu/CpuSurface';
 
 const PARTICLE_COUNT = 120;
 const GRAVITY = 260;
@@ -49,10 +50,12 @@ export function Screensaver() {
             particle.vy += GRAVITY * surface.deltaTime;
             particle.x += particle.vx * surface.deltaTime;
             particle.y += particle.vy * surface.deltaTime;
+
             if (particle.y > surface.height) {
                 particle.y = -10;
                 particle.vy = -Math.abs(particle.vy) * 0.2;
             }
+
             if (particle.x < 0 || particle.x > surface.width) particle.vx *= -1;
 
             surface.circle(particle.x, particle.y, particle.radius, particle.color);

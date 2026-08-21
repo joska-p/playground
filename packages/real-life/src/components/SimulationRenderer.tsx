@@ -1,5 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
+
 import type {
     MeshBasicMaterial,
     OrthographicCamera,
@@ -37,6 +38,7 @@ export const SimulationRenderer = ({
 
     useFrame((state) => {
         if (!simObjects.current) return;
+
         const { scene: simScene, camera: simCamera } = simObjects.current;
 
         const currentTime = state.clock.getElapsedTime();

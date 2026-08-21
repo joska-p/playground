@@ -1,10 +1,11 @@
 import { Button } from '@repo/ui/button';
 import { ControlSection } from '@repo/ui/control-panel';
 import { useState } from 'react';
+
+import { LayerRowSection } from './LayerRowSection';
 import { getAllLayers } from '../../core/layers/registry';
 import { addLayer, removeLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';
 import { useLayersConfig } from '../../stores/ui/selectors';
-import { LayerRowSection } from './LayerRowSection';
 
 function LayerStackEditor() {
     const layers = useLayersConfig();
@@ -31,6 +32,7 @@ function LayerStackEditor() {
         <ControlSection title="Layers">
             {layers.map((entry) => {
                 const meta = allLayerMetas.find((m) => m.id === entry.id);
+
                 if (!meta) return null;
 
                 return (

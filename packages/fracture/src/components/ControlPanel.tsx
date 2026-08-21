@@ -1,5 +1,6 @@
 import { ControlGrid, ControlPanel as Panel, ControlRow } from '@repo/ui/control-panel';
 import { Select, Slider } from '@repo/ui/data-entry';
+
 import { computeMaxIterations } from '../core/perturbationOrbit';
 import { setParam, useParams } from '../stores/createParamStore';
 import { paramStores } from '../stores/paramStores';

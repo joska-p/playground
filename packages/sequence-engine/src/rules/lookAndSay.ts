@@ -4,6 +4,7 @@ function nextLookAndSay(current: number): number {
     const s = String(current);
     let result = '';
     let count = 1;
+
     for (let i = 0; i < s.length; i++) {
         if (s[i] === s[i + 1]) {
             count++;
@@ -12,6 +13,7 @@ function nextLookAndSay(current: number): number {
             count = 1;
         }
     }
+
     return Number(result);
 }
 
@@ -22,6 +24,7 @@ export const lookAndSayRule = {
     maxSteps: 15,
     getNext: ({ index, current }) => {
         if (index === 1) return 1;
+
         return nextLookAndSay(current);
     }
 } as const satisfies SequenceRule;

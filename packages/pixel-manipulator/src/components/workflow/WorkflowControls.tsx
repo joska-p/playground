@@ -1,9 +1,10 @@
 import { getManipulations } from '@repo/pixel/worker';
 import { ControlSection } from '@repo/ui/control-panel';
-import { useWorkflowSteps } from '../../stores/manipulator/selectors';
-import { EmptyState } from '../shared/EmptyState';
+
 import { WorkEmptyStateSvg } from './WorkEmptyStateSvg';
 import { WorkflowNode } from './WorkflowNode';
+import { useWorkflowSteps } from '../../stores/manipulator/selectors';
+import { EmptyState } from '../shared/EmptyState';
 
 function WorkflowControls() {
     const steps = useWorkflowSteps();

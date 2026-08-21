@@ -1,9 +1,11 @@
 import { Badge } from '@repo/ui/data-display';
+
 import { CONFIG } from '../../../core/config.ts';
-import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 import { useCommunities, useLinks, useNodes } from '../../../stores/content/selectors';
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
+
+import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 
 const MAX_CONNECTIONS_SHOWN = CONFIG.ui.maxConnectionsShown;
 
@@ -27,6 +29,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
                         <Badge>{node.community}</Badge>
                         {(() => {
                             const comm = communities.find((c) => c.id === node.community);
+
                             return comm ? (
                                 <span className="text-muted-foreground ml-1 text-xs">
                                     {comm.name}

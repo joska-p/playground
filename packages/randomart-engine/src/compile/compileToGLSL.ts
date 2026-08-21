@@ -1,6 +1,7 @@
-import { getRule, type RuleId } from '../grammar/registry';
-import type { AnimationBehavior, ApplyCodeContext, ExpressionNode } from '../types';
 import { resolveGlslDeps } from './glslLibrary';
+import { getRule, type RuleId } from '../grammar/registry';
+
+import type { AnimationBehavior, ApplyCodeContext, ExpressionNode } from '../types';
 
 function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {
     const noiseFunctions = resolveGlslDeps(noiseIds);
@@ -8,12 +9,15 @@ function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): stri
     const behaviorFunctions = behaviors
         .filter((b) => {
             if (seen.has(b.id)) return false;
+
             seen.add(b.id);
+
             return true;
         })
         .map((b) => b.glslFunction ?? '')
         .filter((fn) => fn.length > 0)
         .join('\n');
+
     return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
@@ -24,6 +28,7 @@ function applyBehaviors(behaviors: AnimationBehavior[], type: AnimationBehavior[
         spatial: 'p',
         color: 'color'
     };
+
     return behaviors
         .filter((b) => b.type === type)
         .map((b) => b.applyCode(ctx))
@@ -36,10 +41,12 @@ function compileNode(node: ExpressionNode, deps: Set<string>): string {
         const r = args[0] ?? '0.0';
         const g = args[1] ?? '0.0';
         const b = args[2] ?? '0.0';
+
         return `vec3(${r}, ${g}, ${b})`;
     }
 
     const rule = getRule(node.ruleId as RuleId);
+
     if (!rule) return '0.0';
 
     if (rule.noiseDependencies) {

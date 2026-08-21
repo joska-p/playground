@@ -1,9 +1,11 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
-import type { GpuDraw, GpuSurface } from '../gpu/GpuSurface';
-import type { Program } from '../gpu/shader/Program';
-import type { UniformValue } from '../gpu/shader/compileProgram';
-import { useGpuSurface, type GpuSurfaceOptions, type ClockStore } from './useGpuSurface';
+
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
+import { useGpuSurface, type GpuSurfaceOptions, type ClockStore } from './useGpuSurface';
+
+import type { GpuDraw, GpuSurface } from '../gpu/GpuSurface';
+import type { UniformValue } from '../gpu/shader/compileProgram';
+import type { Program } from '../gpu/shader/Program';
 
 export interface GpuCanvasProps extends GpuSurfaceOptions {
     /** Compiled on mount and recompiled on change. */
@@ -38,9 +40,11 @@ export function GpuCanvas({
 
     useEffect(() => {
         const surface = surfaceRef.current;
+
         if (!surface || !fragmentShader) return;
 
         const program = surface.createProgram(fragmentShader);
+
         programRef.current = program;
 
         return () => {
@@ -51,19 +55,23 @@ export function GpuCanvas({
 
     useEffect(() => {
         const surface = surfaceRef.current;
+
         if (!surface) return;
 
         onSurface?.(surface);
         const clockStore = clockStoreRef.current;
+
         if (clockStore) onClockStore?.(clockStore);
 
         const shouldDraw = onDraw !== undefined || fragmentShader !== undefined;
         const draw: GpuDraw = (frame) => {
             const program = programRef.current;
+
             if (program) {
                 program.setUniforms(uniforms ? uniforms(frame) : {});
                 frame.renderProgram(program);
             }
+
             onDraw?.(frame);
         };
 

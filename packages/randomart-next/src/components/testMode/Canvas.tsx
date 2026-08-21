@@ -1,6 +1,7 @@
-import type { Node } from '@repo/randomart-engine-next/types';
 import { CanvasCPU } from './CanvasCPU';
 import { CanvasGPU } from './CanvasGPU';
+
+import type { Node } from '@repo/randomart-engine-next/types';
 
 type CanvasProp = {
     node: Node;

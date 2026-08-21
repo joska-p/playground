@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+
 import { type PresetName } from './getSpawnPoints';
 
 function getDebugGeometry(

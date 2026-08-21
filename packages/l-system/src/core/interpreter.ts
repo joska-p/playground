@@ -1,5 +1,6 @@
-import type { Word } from '@repo/l-system-engine/types';
 import * as THREE from 'three';
+
+import type { Word } from '@repo/l-system-engine/types';
 
 export type TurtleOptions = {
     angle: number;
@@ -45,6 +46,7 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     function yaw(sign: number) {
         const right = new THREE.Vector3().crossVectors(state.direction, state.up).normalize();
         const q = new THREE.Quaternion().setFromAxisAngle(state.up, sign * rad);
+
         state.direction.applyQuaternion(q).normalize();
         void right;
     }
@@ -52,12 +54,14 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     function pitch(sign: number) {
         const right = new THREE.Vector3().crossVectors(state.direction, state.up).normalize();
         const q = new THREE.Quaternion().setFromAxisAngle(right, sign * rad);
+
         state.direction.applyQuaternion(q).normalize();
         state.up.applyQuaternion(q).normalize();
     }
 
     function roll(sign: number) {
         const q = new THREE.Quaternion().setFromAxisAngle(state.direction, sign * rad);
+
         state.up.applyQuaternion(q).normalize();
     }
 
@@ -67,6 +71,7 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
                 const length = sym.params[0] * opts.lengthFactor;
 
                 const next = state.position.clone().addScaledVector(state.direction, length);
+
                 segments.push({
                     start: state.position.clone(),
                     end: next,
@@ -101,6 +106,7 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
                 break;
             case '|': {
                 const q = new THREE.Quaternion().setFromAxisAngle(state.up, Math.PI);
+
                 state.direction.applyQuaternion(q).normalize();
                 break;
             }
@@ -115,7 +121,9 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
                 break;
             case ']': {
                 const popped = stack.pop();
+
                 if (popped) state = popped;
+
                 break;
             }
             default:

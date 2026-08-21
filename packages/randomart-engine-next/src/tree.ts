@@ -1,9 +1,10 @@
+import { getOperator } from './grammar/operators/registry.js';
+import { createCorrelatedRng, createDualRng, seededShuffle } from './prng.js';
+
 import type { TreeView } from './format.js';
 import type { OperatorId } from './grammar/operators/registry.js';
-import { getOperator } from './grammar/operators/registry.js';
 import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
-import { createCorrelatedRng, createDualRng, seededShuffle } from './prng.js';
 
 export type Node = {
     readonly type: OperatorId;
@@ -35,21 +36,26 @@ function buildOperatorPool(
     structuralProbability: number
 ): PoolEntry[] {
     const pool: PoolEntry[] = [];
+
     for (const operator of operators) {
         if (operator.arity === 0 || rng.next() < structuralProbability) {
             pool.push(operator);
         }
     }
+
     return pool;
 }
 
 function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
     const totalWeight = pool.reduce((sum, operator) => sum + operator.weight, 0);
     let threshold = rng.next() * totalWeight;
+
     for (const operator of pool) {
         threshold -= operator.weight;
+
         if (threshold <= 0) return operator;
     }
+
     return pool[pool.length - 1];
 }
 
@@ -90,12 +96,15 @@ export function buildTree({
 
     if (forceTerminal) {
         pool = shuffledPoolEntries.filter((operator) => operator.arity === 0);
+
         if (pool.length === 0) pool = [...DEFAULT_TERMINALS];
     } else if (forceOperator) {
         pool = shuffledPoolEntries.filter((operator) => operator.arity > 0);
+
         if (pool.length === 0) pool = [...shuffledPoolEntries];
     } else {
         const structuralProbability = 1 - currentDepth / maxDepth;
+
         pool = buildOperatorPool(rng, shuffledPoolEntries, structuralProbability);
     }
 
@@ -126,6 +135,7 @@ export function evaluate(node: Node, x: number, y: number, t = 0): number {
 
     for (const name of operator.argNames) {
         const value = node.args[name];
+
         resolvedArgs[name] = typeof value === 'number' ? value : evaluate(value, x, y, t);
     }
 
@@ -138,6 +148,7 @@ export function toGLSL(node: Node, coordVar = 'p'): string {
 
     for (const name of op.argNames) {
         const val = node.args[name];
+
         resolvedArgs[name] = typeof val === 'number' ? val.toFixed(4) : toGLSL(val, coordVar);
     }
 
@@ -151,13 +162,16 @@ export function toStructuredView(node: Node): TreeView {
     const label = hasValue ? `const(${value})` : node.type;
 
     const treeView: TreeView = { label, type: node.type };
+
     if (hasValue) {
         treeView.value = value;
     }
 
     const childrenViews: TreeView[] = [];
+
     for (const name of operator.argNames) {
         const child = node.args[name];
+
         if (child && typeof child !== 'number') {
             childrenViews.push(toStructuredView(child));
         }
@@ -194,6 +208,7 @@ export function buildChannelTrees({ seedText, rule, correlated = false }: BuildC
 
     if (correlated) {
         const { structure, channels } = createCorrelatedRng(seedText);
+
         return {
             treeR: buildTree({
                 rule,
@@ -217,6 +232,7 @@ export function buildChannelTrees({ seedText, rule, correlated = false }: BuildC
     }
 
     const { structure, channels } = createDualRng(seedText, rule.maxDepth);
+
     return {
         treeR: buildTree({
             rule,

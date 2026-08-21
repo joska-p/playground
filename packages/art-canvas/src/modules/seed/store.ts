@@ -1,4 +1,5 @@
 import { createStore, useStore } from 'zustand';
+
 import type { MoodName } from '../../assembly/moods';
 import type { PalettePresetName } from '../../palettes/registry';
 
@@ -18,20 +19,24 @@ const store = createStore<StoreState>(() => ({
 
 export const useSeed = () => {
     const seed = useStore(store, (state) => state.seed);
+
     return seed;
 };
 export const useComplexity = () => {
     const complexity = useStore(store, (state) => state.complexity);
+
     return complexity;
 };
 
 export const useMood = () => {
     const mood = useStore(store, (state) => state.mood);
+
     return mood;
 };
 
 export const usePalette = () => {
     const palette = useStore(store, (state) => state.palette);
+
     return palette;
 };
 

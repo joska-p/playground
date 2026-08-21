@@ -2,6 +2,7 @@ import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button, Switch } from '@repo/ui/data-entry';
 import { useState } from 'react';
+
 import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {
     useCorrelatedRGB,
@@ -17,6 +18,7 @@ const DOWNLOAD_SIZE = 1024;
 function triggerDownload(blob: Blob, filename: string) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
+
     link.download = filename;
     link.href = url;
     link.click();
@@ -39,15 +41,19 @@ function DisplaySection() {
         setDownloading(true);
 
         const liveCanvas = document.querySelector<HTMLCanvasElement>('canvas');
+
         if (liveCanvas) {
             liveCanvas.toBlob((blob) => {
                 if (blob && blob.size > 0) {
                     triggerDownload(blob, filename);
                     setDownloading(false);
+
                     return;
                 }
+
                 fallbackDownload();
             }, 'image/png');
+
             return;
         }
 
@@ -69,6 +75,7 @@ function DisplaySection() {
                 DOWNLOAD_SIZE,
                 currentTime
             );
+
             triggerDownload(blob, filename);
         } catch (err) {
             console.error('Fallback render failed:', err);

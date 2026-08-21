@@ -1,5 +1,6 @@
-import type { GraphData } from '../../core/pipeline/graphData.schema';
 import { graphDataStore } from './store';
+
+import type { GraphData } from '../../core/pipeline/graphData.schema';
 
 export function initGraphData(data: GraphData): void {
     graphDataStore.setState({

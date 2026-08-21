@@ -56,6 +56,7 @@ export class InputStore {
 
     subscribe(handlers: InputHandlers): () => void {
         this.#subscribers.add(handlers);
+
         return () => {
             this.#subscribers.delete(handlers);
         };
@@ -93,8 +94,11 @@ export class InputStore {
 
     #updatePointer(event: PointerEvent): void {
         const target = this.#attached;
+
         if (!target) return;
+
         const rect = target.getBoundingClientRect();
+
         this.pointer.x = event.clientX - rect.left;
         this.pointer.y = event.clientY - rect.top;
         this.pointerDelta.x = this.pointer.x - this.#lastPointer.x;
@@ -104,6 +108,7 @@ export class InputStore {
 
     #notifyPointer(eventName: PointerEventName, event: PointerEvent): void {
         const handlerName = POINTER_HANDLER_BY_EVENT[eventName];
+
         for (const handlers of this.#subscribers) {
             handlers[handlerName]?.(event, this.pointer);
         }
@@ -136,11 +141,15 @@ export class InputStore {
 
     #onWheel = (event: WheelEvent): void => {
         const target = this.#attached;
+
         if (!target) return;
+
         const rect = target.getBoundingClientRect();
+
         this.wheelPosition.x = event.clientX - rect.left;
         this.wheelPosition.y = event.clientY - rect.top;
         this.wheelDelta += event.deltaY;
+
         for (const handlers of this.#subscribers) {
             handlers.onWheel?.(event, this.wheelPosition);
         }
@@ -163,7 +172,9 @@ export class InputStore {
 
     #unbind(): void {
         const target = this.#attached;
+
         if (!target) return;
+
         target.removeEventListener('pointermove', this.#onPointerMove);
         target.removeEventListener('pointerdown', this.#onPointerDown);
         target.removeEventListener('pointerup', this.#onPointerUp);

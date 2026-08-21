@@ -1,5 +1,5 @@
-import { defineManip } from '../../manipulation-factories';
 import { applyKernel } from './helpers';
+import { defineManip } from '../../manipulation-factories';
 
 export const sharpen = defineManip<{ strength?: number }>({
     access: 'neighborhood',
@@ -8,6 +8,7 @@ export const sharpen = defineManip<{ strength?: number }>({
     execute: ({ options, source, destination, width, height }) => {
         const strength = options.strength ?? 1;
         const kernel = [0, -strength, 0, -strength, 1 + 4 * strength, -strength, 0, -strength, 0];
+
         applyKernel(source, destination, width, height, kernel, 3, 1);
     },
     ui: {

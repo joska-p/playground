@@ -109,14 +109,19 @@ void main() {
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
     const shader = gl.createShader(type);
+
     if (!shader) throw new Error('Failed to create shader');
+
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
+
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         const info = gl.getShaderInfoLog(shader);
+
         gl.deleteShader(shader);
         throw new Error(`Shader compile error: ${String(info)}`);
     }
+
     return shader;
 }
 
@@ -124,14 +129,18 @@ function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
     const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SRC);
     const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SRC);
     const program = gl.createProgram();
+
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
+
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         const info = gl.getProgramInfoLog(program);
+
         gl.deleteProgram(program);
         throw new Error(`Program link error: ${String(info)}`);
     }
+
     return program;
 }
 
@@ -140,8 +149,11 @@ function parseRgb(
     fallback: [number, number, number]
 ): [number, number, number] {
     if (!value) return fallback;
+
     const parts = value.split(',').map((v) => parseFloat(v.trim()));
+
     if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return fallback;
+
     return [parts[0], parts[1], parts[2]];
 }
 
@@ -173,6 +185,7 @@ class EdgeFieldCanvasElement extends HTMLElement {
         super();
         const shadow = this.attachShadow({ mode: 'open' });
         const style = document.createElement('style');
+
         style.textContent = `
       :host { position: fixed; inset: 0; display: block; pointer-events: none; }
       canvas { width: 100%; height: 100%; display: block; }
@@ -187,10 +200,13 @@ class EdgeFieldCanvasElement extends HTMLElement {
             antialias: false,
             premultipliedAlpha: true
         });
+
         if (!gl) {
             console.warn('<edge-field-canvas>: WebGL2 unavailable, skipping render.');
+
             return;
         }
+
         this.gl = gl;
         this.program = createProgram(gl);
         gl.useProgram(this.program);
@@ -226,7 +242,9 @@ class EdgeFieldCanvasElement extends HTMLElement {
         window.removeEventListener('resize', this.boundResize);
         window.removeEventListener('mousemove', this.boundMouseMove);
         this.canvas.removeEventListener('webglcontextlost', this.boundContextLost);
+
         if (this.gl && this.program) this.gl.deleteProgram(this.program);
+
         this.gl = null;
         this.program = null;
     }
@@ -240,7 +258,9 @@ class EdgeFieldCanvasElement extends HTMLElement {
 
     private applyAttributes() {
         const gl = this.gl;
+
         if (!gl) return;
+
         const colorCold = parseRgb(this.getAttribute('color-cold'), [0.86, 0.78, 0.35]);
         const colorHot = parseRgb(this.getAttribute('color-hot'), [0.55, 0.85, 0.62]);
         const scale = parseFloat(this.getAttribute('scale') ?? '6');
@@ -258,10 +278,13 @@ class EdgeFieldCanvasElement extends HTMLElement {
 
     private resize() {
         const gl = this.gl;
+
         if (!gl) return;
+
         const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
         const width = Math.floor(window.innerWidth * dpr);
         const height = Math.floor(window.innerHeight * dpr);
+
         if (this.canvas.width !== width || this.canvas.height !== height) {
             this.canvas.width = width;
             this.canvas.height = height;
@@ -271,8 +294,11 @@ class EdgeFieldCanvasElement extends HTMLElement {
 
     private frame = (now: number) => {
         const gl = this.gl;
+
         if (!gl) return;
+
         const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+
         gl.uniform2f(this.uniforms.resolution, this.canvas.width, this.canvas.height);
         gl.uniform1f(this.uniforms.time, (now - this.startTime) / 1000);
         gl.uniform2f(this.uniforms.mouse, this.mouse.x * dpr, this.mouse.y * dpr);

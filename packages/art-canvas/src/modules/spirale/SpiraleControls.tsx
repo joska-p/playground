@@ -1,6 +1,7 @@
-import { useSyncExternalStore } from 'react';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
+import { useSyncExternalStore } from 'react';
+
 import { setGap, useGap, useClockStore } from './store';
 
 const noop = () => {

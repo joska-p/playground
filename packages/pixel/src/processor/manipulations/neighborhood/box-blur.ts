@@ -1,5 +1,5 @@
-import { defineManip } from '../../manipulation-factories';
 import { applyKernel } from './helpers';
+import { defineManip } from '../../manipulation-factories';
 
 export const boxBlur = defineManip<{ radius?: number }>({
     access: 'neighborhood',
@@ -8,6 +8,7 @@ export const boxBlur = defineManip<{ radius?: number }>({
     execute: ({ options, source, destination, width, height }) => {
         const radius = options.radius ?? 1;
         const size = radius * 2 + 1;
+
         applyKernel(
             source,
             destination,

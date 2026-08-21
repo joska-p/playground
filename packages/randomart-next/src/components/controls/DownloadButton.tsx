@@ -1,14 +1,17 @@
 import { evaluate } from '@repo/randomart-engine-next/tree';
-import type { Node } from '@repo/randomart-engine-next/types';
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
+
 import { useSeedText, useTreeB, useTreeG, useTreeR } from '../../stores/randomart/selectors';
+
+import type { Node } from '@repo/randomart-engine-next/types';
 
 const DOWNLOAD_SIZE = 1024;
 
 function triggerDownload(blob: Blob, filename: string) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
+
     link.download = filename;
     link.href = url;
     link.click();
@@ -19,21 +22,26 @@ function triggerDownload(blob: Blob, filename: string) {
 
 function renderTreesToBlob(treeR: Node, treeG: Node, treeB: Node, size: number): Promise<Blob> {
     const canvas = document.createElement('canvas');
+
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext('2d');
+
     if (!ctx) throw new Error('Could not get 2d context');
+
     const imageData = ctx.createImageData(size, size);
     const data = imageData.data;
 
     for (let py = 0; py < size; py++) {
         const y = (py / (size - 1 || 1)) * 2 - 1;
+
         for (let px = 0; px < size; px++) {
             const x = (px / (size - 1 || 1)) * 2 - 1;
             const r = evaluate(treeR, x, y);
             const g = evaluate(treeG, x, y);
             const b = evaluate(treeB, x, y);
             const idx = (py * size + px) * 4;
+
             data[idx] = Math.round(((r + 1) / 2) * 255);
             data[idx + 1] = Math.round(((g + 1) / 2) * 255);
             data[idx + 2] = Math.round(((b + 1) / 2) * 255);
@@ -67,15 +75,19 @@ function DownloadButton() {
         setDownloading(true);
 
         const liveCanvas = document.querySelector<HTMLCanvasElement>('canvas');
+
         if (liveCanvas) {
             liveCanvas.toBlob((blob) => {
                 if (blob && blob.size > 0) {
                     triggerDownload(blob, filename);
                     setDownloading(false);
+
                     return;
                 }
+
                 fallbackDownload();
             }, 'image/png');
+
             return;
         }
 

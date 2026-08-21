@@ -8,8 +8,11 @@ export function useFilteredRules(
 ): GrammarRule[] {
     return rules.filter((rule) => {
         if (category !== 'all' && rule.category !== category) return false;
+
         if (!query) return true;
+
         const q = query.toLowerCase();
+
         return rule.name.toLowerCase().includes(q) || rule.id.toLowerCase().includes(q);
     });
 }

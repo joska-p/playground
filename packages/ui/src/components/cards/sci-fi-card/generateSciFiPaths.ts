@@ -13,8 +13,10 @@ export interface SciFiCardPaths {
 export function mulberry32(seed: number) {
     return function random() {
         let t = (seed += 0x6d2b79f5);
+
         t = Math.imul(t ^ (t >>> 15), t | 1);
         t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
 }
@@ -37,6 +39,7 @@ function buildOpenPaths(rand: () => number): string {
             const y2 = Math.max(10, Math.min(SIZE - 10, y + (rand() - 0.5) * 90));
             const cx = (x + x2) / 2 + (rand() - 0.5) * 40;
             const cy = (y + y2) / 2 + (rand() - 0.5) * 40;
+
             d += ` Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
             x = x2;
             y = y2;
@@ -68,6 +71,7 @@ function buildClosedPaths(rand: () => number): string {
                 d += ` L${px.toFixed(1)},${py.toFixed(1)}`;
             }
         }
+
         d += ' Z';
     }
 
@@ -84,6 +88,7 @@ function buildDots(rand: () => number): SciFiDot[] {
 
 export function generateSciFiPaths(seed: number): SciFiCardPaths {
     const rand = mulberry32(seed);
+
     return {
         openPaths: buildOpenPaths(rand),
         closedPaths: buildClosedPaths(rand),

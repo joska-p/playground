@@ -1,6 +1,6 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
 import { Button } from '@repo/ui/data-entry';
 import { useEffect } from 'react';
+
 import { STRING_ARGS, buildPreviewNode } from '../lib/evalHelpers';
 import {
     rerollRule,
@@ -13,6 +13,8 @@ import {
 } from '../store';
 import { RuleCanvas } from './canvas/RuleCanvas';
 import { Badge } from './ui/Badge';
+
+import type { GrammarRule } from '@repo/randomart-engine/types';
 
 const DETAIL_CANVAS_SIZE = 260;
 const DETAIL_CANVAS_SIZE_COMPARE = 200;
@@ -33,6 +35,7 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
             if (e.key === 'Escape') selectRule(null);
         }
         window.addEventListener('keydown', handleKey);
+
         return () => {
             window.removeEventListener('keydown', handleKey);
         };

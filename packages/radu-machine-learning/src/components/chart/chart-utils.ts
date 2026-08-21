@@ -34,9 +34,11 @@ export function computeChartBounds(
 
 export function getTicks(domain: Domain, count = 5): number[] {
     const [min, max] = domain;
+
     if (count <= 1) return [min];
 
     const step = (max - min) / (count - 1);
+
     return Array.from({ length: count }, (_, i) => min + i * step);
 }
 
@@ -53,13 +55,17 @@ export function createScalers(
 
     const xScale = (v: number) => {
         const range = xDomain[1] - xDomain[0];
+
         if (range === 0) return margin.left;
+
         return margin.left + ((v - xDomain[0]) / range) * (width - margin.left - margin.right);
     };
 
     const yScale = (v: number) => {
         const range = yDomain[1] - yDomain[0];
+
         if (range === 0) return height - margin.bottom;
+
         return (
             height -
             margin.bottom -

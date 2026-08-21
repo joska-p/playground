@@ -2,6 +2,7 @@ function createRemap(inMin: number, inMax: number) {
     if (inMin === inMax) {
         throw new Error('Input range cannot be zero (inMin === inMax)');
     }
+
     return {
         to(outMin: number, outMax: number) {
             return {

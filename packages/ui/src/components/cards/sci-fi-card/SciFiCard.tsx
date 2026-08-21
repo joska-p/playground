@@ -1,9 +1,10 @@
-import type { HTMLAttributes } from 'react';
-import { cn } from '../../../lib/cn';
-import { Badge } from '../../data-display';
 import { generateSciFiPaths } from './generateSciFiPaths';
 import styles from './SciFiCard.module.css';
 import { sciFiCardVariants, type SciFiCardVariantProps } from './variants';
+import { cn } from '../../../lib/cn';
+import { Badge } from '../../data-display';
+
+import type { HTMLAttributes } from 'react';
 
 export interface SciFiCardProps extends HTMLAttributes<HTMLDivElement>, SciFiCardVariantProps {
     seed: number;

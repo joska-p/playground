@@ -1,4 +1,5 @@
 import { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
+
 import type { GrammarRule } from '@repo/randomart-engine/types';
 
 /** Display-only names for previews. The third entry is a sample literal, not a variable. */
@@ -12,6 +13,7 @@ export const GLSL_ARGS: string[] = ['x', 'y', 't'];
 
 export function buildPreviewNode(rule: GrammarRule, seed: number) {
     const rng = new SeededRandom(String(seed));
+
     return rule.buildNode(rng, () => ({ ruleId: 'x', args: [] }));
 }
 

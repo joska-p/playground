@@ -1,5 +1,6 @@
 import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
+
 import {
     setChroma,
     setDivisions,

@@ -58,6 +58,7 @@ const drawRadialSpokes: VisualLayer = {
             scale = 0.8
         } = params;
         const { maxVal, offsetX, offsetY } = layout;
+
         if (data.length === 0) return;
 
         const cx = offsetX;

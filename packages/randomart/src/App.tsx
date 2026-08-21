@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
+
 import { ControlPanel } from './components/controls/ControlPanel';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 import { TestMode } from './components/testMode/TestMode';

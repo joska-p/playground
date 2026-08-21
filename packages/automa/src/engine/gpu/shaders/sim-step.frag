@@ -1,7 +1,5 @@
-#version 300 es
 precision highp float;
 
-in vec2 vUv;
 out vec4 fragColor;
 
 uniform highp sampler2D u_state;
@@ -9,6 +7,8 @@ uniform vec2 u_gridSize;
 uniform int u_birth[9];
 uniform int u_survive[9];
 uniform int u_stateCount;
+uniform float u_ageGrowth;
+uniform float u_ageDecay;
 
 int cellAt(ivec2 coord) {
     ivec2 p = coord;
@@ -46,13 +46,10 @@ void main() {
 
     // --- AGE / TRAIL ACCUMULATION LOGIC ---
     float nextAge = currentAge;
-
     if (nextState == 1.0 / 255.0) {
-        // Cell is active: increment age up to 1.0 (0.02 = takes 50 frames to max out glow)
-        nextAge = min(1.0, currentAge + 0.02);
+        nextAge = min(1.0, currentAge + u_ageGrowth);
     } else {
-        // Cell is dead or decaying: cool down slowly over time (decay rate)
-        nextAge = max(0.0, currentAge - 0.015);
+        nextAge = max(0.0, currentAge - u_ageDecay);
     }
 
     // R = State, G = Age / Heat, B = Unused, A = 1.0

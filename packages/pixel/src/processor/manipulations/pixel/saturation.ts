@@ -6,6 +6,7 @@ export const saturation = defineManip<{ value?: number }>({
     execute: ({ options, red, green, blue, alpha }) => {
         const value = options.value ?? 1;
         const l = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+
         return [l + (red - l) * value, l + (green - l) * value, l + (blue - l) * value, alpha];
     },
     ui: {

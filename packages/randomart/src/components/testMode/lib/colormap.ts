@@ -8,15 +8,19 @@ function lerp(a: number, b: number, t: number): number {
 
 export function valueToRGB(value: number): [number, number, number] {
     const t = Math.max(-1, Math.min(1, value));
+
     if (t < 0) {
         const p = t + 1;
+
         return [
             lerp(COLOR_NEGATIVE[0], COLOR_ZERO[0], p),
             lerp(COLOR_NEGATIVE[1], COLOR_ZERO[1], p),
             lerp(COLOR_NEGATIVE[2], COLOR_ZERO[2], p)
         ];
     }
+
     const p = t;
+
     return [
         lerp(COLOR_ZERO[0], COLOR_POSITIVE[0], p),
         lerp(COLOR_ZERO[1], COLOR_POSITIVE[1], p),

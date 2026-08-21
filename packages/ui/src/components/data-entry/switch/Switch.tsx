@@ -1,7 +1,8 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import { switchVariants, type SwitchVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import { switchVariants, type SwitchVariants } from './variants';
+
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 export interface SwitchProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, SwitchVariants {

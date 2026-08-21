@@ -1,6 +1,7 @@
-import type { Palette } from '@repo/palette-engine/types';
 import Color from 'colorjs.io';
 import { create } from 'zustand';
+
+import type { Palette } from '@repo/palette-engine/types';
 
 type PaletteState = {
     palettes: Palette[];
@@ -28,5 +29,6 @@ export function setPaletteBaseColor(baseColor: Color) {
 
 export function addPalette(palette: Palette) {
     const { palettes } = paletteStore.getState();
+
     paletteStore.setState({ palettes: [...palettes, palette] });
 }

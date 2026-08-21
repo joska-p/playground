@@ -1,8 +1,10 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
 import { buildValueFragmentShader } from '../../glsl/buildValueShader';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
-import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
+import type { GrammarRule } from '@repo/randomart-engine/types';
 
 type ValueCanvasGPUProps = {
     rule: GrammarRule;
@@ -16,6 +18,7 @@ function buildShader(
 ): { shader: string | null; error: string | null } {
     try {
         const node = buildPreviewNode(rule, seed);
+
         return { shader: buildValueFragmentShader(rule, node), error: null };
     } catch (e) {
         return {

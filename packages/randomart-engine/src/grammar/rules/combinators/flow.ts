@@ -10,6 +10,7 @@ export const ifRule = {
         const condition = args[0]?.() ?? 0;
         const trueBranch = args[1]?.() ?? 0;
         const falseBranch = args[2]?.() ?? 0;
+
         return condition > 0.0 ? trueBranch : falseBranch;
     },
     toMathString: (args) =>
@@ -34,6 +35,7 @@ export const smoothstepRule = {
         const edge1 = args[1]?.() ?? 1;
         const x = args[2]?.() ?? 0;
         const t = Math.max(0.0, Math.min(1.0, (x - edge0) / (edge1 - edge0 || 1)));
+
         return t * t * (3.0 - 2.0 * t) * 2.0 - 1.0;
     },
     toMathString: (args) =>
@@ -58,6 +60,7 @@ export const clampRule = {
         const x = args[0]?.() ?? 0;
         const lo = args[1]?.() ?? 0;
         const hi = args[2]?.() ?? 0;
+
         return Math.min(hi, Math.max(lo, x));
     },
     toMathString: (args) => `clamp(${args[0] ?? '0.0'}, ${args[1] ?? '0.0'}, ${args[2] ?? '0.0'})`,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Camera } from '../../core/Camera';
+
 import {
     type Mat3,
     cameraMatrix,
@@ -16,6 +16,7 @@ import {
     sameMat3,
     viewportMatrix
 } from './geometry';
+import { Camera } from '../../core/Camera';
 
 const apply = (m: Mat3, x: number, y: number): [number, number] => [
     m[0] * x + m[3] * y + m[6],
@@ -25,6 +26,7 @@ const apply = (m: Mat3, x: number, y: number): [number, number] => [
 describe('mat3 helpers', () => {
     it('viewport maps CSS px (y-down) to NDC', () => {
         const m = viewportMatrix(800, 600);
+
         expect(apply(m, 0, 0)).toEqual([-1, 1]);
         expect(apply(m, 400, 300)).toEqual([0, 0]);
         expect(apply(m, 800, 600)).toEqual([1, -1]);
@@ -32,17 +34,20 @@ describe('mat3 helpers', () => {
 
     it('camera matrix maps world to screen', () => {
         const m = cameraMatrix(new Camera(100, 50, 2));
+
         expect(apply(m, 10, 20)).toEqual([120, 90]);
     });
 
     it('default camera is the identity', () => {
         const identity = [1, 0, 0, 0, 1, 0, 0, 0, 1] as const;
+
         expect(sameMat3(cameraMatrix(new Camera()), identity)).toBe(true);
     });
 
     it('projection composes camera then viewport', () => {
         const p = projectionFor(new Camera(100, 50, 2), 800, 600);
         const [originX, originY] = apply(p, 0, 0);
+
         expect(originX).toBeCloseTo(-0.75, 5);
         expect(originY).toBeCloseTo(0.83333, 5);
         expect(apply(p, 10, 20)).toEqual([-0.7, 0.7]);
@@ -50,6 +55,7 @@ describe('mat3 helpers', () => {
 
     it('multiply applies the second argument first', () => {
         const doubled = [2, 0, 0, 0, 2, 0, 0, 0, 1] as const;
+
         expect(apply(multiplyMat3(doubled, doubled), 1, 1)).toEqual([4, 4]);
     });
 });
@@ -69,9 +75,11 @@ describe('tessellation helpers', () => {
 
     it('circle ring returns segments points starting at positive x', () => {
         const ring = circleRing(0, 0, 5, 8);
+
         expect(ring).toHaveLength(8);
         expect(ring[0]).toEqual({ x: 5, y: 0 });
         const mid = ring[2];
+
         expect(Math.hypot(mid.x, mid.y)).toBeCloseTo(5, 5);
     });
 

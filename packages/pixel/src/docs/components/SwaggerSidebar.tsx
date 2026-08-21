@@ -1,7 +1,9 @@
 import { cn } from '@repo/ui/lib/cn';
 import { useState } from 'react';
-import type { EndpointGroup, EndpointId } from './data/pipeline-docs-data';
+
 import { isActiveEndpoint } from './data/pipeline-docs-data';
+
+import type { EndpointGroup, EndpointId } from './data/pipeline-docs-data';
 
 type SwaggerSidebarProps = {
     groups: EndpointGroup[];
@@ -70,6 +72,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
             </div>
             {groups.map((group) => {
                 const isExpanded = expandedGroups[group.label] ?? true;
+
                 return (
                     <div
                         key={group.label}
@@ -112,6 +115,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                                                       id: item.id
                                                   }
                                     );
+
                                     return (
                                         <li key={item.id}>
                                             <button

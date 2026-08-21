@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { colorArray, parseColor } from './color';
 
 describe('parseColor', () => {
@@ -36,6 +37,7 @@ describe('parseColor', () => {
 
     it('parses hsl()', () => {
         const color = parseColor('hsl(120, 100%, 50%)');
+
         expect(color.r).toBeCloseTo(0);
         expect(color.g).toBeCloseTo(1);
         expect(color.b).toBeCloseTo(0);

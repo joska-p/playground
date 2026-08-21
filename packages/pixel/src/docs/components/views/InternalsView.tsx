@@ -1,5 +1,6 @@
-import type { EndpointItem } from '../data/pipeline-docs-data';
 import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';
+
+import type { EndpointItem } from '../data/pipeline-docs-data';
 
 function SectionHeader({ item }: { item: EndpointItem | undefined }) {
     return (

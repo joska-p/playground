@@ -40,11 +40,13 @@ export const expRule = {
     category: 'structural',
     evaluate: (args) => {
         const val = Math.max(-1.0, Math.min(1.0, args[0]?.() ?? 0));
+
         return ((Math.exp(val) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0;
     },
     toMathString: (args) => `normalized_e^(${args[0] ?? '0.0'})`,
     toGLSL: (args) => {
         const clamped = `clamp(${args[0] ?? '0.0'}, -1.0, 1.0)`;
+
         return `(((exp(${clamped}) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0)`;
     },
     toTreeView: (args, depth) => `${'  '.repeat(depth)}├── exp\n${args[0] ?? ''}`,
@@ -62,6 +64,7 @@ export const logRule = {
     category: 'structural',
     evaluate: (args) => {
         const val = Math.abs(args[0]?.() ?? 0);
+
         return (Math.log(val + 1.0) / 0.69314718056) * 2.0 - 1.0;
     },
     toMathString: (args) => `normalized_log(${args[0] ?? '0.0'})`,
@@ -81,6 +84,7 @@ export const fractRule = {
     category: 'structural',
     evaluate: (args) => {
         const v = args[0]?.() ?? 0;
+
         return (v - Math.floor(v)) * 2.0 - 1.0;
     },
     toMathString: (args) => `fract(${args[0] ?? '0.0'})`,

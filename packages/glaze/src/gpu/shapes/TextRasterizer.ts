@@ -1,7 +1,8 @@
+import { colorArray } from './color';
+
 import type { Point2D } from '../../core/Camera';
 import type { TextStyle } from '../../cpu/shapes/types';
 import type { UniformValue } from '../shader/compileProgram';
-import { colorArray } from './color';
 
 /** @internal */
 export const DEFAULT_FONT_FAMILY = 'sans-serif';
@@ -57,7 +58,9 @@ export class TextRasterizer {
     constructor(gl: WebGL2RenderingContext) {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
+
         if (!context) throw new Error('Glaze: offscreen text canvas unavailable');
+
         this.#gl = gl;
         this.#canvas = canvas;
         this.#context = context;
@@ -66,15 +69,20 @@ export class TextRasterizer {
     get(text: string, font: string, size: number): TextRaster {
         const key = `${text}|${font}`;
         const cached = this.#cache.get(key);
+
         if (cached) {
             this.#cache.delete(key);
             this.#cache.set(key, cached);
+
             return cached;
         }
+
         const context = this.#context;
+
         context.font = font;
         const width = Math.ceil(context.measureText(text).width);
         const height = Math.ceil(size * 1.4);
+
         this.#canvas.width = Math.max(1, Math.round(width * TEXT_SCALE));
         this.#canvas.height = Math.max(1, Math.round(height * TEXT_SCALE));
         context.setTransform(TEXT_SCALE, 0, 0, TEXT_SCALE, 0, 0);
@@ -88,6 +96,7 @@ export class TextRasterizer {
         const texture = this.#gl.createTexture();
 
         if (!texture) throw new Error('Glaze: text texture allocation failed');
+
         this.#gl.bindTexture(this.#gl.TEXTURE_2D, texture);
         this.#gl.texImage2D(
             this.#gl.TEXTURE_2D,
@@ -111,20 +120,27 @@ export class TextRasterizer {
         );
 
         const entry: TextRaster = { texture, width, height };
+
         this.#cache.set(key, entry);
+
         if (this.#cache.size > MAX_TEXT_CACHE) {
             const oldest = this.#cache.keys().next().value;
+
             if (oldest !== undefined) {
                 const stale = this.#cache.get(oldest);
+
                 if (stale) this.#gl.deleteTexture(stale.texture);
+
                 this.#cache.delete(oldest);
             }
         }
+
         return entry;
     }
 
     clear(): void {
         for (const entry of this.#cache.values()) this.#gl.deleteTexture(entry.texture);
+
         this.#cache.clear();
     }
 

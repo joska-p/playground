@@ -1,6 +1,7 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
-import { Outputs } from '../output/Outputs';
+
 import { ControlsPanel } from './ControlsPanel';
+import { Outputs } from '../output/Outputs';
 
 function ImageManipulator() {
     return (

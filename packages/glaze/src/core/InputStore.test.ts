@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+
 import { InputStore, createInputStore } from './InputStore';
 
 function wheelEvent(init: {
@@ -9,10 +10,13 @@ function wheelEvent(init: {
     cancelable?: boolean;
 }) {
     const event = new WheelEvent('wheel', init);
+
     if (init.clientX !== undefined)
         Object.defineProperty(event, 'clientX', { value: init.clientX });
+
     if (init.clientY !== undefined)
         Object.defineProperty(event, 'clientY', { value: init.clientY });
+
     return event;
 }
 
@@ -24,6 +28,7 @@ describe('InputStore', () => {
     it('tracks the pointer relative to the attached target', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         target.dispatchEvent(
             new PointerEvent('pointermove', {
@@ -40,6 +45,7 @@ describe('InputStore', () => {
     it('tracks key state and clears presses at endFrame', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }));
         expect(store.isKeyDown('Space')).toBe(true);
@@ -55,6 +61,7 @@ describe('InputStore', () => {
     it('tracks mouse down state and buttons', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         target.dispatchEvent(new PointerEvent('pointerdown', { buttons: 1, bubbles: true }));
         expect(store.mouseDown).toBe(true);
@@ -68,6 +75,7 @@ describe('InputStore', () => {
     it('ignores pointer events while detached', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         store.detach();
         target.dispatchEvent(
@@ -79,6 +87,7 @@ describe('InputStore', () => {
     it('destroy clears key state', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         window.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA' }));
         store.destroy();
@@ -89,6 +98,7 @@ describe('InputStore', () => {
     it('tracks wheel delta and position, cleared at endFrame', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         target.dispatchEvent(wheelEvent({ deltaY: 120, clientX: 50, clientY: 60, bubbles: true }));
         expect(store.wheelDelta).toBe(120);
@@ -101,10 +111,12 @@ describe('InputStore', () => {
     it('notifies subscribers and unsubscribes', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         const a = vi.fn();
         const b = vi.fn();
         const unsubA = store.subscribe({ onPointerMove: a });
+
         store.subscribe({ onPointerMove: b });
         target.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 5, clientY: 6, bubbles: true })
@@ -124,9 +136,11 @@ describe('InputStore', () => {
     it('notifies wheel and contextmenu subscribers', () => {
         const target = document.createElement('div');
         const store = new InputStore();
+
         store.attach(target);
         const onWheel = vi.fn();
         const onContextMenu = vi.fn();
+
         store.subscribe({ onWheel, onContextMenu });
         target.dispatchEvent(wheelEvent({ deltaY: 10, clientX: 3, clientY: 4, bubbles: true }));
         expect(onWheel).toHaveBeenCalledTimes(1);

@@ -1,4 +1,5 @@
 import { useControls } from 'leva';
+
 import { type PresetName } from './getSpawnPoints';
 
 function useLevaControls() {

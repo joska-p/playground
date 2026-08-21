@@ -1,4 +1,3 @@
-import type { GrammarRule } from '../types';
 import {
     absRule,
     addRule,
@@ -24,6 +23,8 @@ import {
     terminalXRule,
     terminalYRule
 } from './rules';
+
+import type { GrammarRule } from '../types';
 
 export const allRules = [
     terminalXRule,
@@ -71,6 +72,7 @@ export function getInitialWeights() {
     return allRules.reduce(
         (acc, rule) => {
             acc[rule.id] = rule.weight;
+
             return acc;
         },
         {} as Record<RuleId, number>

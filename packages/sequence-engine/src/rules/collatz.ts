@@ -7,6 +7,7 @@ export const collatzRule = {
     maxSteps: 10000,
     getNext: ({ current }) => {
         if (current <= 1) return 1;
+
         return current % 2 === 0 ? current / 2 : 3 * current + 1;
     }
 } as const satisfies SequenceRule;

@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { expand } from '@repo/l-system-engine/engine';
 import { button, useControls } from 'leva';
 import { useEffect, useState } from 'react';
+
 import { interpretWord } from '../core/interpreter';
 import { GRAMMARS } from '../grammars';
 import { Scene } from './Scene';
@@ -45,6 +46,7 @@ export function LSystemApp() {
     });
 
     const [prevGrammarId, setPrevGrammarId] = useState(grammarId);
+
     if (grammarId !== prevGrammarId) {
         setPrevGrammarId(grammarId);
         setIterations(0);
@@ -54,12 +56,15 @@ export function LSystemApp() {
 
     useEffect(() => {
         if (!autoStep) return;
+
         const id = setInterval(() => {
             setIterations((prev) => {
                 if (prev >= currentGrammar.maxIterations) return prev;
+
                 return prev + 1;
             });
         }, interval * 1000);
+
         return () => {
             clearInterval(id);
         };

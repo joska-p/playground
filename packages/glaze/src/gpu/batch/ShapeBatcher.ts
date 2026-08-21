@@ -1,6 +1,3 @@
-import type { Camera, Point2D } from '../../core/Camera';
-import type { DrawStyle, Rect } from '../../cpu/shapes/types';
-import { colorArray } from '../shapes/color';
 import {
     type Mat3,
     circleFillVertices,
@@ -14,6 +11,10 @@ import {
     rectStrokeVertices,
     sameMat3
 } from './geometry';
+import { colorArray } from '../shapes/color';
+
+import type { Camera, Point2D } from '../../core/Camera';
+import type { DrawStyle, Rect } from '../../cpu/shapes/types';
 
 const VERTEX_STRIDE = 6; // x, y, r, g, b, a
 const INITIAL_CAPACITY = 4096;
@@ -44,14 +45,19 @@ export interface ShapeBatcherOptions {
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
     const shader = gl.createShader(type);
+
     if (!shader) throw new Error('Glaze: batcher shader creation failed');
+
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
+
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         const log = gl.getShaderInfoLog(shader);
+
         gl.deleteShader(shader);
         throw new Error(`Glaze: batcher shader compile failed: ${String(log)}`);
     }
+
     return shader;
 }
 
@@ -63,14 +69,18 @@ function compileProgram(
     const program = gl.createProgram();
 
     if (!program) throw new Error('Glaze: batcher program creation failed');
+
     gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vertexSource));
     gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource));
     gl.linkProgram(program);
+
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         const log = gl.getProgramInfoLog(program);
+
         gl.deleteProgram(program);
         throw new Error(`Glaze: batcher program link failed: ${String(log)}`);
     }
+
     return program;
 }
 
@@ -100,10 +110,13 @@ export class ShapeBatcher {
 
     drawCircle(center: Point2D, radius: number, style: DrawStyle): void {
         if (!this.#initialized) return;
+
         this.#setBatchProjection();
+
         if (style.fill !== undefined) {
             this.#pushCircleFill(center.x, center.y, radius, colorArray(style.fill));
         }
+
         if (style.stroke !== undefined) {
             this.#pushCircleStroke(
                 center.x,
@@ -117,10 +130,13 @@ export class ShapeBatcher {
 
     drawRect(rect: Rect, style: DrawStyle): void {
         if (!this.#initialized) return;
+
         this.#setBatchProjection();
+
         if (style.fill !== undefined) {
             this.#pushRectFill(rect, colorArray(style.fill));
         }
+
         if (style.stroke !== undefined) {
             this.#pushRectStroke(
                 rect,
@@ -132,8 +148,11 @@ export class ShapeBatcher {
 
     drawLine(a: Point2D, b: Point2D, style: DrawStyle): void {
         if (!this.#initialized) return;
+
         const color = style.stroke ?? style.fill;
+
         if (color === undefined) return;
+
         this.#setBatchProjection();
         this.#pushLine(a, b, style.lineWidth ?? DEFAULT_LINE_WIDTH, colorArray(color));
     }
@@ -141,8 +160,10 @@ export class ShapeBatcher {
     flush(): void {
         if (this.#vertexCount === 0) {
             this.#batchProjection = null;
+
             return;
         }
+
         if (
             !this.#initialized ||
             this.#program === null ||
@@ -152,15 +173,19 @@ export class ShapeBatcher {
         ) {
             this.#vertexCount = 0;
             this.#batchProjection = null;
+
             return;
         }
+
         const projection =
             this.#batchProjection ??
             (() => {
                 const { width, height } = this.#getViewport();
+
                 return projectionFor(this.#camera, width, height);
             })();
         const gl = this.#gl;
+
         gl.useProgram(this.#program);
         gl.bindVertexArray(this.#vao);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.#buffer);
@@ -187,8 +212,11 @@ export class ShapeBatcher {
 
     #destroyGlObjects(): void {
         if (this.#program) this.#gl.deleteProgram(this.#program);
+
         if (this.#buffer) this.#gl.deleteBuffer(this.#buffer);
+
         if (this.#vao) this.#gl.deleteVertexArray(this.#vao);
+
         this.#program = null;
         this.#buffer = null;
         this.#vao = null;
@@ -201,6 +229,7 @@ export class ShapeBatcher {
 
     #init(): void {
         const gl = this.#gl;
+
         this.#program = compileProgram(gl, SHAPE_VERTEX_SRC, SHAPE_FRAGMENT_SRC);
         this.#projectionLocation = gl.getUniformLocation(this.#program, 'u_projection');
         this.#buffer = gl.createBuffer();
@@ -217,16 +246,22 @@ export class ShapeBatcher {
 
     #ensureCapacity(extra: number): void {
         const needed = this.#vertexCount + extra;
+
         if (needed <= this.#vertices.length) return;
+
         let size = this.#vertices.length * 2;
+
         while (size < needed) size *= 2;
+
         const next = new Float32Array(size);
+
         next.set(this.#vertices);
         this.#vertices = next;
     }
 
     #pushVertex(x: number, y: number, color: readonly [number, number, number, number]): void {
         const i = this.#vertexCount * VERTEX_STRIDE;
+
         this.#vertices[i] = x;
         this.#vertices[i + 1] = y;
         this.#vertices[i + 2] = color[0];
@@ -266,11 +301,14 @@ export class ShapeBatcher {
     ): void {
         const segments = circleSegments(radius, this.#camera.zoom);
         const ring = circleRing(cx, cy, radius, segments);
+
         this.#ensureCapacity(circleFillVertices(radius, this.#camera.zoom));
         const center = { x: cx, y: cy };
+
         for (let i = 0; i < segments; i++) {
             const a = ring[i];
             const b = ring[(i + 1) % segments];
+
             this.#pushTriangle(center, a, b, color);
         }
     }
@@ -285,13 +323,16 @@ export class ShapeBatcher {
         const segments = circleSegments(radius, this.#camera.zoom);
         const outer = circleRing(cx, cy, radius + width / 2, segments);
         const inner = circleRing(cx, cy, Math.max(0, radius - width / 2), segments);
+
         this.#ensureCapacity(circleStrokeVertices(radius, this.#camera.zoom));
+
         for (let i = 0; i < segments; i++) {
             const j = (i + 1) % segments;
             const a = outer[i];
             const b = outer[j];
             const c = inner[j];
             const d = inner[i];
+
             this.#pushQuad(a, b, c, d, color);
         }
     }
@@ -313,6 +354,7 @@ export class ShapeBatcher {
         color: readonly [number, number, number, number]
     ): void {
         const half = width / 2;
+
         this.#ensureCapacity(rectStrokeVertices());
         this.#pushQuad(
             { x: rect.x, y: rect.y - half },
@@ -355,9 +397,11 @@ export class ShapeBatcher {
         color: readonly [number, number, number, number]
     ): void {
         this.#ensureCapacity(segments * 3);
+
         for (let i = 0; i < segments; i++) {
             const t0 = -Math.PI / 2 + (i / segments) * Math.PI;
             const t1 = -Math.PI / 2 + ((i + 1) / segments) * Math.PI;
+
             this.#pushTriangle(
                 center,
                 {
@@ -382,13 +426,16 @@ export class ShapeBatcher {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const length = Math.hypot(dx, dy);
+
         if (length === 0) return;
+
         const ux = dx / length;
         const uy = dy / length;
         const nx = -uy;
         const ny = ux;
         const half = width / 2;
         const segments = capSegments(width, this.#camera.zoom);
+
         this.#ensureCapacity(lineVertices(width, this.#camera.zoom));
         this.#pushQuad(
             { x: a.x + nx * half, y: a.y + ny * half },
@@ -404,6 +451,7 @@ export class ShapeBatcher {
     #setBatchProjection(): void {
         const { width, height } = this.#getViewport();
         const projection = projectionFor(this.#camera, width, height);
+
         if (this.#batchProjection === null || !sameMat3(this.#batchProjection, projection)) {
             this.flush();
             this.#batchProjection = projection;

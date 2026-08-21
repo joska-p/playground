@@ -1,15 +1,19 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+
 import type { Loader } from 'astro/loaders';
 import type { JSONOutput } from 'typedoc';
 
 function findRepoRoot(start: string): string {
     let dir = path.resolve(start);
+
     while (dir !== path.parse(dir).root) {
         if (existsSync(path.join(dir, 'typedoc.base.json'))) return dir;
+
         dir = path.dirname(dir);
     }
+
     throw new Error('Could not find repo root (typedoc.base.json)');
 }
 
@@ -26,9 +30,11 @@ function checkHasApp(
     pkgJson: Record<string, unknown>
 ): boolean {
     const appPath = path.join(packagesDir, pkgDir, 'src/App.tsx');
+
     if (existsSync(appPath)) return true;
 
     const exports = pkgJson.exports as Record<string, unknown> | undefined;
+
     if (!exports) return false;
 
     for (const val of Object.values(exports)) {
@@ -40,6 +46,7 @@ function checkHasApp(
             return true;
         }
     }
+
     return false;
 }
 
@@ -64,6 +71,7 @@ export function apiDocsLoader(): Loader {
                 logger.warn(
                     `[api-docs] no generated docs at ${genRoot}; run \`pnpm generate-typedoc-json\` first`
                 );
+
                 return;
             }
 
@@ -81,6 +89,7 @@ export function apiDocsLoader(): Loader {
                 if (!existsSync(jsonPath)) continue;
 
                 let typedocData: JSONOutput.ProjectReflection | undefined;
+
                 try {
                     typedocData = JSON.parse(
                         readFileSync(jsonPath, 'utf8')
@@ -92,6 +101,7 @@ export function apiDocsLoader(): Loader {
 
                 let description: string | undefined;
                 let pkgJson: Record<string, unknown> = {};
+
                 if (existsSync(pkgJsonPath)) {
                     try {
                         pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf8')) as Record<

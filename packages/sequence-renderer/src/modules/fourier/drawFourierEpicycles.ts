@@ -1,5 +1,6 @@
-import type { VisualLayer } from '../../core/types';
 import { fetchFourierEpicycles } from './store';
+
+import type { VisualLayer } from '../../core/types';
 
 export const drawFourierEpicycles: VisualLayer = {
     id: 'fourier-epicycles',
@@ -26,6 +27,7 @@ export const drawFourierEpicycles: VisualLayer = {
         const { precision = 40, orbitOverlays = true } = params as Record<string, number | boolean>;
 
         const pairs = new Float32Array(data.length * 2);
+
         for (let i = 0; i < data.length; i++) {
             pairs[2 * i] = i;
             pairs[2 * i + 1] = data[i] ?? 0;
@@ -45,6 +47,7 @@ export const drawFourierEpicycles: VisualLayer = {
         // --- 1. DRAW THE FULL PATH INTENTIOANLLY IN ONE FRAME ---
         // We sample over the full period (0 to 1) to draw the complete shape
         const numSamples = Math.max(data.length, 500);
+
         ctx.beginPath();
 
         for (let step = 0; step <= numSamples; step++) {
@@ -55,6 +58,7 @@ export const drawFourierEpicycles: VisualLayer = {
             for (let i = 0; i < activeLimit; i++) {
                 const epi = epicycles[i];
                 const radius = epi.amplitude * layout.valueScale;
+
                 // Evaluate the Fourier series at this specific progress point
                 x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
                 y += radius * Math.sin(2 * Math.PI * epi.frequency * progress + epi.phase);

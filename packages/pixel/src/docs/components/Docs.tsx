@@ -1,10 +1,12 @@
 import { Sidebar } from '@repo/ui/widgets';
 import { useEffect, useState } from 'react';
-import type { EndpointId } from './data/pipeline-docs-data';
+
 import { ENDPOINT_GROUPS } from './data/pipeline-docs-data';
 import { loadDemoImage } from './helpers';
 import { SwaggerSidebar } from './SwaggerSidebar';
 import { EndpointView } from './views/EndpointView';
+
+import type { EndpointId } from './data/pipeline-docs-data';
 
 const CANVAS_SIZE = 200;
 
@@ -17,9 +19,11 @@ function Docs() {
 
     useEffect(() => {
         let cancelled = false;
+
         void loadDemoImage(CANVAS_SIZE).then((image) => {
             if (!cancelled) setSourceData(image);
         });
+
         return () => {
             cancelled = true;
         };

@@ -15,6 +15,7 @@ export const hueRotate = defineManip<{ degrees?: number }>({
             red * (base + s3 * sinA) + green * (cosA + base) + blue * (base - s3 * sinA);
         const newBlue =
             red * (base - s3 * sinA) + green * (base + s3 * sinA) + blue * (cosA + base);
+
         return [newRed, newGreen, newBlue, alpha];
     },
     ui: {

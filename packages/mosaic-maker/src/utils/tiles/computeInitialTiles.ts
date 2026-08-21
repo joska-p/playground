@@ -1,12 +1,14 @@
-import type { TileSet } from '../../core/initialTileSet';
-import type { TileInstance } from '../../stores/mosaic/types';
-import { getRandom } from '../random/getRandom';
 import { computeNumberOfTiles } from './computeNumberOfTiles';
 import { generateTileColors } from './generateTileColors';
 import { generateTileRotation } from './generateTileRotation';
+import { getRandom } from '../random/getRandom';
+
+import type { TileSet } from '../../core/initialTileSet';
+import type { TileInstance } from '../../stores/mosaic/types';
 
 function computeInitialTiles(element: HTMLDivElement, tileSet: TileSet): TileInstance[] {
     const numberOfTiles = computeNumberOfTiles(element);
+
     return Array.from({ length: numberOfTiles }, (_, i) => ({
         id: String(i),
         name: getRandom(tileSet),

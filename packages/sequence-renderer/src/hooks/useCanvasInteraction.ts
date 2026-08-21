@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
+
 import { getViewportState, setViewport } from '../stores/ui/actions';
 
 export function useCanvasInteraction(canvasRef: React.RefObject<HTMLCanvasElement | null>): void {
     useEffect(() => {
         const canvasEl = canvasRef.current;
+
         if (!canvasEl) return;
+
         const canvas: HTMLCanvasElement = canvasEl;
 
         let isPanning = false;
@@ -35,27 +38,34 @@ export function useCanvasInteraction(canvasRef: React.RefObject<HTMLCanvasElemen
 
         function handleMouseDown(e: MouseEvent) {
             if (e.button !== 0) return;
+
             isPanning = true;
             startX = e.clientX;
             startY = e.clientY;
             const vp = getViewportState();
+
             startPanX = vp.panX;
             startPanY = vp.panY;
+
             if (!vp.enabled) {
                 setViewport({ enabled: true });
             }
+
             canvas.style.cursor = 'grabbing';
         }
 
         function handleMouseMove(e: MouseEvent) {
             if (!isPanning) return;
+
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
+
             setViewport({ panX: startPanX + dx, panY: startPanY + dy });
         }
 
         function handleMouseUp() {
             if (!isPanning) return;
+
             isPanning = false;
             canvas.style.cursor = '';
         }

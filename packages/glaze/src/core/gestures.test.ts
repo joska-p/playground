@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
+
 import { Camera } from './Camera';
 import { createCameraControls } from './CameraControls';
-import { InputStore } from './InputStore';
 import {
     InputRouter,
     PanGesture,
@@ -11,6 +11,7 @@ import {
     createZoomGesture,
     type InteractionEvent
 } from './gestures';
+import { InputStore } from './InputStore';
 
 interface FakeSurface {
     input: InputStore;
@@ -19,13 +20,16 @@ interface FakeSurface {
 function setup() {
     const target = document.createElement('div');
     const input = new InputStore();
+
     input.attach(target);
+
     return { target, input };
 }
 
 function setupCamera(minZoom = 0.05, maxZoom = 64) {
     const camera = new Camera();
     const cameraControls = createCameraControls(camera, minZoom, maxZoom);
+
     return { camera, cameraControls };
 }
 
@@ -37,10 +41,13 @@ function wheelEvent(init: {
     cancelable?: boolean;
 }) {
     const event = new WheelEvent('wheel', init);
+
     if (init.clientX !== undefined)
         Object.defineProperty(event, 'clientX', { value: init.clientX });
+
     if (init.clientY !== undefined)
         Object.defineProperty(event, 'clientY', { value: init.clientY });
+
     return event;
 }
 
@@ -60,6 +67,7 @@ describe('PanGesture', () => {
             cameraControls,
             surface: null
         });
+
         expect(gesture.active).toBe(false);
         gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })));
         expect(gesture.active).toBe(true);
@@ -79,6 +87,7 @@ describe('PanGesture', () => {
             cameraControls,
             surface: null
         });
+
         gesture.onStart(event(new PointerEvent('pointerdown', { button: 0 })));
         expect(gesture.active).toBe(false);
         input.detach();
@@ -101,6 +110,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: []
         });
+
         expect(router).toBeInstanceOf(InputRouter);
         router.dispose();
         input.detach();
@@ -115,6 +125,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: [new PanGesture()]
         });
+
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
@@ -135,6 +146,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: [new PanGesture({ button: [2] })]
         });
+
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
         target.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 50, clientY: 50, bubbles: true })
@@ -153,6 +165,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: [new PanGesture()]
         });
+
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
         );
@@ -185,6 +198,7 @@ describe('InputRouter', () => {
             bubbles: true,
             cancelable: true
         });
+
         target.dispatchEvent(event);
         expect(event.defaultPrevented).toBe(true);
         expect(camera.zoom).toBeCloseTo(Math.exp(-0.1), 6);
@@ -202,6 +216,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: [new ZoomGesture()]
         });
+
         target.dispatchEvent(wheelEvent({ deltaY: -100000, bubbles: true, cancelable: true }));
         expect(camera.zoom).toBe(2);
         router.dispose();
@@ -218,6 +233,7 @@ describe('InputRouter', () => {
             gestures: [new PanGesture({ button: 2 })]
         });
         const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+
         target.dispatchEvent(event);
         expect(event.defaultPrevented).toBe(true);
         router.dispose();
@@ -236,6 +252,7 @@ describe('InputRouter', () => {
         };
         const router = new InputRouter(options);
         const onMove = vi.fn();
+
         gestures.push({ onMove });
         target.dispatchEvent(
             new PointerEvent('pointerdown', { button: 0, clientX: 10, clientY: 10, bubbles: true })
@@ -258,6 +275,7 @@ describe('InputRouter', () => {
             getSurface: () => null,
             gestures: [new PanGesture()]
         });
+
         router.dispose();
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
         target.dispatchEvent(

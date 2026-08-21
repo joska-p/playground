@@ -114,6 +114,7 @@ export function getSpawnPoints({
                 )
             });
         }
+
         return points;
     }
 
@@ -124,6 +125,7 @@ export function getSpawnPoints({
             const radius = Math.sqrt(1 - y * y);
             const theta = (i * Math.PI * (3 - Math.sqrt(5))) % (2 * Math.PI);
             const normal = new Vector3(Math.cos(theta) * radius, y, Math.sin(theta) * radius);
+
             points.push({
                 id: i,
                 position: normal.clone().multiplyScalar(totalDistance),
@@ -132,6 +134,7 @@ export function getSpawnPoints({
                 )
             });
         }
+
         return points;
     }
 

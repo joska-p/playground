@@ -2,6 +2,7 @@ import { getManipulations } from '@repo/pixel/worker';
 import { ControlRow } from '@repo/ui/control-panel';
 import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';
+
 import { addWorkflowStep } from '../../stores/manipulator/actions';
 
 const manipulationIds = Object.keys(getManipulations());

@@ -1,5 +1,7 @@
 import { getManipulations, processImageInWorker } from '@repo/pixel/worker';
+
 import { manipulatorStore } from './store';
+
 import type { OutputType, WorkflowStep } from './types';
 
 function setImageSource(imageSource: OutputType) {
@@ -8,6 +10,7 @@ function setImageSource(imageSource: OutputType) {
 
 function clearImageSource() {
     const imageSource = null;
+
     manipulatorStore.setState({ imageSource });
 }
 
@@ -22,6 +25,7 @@ function clearOutputs() {
 function addWorkflowStep(id: string) {
     const { workflow } = manipulatorStore.getState();
     const entry = getManipulations()[id];
+
     manipulatorStore.setState({
         workflow: [
             ...workflow,
@@ -36,6 +40,7 @@ function addWorkflowStep(id: string) {
 
 function removeWorkflowStep(index: number) {
     const { workflow } = manipulatorStore.getState();
+
     manipulatorStore.setState({
         workflow: workflow.filter((_, i) => i !== index)
     });
@@ -44,6 +49,7 @@ function removeWorkflowStep(index: number) {
 function moveWorkflowStep(index: number, direction: -1 | 1) {
     const { workflow } = manipulatorStore.getState();
     const targetIndex = index + direction;
+
     if (targetIndex < 0 || targetIndex >= workflow.length) return;
 
     const updated = [...workflow];
@@ -58,6 +64,7 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
 function updateStepOptions(index: number, options: Record<string, number>) {
     const { workflow } = manipulatorStore.getState();
     const updated = workflow.map((step, i) => (i === index ? { ...step, options } : step));
+
     manipulatorStore.setState({ workflow: updated });
 }
 
@@ -71,9 +78,11 @@ function setWorkflowSteps(steps: WorkflowStep[]) {
 
 async function executeWorkflow() {
     const { imageSource, workflow } = manipulatorStore.getState();
+
     if (!workflow.length || !imageSource?.imageData) return;
 
     manipulatorStore.setState({ isProcessing: true });
+
     try {
         const results = await processImageInWorker({
             sourceImageData: imageSource.imageData,
@@ -81,6 +90,7 @@ async function executeWorkflow() {
         });
 
         const outputs = [];
+
         for (const result of results) {
             outputs.push({
                 id: `step-${String(outputs.length + 1)}`,

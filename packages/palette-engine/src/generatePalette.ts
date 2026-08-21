@@ -1,5 +1,5 @@
-import type Color from 'colorjs.io';
 import type { Palette, Rule } from './types';
+import type Color from 'colorjs.io';
 
 function generatePalette(baseColor: Color, rule: Rule): Palette {
     return {

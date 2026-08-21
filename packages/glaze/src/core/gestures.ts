@@ -1,6 +1,6 @@
-import type { InputStore } from './InputStore';
-import type { CameraControls } from './CameraControls';
 import type { Point2D } from './Camera';
+import type { CameraControls } from './CameraControls';
+import type { InputStore } from './InputStore';
 
 export const DEFAULT_WHEEL_SPEED = 0.002;
 
@@ -42,6 +42,7 @@ export class PanGesture<TSurface> {
 
     onStart = (event: InteractionEvent<PointerEvent, TSurface>): void => {
         if (!matchesButton(event.nativeEvent.button, this.#button)) return;
+
         this.active = true;
         (event.nativeEvent.currentTarget as HTMLElement | null)?.setPointerCapture(
             event.nativeEvent.pointerId
@@ -50,6 +51,7 @@ export class PanGesture<TSurface> {
 
     onMove = (event: InteractionEvent<PointerEvent, TSurface>): void => {
         if (!this.active) return;
+
         event.cameraControls.panBy(event.input.pointerDelta.x, event.input.pointerDelta.y);
     };
 
@@ -93,6 +95,7 @@ export interface InputRouterOptions<TSurface> {
 
 function matchesButton(button: number, filter?: number | number[]): boolean {
     if (filter === undefined) return true;
+
     return Array.isArray(filter) ? filter.includes(button) : filter === button;
 }
 
@@ -125,6 +128,7 @@ export class InputRouter<TSurface> {
         point: Point2D
     ): InteractionEvent<TEvent, TSurface> => {
         const options = this.#options;
+
         return {
             nativeEvent,
             point,
@@ -140,26 +144,31 @@ export class InputRouter<TSurface> {
 
     #onStart = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
+
         for (const gesture of this.#options.gestures) gesture.onStart?.(event);
     };
 
     #onMove = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
+
         for (const gesture of this.#options.gestures) gesture.onMove?.(event);
     };
 
     #onZoom = (nativeEvent: WheelEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
+
         for (const gesture of this.#options.gestures) gesture.onZoom?.(event);
     };
 
     #onEnd = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
+
         for (const gesture of this.#options.gestures) gesture.onEnd?.(event);
     };
 
     #onContextMenu = (nativeEvent: MouseEvent): void => {
         const event = this.#interaction(nativeEvent, this.#options.input.pointer);
+
         for (const gesture of this.#options.gestures) gesture.onContextMenu?.(event);
     };
 }

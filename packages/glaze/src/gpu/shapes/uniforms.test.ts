@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { textUniforms } from './TextRasterizer';
 
 describe('text uniform builder', () => {
@@ -7,6 +8,7 @@ describe('text uniform builder', () => {
         const uniforms = textUniforms({ x: 100, y: 50 }, 60, 40, 28, texture, {
             fill: '#ff0000'
         });
+
         expect(uniforms['u_position']).toEqual([100, 22]);
         expect(uniforms['u_size']).toEqual([60, 40]);
         expect(uniforms['u_texture']).toBe(texture);

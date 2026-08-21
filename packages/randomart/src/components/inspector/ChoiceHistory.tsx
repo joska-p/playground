@@ -1,10 +1,12 @@
 import { useStore } from 'zustand';
+
 import { randomartStore } from '../../stores/randomart/store';
 
 export function ChoiceHistory() {
     const choiceHistory = useStore(randomartStore, (s) => {
         const channel = s.activeChannel;
         const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+
         return rng.choiceHistory;
     });
 

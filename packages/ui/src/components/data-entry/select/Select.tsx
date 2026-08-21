@@ -1,8 +1,9 @@
-import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
+import { selectVariants, selectWrapperVariants, type SelectWrapperVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Icon } from '../../icons';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import { selectVariants, selectWrapperVariants, type SelectWrapperVariants } from './variants';
+
+import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
 
 export interface SelectProps
     extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>, SelectWrapperVariants {

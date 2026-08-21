@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { renderCompareSlider } from './compareSliderRenderer';
 
 type UseCompareSliderArgs = {
@@ -9,6 +10,7 @@ type UseCompareSliderArgs = {
 const sliderPositionFromClientX = (container: HTMLElement, clientX: number): number => {
     const rect = container.getBoundingClientRect();
     const x = clientX - rect.left;
+
     return Math.max(0, Math.min(100, (x / rect.width) * 100));
 };
 
@@ -40,14 +42,18 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
         if (needsRebuild) {
             const s = document.createElement('canvas');
             const sContext = s.getContext('2d');
+
             if (!sContext) return;
+
             s.width = source.width;
             s.height = source.height;
             sContext.putImageData(source, 0, 0);
 
             const r = document.createElement('canvas');
             const rContext = s.getContext('2d');
+
             if (!rContext) return;
+
             r.width = result.width;
             r.height = result.height;
             rContext.putImageData(result, 0, 0);
@@ -58,10 +64,15 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
         }
 
         const canvas = canvasRef.current;
+
         if (!canvas) return;
+
         const ctx = canvas.getContext('2d');
+
         if (!ctx) return;
+
         if (!offscreenRef.current) return;
+
         const { source: srcCanvas, result: resCanvas } = offscreenRef.current;
 
         renderCompareSlider({
@@ -76,7 +87,9 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
     const applySliderPosition = (clientX: number) => {
         const container = containerRef.current;
+
         if (!container) return;
+
         setSliderPos(sliderPositionFromClientX(container, clientX));
     };
 
@@ -93,6 +106,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
     const handleTouchMove = (e: React.TouchEvent) => {
         if (!isDragging.current) return;
+
         applySliderPosition(e.touches[0].clientX);
     };
 
@@ -103,15 +117,20 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (!isDragging.current) return;
+
             const container = containerRef.current;
+
             if (!container) return;
+
             setSliderPos(sliderPositionFromClientX(container, e.clientX));
         };
         const handleMouseUp = () => {
             isDragging.current = false;
         };
+
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
+
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);

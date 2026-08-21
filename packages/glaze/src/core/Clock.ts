@@ -54,17 +54,20 @@ export class Clock {
 
     get progress(): number {
         if (this.#duration === undefined || this.#duration <= 0) return 0;
+
         return Math.max(0, Math.min(1, this.#time / this.#duration));
     }
 
     play(): this {
         this.#isPlaying = true;
+
         return this;
     }
 
     pause(): this {
         this.#isPlaying = false;
         this.#deltaTime = 0;
+
         return this;
     }
 
@@ -76,6 +79,7 @@ export class Clock {
         this.#time = 0;
         this.#deltaTime = 0;
         this.#direction = 1;
+
         return this;
     }
 
@@ -85,25 +89,30 @@ export class Clock {
                 ? Math.max(0, Math.min(this.#duration, time))
                 : Math.max(0, time);
         this.#deltaTime = 0;
+
         return this;
     }
 
     setSpeed(speed: number): this {
         this.#speed = speed;
+
         return this;
     }
 
     update(rawDelta: number): this {
         if (!this.#isPlaying) {
             this.#deltaTime = 0;
+
             return this;
         }
 
         const delta = rawDelta * this.#speed;
+
         this.#deltaTime = delta;
 
         if (this.#duration === undefined || this.#duration <= 0) {
             this.#time = Math.max(0, this.#time + delta);
+
             return this;
         }
 
@@ -111,24 +120,32 @@ export class Clock {
 
         if (this.#pingPong) {
             let t = this.#time + delta * this.#direction;
+
             if (t >= duration) {
                 const overflow = t - duration;
+
                 t = duration - overflow;
                 this.#direction = -1;
+
                 if (t < 0) t = 0;
             } else if (t <= 0) {
                 const underflow = -t;
+
                 t = underflow;
                 this.#direction = 1;
+
                 if (t > duration) t = duration;
             }
+
             this.#time = Math.max(0, Math.min(duration, t));
         } else if (this.#loop) {
             let t = this.#time + delta;
+
             t = ((t % duration) + duration) % duration;
             this.#time = t;
         } else {
             const t = this.#time + delta;
+
             if (t >= duration) {
                 this.#time = duration;
                 this.#isPlaying = false;

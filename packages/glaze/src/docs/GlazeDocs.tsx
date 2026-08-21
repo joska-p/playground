@@ -1,6 +1,7 @@
 import { Hero, SectionHeading } from '@repo/ui/data-display';
-import { LifecycleReport } from './LifecycleReport';
+
 import { DemoGallery } from './DemoGallery';
+import { LifecycleReport } from './LifecycleReport';
 
 export function GlazeDocs() {
     return (

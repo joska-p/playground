@@ -1,7 +1,8 @@
 import { ControlPanel } from '@repo/ui/control-panel';
-import { LayerStackEditor } from '../layers/LayerStackEditor';
+
 import { SequenceSection } from './SequenceSection';
 import { ViewportSection } from './ViewportSection';
+import { LayerStackEditor } from '../layers/LayerStackEditor';
 
 function ControlsPanel() {
     return (

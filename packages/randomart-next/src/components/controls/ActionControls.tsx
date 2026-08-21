@@ -1,8 +1,9 @@
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
-import { setSeedText } from '../../stores/randomart/actions/config';
+
 import { DownloadButton } from './DownloadButton';
 import { StateIOButtons } from './StateIOButtons';
+import { setSeedText } from '../../stores/randomart/actions/config';
 
 function ActionControls() {
     return (

@@ -2,9 +2,13 @@ import type { SequenceRule } from './types';
 
 function stern(n: number): number {
     if (n === 0) return 0;
+
     if (n === 1) return 1;
+
     if (n % 2 === 0) return stern(n / 2);
+
     const k = (n - 1) / 2;
+
     return stern(k) + stern(k + 1);
 }
 

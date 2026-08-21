@@ -1,12 +1,9 @@
-import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
-import type { Clock } from '../core/Clock';
-import { createClock, type ClockOptions } from '../core/Clock';
 import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
+import { createClock, type ClockOptions } from '../core/Clock';
+import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
-import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
-import { createStateBuffer, type StateBuffer } from './StateBuffer';
 import { createStandardUniformValues } from './shader/setUniforms';
 import {
     TextRasterizer,
@@ -14,6 +11,10 @@ import {
     textFragmentSource,
     textUniforms
 } from './shapes/TextRasterizer';
+import { createStateBuffer, type StateBuffer } from './StateBuffer';
+
+import type { Clock } from '../core/Clock';
+import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 
 export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
@@ -72,6 +73,7 @@ export class GpuSurface {
             antialias: true,
             premultipliedAlpha: true
         });
+
         if (!gl) throw new Error('Glaze: WebGL2 not supported');
 
         this.canvas = config.canvas;
@@ -113,20 +115,26 @@ export class GpuSurface {
     /** Creates a program owned by this surface: destroyed with it, recompiled on context restore. */
     createProgram(fragmentSource: string, vertexSource?: string): Program {
         const program = createProgram(this.gl, fragmentSource, vertexSource);
+
         this.#programs.add(program);
+
         return program;
     }
 
     /** Creates a StateBuffer owned by this surface: destroyed with it, resized on context restore. */
     createStateBuffer(width: number, height: number): StateBuffer {
         const buffer = createStateBuffer(this.gl, width, height);
+
         this.#buffers.add(buffer);
+
         return buffer;
     }
 
     renderProgram(program: Program): this {
         this.#flushBatch();
+
         if (this.#lost) return this;
+
         program.setUniforms(
             createStandardUniformValues(
                 this.width,
@@ -139,6 +147,7 @@ export class GpuSurface {
             )
         );
         program.render();
+
         return this;
     }
 
@@ -169,6 +178,7 @@ export class GpuSurface {
         } else {
             this.#drawRect(xOrRect, yOrStyle as DrawStyle | undefined);
         }
+
         return this;
     }
 
@@ -198,6 +208,7 @@ export class GpuSurface {
         } else {
             this.#drawCircle(xOrCenter, yOrRadius, radiusOrStyle as DrawStyle | undefined);
         }
+
         return this;
     }
 
@@ -220,6 +231,7 @@ export class GpuSurface {
         } else {
             this.#drawLine(x1OrA, y1OrB as Point2D, x2OrStyle as DrawStyle | undefined);
         }
+
         return this;
     }
 
@@ -245,6 +257,7 @@ export class GpuSurface {
         } else {
             this.#drawText(text, xOrPosition.x, xOrPosition.y, yOrStyle as TextStyle);
         }
+
         return this;
     }
 
@@ -254,14 +267,18 @@ export class GpuSurface {
      */
     clear(r = 0, g = 0, b = 0, a = 1): this {
         this.#flushBatch();
+
         if (this.#lost) return this;
+
         this.gl.clearColor(r, g, b, a);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
         return this;
     }
 
     setDraw(fn: GpuDraw | null): void {
         this.#draw = fn;
+
         if (fn && this.#subscribers.size === 0) this.#startRendering();
         else if (!fn && this.#subscribers.size === 0) this.#stopRendering();
     }
@@ -269,8 +286,10 @@ export class GpuSurface {
     subscribe(fn: GpuDraw): () => void {
         this.#subscribers.add(fn);
         this.#startRendering();
+
         return () => {
             this.#subscribers.delete(fn);
+
             if (this.#subscribers.size === 0 && this.#draw === null) this.#stopRendering();
         };
     }
@@ -281,9 +300,13 @@ export class GpuSurface {
         this.input.destroy();
         this.canvas.removeEventListener('webglcontextlost', this.#onContextLost);
         this.canvas.removeEventListener('webglcontextrestored', this.#onContextRestored);
+
         for (const program of this.#programs) program.destroy();
+
         this.#programs.clear();
+
         for (const buffer of this.#buffers) buffer.destroy();
+
         this.#buffers.clear();
         this.#textProgram = null;
         this.#batch.destroy();
@@ -295,27 +318,32 @@ export class GpuSurface {
 
     #drawCircle(center: Point2D, radius: number, style?: DrawStyle): void {
         if (this.#lost) return;
+
         this.#batch.drawCircle(center, radius, style ?? {});
     }
 
     #drawRect(rect: Rect, style?: DrawStyle): void {
         if (this.#lost) return;
+
         this.#batch.drawRect(rect, style ?? {});
     }
 
     #drawLine(a: Point2D, b: Point2D, style?: DrawStyle): void {
         if (this.#lost) return;
+
         this.#batch.drawLine(a, b, style ?? {});
     }
 
     #drawText(text: string, x: number, y: number, style: TextStyle): void {
         if (this.#lost || text.length === 0) return;
+
         this.#flushBatch();
         const rasterizer = (this.#textRasterizer ??= new TextRasterizer(this.gl));
         const size = style.fontSize ?? 16;
         const font = `${String(size)}px ${style.fontFamily ?? DEFAULT_FONT_FAMILY}`;
         const { texture, width, height } = rasterizer.get(text, font, size);
         const program = this.#getTextProgram();
+
         program.setUniforms(textUniforms({ x, y }, width, height, size, texture, style));
         this.renderProgram(program);
     }
@@ -324,6 +352,7 @@ export class GpuSurface {
         if (this.#textProgram === null) {
             this.#textProgram = this.createProgram(textFragmentSource);
         }
+
         return this.#textProgram;
     }
 
@@ -338,24 +367,30 @@ export class GpuSurface {
         this.#cssHeight = Math.max(1, this.canvas.clientHeight);
         const deviceWidth = Math.round(this.#cssWidth * this.dpr);
         const deviceHeight = Math.round(this.#cssHeight * this.dpr);
+
         if (this.canvas.width !== deviceWidth) this.canvas.width = deviceWidth;
+
         if (this.canvas.height !== deviceHeight) this.canvas.height = deviceHeight;
+
         this.gl.viewport(0, 0, deviceWidth, deviceHeight);
     }
 
     #flushBatch(): void {
         if (this.#lost) return;
+
         this.#batch.flush();
     }
 
     #startRendering(): void {
         if (this.#rendererAttached) return;
+
         this.#unsubscribeRenderer = this.#loop.subscribe(this.#onFrame);
         this.#rendererAttached = true;
     }
 
     #stopRendering(): void {
         if (!this.#rendererAttached) return;
+
         this.#unsubscribeRenderer?.();
         this.#unsubscribeRenderer = null;
         this.#rendererAttached = false;
@@ -372,7 +407,9 @@ export class GpuSurface {
         this.#resize();
         this.#textRasterizer?.clear();
         this.#batch.reinitialize();
+
         for (const program of this.#programs) program.reinitialize();
+
         for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
@@ -386,8 +423,11 @@ export class GpuSurface {
         this.clock.update(deltaTime);
 
         const current = this.#draw;
+
         if (current) current(this);
+
         for (const subscriber of this.#subscribers) subscriber(this);
+
         this.#flushBatch();
         this.input.endFrame();
     };

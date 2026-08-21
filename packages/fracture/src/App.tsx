@@ -1,8 +1,9 @@
 import { Activity } from 'react';
-import { DoubleSplitScene } from './components/DoubleSplitScene';
-import { PerturbationScene } from './components/PerturbationScene';
-import { OriginalScene } from './components/OriginalScene';
+
 import { ControlPanel } from './components/ControlPanel';
+import { DoubleSplitScene } from './components/DoubleSplitScene';
+import { OriginalScene } from './components/OriginalScene';
+import { PerturbationScene } from './components/PerturbationScene';
 import { useRenderer } from './stores/viewStore';
 
 /**

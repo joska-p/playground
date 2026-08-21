@@ -1,6 +1,7 @@
 import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
+
 import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
 import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';
 

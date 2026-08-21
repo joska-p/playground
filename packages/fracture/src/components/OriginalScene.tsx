@@ -1,7 +1,8 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import fragmentShader from '../core/mandelbrot-original.glsl?raw';
-import { fractalParamsUniforms } from '../core/fractalUniforms';
+
 import { ZOOM_WHEEL_SPEED } from '../core/camera';
+import { fractalParamsUniforms } from '../core/fractalUniforms';
+import fragmentShader from '../core/mandelbrot-original.glsl?raw';
 import { useParams } from '../stores/createParamStore';
 import { originalStore } from '../stores/originalStore';
 
@@ -26,6 +27,7 @@ function OriginalScene() {
                     const panNormX = view.x / view.zoom / width;
                     const panNormY = view.y / view.zoom / height;
                     const drift = 1.0 - 1.0 / view.zoom;
+
                     return {
                         u_panOffset: [-panNormX - 0.5 * drift, panNormY + 0.5 * drift],
                         ...fractalParamsUniforms(params)

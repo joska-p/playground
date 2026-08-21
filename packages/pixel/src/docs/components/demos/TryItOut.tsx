@@ -1,8 +1,10 @@
 import { Slider } from '@repo/ui/data-entry';
 import { useEffect, useState } from 'react';
+
 import { processImageInWorker } from '../../../worker/process-image-in-worker';
-import type { ManipInfo } from '../data/pipeline-docs-data';
 import { imageDataToUrl } from '../helpers';
+
+import type { ManipInfo } from '../data/pipeline-docs-data';
 
 type TryItOutProps = {
     sourceData: ImageData | null;
@@ -17,9 +19,11 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
 
     useEffect(() => {
         if (!sourceData) return;
+
         let cancelled = false;
 
         const options: Record<string, number> = {};
+
         if (manip.params) {
             for (const p of manip.params) {
                 options[p.key] = paramValues[`${manip.id}:${p.key}`] ?? p.default;
@@ -49,6 +53,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
                     {manip.params.map((parameter) => {
                         const value: number =
                             paramValues[`${manip.id}:${parameter.key}`] ?? parameter.default;
+
                         return (
                             <div key={parameter.key}>
                                 <div className="mb-1 flex items-center justify-between text-xs">

@@ -56,6 +56,7 @@ const drawConnectionLines: VisualLayer = {
             lightness = 60
         } = params;
         const { valueScale, offsetX, offsetY } = layout;
+
         if (data.length < 2) return;
 
         ctx.save();
@@ -66,6 +67,7 @@ const drawConnectionLines: VisualLayer = {
             const d1 = data[i - 1];
             const d2 = data[i];
             const hue = ((i / data.length) * (hueCycle as number)) % 360;
+
             ctx.strokeStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
             ctx.beginPath();
             ctx.moveTo(offsetX + d1 * valueScale, offsetY);

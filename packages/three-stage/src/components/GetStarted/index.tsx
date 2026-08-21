@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber';
+
 import { Scene } from './Scene';
 
 function GetStarted() {

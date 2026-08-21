@@ -1,15 +1,14 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
 import spiraleFragment from './spiraleFragment.glsl?raw';
-import { useClock, useGap, setClockStore } from './store';
+import { useGap, setClockStore } from './store';
 
 function Spirale() {
-    const clock = useClock();
     const gap = useGap();
 
     return (
         <GpuCanvas
             className="h-full w-full"
-            clock={clock}
             fragmentShader={spiraleFragment}
             uniforms={() => ({
                 u_gap: gap

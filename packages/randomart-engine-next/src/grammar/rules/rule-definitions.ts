@@ -1,6 +1,7 @@
-import type { OperatorId } from '../operators/registry.js';
 import { OPERATORS } from '../operators/registry.js';
+
 import type { Rule } from './registry.js';
+import type { OperatorId } from '../operators/registry.js';
 
 const allOperatorIds = Object.keys(OPERATORS) as OperatorId[];
 

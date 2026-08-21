@@ -1,6 +1,8 @@
 import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next/operators';
-import type { Node, OperatorId } from '@repo/randomart-engine-next/types';
+
 import { Canvas } from './Canvas';
+
+import type { Node, OperatorId } from '@repo/randomart-engine-next/types';
 
 const CARD_SIZE = 180;
 const RESOLUTION = 96;
@@ -19,6 +21,7 @@ function makeOperatorNode(id: OperatorId): Node {
 
     for (let i = 0; i < op.argNames.length; i++) {
         const argName = op.argNames[i];
+
         if (!argName) continue;
 
         if (id === 'const' && argName === 'value') {
@@ -41,14 +44,17 @@ function makeOperatorNode(id: OperatorId): Node {
 
 function buildOperatorNodes(): { id: OperatorId; label: string; node: Node }[] {
     const entries: { id: OperatorId; label: string; node: Node }[] = [];
+
     for (const [id] of Object.entries(OPERATORS)) {
         const oid = id as OperatorId;
+
         entries.push({
             id: oid,
             label: getOperator(oid).label,
             node: makeOperatorNode(oid)
         });
     }
+
     return entries;
 }
 
@@ -73,7 +79,9 @@ export function TestMode() {
                     <div className="grid grid-cols-3 gap-4">
                         {cat.operators.map((op) => {
                             const entry = operatorNodes.find((e) => e.id === op.id);
+
                             if (!entry) return null;
+
                             return (
                                 <div
                                     key={op.id}

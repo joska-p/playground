@@ -1,8 +1,9 @@
-import { allRules, rules, type RuleId } from '../../engine/rules/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-import { useRuleId } from '../../engine/gpu/SimulationEngine';
-import { setRule, setStateColor, useStateColors } from '../../stores/automa';
+
+import { allRules, rules, type RuleId } from '../../engine/rules/registry';
+import { setRule, setStateColor } from '../../stores/automa/actions';
+import { useRuleId, useStateColors } from '../../stores/automa/selectors';
 
 function RuleSection() {
     const ruleId = useRuleId();

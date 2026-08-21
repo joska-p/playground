@@ -1,10 +1,12 @@
 import { Badge, Card } from '@repo/ui/data-display';
 import { Button } from '@repo/ui/data-entry';
 import { useRef, useState } from 'react';
-import type { OutputType } from '../../stores/manipulator/types';
-import { downloadCanvas } from '../../utils/download';
+
 import { ImageLightbox } from './ImageLightbox';
 import { Output } from './Output';
+import { downloadCanvas } from '../../utils/download';
+
+import type { OutputType } from '../../stores/manipulator/types';
 
 type OutputCardProps = {
     output: OutputType;
@@ -27,7 +29,9 @@ function OutputCard({
     const handleDownload = (e: React.MouseEvent) => {
         e.stopPropagation();
         const canvas = cardRef.current?.querySelector('canvas');
+
         if (!canvas) return;
+
         downloadCanvas(canvas, `${output.name}.png`);
     };
 

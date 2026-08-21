@@ -5,6 +5,7 @@ export const contrast = defineManip<{ value?: number }>({
     id: 'contrast',
     execute: ({ options, red, green, blue, alpha }) => {
         const value = options.value ?? 1;
+
         return [
             (red - 128) * value + 128,
             (green - 128) * value + 128,

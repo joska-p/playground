@@ -1,5 +1,5 @@
-import type Color from 'colorjs.io';
 import type { Rule } from '../types';
+import type Color from 'colorjs.io';
 
 const monochromatic: Rule = {
     apply: (color: Color) => {
@@ -10,11 +10,14 @@ const monochromatic: Rule = {
 
         for (const l of lightnessSteps) {
             const c = base.clone();
+
             c.oklch['l'] = l;
+
             // Slightly reduce chroma for very light or very dark colors for a more natural look
             if ((l > 0.8 || l < 0.3) && c.oklch['c'] != null) {
                 c.oklch['c'] *= 0.8;
             }
+
             colors.push(c);
         }
 

@@ -1,4 +1,5 @@
 import code from '../../glsl/shapes/noiseField.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const noiseField: ShaderModule = {

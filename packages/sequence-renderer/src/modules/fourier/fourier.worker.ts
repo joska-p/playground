@@ -14,6 +14,7 @@ self.onmessage = (event: MessageEvent<Float32Array>) => {
             const y = sequence[2 * n + 1];
 
             const phi = (Math.PI * 2 * k * n) / N;
+
             re += x * Math.cos(phi) + y * Math.sin(phi);
             im += -x * Math.sin(phi) + y * Math.cos(phi);
         }

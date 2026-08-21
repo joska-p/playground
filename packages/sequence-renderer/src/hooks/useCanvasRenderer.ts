@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
+
 import { render } from '../core/render';
+
 import type { CanvasViewport, LayerConfigEntry } from '../core/types';
 
 export function useCanvasRenderer(
@@ -15,9 +17,13 @@ export function useCanvasRenderer(
 
     const draw = () => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
+
         const parent = canvas.parentElement;
+
         if (!parent) return;
+
         canvas.width = parent.clientWidth;
         canvas.height = parent.clientHeight;
         render(canvas, sequenceRef.current, layersRef.current, viewportRef.current);
@@ -43,10 +49,12 @@ export function useCanvasRenderer(
     // Viewport change → throttle via rAF
     useEffect(() => {
         if (rafRef.current !== null) return;
+
         rafRef.current = requestAnimationFrame(() => {
             draw();
             rafRef.current = null;
         });
+
         return () => {
             if (rafRef.current !== null) {
                 cancelAnimationFrame(rafRef.current);
@@ -59,11 +67,14 @@ export function useCanvasRenderer(
     // Worker redraw requests → render immediately
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
+
         function onRequestDraw() {
             draw();
         }
         canvas.addEventListener('sequence-renderer:request-draw', onRequestDraw);
+
         return () => {
             canvas.removeEventListener('sequence-renderer:request-draw', onRequestDraw);
         };

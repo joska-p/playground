@@ -1,7 +1,9 @@
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import type { LineSegment } from '../core/interpreter';
+
 import { GRUVBOX_DEPTH } from '../grammars';
+
+import type { LineSegment } from '../core/interpreter';
 
 function Segments({ segments }: { segments: LineSegment[] }) {
     const positions = new Float32Array(segments.length * 6);
@@ -28,6 +30,7 @@ function Segments({ segments }: { segments: LineSegment[] }) {
     }
 
     const geometry = new THREE.BufferGeometry();
+
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 

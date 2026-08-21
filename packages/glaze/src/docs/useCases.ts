@@ -1,11 +1,12 @@
-import type { ComponentType } from 'react';
-import { Screensaver } from './demos/cpu/Screensaver';
 import { GraphPaper } from './demos/cpu/GraphPaper';
 import { NodeEditor } from './demos/cpu/NodeEditor';
+import { Screensaver } from './demos/cpu/Screensaver';
+import { CyberHud } from './demos/gpu/CyberHud';
 import { DropIn } from './demos/gpu/DropIn';
 import { FractalLand } from './demos/gpu/FractalLand';
-import { CyberHud } from './demos/gpu/CyberHud';
 import { ReactionDiffusion } from './demos/gpu/ReactionDiffusion';
+
+import type { ComponentType } from 'react';
 
 export interface UseCaseLevel {
     readonly level: number;

@@ -9,6 +9,7 @@ export const lessThanRule = {
     evaluate: (args) => {
         const a = args[0]?.() ?? 0;
         const b = args[1]?.() ?? 0;
+
         return a < b ? 1.0 : -1.0;
     },
     toMathString: (args) => `(${args[0] ?? '0.0'} < ${args[1] ?? '0.0'} ? 1 : -1)`,
@@ -30,6 +31,7 @@ export const greaterThanRule = {
     evaluate: (args) => {
         const a = args[0]?.() ?? 0;
         const b = args[1]?.() ?? 0;
+
         return a > b ? 1.0 : -1.0;
     },
     toMathString: (args) => `(${args[0] ?? '0.0'} > ${args[1] ?? '0.0'} ? 1 : -1)`,

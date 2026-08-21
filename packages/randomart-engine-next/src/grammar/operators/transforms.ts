@@ -1,5 +1,6 @@
 import { GLSL_PI } from '../../glsl-library.js';
 import { clamp } from '../../util.js';
+
 import type { Operator } from './registry.js';
 
 export const absOp = {
@@ -29,10 +30,12 @@ export const expOp = {
     argNames: ['value'],
     evaluate: ({ args }) => {
         const val = Math.max(-1.0, Math.min(1.0, args['value'] ?? 0.5));
+
         return clamp(((Math.exp(val) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0);
     },
     toGLSL: ({ args }) => {
         const inner = `clamp(${args['value'] ?? 0.5}, -1.0, 1.0)`;
+
         return `(((exp(${inner}) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0)`;
     },
     toMathString: ({ args }) => `normalized_e^(${args['value'] ?? 0.5})`
@@ -45,6 +48,7 @@ export const logOp = {
     argNames: ['value'],
     evaluate: ({ args }) => {
         const val = Math.abs(args['value'] ?? 0.5);
+
         return clamp((Math.log(val + 1.0) / 0.69314718056) * 2.0 - 1.0);
     },
     toGLSL: ({ args }) => `((log(abs(${args['value'] ?? 0.5}) + 1.0) / 0.69314718056) * 2.0 - 1.0)`,
@@ -101,6 +105,7 @@ export const shiftOp = {
     // Constantly shifts the phase of the inner sub-tree over time
     evaluate: ({ args, ctx }) => {
         const shifted = (args['value'] ?? 0.5) + ctx.t * 0.2;
+
         // Keep it wrapped between [-1, 1] cleanly
         return ((shifted + 1) % 2) - 1;
     },

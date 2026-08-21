@@ -16,21 +16,25 @@ const store = createStore<StoreState>(() => ({
 
 export const useDivisions = () => {
     const divisions = useStore(store, (state) => state.divisions);
+
     return divisions;
 };
 
 export const useLightness = () => {
     const lightness = useStore(store, (state) => state.lightness);
+
     return lightness;
 };
 
 export const useChroma = () => {
     const chroma = useStore(store, (state) => state.chroma);
+
     return chroma;
 };
 
 export const useIsPlaying = () => {
     const isPlaying = useStore(store, (state) => state.isPlaying);
+
     return isPlaying;
 };
 

@@ -1,4 +1,5 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
+
 import {
     useComplexity,
     useGlitch,
@@ -18,9 +19,11 @@ function Atlas() {
     const glitch = useGlitch();
 
     let hash = 0;
+
     for (let i = 0; i < seed.length; i++) {
         hash = seed.charCodeAt(i) + ((hash << 5) - hash);
     }
+
     const seedOffset = Math.abs(hash % 1000);
 
     return (

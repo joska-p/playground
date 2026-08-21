@@ -1,4 +1,5 @@
 import { createStore } from 'zustand';
+
 import type { AtlasStoreState } from './types';
 
 const atlasStore = createStore<AtlasStoreState>(() => ({

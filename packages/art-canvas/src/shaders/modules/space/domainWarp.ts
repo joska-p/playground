@@ -1,4 +1,5 @@
 import code from '../../glsl/space/domainWarp.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const domainWarp: ShaderModule = {

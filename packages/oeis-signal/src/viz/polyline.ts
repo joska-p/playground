@@ -1,5 +1,5 @@
-import type { Signal } from '../core/types';
 import type { Viz } from './types';
+import type { Signal } from '../core/types';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
 type PolylineOptions = {
@@ -27,6 +27,7 @@ export function createPolylineViz(options: PolylineOptions = {}): Viz {
 
         render(signal: Signal, surface: CpuSurface) {
             const terms = signal.take(maxTerms);
+
             if (terms.length === 0) return;
 
             const points = terms.map((value, i) => ({
@@ -37,6 +38,7 @@ export function createPolylineViz(options: PolylineOptions = {}): Viz {
             for (let i = 1; i < points.length; i++) {
                 const a = points[i - 1] ?? { x: 0, y: 0 };
                 const b = points[i] ?? { x: 0, y: 0 };
+
                 surface.line(a.x, a.y, b.x, b.y, color, lineWidth);
             }
 

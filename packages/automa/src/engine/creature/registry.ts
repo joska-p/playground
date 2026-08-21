@@ -53,6 +53,7 @@ type CreatureId = (typeof allCreatures)[number]['id'];
 const creatures = allCreatures.reduce(
     (acc, creature) => {
         acc[creature.id] = creature;
+
         return acc;
     },
     {} as Record<CreatureId, Creature>

@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import type { Label, RawSample, Sample } from '../core/types.ts';
+
 import { CONSTANTS } from './constants.ts';
 import { generateSVG } from './generate-svg.ts';
 import { printProgress } from './utils.ts';
+
+import type { Label, RawSample, Sample } from '../core/types.ts';
 
 fs.mkdirSync(CONSTANTS.JSON_DIR, { recursive: true });
 fs.mkdirSync(CONSTANTS.IMG_DIR, { recursive: true });
@@ -14,6 +16,7 @@ const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR_SUBSET);
 const totalDrawings = fileNames.reduce((total, fileName) => {
     const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR_SUBSET, fileName), 'utf8');
     const { drawings } = JSON.parse(fileContent) as RawSample;
+
     return total + Object.keys(drawings).length;
 }, 0);
 
@@ -39,6 +42,7 @@ fileNames.forEach((fileName) => {
 
         const svgPath = path.join(CONSTANTS.IMG_DIR, `${String(id)}.svg`);
         const svgContent = generateSVG({ paths });
+
         fs.writeFileSync(svgPath, svgContent);
 
         printProgress({ count: id, max: totalDrawings });

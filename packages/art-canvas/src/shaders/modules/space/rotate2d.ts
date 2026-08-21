@@ -1,4 +1,5 @@
 import code from '../../glsl/space/rotate2d.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const rotate2d: ShaderModule = {

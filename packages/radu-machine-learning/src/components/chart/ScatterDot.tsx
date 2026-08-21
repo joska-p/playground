@@ -1,6 +1,8 @@
 import { cn } from '@repo/ui/lib/cn';
+
 import { labelToColorMap } from '../../constants';
 import { setScrollTarget, useSelectedDrawingId } from '../../stores/selection';
+
 import type { ChartPoint } from './types';
 
 type ScatterDotProps = {
@@ -26,6 +28,7 @@ function ScatterDot({ data, xScale, yScale }: ScatterDotProps) {
                         className="group cursor-pointer transition-[r] duration-200"
                         onClick={() => {
                             if (!drawingId) return;
+
                             setScrollTarget(drawingId);
                         }}
                     >

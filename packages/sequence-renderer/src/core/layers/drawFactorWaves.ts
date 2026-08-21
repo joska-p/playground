@@ -56,6 +56,7 @@ const drawFactorWaves: VisualLayer = {
             lightness = 55
         } = params;
         const { maxVal, valueScale, offsetX, offsetY } = layout;
+
         if (maxVal <= 0) return;
 
         const maxAmplitude = ctx.canvas.height * (amplitudeScale as number);
@@ -75,12 +76,14 @@ const drawFactorWaves: VisualLayer = {
             for (let canvasX = startX; canvasX <= endX; canvasX++) {
                 const v = (canvasX - offsetX) / valueScale;
                 const y = offsetY + amplitude * Math.sin((Math.PI * (v - p)) / p);
+
                 if (canvasX === startX) {
                     ctx.moveTo(canvasX, y);
                 } else {
                     ctx.lineTo(canvasX, y);
                 }
             }
+
             ctx.stroke();
             ctx.restore();
         });

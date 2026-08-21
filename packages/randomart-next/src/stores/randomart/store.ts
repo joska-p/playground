@@ -1,7 +1,9 @@
 import { DEFAULT_RULE_ID, getRule } from '@repo/randomart-engine-next/rules';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
+
 import { generateTrees } from './adapter';
+
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {

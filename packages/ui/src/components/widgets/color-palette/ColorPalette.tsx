@@ -1,7 +1,8 @@
+import { colorPaletteVariants, colorSwatchVariants, type ColorPaletteVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
 import type { VariantProps } from 'class-variance-authority';
 import type { LabelHTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
-import { colorPaletteVariants, colorSwatchVariants, type ColorPaletteVariants } from './variants';
 
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
 type SwatchVariants = VariantProps<typeof colorSwatchVariants>;

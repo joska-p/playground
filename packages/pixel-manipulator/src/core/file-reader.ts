@@ -4,12 +4,15 @@ function readFileAsImageData(file: File): Promise<ImageData> {
     return new Promise((resolve, reject) => {
         if (!file.type.startsWith('image/')) {
             reject(new Error('File is not an image'));
+
             return;
         }
 
         const reader = new FileReader();
+
         reader.onload = () => {
             const image = new Image();
+
             image.onload = () => {
                 try {
                     resolve(imageElementToImageData(image));

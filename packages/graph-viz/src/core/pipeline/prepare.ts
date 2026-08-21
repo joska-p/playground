@@ -3,7 +3,9 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { runPipeline } from './pipeline.js';
+
 import type { RawGraph } from './stages/parse-graph.js';
 
 // ── Paths ────────────────────────────────────────────────────────────────────
@@ -30,10 +32,13 @@ function main() {
     }
 
     const inputChecksum = fileChecksum(inputPath);
+
     if (existsSync(checksumPath) && existsSync(outputPath)) {
         const cached = readFileSync(checksumPath, 'utf-8').trim();
+
         if (cached === inputChecksum) {
             console.log('Input unchanged — skipping pipeline');
+
             return;
         }
     }
@@ -48,10 +53,12 @@ function main() {
 
     // Write output
     const payload = JSON.stringify(result);
+
     writeFileSync(outputPath, payload, 'utf-8');
     writeFileSync(checksumPath, inputChecksum, 'utf-8');
 
     const bytes = Buffer.byteLength(payload, 'utf-8');
+
     console.log(`Written ${outputPath}`);
     console.log(`  Nodes:       ${result.nodes.length}`);
     console.log(`  Links:       ${result.links.length}`);

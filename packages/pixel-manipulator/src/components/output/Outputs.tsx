@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useImageSource, useOutputs } from '../../stores/manipulator/selectors';
-import { EmptyState } from '../shared/EmptyState';
+
 import { CompareSlider } from './CompareSlider';
 import { CompareToggle } from './CompareToggle';
 import { OutputCard } from './OutputCard';
 import { ProcessingOverlay } from './ProcessingOverlay';
+import { useImageSource, useOutputs } from '../../stores/manipulator/selectors';
+import { EmptyState } from '../shared/EmptyState';
 
 function Outputs() {
     const imageSource = useImageSource();

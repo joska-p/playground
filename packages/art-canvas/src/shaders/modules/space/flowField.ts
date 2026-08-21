@@ -1,4 +1,5 @@
 import code from '../../glsl/space/flowField.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const flowField: ShaderModule = {

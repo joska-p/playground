@@ -22,6 +22,7 @@ const drawPlottedNumbers: VisualLayer = {
         const { valueScale, offsetX, offsetY } = layout;
 
         const plotted = new Set<number>();
+
         data.forEach((val) => {
             if (!plotted.has(val)) {
                 plotted.add(val);

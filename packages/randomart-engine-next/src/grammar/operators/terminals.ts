@@ -1,5 +1,6 @@
 import { GLSL_PI } from '../../glsl-library.js';
 import { clamp } from '../../util.js';
+
 import type { Operator } from './registry.js';
 
 export const xOp = {
@@ -30,6 +31,7 @@ export const constOp = {
     evaluate: ({ args }) => args['value'] ?? 0,
     toGLSL: ({ args }) => {
         const num = Number(args['value']);
+
         return isNaN(num) ? '0.0000' : num.toFixed(4);
     },
     toMathString: ({ args }) => args['value'] ?? 0
@@ -63,6 +65,7 @@ export const randomOp = {
     evaluate: ({ ctx }) => {
         const dot = Math.abs(ctx.x) * 12.9898 + Math.abs(ctx.y) * 78.233;
         const val = Math.sin(dot) * 43758.5453;
+
         return clamp((val - Math.floor(val)) * 2.0 - 1.0);
     },
     toGLSL: ({ coordVar }) =>

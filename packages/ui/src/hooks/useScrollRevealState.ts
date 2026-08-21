@@ -6,6 +6,7 @@ export function useScrollRevealState(threshold = 0.08) {
 
     useEffect(() => {
         const el = ref.current;
+
         if (!el) return;
 
         const observer = new IntersectionObserver(

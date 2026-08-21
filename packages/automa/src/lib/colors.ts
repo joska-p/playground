@@ -1,24 +1,19 @@
+import { parseColor } from '@repo/glaze/gpu/shapes/color';
+
 import { MAX_STATE_COUNT } from './constants';
 
 export function buildStateColorArray(stateColors: string[]): Float32Array {
     const floats = new Float32Array(MAX_STATE_COUNT * 3);
-    for (let i = 0; i < MAX_STATE_COUNT; i++) {
-        const hex = stateColors[i] ?? '#000000';
-        const r = parseInt(hex.slice(1, 3), 16) / 255;
-        const g = parseInt(hex.slice(3, 5), 16) / 255;
-        const b = parseInt(hex.slice(5, 7), 16) / 255;
-        floats[i * 3] = r;
-        floats[i * 3 + 1] = g;
-        floats[i * 3 + 2] = b;
-    }
-    return floats;
-}
 
-export function hexToRgbFloats(hex: string): [number, number, number] {
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
-    return [r, g, b];
+    for (let i = 0; i < MAX_STATE_COUNT; i++) {
+        const rgba = parseColor(stateColors[i] ?? '#000000');
+
+        floats[i * 3] = rgba.r;
+        floats[i * 3 + 1] = rgba.g;
+        floats[i * 3 + 2] = rgba.b;
+    }
+
+    return floats;
 }
 
 function lerpColor(hexA: string, hexB: string, t: number): string {
@@ -37,7 +32,7 @@ function lerpColor(hexA: string, hexB: string, t: number): string {
     return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 }
 
-// Function to compute all derived state colors given stateCount, deadColor, and aliveColor
+// Computes all derived state colors given a rule's stateCount plus the dead and alive colors.
 export function computeDerivedColors(
     stateCount: number,
     deadHex: string,
@@ -45,10 +40,10 @@ export function computeDerivedColors(
 ): string[] {
     const colors = [deadHex, aliveHex];
 
-    // Derive states 2..N-1 (decaying states in Generations automata)
+    // States 2..N-1 decay from alive toward dead.
     for (let i = 2; i < stateCount; i++) {
-        // Decay factor: state 2 is close to alive, maxState is close to dead
         const t = (i - 1) / (stateCount - 1);
+
         colors.push(lerpColor(aliveHex, deadHex, t));
     }
 

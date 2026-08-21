@@ -7,6 +7,7 @@ export const recamanRule = {
     maxSteps: 1000,
     getNext: ({ index, current, seen }) => {
         const backward = current - index;
+
         return backward > 0 && !seen.has(backward) ? backward : current + index;
     }
 } as const satisfies SequenceRule;

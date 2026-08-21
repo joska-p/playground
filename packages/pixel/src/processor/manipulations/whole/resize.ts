@@ -22,6 +22,7 @@ function bilinearResize({
     targetHeight: number;
 }) {
     const { width: sourceWidth, height: sourceHeight, data: sourceData } = source;
+
     if (targetWidth === sourceWidth && targetHeight === sourceHeight) {
         return source;
     }
@@ -56,12 +57,14 @@ function bilinearResize({
 
                 const top = p00 * (1 - xFraction) + p10 * xFraction;
                 const bottom = p01 * (1 - xFraction) + p11 * xFraction;
+
                 destinationData[destinationIndex + channel] = Math.round(
                     top * (1 - yFraction) + bottom * yFraction
                 );
             }
         }
     }
+
     return destination;
 }
 
@@ -78,12 +81,16 @@ function computeTargetDimensions({
 
     if ('maximumPixels' in options && options.maximumPixels) {
         const totalPixels = sourceWidth * sourceHeight;
+
         if (totalPixels <= options.maximumPixels) return null;
+
         const scale = Math.sqrt(options.maximumPixels / totalPixels);
+
         targetWidth = Math.max(1, Math.round(sourceWidth * scale));
         targetHeight = Math.max(1, Math.round(sourceHeight * scale));
     } else if ('width' in options && options.width && 'height' in options && options.height) {
         const fit = options.fit ?? 'fill';
+
         if (fit === 'fill') {
             targetWidth = options.width;
             targetHeight = options.height;
@@ -92,6 +99,7 @@ function computeTargetDimensions({
                 fit === 'contain'
                     ? Math.min(options.width / sourceWidth, options.height / sourceHeight)
                     : Math.max(options.width / sourceWidth, options.height / sourceHeight);
+
             targetWidth = Math.round(sourceWidth * scale);
             targetHeight = Math.round(sourceHeight * scale);
         }

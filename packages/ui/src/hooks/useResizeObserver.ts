@@ -17,13 +17,16 @@ export function useResizeObserver(
         if (!node) return;
 
         const initial = node.getBoundingClientRect();
+
         setDimensions({ width: initial.width, height: initial.height });
 
         const observer = new ResizeObserver((entries) => {
             if (!entries[0]) return;
+
             const { width, height } = entries[0].contentRect;
 
             if (timeout.current) clearTimeout(timeout.current);
+
             timeout.current = setTimeout(() => {
                 setDimensions((prev) =>
                     prev.width === width && prev.height === height ? prev : { width, height }
@@ -35,6 +38,7 @@ export function useResizeObserver(
 
         return () => {
             if (timeout.current) clearTimeout(timeout.current);
+
             observer.disconnect();
         };
     };

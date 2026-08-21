@@ -1,5 +1,6 @@
-import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
+
+import type { VariantProps } from 'class-variance-authority';
 
 export const controlPanelVariants = cva(
     'absolute z-40 flex flex-col overflow-hidden bg-surface/80 text-foreground min-h-0 transition-normal shadow backdrop-blur',

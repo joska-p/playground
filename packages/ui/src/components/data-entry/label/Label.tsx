@@ -1,6 +1,7 @@
-import type { LabelHTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { labelVariants, type LabelVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { LabelHTMLAttributes, Ref } from 'react';
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, LabelVariants {
     /** Visual only — shows a `*`; does NOT set the HTML `required` attribute. */

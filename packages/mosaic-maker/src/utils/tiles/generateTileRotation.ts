@@ -3,6 +3,7 @@ import { getRandom } from '../random/getRandom';
 
 function generateTileRotation(): string {
     const rotationKeys = Object.keys(initialRotations);
+
     return getRandom(rotationKeys);
 }
 

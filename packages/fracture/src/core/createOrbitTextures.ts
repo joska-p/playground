@@ -27,6 +27,7 @@ export function createOrbitTextures(gl: WebGL2RenderingContext): OrbitTextures {
         if (!existing || orbit.orbitLength !== existingWidth) {
             deleteTex(existing);
             const tex = gl.createTexture();
+
             gl.bindTexture(gl.TEXTURE_2D, tex);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -43,30 +44,36 @@ export function createOrbitTextures(gl: WebGL2RenderingContext): OrbitTextures {
                 gl.FLOAT,
                 orbit.data
             );
+
             return { tex, width: orbit.orbitLength };
         }
 
         gl.bindTexture(gl.TEXTURE_2D, existing);
         gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, orbit.orbitLength, 1, gl.RG, gl.FLOAT, orbit.data);
+
         return { tex: existing, width: existingWidth };
     };
 
     return {
         get tex1(): WebGLTexture {
             if (!texture1) throw new Error('primary orbit texture not ready');
+
             return texture1;
         },
         get tex2(): WebGLTexture {
             if (!texture2) throw new Error('secondary orbit texture not ready');
+
             return texture2;
         },
 
         upload(primary, secondary): void {
             const r1 = upload(primary, texture1, texture1Width);
+
             texture1 = r1.tex;
             texture1Width = r1.width;
 
             const r2 = upload(secondary, texture2, texture2Width);
+
             texture2 = r2.tex;
             texture2Width = r2.width;
         },

@@ -1,4 +1,5 @@
 import code from '../../glsl/space/repeatSpace.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const repeatSpace: ShaderModule = {

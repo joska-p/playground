@@ -1,6 +1,7 @@
 import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider, Textarea } from '@repo/ui/data-entry';
 import { startTransition } from 'react';
+
 import {
     setComplexity,
     setGlitch,
@@ -30,6 +31,7 @@ const generateRandomSeed = () => {
     const randomPhrase =
         randomPhrases[Math.floor(Math.random() * randomPhrases.length)] ?? 'ojibwe-pisano-grid';
     const newSeed = randomPhrase + '-' + String(Math.floor(Math.random() * 1000));
+
     setSeed(newSeed);
 };
 
@@ -63,9 +65,11 @@ function AtlasControls() {
 
     const seedOffset = () => {
         let hash = 0;
+
         for (let i = 0; i < seed.length; i++) {
             hash = seed.charCodeAt(i) + ((hash << 5) - hash);
         }
+
         return Math.abs(hash % 1000);
     };
 

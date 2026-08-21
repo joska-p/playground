@@ -3,6 +3,7 @@ import { getRule } from '@repo/randomart-engine-next/rules';
 import { DEFAULT_TERMINALS } from '@repo/randomart-engine-next/tree';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
+
 import { toggleOperator } from '../../stores/randomart/actions/config';
 import { useCustomOperators, useSelectedRuleId } from '../../stores/randomart/selectors';
 
@@ -30,6 +31,7 @@ function OperatorControls() {
                                 terminals.includes(operator.id) &&
                                 activeOperatorIds.filter((id) => terminals.includes(id)).length ===
                                     1;
+
                             return (
                                 <Button
                                     key={operator.id}

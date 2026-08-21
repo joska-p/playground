@@ -1,7 +1,8 @@
-import type { ButtonHTMLAttributes, Ref } from 'react';
+import { buttonVariants, type ButtonVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import { buttonVariants, type ButtonVariants } from './variants';
+
+import type { ButtonHTMLAttributes, Ref } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
     loading?: boolean;

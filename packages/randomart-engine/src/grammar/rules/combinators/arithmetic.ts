@@ -9,6 +9,7 @@ export const addRule = {
     evaluate: (args) => {
         const a = args[0] ?? (() => 0);
         const b = args[1] ?? (() => 0);
+
         return (a() + b()) * 0.5;
     },
     toMathString: (args) => `((${args[0] ?? '0.0'} + ${args[1] ?? '0.0'}) / 2)`,
@@ -29,6 +30,7 @@ export const multiplyRule = {
     evaluate: (args) => {
         const a = args[0] ?? (() => 0);
         const b = args[1] ?? (() => 0);
+
         return a() * b();
     },
     toMathString: (args) => `(${args[0] ?? '0.0'} · ${args[1] ?? '0.0'})`,
@@ -50,6 +52,7 @@ export const moduloRule = {
     evaluate: (args) => {
         const base = args[0]?.() ?? 0;
         const mod = args[1]?.() ?? 1;
+
         return mod === 0.0 ? 0.0 : base % mod;
     },
     toMathString: (args) => `(${args[0] ?? '0.0'} % ${args[1] ?? '1.0'})`,
@@ -72,11 +75,13 @@ export const powRule = {
     evaluate: (args) => {
         const base = args[0]?.() ?? 0;
         const exp = Math.max(-3.0, Math.min(3.0, args[1]?.() ?? 0));
+
         return Math.sign(base) * Math.pow(Math.abs(base), exp);
     },
     toMathString: (args) => `(${args[0] ?? '0.0'}^${args[1] ?? '0.0'})`,
     toGLSL: (args) => {
         const safeExp = `clamp(${args[1] ?? '0.0'}, -3.0, 3.0)`;
+
         return `(sign(${args[0] ?? '0.0'}) * pow(abs(${args[0] ?? '0.0'}), ${safeExp}))`;
     },
     toTreeView: (args, depth) => `${'  '.repeat(depth)}├── pow\n${args[0] ?? ''}${args[1] ?? ''}`,

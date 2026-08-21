@@ -1,11 +1,12 @@
-import { features } from '../../data/dataset/ts_objects/features';
-import { useSketchpadPathCount, useSketchpadPointCount } from '../../stores/sketchpad';
 import { computeChartBounds, createScalers, getTicks } from './chart-utils';
 import { HEIGHT, MARGIN, WIDTH } from './constants';
 import { ScatterDot } from './ScatterDot';
-import type { ChartPoint } from './types';
 import { Xaxis } from './Xaxis';
 import { Yaxis } from './Yaxis';
+import { features } from '../../data/dataset/ts_objects/features';
+import { useSketchpadPathCount, useSketchpadPointCount } from '../../stores/sketchpad';
+
+import type { ChartPoint } from './types';
 
 const { featureNames, samples } = features;
 

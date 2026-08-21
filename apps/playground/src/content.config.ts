@@ -2,8 +2,10 @@ import { iconNames } from '@repo/ui/icons';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection, reference } from 'astro:content';
-import type { JSONOutput } from 'typedoc';
+
 import { apiDocsLoader } from './content/loaders/api-docs';
+
+import type { JSONOutput } from 'typedoc';
 
 const iconNameSchema = z.enum(iconNames);
 

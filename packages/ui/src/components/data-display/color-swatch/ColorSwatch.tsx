@@ -1,5 +1,6 @@
-import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
+
+import type { HTMLAttributes, Ref } from 'react';
 
 type ColorSwatchSize = 'sm' | 'md';
 

@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@repo/ui/feedback';
+
 import { GetStarted } from './components/GetStarted';
 
 function App() {

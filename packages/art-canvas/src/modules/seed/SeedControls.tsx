@@ -1,7 +1,6 @@
 import { ControlRow } from '@repo/ui/control-panel';
 import { Input, Select, Slider } from '@repo/ui/data-entry';
-import type { MoodName } from '../../assembly/moods';
-import type { PalettePresetName } from '../../palettes/registry';
+
 import {
     setComplexity,
     setMood,
@@ -12,6 +11,9 @@ import {
     usePalette,
     useSeed
 } from './store';
+
+import type { MoodName } from '../../assembly/moods';
+import type { PalettePresetName } from '../../palettes/registry';
 
 const MOOD_OPTIONS = [
     { label: 'Organic', value: 'organic' },

@@ -1,5 +1,6 @@
 import { Badge } from '@repo/ui/data-display';
 import { Button, Switch } from '@repo/ui/data-entry';
+
 import { useCommunities, useNodes } from '../../stores/content/selectors';
 import {
     hideAllCommunities,
@@ -24,15 +25,19 @@ function FilterControls() {
     const counts = new Map<number, number>();
     const communityColor = new Map<number, string>();
     const communityName = new Map<number, string>();
+
     for (const n of nodes) {
         counts.set(n.community, (counts.get(n.community) ?? 0) + 1);
+
         if (!communityColor.has(n.community)) {
             communityColor.set(n.community, n.color);
         }
     }
+
     for (const c of communities) {
         communityName.set(c.id, c.name);
     }
+
     const commList = Array.from(counts.entries())
         .sort((a, b) => a[0] - b[0])
         .map(([id, count]) => ({
@@ -89,6 +94,7 @@ function FilterControls() {
                     <div className="max-h-60 space-y-0.5 overflow-y-auto pr-1">
                         {commList.map((c) => {
                             const isActive = visibleCommunities.has(c.id);
+
                             return (
                                 <button
                                     key={c.id}

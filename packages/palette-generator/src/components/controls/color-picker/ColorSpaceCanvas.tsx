@@ -1,5 +1,6 @@
 import { colorSpaces } from '@repo/palette-engine/colorSpaces';
 import { useEffect } from 'react';
+
 import { scaleTo255 } from '../../../utils/color';
 
 type ColorSpaceCanvasProps = {
@@ -16,6 +17,7 @@ function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpa
     useEffect(() => {
         const canvas = ref.current;
         const ctx = canvas?.getContext('2d');
+
         if (!ctx) return;
 
         const { xAxis, yAxis, getColor } = config;
@@ -33,6 +35,7 @@ function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpa
                 const [r, g, b] = color.srgb;
 
                 const index = (py * size + px) * 4;
+
                 data[index] = scaleTo255(r);
                 data[index + 1] = scaleTo255(g);
                 data[index + 2] = scaleTo255(b);

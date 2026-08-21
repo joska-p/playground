@@ -1,6 +1,7 @@
-import type { InputHTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { inputVariants, type InputVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { InputHTMLAttributes, Ref } from 'react';
 
 export interface InputProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, InputVariants {

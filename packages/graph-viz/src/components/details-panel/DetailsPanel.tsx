@@ -1,7 +1,7 @@
-import { useNodes } from '../../stores/content/selectors';
-import { useSelectedNodeIdx } from '../../stores/view/selectors';
 import { GraphOverview } from './graph-overview/GraphOverview';
 import { NodeDetails } from './node-details/NodeDetails';
+import { useNodes } from '../../stores/content/selectors';
+import { useSelectedNodeIdx } from '../../stores/view/selectors';
 
 function DetailsPanel() {
     const nodes = useNodes();

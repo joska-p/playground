@@ -27,6 +27,7 @@ export const drawRecamanArcs: VisualLayer = {
     draw: (ctx, data, params, layout) => {
         const { valueScale, offsetX, offsetY } = layout;
         const { lineWidth, alpha, color } = params;
+
         if (data.length < 2) return;
 
         ctx.save();
@@ -38,15 +39,19 @@ export const drawRecamanArcs: VisualLayer = {
 
         data.forEach((value, index) => {
             const previousValue = data[index - 1];
+
             if (index > 0) {
                 const middleValue = ((previousValue + value) / 2) * valueScale;
                 const radius = (Math.abs(value - previousValue) / 2) * valueScale;
+
                 ctx.beginPath();
+
                 if (index % 2 === 0) {
                     ctx.arc(middleValue, 0, radius, 0, Math.PI);
                 } else {
                     ctx.arc(middleValue, 0, radius, Math.PI, 0);
                 }
+
                 ctx.stroke();
             }
         });

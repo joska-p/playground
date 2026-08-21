@@ -1,5 +1,5 @@
-import type Color from 'colorjs.io';
 import type { Rule } from '../types';
+import type Color from 'colorjs.io';
 
 /** Three colors 120° apart around the hue wheel. */
 const triadic: Rule = {
@@ -11,11 +11,13 @@ const triadic: Rule = {
 
         for (const angle of angles) {
             const c = base.clone();
+
             if (c.oklch['h'] != null) {
                 c.oklch['h'] = (c.oklch['h'] + angle) % 360;
             }
 
             const variation = c.clone();
+
             if (variation.oklch['l'] != null) {
                 variation.oklch['l'] =
                     variation.oklch['l'] > 0.5

@@ -45,6 +45,21 @@ export default function createConfig(dirname) {
                         fixStyle: 'separate-type-imports'
                     }
                 ],
+                'import/order': [
+                    'error',
+                    {
+                        groups: [
+                            'builtin', // node:fs, node:path...
+                            'external', // react, lodash...
+                            'internal', // ~/components, ~/utils...
+                            ['parent', 'sibling', 'index'], // ../, ./
+                            'object',
+                            'type' // imports de types à la fin
+                        ],
+                        'newlines-between': 'always', // Force une ligne vide entre chaque groupe
+                        alphabetize: { order: 'asc', caseInsensitive: true }
+                    }
+                ],
 
                 // --- 2. TYPES & SYNTAXE ---
                 'prefer-const': 'error',
@@ -76,6 +91,33 @@ export default function createConfig(dirname) {
                             'TSPropertySignature[optional=true] TSUnionType > TSUndefinedKeyword',
                         message:
                             "Type noise: Avoid combining optional properties (?) with explicit '| undefined'. You may want to provide a default value."
+                    }
+                ],
+
+                // -- 4. Room
+                'padding-line-between-statements': [
+                    'error',
+                    // Ligne vide TOUJOURS avant un return
+                    { blankLine: 'always', prev: '*', next: 'return' },
+
+                    // Ligne vide après les déclarations (const/let), SAUF si la ligne suivante est aussi une déclaration
+                    { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+                    {
+                        blankLine: 'any',
+                        prev: ['const', 'let', 'var'],
+                        next: ['const', 'let', 'var']
+                    },
+
+                    // Ligne vide avant et après les structures de contrôle (if, switch, try, for...)
+                    {
+                        blankLine: 'always',
+                        prev: '*',
+                        next: ['if', 'switch', 'try', 'for', 'while']
+                    },
+                    {
+                        blankLine: 'always',
+                        prev: ['if', 'switch', 'try', 'for', 'while'],
+                        next: '*'
                     }
                 ],
 

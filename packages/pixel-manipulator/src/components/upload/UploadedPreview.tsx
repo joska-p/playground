@@ -1,7 +1,9 @@
 import { Button } from '@repo/ui/data-entry';
 import { useEffect, useRef } from 'react';
-import type { OutputType } from '../../stores/manipulator/types';
+
 import { CloseIcon } from '../shared/CloseIcon';
+
+import type { OutputType } from '../../stores/manipulator/types';
 
 type UploadedPreviewProps = {
     imageSource: OutputType;
@@ -14,9 +16,11 @@ function UploadedPreview({ imageSource, fileName, onClear }: UploadedPreviewProp
 
     useEffect(() => {
         const canvas = canvasRef.current;
+
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
+
         if (ctx) {
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;

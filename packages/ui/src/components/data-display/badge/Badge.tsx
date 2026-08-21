@@ -1,6 +1,7 @@
-import type { HTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { badgeVariants, type BadgeVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { HTMLAttributes, Ref } from 'react';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement>, BadgeVariants {
     ref?: Ref<HTMLSpanElement>;

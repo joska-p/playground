@@ -1,6 +1,7 @@
-import type { HTMLAttributes, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { cardVariants, type CardVariantProps } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { HTMLAttributes, Ref } from 'react';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement>, CardVariantProps {
     ref?: Ref<HTMLDivElement>;

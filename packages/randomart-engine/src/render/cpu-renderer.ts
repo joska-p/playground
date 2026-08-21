@@ -1,4 +1,5 @@
 import { evaluateNode } from '../tree/evaluate';
+
 import type { ExpressionNode } from '../types';
 
 // Must match the `(value + 1.0) / 2.0` normalization in the GLSL shader, or CPU and GPU renders diverge.

@@ -2,13 +2,14 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, type RootState } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+
+import { CommunityLabels } from './CommunityLabels.tsx';
+import { Edges } from './Edges.tsx';
+import { Nodes } from './Nodes.tsx';
 import { CONFIG } from '../../core/config.ts';
 import { useCommunities, useNodes } from '../../stores/content/selectors';
 import { initCommunities, selectNode } from '../../stores/view/actions';
 import { useSelectedNodeIdx } from '../../stores/view/selectors';
-import { CommunityLabels } from './CommunityLabels.tsx';
-import { Edges } from './Edges.tsx';
-import { Nodes } from './Nodes.tsx';
 
 type OC = React.ComponentRef<typeof OrbitControls>;
 
@@ -21,6 +22,7 @@ let isAnimating = false;
 function CameraAnimator({ controlsRef }: { controlsRef: React.RefObject<OC | null> }) {
     useFrame(() => {
         const controls = controlsRef.current;
+
         if (!controls || !isAnimating) return;
 
         const speed = 0.08;
@@ -51,18 +53,22 @@ function GraphCanvas() {
 
     useEffect(() => {
         const communityIds = communities.map((c) => c.id).sort((a, b) => a - b);
+
         initCommunities(communityIds);
     }, [communities]);
 
     useEffect(() => {
         const controls = controlsRef.current;
+
         if (selectedNodeIdx === null || !controls) return;
+
         const node = nodes[selectedNodeIdx];
         const offset = new THREE.Vector3().copy(controls.object.position).sub(controls.target);
 
         // Clamp offset to a reasonable distance so clicking from
         // far away doesn't keep the camera at extreme range.
         const maxDist = 300;
+
         if (offset.length() > maxDist) {
             offset.setLength(maxDist);
         }
@@ -85,8 +91,10 @@ function GraphCanvas() {
             }}
             onCreated={(state: RootState) => {
                 const parentElement = state.gl.domElement.parentElement;
+
                 if (parentElement) {
                     const bg = getComputedStyle(parentElement).backgroundColor;
+
                     state.gl.setClearColor(new THREE.Color(bg));
                 }
             }}

@@ -1,6 +1,8 @@
-import type { Node } from '@repo/randomart-engine-next/types';
 import { useStore } from 'zustand';
+
 import { randomartStore } from './store';
+
+import type { Node } from '@repo/randomart-engine-next/types';
 
 // --- Mode Selectors ---
 export function useMode() {

@@ -7,6 +7,7 @@ export const padovanRule = {
     maxSteps: 200,
     getNext: ({ index, sequence }) => {
         if (index <= 2) return 1;
+
         return (sequence[index - 2] ?? 0) + (sequence[index - 3] ?? 0);
     }
 } as const satisfies SequenceRule;

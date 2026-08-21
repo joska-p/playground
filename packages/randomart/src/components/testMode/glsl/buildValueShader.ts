@@ -1,7 +1,9 @@
 import { resolveGlslDeps } from '@repo/randomart-engine/compile/glslLibrary';
-import type { ExpressionNode, GrammarRule } from '@repo/randomart-engine/types';
+
 import { colormapGLSL } from '../lib/colormap';
 import { GLSL_ARGS } from '../lib/evalHelpers';
+
+import type { ExpressionNode, GrammarRule } from '@repo/randomart-engine/types';
 
 export const VALUE_VERTEX_SHADER = /* glsl */ `
   #version 300 es

@@ -1,10 +1,11 @@
-import type { ArgDefinition } from '@repo/pixel/processor';
 import { ControlRow, ControlSubsection } from '@repo/ui/control-panel';
 import { Slider } from '@repo/ui/data-entry';
+
+import { WorkflowNodeControls } from './WorkflowNodeControls';
 import { updateStepOptions } from '../../stores/manipulator/actions';
 
 import type { WorkflowStep } from '../../stores/manipulator/types';
-import { WorkflowNodeControls } from './WorkflowNodeControls';
+import type { ArgDefinition } from '@repo/pixel/processor';
 
 type WorkflowNodeProps = {
     step: WorkflowStep;

@@ -56,6 +56,7 @@ const drawStemPlot: VisualLayer = {
             lightness = 60
         } = params;
         const { valueScale, offsetX, offsetY, maxVal } = layout;
+
         if (data.length === 0 || maxVal === 0) return;
 
         ctx.save();

@@ -1,7 +1,8 @@
-import { initialPalette } from '../../core/initialPalette';
-import type { Palette } from '../../core/types';
 import { paletteSchema } from './fetchPalettes.schema';
 import { fetchWithValidation } from './fetchWithValidation';
+import { initialPalette } from '../../core/initialPalette';
+
+import type { Palette } from '../../core/types';
 
 type CachedPalettes = {
     palettes: Palette[];
@@ -24,6 +25,7 @@ const COLOR_NAMES: (keyof Palette)[] = [
 
 function getCachedPalettes(): CachedPalettes | null {
     const stored = localStorage.getItem(CACHE_KEY);
+
     if (!stored) return null;
 
     try {
@@ -43,11 +45,15 @@ function getPaletteId(colors: string[]): string {
 
 function createPalette(colors: string[]): Palette {
     const palette = {} as Palette;
+
     for (let i = 0; i < COLOR_NAMES.length; i++) {
         const colorName = COLOR_NAMES[i];
+
         palette[colorName] = colors[i] ?? '#000000';
     }
+
     palette.id = getPaletteId(colors);
+
     return palette;
 }
 
@@ -57,11 +63,13 @@ function cachePalettes(palettes: Palette[]): void {
         expiration: Date.now() + CACHE_DURATION_MS,
         version: CACHE_VERSION
     };
+
     localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
 }
 
 async function fetchPalettes(): Promise<Palette[]> {
     const cached = getCachedPalettes();
+
     if (cached && isCacheValid(cached)) {
         return cached.palettes;
     }
@@ -69,10 +77,13 @@ async function fetchPalettes(): Promise<Palette[]> {
     try {
         const palettesArray = await fetchWithValidation(PALETTE_URL, paletteSchema);
         const palettes = palettesArray.map(createPalette);
+
         cachePalettes(palettes);
+
         return palettes;
     } catch (error) {
         console.error('Failed to fetch palettes:', error);
+
         return [initialPalette];
     }
 }

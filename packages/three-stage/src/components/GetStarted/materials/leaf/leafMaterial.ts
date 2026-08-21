@@ -1,4 +1,5 @@
 import { ShaderMaterial } from 'three';
+
 import fragmentShaders from './fragment.frag?raw';
 import vertexShaders from './vertex.vert?raw';
 

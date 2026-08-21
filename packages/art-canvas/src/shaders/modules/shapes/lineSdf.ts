@@ -1,4 +1,5 @@
 import code from '../../glsl/shapes/lineSdf.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const lineSdf: ShaderModule = {

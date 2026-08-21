@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
+
+import { Tile } from './Tile';
 import { CSS_VARS, initialGapSize, initialRotations, initialTileSize } from '../core/constants';
 import { initialPalette } from '../core/initialPalette';
 import { initPalettes, setRef } from '../stores/mosaic/actions';
 import { useTiles } from '../stores/mosaic/selectors';
-import { Tile } from './Tile';
 
 const MOSAIC_STYLES = {
     ...initialPalette,

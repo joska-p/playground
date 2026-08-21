@@ -1,9 +1,11 @@
 import { ArrowRight } from 'lucide-react';
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
-import { cn } from '../../../lib/cn';
-import type { IconName } from '../../icons';
-import { Icon } from '../../icons';
+
 import { sectionHeaderVariants, type SectionHeaderVariants } from './variants';
+import { cn } from '../../../lib/cn';
+import { Icon } from '../../icons';
+
+import type { IconName } from '../../icons';
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 
 export interface SectionHeaderProps extends HTMLAttributes<HTMLDivElement>, SectionHeaderVariants {
     title: string;

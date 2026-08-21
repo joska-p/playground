@@ -108,23 +108,30 @@ export function resolveGlslDeps(requiredIds: string[]): string {
 
     function resolve(id: string) {
         if (visited.has(id)) return;
+
         if (resolving.has(id)) {
             const cycleStart = path.indexOf(id);
             const cycle = path.slice(cycleStart).concat(id);
+
             throw new Error(`Dependency cycle detected: ${cycle.join(' → ')}`);
         }
+
         resolving.add(id);
         path.push(id);
         const fn = functionById.get(id);
+
         if (!fn) {
             path.pop();
             resolving.delete(id);
             visited.add(id);
+
             return;
         }
+
         for (const dep of fn.dependencies ?? []) {
             resolve(dep);
         }
+
         path.pop();
         resolving.delete(id);
         visited.add(id);

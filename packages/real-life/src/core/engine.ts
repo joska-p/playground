@@ -31,6 +31,7 @@ console.clear();
 
 setInterval(() => {
     const newGrid = createGrid(HEIGHT, WIDTH);
+
     moveCursorUp(HEIGHT);
     displayGrid(newGrid);
 }, 500);

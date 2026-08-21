@@ -1,6 +1,7 @@
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
-import { generateShaderFromSeed } from '../../assembly/from-seed';
+
 import { useComplexity, useMood, usePalette, useSeed } from './store';
+import { generateShaderFromSeed } from '../../assembly/from-seed';
 
 function SeedCanvas() {
     const seed = useSeed();

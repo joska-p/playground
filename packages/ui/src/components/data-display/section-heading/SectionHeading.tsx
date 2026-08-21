@@ -1,6 +1,7 @@
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
-import { cn } from '../../../lib/cn';
 import { sectionHeadingVariants, type SectionHeadingVariants } from './variants';
+import { cn } from '../../../lib/cn';
+
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 
 export interface SectionHeadingProps
     extends HTMLAttributes<HTMLDivElement>, SectionHeadingVariants {

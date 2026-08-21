@@ -1,4 +1,5 @@
 import code from '../../glsl/shapes/voronoi.glsl?raw';
+
 import type { ShaderModule } from '../../types';
 
 export const voronoiModule: ShaderModule = {

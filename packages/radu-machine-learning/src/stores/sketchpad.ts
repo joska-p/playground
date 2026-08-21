@@ -1,6 +1,8 @@
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
+
 import { getPointCount } from '../core/api';
+
 import type { Path } from '../core/types';
 
 type SketchpadStore = {

@@ -1,9 +1,10 @@
-import type { EndpointId } from '../data/pipeline-docs-data';
-import { findManipById } from '../data/pipeline-docs-data';
 import { InternalsView } from './InternalsView';
 import { ManipView } from './ManipView';
 import { OverviewView } from './OverviewView';
 import { PipelineView } from './PipelineView';
+import { findManipById } from '../data/pipeline-docs-data';
+
+import type { EndpointId } from '../data/pipeline-docs-data';
 
 type EndpointViewProps = {
     activeEndpoint: EndpointId;
@@ -36,6 +37,7 @@ function EndpointView({
     }
 
     const manip = findManipById(activeEndpoint.id);
+
     if (!manip) {
         return (
             <div className="text-muted-foreground py-12 text-center text-sm">

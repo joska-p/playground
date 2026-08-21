@@ -38,6 +38,7 @@ export function createIcon(config: CreateIconConfig) {
 
     // Set a friendly name for React DevTools (e.g., "IconUser" instead of just "Icon")
     const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
     Icon.displayName = `Icon${capitalizedName}`;
 
     return Icon;

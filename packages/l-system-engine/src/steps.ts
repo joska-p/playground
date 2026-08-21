@@ -1,4 +1,5 @@
 import { createRandom } from './random';
+
 import type { Context, ExpandOptions, Grammar, Word } from './types';
 
 function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
@@ -11,9 +12,11 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
         const context: Context = { word, index: i, random };
 
         let matched = false;
+
         for (const rule of grammar.rules) {
             if (rule.match(sym, context)) {
                 const replacement = rule.apply(sym, context);
+
                 next.push(...replacement);
                 matched = true;
                 break;
@@ -39,9 +42,12 @@ export function steps(grammar: Grammar, options?: ExpandOptions): Iterator<Word,
         next(): IteratorResult<Word> {
             if (!started) {
                 started = true;
+
                 return { value: current, done: false };
             }
+
             current = rewrite(current, grammar, random);
+
             return { value: current, done: false };
         }
     };

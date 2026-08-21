@@ -1,7 +1,8 @@
-import type { HTMLAttributes, Ref } from 'react';
+import { heroVariants, type HeroVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Badge } from '../badge/Badge';
-import { heroVariants, type HeroVariants } from './variants';
+
+import type { HTMLAttributes, Ref } from 'react';
 
 const COLOR_GRADIENT_FROM = {
     default: 'from-foreground-dim',

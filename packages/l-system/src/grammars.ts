@@ -4,6 +4,7 @@ import {
     stochasticRule,
     symbol
 } from '@repo/l-system-engine/engine';
+
 import type { Grammar } from '@repo/l-system-engine/types';
 
 export const GRUVBOX_DEPTH = [

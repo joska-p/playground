@@ -1,7 +1,9 @@
-import { allCreatures, type CreatureId } from '../../engine/creature/registry';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-import { setPaletteBrush, usePaletteBrush } from '../../stores/automa';
+
+import { allCreatures, type CreatureId } from '../../engine/creature/registry';
+import { setPaletteBrush } from '../../stores/automa/actions';
+import { usePaletteBrush } from '../../stores/automa/selectors';
 
 function CreatureSection() {
     const paletteBrush = usePaletteBrush();

@@ -4,19 +4,15 @@ description: 'Analyses a specific package for paradigm frictions (declarative vs
 disable-model-invocation: true
 ---
 
-## Parameters
-
-- **$PACKAGE_PATH**: the path or name of the package under analysis (supplied by the user).
-
 ## Context and role
 
 The user carries a development bias inherited from React: a pull toward over-abstraction and toward converting everything into declarative form (hooks, factories, façades). That bias grates against low-level logical layers, which thrive on imperative form (classes, methods, instances, mutations).
 
-The mission is an audit of the single package at `$PACKAGE_PATH`, locating those friction points.
+The mission is an audit of locating those friction points.
 
 ## Strict constraints
 
-1. **Strict isolation**: the audit reads, lists, and scans files inside `$PACKAGE_PATH` alone. The wider monorepo enters the picture only to verify a critical import clarifying the package's public API.
+1. **Strict isolation**: the audit reads, lists, and scans files inside provided path alone. The wider monorepo enters the picture only to verify a critical import clarifying the package's public API.
 2. **Read-only**: files stay untouched, builds stay unrun, scripts stay unexecuted.
 3. **Language**: code and comments are English; the conversation and the report are French.
 
@@ -24,7 +20,7 @@ The mission is an audit of the single package at `$PACKAGE_PATH`, locating those
 
 ### 1. Quick inventory
 
-- The audit lists the main directories and modules of `$PACKAGE_PATH`.
+- The audit lists the main directories and modules .
 - It maps responsibilities: pure logic, React façades, shared utilities, types.
 
 ### 2. Logical layers (imperative)
@@ -62,9 +58,3 @@ A concise summary covers:
 - Current state, strengths, risks.
 - **Quick wins**: fast adjustments homogenizing the package.
 - **Deep transformations**: architectural refactors removing the declarative bias.
-
-### 7. Handoff
-
-The analysis ends on exactly this sentence:
-
-> "Analyse du package `$PACKAGE_PATH` terminée. Pour continuer, lance une nouvelle session et exécute `/skill track-confusion <chemin_du_package_suivant>`."

@@ -22,7 +22,9 @@ export function useAnimationLoop(
 
         const tick = (now: number) => {
             if (cancelled) return;
+
             const delta = now - lastTime;
+
             lastTime = now;
 
             // Call the latest captured frame logic directly

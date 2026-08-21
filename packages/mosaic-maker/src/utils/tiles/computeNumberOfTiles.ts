@@ -2,9 +2,11 @@ import { CSS_VARS } from '../../core/constants';
 
 function parseNumericValue(value: string): number {
     const parsed = Number.parseFloat(value);
+
     if (Number.isNaN(parsed)) {
         throw new Error(`Invalid numeric value: ${value}`);
     }
+
     return parsed;
 }
 
@@ -25,6 +27,7 @@ function computeNumberOfTiles(element: HTMLDivElement): number {
         return Math.max(0, tilesPerRow * tilesPerColumn);
     } catch (error) {
         console.error('Failed to compute number of tiles:', error);
+
         return 0;
     }
 }

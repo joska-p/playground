@@ -1,7 +1,8 @@
-import type { InputHTMLAttributes, Ref } from 'react';
+import { sliderVariants, type SliderVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import { sliderVariants, type SliderVariants } from './variants';
+
+import type { InputHTMLAttributes, Ref } from 'react';
 
 export interface SliderProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'>, SliderVariants {

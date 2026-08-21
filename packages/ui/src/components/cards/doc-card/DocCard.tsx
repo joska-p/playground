@@ -1,10 +1,11 @@
-import type { ComponentProps } from 'react';
 import { Icon } from '../../icons/Icon';
-import type { IconName } from '../../icons/iconMap';
 import { CardBody } from '../shared/CardBody';
 import { CardDescription } from '../shared/CardDescription';
 import { CardLink } from '../shared/CardLink';
 import { CardTitle } from '../shared/CardTitle';
+
+import type { IconName } from '../../icons/iconMap';
+import type { ComponentProps } from 'react';
 
 export type DocCardProps = {
     title: string;

@@ -1,5 +1,6 @@
-import type { OperatorId } from '../operators/registry.js';
 import { classicRule, fatRule, flowRule, paperRule } from './rule-definitions.js';
+
+import type { OperatorId } from '../operators/registry.js';
 
 /** Only `classic` for now — the union is ready for more. */
 export type RuleKind = 'classic';

@@ -1,7 +1,8 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import { checkboxVariants, type CheckboxVariants } from './variants';
 import { cn } from '../../../lib/cn';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import { checkboxVariants, type CheckboxVariants } from './variants';
+
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement>, CheckboxVariants {
     label?: ReactNode;

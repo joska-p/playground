@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { InspectorPanel } from './InspectorPanel';
 
 export function FloatingInspector() {

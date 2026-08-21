@@ -49,6 +49,7 @@ export function parseGraph(raw: RawGraph): ParseResult {
     }));
 
     const nodeById = new Map<string, SimNode>();
+
     for (const n of simNodes) {
         nodeById.set(n.id, n);
     }
@@ -56,7 +57,9 @@ export function parseGraph(raw: RawGraph): ParseResult {
     for (const link of links) {
         const src = nodeById.get(link.source);
         const tgt = nodeById.get(link.target);
+
         if (src) src.outDegree += 1;
+
         if (tgt) tgt.inDegree += 1;
     }
 
@@ -66,9 +69,11 @@ export function parseGraph(raw: RawGraph): ParseResult {
 
     // Build simulation links (keep relation)
     const simLinks: SimLink[] = [];
+
     for (const link of links) {
         const src = nodeById.get(link.source);
         const tgt = nodeById.get(link.target);
+
         if (src && tgt) {
             simLinks.push({
                 source: src,
@@ -77,6 +82,7 @@ export function parseGraph(raw: RawGraph): ParseResult {
             });
         }
     }
+
     stats.push(
         `Simulation links: ${simLinks.length} (${links.length - simLinks.length} dropped due to missing endpoints)`
     );

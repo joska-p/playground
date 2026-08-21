@@ -1,11 +1,13 @@
 import { useRef } from 'react';
-import type { MeshBasicMaterial } from 'three';
+
+import { DisplayMesh } from './DisplayMesh';
+import { SimulationRenderer } from './SimulationRenderer';
 import { useInitialGridTexture } from '../hooks/useInitialGridTexture';
 import { useSimulationBuffers } from '../hooks/useSimulationBuffers';
 import { useSimulationScene } from '../hooks/useSimulationScene';
 import { useThrottledUpdate } from '../hooks/useThrottledUpdate';
-import { DisplayMesh } from './DisplayMesh';
-import { SimulationRenderer } from './SimulationRenderer';
+
+import type { MeshBasicMaterial } from 'three';
 
 export function ContinuousAutomaton() {
     const size = 512;

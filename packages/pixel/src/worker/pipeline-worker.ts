@@ -1,8 +1,9 @@
-import type { Step } from '../processor/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '../processor/manipulations/manifest';
-import { processImage } from '../processor/process-image';
 import { PixelData } from '../processor/pixel-data';
+import { processImage } from '../processor/process-image';
 import { Registry } from '../processor/registry';
+
+import type { Step } from '../processor/manipulations/manifest';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 

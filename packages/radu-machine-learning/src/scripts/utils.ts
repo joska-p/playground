@@ -1,5 +1,6 @@
 function formatPercent(percent: number) {
     const percentStr = (percent * 100).toFixed(2);
+
     return `${percentStr}%`;
 }
 
@@ -8,6 +9,7 @@ function printProgress({ count, max }: { count: number; max: number }) {
     process.stdout.cursorTo(0);
 
     const percent = formatPercent(count / max);
+
     process.stdout.write(`Progress: ${String(count)} / ${String(max)} (${percent})`);
 }
 

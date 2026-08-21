@@ -1,6 +1,7 @@
-import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
 import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
+import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
+
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
 
 const DEFAULT_STROKE_WIDTH = 1;
@@ -45,6 +46,7 @@ export class CpuSurface {
 
     constructor(config: CpuSurfaceConfig) {
         const context = config.canvas.getContext('2d');
+
         if (!context) throw new Error('Glaze: Canvas2D context unavailable');
 
         this.canvas = config.canvas;
@@ -78,6 +80,7 @@ export class CpuSurface {
 
     setDraw(newCpuDraw: CpuDraw | null): void {
         this.#cpuDraw = newCpuDraw;
+
         if (newCpuDraw && this.#subscribers.size === 0) this.#startRendering();
         else if (!newCpuDraw && this.#subscribers.size === 0) this.#stopRendering();
     }
@@ -85,28 +88,34 @@ export class CpuSurface {
     subscribe(fn: CpuDraw): () => void {
         this.#subscribers.add(fn);
         this.#startRendering();
+
         return () => {
             this.#subscribers.delete(fn);
+
             if (this.#subscribers.size === 0 && this.#cpuDraw === null) this.#stopRendering();
         };
     }
 
     clear(color: string): this {
         const context = this.context;
+
         context.save();
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.fillStyle = color;
         context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         context.restore();
+
         return this;
     }
 
     /** Applied automatically each frame; call manually before one-shot draws outside the loop. */
     applyCamera(): this {
         const context = this.context;
+
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.transform(this.camera.zoom, 0, 0, this.camera.zoom, this.camera.x, this.camera.y);
         context.scale(this.dpr, this.dpr);
+
         return this;
     }
 
@@ -135,6 +144,7 @@ export class CpuSurface {
             this.#paintShape(fill, stroke);
         } else {
             const style = yOrStyle as DrawStyle | undefined;
+
             this.rect(
                 xOrRect.x,
                 xOrRect.y,
@@ -145,6 +155,7 @@ export class CpuSurface {
                 style?.lineWidth
             );
         }
+
         return this;
     }
 
@@ -171,6 +182,7 @@ export class CpuSurface {
             this.#paintShape(fill, stroke);
         } else {
             const style = radiusOrStyle as DrawStyle | undefined;
+
             this.circle(
                 xOrCenter.x,
                 xOrCenter.y,
@@ -180,6 +192,7 @@ export class CpuSurface {
                 style?.lineWidth
             );
         }
+
         return this;
     }
 
@@ -198,8 +211,10 @@ export class CpuSurface {
         } else {
             const b = y1OrB as Point2D;
             const style = x2OrStyle as DrawStyle | undefined;
+
             this.line(x1OrA.x, x1OrA.y, b.x, b.y, style?.stroke, style?.lineWidth);
         }
+
         return this;
     }
 
@@ -216,6 +231,7 @@ export class CpuSurface {
         if (typeof xOrPosition === 'number') {
             const style = typeof fillOrStyle === 'object' ? fillOrStyle : undefined;
             const fill = typeof fillOrStyle === 'string' ? fillOrStyle : style?.fill;
+
             this.#drawText(
                 text,
                 xOrPosition,
@@ -226,8 +242,10 @@ export class CpuSurface {
             );
         } else {
             const style = yOrStyle as TextStyle;
+
             this.#drawText(text, xOrPosition.x, xOrPosition.y, style.fill, style.fontSize, style);
         }
+
         return this;
     }
 
@@ -256,6 +274,7 @@ export class CpuSurface {
             );
         } else {
             const options = strokeOrOptions as PathOptions | undefined;
+
             this.#drawPath(
                 points,
                 fillOrStyle?.fill,
@@ -265,6 +284,7 @@ export class CpuSurface {
                 options
             );
         }
+
         return this;
     }
 
@@ -288,8 +308,11 @@ export class CpuSurface {
         this.height = this.#cssHeight;
 
         const current = this.#cpuDraw;
+
         if (current) current(this);
+
         for (const subscriber of this.#subscribers) subscriber(this);
+
         this.input.endFrame();
     };
 
@@ -298,18 +321,22 @@ export class CpuSurface {
         this.#cssHeight = Math.max(1, this.canvas.clientHeight);
         const deviceWidth = Math.round(this.#cssWidth * this.dpr);
         const deviceHeight = Math.round(this.#cssHeight * this.dpr);
+
         if (this.canvas.width !== deviceWidth) this.canvas.width = deviceWidth;
+
         if (this.canvas.height !== deviceHeight) this.canvas.height = deviceHeight;
     }
 
     #startRendering(): void {
         if (this.#rendererAttached) return;
+
         this.#unsubscribeRenderer = this.#loop.subscribe(this.#onFrame);
         this.#rendererAttached = true;
     }
 
     #stopRendering(): void {
         if (!this.#rendererAttached) return;
+
         this.#unsubscribeRenderer?.();
         this.#unsubscribeRenderer = null;
         this.#rendererAttached = false;
@@ -317,8 +344,11 @@ export class CpuSurface {
 
     #begin(fill?: string, stroke?: string, lineWidth?: number): void {
         const context = this.context;
+
         context.beginPath();
+
         if (fill) context.fillStyle = fill;
+
         if (stroke) {
             context.strokeStyle = stroke;
             context.lineWidth = lineWidth ?? DEFAULT_STROKE_WIDTH;
@@ -330,7 +360,9 @@ export class CpuSurface {
     #paintShape(fill?: string, stroke?: string, options?: PathOptions): void {
         const doFill = options?.fill ?? fill !== undefined;
         const doStroke = options?.stroke ?? stroke !== undefined;
+
         if (doFill && fill) this.context.fill();
+
         if (doStroke && stroke) this.context.stroke();
     }
 
@@ -343,6 +375,7 @@ export class CpuSurface {
         lineWidth?: number
     ): void {
         const context = this.context;
+
         context.beginPath();
         context.strokeStyle = stroke ?? '#000000';
         context.lineWidth = lineWidth ?? DEFAULT_STROKE_WIDTH;
@@ -362,14 +395,17 @@ export class CpuSurface {
     ): void {
         const context = this.context;
         const size = String(fontSize ?? 16);
+
         context.font = `${size}px ${style?.fontFamily ?? DEFAULT_FONT_FAMILY}`;
         context.textAlign = style?.align ?? 'left';
         context.textBaseline = style?.baseline ?? 'alphabetic';
+
         if (style?.stroke) {
             context.lineWidth = style.lineWidth ?? DEFAULT_STROKE_WIDTH;
             context.strokeStyle = style.stroke;
             context.strokeText(text, x, y);
         }
+
         if (fill) {
             context.fillStyle = fill;
             context.fillText(text, x, y);
@@ -385,15 +421,21 @@ export class CpuSurface {
         options?: PathOptions
     ): void {
         if (points.length < 2) return;
+
         this.#begin(fill, stroke, lineWidth);
         const context = this.context;
         const first = points[0];
+
         context.moveTo(first.x, first.y);
+
         for (let i = 1; i < points.length; i++) {
             const point = points[i];
+
             context.lineTo(point.x, point.y);
         }
+
         if (options?.closed ?? closed) context.closePath();
+
         this.#paintShape(fill, stroke, options);
     }
 }

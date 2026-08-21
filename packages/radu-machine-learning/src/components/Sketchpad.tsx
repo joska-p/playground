@@ -2,7 +2,7 @@ import { ControlGrid } from '@repo/ui/control-panel';
 import { ColorSwatch } from '@repo/ui/data-display';
 import { Button, Input, Label } from '@repo/ui/data-entry';
 import { useEffect, useRef } from 'react';
-import type { Path, Point } from '../core/types';
+
 import {
     addPath,
     clearPaths,
@@ -11,6 +11,8 @@ import {
     useSketchpadPaths,
     useSketchpadStrokeColor
 } from '../stores/sketchpad';
+
+import type { Path, Point } from '../core/types';
 
 function Sketchpad() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -23,10 +25,12 @@ function Sketchpad() {
 
     function exportPaths() {
         if (paths.length === 0) return;
+
         const data = JSON.stringify(paths);
         const blob = new Blob([data], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
+
         a.href = url;
         a.download = 'paths.json';
         a.click();
@@ -35,18 +39,22 @@ function Sketchpad() {
 
     function toCanvasPosition(e: React.MouseEvent<HTMLCanvasElement>): Point {
         if (!canvasRef.current) return [0, 0];
+
         const rect = canvasRef.current.getBoundingClientRect();
         const scaleX = canvasRef.current.width / rect.width;
         const scaleY = canvasRef.current.height / rect.height;
+
         return [(e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY];
     }
 
     function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
         const ctx = ctxRef.current;
+
         if (!ctx) return;
 
         isDrawingRef.current = true;
         const point = toCanvasPosition(e);
+
         currentPathRef.current = [point];
 
         ctx.strokeStyle = strokeColor;
@@ -56,9 +64,11 @@ function Sketchpad() {
 
     function handleMouseMove(e: React.MouseEvent<HTMLCanvasElement>) {
         const ctx = ctxRef.current;
+
         if (!ctx || !isDrawingRef.current) return;
 
         const point = toCanvasPosition(e);
+
         ctx.lineTo(point[0], point[1]);
         ctx.stroke();
         currentPathRef.current.push(point);
@@ -68,6 +78,7 @@ function Sketchpad() {
         if (!isDrawingRef.current || currentPathRef.current.length === 0) return;
 
         const completedPath = [...currentPathRef.current];
+
         currentPathRef.current = [];
         isDrawingRef.current = false;
 
@@ -76,18 +87,21 @@ function Sketchpad() {
 
     useEffect(() => {
         if (!canvasRef.current) return;
+
         ctxRef.current = canvasRef.current.getContext('2d');
     }, []);
 
     useEffect(() => {
         const ctx = ctxRef.current;
         const canvas = canvasRef.current;
+
         if (!ctx || !canvas) return;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         paths.forEach((path) => {
             if (path.length === 0) return;
+
             ctx.beginPath();
             ctx.strokeStyle = strokeColor;
             path.forEach((point, i) => {

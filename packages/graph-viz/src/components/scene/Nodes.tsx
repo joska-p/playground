@@ -1,11 +1,13 @@
-import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
-import type * as THREE from 'three';
+
 import { splitNodeIndices, writeInstanceData } from '../../core/build-instances.ts';
 import { CONFIG } from '../../core/config.ts';
 import { useNodes } from '../../stores/content/selectors';
 import { selectNode } from '../../stores/view/actions';
 import { useSelectedNodeIdx, useVisibleCommunities } from '../../stores/view/selectors';
+
+import type { ThreeEvent } from '@react-three/fiber';
+import type * as THREE from 'three';
 
 const { sphereGeometry, boxGeometry } = CONFIG.nodes;
 
@@ -22,6 +24,7 @@ function Nodes() {
     useEffect(() => {
         const codeMesh = codeMeshRef.current;
         const docMesh = docMeshRef.current;
+
         if (!codeMesh || !docMesh) return;
 
         writeInstanceData(codeMesh, nodes, codeToGlobal, visibleCommunities, selectedNodeIdx);
@@ -31,6 +34,7 @@ function Nodes() {
     function handleClick(event: ThreeEvent<MouseEvent>) {
         event.stopPropagation();
         const { instanceId } = event;
+
         if (instanceId === undefined) return;
 
         const isCode = event.object === codeMeshRef.current;
@@ -38,6 +42,7 @@ function Nodes() {
         const globalIdx = lookup[instanceId];
 
         const node = nodes[globalIdx];
+
         if (!visibleCommunities.has(node.community)) return;
 
         selectNode(selectedNodeIdx === globalIdx ? null : globalIdx);

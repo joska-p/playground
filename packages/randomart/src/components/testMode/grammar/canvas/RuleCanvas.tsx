@@ -1,8 +1,9 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
-import type { ReactNode } from 'react';
-import type { RenderMode } from '../../store';
 import { ValueCanvasCPU } from './ValueCanvasCPU';
 import { ValueCanvasGPU } from './ValueCanvasGPU';
+
+import type { RenderMode } from '../../store';
+import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { ReactNode } from 'react';
 
 type RuleCanvasProps = {
     rule: GrammarRule;

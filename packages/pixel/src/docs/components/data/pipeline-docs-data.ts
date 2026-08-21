@@ -43,9 +43,13 @@ export type EndpointGroup = {
 
 export function isActiveEndpoint(a: EndpointId, b: EndpointId): boolean {
     if (a.kind === 'overview' && b.kind === 'overview') return true;
+
     if (a.kind === 'manip' && b.kind === 'manip' && a.id === b.id) return true;
+
     if (a.kind === 'pipeline' && b.kind === 'pipeline' && a.id === b.id) return true;
+
     if (a.kind === 'internals' && b.kind === 'internals' && a.id === b.id) return true;
+
     return false;
 }
 
@@ -56,11 +60,13 @@ export function findItemForEndpoint(
     if (endpoint.kind === 'overview') {
         return groups[0]?.items[0];
     }
+
     for (const group of groups) {
         for (const item of group.items) {
             if (endpoint.kind === 'manip' && item.id === endpoint.id && item.type !== 'pipeline') {
                 return item;
             }
+
             if (
                 endpoint.kind === 'pipeline' &&
                 item.id === endpoint.id &&
@@ -68,6 +74,7 @@ export function findItemForEndpoint(
             ) {
                 return item;
             }
+
             if (
                 endpoint.kind === 'internals' &&
                 item.id === endpoint.id &&
@@ -77,6 +84,7 @@ export function findItemForEndpoint(
             }
         }
     }
+
     return undefined;
 }
 
@@ -85,7 +93,9 @@ function paramsFromDefinition(
 ): ParamDef[] | undefined {
     const argDefs = definition.ui.argDefinitions;
     const defaults = definition.ui.defaultArgs;
+
     if (argDefs.length === 0) return undefined;
+
     return argDefs.map((arg) => ({
         key: arg.key,
         label: arg.label,
@@ -98,6 +108,7 @@ function paramsFromDefinition(
 
 function manipToInfo(definition: (typeof ALL_MANIPULATIONS)[number]): ManipInfo {
     const params = paramsFromDefinition(definition);
+
     return {
         id: definition.id,
         label: definition.ui.name,
@@ -111,6 +122,7 @@ function manipToInfo(definition: (typeof ALL_MANIPULATIONS)[number]): ManipInfo 
 
 function manipToItem(definition: (typeof ALL_MANIPULATIONS)[number]): EndpointItem {
     const params = paramsFromDefinition(definition);
+
     return {
         id: definition.id,
         label: definition.ui.name,
@@ -215,5 +227,6 @@ export const ENDPOINT_GROUPS: EndpointGroup[] = [
 
 export function findManipById(id: string): ManipInfo | undefined {
     const definition = ALL_MANIPULATIONS.find((m) => m.id === id);
+
     return definition ? manipToInfo(definition) : undefined;
 }
