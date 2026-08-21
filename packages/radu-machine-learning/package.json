@@ -1,29 +1,25 @@
 {
     "name": "@repo/radu-machine-learning",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./radu-machine-learning": "./src/App.tsx",
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
-        "dev": "vite --host",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
         "check-types": "tsc -b",
         "clean": "rm -rf node_modules dist .turbo",
+        "dev": "vite --host",
+        "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts",
         "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
-        "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts"
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@repo/ui": "workspace:*",
         "zustand": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",
@@ -43,5 +39,9 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

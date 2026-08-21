@@ -1,28 +1,24 @@
 {
     "name": "@repo/randomart",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./randomart": "./src/App.tsx",
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
+        "check-types": "tsc -b",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
-        "check-types": "tsc -b"
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@repo/glaze": "workspace:*",
         "@repo/randomart-engine": "workspace:*",
         "@repo/ui": "workspace:*",
         "zustand": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",
@@ -42,5 +38,9 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

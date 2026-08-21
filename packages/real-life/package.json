@@ -1,35 +1,29 @@
 {
     "name": "@repo/real-life",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./real-life": "./src/App.tsx",
         "./styles": "./src/styles/styles.css"
     },
     "scripts": {
+        "check-types": "tsc -b",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
-        "check-types": "tsc -b"
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@react-three/drei": "catalog:",
         "@react-three/fiber": "catalog:",
-        "three": "catalog:",
         "@repo/ui": "workspace:*",
-        "zustand": "catalog:",
-        "zod": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
+        "three": "catalog:",
+        "zod": "catalog:",
+        "zustand": "catalog:"
     },
     "devDependencies": {
-        "@types/three": "catalog:",
         "@babel/core": "catalog:",
-        "eslint": "catalog:",
         "@repo/config-eslint": "workspace:*",
         "@repo/config-typescript": "workspace:*",
         "@rolldown/plugin-babel": "catalog:",
@@ -38,12 +32,18 @@
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
+        "@types/three": "catalog:",
         "@vitejs/plugin-react": "catalog:",
         "babel-plugin-react-compiler": "catalog:",
+        "eslint": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

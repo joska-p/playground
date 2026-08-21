@@ -1,28 +1,24 @@
 {
     "name": "@repo/pixel-manipulator",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./pixel-manipulator": "./src/App.tsx",
         "./styles": "./src/styles/styles.css"
     },
     "scripts": {
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo",
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
-        "check-types": "tsc -b",
-        "clean": "rm -rf node_modules dist .turbo"
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@repo/pixel": "workspace:*",
         "@repo/ui": "workspace:*",
         "zustand": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",
@@ -43,5 +39,9 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

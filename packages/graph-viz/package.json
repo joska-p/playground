@@ -1,20 +1,20 @@
 {
     "name": "@repo/graph-viz",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./graph-viz": "./src/App.tsx",
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo",
         "dev": "vite --host",
-        "prepare-data": "tsx src/core/pipeline/prepare.ts",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host",
-        "check-types": "tsc -b",
-        "clean": "rm -rf node_modules dist .turbo"
+        "prepare-data": "tsx src/core/pipeline/prepare.ts",
+        "preview": "vite preview --host"
     },
     "dependencies": {
         "@react-three/drei": "catalog:",
@@ -23,10 +23,6 @@
         "three": "catalog:",
         "zod": "catalog:",
         "zustand": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",
@@ -51,5 +47,9 @@
         "tsx": "^4.22.4",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

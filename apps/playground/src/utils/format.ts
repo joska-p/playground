@@ -26,7 +26,7 @@ export function createSymbolConverter(config: UnicodeBlockConfig): SymbolConvert
             for (const char of input) {
                 const codePoint = char.codePointAt(0) ?? 0;
                 const index = codePoint % range;
-                result += String(lut[index]);
+                result += lut[index];
             }
             return result;
         },
@@ -51,7 +51,7 @@ export function createSymbolConverter(config: UnicodeBlockConfig): SymbolConvert
 
             for (let i = 0; i < len; i++) {
                 const index = Math.floor(rand() * range);
-                result += String(lut[index]);
+                result += lut[index];
             }
 
             return result;

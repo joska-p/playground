@@ -3,24 +3,28 @@
     "private": true,
     "scripts": {
         "build": "turbo run build",
-        "dev": "turbo run dev",
-        "lint": "turbo run lint",
-        "lint-fix": "turbo run lint-fix",
-        "format": "prettier --write .",
-        "format:check": "prettier --check .",
         "check-types": "pnpm clean:tsbuildinfo && turbo run check-types",
-        "clean:packages": "pnpm -r --if-present run clean",
-        "clean:turbo": "find . -name node_modules -type d -prune -o -name .turbo -type d -prune -exec rm -rf {} + && rm -rf node_modules/.cache/turbo",
+        "clean": "pnpm clean:packages && pnpm clean:turbo && pnpm clean:dist && pnpm clean:tsbuildinfo && pnpm clean:docs && pnpm clean:modules",
         "clean:dist": "find . -name node_modules -type d -prune -o -name dist -type d -prune -exec rm -rf {} +",
-        "clean:tsbuildinfo": "find . -name '*.tsbuildinfo' -type f -not -path '*/node_modules/*' -delete",
         "clean:docs": "rm -rf codex/ateliers/typedoc-pipeline/.generated",
         "clean:modules": "find . -name node_modules -type d -prune -exec rm -rf {} +",
-        "clean": "pnpm clean:packages && pnpm clean:turbo && pnpm clean:dist && pnpm clean:tsbuildinfo && pnpm clean:docs && pnpm clean:modules",
-        "verify": "pnpm lint-fix && pnpm check-types && pnpm format && pnpm build",
-        "reset": "pnpm clean && pnpm install && pnpm verify",
+        "clean:packages": "pnpm -r --if-present run clean",
+        "clean:tsbuildinfo": "find . -name '*.tsbuildinfo' -type f -not -path '*/node_modules/*' -delete",
+        "clean:turbo": "find . -name node_modules -type d -prune -o -name .turbo -type d -prune -exec rm -rf {} + && rm -rf node_modules/.cache/turbo",
+        "dev": "turbo run dev",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
         "gen": "turbo gen",
         "gen:new-package": "turbo gen run new-package",
-        "gen:project-pages": "turbo gen project-pages"
+        "gen:project-pages": "turbo gen project-pages",
+        "lint": "turbo run lint",
+        "lint-fix": "turbo run lint-fix",
+        "reset": "pnpm clean && pnpm install && pnpm verify",
+        "verify": "pnpm lint-fix && pnpm check-types && pnpm format && pnpm build"
+    },
+    "dependencies": {
+        "fallow": "^3.14.0",
+        "tsx": "^4.23.8"
     },
     "devDependencies": {
         "@turbo/gen": "catalog:",
@@ -31,15 +35,12 @@
         "prettier-plugin-glsl": "catalog:",
         "prettier-plugin-jsdoc": "catalog:",
         "prettier-plugin-organize-imports": "catalog:",
+        "prettier-plugin-packagejson": "^3.0.2",
         "prettier-plugin-tailwindcss": "catalog:",
         "turbo": "catalog:",
         "typedoc": "catalog:",
         "typescript": "catalog:",
         "yaml": "catalog:"
     },
-    "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
-    "dependencies": {
-        "fallow": "^3.14.0",
-        "tsx": "^4.23.8"
-    }
+    "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }

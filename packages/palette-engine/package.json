@@ -1,7 +1,7 @@
 {
     "name": "@repo/palette-engine",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./colorSpaces": "./src/colorSpaces.ts",
@@ -13,10 +13,10 @@
         "./types": "./src/types.ts"
     },
     "scripts": {
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",
-        "clean": "rm -rf node_modules dist .turbo"
+        "clean": "rm -rf node_modules dist .turbo",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix"
     },
     "dependencies": {
         "colorjs.io": "catalog:"

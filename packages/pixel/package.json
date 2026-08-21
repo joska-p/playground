@@ -1,7 +1,7 @@
 {
     "name": "@repo/pixel",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./processor": "./src/processor/process-image.ts",
@@ -13,11 +13,11 @@
         "./docs/*": "./src/docs/*"
     },
     "scripts": {
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo",
         "dev": "vite --host",
         "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
-        "check-types": "tsc -b",
-        "clean": "rm -rf node_modules dist .turbo"
+        "lint-fix": "eslint . --fix"
     },
     "dependencies": {
         "@repo/ui": "workspace:*",

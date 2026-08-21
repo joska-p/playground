@@ -1,7 +1,7 @@
 {
     "name": "@repo/glaze",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./core/FrameLoop": "./src/core/FrameLoop.ts",
@@ -30,17 +30,13 @@
         "./styles": "./src/styles/global.css"
     },
     "scripts": {
+        "check-types": "tsc -b",
+        "clean": "rm -rf node_modules dist .turbo",
         "dev": "vite --host",
-        "preview": "vite preview --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "check-types": "tsc -b",
-        "test": "vitest run",
-        "clean": "rm -rf node_modules dist .turbo"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
+        "preview": "vite preview --host",
+        "test": "vitest run"
     },
     "dependencies": {
         "@repo/ui": "workspace:*"
@@ -65,5 +61,9 @@
         "typescript": "catalog:",
         "vite": "catalog:",
         "vitest": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }

@@ -5,7 +5,8 @@
         "prettier-plugin-tailwindcss",
         "prettier-plugin-embed",
         "prettier-plugin-glsl",
-        "prettier-plugin-jsdoc"
+        "prettier-plugin-jsdoc",
+        "prettier-plugin-packagejson"
     ],
     "printWidth": 100,
     "tabWidth": 4,

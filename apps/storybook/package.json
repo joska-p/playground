@@ -1,16 +1,16 @@
 {
     "name": "@repo/storybook",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "scripts": {
-        "dev": "storybook dev -p 6006",
-        "copy:storybook-static": "mkdir -p ../../apps/playground/dist/storybook && cp -r ./storybook-static/. ../../apps/playground/dist/storybook",
         "build": "storybook build && pnpm run copy:storybook-static",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",
-        "clean": "rm -rf node_modules storybook-static dist .turbo"
+        "clean": "rm -rf node_modules storybook-static dist .turbo",
+        "copy:storybook-static": "mkdir -p ../../apps/playground/dist/storybook && cp -r ./storybook-static/. ../../apps/playground/dist/storybook",
+        "dev": "storybook dev -p 6006",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix"
     },
     "dependencies": {
         "@chromatic-com/storybook": "^5.2.1",

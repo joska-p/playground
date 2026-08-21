@@ -1,7 +1,7 @@
 {
     "name": "@repo/sequence-engine",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./engine": "./src/engine.ts",
@@ -10,10 +10,10 @@
         "./rules/recaman": "./src/rules/recaman.ts"
     },
     "scripts": {
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
         "check-types": "tsc -b",
-        "clean": "rm -rf node_modules dist .turbo"
+        "clean": "rm -rf node_modules dist .turbo",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix"
     },
     "devDependencies": {
         "@repo/config-eslint": "workspace:*",

@@ -1,7 +1,7 @@
 {
     "name": "@repo/ui",
-    "private": true,
     "version": "0.0.0",
+    "private": true,
     "type": "module",
     "exports": {
         "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
@@ -22,19 +22,15 @@
         "./theme/*": "./src/theme/*.ts"
     },
     "scripts": {
+        "check-types": "tsc -b",
         "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
-        "check-types": "tsc -b"
+        "lint-fix": "eslint . --fix"
     },
     "dependencies": {
-        "lucide-react": "^1.23.0",
         "class-variance-authority": "catalog:",
         "clsx": "catalog:",
+        "lucide-react": "^1.23.0",
         "tailwind-merge": "catalog:"
-    },
-    "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
     },
     "devDependencies": {
         "@babel/core": "catalog:",
@@ -54,5 +50,9 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
     }
 }
