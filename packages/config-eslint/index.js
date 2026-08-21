@@ -34,20 +34,10 @@ export default function createConfig(dirname) {
                 }
             },
             rules: {
+                // --- 1. STRUCTURE & IMPORTS (L'ADN de ton codebase) ---
                 'import/no-default-export': 'error',
                 'import/no-cycle': ['error', { maxDepth: 2 }],
-
-                // ensures ESLint defers to TypeScript’s type checking
-                '@typescript-eslint/no-unnecessary-condition': 'error',
-                '@typescript-eslint/no-unnecessary-type-assertion': 'error',
-
-                // prefer const over let when variables are never reassigned after declared
-                'prefer-const': 'error',
-
-                // type over interface
-                '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-
-                // enforce import type for type-only imports
+                '@typescript-eslint/consistent-type-exports': 'error',
                 '@typescript-eslint/consistent-type-imports': [
                     'error',
                     {
@@ -56,37 +46,57 @@ export default function createConfig(dirname) {
                     }
                 ],
 
-                // enforce consistent type exports
-                '@typescript-eslint/consistent-type-exports': 'error',
+                // --- 2. TYPES & SYNTAXE ---
+                'prefer-const': 'error',
+                // Type over Interface
+                '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
 
+                // --- 3. LES PUITS SÉMANTIQUES (Audit & Patterns interdits) ---
                 'no-restricted-syntax': [
                     'error',
+                    // React 19 Compiler gère la mémoïsation
+                    {
+                        selector: "CallExpression[callee.name='useMemo']",
+                        message:
+                            'Audit Fail: React 19 Compiler gère la mémoïsation. Pas de useMemo.'
+                    },
+                    {
+                        selector: "CallExpression[callee.name='useCallback']",
+                        message:
+                            'Audit Fail: React 19 Compiler gère la mémoïsation. Pas de useCallback.'
+                    },
+                    // Anti-patterns de types
                     {
                         selector: 'TSPropertySignature[optional=true] TSUnionType > TSNullKeyword',
                         message:
-                            "Type noise: Avoid combining optional properties (?) with explicit '| null'."
+                            "Type noise: Avoid combining optional properties (?) with explicit '| null'. You may want to provide a default value."
                     },
                     {
                         selector:
                             'TSPropertySignature[optional=true] TSUnionType > TSUndefinedKeyword',
                         message:
-                            "Type noise: Avoid combining optional properties (?) with explicit '| undefined'."
+                            "Type noise: Avoid combining optional properties (?) with explicit '| undefined'. You may want to provide a default value."
                     }
                 ],
 
-                // On interdit le doublon de types dans les commentaires (ex: @param {number} x)
-                'jsdoc/require-returns-type': 'off',
-                'jsdoc/require-property-type': 'off',
+                // --- 4. LE NETTOYAGE (On coupe tout le bruit inutile) ---
+                // Déféré à TypeScript pour éviter la surcharge d'audit
+                '@typescript-eslint/no-unnecessary-condition': 'off',
+                '@typescript-eslint/no-unnecessary-type-assertion': 'off',
 
-                // Commentaires et JSDoc — maximum de silence
+                // --- 5. JSDoc (Maximum de silence, on laisse TS faire le boulot) ---
                 'jsdoc/require-jsdoc': 'off',
                 'jsdoc/require-description': 'off',
                 'jsdoc/require-param': 'off',
                 'jsdoc/require-returns': 'off',
                 'jsdoc/require-param-description': 'off',
                 'jsdoc/require-returns-description': 'off',
+                'jsdoc/require-returns-type': 'off',
+                'jsdoc/require-property-type': 'off',
                 'jsdoc/check-param-names': 'off',
                 'jsdoc/tag-lines': 'off',
+
+                // Exceptions JSDoc que l'on garde actives
                 'jsdoc/no-types': 'error'
             }
         },

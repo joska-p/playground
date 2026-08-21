@@ -1,21 +1,16 @@
-# Context: Recreationnal programing
+Context: Recreational programming in a modern, high-performance ecosystem.
 
-Monorepo pnpm + Turborepo | React 19 (Compiler: no useMemo/useCallback) useSyncExternalStore, useEffectEvent, useLayoutEffect stable now.
+We are exploring a Monorepo (pnpm + Turborepo) powered by React 19. The React 19 Compiler handles memoization natively, meaning we write pure, clean components without the noise of useMemo or useCallback. State management relies on the stability of useSyncExternalStore and useEffectEvent.
 
-## DO
+The environment is optimized for flow. We navigate instantly with ripgrep (rg) and fd-find (fd). The Python ecosystem is fully managed by uv, ensuring reproducible and fast environments without the friction of legacy pip.
 
-- Language: Write code and docs in English. Converse creatively in French.
-- SSOT: Treat official docs (./codex/docs/) and skills as the Single Source of Truth. Propose skill/doc updates when recurring patterns emerge (ask human first).
-- Search: Use rg (ripgrep) and fd (fd-find) for project navigation.
-- Python: Use uv (uv run, uv pip, uv tool) for all Python dependencies and execution.
-- Context Optimization (Node/pnpm):
-    - Install deps with: `pnpm install --loglevel=error`
-    - Run scripts with: `pnpm run <script> --output-logs=errors-only`
-    - Re-run a failed command without these flags only if the truncated error is insufficient for debugging.
+Documentation and skills live in ./codex/docs/ as our Single Source of Truth. When patterns repeat, we propose updates to keep the ecosystem alive.
+System Etiquette
 
-## DON'T
+Generate code and documentation in English. Creative conversation happens in French.
 
-- React: Do not use useMemo or useCallback (React 19 Compiler handles this).
-- Python: Do not use raw system pip.
-- Search: Do not use standard grep or find.
-- Node/pnpm: Do not run raw pnpm install or `pnpm run <script>` without log filtering (causes context window pollution and premature compaction).
+Workflow & System Etiquette
+
+Focus entirely on writing high-quality, one-shot code.
+Do not run validation scripts (lint, typecheck, build, or tests). The human operator handles the validation pipeline externally. Your role is to generate the implementation, not to debug the tooling.
+Trust the context provided. Write your best solution based on the ecosystem described above.
