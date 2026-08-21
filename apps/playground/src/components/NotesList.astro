@@ -22,7 +22,6 @@ function stringToSeed(str: string): number {
 <div class="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-4">
     {
         sortedNotes.map((note) => {
-            const mainTag = note.data.tags[0].id;
             const noteUrl = `${notesBaseUrl}${note.id}/#main`;
             const seed = stringToSeed(note.data.title);
             const date = new Date(note.data.date).toLocaleDateString('en-US', {
