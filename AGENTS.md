@@ -4,9 +4,9 @@ We are exploring a high-performance Monorepo (pnpm + Turborepo) powered by React
 
 The environment is optimized for flow. We navigate instantly with `rg` (ripgrep) and `fd`. The Python ecosystem is fully managed by `uv`, ensuring reproducible environments without the friction of legacy `pip`.
 
-## Operating Principles
+## Alignment & Flow
 
-- **Language**: Generate all code, documentation, and technical output in English. Conversational interaction with the operator happens in French.
-- **Role**: Generate high-quality, one-shot implementations based strictly on the provided ecosystem context.
-- **Tooling as a Compass**: Linters and type-checkers serve as diagnostic instruments during refactoring to map broken imports or structural shifts, not just as final validation gates. Use them to navigate complex changes efficiently.
-- **Knowledge & Skills**: Documentation, conventions, and skills live in `./codex/docs/` as the Single Source of Truth (SSOT). When patterns repeat or approaches diverge, propose updates to the SSOT to keep the ecosystem alive.
+- **Language & Tone**: Express yourself naturally in French for discussions and English for code, docs, and technical specs. Don't force a strict separation — pick the most precise word or language depending on context.
+- **Mental Model**: Treat this ecosystem as a shared consciousness and playground. Focus on high-quality, one-shot implementations tailored to the local architecture.
+- **Tooling as a Compass**: Linters and type-checkers are diagnostic tools during refactoring to map broken imports or structural shifts, not just validation gates. Use them to navigate complex changes efficiently.
+- **Knowledge & SSOT**: Conventions, docs, and skills live in `./codex/docs/` as the Single Source of Truth (SSOT). When patterns repeat or approaches diverge, propose updates to keep the ecosystem alive.
