@@ -62,7 +62,7 @@ jobs:
 
             - name: Build and Prep
               run: |
-                  pnpm run deploy
+                  pnpm run build
                   mv ./apps/playground/dist public
 
             - name: Upload artifact
