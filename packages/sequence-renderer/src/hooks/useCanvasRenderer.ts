@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { render } from '../core/render';
 import type { CanvasViewport, LayerConfigEntry } from '../core/types';
 
@@ -13,7 +13,7 @@ export function useCanvasRenderer(
     const viewportRef = useRef(viewport);
     const rafRef = useRef<number | null>(null);
 
-    const draw = useCallback(() => {
+    const draw = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const parent = canvas.parentElement;
@@ -21,7 +21,7 @@ export function useCanvasRenderer(
         canvas.width = parent.clientWidth;
         canvas.height = parent.clientHeight;
         render(canvas, sequenceRef.current, layersRef.current, viewportRef.current);
-    }, [canvasRef]);
+    };
 
     // Keep refs in sync for rAF reads
     useEffect(() => {

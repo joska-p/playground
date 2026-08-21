@@ -108,7 +108,7 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
         const color = c.color;
 
         // for whatever reason
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
         communityColor.set(c.id, color ?? '#fefefe');
     }
 

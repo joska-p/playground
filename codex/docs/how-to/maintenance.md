@@ -8,11 +8,11 @@ featured: true
 
 # Project Maintenance
 
-Two scripts help keep your local environment clean and recover from corrupted states.
+Two scripts keep the local environment clean and recover from corrupted states.
 
 ## `pnpm clean`
 
-Removes build artifacts and dependencies:
+`pnpm clean` removes build artifacts and dependencies:
 
 ```
 node_modules   .turbo   dist   .next   .astro
@@ -22,7 +22,7 @@ node_modules   .turbo   dist   .next   .astro
 pnpm clean
 ```
 
-You will be prompted to type `CLEAN` to confirm. To skip the prompt:
+The prompt asks for `CLEAN`; `--yes` skips it:
 
 ```bash
 pnpm clean --yes
@@ -30,7 +30,7 @@ pnpm clean --yes
 
 ## `pnpm reset`
 
-Runs a full clean rebuild of the entire project. Equivalent to:
+`pnpm reset` runs a full clean rebuild of the entire project, equivalent to:
 
 ```bash
 pnpm clean --yes
@@ -45,12 +45,12 @@ pnpm build
 pnpm reset
 ```
 
-Use this when:
+The reset fits these situations:
 
-- You pull new changes and hit type errors or missing modules
+- New pulls hit type errors or missing modules
 - A dependency update leaves the lockfile in a bad state
-- `turbo` caches are stale and causing incorrect incremental builds
-- You want to verify the project builds from scratch
+- Stale `turbo` caches cause incorrect incremental builds
+- A from-scratch build check is due
 
 ## What Gets Removed
 

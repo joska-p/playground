@@ -1,5 +1,4 @@
 import { Billboard, Text } from '@react-three/drei';
-import { useMemo } from 'react';
 import * as THREE from 'three';
 import { CONFIG } from '../../core/config.ts';
 import { useCommunities } from '../../stores/content/selectors';
@@ -12,34 +11,32 @@ function CommunityLabels() {
     const labelsVisible = useLabelsVisible();
     const visibleCommunities = useVisibleCommunities();
 
-    const labelElements = useMemo(() => {
-        if (!labelsVisible) return [];
+    if (!labelsVisible) return <></>;
 
-        return communities
-            .filter((c) => visibleCommunities.has(c.id))
-            .map((c) => {
-                const color = new THREE.Color(c.color);
-                color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
+    const labelElements = communities
+        .filter((c) => visibleCommunities.has(c.id))
+        .map((c) => {
+            const color = new THREE.Color(c.color);
+            color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
 
-                return (
-                    <Billboard
-                        key={c.id}
-                        position={[c.centroid.x, c.centroid.y + labels.offsetY, c.centroid.z]}
+            return (
+                <Billboard
+                    key={c.id}
+                    position={[c.centroid.x, c.centroid.y + labels.offsetY, c.centroid.z]}
+                >
+                    <Text
+                        fontSize={labels.fontSize}
+                        color={color.getStyle()}
+                        anchorX="center"
+                        anchorY="bottom"
+                        outlineWidth={labels.outlineWidth}
+                        outlineColor={labels.outlineColor}
                     >
-                        <Text
-                            fontSize={labels.fontSize}
-                            color={color.getStyle()}
-                            anchorX="center"
-                            anchorY="bottom"
-                            outlineWidth={labels.outlineWidth}
-                            outlineColor={labels.outlineColor}
-                        >
-                            {c.name}
-                        </Text>
-                    </Billboard>
-                );
-            });
-    }, [communities, labelsVisible, visibleCommunities]);
+                        {c.name}
+                    </Text>
+                </Billboard>
+            );
+        });
 
     return <>{labelElements}</>;
 }

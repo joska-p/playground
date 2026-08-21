@@ -86,7 +86,7 @@ export class TextRasterizer {
         context.fillText(text, 0, size);
 
         const texture = this.#gl.createTexture();
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createTexture() as non-null, but the WebGL spec allows null on failure
+
         if (!texture) throw new Error('Glaze: text texture allocation failed');
         this.#gl.bindTexture(this.#gl.TEXTURE_2D, texture);
         this.#gl.texImage2D(

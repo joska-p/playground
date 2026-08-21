@@ -5,10 +5,6 @@ description: Use when designing a new package, organizing src/ directories, stru
 
 # Package Shape & Architecture
 
-When performing this task, read the Single Source of Truth (SSOT) documentation files:
+Every package follows one shape at three zoom levels: events flow Screen → Bridge → Logic and results flow back; pluggable behavior becomes definitions → registry → engine core; a Bridge is an unexported store with getter/setter pairs.
 
-- `/workspaces/playground/codex/docs/explanation/architecture.md`
-- `/workspaces/playground/codex/docs/explanation/engine-patterns.md`
-- `/workspaces/playground/codex/docs/conventions/packages.md`
-
-Use your `read` tool to load those files and follow their instructions.
+The single sources of truth stand at `/workspaces/playground/codex/docs/explanation/architecture.md`, `/workspaces/playground/codex/docs/explanation/engine-patterns.md`, and `/workspaces/playground/codex/docs/conventions/packages.md`. Their facts govern every structural decision.

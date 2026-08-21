@@ -61,7 +61,7 @@ function compileProgram(
     fragmentSource: string
 ): WebGLProgram {
     const program = gl.createProgram();
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createProgram() as non-null, but the WebGL spec allows null on failure
+
     if (!program) throw new Error('Glaze: batcher program creation failed');
     gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vertexSource));
     gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource));

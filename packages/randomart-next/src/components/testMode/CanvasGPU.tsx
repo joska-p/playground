@@ -1,5 +1,4 @@
 import type { Node } from '@repo/randomart-engine-next/types';
-import { useMemo } from 'react';
 import { buildValueFragmentShader } from './buildValueShader';
 import { GpuCanvas } from '@repo/glaze/react/GpuCanvas';
 
@@ -8,20 +7,19 @@ type CanvasGPUProps = {
     sizePx: number;
 };
 
+function buildShader(node: Node): { shader: string | null; error: string | null } {
+    try {
+        return { shader: buildValueFragmentShader(node), error: null };
+    } catch (e) {
+        return {
+            shader: null,
+            error: e instanceof Error ? e.message : 'GLSL build error'
+        };
+    }
+}
+
 export function CanvasGPU({ node, sizePx }: CanvasGPUProps) {
-    const { shader, error } = useMemo(() => {
-        try {
-            return {
-                shader: buildValueFragmentShader(node),
-                error: null as string | null
-            };
-        } catch (e) {
-            return {
-                shader: null,
-                error: e instanceof Error ? e.message : 'GLSL build error'
-            };
-        }
-    }, [node]);
+    const { shader, error } = buildShader(node);
 
     return (
         <div

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export interface SidebarState {
     isOpen: boolean;
@@ -10,15 +10,15 @@ export interface SidebarState {
 export function useSidebarState(defaultOpen = true): SidebarState {
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
-    const toggle = useCallback(() => {
+    const toggle = () => {
         setIsOpen((v) => !v);
-    }, []);
-    const open = useCallback(() => {
+    };
+    const open = () => {
         setIsOpen(true);
-    }, []);
-    const close = useCallback(() => {
+    };
+    const close = () => {
         setIsOpen(false);
-    }, []);
+    };
 
     return { isOpen, toggle, open, close };
 }

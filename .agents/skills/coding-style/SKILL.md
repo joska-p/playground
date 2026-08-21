@@ -5,8 +5,6 @@ description: Use when editing, refactoring, or creating TypeScript/React code to
 
 # Coding Style
 
-When performing this task, read the Single Source of Truth (SSOT) documentation file:
+TypeScript here composes through intersections, layers through strict levels, and names through whole concepts. Files carry one responsibility, dependencies flow downward, and code reads like a sentence.
 
-- `/workspaces/playground/codex/docs/conventions/typescript.md`
-
-Use your `read` tool to load that file and follow its instructions.
+The single source of truth stands at `/workspaces/playground/codex/docs/conventions/typescript.md`. Its facts govern every edit.

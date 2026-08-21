@@ -5,12 +5,8 @@ argument-hint: 'What will the next session be used for?'
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to `./_TEMP/handoff/`.
+The handoff document summarizes the current conversation so a fresh agent continues the work. It saves to `./_TEMP/handoff/`.
 
-Include a "suggested skills" section naming which skills the next agent should call.
+A "suggested skills" section names the skills the next agent calls. Content already captured elsewhere (specs, plans, ADRs, issues, commits, diffs) travels by path reference; the document adds only what those artifacts lack. Sensitive information (API keys, passwords, PII) appears redacted.
 
-Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path instead.
-
-Redact any sensitive information (API keys, passwords, PII).
-
-If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+User arguments describe the next session's focus and tailor the document accordingly.

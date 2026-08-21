@@ -1,5 +1,4 @@
 import type { GrammarRule } from '@repo/randomart-engine/types';
-import { useMemo } from 'react';
 import { buildValueFragmentShader } from '../../glsl/buildValueShader';
 import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
@@ -11,21 +10,23 @@ type ValueCanvasGPUProps = {
     sizePx: number;
 };
 
+function buildShader(
+    rule: GrammarRule,
+    seed: number
+): { shader: string | null; error: string | null } {
+    try {
+        const node = buildPreviewNode(rule, seed);
+        return { shader: buildValueFragmentShader(rule, node), error: null };
+    } catch (e) {
+        return {
+            shader: null,
+            error: e instanceof Error ? e.message : 'GLSL build error'
+        };
+    }
+}
+
 export function ValueCanvasGPU({ rule, seed, sizePx }: ValueCanvasGPUProps) {
-    const { shader, error } = useMemo(() => {
-        try {
-            const node = buildPreviewNode(rule, seed);
-            return {
-                shader: buildValueFragmentShader(rule, node),
-                error: null as string | null
-            };
-        } catch (e) {
-            return {
-                shader: null,
-                error: e instanceof Error ? e.message : 'GLSL build error'
-            };
-        }
-    }, [rule, seed]);
+    const { shader, error } = buildShader(rule, seed);
 
     return (
         <Corners sizePx={sizePx}>

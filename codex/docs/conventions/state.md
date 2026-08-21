@@ -10,53 +10,39 @@ tags:
 
 ## Data fetching
 
-- **Do** use TanStack Query for all server/async data.
-- **Don't** fetch inside Zustand actions or `useEffect`.
-- **Don't** mirror server data in Zustand stores — stores hold **client-only** state.
+TanStack Query owns all server and async data. Zustand stores hold client-only state. Each concern lives in its own layer: a store holds values between renders, a query cache serves the server's truth.
 
 ## State initialization
 
-- **Do** always initialize state with a usable default so components render coherently before async data arrives.
+State starts on a usable default. Components render coherently from the first frame, before async data arrives.
 
 ## Zustand stores
 
-- **Do** place store files in `stores/[domain]/`.
-- **Do** use `useState` for single-component UI state. Promote to Zustand only when consumed by multiple unrelated components.
-- **Don't** name the raw store with a public-facing prefix — use `camelCase[Domain]Store`, never imported in components.
+Store files live in `stores/[domain]/`. `useState` carries single-component UI state; a value consumed by multiple unrelated components moves into a store.
+
+The raw store keeps an internal name (`camelCase[Domain]Store`) and stays inside its domain directory. Components reach state through getter hooks and change it through plain setter functions.
 
 ### Async orchestration
 
-- **Do** write async logic in `actions.ts` as plain async functions using `getState()`/`setState()`.
-- **Don't** use thunk middleware.
+Async logic lives in `actions.ts` as plain async functions reading and writing through `getState()` / `setState()`:
 
 ```ts
-// ✅ Good — actions.ts
+// actions.ts
 export async function fetchAndSetNodes() {
     const { filters } = nodesStore.getState();
     const data = await fetchNodes(filters);
     nodesStore.setState({ nodes: data });
 }
-
-// ❌ Bad — thunk middleware
-const useNodesStore = create((set, get) => ({
-    nodes: [],
-    fetchNodes: async () => {
-        const data = await fetchNodes(get().filters);
-        set({ nodes: data });
-    }
-}));
 ```
 
-- **Don't** let an action in one domain read from another domain's store — merge those domains instead.
-- **Do** split a store into multiple domains if they are truly independent.
+The store itself stays synchronous: it holds values, actions move them. An action reads and writes only its own domain; two domains that need each other's data merge into one domain. Truly independent concerns split into separate stores.
 
-### Splitting a growing store (guideline)
+### Splitting a growing store
 
-A single-file store is fine until it's actually hard to scan. Split progressively, only as far as needed:
+A single-file store serves until it becomes hard to scan. The split then proceeds one step at a time:
 
-1. **First split**: `store.ts` (the `create()` call + raw store export, internal only), `actions.ts` (mutators + async orchestration), `selectors.ts` (getter hooks). Three flat files — no subdirectories.
-2. **If `actions.ts` or `selectors.ts` gets complicated**: split into its own subdirectory (`actions/`, `selectors/`), either one file per function or grouped by related concern.
-3. **`types.ts`** — store-specific types, split off whenever more than a couple of lines.
+1. `store.ts` holds the `create()` call and the raw export. `actions.ts` holds mutators and async orchestration. `selectors.ts` holds getter hooks. Three flat files, no subdirectories.
+2. A complicated `actions.ts` or `selectors.ts` grows into its own directory (`actions/`, `selectors/`), one file per function or grouped by related concern.
+3. Store-specific types move to `types.ts` once they pass a couple of lines.
 
-- **Don't** create `actions/` and `selectors/` directories up front for a store that doesn't need them yet.
-- **Don't** split on line count alone — split when the file is hard to scan.
+Directories appear when the code demands them, and the trigger is scannability rather than line count.

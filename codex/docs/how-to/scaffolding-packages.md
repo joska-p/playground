@@ -8,11 +8,11 @@ featured: true
 
 # Scaffolding Packages
 
-New packages are scaffolded with `pnpm gen` (which wraps [`turbo gen`](https://turbo.build/repo/docs/guides/generating-code)) using a custom generator at `turbo/generators/`. It creates a package with the same build tooling as `@repo/mosaic-maker` — Vite, React, TypeScript, Tailwind, ESLint — plus Zustand and Zod wired into a demo component.
+New packages come from `pnpm gen` (which wraps [`turbo gen`](https://turbo.build/repo/docs/guides/generating-code)) through a custom generator at `turbo/generators/`. It creates a package with the same build tooling as `@repo/mosaic-maker`: Vite, React, TypeScript, Tailwind, ESLint, plus Zustand and Zod wired into a demo component.
 
 ## Prerequisites
 
-- You are at the repo root.
+- The working directory is the repo root.
 - Dependencies are installed (`pnpm install`).
 
 ## Usage
@@ -21,9 +21,7 @@ New packages are scaffolded with `pnpm gen` (which wraps [`turbo gen`](https://t
 pnpm gen new-package
 ```
 
-You will be prompted for a package name (kebab-case, e.g. `my-visualization`).
-
-To skip the prompt:
+The generator prompts for a package name (kebab-case, e.g. `my-visualization`). The prompt skips with:
 
 ```bash
 pnpm gen new-package --args my-visualization
@@ -31,7 +29,7 @@ pnpm gen new-package --args my-visualization
 
 ## What You Get
 
-Running the generator creates `packages/<name>/` with:
+The generator creates `packages/<name>/` with:
 
 ```
 packages/<name>/
@@ -45,7 +43,7 @@ packages/<name>/
 ├── src/
 │   ├── App.tsx                      # Local dev wrapper
 │   ├── components/
-│   │   └── Demo.tsx                 # Public component — exported via package.json
+│   │   └── Demo.tsx                 # Public component, exported via package.json
 │   ├── demo.schema.ts               # Zod schema (runtime validation)
 │   ├── stores/
 │   │   └── demo/
@@ -60,7 +58,7 @@ packages/<name>/
 └── vite.config.ts
 ```
 
-The `Demo` component is the public API — consumers import it via `@repo/<name>/Demo` (declared in `package.json` `exports`).
+The `Demo` component is the public API; consumers import it via `@repo/<name>/Demo` (declared in `package.json` `exports`).
 
 ## After Generation
 
@@ -71,11 +69,11 @@ pnpm --filter @repo/<name> dev       # start Vite dev server
 
 ## Documenting the Package
 
-Follow [Documenting a Package](./documenting-packages/) to write the README, bootstrap the reference doc on the Astro site, and link from related docs.
+[Documenting a Package](./documenting-packages/) covers the README, the reference doc bootstrap on the Astro site, and the links from related docs.
 
 ## Adding to the Playground Website
 
-The `Demo` component renders on the Astro site via a `client:only` island. Create a project page under `src/pages/` importing `@repo/<name>/Demo`:
+The `Demo` component renders on the Astro site through a `client:only` island. A project page under `src/pages/` imports `@repo/<name>/Demo`:
 
 ```astro
 ---
@@ -108,4 +106,4 @@ turbo/generators/
     └── src/
 ```
 
-Edit `templates/` to change what every new package gets. The templates mirror `@repo/mosaic-maker`'s config exactly — only the application code differs.
+The `templates/` directory defines what every new package gets. The templates mirror `@repo/mosaic-maker`'s config exactly; only the application code differs.

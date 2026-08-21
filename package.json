@@ -16,7 +16,7 @@
         "clean:docs": "rm -rf codex/ateliers/typedoc-pipeline/.generated",
         "clean:modules": "find . -name node_modules -type d -prune -exec rm -rf {} +",
         "clean": "pnpm clean:packages && pnpm clean:turbo && pnpm clean:dist && pnpm clean:tsbuildinfo && pnpm clean:docs && pnpm clean:modules",
-        "verify": "pnpm lint-fix && pnpm format && pnpm check-types && pnpm build",
+        "verify": "pnpm lint-fix && pnpm check-types && pnpm format && pnpm build",
         "reset": "pnpm clean && pnpm install && pnpm verify",
         "gen": "turbo gen",
         "gen:new-package": "turbo gen run new-package",

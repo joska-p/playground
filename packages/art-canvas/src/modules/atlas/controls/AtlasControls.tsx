@@ -1,6 +1,6 @@
 import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider, Textarea } from '@repo/ui/data-entry';
-import { startTransition, useMemo } from 'react';
+import { startTransition } from 'react';
 import {
     setComplexity,
     setGlitch,
@@ -61,13 +61,13 @@ function AtlasControls() {
         });
     };
 
-    const seedOffset = useMemo(() => {
+    const seedOffset = () => {
         let hash = 0;
         for (let i = 0; i < seed.length; i++) {
             hash = seed.charCodeAt(i) + ((hash << 5) - hash);
         }
         return Math.abs(hash % 1000);
-    }, [seed]);
+    };
 
     return (
         <>
@@ -152,7 +152,7 @@ function AtlasControls() {
                 <div className="space-y-1 rounded-xl border border-border/80 bg-surface/70 p-2.5 font-mono text-[9px] text-foreground-muted">
                     <div className="flex justify-between">
                         <span>Coordinate Seed Index:</span>
-                        <span className="text-aqua">#{seedOffset}</span>
+                        <span className="text-aqua">#{seedOffset()}</span>
                     </div>
                     <div className="flex justify-between">
                         <span>Rotations per Modulo:</span>

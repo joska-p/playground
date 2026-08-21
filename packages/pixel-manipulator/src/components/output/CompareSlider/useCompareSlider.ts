@@ -1,9 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { renderCompareSlider } from './compareSliderRenderer';
 
 type UseCompareSliderArgs = {
     source: ImageData;
     result: ImageData;
+};
+
+const sliderPositionFromClientX = (container: HTMLElement, clientX: number): number => {
+    const rect = container.getBoundingClientRect();
+    const x = clientX - rect.left;
+    return Math.max(0, Math.min(100, (x / rect.width) * 100));
 };
 
 export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
@@ -68,48 +74,38 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
         });
     }, [source, result, sliderPos, width, height]);
 
-    const updateSliderPosition = useCallback((clientX: number) => {
+    const applySliderPosition = (clientX: number) => {
         const container = containerRef.current;
         if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const percentage = (x / rect.width) * 100;
-        setSliderPos(Math.max(0, Math.min(100, percentage)));
-    }, []);
+        setSliderPos(sliderPositionFromClientX(container, clientX));
+    };
 
-    const handleMouseDown = useCallback(
-        (e: React.MouseEvent) => {
-            e.preventDefault();
-            isDragging.current = true;
-            updateSliderPosition(e.clientX);
-        },
-        [updateSliderPosition]
-    );
+    const handleMouseDown = (e: React.MouseEvent) => {
+        e.preventDefault();
+        isDragging.current = true;
+        applySliderPosition(e.clientX);
+    };
 
-    const handleTouchStart = useCallback(
-        (e: React.TouchEvent) => {
-            isDragging.current = true;
-            updateSliderPosition(e.touches[0].clientX);
-        },
-        [updateSliderPosition]
-    );
+    const handleTouchStart = (e: React.TouchEvent) => {
+        isDragging.current = true;
+        applySliderPosition(e.touches[0].clientX);
+    };
 
-    const handleTouchMove = useCallback(
-        (e: React.TouchEvent) => {
-            if (!isDragging.current) return;
-            updateSliderPosition(e.touches[0].clientX);
-        },
-        [updateSliderPosition]
-    );
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (!isDragging.current) return;
+        applySliderPosition(e.touches[0].clientX);
+    };
 
-    const handleTouchEnd = useCallback(() => {
+    const handleTouchEnd = () => {
         isDragging.current = false;
-    }, []);
+    };
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (!isDragging.current) return;
-            updateSliderPosition(e.clientX);
+            const container = containerRef.current;
+            if (!container) return;
+            setSliderPos(sliderPositionFromClientX(container, e.clientX));
         };
         const handleMouseUp = () => {
             isDragging.current = false;
@@ -120,7 +116,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [updateSliderPosition]);
+    }, []);
 
     return {
         containerRef,

@@ -5,9 +5,6 @@ description: Use when documenting a package, generating docs, or modifying packa
 
 # Documenting Packages
 
-When performing this task, read the Single Source of Truth (SSOT) documentation files:
+Documentation lives in two layers: the README carries concepts, TSDoc comments feed the generated API reference. One command publishes both to the Astro site.
 
-- `/workspaces/playground/codex/docs/how-to/documenting-packages.md`
-- `/workspaces/playground/codex/docs/conventions/documentation.md`
-
-Use your `read` tool to load those files and follow their instructions.
+The single sources of truth stand at `/workspaces/playground/codex/docs/how-to/documenting-packages.md` and `/workspaces/playground/codex/docs/conventions/documentation.md`. Their facts govern every documentation edit.

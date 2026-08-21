@@ -1,5 +1,5 @@
+import { useEffect, useRef } from 'react';
 import { Button, Input } from '@repo/ui/data-entry';
-import { useCallback, useEffect, useRef } from 'react';
 import {
     CANVAS_HEIGHT,
     CANVAS_WIDTH,
@@ -33,7 +33,7 @@ export function ImageToParticles() {
     const animationRef = useRef<number>(null);
     const [imageFile, handleImageUpload] = useImageUpload();
 
-    const resetParticles = useCallback(() => {
+    const resetParticles = () => {
         let currentDelay = 0;
         particles.current = particles.current.map((particle) => ({
             ...particle,
@@ -50,7 +50,7 @@ export function ImageToParticles() {
             state: 'waiting',
             delay: (currentDelay += Math.random() * 5)
         }));
-    }, []);
+    };
 
     useEffect(() => {
         if (!imageFile || !canvasRef.current) return;

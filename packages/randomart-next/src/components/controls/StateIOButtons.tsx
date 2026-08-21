@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/data-entry';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { randomartStore, updateTreeConfig } from '../../stores/randomart/store';
 import type { RandomartState } from '../../stores/randomart/types';
 
@@ -61,7 +61,7 @@ function isRandomartRecipe(value: unknown): value is RandomartRecipe {
 export function StateIOButtons() {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleExport = useCallback(() => {
+    const handleExport = () => {
         const recipe = toRecipe(randomartStore.getState());
         const json = JSON.stringify(recipe, null, 2);
         const blob = new Blob([json], { type: 'application/json' });
@@ -74,13 +74,13 @@ export function StateIOButtons() {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-    }, []);
+    };
 
-    const handleImportClick = useCallback(() => {
+    const handleImportClick = () => {
         fileInputRef.current?.click();
-    }, []);
+    };
 
-    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         e.target.value = ''; // allow re-selecting the same file later
 
@@ -111,7 +111,7 @@ export function StateIOButtons() {
         };
 
         reader.readAsText(file);
-    }, []);
+    };
 
     return (
         <>

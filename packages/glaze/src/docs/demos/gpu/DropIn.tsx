@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { CpuDraw } from '../../../cpu/CpuSurface';
 import type { GpuDraw } from '../../../gpu/GpuSurface';
 import { CpuCanvas } from '../../../react/CpuCanvas';
@@ -73,7 +73,7 @@ type Runtime = 'cpu' | 'gpu';
 export function DropIn() {
     const [runtime, setRuntime] = useState<Runtime>('cpu');
     const [count, setCount] = useState(6000);
-    const stars = useMemo(() => makeStars(count), [count]);
+    const stars = makeStars(count);
 
     const onCpuDraw: CpuDraw = (surface) => {
         surface.clear('#05070b');

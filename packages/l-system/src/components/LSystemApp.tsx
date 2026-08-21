@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { expand } from '@repo/l-system-engine/engine';
 import { button, useControls } from 'leva';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { interpretWord } from '../core/interpreter';
 import { GRAMMARS } from '../grammars';
 import { Scene } from './Scene';
@@ -13,10 +13,7 @@ export function LSystemApp() {
 
     const [iterations, setIterations] = useState(0);
 
-    const grammarOptions = useMemo(
-        () => Object.fromEntries(GRAMMARS.map((g) => [g.name, g.id])),
-        []
-    );
+    const grammarOptions = Object.fromEntries(GRAMMARS.map((g) => [g.name, g.id]));
 
     const { grammarId } = useControls('Grammar', {
         grammarId: { value: GRAMMARS[0].id, options: grammarOptions }
@@ -68,11 +65,9 @@ export function LSystemApp() {
         };
     }, [autoStep, interval, currentGrammar.maxIterations]);
 
-    const segments = useMemo(() => {
-        const word = expand(currentGrammar.grammar, iterations);
-        const opts = { angle, stepLength, lengthFactor, lineWidth, widthFactor };
-        return interpretWord(word, opts);
-    }, [currentGrammar, iterations, angle, stepLength, lengthFactor, lineWidth, widthFactor]);
+    const word = expand(currentGrammar.grammar, iterations);
+    const opts = { angle, stepLength, lengthFactor, lineWidth, widthFactor };
+    const segments = interpretWord(word, opts);
 
     return (
         <div className="relative h-screen w-full">

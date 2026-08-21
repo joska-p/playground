@@ -3,9 +3,9 @@ name: grilling
 description: "Relentless interview to stress-test a plan, decision, or idea. Use when the user wants to sharpen their thinking or uses any 'grill' trigger."
 ---
 
-Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
+The interview runs relentlessly until shared understanding exists, mapped as a **design tree**: every decision branches into the decisions hanging off it.
 
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are settled — questions you can ask _now_ without guessing at unheard answers. Ask the whole frontier in one round: number each question and give your recommended answer. Wait for answers before the next round.
+The tree moves in **rounds**. The **frontier** is every decision whose prerequisites are settled: questions answerable now, without guessing at unheard answers. One round covers the whole frontier, each question numbered with a recommended answer attached. Answers arrive before the next round opens.
 
 Each question:
 
@@ -15,8 +15,8 @@ Each question:
 ➡️ <your recommended answer>
 ```
 
-Each round reshapes the tree: settled decisions push the frontier outward. Recompute and ask the next round. A question whose answer depends on another still open belongs to a _later_ round.
+Each round reshapes the tree: settled decisions push the frontier outward, the next round recomputes, and a question depending on an open answer waits for a later round.
 
-Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment, dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it — only downstream questions wait; ask the rest now. _Decisions_ are the user's: put each to them and wait.
+Facts are the interviewer's job. A frontier question needing an environmental fact dispatches a sub-agent; anything lookable stays away from the user. Its arrival blocks only downstream questions; the rest of the round proceeds. Decisions belong to the user: each goes to them, and the wait is part of the method.
 
-Done when the frontier is empty: every branch visited, nothing left silently assumed. Do not act until the user confirms shared understanding.
+Completion is an empty frontier: every branch visited, nothing silently assumed. Action starts at the user's confirmation of shared understanding.

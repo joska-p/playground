@@ -65,7 +65,7 @@ export function compileProgram(
     }
 
     const program = gl.createProgram();
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createProgram() as non-null, but the WebGL spec allows null on failure
+
     if (!program) {
         gl.deleteShader(vertexShader);
         gl.deleteShader(fragmentShader);

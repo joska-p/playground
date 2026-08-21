@@ -5,8 +5,6 @@ description: Use when defining package exports in package.json, writing cross-pa
 
 # Public API & Naming
 
-When performing this task, read the Single Source of Truth (SSOT) documentation files:
+`package.json` `exports` declares each public subpath, named exports carry the contract, and imports travel by subpath. Function names lead with their verb; filenames mirror their exports.
 
-- `/workspaces/playground/codex/docs/conventions/packages.md`
-
-Use your `read` tool to load those files and follow their instructions.
+The single source of truth stands at `/workspaces/playground/codex/docs/conventions/packages.md`. Its facts govern every export and import.

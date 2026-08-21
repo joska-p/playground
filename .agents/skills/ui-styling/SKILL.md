@@ -5,8 +5,6 @@ description: Use when writing CSS/Tailwind styling for @repo/ui components, usin
 
 # UI Styling
 
-When performing this task, read the Single Source of Truth (SSOT) documentation files:
+Static styling flows through project tokens via Tailwind utilities, grids structure layout, and typography scales intrinsically with `clamp()`. Runtime colors travel through CSS custom properties.
 
-- `/workspaces/playground/codex/docs/conventions/ui.md`
-
-Use your `read` tool to load those files and follow their instructions.
+The single source of truth stands at `/workspaces/playground/codex/docs/conventions/ui.md`. Its facts govern every style decision.

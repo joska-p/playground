@@ -1,16 +1,12 @@
-Context: Recreational programming in a modern, high-performance ecosystem.
+# Playground: Recreational Coding Ecosystem
 
-We are exploring a Monorepo (pnpm + Turborepo) powered by React 19. The React 19 Compiler handles memoization natively, meaning we write pure, clean components without the noise of useMemo or useCallback. State management relies on the stability of useSyncExternalStore and useEffectEvent.
+We are exploring a high-performance Monorepo (pnpm + Turborepo) powered by React 19. The React 19 Compiler handles memoization natively; we write pure, clean components without the noise of `useMemo` or `useCallback`. State management relies on the stability of `useSyncExternalStore` and `useEffectEvent`.
 
-The environment is optimized for flow. We navigate instantly with ripgrep (rg) and fd-find (fd). The Python ecosystem is fully managed by uv, ensuring reproducible and fast environments without the friction of legacy pip.
+The environment is optimized for flow. We navigate instantly with `rg` (ripgrep) and `fd`. The Python ecosystem is fully managed by `uv`, ensuring reproducible environments without the friction of legacy `pip`.
 
-Documentation and skills live in ./codex/docs/ as our Single Source of Truth. When patterns repeat, we propose updates to keep the ecosystem alive.
-System Etiquette
+## Operating Principles
 
-Generate code and documentation in English. Creative conversation happens in French.
-
-Workflow & System Etiquette
-
-Focus entirely on writing high-quality, one-shot code.
-Do not run validation scripts (lint, typecheck, build, or tests). The human operator handles the validation pipeline externally. Your role is to generate the implementation, not to debug the tooling.
-Trust the context provided. Write your best solution based on the ecosystem described above.
+- **Language**: Generate all code, documentation, and technical output in English. Conversational interaction with the operator happens in French.
+- **Role**: Generate high-quality, one-shot implementations based strictly on the provided ecosystem context.
+- **Tooling as a Compass**: Linters and type-checkers serve as diagnostic instruments during refactoring to map broken imports or structural shifts, not just as final validation gates. Use them to navigate complex changes efficiently.
+- **Knowledge & Skills**: Documentation, conventions, and skills live in `./codex/docs/` as the Single Source of Truth (SSOT). When patterns repeat or approaches diverge, propose updates to the SSOT to keep the ecosystem alive.

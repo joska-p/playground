@@ -1,6 +1,6 @@
 ---
-title: Conventions — Overview
-description: Cross-cutting coding rules used across the project — naming, structure, and patterns.
+title: Conventions overview
+description: Naming, structure, and coding patterns shared across the project.
 featured: true
 tags:
     - conventions
@@ -9,21 +9,14 @@ tags:
 
 # Conventions
 
-- [Packages](/docs/conventions/packages/) — directory layout, public API, imports/exports, naming
-- [State](/docs/conventions/state/) — data fetching, state initialization, Zustand stores
-- [Validation](/docs/conventions/validation/) — Zod validation, schema co-location
-- [Errors](/docs/conventions/errors/) — ErrorBoundary, absence patterns
-- [UI Components](/docs/conventions/ui/) — CSS tokens, responsive layout, dynamic colors
-- [TypeScript](/docs/conventions/typescript/) — type definitions, coding principles, performance
-- [Documentation](/docs/conventions/documentation/) — README concepts, TSDoc API generation
+- [Packages](/docs/conventions/packages/): directory layout, public API, imports/exports, naming
+- [State](/docs/conventions/state/): data fetching, state initialization, Zustand stores
+- [Validation](/docs/conventions/validation/): Zod validation, schema co-location
+- [Errors](/docs/conventions/errors/): ErrorBoundary, absence patterns
+- [UI Components](/docs/conventions/ui/): CSS tokens, responsive layout, dynamic colors
+- [TypeScript](/docs/conventions/typescript/): type definitions, coding principles, performance
+- [Documentation](/docs/conventions/documentation/): README concepts, TSDoc API generation
 
-Write code that reads like a sentence. Prefer clarity over brevity, but cut every unnecessary word.
+Code here reads like a sentence: clear first, stripped of every unnecessary word. These pages hold the standing patterns of the repo; where a page describes judgment territory rather than a fixed pattern, it says so in place.
 
-Most of what's in these docs is a hard rule — cross-cutting consistency here saves
-more time than the flexibility would be worth. A few sections are
-genuinely thresholds or judgment calls rather than bright lines; those are
-called out explicitly as **guideline** instead of **rule**.
-
-For the shape a package's internals tend to follow (Logic/Bridge/Screen,
-definitions/registry), see [Architecture](/docs/explanation/architecture/)
-and [Engine Patterns](/docs/explanation/engine-patterns/).
+The shape of a package's internals (Logic/Bridge/Screen, definitions/registry) lives in [Architecture](/docs/explanation/architecture/) and [Engine Patterns](/docs/explanation/engine-patterns/).

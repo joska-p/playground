@@ -1,5 +1,5 @@
 import { colorSpaces } from '@repo/palette-engine/colorSpaces';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { scaleTo255 } from '../../../utils/color';
 
 type ColorSpaceCanvasProps = {
@@ -11,7 +11,7 @@ type ColorSpaceCanvasProps = {
 };
 
 function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpaceCanvasProps) {
-    const config = useMemo(() => colorSpaces[spaceId], [spaceId]);
+    const config = colorSpaces[spaceId];
 
     useEffect(() => {
         const canvas = ref.current;

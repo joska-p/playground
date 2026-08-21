@@ -8,9 +8,10 @@ tags:
 
 # Documentation
 
-- **Do** use each package's `README.md` to document **concepts** — purpose, quick start, usage, gotchas. Keep it simple; it is the local spec, not an API inventory.
-- **Do** generate API reference from the code: add TSDoc comments to exported symbols, then run:
-    ```bash
-    pnpm generate-typedoc-json
-    ```
-- Generated docs are output to `codex/ateliers/typedoc-pipeline/.generated/api-docs/`, loaded into the `api` content collection by a custom loader, and served by `apps/playground` (Astro) at `/discoveries/<package>/` — one page per package with the README overview and every exported symbol as an anchored section.
+Each package documents itself in two layers. The `README.md` carries the concepts: purpose, quick start, usage, gotchas. It is the local spec, stable across refactors. The API reference generates from the code.
+
+```bash
+pnpm generate-typedoc-json
+```
+
+Generated docs land in `codex/ateliers/typedoc-pipeline/.generated/api-docs/`, load into the `api` content collection through a custom loader, and serve from `apps/playground` (Astro) at `/discoveries/<package>/`. Each page holds the README overview plus every exported symbol as an anchored section.

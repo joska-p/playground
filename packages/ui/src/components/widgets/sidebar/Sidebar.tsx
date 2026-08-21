@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
-import { useCallback, useId, useMemo } from 'react';
+import { useId } from 'react';
 import { useSidebarState } from '../../../hooks/useSidebarState';
 import { cn } from '../../../lib/cn';
 import { type ColorVariant } from '../../../lib/colorVariant';
@@ -41,34 +41,31 @@ function Sidebar({
     const isControlled = controlledOpen !== undefined;
     const isOpen = isControlled ? controlledOpen : internal.isOpen;
 
-    const toggle = useCallback(() => {
+    const toggle = () => {
         const next = !isOpen;
         if (!isControlled) internal.toggle();
         onOpenChange?.(next);
-    }, [isOpen, isControlled, onOpenChange, internal]);
+    };
 
-    const open = useCallback(() => {
+    const open = () => {
         if (!isControlled) internal.open();
         onOpenChange?.(true);
-    }, [isControlled, onOpenChange, internal]);
+    };
 
-    const close = useCallback(() => {
+    const close = () => {
         if (!isControlled) internal.close();
         onOpenChange?.(false);
-    }, [isControlled, onOpenChange, internal]);
+    };
 
-    const ctx = useMemo(
-        (): SidebarContextValue => ({
-            isOpen,
-            toggle,
-            open,
-            close,
-            panelId,
-            position,
-            variant
-        }),
-        [isOpen, toggle, open, close, panelId, position, variant]
-    );
+    const ctx: SidebarContextValue = {
+        isOpen,
+        toggle,
+        open,
+        close,
+        panelId,
+        position,
+        variant
+    };
 
     const isHorizontal = position === 'left' || position === 'right';
 

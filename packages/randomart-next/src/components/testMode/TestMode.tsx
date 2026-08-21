@@ -1,6 +1,5 @@
 import { getOperator, getOperatorKinds, OPERATORS } from '@repo/randomart-engine-next/operators';
 import type { Node, OperatorId } from '@repo/randomart-engine-next/types';
-import { useMemo } from 'react';
 import { Canvas } from './Canvas';
 
 const CARD_SIZE = 180;
@@ -40,21 +39,22 @@ function makeOperatorNode(id: OperatorId): Node {
     };
 }
 
+function buildOperatorNodes(): { id: OperatorId; label: string; node: Node }[] {
+    const entries: { id: OperatorId; label: string; node: Node }[] = [];
+    for (const [id] of Object.entries(OPERATORS)) {
+        const oid = id as OperatorId;
+        entries.push({
+            id: oid,
+            label: getOperator(oid).label,
+            node: makeOperatorNode(oid)
+        });
+    }
+    return entries;
+}
+
 export function TestMode() {
     const categories = getOperatorKinds();
-
-    const operatorNodes = useMemo(() => {
-        const entries: { id: OperatorId; label: string; node: Node }[] = [];
-        for (const [id] of Object.entries(OPERATORS)) {
-            const oid = id as OperatorId;
-            entries.push({
-                id: oid,
-                label: getOperator(oid).label,
-                node: makeOperatorNode(oid)
-            });
-        }
-        return entries;
-    }, []);
+    const operatorNodes = buildOperatorNodes();
 
     return (
         <div className="h-screen overflow-auto p-6">

@@ -10,28 +10,21 @@ tags:
 
 ## CSS tokens
 
-**Rule**, scoped to `packages/ui` (and any package built the same way).
+Static styling in `packages/ui` (and any package built the same way) flows through project CSS tokens via Tailwind utility classes. A new design decision starts with a token. Tailwind scale values cover most cases (`text-xs` over `text-[11px]`); reaching for an arbitrary value points at a missing token.
 
-- **Do** use project CSS tokens via Tailwind utility classes for **static** styling.
-- **Don't** hardcode colors, spacing, or radius values in `style` or `className`.
-- **Do** define a token before adding a new design decision.
-- **Do** prefer Tailwind scale values over arbitrary ones (`text-xs` over `text-[11px]`). If you reach for an arbitrary value, ask yourself if a token is missing first.
-
-For values only known at runtime (a dynamically computed color), setting a CSS custom property via `style` is the sanctioned exception — see [Dynamic colors](#dynamic-colors) below. That's a different case from hardcoding a static value; both rules can be true at once.
+Values known only at runtime, such as a dynamically computed color, travel through CSS custom properties set via `style`; see [Dynamic colors](#dynamic-colors) below.
 
 ## Responsive layout
 
-**Guideline** — a strong default, not a ban on Flexbox or breakpoints.
-
-- **Do** use CSS Grid (`grid`, `grid-cols-*`) for all layout structures.
-- **Do** use Flexbox (`flex`, `justify-*`, `items-*`) for single-axis alignment (navbars, button groups) or dynamic/wrapping content (tag lists).
+CSS Grid (`grid`, `grid-cols-*`) structures layout. Flexbox (`flex`, `justify-*`, `items-*`) aligns single axes (navbars, button groups) and dynamic or wrapping content (tag lists).
 
 ### Intrinsic layout
 
-- **Do** prefer intrinsic layout over breakpoint-driven layout for typography.
-- **Do** use `repeat(auto-fit, minmax(..., 1fr))` for grids that reflow naturally. Use `auto-fill` when empty tracks should be preserved, `auto-fit` when they should collapse.
-- **Do** use `clamp()` for fluid typography and spacing instead of overriding values at breakpoints.
-- **Do** define reused values as tokens in `@theme` rather than repeating arbitrary values:
+Typography and grids adapt intrinsically, so the same markup reflows across viewports:
+
+- `repeat(auto-fit, minmax(..., 1fr))` builds grids that reflow naturally; `auto-fill` preserves empty tracks, `auto-fit` collapses them.
+- `clamp()` scales fluid typography and spacing continuously.
+- Reused values become tokens in `@theme`:
 
 ```css
 @theme {
@@ -40,32 +33,25 @@ For values only known at runtime (a dynamically computed color), setting a CSS c
 }
 ```
 
-- **Do** use Tailwind's arbitrary value syntax in JSX to keep intrinsic layout out of `style`:
+- Tailwind's arbitrary value syntax keeps intrinsic layout in JSX classes:
 
 ```tsx
-// ✅ Intrinsic grid — reflows without breakpoints
+// intrinsic grid, reflows without media queries
 <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4" />
 
-// ✅ Fluid type with clamp
+// fluid type with clamp
 <p className="text-[clamp(1rem,2.5vw,1.5rem)]" />
-
-// ❌ Breakpoint-switching column counts
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
 ```
 
-- **Don't** reach for breakpoints (`sm:`, `md:`, `lg:`) until the layout genuinely cannot adapt intrinsically.
+Intrinsic adaptation handles density and reflow; a breakpoint enters when the design changes structure rather than scale.
 
 ## Dynamic colors
 
-Use CSS variables set via `style` + Tailwind's CSS variable shorthand:
+Runtime colors flow through a CSS variable plus Tailwind's variable shorthand:
 
 ```tsx
-// ✅ Tailwind v4
 <div
-  style={{ '--var-x': dynamicValue }}
-  className="text-(--var-x)"
+    style={{ '--var-x': dynamicValue }}
+    className="text-(--var-x)"
 />
-
-// ❌
-<div style={{ color: dynamicValue }} />
 ```

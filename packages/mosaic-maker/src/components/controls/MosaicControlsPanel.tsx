@@ -1,7 +1,7 @@
 import { ControlGrid, ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
 import { ColorPalette } from '@repo/ui/widgets';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     CSS_VARS,
     DEFAULT_GAP_SIZE,
@@ -36,17 +36,14 @@ function useSliderState(
         };
     }, []);
 
-    const onChange = useCallback(
-        (newValue: number) => {
-            setValue(newValue);
-            mosaicRef.current?.style.setProperty(cssVar, `${String(newValue)}px`);
-            if (debounceRef.current) {
-                clearTimeout(debounceRef.current);
-            }
-            debounceRef.current = setTimeout(regenerateTiles, debounceMs);
-        },
-        [mosaicRef, cssVar, debounceMs]
-    );
+    const onChange = (newValue: number) => {
+        setValue(newValue);
+        mosaicRef.current?.style.setProperty(cssVar, `${String(newValue)}px`);
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+        debounceRef.current = setTimeout(regenerateTiles, debounceMs);
+    };
 
     return { value, onChange };
 }

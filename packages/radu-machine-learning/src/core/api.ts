@@ -14,7 +14,7 @@ function getSamplesByStudents(): Students {
         if (sample.student_id in students) {
             const student = students[sample.student_id];
             // For some reason eslint flag student as possibly undefined in the terminal but not in vscode. Maybe a probleme with the size ot the files and ts.
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
             if (student !== undefined) {
                 student.drawings.push(drawing);
             }

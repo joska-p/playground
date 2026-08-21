@@ -28,7 +28,7 @@ export class StateBufferTargets {
 
     bindWrite(): void {
         const fbo = this.#framebuffers[this.#writeIndex()];
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
+
         if (!fbo) throw new Error('Glaze: StateBuffer write target not initialized');
         this.#gl.bindFramebuffer(this.#gl.FRAMEBUFFER, fbo);
         this.#gl.viewport(0, 0, this.#currentWidth, this.#currentHeight);
@@ -40,14 +40,14 @@ export class StateBufferTargets {
 
     getReadTexture(): WebGLTexture {
         const texture = this.#textures[this.#readIndex()];
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
+
         if (!texture) throw new Error('Glaze: StateBuffer read target not initialized');
         return texture;
     }
 
     getWriteTexture(): WebGLTexture {
         const texture = this.#textures[this.#writeIndex()];
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- noUncheckedIndexedAccess: array access yields `| undefined`
+
         if (!texture) throw new Error('Glaze: StateBuffer write target not initialized');
         return texture;
     }
@@ -106,7 +106,7 @@ export class StateBufferTargets {
     #createTarget(width: number, height: number): [WebGLTexture, WebGLFramebuffer] {
         const gl = this.#gl;
         const texture = gl.createTexture();
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createTexture() as non-null, but the WebGL spec allows null on failure
+
         if (!texture) {
             throw new Error('Glaze: StateBuffer texture creation failed');
         }
@@ -129,7 +129,7 @@ export class StateBufferTargets {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
         const fbo = gl.createFramebuffer();
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lib.dom types createFramebuffer() as non-null, but the WebGL spec allows null on failure
+
         if (!fbo) {
             gl.deleteTexture(texture);
             throw new Error('Glaze: StateBuffer framebuffer creation failed');
