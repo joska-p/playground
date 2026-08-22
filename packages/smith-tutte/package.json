@@ -5,7 +5,6 @@
     "type": "module",
     "exports": {
         ".": "./src/App.tsx",
-        "./Demo": "./src/components/Demo.tsx",
         "./styles": "./src/styles/global.css"
     },
     "scripts": {

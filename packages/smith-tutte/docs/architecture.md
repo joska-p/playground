@@ -58,6 +58,8 @@ Pour produire des graphes planaires riches et asymétriques sans coder des milli
 
 Cette API resterait indépendante du moteur électrique (module `topology/`, sans dépendance vers `engine/`) : elle produit un graphe planaire neutre, sans sémantique de résistance, traduit ensuite par un adaptateur vers le `Graph` du solveur.
 
+**Piste pour `PlanarFlattener.ts` : plongement de Tutte.** Une fois une face retirée pour servir de contour extérieur, fixer ses sommets en polygone convexe, puis traiter chaque arête restante comme un ressort (force proportionnelle à la distance) et laisser le système se stabiliser à l'équilibre (résolution d'un système linéaire, mathématiquement cousin du solveur de Kirchhoff — même famille de potentiels harmoniques sur un graphe). Garantie de planarité sans croisement uniquement si le graphe est **3-connexe** — à vérifier plutôt qu'à supposer.
+
 ## 3. Modèle noyau
 
 Une seule source de vérité : le graphe planaire enrichi issu du solveur. Les deux vues (pavage et schéma électrique) en dérivent, jamais de modèles distincts à synchroniser.

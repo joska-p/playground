@@ -3,7 +3,7 @@
 > Dual visualizer: squared-square tiling ↔ its electrical network.
 > Current Status: 🧪 WIP
 
-This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. The full framing document lives in [`docs/brainstorming.md`](./docs/brainstorming.md). API inventory is automatically handled by TypeDoc.
+This README acts as the local concept spec — focusing on the "why", the mathematical inspirations, and the design decisions. The full framing is split across [`docs/`](./docs): `architecture.md` (the how), `decisions.md` (ADRs), `journal.md` (the narrative), and `roadmap.md` (execution strategy). API inventory is automatically handled by TypeDoc.
 
 ---
 
@@ -40,7 +40,10 @@ Entry point is a textual DSL describing the system without any GUI input (netlis
 ## 📚 References
 
 - [The story of the squared square](https://www.youtube.com/watch?v=0fH80JF2mDM)
-- [`docs/journal.md`](./docs/journal.md) - Full architecture & framing document (DSL comparison, coordinate spaces, action plan).
+- [`docs/architecture.md`](./docs/architecture.md) - The system as designed today (pipeline, core model, folder structure).
+- [`docs/decisions.md`](./docs/decisions.md) - Structuring choices as append-only ADRs.
+- [`docs/journal.md`](./docs/journal.md) - The narrative: why, doubts, pivots.
+- [`docs/roadmap.md`](./docs/roadmap.md) - Execution strategy (vertical slices).
 
 ---
 
