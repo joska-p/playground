@@ -1,0 +1,10 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "extends": ["../../typedoc.base.json"],
+    "entryPoints": [
+        "./src/App.tsx",
+        "./src/components/Demo.tsx"
+    ],
+    "tsconfig": "./tsconfig.lib.json",
+    "readme": "./README.md"
+}
