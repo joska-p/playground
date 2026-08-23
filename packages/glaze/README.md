@@ -32,7 +32,7 @@ Both share a common architecture including a frame loop, camera controller, and 
 - **World-Space Coordinate Mapping:** Drawing methods operate in world space. Camera pans and zooms are applied automatically, ensuring consistent pointer math and anti-aliased MSAA rendering.
 - **Dynamic Interaction Bridge:** Gestures defined through `canvasInteractions` update seamlessly in React without forcing DOM event listener teardown or re-binding.
 - **Context Loss Recovery:** The GPU runtime intercepts `webglcontextlost` and automatically re-initializes shaders, textures, and GPU resources upon restoration.
-- **Classes over Factories:** Core modules (`CpuSurface`, `GpuSurface`, `Camera`, `FrameLoop`, `InputStore`, `StateBuffer`, `Program`) are pure imperative classes; `createX` functions act as thin instantiator wrappers.
+- **Classes over Factories:** Core modules (`CpuSurface`, `GpuSurface`, `Camera`, `FrameDispatcher`, `InputStore`, `StateBuffer`, `Program`) are pure imperative classes; `createX` functions act as thin instantiator wrappers.
 
 ## 📚 References
 

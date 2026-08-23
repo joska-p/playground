@@ -195,7 +195,7 @@ if (hit) drag = { id: hit.id, offset: surface.pointer }`
         level: 3,
         title: 'CPU to GPU Drop-in',
         summary:
-            'One scene function, two runtimes. The same shape calls drive CpuCanvas (Canvas2D) or GpuCanvas (WebGL2 batching); only the clear differs.',
+            'One scene function, two runtimes. The same shape calls — clear included — drive CpuCanvas (Canvas2D) or GpuCanvas (WebGL2 batching).',
         sections: [
             {
                 heading: 'A scene is just a draw function',
@@ -207,14 +207,14 @@ if (hit) drag = { id: hit.id, offset: surface.pointer }`
 };`
             },
             {
-                heading: 'The only difference is the clear',
+                heading: 'Not even the clear differs',
                 body: [
-                    'The CPU surface clears with a CSS color, the GPU surface with RGBA. Everything else in the scene is identical — swap the component and the demo is still the same picture.'
+                    'Both surfaces take a CSS color string, so the scene function stays byte-identical across runtimes — swap the component and the demo is still the same picture.'
                 ],
                 code: `// CpuCanvas
 surface.clear('#05070b');
 // GpuCanvas
-surface.clear(0.02, 0.03, 0.045, 1);`
+surface.clear('#05080b');`
             },
             {
                 heading: 'Why the GPU wins at 20,000 circles',

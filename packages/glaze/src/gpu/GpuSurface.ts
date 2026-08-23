@@ -7,11 +7,12 @@ import {
     type WorldPoint
 } from '../core/Camera';
 import { createClock, type ClockOptions } from '../core/Clock';
-import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
+import { FrameDispatcher, type FrameStep } from '../core/FrameDispatcher';
 import { createInputStore, type InputStore } from '../core/InputStore';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
 import { createStandardUniformValues } from './shader/setUniforms';
+import { parseColor } from './shapes/color';
 import {
     TextRasterizer,
     DEFAULT_FONT_FAMILY,
@@ -21,7 +22,7 @@ import {
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
 
 import type { Clock } from '../core/Clock';
-import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
+import type { DrawStyle, Color, Rect, TextStyle } from '../cpu/shapes/types';
 
 export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
@@ -60,19 +61,15 @@ export class GpuSurface {
     readonly input: InputStore;
     readonly clock: Clock;
 
-    readonly #loop = createFrameLoop();
+    readonly #dispatcher: FrameDispatcher;
     readonly #programs = new Set<Program>();
     readonly #buffers = new Set<StateBuffer>();
-    readonly #subscribers = new Set<GpuDraw>();
     readonly #batch: ShapeBatcher;
-    #draw: GpuDraw | null = null;
     #textRasterizer: TextRasterizer | null = null;
     #textProgram: Program | null = null;
     #cssWidth = 0;
     #cssHeight = 0;
     #lost = false;
-    #rendererAttached = false;
-    #unsubscribeRenderer: (() => void) | null = null;
 
     constructor(config: GpuSurfaceConfig) {
         const gl = config.canvas.getContext('webgl2', {
@@ -95,6 +92,7 @@ export class GpuSurface {
             camera: this.camera,
             getViewport: () => ({ width: this.#cssWidth, height: this.#cssHeight })
         });
+        this.#dispatcher = new FrameDispatcher(this.#onFrame);
 
         this.#configureState();
         this.#resize();
@@ -103,7 +101,7 @@ export class GpuSurface {
     }
 
     get isRunning(): boolean {
-        return this.#loop.isRunning;
+        return this.#dispatcher.isRunning;
     }
 
     /** Pointer position in world coordinates (camera-transformed). */
@@ -268,14 +266,13 @@ export class GpuSurface {
         return this;
     }
 
-    /**
-     * Clears the framebuffer. `r`/`g`/`b`/`a` are normalized 0..1, unlike `CpuSurface.clear`'s
-     * color strings.
-     */
-    clear(r = 0, g = 0, b = 0, a = 1): this {
+    /** Clears the framebuffer with a CSS color — same signature as `CpuSurface.clear`. */
+    clear(color: Color = '#000000'): this {
         this.#flushBatch();
 
         if (this.#lost) return this;
+
+        const { r, g, b, a } = parseColor(color);
 
         this.gl.clearColor(r, g, b, a);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
@@ -283,27 +280,17 @@ export class GpuSurface {
         return this;
     }
 
-    setDraw(fn: GpuDraw | null): void {
-        this.#draw = fn;
-
-        if (fn && this.#subscribers.size === 0) this.#startRendering();
-        else if (!fn && this.#subscribers.size === 0) this.#stopRendering();
-    }
-
-    subscribe(fn: GpuDraw): () => void {
-        this.#subscribers.add(fn);
-        this.#startRendering();
-
-        return () => {
-            this.#subscribers.delete(fn);
-
-            if (this.#subscribers.size === 0 && this.#draw === null) this.#stopRendering();
+    /** Subscribes to the frame loop; the rAF loop runs while at least one subscription is live. */
+    onFrame(callback: (surface: this) => void): () => void {
+        const wrapped = (): void => {
+            callback(this);
         };
+
+        return this.#dispatcher.subscribe(wrapped);
     }
 
     destroy(): void {
-        this.#stopRendering();
-        this.#loop.dispose();
+        this.#dispatcher.dispose();
         this.input.destroy();
         this.canvas.removeEventListener('webglcontextlost', this.#onContextLost);
         this.canvas.removeEventListener('webglcontextrestored', this.#onContextRestored);
@@ -319,8 +306,6 @@ export class GpuSurface {
         this.#batch.destroy();
         this.#textRasterizer?.destroy();
         this.#textRasterizer = null;
-        this.#subscribers.clear();
-        this.#draw = null;
     }
 
     #drawCircle(center: Point2D, radius: number, style?: DrawStyle): void {
@@ -388,21 +373,6 @@ export class GpuSurface {
         this.#batch.flush();
     }
 
-    #startRendering(): void {
-        if (this.#rendererAttached) return;
-
-        this.#unsubscribeRenderer = this.#loop.subscribe(this.#onFrame);
-        this.#rendererAttached = true;
-    }
-
-    #stopRendering(): void {
-        if (!this.#rendererAttached) return;
-
-        this.#unsubscribeRenderer?.();
-        this.#unsubscribeRenderer = null;
-        this.#rendererAttached = false;
-    }
-
     #onContextLost = (event: Event): void => {
         event.preventDefault();
         this.#lost = true;
@@ -420,7 +390,7 @@ export class GpuSurface {
         for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
-    #onFrame: FrameCallback = (time, deltaTime): void => {
+    #onFrame: FrameStep = (time, deltaTime): void => {
         this.#resize();
         this.frameCount++;
         this.time = time;
@@ -429,12 +399,7 @@ export class GpuSurface {
         this.height = this.#cssHeight;
         this.clock.update(deltaTime);
 
-        const current = this.#draw;
-
-        if (current) current(this);
-
-        for (const subscriber of this.#subscribers) subscriber(this);
-
+        this.#dispatcher.tick();
         this.#flushBatch();
         this.input.endFrame();
     };

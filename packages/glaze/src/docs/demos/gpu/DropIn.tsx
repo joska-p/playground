@@ -8,7 +8,7 @@ import type { GpuDraw } from '../../../gpu/GpuSurface';
 
 /**
  * Structural contract satisfied by both `CpuSurface` and `GpuSurface`, so one scene function drives
- * both — only `clear` differs.
+ * both runtimes.
  */
 interface ShapeSurface {
     width: number;
@@ -86,7 +86,7 @@ export function DropIn() {
     };
 
     const onGpuDraw: GpuDraw = (surface) => {
-        surface.clear(0.02, 0.03, 0.045, 1);
+        surface.clear('#05080b');
         drawScene(surface, stars);
     };
 

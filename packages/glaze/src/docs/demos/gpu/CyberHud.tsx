@@ -43,7 +43,7 @@ export function CyberHud() {
     const programRef = useRef<Program | null>(null);
 
     const onFrame: GpuDraw = (surface) => {
-        surface.clear(0, 0, 0, 1);
+        surface.clear('#000000');
 
         let program = programRef.current;
 

@@ -78,9 +78,9 @@ export function GpuCanvas({
     useEffect(() => {
         if (!stack) return;
 
-        const surface = stack.surface;
-        const shouldDraw = onFrame !== undefined || fragmentShader !== undefined;
-        const draw: GpuDraw = (frame) => {
+        if (onFrame === undefined && fragmentShader === undefined) return;
+
+        return stack.surface.onFrame((frame) => {
             const program = programRef.current;
 
             if (program) {
@@ -89,9 +89,7 @@ export function GpuCanvas({
             }
 
             onFrame?.(frame);
-        };
-
-        surface.setDraw(shouldDraw ? draw : null);
+        });
     }, [onFrame, uniforms, fragmentShader, stack]);
 
     return (

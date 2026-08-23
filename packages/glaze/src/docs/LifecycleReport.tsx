@@ -59,8 +59,8 @@ const CAST = [
     ['Actor', 'File', 'Owns', 'Plays in the lifecycle'],
     [
         'Surface',
-        'cpu/CpuSurface.ts:17\ncpu/GpuSurface.ts:29',
-        'canvas context, per-frame state (time, deltaTime, frameCount, width, height, dpr), the InputStore, the FrameLoop',
+        'cpu/CpuSurface.ts\ngpu/GpuSurface.ts',
+        'canvas context, per-frame state (time, deltaTime, frameCount, width, height, dpr), the InputStore, the FrameDispatcher',
         'The runtime. Runs the rAF loop, applies the camera, executes your draw callback. Owns the input bus it attaches to the canvas.'
     ],
     [
@@ -94,10 +94,10 @@ const CAST = [
         'The pipeline steps. Each receives every event and either acts (mutation via cameraControls / surface) or ignores it.'
     ],
     [
-        'FrameLoop',
-        'core/FrameLoop.ts:3',
-        'the requestAnimationFrame scheduler and its callback set',
-        'Auto-starts on first subscriber, auto-stops on last. Produces time + delta per frame.'
+        'FrameDispatcher',
+        'core/FrameDispatcher.ts',
+        'the requestAnimationFrame scheduler and the onFrame subscriber set',
+        'Auto-starts on first subscriber, auto-stops on last. Produces time + delta per frame and fans each frame out to every callback.'
     ],
     [
         'React facade',
@@ -112,15 +112,15 @@ const PIPE =
     '  - <canvas ref={canvasRef}> stores the node     react/useNodeResource.ts\n' +
     '  - createCpuStack(canvas, options)              react/surfaceStack.ts   (pure assembly)\n' +
     '      +- Camera ---- CameraControls(bounds)      core/Camera, core/CameraControls\n' +
-    '      +- CpuSurface (owns FrameLoop)             cpu/CpuSurface.ts\n' +
+    '      +- CpuSurface (owns FrameDispatcher)       cpu/CpuSurface.ts\n' +
     '      |    `- InputStore.attach(canvas)          core/InputStore.ts   (DOM listeners bound)\n' +
     '      `- InputRouter.subscribe(input)            core/gestures.ts\n' +
     'stack lands as reactive state\n' +
     'effects (post-mount)\n' +
     '  - gesturesRef <- createInteractionAdapter()   pan + zoom gestures go live\n' +
-    '  - surface.setDraw(fn) -> FrameLoop starts rAF\n' +
+    '  - surface.onFrame(fn) -> FrameDispatcher starts rAF\n' +
     'frame (every rAF)\n' +
-    '  resize -> stamp time/delta/frameCount -> applyCamera -> draw(fn) -> input.endFrame()\n' +
+    '  resize -> stamp time/delta/frameCount -> applyCamera -> onFrame callbacks -> input.endFrame()\n' +
     'input -> gesture\n' +
     '  DOM -> InputStore -> InputRouter -> InteractionEvent -> gestures -> cameraControls\n' +
     'unmount / detach\n' +
@@ -201,12 +201,11 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         A final effect calls <Code>onMount?.(surface)</Code> — exactly once per
-                        surface instance — then <Code>surface.setDraw(onFrame)</Code>.{' '}
-                        <Code>setDraw</Code> <Code>CpuSurface.ts:70</Code> stores the callback and —
-                        being the first subscriber — calls <Code>#startRendering()</Code> →{' '}
-                        <Code>loop.subscribe(#onFrame)</Code>. The <Code>FrameLoop</Code> has no
-                        callbacks yet, so its first subscribe starts the rAF clock{' '}
-                        <Code>FrameLoop.ts:17</Code>. The demo is running.
+                        surface instance — then subscribes its draw via{' '}
+                        <Code>surface.onFrame(onFrame)</Code>. <Code>onFrame</Code>{' '}
+                        <Code>CpuSurface.ts</Code> wraps the callback and hands it to the{' '}
+                        <Code>FrameDispatcher</Code>, whose first subscriber starts the rAF clock{' '}
+                        <Code>FrameDispatcher.ts</Code>. The demo is running.
                     </li>
                 </ol>
                 <CodeBlock label="one pipeline, end to end">{PIPE}</CodeBlock>
@@ -214,11 +213,10 @@ export function LifecycleReport() {
 
             <AccordionItem title="03 · The frame — what runs on every rAF tick">
                 <p className="text-sm leading-relaxed text-foreground-muted">
-                    The <Code>FrameLoop</Code> is a pure scheduler: on each tick it computes{' '}
+                    The <Code>FrameDispatcher</Code> owns the rAF stream: on each tick it computes{' '}
                     <Code>delta = (now − lastTime) / 1000</Code> and <Code>time = now / 1000</Code>,
-                    schedules the <em>next</em> rAF, then calls every subscribed callback{' '}
-                    <Code>FrameLoop.ts:46</Code>. The surface&apos;s <Code>#onFrame</Code>{' '}
-                    <Code>CpuSurface.ts:269</Code> is that callback:
+                    schedules the <em>next</em> rAF, then hands both to the surface&apos;s frame
+                    step <Code>CpuSurface.ts</Code>. That step is the callback:
                 </p>
                 <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
@@ -240,8 +238,9 @@ export function LifecycleReport() {
                         <Code>Camera.worldToScreen</Code> / <Code>screenToWorld</Code> invert.
                     </li>
                     <li>
-                        Run the draw callback, then any extra subscribers. The demo paints in world
-                        space; the camera was applied for it.
+                        Fan out to every <Code>onFrame</Code> subscriber via the dispatcher&apos;s{' '}
+                        <Code>tick()</Code>. The demo paints in world space; the camera was applied
+                        for it.
                     </li>
                     <li>
                         <Code>input.endFrame()</Code> <Code>InputStore.ts:59</Code> — clear{' '}
@@ -374,10 +373,9 @@ export function LifecycleReport() {
             <AccordionItem title="06 · The GPU surface — same lifecycle, different innards">
                 <p className="text-sm leading-relaxed text-foreground-muted">
                     <Code>GpuSurface</Code> mirrors the whole skeleton: its own InputStore bound to
-                    the canvas, its own FrameLoop, the same <Code>setDraw</Code> /{' '}
-                    <Code>subscribe</Code> / <Code>destroy</Code> contract, and a{' '}
-                    <Code>#onFrame</Code> of the same shape. The deltas are all inside the draw
-                    path:
+                    the canvas, its own <Code>FrameDispatcher</Code>, the same <Code>onFrame</Code>{' '}
+                    / <Code>destroy</Code> contract, and a <Code>#onFrame</Code> of the same shape.
+                    The deltas are all inside the draw path:
                 </p>
                 <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
@@ -402,9 +400,10 @@ export function LifecycleReport() {
                         <Code>u_time</Code> — then draws the fullscreen triangle.
                     </li>
                     <li>
-                        <Code>#onFrame</Code> <Code>GpuSurface.ts:346</Code>: resize → stamp state →
-                        run draw → <Code>#flushBatch()</Code> → <Code>input.endFrame()</Code>. One
-                        batched draw call per frame regardless of how many shapes you issued.
+                        <Code>#onFrame</Code> <Code>GpuSurface.ts</Code>: resize → stamp state →
+                        tick the onFrame subscribers → <Code>#flushBatch()</Code> →{' '}
+                        <Code>input.endFrame()</Code>. One batched draw call per frame regardless of
+                        how many shapes you issued.
                     </li>
                     <li>
                         Context loss is absorbed: a <Code>#lost</Code> flag makes every GL entry
@@ -426,17 +425,15 @@ export function LifecycleReport() {
                         <Code>InputStore</Code> <Code>gestures.ts:142</Code>.
                     </li>
                     <li>
-                        <Code>surface.destroy()</Code> <Code>CpuSurface.ts:261</Code> —{' '}
-                        <Code>#stopRendering()</Code> unsubscribes from the FrameLoop; removing its
-                        last callback stops the loop and cancels the pending rAF{' '}
-                        <Code>FrameLoop.ts:20</Code>. Then <Code>loop.dispose()</Code>,{' '}
-                        <Code>input.destroy()</Code> (unbind every DOM listener, clear key/state,{' '}
-                        <Code>InputStore.ts:81</Code>), and the draw/subscriber sets are cleared.
+                        <Code>surface.destroy()</Code> <Code>CpuSurface.ts</Code> —{' '}
+                        <Code>#dispatcher.dispose()</Code> stops the rAF loop, cancels the pending
+                        frame and clears the subscriber set. Then <Code>input.destroy()</Code>{' '}
+                        (unbind every DOM listener, clear key/state, <Code>InputStore.ts:81</Code>).
                     </li>
                     <li>
                         The GPU surface additionally removes the context-loss listeners and destroys
-                        every program, the batch, and the text rasterizer{' '}
-                        <Code>GpuSurface.ts:248</Code>.
+                        every program, the batch, and the text rasterizer <Code>GpuSurface.ts</Code>
+                        .
                     </li>
                 </ol>
                 <p className="text-sm leading-relaxed text-foreground-muted">
@@ -452,7 +449,7 @@ export function LifecycleReport() {
                     The modules build bottom-up; read them in the order the runtime runs:
                 </p>
                 <CodeBlock>
-                    {'core/FrameLoop.ts      the rAF scheduler\n' +
+                    {'core/FrameDispatcher.ts the rAF heartbeat + onFrame fan-out\n' +
                         'core/Camera.ts          passive coordinate grid\n' +
                         'core/InputStore.ts      raw signal capture\n' +
                         'core/CameraControls.ts  the only camera mutator\n' +
@@ -461,7 +458,7 @@ export function LifecycleReport() {
                         'gpu/GpuSurface.ts       the GPU twin + batching\n' +
                         'react/surfaceStack.ts   pure assembly: options -> Camera/Controls/Surface/Router\n' +
                         'react/useNodeResource.ts node attach -> reactive resource lifecycle\n' +
-                        'react/CpuCanvas.tsx     effects: gestures + setDraw\n' +
+                        'react/CpuCanvas.tsx     effects: gestures + onFrame\n' +
                         'react/interactions.ts   CanvasInteractions -> Gesture[] adapter\n' +
                         'docs/GlazeDocs.tsx      this page'}
                 </CodeBlock>

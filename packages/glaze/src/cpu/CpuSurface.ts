@@ -6,7 +6,7 @@ import {
     type ScreenPoint,
     type WorldPoint
 } from '../core/Camera';
-import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
+import { FrameDispatcher, type FrameStep } from '../core/FrameDispatcher';
 import { createInputStore, type InputStore } from '../core/InputStore';
 
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
@@ -42,14 +42,9 @@ export class CpuSurface {
     readonly camera: Camera;
     readonly input: InputStore;
 
-    #loop = createFrameLoop();
-    #subscribers = new Set<CpuDraw>();
-    #cpuDraw: CpuDraw | null = null;
-    #frameCount = 0;
+    readonly #dispatcher: FrameDispatcher;
     #cssWidth = 0;
     #cssHeight = 0;
-    #rendererAttached = false;
-    #unsubscribeRenderer: (() => void) | null = null;
 
     constructor(config: CpuSurfaceConfig) {
         const context = config.canvas.getContext('2d');
@@ -62,6 +57,7 @@ export class CpuSurface {
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
         this.input.attach(this.canvas);
+        this.#dispatcher = new FrameDispatcher(this.#onFrame);
 
         // Size the canvas once up front so one-shot draws made outside the frame loop survive
         // (the loop's first resize would otherwise clear the buffer).
@@ -69,7 +65,7 @@ export class CpuSurface {
     }
 
     get isRunning(): boolean {
-        return this.#loop.isRunning;
+        return this.#dispatcher.isRunning;
     }
 
     /** Pointer position in world coordinates (camera-transformed). */
@@ -85,22 +81,13 @@ export class CpuSurface {
         return this.camera.worldToScreen(point);
     }
 
-    setDraw(newCpuDraw: CpuDraw | null): void {
-        this.#cpuDraw = newCpuDraw;
-
-        if (newCpuDraw && this.#subscribers.size === 0) this.#startRendering();
-        else if (!newCpuDraw && this.#subscribers.size === 0) this.#stopRendering();
-    }
-
-    subscribe(fn: CpuDraw): () => void {
-        this.#subscribers.add(fn);
-        this.#startRendering();
-
-        return () => {
-            this.#subscribers.delete(fn);
-
-            if (this.#subscribers.size === 0 && this.#cpuDraw === null) this.#stopRendering();
+    /** Subscribes to the frame loop; the rAF loop runs while at least one subscription is live. */
+    onFrame(callback: (surface: this) => void): () => void {
+        const wrapped = (): void => {
+            callback(this);
         };
+
+        return this.#dispatcher.subscribe(wrapped);
     }
 
     clear(color: string): this {
@@ -296,30 +283,21 @@ export class CpuSurface {
     }
 
     destroy(): void {
-        this.#stopRendering();
-        this.#loop.dispose();
+        this.#dispatcher.dispose();
         this.input.destroy();
-        this.#subscribers.clear();
-        this.#cpuDraw = null;
     }
 
-    #onFrame: FrameCallback = (time, deltaTime): void => {
+    #onFrame: FrameStep = (time, deltaTime): void => {
         this.#resize();
-        this.#frameCount++;
+        this.frameCount++;
         this.applyCamera();
 
         this.time = time;
         this.deltaTime = deltaTime;
-        this.frameCount = this.#frameCount;
         this.width = this.#cssWidth;
         this.height = this.#cssHeight;
 
-        const current = this.#cpuDraw;
-
-        if (current) current(this);
-
-        for (const subscriber of this.#subscribers) subscriber(this);
-
+        this.#dispatcher.tick();
         this.input.endFrame();
     };
 
@@ -332,21 +310,6 @@ export class CpuSurface {
         if (this.canvas.width !== deviceWidth) this.canvas.width = deviceWidth;
 
         if (this.canvas.height !== deviceHeight) this.canvas.height = deviceHeight;
-    }
-
-    #startRendering(): void {
-        if (this.#rendererAttached) return;
-
-        this.#unsubscribeRenderer = this.#loop.subscribe(this.#onFrame);
-        this.#rendererAttached = true;
-    }
-
-    #stopRendering(): void {
-        if (!this.#rendererAttached) return;
-
-        this.#unsubscribeRenderer?.();
-        this.#unsubscribeRenderer = null;
-        this.#rendererAttached = false;
     }
 
     #begin(fill?: string, stroke?: string, lineWidth?: number): void {

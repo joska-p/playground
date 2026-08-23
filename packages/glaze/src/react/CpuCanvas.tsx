@@ -49,9 +49,9 @@ export function CpuCanvas({
     }, [onMount, stack]);
 
     useEffect(() => {
-        if (!stack) return;
+        if (!stack || !onFrame) return;
 
-        stack.surface.setDraw(onFrame ?? null);
+        return stack.surface.onFrame(onFrame);
     }, [onFrame, stack]);
 
     return (
