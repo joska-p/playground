@@ -199,10 +199,10 @@ export function LifecycleReport() {
                         Gestures are now live — without any listener being re-bound.
                     </li>
                     <li>
-                        Effect 2 <Code>CpuCanvas.tsx:28</Code> calls{' '}
-                        <Code>onSurface?.(surface)</Code> then <Code>surface.setDraw(onDraw)</Code>.{' '}
-                        <Code>setDraw</Code> <Code>CpuSurface.ts:70</Code> stores the callback and —
-                        being the first subscriber — calls <Code>#startRendering()</Code> →{' '}
+                        Effect 2 <Code>CpuCanvas.tsx:28</Code> calls <Code>onMount?.(surface)</Code>{' '}
+                        then <Code>surface.setDraw(onFrame)</Code>. <Code>setDraw</Code>{' '}
+                        <Code>CpuSurface.ts:70</Code> stores the callback and — being the first
+                        subscriber — calls <Code>#startRendering()</Code> →{' '}
                         <Code>loop.subscribe(#onFrame)</Code>. The <Code>FrameLoop</Code> has no
                         callbacks yet, so its first subscribe starts the rAF clock{' '}
                         <Code>FrameLoop.ts:17</Code>. The demo is running.

@@ -9,7 +9,7 @@ export function NaturalsDemo() {
     return (
         <CpuCanvas
             style={{ width: '100%', height: 400, background: 'black' }}
-            onDraw={(surface) => {
+            onFrame={(surface) => {
                 const next = signal.next();
 
                 if (next.done) return;

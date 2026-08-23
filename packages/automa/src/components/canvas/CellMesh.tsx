@@ -18,8 +18,8 @@ function CellMesh() {
             canvasInteractions={{ pan: { button: 1 }, ...interactions }}
             initialCamera={{ minZoom: 1, maxZoom: 64 }}
             fragmentShader={cellMeshShader}
-            onSurface={initSimulation}
-            onDraw={(surface) => {
+            onMount={initSimulation}
+            onFrame={(surface) => {
                 tickSimulation(surface.deltaTime);
             }}
             uniforms={(surface) => {

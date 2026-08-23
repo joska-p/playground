@@ -1,7 +1,6 @@
 ---
 import { render, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Footer from '../../layouts/Footer.astro';
 
 export async function getStaticPaths() {
     const notes = await getCollection('notes');
@@ -28,8 +27,4 @@ const { Content } = await render(note);
     >
         <Content />
     </article>
-
-    <Footer>
-        <span slot="default">Crafted with creativity.</span>
-    </Footer>
 </BaseLayout>

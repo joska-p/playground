@@ -130,7 +130,7 @@ export function NodeEditor() {
         }
     };
 
-    const onDraw: CpuDraw = (surface) => {
+    const onFrame: CpuDraw = (surface) => {
         surface.clear('#0b0e13');
 
         for (const [fromId, toId] of edges.current) {
@@ -189,7 +189,7 @@ export function NodeEditor() {
 
     return (
         <CpuCanvas
-            onDraw={onDraw}
+            onFrame={onFrame}
             canvasInteractions={{ onStart, onMove, onEnd, onContextMenu }}
             className="h-full w-full"
         />

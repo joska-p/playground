@@ -12,16 +12,16 @@ export interface GpuCanvasProps extends GpuSurfaceOptions {
     fragmentShader?: string;
     /** Computed from the surface before each frame's draw. */
     uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
-    onDraw?: GpuDraw;
+    onFrame?: GpuDraw;
     /**
      * Called exactly once per `GpuSurface` instance, right after it's created — the right place for
      * one-time setup (`createProgram`, `createStateBuffer`, seeding simulation state).
      *
-     * This guarantee holds regardless of how often the `onSurface` callback itself changes identity
+     * This guarantee holds regardless of how often the `onMount` callback itself changes identity
      * across renders: it is keyed to the surface, not to React's effect dependencies.
      */
-    onSurface?: (surface: GpuSurface) => void;
-    /** Called once per `GpuSurface` instance, alongside `onSurface`. */
+    onMount?: (surface: GpuSurface) => void;
+    /** Called once per `GpuSurface` instance, alongside `onMount`. */
     onClockStore?: (clockStore: ClockStore) => void;
     canvasInteractions?: CanvasInteractions<GpuSurface>;
     className?: string;
@@ -31,8 +31,8 @@ export interface GpuCanvasProps extends GpuSurfaceOptions {
 export function GpuCanvas({
     fragmentShader,
     uniforms,
-    onDraw,
-    onSurface,
+    onFrame,
+    onMount,
     onClockStore,
     canvasInteractions,
     className,
@@ -69,14 +69,14 @@ export function GpuCanvas({
     // No dependency array: this runs after every render (cheap — it's a ref comparison), but it
     // only *acts* the first time it sees a given surface. This is what makes the one-shot
     // guarantee true by construction instead of by convention: it holds no matter what
-    // `onSurface`/`onClockStore` capture, and no matter how often they change identity.
+    // `onMount`/`onClockStore` capture, and no matter how often they change identity.
     useEffect(() => {
         const surface = surfaceRef.current;
 
         if (!surface || mountedSurfaceRef.current === surface) return;
 
         mountedSurfaceRef.current = surface;
-        onSurface?.(surface);
+        onMount?.(surface);
 
         const clockStore = clockStoreRef.current;
 
@@ -89,7 +89,7 @@ export function GpuCanvas({
 
         if (!surface) return;
 
-        const shouldDraw = onDraw !== undefined || fragmentShader !== undefined;
+        const shouldDraw = onFrame !== undefined || fragmentShader !== undefined;
         const draw: GpuDraw = (frame) => {
             const program = programRef.current;
 
@@ -98,11 +98,11 @@ export function GpuCanvas({
                 frame.renderProgram(program);
             }
 
-            onDraw?.(frame);
+            onFrame?.(frame);
         };
 
         surface.setDraw(shouldDraw ? draw : null);
-    }, [onDraw, uniforms, fragmentShader, surfaceRef]);
+    }, [onFrame, uniforms, fragmentShader, surfaceRef]);
 
     return (
         <canvas

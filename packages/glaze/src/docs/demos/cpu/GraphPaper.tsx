@@ -27,7 +27,7 @@ const bounds = (surface: {
 });
 
 export function GraphPaper() {
-    const onDraw: CpuDraw = (surface) => {
+    const onFrame: CpuDraw = (surface) => {
         const { min, max } = bounds(surface);
 
         surface.clear('#0a0d12');
@@ -56,7 +56,7 @@ export function GraphPaper() {
 
     return (
         <CpuCanvas
-            onDraw={onDraw}
+            onFrame={onFrame}
             initialCamera={{ zoom: 0.8 }}
             className="h-full w-full"
         />

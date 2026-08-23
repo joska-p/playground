@@ -6,23 +6,23 @@ import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
 import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 
 export interface CpuCanvasProps extends CpuSurfaceOptions {
-    onDraw?: CpuDraw;
+    onFrame?: CpuDraw;
     /**
      * Called exactly once per `CpuSurface` instance, right after it's created — the right place for
      * one-time setup.
      *
-     * This guarantee holds regardless of how often the `onSurface` callback itself changes identity
+     * This guarantee holds regardless of how often the `onMount` callback itself changes identity
      * across renders: it is keyed to the surface, not to React's effect dependencies.
      */
-    onSurface?: (surface: CpuSurface) => void;
+    onMount?: (surface: CpuSurface) => void;
     canvasInteractions?: CanvasInteractions<CpuSurface>;
     className?: string;
     style?: CSSProperties;
 }
 
 export function CpuCanvas({
-    onDraw,
-    onSurface,
+    onFrame,
+    onMount,
     canvasInteractions,
     className,
     style,
@@ -46,7 +46,7 @@ export function CpuCanvas({
         if (!surface || mountedSurfaceRef.current === surface) return;
 
         mountedSurfaceRef.current = surface;
-        onSurface?.(surface);
+        onMount?.(surface);
     });
 
     // --- Per-frame draw wiring: swapped whenever the draw logic changes. ---
@@ -55,8 +55,8 @@ export function CpuCanvas({
 
         if (!surface) return;
 
-        surface.setDraw(onDraw ?? null);
-    }, [onDraw, surfaceRef]);
+        surface.setDraw(onFrame ?? null);
+    }, [onFrame, surfaceRef]);
 
     return (
         <canvas

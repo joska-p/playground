@@ -42,7 +42,7 @@ const shield = 0.41;
 export function CyberHud() {
     const programRef = useRef<Program | null>(null);
 
-    const onDraw: GpuDraw = (surface) => {
+    const onFrame: GpuDraw = (surface) => {
         surface.clear(0, 0, 0, 1);
 
         let program = programRef.current;
@@ -82,7 +82,7 @@ export function CyberHud() {
 
     return (
         <GpuCanvas
-            onDraw={onDraw}
+            onFrame={onFrame}
             className="h-full w-full"
         />
     );

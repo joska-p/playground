@@ -126,7 +126,7 @@ export function ReactionDiffusion() {
         injecting.current = false;
     };
 
-    const onDraw: GpuDraw = (surface) => {
+    const onFrame: GpuDraw = (surface) => {
         const buffer = ensureBuffer(surface);
 
         let uv = {
@@ -165,7 +165,7 @@ export function ReactionDiffusion() {
         <GpuCanvas
             fragmentShader={visualizeFragmentSource}
             uniforms={uniforms}
-            onDraw={onDraw}
+            onFrame={onFrame}
             canvasInteractions={{ onStart, onEnd }}
             className="h-full w-full"
         />

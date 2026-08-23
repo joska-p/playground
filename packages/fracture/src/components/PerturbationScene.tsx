@@ -103,7 +103,7 @@ function PerturbationScene() {
                 fragmentShader={perturbationShader}
                 initialCamera={{ maxZoom: MAX_ZOOM }}
                 canvasInteractions={{ zoom: { speed: ZOOM_WHEEL_SPEED } }}
-                onSurface={(surface) => {
+                onMount={(surface) => {
                     canvasRef.current = surface.canvas;
                 }}
                 uniforms={(surface) => {

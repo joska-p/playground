@@ -76,7 +76,7 @@ export const useCases = [
                 body: [
                     'The whole mount story is one component. The hook builds the camera, the surface, and the input router for you; the first draw callback starts the requestAnimationFrame loop. Nothing else to wire, nothing to clean up — unmounting tears the chain down in reverse.'
                 ],
-                code: `<CpuCanvas onDraw={(surface) => { /* one frame of drawing */ }} />`
+                code: `<CpuCanvas onFrame={(surface) => { /* one frame of drawing */ }} />`
             },
             {
                 heading: 'Per-frame state lives on the surface',
@@ -100,7 +100,7 @@ surface.text(\`frame \${surface.frameCount} · time \${surface.time.toFixed(1)}s
                 body: [
                     'A full-screen animation has nothing to pan. Disabling the default gestures keeps the loop doing only the work this sketch needs.'
                 ],
-                code: `<CpuCanvas onDraw={onDraw} canvasInteractions={{ pan: false, zoom: false }} />`
+                code: `<CpuCanvas onFrame={onFrame} canvasInteractions={{ pan: false, zoom: false }} />`
             }
         ],
         Demo: Screensaver
@@ -135,7 +135,7 @@ for (let x = min.x; x <= max.x; x += MINOR) {
                 body: [
                     'The default gestures pan and zoom the camera; the draw callback never changes. Text is re-rendered every frame in world coordinates, so it tracks the grid and stays crisp.'
                 ],
-                code: `<CpuCanvas onDraw={onDraw} initialCamera={{ zoom: 0.8 }} className="h-full w-full" />`
+                code: `<CpuCanvas onFrame={onFrame} initialCamera={{ zoom: 0.8 }} className="h-full w-full" />`
             },
             {
                 heading: 'Culling when zoomed out',
@@ -160,7 +160,7 @@ for (let x = min.x; x <= max.x; x += MINOR) {
                     'Providing onStart and onMove to canvasInteractions suppresses the built-in pan — you own the drag cycle. The pipeline still delivers every event; your handlers decide what it means.'
                 ],
                 code: `<CpuCanvas
-    onDraw={onDraw}
+    onFrame={onFrame}
     canvasInteractions={{ onStart, onMove, onEnd, onContextMenu }}
 />`
             },
@@ -235,7 +235,7 @@ surface.clear(0.02, 0.03, 0.045, 1);`
             {
                 heading: 'The shader IS the draw function',
                 body: [
-                    'A fragment shader runs once per pixel, every frame. No onDraw, no program bookkeeping — the component compiles the shader on mount and renders it continuously.'
+                    'A fragment shader runs once per pixel, every frame. No onFrame, no program bookkeeping — the component compiles the shader on mount and renders it continuously.'
                 ],
                 code: `<GpuCanvas fragmentShader={FRAGMENT} className="h-full w-full" />`
             },
@@ -266,9 +266,9 @@ vec2 world = (css - u_camera.xy) / u_camera.z;`
             {
                 heading: 'Create a program once, render it every frame',
                 body: [
-                    'onSurface fires once at mount — the place to build a custom program. renderProgram then paints it as a fullscreen pass from inside the draw callback.'
+                    'onMount fires once at mount — the place to build a custom program. renderProgram then paints it as a fullscreen pass from inside the draw callback.'
                 ],
-                code: `const onSurface = (surface: GpuSurface) => {
+                code: `const onMount = (surface: GpuSurface) => {
     programRef.current = surface.createProgram(GRID);
 };`
             },

@@ -132,12 +132,12 @@ export function DropIn() {
             <div className="relative min-h-0 flex-1">
                 {runtime === 'cpu' ? (
                     <CpuCanvas
-                        onDraw={onCpuDraw}
+                        onFrame={onCpuDraw}
                         className="h-full w-full"
                     />
                 ) : (
                     <GpuCanvas
-                        onDraw={onGpuDraw}
+                        onFrame={onGpuDraw}
                         className="h-full w-full"
                     />
                 )}

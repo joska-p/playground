@@ -29,7 +29,7 @@ const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, (_, i) => (
 }));
 
 export function Screensaver() {
-    const onDraw: CpuDraw = (surface) => {
+    const onFrame: CpuDraw = (surface) => {
         surface
             .rect(
                 -surface.camera.x / surface.camera.zoom,
@@ -64,7 +64,7 @@ export function Screensaver() {
 
     return (
         <CpuCanvas
-            onDraw={onDraw}
+            onFrame={onFrame}
             canvasInteractions={{ pan: false, zoom: false }}
             className="h-full w-full"
         />
