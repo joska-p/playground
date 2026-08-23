@@ -1,0 +1,7 @@
+# Les contrats portés par les JSDoc au lieu des types
+
+**Corps :** dans `glaze/core`, une famille entière d'invariants vit exclusivement dans des commentaires alors que la signature reste permissive : `/** time and delta are in seconds. */` sur un `(time: number, delta: number) => void` ; `/** point is canvas-relative, in CSS pixels. */` sur des `Point2D` nus ; `/** Clears per-frame state; call once per frame. */` sur un `endFrame(): void` ; « Mutates `camera` in place » en guise de contrat d'API. Le pattern inverse existe aussi mais rarement : le seul test contraint de stubber un global (`vi.stubGlobal('requestAnimationFrame')`) révèle la même dette sous forme de dépendance cachée. Biais sous-jacent : documenter l'intention plutôt que la représenter — or tout ce qui est documenté-et-non-typé est invisible pour le compilateur et le refactoring.
+
+**Exemple session :** chaque passe de l'audit a trouvé son lot — Pass 1 (unités s/ms et CSS px en JSDoc), Pass 2 (mutation avérée par le doc-comment lui-même), Pass 3 (« once per frame » invérifiable, invariant schedule-before-dispatch non marqué comme porteur). Trois passes, trois familles de findings issues du même réflexe d'écriture.
+
+Piste : règle de revue personnelle — quand j'écris un doc-comment qui exprime une *contrainte* (unité, temporalité, mutation, état), basculer systématiquement vers brand/token/signature ; le commentaire ne garde que le *pourquoi*, jamais le *contrat*.
