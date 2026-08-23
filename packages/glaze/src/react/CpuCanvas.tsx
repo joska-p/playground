@@ -1,4 +1,4 @@
-import { useEffect, type CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
 import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
@@ -7,6 +7,13 @@ import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 
 export interface CpuCanvasProps extends CpuSurfaceOptions {
     onDraw?: CpuDraw;
+    /**
+     * Called exactly once per `CpuSurface` instance, right after it's created — the right place for
+     * one-time setup.
+     *
+     * This guarantee holds regardless of how often the `onSurface` callback itself changes identity
+     * across renders: it is keyed to the surface, not to React's effect dependencies.
+     */
     onSurface?: (surface: CpuSurface) => void;
     canvasInteractions?: CanvasInteractions<CpuSurface>;
     className?: string;
@@ -22,19 +29,34 @@ export function CpuCanvas({
     ...surfaceOptions
 }: CpuCanvasProps) {
     const { canvasRef, surfaceRef, gesturesRef } = useCpuSurface(surfaceOptions);
+    // Tracks which surface instance has already received its one-time setup call.
+    const mountedSurfaceRef = useRef<CpuSurface | null>(null);
 
+    // --- Gestures: rebuilt whenever the interaction config changes. ---
     useEffect(() => {
         gesturesRef.current = createInteractionAdapter(canvasInteractions);
     }, [canvasInteractions, gesturesRef]);
 
+    // --- One-time setup: fires exactly once per surface instance. ---
+    // No dependency array: this runs after every render (cheap — it's a ref comparison), but it
+    // only *acts* the first time it sees a given surface, regardless of what triggers the re-run.
+    useEffect(() => {
+        const surface = surfaceRef.current;
+
+        if (!surface || mountedSurfaceRef.current === surface) return;
+
+        mountedSurfaceRef.current = surface;
+        onSurface?.(surface);
+    });
+
+    // --- Per-frame draw wiring: swapped whenever the draw logic changes. ---
     useEffect(() => {
         const surface = surfaceRef.current;
 
         if (!surface) return;
 
-        onSurface?.(surface);
         surface.setDraw(onDraw ?? null);
-    }, [onDraw, onSurface, surfaceRef]);
+    }, [onDraw, surfaceRef]);
 
     return (
         <canvas

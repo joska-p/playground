@@ -8,12 +8,20 @@ import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { Program } from '../gpu/shader/Program';
 
 export interface GpuCanvasProps extends GpuSurfaceOptions {
-    /** Compiled on mount and recompiled on change. */
+    /** Compiled on mount and recompiled whenever the source changes. */
     fragmentShader?: string;
     /** Computed from the surface before each frame's draw. */
     uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
     onDraw?: GpuDraw;
+    /**
+     * Called exactly once per `GpuSurface` instance, right after it's created — the right place for
+     * one-time setup (`createProgram`, `createStateBuffer`, seeding simulation state).
+     *
+     * This guarantee holds regardless of how often the `onSurface` callback itself changes identity
+     * across renders: it is keyed to the surface, not to React's effect dependencies.
+     */
     onSurface?: (surface: GpuSurface) => void;
+    /** Called once per `GpuSurface` instance, alongside `onSurface`. */
     onClockStore?: (clockStore: ClockStore) => void;
     canvasInteractions?: CanvasInteractions<GpuSurface>;
     className?: string;
@@ -33,11 +41,15 @@ export function GpuCanvas({
 }: GpuCanvasProps) {
     const { canvasRef, surfaceRef, gesturesRef, clockStoreRef } = useGpuSurface(surfaceOptions);
     const programRef = useRef<Program | null>(null);
+    // Tracks which surface instance has already received its one-time setup call.
+    const mountedSurfaceRef = useRef<GpuSurface | null>(null);
 
+    // --- Gestures: rebuilt whenever the interaction config changes. ---
     useEffect(() => {
         gesturesRef.current = createInteractionAdapter(canvasInteractions);
     }, [canvasInteractions, gesturesRef]);
 
+    // --- Shader program: (re)compiled whenever the source changes, destroyed on cleanup. ---
     useEffect(() => {
         const surface = surfaceRef.current;
 
@@ -53,15 +65,29 @@ export function GpuCanvas({
         };
     }, [fragmentShader, surfaceRef]);
 
+    // --- One-time setup: fires exactly once per surface instance. ---
+    // No dependency array: this runs after every render (cheap — it's a ref comparison), but it
+    // only *acts* the first time it sees a given surface. This is what makes the one-shot
+    // guarantee true by construction instead of by convention: it holds no matter what
+    // `onSurface`/`onClockStore` capture, and no matter how often they change identity.
+    useEffect(() => {
+        const surface = surfaceRef.current;
+
+        if (!surface || mountedSurfaceRef.current === surface) return;
+
+        mountedSurfaceRef.current = surface;
+        onSurface?.(surface);
+
+        const clockStore = clockStoreRef.current;
+
+        if (clockStore) onClockStore?.(clockStore);
+    });
+
+    // --- Per-frame draw wiring: swapped whenever the draw logic changes. ---
     useEffect(() => {
         const surface = surfaceRef.current;
 
         if (!surface) return;
-
-        onSurface?.(surface);
-        const clockStore = clockStoreRef.current;
-
-        if (clockStore) onClockStore?.(clockStore);
 
         const shouldDraw = onDraw !== undefined || fragmentShader !== undefined;
         const draw: GpuDraw = (frame) => {
@@ -76,7 +102,7 @@ export function GpuCanvas({
         };
 
         surface.setDraw(shouldDraw ? draw : null);
-    }, [onDraw, uniforms, fragmentShader, onSurface, onClockStore, surfaceRef, clockStoreRef]);
+    }, [onDraw, uniforms, fragmentShader, surfaceRef]);
 
     return (
         <canvas
