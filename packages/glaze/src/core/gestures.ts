@@ -90,7 +90,7 @@ export interface InputRouterOptions<TSurface> {
     input: InputStore;
     cameraControls: CameraControls;
     getSurface(): TSurface | null;
-    gestures: Gesture<TSurface>[];
+    getGestures(): Gesture<TSurface>[];
 }
 
 function matchesButton(button: number, filter?: number | number[]): boolean {
@@ -100,8 +100,8 @@ function matchesButton(button: number, filter?: number | number[]): boolean {
 }
 
 /**
- * Reads `cameraControls`, `getSurface`, and `gestures` from its options at event time, so they can
- * be swapped without re-subscribing.
+ * Reads `cameraControls`, `getSurface`, and `getGestures()` from its options at event time, so they
+ * can be swapped without re-subscribing.
  */
 export class InputRouter<TSurface> {
     readonly #options: InputRouterOptions<TSurface>;
@@ -145,31 +145,31 @@ export class InputRouter<TSurface> {
     #onStart = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
 
-        for (const gesture of this.#options.gestures) gesture.onStart?.(event);
+        for (const gesture of this.#options.getGestures()) gesture.onStart?.(event);
     };
 
     #onMove = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
 
-        for (const gesture of this.#options.gestures) gesture.onMove?.(event);
+        for (const gesture of this.#options.getGestures()) gesture.onMove?.(event);
     };
 
     #onZoom = (nativeEvent: WheelEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
 
-        for (const gesture of this.#options.gestures) gesture.onZoom?.(event);
+        for (const gesture of this.#options.getGestures()) gesture.onZoom?.(event);
     };
 
     #onEnd = (nativeEvent: PointerEvent, point: Point2D): void => {
         const event = this.#interaction(nativeEvent, point);
 
-        for (const gesture of this.#options.gestures) gesture.onEnd?.(event);
+        for (const gesture of this.#options.getGestures()) gesture.onEnd?.(event);
     };
 
     #onContextMenu = (nativeEvent: MouseEvent): void => {
         const event = this.#interaction(nativeEvent, this.#options.input.pointer);
 
-        for (const gesture of this.#options.gestures) gesture.onContextMenu?.(event);
+        for (const gesture of this.#options.getGestures()) gesture.onContextMenu?.(event);
     };
 }
 

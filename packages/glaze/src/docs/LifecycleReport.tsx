@@ -181,9 +181,7 @@ export function LifecycleReport() {
                     <li>
                         Still in the assembly:{' '}
                         <Code>
-                            {
-                                'new InputRouter({ input, cameraControls, getSurface, get gestures() })'
-                            }
+                            {'new InputRouter({ input, cameraControls, getSurface, getGestures })'}
                         </Code>{' '}
                         <Code>gestures.ts:126</Code>. The router constructor subscribes to the
                         store&apos;s six handlers — pointerdown → <Code>onStart</Code>, pointermove
@@ -330,9 +328,9 @@ export function LifecycleReport() {
 
             <AccordionItem title="05 · The React bridge — gestures you can swap without touching the DOM">
                 <p className="text-sm leading-relaxed text-foreground-muted">
-                    The <Code>InputRouter</Code> reads <Code>options.gestures</Code> at event time,{' '}
-                    not at construction. The assembly exploits this with a live getter: the router
-                    is handed <Code>{'get gestures() { return gesturesRef.current }'}</Code>{' '}
+                    The <Code>InputRouter</Code> calls <Code>options.getGestures()</Code> at event
+                    time, not at construction. The assembly exploits this with a closure: the router
+                    is handed <Code>{'getGestures: () => gesturesRef.current'}</Code>{' '}
                     <Code>surfaceStack.ts</Code>, so changing the <Code>canvasInteractions</Code>{' '}
                     prop just rewrites <Code>gesturesRef.current</Code> in an effect — a new array,
                     the same six DOM listeners, zero re-binding. That is the &quot;Dynamic

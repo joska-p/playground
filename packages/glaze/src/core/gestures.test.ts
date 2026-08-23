@@ -108,7 +108,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: []
+            getGestures: () => []
         });
 
         expect(router).toBeInstanceOf(InputRouter);
@@ -119,11 +119,12 @@ describe('InputRouter', () => {
     it('pans the camera while dragging with the matching button', () => {
         const { target, input } = setup();
         const { camera, cameraControls } = setupCamera();
+        const gestures = [new PanGesture()];
         const router = new InputRouter({
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new PanGesture()]
+            getGestures: () => gestures
         });
 
         target.dispatchEvent(
@@ -144,7 +145,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new PanGesture({ button: [2] })]
+            getGestures: () => [new PanGesture({ button: [2] })]
         });
 
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
@@ -159,11 +160,12 @@ describe('InputRouter', () => {
     it('releases the drag state on pointerup', () => {
         const { target, input } = setup();
         const { camera, cameraControls } = setupCamera();
+        const gestures = [new PanGesture()];
         const router = new InputRouter({
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new PanGesture()]
+            getGestures: () => gestures
         });
 
         target.dispatchEvent(
@@ -189,7 +191,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new ZoomGesture({ speed: 0.001 })]
+            getGestures: () => [new ZoomGesture({ speed: 0.001 })]
         });
         const event = wheelEvent({
             deltaY: 100,
@@ -214,7 +216,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new ZoomGesture()]
+            getGestures: () => [new ZoomGesture()]
         });
 
         target.dispatchEvent(
@@ -238,7 +240,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new PanGesture({ button: 2 })]
+            getGestures: () => [new PanGesture({ button: 2 })]
         });
         const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
 
@@ -256,7 +258,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures
+            getGestures: () => gestures
         };
         const router = new InputRouter(options);
         const onMove = vi.fn();
@@ -281,7 +283,7 @@ describe('InputRouter', () => {
             input,
             cameraControls,
             getSurface: () => null,
-            gestures: [new PanGesture()]
+            getGestures: () => [new PanGesture()]
         });
 
         router.dispose();

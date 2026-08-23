@@ -81,7 +81,7 @@ describe('createInteractionAdapter', () => {
             input,
             cameraControls,
             getSurface: () => ({ input }),
-            gestures: createInteractionAdapter({ onStart })
+            getGestures: () => createInteractionAdapter({ onStart })
         });
 
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
@@ -100,7 +100,7 @@ describe('createInteractionAdapter', () => {
             input,
             cameraControls,
             getSurface: () => ({ input }),
-            gestures: createInteractionAdapter({ onStart: vi.fn(), onMove: vi.fn() })
+            getGestures: () => createInteractionAdapter({ onStart: vi.fn(), onMove: vi.fn() })
         });
 
         target.dispatchEvent(new PointerEvent('pointerdown', { button: 0, bubbles: true }));
