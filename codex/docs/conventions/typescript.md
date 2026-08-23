@@ -8,38 +8,49 @@ tags:
 
 # TypeScript
 
-Our TypeScript ecosystem relies on `type` definitions, declarative structures, and strict architectural layering. This documentation defines the functional geometry of our codebase.
+Preferences, not doctrine. They lean on Clean Code principles. A package can deviate (ex: the UI lib uses `interface`) as long as it's consistent within that package.
 
 ## Type definitions
 
-Type definitions use `type` exclusively, enforced repo-wide by ESLint (`@typescript-eslint/consistent-type-definitions`). Concepts compose through intersections (`&`), which keeps structural contracts flexible and precise. Packages keep this default configuration; local ESLint overrides arrive only for substantial, justified architectural reasons.
+Default: `type`, composed with intersections (`&`).
 
 ```ts
 type Props = BaseProps & { label: string };
 ```
 
-## Naming as specification
+Packages that prefer `interface` (ex: the UI lib) keep it consistent across that package rather than mixing both.
 
-Names carry the whole concept. Reading the body stays unnecessary for understanding the identifier, so names match current reality rather than historical implementation details. Folder structures group by domain taxonomy (`cpu/`, `gpu/`), file names suffix by variant (`*Declarative`, `*Hybrid`), and identifiers isolate high-level domain concepts from low-level mechanics.
+## Naming and signatures
 
-## Clean code principles
+Names should carry the concept, so you don't need to read the body to know what a function does. Group folders by domain (`cpu/`, `gpu/`), suffix files by variant (`*Declarative`, `*Hybrid`).
 
-Each file or module embodies a single responsibility. The codebase contains only active, utilized features; dead code and elements existing solely "to be shown" stay outside it. Shared helpers emerge upon the arrival of a second real consumer, and duplication beats premature abstraction until then.
+Accept the loosest type that works: an iterable instead of an array, a branded type (`ValidatedString`, `NormalizedVector`) instead of a raw string when the caller should have already checked it. Less to validate inside the function.
 
-Comments explain the _why_: non-obvious decisions, constraints, pitfalls. Names and types express the _what_. Small, declarative callbacks and hooks replace manual imperative loops and boilerplate subscriptions, which keeps the flow reactive and concise.
+```ts
+type NormalizedVector = { x: number; y: number } & { __brand: 'normalized' };
+
+// dot() trusts the type — no need to re-check the vector is normalized
+function dot(a: NormalizedVector, b: NormalizedVector): number {
+    return a.x * b.x + a.y * b.y;
+}
+```
+
+## Function design
+
+One function, one job. If a chunk of a function needs you to zoom into a raw loop or some string fiddling, pull it into its own helper with a name.
+
+Keep pure logic separate from side effects (network calls, DOM, `Date.now()`, global state). Pure functions are easier to test and reuse; push the messy I/O to the edges of the app.
+
+Comments explain why, not what — the code already says what.
 
 ## Structure
 
-Dependencies flow through layered levels: data, then shared helpers, then components. Each level relies strictly on the level below. Alternative implementations of the same concept group together, so comparison stays direct and architectural choices stay visible.
-
-## The living codebase
-
-Generated code aligns with existing repository conventions: formatting, imports, linting, file structure. Frozen public contracts and APIs evolve only through clear intent and communicated updates.
+Layer dependencies one way: data → shared helpers → components. Nothing reaches back up. Keep alternative implementations of the same thing next to each other so they're easy to compare.
 
 ## Performance
 
-High-frequency inputs (resize, mouse, scroll) pass through throttling or debouncing before they trigger layout calculations. Data derivation provides deterministic keys, which keeps rendering cycles stable and state reconciliation reliable.
+Throttle or debounce high-frequency events (resize, scroll, mouse) before they touch layout. Use stable, deterministic keys for lists so React doesn't re-render everything.
 
 ## Verification
 
-Code integrity relies on static correctness and structural alignment. During refactoring or complex modifications, linters and type-checkers act as a diagnostic compass: use them to map broken imports or structural shifts and fix them iteratively. A task reaches completion when types align, dependencies respect the layered flow, and public contracts remain intact.
+Before calling something done: types check, imports aren't broken, and public APIs haven't silently changed.

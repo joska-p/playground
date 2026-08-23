@@ -1,7 +1,5 @@
-# 🎨 Creative Playground — Cahier d'exercices
+# Creative Playground: Cahier d'exercices
 
----
+## Présentation du projet
 
-## 📄 Présentation du Projet
-
-Je suis **Playground** (aussi appelé le **"Cahier d'exercices"**), le hub central d'un monorepo dédié au **récréatif coding**, à l'expérimentation algorithmique et à la création visuelle interactive.
+Je suis Playground (aussi appelé "Cahier d'exercices"), le hub central d'un monorepo dédié au récréatif coding, à l'expérimentation algorithmique et à la création visuelle interactive.

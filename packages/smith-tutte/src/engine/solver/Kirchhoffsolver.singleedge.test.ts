@@ -27,17 +27,21 @@ describe('KirchhoffSolver — étape 1 : arête unique', () => {
     });
 
     it('refuse de deviner un résultat pour un graphe pas encore supporté', () => {
-        // Garde-fou volontaire : tant que le cas "deux arêtes" n'a pas son propre test
-        // avec un résultat calculé à la main, le solveur ne doit jamais produire de
-        // chiffre non vérifié pour ce cas.
+        // Garde-fou volontaire : tant qu'une topologie n'a pas son propre test avec un
+        // résultat calculé à la main, le solveur ne doit jamais produire de chiffre non
+        // vérifié pour elle. Une chaîne à trois arêtes n'est pas encore couverte (seuls
+        // le cas "arête unique" et "deux arêtes en série" le sont, cf. KirchhoffSolver.series.test.ts).
         const source = new Node('source');
         const sink = new Node('sink');
-        const middle = new Node('middle');
+        const firstMiddle = new Node('first-middle');
+        const secondMiddle = new Node('second-middle');
         const graph = new Graph(source, sink);
 
-        graph.addNode(middle);
-        graph.addEdge(new Edge('edge-1', source, middle, 1));
-        graph.addEdge(new Edge('edge-2', middle, sink, 1));
+        graph.addNode(firstMiddle);
+        graph.addNode(secondMiddle);
+        graph.addEdge(new Edge('edge-1', source, firstMiddle, 1));
+        graph.addEdge(new Edge('edge-2', firstMiddle, secondMiddle, 1));
+        graph.addEdge(new Edge('edge-3', secondMiddle, sink, 1));
 
         expect(() => {
             solveKirchhoffCircuit(graph, 5);

@@ -41,10 +41,7 @@ Entry point is a textual DSL describing the system without any GUI input (netlis
 
 - [The story of the squared square](https://www.youtube.com/watch?v=0fH80JF2mDM)
 - [The Stanford Bunny](https://en.wikipedia.org/wiki/Stanford_bunny)
-- [`docs/architecture.md`](./docs/architecture.md) - The system as designed today (pipeline, core model, folder structure).
-- [`docs/decisions.md`](./docs/decisions.md) - Structuring choices as append-only ADRs.
-- [`docs/journal.md`](./docs/journal.md) - The narrative: why, doubts, pivots.
-- [`docs/roadmap.md`](./docs/roadmap.md) - Execution strategy (vertical slices).
+- [`docs/archittheBrain.md`](./docs/theBrain.md) - The system as designed today (pipeline, core model, folder structure).
 
 ---
 
