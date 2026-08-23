@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { CpuSurface } from './CpuSurface';
-import { Camera } from '../core/Camera';
+import { createCamera, toScreenPoint } from '../core/Camera';
+import { createZoomFactor } from '../core/types';
 
-function surfaceWithCamera(camera: Camera): CpuSurface {
+function surfaceWithCamera(camera: CpuSurface['camera']): CpuSurface {
     const canvas = document.createElement('canvas');
 
     vi.spyOn(canvas, 'getContext').mockReturnValue({} as CanvasRenderingContext2D);
@@ -13,7 +14,7 @@ function surfaceWithCamera(camera: Camera): CpuSurface {
 
 describe('CpuSurface space conversions', () => {
     it('pointer is the cursor mapped into world space through the camera', () => {
-        const surface = surfaceWithCamera(new Camera(10, 10, 2));
+        const surface = surfaceWithCamera(createCamera(10, 10, createZoomFactor(2)));
 
         surface.canvas.dispatchEvent(
             new PointerEvent('pointermove', { clientX: 20, clientY: 30, bubbles: true })
@@ -23,8 +24,8 @@ describe('CpuSurface space conversions', () => {
     });
 
     it('screenToWorld and worldToScreen round-trip through the camera', () => {
-        const surface = surfaceWithCamera(new Camera(10, 10, 2));
-        const screen = { x: 40, y: 50 };
+        const surface = surfaceWithCamera(createCamera(10, 10, createZoomFactor(2)));
+        const screen = toScreenPoint({ x: 40, y: 50 });
         const world = surface.screenToWorld(screen);
 
         expect(world).toEqual({ x: 15, y: 20 });

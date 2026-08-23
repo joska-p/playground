@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 
 import { createClockStore, type ClockStore } from './clockStore';
-import { Camera } from '../core/Camera';
+import { createCamera, type Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
 import { InputRouter, type Gesture } from '../core/gestures';
+import { createZoomFactor } from '../core/types';
 import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
 
 import type { Clock } from '../core/Clock';
@@ -53,10 +54,10 @@ export function useGpuSurface(options: GpuSurfaceOptions = {}) {
         if (canvasElement) {
             const camera =
                 options.camera ??
-                new Camera(
+                createCamera(
                     options.initialCamera?.pan?.x ?? 0,
                     options.initialCamera?.pan?.y ?? 0,
-                    options.initialCamera?.zoom ?? 1
+                    createZoomFactor(options.initialCamera?.zoom ?? 1)
                 );
             const cameraControls =
                 options.cameraControls ??
@@ -64,7 +65,7 @@ export function useGpuSurface(options: GpuSurfaceOptions = {}) {
                     camera,
                     options.initialCamera?.minZoom,
                     options.initialCamera?.maxZoom,
-                    new Camera(camera.x, camera.y, camera.zoom)
+                    createCamera(camera.x, camera.y, camera.zoom)
                 );
 
             const surface = createGpuSurface({

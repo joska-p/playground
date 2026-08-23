@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 
-import { Camera } from '../core/Camera';
+import { createCamera, type Camera } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
 import { InputRouter, type Gesture } from '../core/gestures';
+import { createZoomFactor } from '../core/types';
 import { createCpuSurface, type CpuSurface } from '../cpu/CpuSurface';
 
 /** `initialCamera` only applies when no `camera` instance is provided. */
@@ -43,10 +44,10 @@ export function useCpuSurface(options: CpuSurfaceOptions = {}) {
         if (node) {
             const camera =
                 options.camera ??
-                new Camera(
+                createCamera(
                     options.initialCamera?.pan?.x ?? 0,
                     options.initialCamera?.pan?.y ?? 0,
-                    options.initialCamera?.zoom ?? 1
+                    createZoomFactor(options.initialCamera?.zoom ?? 1)
                 );
             const controls =
                 options.cameraControls ??
@@ -54,7 +55,7 @@ export function useCpuSurface(options: CpuSurfaceOptions = {}) {
                     camera,
                     options.initialCamera?.minZoom,
                     options.initialCamera?.maxZoom,
-                    new Camera(camera.x, camera.y, camera.zoom)
+                    createCamera(camera.x, camera.y, camera.zoom)
                 );
 
             const surface = createCpuSurface({

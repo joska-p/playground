@@ -1,4 +1,11 @@
-import { defaultCamera, type Camera, type Point2D } from '../core/Camera';
+import {
+    defaultCamera,
+    toScreenPoint,
+    type Camera,
+    type Point2D,
+    type ScreenPoint,
+    type WorldPoint
+} from '../core/Camera';
 import { createFrameLoop, type FrameCallback } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
 
@@ -66,15 +73,15 @@ export class CpuSurface {
     }
 
     /** Pointer position in world coordinates (camera-transformed). */
-    get pointer(): Point2D {
-        return this.camera.screenToWorld(this.input.pointer);
+    get pointer(): WorldPoint {
+        return this.camera.screenToWorld(toScreenPoint(this.input.pointer));
     }
 
-    screenToWorld(point: Point2D): Point2D {
-        return this.camera.screenToWorld(point);
+    screenToWorld(point: Point2D): WorldPoint {
+        return this.camera.screenToWorld(toScreenPoint(point));
     }
 
-    worldToScreen(point: Point2D): Point2D {
+    worldToScreen(point: WorldPoint): ScreenPoint {
         return this.camera.worldToScreen(point);
     }
 

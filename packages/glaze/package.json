@@ -10,6 +10,7 @@
         "./core/CameraControls": "./src/core/CameraControls.ts",
         "./core/InputStore": "./src/core/InputStore.ts",
         "./core/gestures": "./src/core/gestures.ts",
+        "./core/types": "./src/core/types.ts",
         "./cpu/CpuSurface": "./src/cpu/CpuSurface.ts",
         "./cpu/shapes/types": "./src/cpu/shapes/types.ts",
         "./gpu/GpuSurface": "./src/gpu/GpuSurface.ts",

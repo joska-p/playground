@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { Camera } from './Camera';
+import { defaultCamera, toScreenPoint } from './Camera';
 import { createCameraControls } from './CameraControls';
 import {
     InputRouter,
@@ -27,7 +27,7 @@ function setup() {
 }
 
 function setupCamera(minZoom = 0.05, maxZoom = 64) {
-    const camera = new Camera();
+    const camera = defaultCamera();
     const cameraControls = createCameraControls(camera, minZoom, maxZoom);
 
     return { camera, cameraControls };
@@ -202,7 +202,7 @@ describe('InputRouter', () => {
         target.dispatchEvent(event);
         expect(event.defaultPrevented).toBe(true);
         expect(camera.zoom).toBeCloseTo(Math.exp(-0.1), 6);
-        expect(camera.screenToWorld({ x: 100, y: 50 })).toEqual({ x: 100, y: 50 });
+        expect(camera.screenToWorld(toScreenPoint({ x: 100, y: 50 }))).toEqual({ x: 100, y: 50 });
         router.dispose();
         input.detach();
     });
@@ -217,7 +217,9 @@ describe('InputRouter', () => {
             gestures: [new ZoomGesture()]
         });
 
-        target.dispatchEvent(wheelEvent({ deltaY: -100000, bubbles: true, cancelable: true }));
+        target.dispatchEvent(
+            wheelEvent({ deltaY: -100000, clientX: 100, clientY: 50, bubbles: true, cancelable: true })
+        );
         expect(camera.zoom).toBe(2);
         router.dispose();
         input.detach();

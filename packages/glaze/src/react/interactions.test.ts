@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { createInteractionAdapter, type LiveInteractionEvent } from './interactions';
-import { Camera } from '../core/Camera';
+import { defaultCamera } from '../core/Camera';
 import { createCameraControls } from '../core/CameraControls';
 import { InputRouter, PanGesture, ZoomGesture } from '../core/gestures';
 import { InputStore } from '../core/InputStore';
@@ -16,7 +16,7 @@ function setup() {
 }
 
 function setupCamera() {
-    const camera = new Camera();
+    const camera = defaultCamera();
     const cameraControls = createCameraControls(camera, 0.05, 64);
 
     return { camera, cameraControls };

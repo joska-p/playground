@@ -1,4 +1,11 @@
-import { Camera, clamp, DEFAULT_ZOOM_BOUNDS, type Point2D, type ZoomBounds } from './Camera';
+import {
+    DEFAULT_ZOOM_BOUNDS,
+    createZoomClamp,
+    defaultCamera,
+    toScreenPoint,
+    type Camera,
+    type Point2D
+} from './Camera';
 
 /**
  * All camera mutation goes through here, so bounds and focal-point math are enforced in exactly one
@@ -19,14 +26,13 @@ export function createCameraControls(
     camera: Camera,
     minZoom: number = DEFAULT_ZOOM_BOUNDS.minZoom,
     maxZoom: number = DEFAULT_ZOOM_BOUNDS.maxZoom,
-    initial: Camera = new Camera()
+    initial: Camera = defaultCamera()
 ): CameraControls {
-    const bounds: ZoomBounds = { minZoom, maxZoom };
-    const clampZoom = clamp(bounds.minZoom, bounds.maxZoom);
+    const clampZoom = createZoomClamp(minZoom, maxZoom);
 
     const zoomAt = (focalPoint: Point2D, zoom: number): void => {
         const next = clampZoom(zoom);
-        const world = camera.screenToWorld(focalPoint);
+        const world = camera.screenToWorld(toScreenPoint(focalPoint));
 
         camera.x = focalPoint.x - world.x * next;
         camera.y = focalPoint.y - world.y * next;

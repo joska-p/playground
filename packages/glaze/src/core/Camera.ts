@@ -1,45 +1,112 @@
+import {
+    assertFinite,
+    assertStrictlyPositive,
+    createZoomFactor,
+    type Brand,
+    type ZoomFactor
+} from './types';
+
 export interface Point2D {
     x: number;
     y: number;
 }
+
+export type ScreenPoint = Brand<Point2D, 'ScreenPoint'>;
+export type WorldPoint = Brand<Point2D, 'WorldPoint'>;
+export type ScreenDelta = Brand<Point2D, 'ScreenDelta'>;
+export type WorldDelta = Brand<Point2D, 'WorldDelta'>;
 
 export interface ZoomBounds {
     minZoom: number;
     maxZoom: number;
 }
 
-export const DEFAULT_ZOOM_BOUNDS: ZoomBounds = { minZoom: 0.05, maxZoom: 64 };
+function assertFinitePoint(point: Point2D, label: string): void {
+    assertFinite(point.x, `${label} x`);
+    assertFinite(point.y, `${label} y`);
+}
 
-export const clamp =
-    (min: number, max: number) =>
-    (value: number): number =>
-        Math.max(min, Math.min(max, value));
+export function toScreenPoint(point: Point2D): ScreenPoint {
+    assertFinitePoint(point, 'screen point');
+
+    return point as ScreenPoint;
+}
+
+export function toWorldPoint(point: Point2D): WorldPoint {
+    assertFinitePoint(point, 'world point');
+
+    return point as WorldPoint;
+}
+
+export function toScreenDelta(delta: Point2D): ScreenDelta {
+    assertFinitePoint(delta, 'screen delta');
+
+    return delta as ScreenDelta;
+}
+
+export function toWorldDelta(delta: Point2D): WorldDelta {
+    assertFinitePoint(delta, 'world delta');
+
+    return delta as WorldDelta;
+}
+
+export function createZoomBounds(minZoom: number, maxZoom: number): ZoomBounds {
+    assertStrictlyPositive(minZoom, 'min zoom');
+    assertStrictlyPositive(maxZoom, 'max zoom');
+
+    if (minZoom >= maxZoom) {
+        throw new Error(
+            `Glaze: min zoom (${String(minZoom)}) must be strictly below max zoom (${String(maxZoom)})`
+        );
+    }
+
+    return { minZoom, maxZoom };
+}
+
+export const DEFAULT_ZOOM_BOUNDS: ZoomBounds = createZoomBounds(0.05, 64);
+
+export function createZoomClamp(minZoom: number, maxZoom: number): (value: number) => ZoomFactor {
+    const bounds = createZoomBounds(minZoom, maxZoom);
+
+    return (value: number): ZoomFactor => {
+        assertFinite(value, 'zoom');
+
+        return createZoomFactor(Math.max(bounds.minZoom, Math.min(bounds.maxZoom, value)));
+    };
+}
 
 /** Passive state — it never mutates itself; panning and zooming live in `CameraControls`. */
 export class Camera {
     x: number;
     y: number;
-    zoom: number;
+    zoom: ZoomFactor;
 
-    constructor(x = 0, y = 0, zoom = 1) {
+    constructor(x: number, y: number, zoom: ZoomFactor) {
         this.x = x;
         this.y = y;
         this.zoom = zoom;
     }
 
-    screenToWorld(screen: Point2D): Point2D {
+    screenToWorld(screen: ScreenPoint): WorldPoint {
         return {
             x: (screen.x - this.x) / this.zoom,
             y: (screen.y - this.y) / this.zoom
-        };
+        } as WorldPoint;
     }
 
-    worldToScreen(world: Point2D): Point2D {
+    worldToScreen(world: WorldPoint): ScreenPoint {
         return {
             x: world.x * this.zoom + this.x,
             y: world.y * this.zoom + this.y
-        };
+        } as ScreenPoint;
     }
 }
 
-export const defaultCamera = (): Camera => new Camera();
+export function createCamera(x: number, y: number, zoom: ZoomFactor): Camera {
+    assertFinite(x, 'camera x');
+    assertFinite(y, 'camera y');
+
+    return new Camera(x, y, zoom);
+}
+
+export const defaultCamera = (): Camera => createCamera(0, 0, createZoomFactor(1));

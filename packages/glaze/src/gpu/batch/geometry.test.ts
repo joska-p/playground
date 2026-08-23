@@ -16,7 +16,8 @@ import {
     sameMat3,
     viewportMatrix
 } from './geometry';
-import { Camera } from '../../core/Camera';
+import { createCamera, defaultCamera } from '../../core/Camera';
+import { createZoomFactor } from '../../core/types';
 
 const apply = (m: Mat3, x: number, y: number): [number, number] => [
     m[0] * x + m[3] * y + m[6],
@@ -33,7 +34,7 @@ describe('mat3 helpers', () => {
     });
 
     it('camera matrix maps world to screen', () => {
-        const m = cameraMatrix(new Camera(100, 50, 2));
+        const m = cameraMatrix(createCamera(100, 50, createZoomFactor(2)));
 
         expect(apply(m, 10, 20)).toEqual([120, 90]);
     });
@@ -41,11 +42,11 @@ describe('mat3 helpers', () => {
     it('default camera is the identity', () => {
         const identity = [1, 0, 0, 0, 1, 0, 0, 0, 1] as const;
 
-        expect(sameMat3(cameraMatrix(new Camera()), identity)).toBe(true);
+        expect(sameMat3(cameraMatrix(defaultCamera()), identity)).toBe(true);
     });
 
     it('projection composes camera then viewport', () => {
-        const p = projectionFor(new Camera(100, 50, 2), 800, 600);
+        const p = projectionFor(createCamera(100, 50, createZoomFactor(2)), 800, 600);
         const [originX, originY] = apply(p, 0, 0);
 
         expect(originX).toBeCloseTo(-0.75, 5);
