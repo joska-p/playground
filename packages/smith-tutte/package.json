@@ -12,7 +12,8 @@
         "dev": "vite --host",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "preview": "vite preview --host"
+        "preview": "vite preview --host",
+        "test": "vitest"
     },
     "dependencies": {
         "@repo/ui": "workspace:*",
@@ -30,13 +31,15 @@
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@vitejs/plugin-react": "catalog:",
+        "@vitest/browser-playwright": "catalog:",
         "babel-plugin-react-compiler": "catalog:",
         "eslint": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
-        "vite": "catalog:"
+        "vite": "catalog:",
+        "vitest": "catalog:"
     },
     "peerDependencies": {
         "react": "catalog:",

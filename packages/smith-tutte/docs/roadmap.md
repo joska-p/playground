@@ -18,11 +18,20 @@ Périmètre volontairement réduit pour la première slice :
 
 ## Slice 1 — Premier visuel (le jalon actuel)
 
-- [ ] `engine/core/Graph.ts` — structure minimale (Node, Edge), assez pour représenter le pont de Wheatstone.
-- [ ] `engine/solver/KirchhoffSolver.ts` — résout le système linéaire pour ce graphe fixe (potentiels + courants).
+- [x] `engine/core/Graph.ts` — structure minimale (Node, Edge), écrite.
+- [ ] `engine/solver/KirchhoffSolver.ts` — résout le système linéaire, validé par une
+      progression de graphes de complexité croissante (chacun isole une source d'erreur) :
+    1. Une seule arête — valide le pipeline de bout en bout.
+    2. Deux arêtes en série — valide l'addition de tensions.
+    3. Deux arêtes en parallèle — valide la loi des nœuds.
+    4. Squared rectangle simple — étape actuelle visée, échauffement avant le pont de Wheatstone.
+    5. Pont de Wheatstone / squared square — premier cas non devinable à l'œil, comparé à un
+       résultat connu de la littérature (ex. Duijvestijn21).
 - [ ] `engine/geometry/SquareLayout.ts` — transforme le graphe résolu en rectangles (x, y, w, h).
-- [ ] `interface/CanvasRenderer.ts` — dessine ces rectangles à l'écran. Pas de Viewport/SurfaceAdapter pour l'instant : un canvas statique suffit.
-- [ ] Un test unitaire sur le solveur avec le pont de Wheatstone, où le résultat attendu (les 21 carrés du carré parfait simple) est connu à l'avance — c'est le seul moyen de vérifier que le solveur est correct sans se fier à l'œil.
+- [ ] `interface/CanvasRenderer.ts` — dessine ces rectangles à l'écran. Pas de Viewport/SurfaceAdapter
+      pour l'instant : un canvas statique suffit.
+- [ ] Un test unitaire par étape de la progression ci-dessus, résultat calculé à la main —
+      jamais de validation "à l'œil".
 
 **Critère de fin de slice :** voir le pavage du pont de Wheatstone s'afficher correctement à l'écran, validé par le test.
 
