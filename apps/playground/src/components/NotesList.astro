@@ -5,8 +5,20 @@ import { hashToColor } from '../utils/tag-colors';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const notesBaseUrl = `${baseUrl}notes/`;
-const allNotes = await getCollection('notes', ({ data }) => !data.draft);
-const sortedNotes = allNotes.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// Pages hors collection (routes statiques dans src/pages/notes/), liées manuellement.
+type ManualNote = { id: string; title: string; description: string; date: string; cardId: string };
+
+const MANUAL_NOTES: ManualNote[] = [
+    {
+        id: 'le-voyage',
+        title: 'Le voyage d’un clic',
+        description:
+            'L’enchâssement d’une information, du clic humain à la trame Ethernet — huit enveloppes, une seule intention.',
+        date: '2026-08-23',
+        cardId: 'explanation'
+    }
+];
 
 function stringToSeed(str: string): number {
     let hash = 0;
@@ -17,14 +29,39 @@ function stringToSeed(str: string): number {
     }
     return Math.abs(hash);
 }
+
+type CardNote = {
+    id: string;
+    title: string;
+    description: string;
+    date: Date;
+    cardId: string;
+};
+
+const collectedNotes = (await getCollection('notes', ({ data }) => !data.draft)).map<CardNote>(
+    (note) => ({
+        id: note.id,
+        title: note.data.title,
+        description: note.data.description ?? 'NC',
+        date: new Date(note.data.date),
+        cardId: note.data.tags[0].id
+    })
+);
+
+const manualCards: CardNote[] = MANUAL_NOTES.map((note) => ({
+    ...note,
+    date: new Date(note.date)
+}));
+
+const cards = [...collectedNotes, ...manualCards].sort((a, b) => a.title.localeCompare(b.title));
 ---
 
 <div class="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-4">
     {
-        sortedNotes.map((note) => {
-            const noteUrl = `${notesBaseUrl}${note.id}/#main`;
-            const seed = stringToSeed(note.data.title);
-            const date = new Date(note.data.date).toLocaleDateString('en-US', {
+        cards.map((card) => {
+            const noteUrl = `${notesBaseUrl}${card.id}/#main`;
+            const seed = stringToSeed(card.title);
+            const date = card.date.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -32,13 +69,13 @@ function stringToSeed(str: string): number {
             return (
                 <a
                     href={noteUrl}
-                    title={note.data.title}
+                    title={card.title}
                 >
                     <SciFiCard
-                        cardId={note.data.tags[0].id}
-                        cardTitle={note.data.description ?? 'NC'}
-                        classification={note.data.title}
-                        color={hashToColor(note.data.title)}
+                        cardId={card.cardId}
+                        cardTitle={card.description}
+                        classification={card.title}
+                        color={hashToColor(card.title)}
                         density={String(seed)}
                         resolution={date}
                         seed={seed}

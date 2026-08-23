@@ -1,0 +1,60 @@
+Agis en tant qu'expert Astro et designer d'interfaces. Je veux créer un prototype de document interactif pour illustrer un concept fondamental en informatique : l'enchâssement (ou encapsulation) d'une information, de l'input (clic) au paquet réseau.
+
+Le but visuel est de représenter des "poupées russes" (boîtes imbriquées). L'information initiale (le clic) est au centre, et à chaque étape, une nouvelle boîte l'enveloppe pour lui permettre de traverser le niveau d'abstraction suivant.
+
+Contraintes techniques :
+
+- Utilise Astro Tailwind CSS comme le reste du site.
+- Le composant doit être autonome.
+- L'esthétique doit être épurée, moderne, et bien espaciée pour rester lisible malgré l'imbrication.
+
+Voici la structure des données à afficher (de l'intérieur vers l'extérieur) :
+
+1. Niveau 1 : Humain
+    - Contenu de base : "L'intention de cliquer pour envoyer une note"
+    - Interface / API : Le doigt sur le bouton de la souris
+    - Transformation (Enchâssement) : L'intention devient un mouvement physique
+
+2. Niveau 2 : Matériel (Hardware)
+    - Contenu encapsulé : Le mouvement physique
+    - Interface / API : Le capteur mécanique de la souris
+    - Transformation : Le mouvement est encapsulé en impulsion électrique (5V)
+
+3. Niveau 3 : Système d'Exploitation (OS)
+    - Contenu encapsulé : L'impulsion électrique
+    - Interface / API : Le port USB / Pilote (Driver)
+    - Transformation : L'électricité est encapsulée dans un "Event" système standardisé
+
+4. Niveau 4 : Navigateur (DOM)
+    - Contenu encapsulé : L'Event système
+    - Interface / API : L'API Web (DOM)
+    - Transformation : L'Event système est encapsulé dans un objet JavaScript (onClick)
+
+5. Niveau 5 : Logique Applicative (JavaScript)
+    - Contenu encapsulé : L'objet JS (l'Event)
+    - Interface / API : La fonction fetch()
+    - Transformation : L'objet JS est encapsulé dans une requête HTTP (texte formaté)
+
+6. Niveau 6 : Transport (TCP)
+    - Contenu encapsulé : La requête HTTP
+    - Interface / API : Le Port (ex: 443)
+    - Transformation : La requête HTTP est encapsulée dans un Segment TCP
+
+7. Niveau 7 : Réseau (IP)
+    - Contenu encapsulé : Le Segment TCP
+    - Interface / API : L'adresse IP source/destination
+    - Transformation : Le Segment TCP est encapsulé dans un Paquet IP
+
+8. Niveau 8 : Physique Réseau (Ethernet)
+    - Contenu encapsulé : Le Paquet IP
+    - Interface / API : L'adresse MAC de la carte réseau
+    - Transformation : Le Paquet IP est encapsulé dans une Trame réseau (signal électrique/ondes radio)
+
+Comportement interactif souhaité :
+
+- Affiche ces niveaux sous forme de boîtes (divs) strictement imbriquées les unes dans les autres. La boîte 1 est le centre, la boîte 8 est le conteneur extérieur.
+- Chaque boîte doit avoir une bordure distincte, un léger padding, et un fond de couleur différente ou un dégradé pour bien visualiser la séparation des couches.
+- Par défaut, affiche uniquement le nom du niveau (ex: "Niveau 4 : Navigateur") sur la bordure de la boîte pour garder la vue d'ensemble lisible.
+- Au survol (hover) ou au clic sur une boîte, fais apparaître ses détails (Contenu, Interface/API, Transformation) dans un petit panneau fixe sur le côté de l'écran (ou en tooltip) pour éviter de casser la mise en page.
+
+Génère le code Astro complet pour ce composant. Tu as le droit de créer plusieur fichier dans le dossier.

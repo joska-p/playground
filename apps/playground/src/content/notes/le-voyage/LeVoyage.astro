@@ -1,0 +1,380 @@
+---
+/* eslint-disable astro/no-set-html-directive -- markup généré depuis LEVELS, aucune entrée utilisateur */
+import { LEVELS } from './levels';
+import { renderNesting } from './renderNesting';
+
+const levelsJson = JSON.stringify(LEVELS);
+---
+
+<le-voyage-doc class="mx-auto block w-full max-w-6xl px-5 py-16 sm:py-24">
+    <header class="mb-10 sm:mb-14">
+        <p class="text-xs tracking-[0.25em] text-foreground-dim uppercase">
+            Note interactive · du geste au signal
+        </p>
+        <h2 class="mt-3 text-[clamp(1.8rem,4vw,2.9rem)] leading-tight font-semibold">
+            Le voyage d’un clic
+        </h2>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-muted sm:text-base">
+            Une seule intention, huit enveloppes. À chaque étape, l’information est enchâssée dans
+            une nouvelle boîte qui lui permet de traverser le niveau d’abstraction suivant — des
+            poupées russes, du doigt sur la souris jusqu’à la trame Ethernet.
+        </p>
+    </header>
+
+    <div
+        class="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_21rem] xl:gap-8 xl:grid-cols-[minmax(0,1fr)_23rem]"
+    >
+        <!-- Diagramme : la boîte 1 est au centre, la boîte 8 englobe tout -->
+        <div
+            data-levoyage-diagram
+            role="group"
+            aria-label="Diagramme d’enchâssement, du clic humain à la trame réseau"
+            class="rounded-2xl"
+        >
+            <Fragment set:html={renderNesting(LEVELS)} />
+        </div>
+
+        <!-- Panneau de détails -->
+        <aside
+            data-levoyage-panel
+            aria-live="polite"
+            class="glass-panel sticky bottom-4 z-20 rounded-xl p-5 lg:top-28 lg:bottom-auto"
+        >
+            <div class="flex items-baseline justify-between gap-3">
+                <p class="text-xs tracking-[0.2em] text-foreground-dim uppercase">Couche</p>
+                <span data-slot="pin" class="hidden text-xs text-warning"
+                    >● épinglé — cliquer pour libérer</span
+                >
+            </div>
+
+            <div
+                data-slot="empty"
+                class="mt-4 space-y-3 text-sm leading-relaxed text-foreground-muted"
+            >
+                <p>Survolez une enveloppe pour l’ouvrir, cliquez pour l’épingler.</p>
+                <ul class="space-y-1.5 border-l border-border pl-4 text-foreground-dim">
+                    <li>Que contient-elle ?</li>
+                    <li>Par quelle interface passe-t-elle ?</li>
+                    <li>Quelle transformation l’emmène un niveau plus loin ?</li>
+                </ul>
+            </div>
+
+            <div data-slot="details" hidden>
+                <p class="text-xs text-foreground-dim">
+                    Niveau <span data-slot="num" class="font-semibold"></span>
+                    <span class="opacity-50">/ 08</span>
+                </p>
+                <h3
+                    data-slot="name"
+                    class="mt-1 flex items-center gap-2.5 text-lg font-semibold text-foreground"
+                >
+                    <span
+                        data-slot="swatch"
+                        class="inline-block size-2.5 shrink-0 rounded-full"
+                        aria-hidden="true"></span>
+                    <span data-slot="name-text"></span>
+                </h3>
+
+                <dl class="mt-5 space-y-4 text-sm">
+                    <div class="border-l-2 pl-4" style="border-color: var(--panel-lv)">
+                        <dt
+                            class="text-[0.65rem] tracking-[0.18em] text-foreground-dim uppercase"
+                        >
+                            Contenu encapsulé
+                        </dt>
+                        <dd data-slot="contenu" class="mt-1 leading-relaxed text-foreground"></dd>
+                    </div>
+                    <div class="border-l-2 border-border pl-4">
+                        <dt
+                            class="text-[0.65rem] tracking-[0.18em] text-foreground-dim uppercase"
+                        >
+                            Interface · API
+                        </dt>
+                        <dd data-slot="api" class="mt-1 leading-relaxed text-foreground"></dd>
+                    </div>
+                    <div class="border-l-2 border-border pl-4">
+                        <dt
+                            class="text-[0.65rem] tracking-[0.18em] text-foreground-dim uppercase"
+                        >
+                            Enchâssement
+                        </dt>
+                        <dd
+                            data-slot="transformation"
+                            class="mt-1 leading-relaxed text-foreground"
+                        ></dd>
+                    </div>
+                </dl>
+
+                <p
+                    data-slot="path-row"
+                    class="mt-5 border-t border-border pt-4 text-xs leading-relaxed text-foreground-dim"
+                >
+                    <span class="tracking-[0.15em] uppercase opacity-70">Portée par</span><br />
+                    <span data-slot="path"></span>
+                </p>
+            </div>
+        </aside>
+    </div>
+
+    <p class="mt-8 text-xs text-foreground-dim">
+        Lecture du centre vers l’extérieur · chaque bordure franchie est une encapsulation.
+    </p>
+</le-voyage-doc>
+
+<style is:global>
+    /* Styles non scopés : le diagramme est généré via set:html (rendu récursif).
+       Tout est préfixé `levoyage-` pour éviter toute collision. */
+
+    .levoyage-box {
+        border: 1px solid color-mix(in oklch, var(--lv) 38%, transparent);
+        background: linear-gradient(
+            155deg,
+            color-mix(in oklch, var(--lv) 15%, transparent),
+            color-mix(in oklch, var(--lv) 5%, transparent) 55%,
+            color-mix(in oklch, var(--lv) 9%, transparent)
+        );
+        cursor: pointer;
+        transition:
+            border-color var(--transition-normal),
+            box-shadow var(--transition-normal);
+    }
+
+    .levoyage-box:hover,
+    .levoyage-box:focus-visible {
+        border-color: color-mix(in oklch, var(--lv) 70%, transparent);
+    }
+
+    .levoyage-box:focus-visible {
+        outline: none;
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklch, var(--lv) 55%, transparent),
+            0 0 20px -6px color-mix(in oklch, var(--lv) 50%, transparent);
+    }
+
+    .levoyage-box.is-active {
+        border-color: color-mix(in oklch, var(--lv) 85%, transparent);
+        box-shadow:
+            inset 0 0 0 1px color-mix(in oklch, var(--lv) 30%, transparent),
+            0 0 28px -6px color-mix(in oklch, var(--lv) 45%, transparent);
+    }
+
+    .levoyage-tag {
+        position: absolute;
+        top: 0;
+        left: 0.85rem;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.45em;
+        padding: 0.18em 0.6em;
+        transform: translateY(-50%);
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: color-mix(in oklch, var(--lv) 75%, var(--foreground));
+        background: var(--background);
+        border: 1px solid color-mix(in oklch, var(--lv) 32%, transparent);
+        border-radius: 999px;
+        transition:
+            color var(--transition-normal),
+            border-color var(--transition-normal),
+            box-shadow var(--transition-normal);
+    }
+
+    .levoyage-num {
+        font-size: 0.9em;
+        color: color-mix(in oklch, var(--lv) 60%, var(--foreground-dim));
+    }
+
+    .levoyage-box:hover .levoyage-tag,
+    .levoyage-box:focus-visible .levoyage-tag {
+        border-color: color-mix(in oklch, var(--lv) 60%, transparent);
+        color: color-mix(in oklch, var(--lv) 90%, white);
+    }
+
+    .levoyage-box.is-active .levoyage-tag {
+        border-color: color-mix(in oklch, var(--lv) 70%, transparent);
+        color: color-mix(in oklch, var(--lv) 95%, white);
+        box-shadow: 0 0 14px -4px color-mix(in oklch, var(--lv) 60%, transparent);
+    }
+
+    .levoyage-core {
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 999px;
+        background: var(--lv);
+        box-shadow:
+            0 0 0 5px color-mix(in oklch, var(--lv) 14%, transparent),
+            0 0 22px 4px color-mix(in oklch, var(--lv) 55%, transparent);
+        animation: levoyage-pulse 2.6s ease-in-out infinite;
+    }
+
+    @keyframes levoyage-pulse {
+        50% {
+            transform: scale(1.35);
+            opacity: 0.65;
+        }
+    }
+
+    [data-slot='details'] > * {
+        animation: levoyage-rise 0.28s ease both;
+    }
+
+    [data-slot='details'] > *:nth-child(2) {
+        animation-delay: 30ms;
+    }
+
+    [data-slot='details'] > *:nth-child(3) {
+        animation-delay: 60ms;
+    }
+
+    [data-slot='details'] > *:nth-child(4) {
+        animation-delay: 90ms;
+    }
+
+    @keyframes levoyage-rise {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+    }
+</style>
+
+<script is:inline define:vars={{ levelsJson }}>
+    if (!customElements.get('le-voyage-doc')) {
+        customElements.define(
+            'le-voyage-doc',
+            class LeVoyageDoc extends HTMLElement {
+                connectedCallback() {
+                    this.levels = JSON.parse(levelsJson);
+                    this.byNum = new Map(this.levels.map((level) => [level.num, level]));
+                    this.diagram = this.querySelector('[data-levoyage-diagram]');
+                    this.panel = this.querySelector('[data-levoyage-panel]');
+                    this.slots = {
+                        empty: this.panel.querySelector('[data-slot="empty"]'),
+                        details: this.panel.querySelector('[data-slot="details"]'),
+                        pin: this.panel.querySelector('[data-slot="pin"]'),
+                        num: this.panel.querySelector('[data-slot="num"]'),
+                        swatch: this.panel.querySelector('[data-slot="swatch"]'),
+                        nameText: this.panel.querySelector('[data-slot="name-text"]'),
+                        contenu: this.panel.querySelector('[data-slot="contenu"]'),
+                        api: this.panel.querySelector('[data-slot="api"]'),
+                        transformation: this.panel.querySelector('[data-slot="transformation"]'),
+                        pathRow: this.panel.querySelector('[data-slot="path-row"]'),
+                        path: this.panel.querySelector('[data-slot="path"]')
+                    };
+                    this.pinned = null;
+                    this.hovered = null;
+
+                    this.onPointerOver = (event) => {
+                        const box = event.target.closest('[data-level]');
+                        if (!box) return;
+                        this.hovered = Number(box.dataset.level);
+                        this.apply();
+                    };
+                    this.onPointerLeave = () => {
+                        this.hovered = null;
+                        this.apply();
+                    };
+                    this.onClick = (event) => {
+                        const box = event.target.closest('[data-level]');
+                        if (!box) return;
+                        const num = Number(box.dataset.level);
+                        this.pinned = this.pinned === num ? null : num;
+                        this.apply();
+                    };
+                    this.onFocusIn = (event) => {
+                        const box = event.target.closest('[data-level]');
+                        if (!box) return;
+                        this.hovered = Number(box.dataset.level);
+                        this.apply();
+                    };
+                    this.onFocusOut = () => {
+                        this.hovered = null;
+                        this.apply();
+                    };
+                    this.onKeyDown = (event) => {
+                        const box = event.target.closest('[data-level]');
+                        if (box && (event.key === 'Enter' || event.key === ' ')) {
+                            event.preventDefault();
+                            box.click();
+                            return;
+                        }
+                        if (event.key === 'Escape') this.unpin();
+                    };
+
+                    this.diagram.addEventListener('pointerover', this.onPointerOver);
+                    this.diagram.addEventListener('pointerleave', this.onPointerLeave);
+                    this.diagram.addEventListener('click', this.onClick);
+                    this.diagram.addEventListener('focusin', this.onFocusIn);
+                    this.diagram.addEventListener('focusout', this.onFocusOut);
+                    this.addEventListener('keydown', this.onKeyDown);
+
+                    this.apply();
+                }
+
+                disconnectedCallback() {
+                    this.diagram.removeEventListener('pointerover', this.onPointerOver);
+                    this.diagram.removeEventListener('pointerleave', this.onPointerLeave);
+                    this.diagram.removeEventListener('click', this.onClick);
+                    this.diagram.removeEventListener('focusin', this.onFocusIn);
+                    this.diagram.removeEventListener('focusout', this.onFocusOut);
+                    this.removeEventListener('keydown', this.onKeyDown);
+                }
+
+                unpin() {
+                    this.pinned = null;
+                    this.apply();
+                }
+
+                apply() {
+                    const activeNum = this.hovered ?? this.pinned;
+
+                    for (const box of this.querySelectorAll('.levoyage-box')) {
+                        const num = Number(box.dataset.level);
+                        box.classList.toggle('is-active', num === activeNum);
+                        box.setAttribute('aria-pressed', String(num === this.pinned));
+                    }
+
+                    this.renderPanel(activeNum);
+                }
+
+                renderPanel(num) {
+                    const { slots } = this;
+
+                    if (num == null) {
+                        slots.empty.hidden = false;
+                        slots.details.hidden = true;
+                        slots.pin.classList.add('hidden');
+                        return;
+                    }
+
+                    const level = this.byNum.get(num);
+
+                    slots.empty.hidden = true;
+                    slots.pin.classList.toggle('hidden', num !== this.pinned);
+
+                    slots.num.textContent = String(level.num).padStart(2, '0');
+                    slots.nameText.textContent = level.name;
+                    slots.swatch.style.background = level.color;
+                    slots.swatch.style.boxShadow = `0 0 12px -2px ${level.color}`;
+                    this.panel.style.setProperty('--panel-lv', level.color);
+                    slots.contenu.textContent = level.contenu;
+                    slots.api.textContent = level.api;
+                    slots.transformation.textContent = level.transformation;
+
+                    const carriers = this.levels
+                        .filter((l) => l.num > level.num)
+                        .map((l) => l.short);
+                    slots.pathRow.hidden = carriers.length === 0;
+                    slots.path.textContent = carriers.join(' → ');
+
+                    // Relance l'animation d'entrée à chaque changement de couche
+                    slots.details.hidden = true;
+                    void slots.details.offsetWidth;
+                    slots.details.hidden = false;
+                }
+            }
+        );
+    }
+</script>
