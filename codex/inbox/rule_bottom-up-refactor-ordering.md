@@ -1,5 +1,5 @@
 ---
-title: 'Refactoring en couches : feuilles d''abord, adaptateurs en dernier'
+title: "Refactoring en couches : feuilles d'abord, adaptateurs en dernier"
 date: 2026-08-23
 type: rule
 tags: [architecture, refactoring, methodology]

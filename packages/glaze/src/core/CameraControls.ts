@@ -1,7 +1,7 @@
 import {
     DEFAULT_ZOOM_BOUNDS,
+    createCamera,
     createZoomClamp,
-    defaultCamera,
     toScreenPoint,
     type Camera,
     type Point2D
@@ -21,12 +21,12 @@ export interface CameraControls {
     update(partial: Partial<Camera>): void;
 }
 
-/** Mutates `camera` in place; `initial` is the state `reset()` restores. */
+/** Mutates `camera` in place; `reset()` restores the state captured at controls creation. */
 export function createCameraControls(
     camera: Camera,
     minZoom: number = DEFAULT_ZOOM_BOUNDS.minZoom,
     maxZoom: number = DEFAULT_ZOOM_BOUNDS.maxZoom,
-    initial: Camera = defaultCamera()
+    initial: Camera = createCamera(camera.x, camera.y, camera.zoom)
 ): CameraControls {
     const clampZoom = createZoomClamp(minZoom, maxZoom);
 

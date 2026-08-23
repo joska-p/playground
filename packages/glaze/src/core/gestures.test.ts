@@ -218,7 +218,13 @@ describe('InputRouter', () => {
         });
 
         target.dispatchEvent(
-            wheelEvent({ deltaY: -100000, clientX: 100, clientY: 50, bubbles: true, cancelable: true })
+            wheelEvent({
+                deltaY: -100000,
+                clientX: 100,
+                clientY: 50,
+                bubbles: true,
+                cancelable: true
+            })
         );
         expect(camera.zoom).toBe(2);
         router.dispose();

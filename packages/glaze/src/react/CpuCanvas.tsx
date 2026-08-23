@@ -1,8 +1,10 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 
 import { createInteractionAdapter, type CanvasInteractions } from './interactions';
-import { useCpuSurface, type CpuSurfaceOptions } from './useCpuSurface';
+import { createCpuStack, type CpuSurfaceOptions } from './surfaceStack';
+import { useNodeResource } from './useNodeResource';
 
+import type { Gesture } from '../core/gestures';
 import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 
 export interface CpuCanvasProps extends CpuSurfaceOptions {
@@ -28,35 +30,29 @@ export function CpuCanvas({
     style,
     ...surfaceOptions
 }: CpuCanvasProps) {
-    const { canvasRef, surfaceRef, gesturesRef } = useCpuSurface(surfaceOptions);
-    // Tracks which surface instance has already received its one-time setup call.
+    const gesturesRef = useRef<Gesture<CpuSurface>[]>([]);
+
+    const { ref: canvasRef, resource: stack } = useNodeResource((canvas: HTMLCanvasElement) =>
+        createCpuStack(canvas, surfaceOptions, () => gesturesRef.current)
+    );
     const mountedSurfaceRef = useRef<CpuSurface | null>(null);
 
-    // --- Gestures: rebuilt whenever the interaction config changes. ---
     useEffect(() => {
         gesturesRef.current = createInteractionAdapter(canvasInteractions);
     }, [canvasInteractions, gesturesRef]);
 
-    // --- One-time setup: fires exactly once per surface instance. ---
-    // No dependency array: this runs after every render (cheap — it's a ref comparison), but it
-    // only *acts* the first time it sees a given surface, regardless of what triggers the re-run.
     useEffect(() => {
-        const surface = surfaceRef.current;
+        if (!stack || mountedSurfaceRef.current === stack.surface) return;
 
-        if (!surface || mountedSurfaceRef.current === surface) return;
+        mountedSurfaceRef.current = stack.surface;
+        onMount?.(stack.surface);
+    }, [onMount, stack]);
 
-        mountedSurfaceRef.current = surface;
-        onMount?.(surface);
-    });
-
-    // --- Per-frame draw wiring: swapped whenever the draw logic changes. ---
     useEffect(() => {
-        const surface = surfaceRef.current;
+        if (!stack) return;
 
-        if (!surface) return;
-
-        surface.setDraw(onFrame ?? null);
-    }, [onFrame, surfaceRef]);
+        stack.surface.setDraw(onFrame ?? null);
+    }, [onFrame, stack]);
 
     return (
         <canvas

@@ -7,7 +7,7 @@ import {
     defaultCamera,
     toScreenPoint,
     toWorldDelta,
-    toWorldPoint,
+    toWorldPoint
 } from './Camera';
 import { createZoomFactor } from './types';
 
@@ -19,10 +19,10 @@ describe('camera', () => {
 
     it('rejects non-finite positions at the factory', () => {
         expect(() => createCamera(Number.NaN, 0, createZoomFactor(1))).toThrow(
-            'Glaze: camera x must be a finite number, received NaN',
+            'Glaze: camera x must be a finite number, received NaN'
         );
         expect(() => createCamera(0, Number.POSITIVE_INFINITY, createZoomFactor(1))).toThrow(
-            'Glaze: camera y must be a finite number',
+            'Glaze: camera y must be a finite number'
         );
     });
 
@@ -67,10 +67,10 @@ describe('camera', () => {
 
     it('rejects non-finite point coordinates', () => {
         expect(() => toScreenPoint({ x: Number.NaN, y: 0 })).toThrow(
-            'Glaze: screen point x must be a finite number',
+            'Glaze: screen point x must be a finite number'
         );
         expect(() => toWorldDelta({ x: 0, y: Number.POSITIVE_INFINITY })).toThrow(
-            'Glaze: world delta y must be a finite number',
+            'Glaze: world delta y must be a finite number'
         );
     });
 });
@@ -108,7 +108,7 @@ describe('zoom clamp', () => {
         const clampZoom = createZoomClamp(0.5, 4);
 
         expect(() => clampZoom(Number.NaN)).toThrow(
-            'Glaze: zoom must be a finite number, received NaN',
+            'Glaze: zoom must be a finite number, received NaN'
         );
     });
 

@@ -1,5 +1,5 @@
 ---
-title: 'readonly sur un champ objet = théâtre d''immutabilité'
+title: "readonly sur un champ objet = théâtre d'immutabilité"
 date: 2026-08-23
 type: rule
 tags: [typescript, immutability, gotcha]

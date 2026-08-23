@@ -5,7 +5,7 @@ type: rule
 tags: [typescript, architecture, branded-types, glaze]
 ---
 
-**Contexte :** l'audit Pass 1 de `glaze/core` a montré un anti-pattern systématique : *validate-late, use-early*. Les constructeurs acceptent n'importe quel nombre (`new Camera(0,0,0)`, `duration: -5`) et chaque site de consommation défend avec ses propres gardes runtime (`Clock` duplique `duration <= 0` à 3 endroits).
+**Contexte :** l'audit Pass 1 de `glaze/core` a montré un anti-pattern systématique : _validate-late, use-early_. Les constructeurs acceptent n'importe quel nombre (`new Camera(0,0,0)`, `duration: -5`) et chaque site de consommation défend avec ses propres gardes runtime (`Clock` duplique `duration <= 0` à 3 endroits).
 
 **Corps :**
 Règle : toute quantité mathématique contrainte (`zoom > 0`, durée strictement positive, secondes vs ms) est portée par un type marqué créé par une factory qui valide une seule fois, à la frontière. Les sites de consommation font confiance au type — plus aucun `if` de garde.

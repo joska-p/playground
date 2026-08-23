@@ -8,14 +8,14 @@ import {
     createWheelSpeed,
     createZoomFactor,
     msToSeconds,
-    secondsToMs,
+    secondsToMs
 } from './types';
 
 const positiveFactories = [
     createZoomFactor,
     createDurationSeconds,
     createTimeSpeed,
-    createWheelSpeed,
+    createWheelSpeed
 ] as const;
 
 describe('strictly positive brands', () => {
@@ -35,10 +35,10 @@ describe('strictly positive brands', () => {
 
     it('reports the violated invariant in its error', () => {
         expect(() => createZoomFactor(-2)).toThrow(
-            'Glaze: zoom factor must be strictly positive, received -2',
+            'Glaze: zoom factor must be strictly positive, received -2'
         );
         expect(() => createZoomFactor(Number.NaN)).toThrow(
-            'Glaze: zoom factor must be a finite number, received NaN',
+            'Glaze: zoom factor must be a finite number, received NaN'
         );
     });
 });

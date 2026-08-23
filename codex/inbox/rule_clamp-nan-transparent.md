@@ -13,7 +13,7 @@ tags: [typescript, math, gotcha, glaze]
 Math.max(min, Math.min(max, NaN)); // === NaN
 ```
 
-`Math.min`/`Math.max` propagent NaN — un clamp ne filtre que le *hors-bornes*, jamais le *non-numérique*. Toute valeur entrante passant potentiellement par des multiplications (`zoom * factor`, `exp(-deltaY * speed)`) peut produire du NaN qui survit au clamp et contamine l'état.
+`Math.min`/`Math.max` propagent NaN — un clamp ne filtre que le _hors-bornes_, jamais le _non-numérique_. Toute valeur entrante passant potentiellement par des multiplications (`zoom * factor`, `exp(-deltaY * speed)`) peut produire du NaN qui survit au clamp et contamine l'état.
 
 Règle : ordre obligatoire — rejeter les non-finis (`Number.isFinite`) **avant** la coercition de plage ; ou encapsuler dans une factory `bounded(min, max)` qui valide l'entrée une fois pour toutes. Bonus du même helper : vérifier `min < max` à la création, car `clamp(64, 0.05)` inverse silencieusement la sémantique.
 

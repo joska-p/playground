@@ -101,19 +101,21 @@ const CAST = [
     ],
     [
         'React facade',
-        'react/useCpuSurface.ts:19\nreact/CpuCanvas.tsx:14',
-        'refs: canvasRef, surfaceRef, inputRouterRef, gesturesRef',
-        'Mount orchestration. Builds Camera → CameraControls → Surface → InputRouter in the ref callback, then bridges the gesture array live via gesturesRef.'
+        'react/CpuCanvas.tsx\nreact/surfaceStack.ts\nreact/useNodeResource.ts',
+        'a <canvas> ref, a live gesture array, and a reactive stack { camera, controls, surface, router }',
+        'Mount orchestration. The pure assembly (surfaceStack) builds Camera → CameraControls → Surface → InputRouter; useNodeResource turns node attach/detach into create/dispose with the stack exposed as state; the Canvas bridges the gesture array live via gesturesRef.'
     ]
 ];
 
 const PIPE =
     'mount (React)\n' +
-    '  - useCpuSurface.setCanvasRef(node)            react/useCpuSurface.ts\n' +
-    '      +- Camera ---- CameraControls(bounds)     core/Camera, core/CameraControls\n' +
-    '      +- CpuSurface (owns FrameLoop)            cpu/CpuSurface.ts\n' +
-    '      |    `- InputStore.attach(canvas)         core/InputStore.ts   (DOM listeners bound)\n' +
-    '      `- InputRouter.subscribe(input)           core/gestures.ts\n' +
+    '  - <canvas ref={canvasRef}> stores the node     react/useNodeResource.ts\n' +
+    '  - createCpuStack(canvas, options)              react/surfaceStack.ts   (pure assembly)\n' +
+    '      +- Camera ---- CameraControls(bounds)      core/Camera, core/CameraControls\n' +
+    '      +- CpuSurface (owns FrameLoop)             cpu/CpuSurface.ts\n' +
+    '      |    `- InputStore.attach(canvas)          core/InputStore.ts   (DOM listeners bound)\n' +
+    '      `- InputRouter.subscribe(input)            core/gestures.ts\n' +
+    'stack lands as reactive state\n' +
     'effects (post-mount)\n' +
     '  - gesturesRef <- createInteractionAdapter()   pan + zoom gestures go live\n' +
     '  - surface.setDraw(fn) -> FrameLoop starts rAF\n' +
@@ -121,8 +123,8 @@ const PIPE =
     '  resize -> stamp time/delta/frameCount -> applyCamera -> draw(fn) -> input.endFrame()\n' +
     'input -> gesture\n' +
     '  DOM -> InputStore -> InputRouter -> InteractionEvent -> gestures -> cameraControls\n' +
-    'unmount\n' +
-    '  setCanvasRef(null): router.dispose() -> surface.destroy() -> rAF cancelled, listeners unbound';
+    'unmount / detach\n' +
+    '  effect cleanup: router.dispose() -> surface.destroy() -> rAF cancelled, listeners unbound';
 
 export function LifecycleReport() {
     return (
@@ -134,56 +136,56 @@ export function LifecycleReport() {
                     and stitch them together with an <Code>InputRouter</Code> and a set of{' '}
                     <Code>Gesture</Code>s. Ownership is strict and one-directional, which is why
                     teardown is exactly the reverse of mount: the surface owns its input bus and its
-                    frame loop, the hook owns the router and the gesture array, the camera is owned
-                    by nobody but mutated by exactly one thing. Line numbers below refer to the
-                    current source.
+                    frame loop, the assembly owns the router, the resource hook owns creation and
+                    disposal, and the gesture array is bridged live by ref. The camera is owned by
+                    nobody but mutated by exactly one thing. Line numbers below refer to the current
+                    source.
                 </p>
                 <ReportTable rows={CAST} />
             </AccordionItem>
 
             <AccordionItem title="02 · Mount — a <CpuCanvas> becomes a running demo">
                 <p className="text-sm leading-relaxed text-foreground-muted">
-                    Seven steps, split between React&apos;s ref callback (synchronous, when the DOM
-                    node exists) and its effects (after paint). The trickiest ordering fact: DOM
-                    listeners are bound at step 4, gestures only go live at step 6, and the rAF loop
-                    only starts once a draw callback exists at step 7.
+                    Seven steps, split between node attachment (stored as state, when the DOM node
+                    exists) and effects (after paint). The trickiest ordering fact: DOM listeners
+                    are bound at step 4, gestures only go live at step 6, and the rAF loop only
+                    starts once a draw callback exists at step 7.
                 </p>
                 <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         React commits <Code>&lt;CpuCanvas&gt;</Code> and renders{' '}
-                        <Code>{'<canvas ref={setCanvasRef}>'}</Code>.
+                        <Code>{'<canvas ref={canvasRef}>'}</Code>.
                     </li>
                     <li>
-                        The ref callback <Code>setCanvasRef(node)</Code> runs{' '}
-                        <Code>useCpuSurface.ts:25</Code>. Guards first: same node is a no-op; if an
-                        old surface exists (StrictMode remount, hot-swap) it tears down via{' '}
-                        <Code>inputRouter.dispose()</Code> + <Code>surface.destroy()</Code> before
-                        rebuilding.
+                        The ref callback — <Code>setNode</Code> from <Code>useNodeResource</Code> —
+                        stores the node as state. No surface exists yet; nothing has touched the
+                        canvas beyond the DOM commit.
                     </li>
                     <li>
-                        Build the camera chain <Code>useCpuSurface.ts:38</Code>. A{' '}
-                        <Code>Camera</Code> from <Code>initialCamera</Code> (or{' '}
+                        An effect sees the node and runs the pure assembly{' '}
+                        <Code>createCpuStack</Code> <Code>surfaceStack.ts</Code>. It first builds
+                        the camera chain: a <Code>Camera</Code> from <Code>initialCamera</Code> (or{' '}
                         <Code>options.camera</Code>), then <Code>createCameraControls</Code> wraps
                         it with min/max zoom bounds and an initial snapshot for <Code>reset()</Code>
                         .
                     </li>
                     <li>
-                        <Code>{'createCpuSurface({ canvas, camera, dpr })'}</Code>{' '}
-                        <Code>useCpuSurface.ts:54</Code>. The constructor{' '}
-                        <Code>CpuSurface.ts:38</Code> grabs the 2D context (throws if unavailable),
-                        creates an <Code>InputStore</Code>, and calls{' '}
+                        Same assembly: <Code>{'createCpuSurface({ canvas, camera, dpr })'}</Code>.{' '}
+                        The constructor<Code>CpuSurface.ts:38</Code> grabs the 2D context (throws if
+                        unavailable), creates an <Code>InputStore</Code>, and calls{' '}
                         <Code>input.attach(this.canvas)</Code> — <Code>InputStore.ts:64</Code> binds
                         the pointer/wheel/context listeners on the canvas and key listeners on the
                         window, right here. It then resizes the canvas once so one-shot draws made
                         outside the loop survive.
                     </li>
                     <li>
+                        Still in the assembly:{' '}
                         <Code>
                             {
                                 'new InputRouter({ input, cameraControls, getSurface, get gestures() })'
                             }
                         </Code>{' '}
-                        <Code>useCpuSurface.ts:57</Code>. The router constructor subscribes to the
+                        <Code>gestures.ts:126</Code>. The router constructor subscribes to the
                         store&apos;s six handlers — pointerdown → <Code>onStart</Code>, pointermove
                         → <Code>onMove</Code>, pointerup/cancel → <Code>onEnd</Code>, wheel →{' '}
                         <Code>onZoom</Code>, contextmenu — <Code>gestures.ts:132</Code>. At this
@@ -191,7 +193,8 @@ export function LifecycleReport() {
                         still empty and no draw exists.
                     </li>
                     <li>
-                        After mount, effect 1 <Code>CpuCanvas.tsx:24</Code> writes{' '}
+                        The assembled stack lands as reactive state, which re-runs the Canvas&apos;s
+                        effects. The first one writes{' '}
                         <Code>
                             gesturesRef.current = createInteractionAdapter(canvasInteractions)
                         </Code>
@@ -199,10 +202,10 @@ export function LifecycleReport() {
                         Gestures are now live — without any listener being re-bound.
                     </li>
                     <li>
-                        Effect 2 <Code>CpuCanvas.tsx:28</Code> calls <Code>onMount?.(surface)</Code>{' '}
-                        then <Code>surface.setDraw(onFrame)</Code>. <Code>setDraw</Code>{' '}
-                        <Code>CpuSurface.ts:70</Code> stores the callback and — being the first
-                        subscriber — calls <Code>#startRendering()</Code> →{' '}
+                        A final effect calls <Code>onMount?.(surface)</Code> — exactly once per
+                        surface instance — then <Code>surface.setDraw(onFrame)</Code>.{' '}
+                        <Code>setDraw</Code> <Code>CpuSurface.ts:70</Code> stores the callback and —
+                        being the first subscriber — calls <Code>#startRendering()</Code> →{' '}
                         <Code>loop.subscribe(#onFrame)</Code>. The <Code>FrameLoop</Code> has no
                         callbacks yet, so its first subscribe starts the rAF clock{' '}
                         <Code>FrameLoop.ts:17</Code>. The demo is running.
@@ -328,13 +331,12 @@ export function LifecycleReport() {
             <AccordionItem title="05 · The React bridge — gestures you can swap without touching the DOM">
                 <p className="text-sm leading-relaxed text-foreground-muted">
                     The <Code>InputRouter</Code> reads <Code>options.gestures</Code> at event time,{' '}
-                    not at construction. The hook exploits this with a live getter: the router is
-                    handed <Code>{'get gestures() { return gesturesRef.current }'}</Code>{' '}
-                    <Code>useCpuSurface.ts:61</Code>, so changing the{' '}
-                    <Code>canvasInteractions</Code> prop just rewrites{' '}
-                    <Code>gesturesRef.current</Code> in an effect — a new array, the same six DOM
-                    listeners, zero re-binding. That is the &quot;Dynamic Interaction Bridge&quot;
-                    the README advertises.
+                    not at construction. The assembly exploits this with a live getter: the router
+                    is handed <Code>{'get gestures() { return gesturesRef.current }'}</Code>{' '}
+                    <Code>surfaceStack.ts</Code>, so changing the <Code>canvasInteractions</Code>{' '}
+                    prop just rewrites <Code>gesturesRef.current</Code> in an effect — a new array,
+                    the same six DOM listeners, zero re-binding. That is the &quot;Dynamic
+                    Interaction Bridge&quot; the README advertises.
                 </p>
                 <p className="text-sm leading-relaxed text-foreground-muted">
                     <Code>createInteractionAdapter</Code> <Code>interactions.ts:56</Code> turns the
@@ -417,8 +419,8 @@ export function LifecycleReport() {
 
             <AccordionItem title="07 · Unmount — teardown is the reverse of mount">
                 <p className="text-sm leading-relaxed text-foreground-muted">
-                    When React unmounts the canvas, the ref callback fires with <Code>null</Code>{' '}
-                    <Code>useCpuSurface.ts:28</Code> and walks the ownership chain down:
+                    When React detaches or unmounts the canvas, the ownership effect&apos;s cleanup
+                    runs <Code>useNodeResource.ts</Code> and walks the ownership chain down:
                 </p>
                 <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
@@ -459,7 +461,8 @@ export function LifecycleReport() {
                         'core/gestures.ts        InputRouter + PanGesture + ZoomGesture\n' +
                         'cpu/CpuSurface.ts       the CPU runtime (spine of this report)\n' +
                         'gpu/GpuSurface.ts       the GPU twin + batching\n' +
-                        'react/useCpuSurface.ts  mount orchestration + the live gesture bridge\n' +
+                        'react/surfaceStack.ts   pure assembly: options -> Camera/Controls/Surface/Router\n' +
+                        'react/useNodeResource.ts node attach -> reactive resource lifecycle\n' +
                         'react/CpuCanvas.tsx     effects: gestures + setDraw\n' +
                         'react/interactions.ts   CanvasInteractions -> Gesture[] adapter\n' +
                         'docs/GlazeDocs.tsx      this page'}

@@ -4,4 +4,4 @@
 
 **Exemple session :** chaque passe de l'audit a trouvé son lot — Pass 1 (unités s/ms et CSS px en JSDoc), Pass 2 (mutation avérée par le doc-comment lui-même), Pass 3 (« once per frame » invérifiable, invariant schedule-before-dispatch non marqué comme porteur). Trois passes, trois familles de findings issues du même réflexe d'écriture.
 
-Piste : règle de revue personnelle — quand j'écris un doc-comment qui exprime une *contrainte* (unité, temporalité, mutation, état), basculer systématiquement vers brand/token/signature ; le commentaire ne garde que le *pourquoi*, jamais le *contrat*.
+Piste : règle de revue personnelle — quand j'écris un doc-comment qui exprime une _contrainte_ (unité, temporalité, mutation, état), basculer systématiquement vers brand/token/signature ; le commentaire ne garde que le _pourquoi_, jamais le _contrat_.

@@ -1,5 +1,5 @@
 ---
-title: 'pnpm -r s''arrête au premier échec et masque les packages suivants'
+title: "pnpm -r s'arrête au premier échec et masque les packages suivants"
 date: 2026-08-23
 type: rule
 tags: [pnpm, monorepo, ci, verification]
