@@ -9,6 +9,7 @@ import { computeDerivedColors } from '../../lib/colors';
 
 import type { BrushMode } from './store';
 import type { CreatureId } from '../../engine/creature/registry';
+import type { Seconds } from '@repo/glaze/core/types';
 import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 
 const DEAD_COLOR_FALLBACK = '#070a14';
@@ -66,8 +67,8 @@ export function stepOnce(): void {
 }
 
 /** Driven by the surface's frame loop; steps generations while the clock plays. */
-export function tickSimulation(deltaMs: number): void {
-    automaStore.getState().engine?.tick(deltaMs);
+export function tickSimulation(delta: Seconds): void {
+    automaStore.getState().engine?.tick(delta);
 }
 
 export function setSpeed(ms: number): void {

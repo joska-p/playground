@@ -2,6 +2,10 @@
 
 # Clock : config en union discriminée + stratégies d'écoulement extraites
 
+> **✅ Implémentée** (tâche #3 du plan bottom-up, voir `drafts/glaze/handoff.md`) — union
+> discriminée `FreeClockOptions | TimedClockOptions` + helpers purs exportés dans
+> `packages/glaze/src/core/Clock.ts`, couverte par `Clock.test.ts`.
+
 **Contexte :** deux problèmes liés trouvés sur `Clock` : (1) `ClockOptions` accepte des combinaisons silencieusement sans effet (`{ pingPong: true }` sans duration est stocké puis jamais consulté ; `loop` dérive cachée de la présence de duration) ; (2) `update()` est un monolithe de ~58 lignes mélangeant 4 stratégies temporelles avec mutation inline de `#direction`.
 
 **Description :**

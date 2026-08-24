@@ -1,4 +1,5 @@
 import { createClock } from '@repo/glaze/core/Clock';
+import { msToSeconds } from '@repo/glaze/core/types';
 
 import { AGE_DECAY_RATE, AGE_GROWTH_RATE, SPEED_DEFAULT_MS } from '../../lib/constants';
 import {
@@ -11,6 +12,7 @@ import { createGrid, seedGrid } from '../grid';
 import { rules, type Rule } from '../rules/registry';
 
 import type { Creature } from '../creature/registry';
+import type { Seconds } from '@repo/glaze/core/types';
 import type { StateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
 export type SimulationOptions = {
@@ -39,9 +41,10 @@ export class SimulationEngine {
     #cols: number;
     #density: number;
     #seed: number;
-    #speedMs: number;
     #generation = 0;
     #accumulator = 0;
+    /** Generation interval in seconds — deltas arrive in seconds, so the threshold must match. */
+    #interval: Seconds;
 
     constructor(
         buffer: StateBuffer,
@@ -58,7 +61,7 @@ export class SimulationEngine {
         this.#rule = options.rule ?? rules.conway;
         this.#density = options.density ?? GRID_DEFAULT_DENSITY;
         this.#seed = options.seed ?? GRID_DEFAULT_SEED;
-        this.#speedMs = options.speedMs ?? SPEED_DEFAULT_MS;
+        this.#interval = msToSeconds(options.speedMs ?? SPEED_DEFAULT_MS);
         this.#onGenerationChange = options.onGenerationChange;
 
         const grid = createGrid(this.#rows, this.#cols);
@@ -69,18 +72,18 @@ export class SimulationEngine {
 
     // ── Frame-driven stepping ──
 
-    /** Feed the surface's frame delta; runs generations while the clock plays. */
-    tick(deltaMs: number): void {
-        this.#clock.update(deltaMs);
+    /** Feed the surface's frame delta (seconds); runs generations while the clock plays. */
+    tick(delta: Seconds): void {
+        this.#clock.update(delta);
 
         if (!this.#clock.isPlaying) return;
 
         this.#accumulator += this.#clock.deltaTime;
         let steps = 0;
 
-        while (this.#accumulator >= this.#speedMs && steps < MAX_STEPS_PER_TICK) {
+        while (this.#accumulator >= this.#interval && steps < MAX_STEPS_PER_TICK) {
             this.step();
-            this.#accumulator -= this.#speedMs;
+            this.#accumulator -= this.#interval;
             steps++;
         }
 
@@ -101,7 +104,7 @@ export class SimulationEngine {
     }
 
     setSpeed(ms: number): void {
-        this.#speedMs = ms;
+        this.#interval = msToSeconds(ms);
     }
 
     setRule(rule: Rule): void {

@@ -20,8 +20,10 @@ import {
     textUniforms
 } from './shapes/TextRasterizer';
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
+import { createSeconds } from '../core/types';
 
 import type { Clock } from '../core/Clock';
+import type { Seconds } from '../core/types';
 import type { DrawStyle, Color, Rect, TextStyle } from '../cpu/shapes/types';
 
 export interface GpuSurfaceConfig {
@@ -47,9 +49,9 @@ const buildStyle = (fill?: string, stroke?: string, lineWidth?: number): DrawSty
  */
 export class GpuSurface {
     /** Seconds since the frame loop started. */
-    time = 0;
+    time: Seconds = createSeconds(0);
     /** Seconds since the previous frame. */
-    deltaTime = 0;
+    deltaTime: Seconds = createSeconds(0);
     frameCount = 0;
     /** CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size. */
     width = 0;

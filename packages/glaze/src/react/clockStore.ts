@@ -1,6 +1,7 @@
 import { createObservable } from './observable';
 
 import type { Clock } from '../core/Clock';
+import type { TimeSpeed } from '../core/types';
 
 export function createClockStore(clock: Clock) {
     const observable = createObservable();
@@ -19,7 +20,7 @@ export function createClockStore(clock: Clock) {
             clock.pause();
             observable.notify();
         },
-        setSpeed(speed: number) {
+        setSpeed(speed: TimeSpeed) {
             clock.setSpeed(speed);
             observable.notify();
         },
