@@ -7,7 +7,7 @@ import {
     type WorldPoint
 } from '../core/Camera';
 import { createClock, type ClockOptions } from '../core/Clock';
-import { FrameDispatcher, type FrameStep } from '../core/FrameDispatcher';
+import { FrameLoop, type FrameStep } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
@@ -61,7 +61,7 @@ export class GpuSurface {
     readonly input: InputStore;
     readonly clock: Clock;
 
-    readonly #dispatcher: FrameDispatcher;
+    readonly #loop: FrameLoop;
     readonly #programs = new Set<Program>();
     readonly #buffers = new Set<StateBuffer>();
     readonly #batch: ShapeBatcher;
@@ -92,7 +92,7 @@ export class GpuSurface {
             camera: this.camera,
             getViewport: () => ({ width: this.#cssWidth, height: this.#cssHeight })
         });
-        this.#dispatcher = new FrameDispatcher(this.#onFrame);
+        this.#loop = new FrameLoop(this.#onFrame);
 
         this.#configureState();
         this.#resize();
@@ -101,7 +101,7 @@ export class GpuSurface {
     }
 
     get isRunning(): boolean {
-        return this.#dispatcher.isRunning;
+        return this.#loop.isRunning;
     }
 
     /** Pointer position in world coordinates (camera-transformed). */
@@ -286,11 +286,11 @@ export class GpuSurface {
             callback(this);
         };
 
-        return this.#dispatcher.subscribe(wrapped);
+        return this.#loop.subscribe(wrapped);
     }
 
     destroy(): void {
-        this.#dispatcher.dispose();
+        this.#loop.dispose();
         this.input.destroy();
         this.canvas.removeEventListener('webglcontextlost', this.#onContextLost);
         this.canvas.removeEventListener('webglcontextrestored', this.#onContextRestored);
@@ -399,7 +399,7 @@ export class GpuSurface {
         this.height = this.#cssHeight;
         this.clock.update(deltaTime);
 
-        this.#dispatcher.tick();
+        this.#loop.runFrameHandlers();
         this.#flushBatch();
         this.input.endFrame();
     };

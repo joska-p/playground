@@ -56,7 +56,7 @@ export default function createConfig(dirname) {
                             'object',
                             'type' // imports de types à la fin
                         ],
-                        'newlines-between': 'always', // Force une ligne vide entre chaque groupe
+                        //'newlines-between': 'always', // Force une ligne vide entre chaque groupe
                         alphabetize: { order: 'asc', caseInsensitive: true }
                     }
                 ],

@@ -6,7 +6,7 @@ import {
     type ScreenPoint,
     type WorldPoint
 } from '../core/Camera';
-import { FrameDispatcher, type FrameStep } from '../core/FrameDispatcher';
+import { FrameLoop, type FrameStep } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
 
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
@@ -42,7 +42,7 @@ export class CpuSurface {
     readonly camera: Camera;
     readonly input: InputStore;
 
-    readonly #dispatcher: FrameDispatcher;
+    readonly #loop: FrameLoop;
     #cssWidth = 0;
     #cssHeight = 0;
 
@@ -57,7 +57,7 @@ export class CpuSurface {
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
         this.input.attach(this.canvas);
-        this.#dispatcher = new FrameDispatcher(this.#onFrame);
+        this.#loop = new FrameLoop(this.#onFrame);
 
         // Size the canvas once up front so one-shot draws made outside the frame loop survive
         // (the loop's first resize would otherwise clear the buffer).
@@ -65,7 +65,7 @@ export class CpuSurface {
     }
 
     get isRunning(): boolean {
-        return this.#dispatcher.isRunning;
+        return this.#loop.isRunning;
     }
 
     /** Pointer position in world coordinates (camera-transformed). */
@@ -87,7 +87,7 @@ export class CpuSurface {
             callback(this);
         };
 
-        return this.#dispatcher.subscribe(wrapped);
+        return this.#loop.subscribe(wrapped);
     }
 
     clear(color: string): this {
@@ -283,7 +283,7 @@ export class CpuSurface {
     }
 
     destroy(): void {
-        this.#dispatcher.dispose();
+        this.#loop.dispose();
         this.input.destroy();
     }
 
@@ -297,7 +297,7 @@ export class CpuSurface {
         this.width = this.#cssWidth;
         this.height = this.#cssHeight;
 
-        this.#dispatcher.tick();
+        this.#loop.runFrameHandlers();
         this.input.endFrame();
     };
 

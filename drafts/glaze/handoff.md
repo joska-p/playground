@@ -18,7 +18,9 @@
 
 ---
 
-## 3. Statut : Tâches #1 et #2 Complétées ✅
+## 3. Statut : Tâches #1, #2, #6 et Consommateurs Externes Complétées ✅
+
+> Note d'ordre : la tâche #6 (FrameLoop) a été faite avant #3–#5 — ses seules dépendances sont la couche 1 (types), déjà en place.
 
 ### Tâche #1 — `core/types.ts` (vocabulaire numérique brandé)
 
@@ -45,38 +47,35 @@
 
 > ⚠️ **État transitoire de `CameraControls.ts`** : adaptation mécanique seulement (mutation in place conservée, `Object.assign` du `update()` bypass toujours possible côté types via `ZoomFactor` brandé). Son rework profond en transforms purs `(Camera, input) => Camera` est la **Tâche #4**, pas avant.
 
----
+### Consommateurs externes réparés ✅ (ex-section 4)
 
-## 4. Prochaine Étape Immédiate : Réparer les Consommateurs Externes 🔴
+* `packages/automa/src/lib/coordinates.ts` : les 2 erreurs du nouveau contrat `Camera` corrigées — `new Camera()` → `defaultCamera()`, point brut enveloppé dans `toScreenPoint({...})`. `@repo/automa` check-types + lint verts, monorepo entier vert (`pnpm -r --if-present check-types`).
 
-La nouvelle API `Camera` casse **un seul package externe** (vérifié via `pnpm -r --if-present check-types` ; tous les autres sont verts, y compris `randomart` et `randomart-next`) :
+### Tâche #6 — `core/FrameLoop.ts` (adaptateur d'environnement injecté) ✅
 
-* **`packages/automa/src/lib/coordinates.ts`** — 2 erreurs :
-    * `:14` → `new Camera()` : constructeur privé, attendre `defaultCamera()`.
-    * `:15` → `{x, y}` brut passé à `screenToWorld` : envelopper avec `toScreenPoint({ x, y })`.
-* Pattern de fix suggéré :
-    ```ts
-    import { defaultCamera, toScreenPoint } from '@repo/glaze/core/Camera';
-    const cam = camera ?? defaultCamera();
-    const world = cam.screenToWorld(toScreenPoint({
-        x: event.clientX - bounds.left,
-        y: event.clientY - bounds.top
-    }));
-    ```
-* Relayer ensuite `pnpm --filter @repo/automa check-types && pnpm --filter @repo/automa lint` puis `pnpm -r --if-present check-types` pour confirmer le monorepo entier vert.
+* **Injection de capabilities** : `new FrameLoop(step, options?)` avec `now?: () => Milliseconds` (défaut `performance.now()`) et `schedule?: (cb: (t: Milliseconds) => void) => () => void` (défaut wrapper rAF retournant son canceller). Zéro call-site modifié en production ; plus aucun besoin de stubber un global pour tester.
+* **Conversion s à la frontière** : le scheduler fournit des ms ; tout ce qui vit après la conversion est des `Seconds`. `#lastTime` tracké en secondes.
+* **Delta brandé (Pass 1 F10)** : `NonNegativeSeconds`, floor à 0 au point de production unique (premier tick synchrone, sauts d'horloge négatifs). Implémenté comme *raffinement* `Seconds & { __nonNegative: true }` et non comme un `Brand` imbriqué : deux marques sur la même clé `__brand` intersectent en `never`. Reste assignable vers `Seconds`.
+* **FrameToken (Pass 3 F2, amorce couche 7)** : preuve fraîche émise par tick via marque à symbole unique, passée au step propriétaire. Les surfaces ne le consomment **pas encore** — câblage `endFrame(token)` prévu à la tâche #7.
+* **Invariant nommé (Pass 3 F8)** : schedule-before-dispatch commenté dans `#tick` — le keep-alive est re-lié avant tout dispatch, un callback qui throw ne peut pas tuer la boucle (l'exception remonte toujours au scheduler).
+* **Fan-out déterministe** : `runFrameHandlers()` itère une snapshot prise à l'entrée ; subscribe/unsubscribe mid-frame prend effet à la frame suivante uniquement.
+* **Mécanique** : `#rafId` numérique remplacé par un canceller stocké (`#cancelScheduled`), aligné sur le contrat injectable.
+* **Surfaces intactes** : leurs steps à 2 params restent compatibles (param token ignoré jusqu'à #7).
+
+> ⚠️ **Décision hors-handoff — pas de tests FrameLoop** : le `FrameLoop.test.ts` créé pendant la session (harnais temps virtuel) a été supprimé sur décision explicite — validation manuelle assumée par le patron, la lib étant en mutation constante. Ne pas recréer ces tests sans demande. La suite existante reste verte (89 tests) et les gates `check-types`/`lint`/`test` passent.
 
 ---
 
 ## 5. Feuille de Route Restante (`GLAZE_REFACTOR_INVENTORY.md`)
 
-| # | Cible | Contenu | Dépendances |
-|---|-------|---------|-------------|
-| 3 | `Clock.ts` | Union discriminée `ClockOptions` (`free` / `timed`), extraction des stratégies pures `advanceFree/PingPong/Looping/Once`, les 3 gardes duration s'effondrent | couche 1 |
-| 4 | `CameraControls.ts` | Transforms purs `(Camera, input) => Camera`, patch interface remplaçant `Object.assign`, facade mutable optionnelle en bordure | couches 1–2 |
-| 5 | `gestures.ts` | Marque `WheelSpeed`, helper `dispatch()` (fan-out ×5 → 1), politique de capture déplacée au router, dispose cancel-safe | couches 1–2 |
-| 6 | `FrameLoop.ts` | Injection `now()`/`schedule()`, émission `NonNegativeSeconds`, invariant schedule-before-dispatch nommé, émet `FrameToken` | couche 1 |
-| 7 | `InputStore.ts` | `EventSource` injecté, bounds cachés/cachables, snapshots figés, `AttachedHandle`, bindings table-driven, `endFrame(token)` | couches 1+6 |
-| 8 | `InputRouter` | Composition finale : dispose → reset des gestes, politique de capture | tout |
+| # | Cible | Contenu | Dépendances | Statut |
+|---|-------|---------|-------------|--------|
+| 3 | `Clock.ts` | Union discriminée `ClockOptions` (`free` / `timed`), extraction des stratégies pures `advanceFree/PingPong/Looping/Once`, les 3 gardes duration s'effondrent | couche 1 | ⏳ prochaine |
+| 4 | `CameraControls.ts` | Transforms purs `(Camera, input) => Camera`, patch interface remplaçant `Object.assign`, facade mutable optionnelle en bordure | couches 1–2 | ⏳ |
+| 5 | `gestures.ts` | Marque `WheelSpeed`, helper `dispatch()` (fan-out ×5 → 1), politique de capture déplacée au router, dispose cancel-safe | couches 1–2 | ⏳ |
+| 6 | `FrameLoop.ts` | Injection `now()`/`schedule()`, émission `NonNegativeSeconds`, invariant schedule-before-dispatch nommé, émet `FrameToken` | couche 1 | ✅ |
+| 7 | `InputStore.ts` | `EventSource` injecté, bounds cachés/cachables, snapshots figés, `AttachedHandle`, bindings table-driven, `endFrame(token)` (consommera le token de la couche 6) | couches 1+6 | ⏳ |
+| 8 | `InputRouter` | Composition finale : dispose → reset des gestes, politique de capture | tout | ⏳ |
 
 Rappel de rythme : chaque couche compile vert avant la suivante ; consommateurs externes adaptés mécaniquement au fil de l'eau.
 
@@ -87,6 +86,5 @@ Rappel de rythme : chaque couche compile vert avant la suivante ; consommateurs 
 ```sh
 pnpm --filter @repo/glaze check-types   # tsc -b (inclut les tests, src/)
 pnpm --filter @repo/glaze lint          # eslint .
-pnpm --filter @repo/glaze test          # vitest run
 pnpm -r --if-present check-types        # ondulations chez les packages consommateurs
 ```

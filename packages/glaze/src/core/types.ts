@@ -5,6 +5,11 @@ export type DurationSeconds = Brand<number, 'DurationSeconds'>;
 export type TimeSpeed = Brand<number, 'TimeSpeed'>;
 export type WheelSpeed = Brand<number, 'WheelSpeed'>;
 export type Seconds = Brand<number, 'Seconds'>;
+/**
+ * Refinement of `Seconds` (assignable wherever `Seconds` is expected) rather than a sibling
+ * `Brand`: stacking two brands on the same `__brand` key would intersect to `never`.
+ */
+export type NonNegativeSeconds = Seconds & { readonly __nonNegative: true };
 export type Milliseconds = Brand<number, 'Milliseconds'>;
 
 const MS_PER_SECOND = 1000;
@@ -51,6 +56,16 @@ export function createSeconds(value: number): Seconds {
     assertFinite(value, 'seconds');
 
     return value as Seconds;
+}
+
+export function createNonNegativeSeconds(value: number): NonNegativeSeconds {
+    assertFinite(value, 'seconds');
+
+    if (value < 0) {
+        throw new Error(`Glaze: seconds must not be negative, received ${String(value)}`);
+    }
+
+    return value as NonNegativeSeconds;
 }
 
 export function createMilliseconds(value: number): Milliseconds {

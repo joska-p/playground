@@ -1,4 +1,8 @@
-import { Camera } from '@repo/glaze/core/Camera';
+import {
+    defaultCamera,
+    toScreenPoint,
+    type Camera
+} from '@repo/glaze/core/Camera';
 
 import { computeGridRect, getCellAtWorld, type GridCell } from './gridPlacement';
 
@@ -11,11 +15,13 @@ export function eventToGridPoint(
     camera?: Camera
 ): GridCell | null {
     const bounds = canvas.getBoundingClientRect();
-    const cam = camera ?? new Camera();
-    const world = cam.screenToWorld({
-        x: event.clientX - bounds.left,
-        y: event.clientY - bounds.top
-    });
+    const cam = camera ?? defaultCamera();
+    const world = cam.screenToWorld(
+        toScreenPoint({
+            x: event.clientX - bounds.left,
+            y: event.clientY - bounds.top
+        })
+    );
     const rect = computeGridRect(bounds.width, bounds.height, cols, rows);
 
     return getCellAtWorld(rect, world, cols, rows);
