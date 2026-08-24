@@ -213,11 +213,11 @@ export function LifecycleReport() {
 
             <AccordionItem title="03 · The frame — what runs on every rAF tick">
                 <p className="text-sm leading-relaxed text-foreground-muted">
-                    The <Code>FrameLoop</Code> owns the rAF stream: on each tick it converts rAF&apos;s
-                    millisecond timestamp to seconds (<Code>time = rafTime / 1000</Code>) and
-                    computes <Code>delta = time − lastTime</Code>, schedules the <em>next</em> rAF,
-                    then hands both to the surface&apos;s frame step{' '}
-                    <Code>CpuSurface.ts</Code>. That step is the callback:
+                    The <Code>FrameLoop</Code> owns the rAF stream: on each tick it converts
+                    rAF&apos;s millisecond timestamp to seconds (<Code>time = rafTime / 1000</Code>)
+                    and computes <Code>delta = time − lastTime</Code>, schedules the <em>next</em>{' '}
+                    rAF, then hands both to the surface&apos;s frame step <Code>CpuSurface.ts</Code>
+                    . That step is the callback:
                 </p>
                 <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
@@ -240,9 +240,8 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         Fan out to every <Code>onFrame</Code> subscriber via the loop&apos;s{' '}
-                        <Code>runFrameHandlers()</Code>. The demo paints in world space; the camera
-                        was applied
-                        for it.
+                        <Code>runFrameSubscribers()</Code>. The demo paints in world space; the
+                        camera was applied for it.
                     </li>
                     <li>
                         <Code>input.endFrame()</Code> <Code>InputStore.ts:59</Code> — clear{' '}
@@ -375,8 +374,8 @@ export function LifecycleReport() {
             <AccordionItem title="06 · The GPU surface — same lifecycle, different innards">
                 <p className="text-sm leading-relaxed text-foreground-muted">
                     <Code>GpuSurface</Code> mirrors the whole skeleton: its own InputStore bound to
-                    the canvas, its own <Code>FrameLoop</Code>, the same <Code>onFrame</Code>{' '}
-                    / <Code>destroy</Code> contract, and a <Code>#onFrame</Code> of the same shape.
+                    the canvas, its own <Code>FrameLoop</Code>, the same <Code>onFrame</Code> /{' '}
+                    <Code>destroy</Code> contract, and a <Code>#frameStep</Code> of the same shape.
                     The deltas are all inside the draw path:
                 </p>
                 <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
@@ -402,7 +401,7 @@ export function LifecycleReport() {
                         <Code>u_time</Code> — then draws the fullscreen triangle.
                     </li>
                     <li>
-                        <Code>#onFrame</Code> <Code>GpuSurface.ts</Code>: resize → stamp state →
+                        <Code>#frameStep</Code> <Code>GpuSurface.ts</Code>: resize → stamp state →
                         tick the onFrame subscribers → <Code>#flushBatch()</Code> →{' '}
                         <Code>input.endFrame()</Code>. One batched draw call per frame regardless of
                         how many shapes you issued.
@@ -428,9 +427,9 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         <Code>surface.destroy()</Code> <Code>CpuSurface.ts</Code> —{' '}
-                        <Code>#loop.dispose()</Code> stops the rAF loop, cancels the pending
-                        frame and clears the subscriber set. Then <Code>input.destroy()</Code>{' '}
-                        (unbind every DOM listener, clear key/state, <Code>InputStore.ts:81</Code>).
+                        <Code>#loop.dispose()</Code> stops the rAF loop, cancels the pending frame
+                        and clears the subscriber set. Then <Code>input.destroy()</Code> (unbind
+                        every DOM listener, clear key/state, <Code>InputStore.ts:81</Code>).
                     </li>
                     <li>
                         The GPU surface additionally removes the context-loss listeners and destroys

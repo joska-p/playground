@@ -57,7 +57,7 @@ export class CpuSurface {
         this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
         this.input = createInputStore();
         this.input.attach(this.canvas);
-        this.#loop = new FrameLoop(this.#onFrame);
+        this.#loop = new FrameLoop(this.#frameStep);
 
         // Size the canvas once up front so one-shot draws made outside the frame loop survive
         // (the loop's first resize would otherwise clear the buffer).
@@ -287,7 +287,7 @@ export class CpuSurface {
         this.input.destroy();
     }
 
-    #onFrame: FrameStep = (time, deltaTime): void => {
+    #frameStep: FrameStep = (time, deltaTime): void => {
         this.#resize();
         this.frameCount++;
         this.applyCamera();
@@ -297,7 +297,7 @@ export class CpuSurface {
         this.width = this.#cssWidth;
         this.height = this.#cssHeight;
 
-        this.#loop.runFrameHandlers();
+        this.#loop.runFrameSubscribers();
         this.input.endFrame();
     };
 

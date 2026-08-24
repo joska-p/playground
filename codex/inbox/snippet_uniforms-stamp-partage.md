@@ -19,11 +19,15 @@ const STANDARD_UNIFORM_VALUES: Record<string, UniformValue> = {
     u_resolution: U_RESOLUTION,
     u_aspect: 0,
     u_mouse: U_MOUSE,
-    u_camera: U_CAMERA,
+    u_camera: U_CAMERA
     // ...
 };
 
-export function createStandardUniformValues(width: number, height: number, dpr: number): Record<string, UniformValue> {
+export function createStandardUniformValues(
+    width: number,
+    height: number,
+    dpr: number
+): Record<string, UniformValue> {
     U_RESOLUTION[0] = width * dpr;
     U_RESOLUTION[1] = height * dpr;
     STANDARD_UNIFORM_VALUES['u_aspect'] = height > 0 ? width / height : 0;
@@ -35,6 +39,7 @@ export function createStandardUniformValues(width: number, height: number, dpr: 
 Le contrat qui rend ça sûr : **consommation synchrone** — le seul appelant upload dans la foulée et `gl.uniform*fv` copie dans l'état GL immédiatement. À documenter en JSDoc ("consume synchronously: the next call overwrites it").
 
 **Gotchas :**
+
 - `@tsconfig/strictest` active `noPropertyAccessFromIndexSignature` : muter un `Record<string, T>` exige la notation crochets (`obj['u_aspect']`), sinon erreur TS4111.
 - Interdire à quiconque de retenir la référence au-delà de l'appel suivant — c'est le prix du zéro-allocation.
 

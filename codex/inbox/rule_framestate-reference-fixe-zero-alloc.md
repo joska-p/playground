@@ -1,5 +1,5 @@
 ---
-title: 'État par frame : une référence fixe mutée par la lib, déstructurée librement par l''utilisateur'
+title: "État par frame : une référence fixe mutée par la lib, déstructurée librement par l'utilisateur"
 date: 2026-08-23
 type: rule
 tags: [architecture, api-design, gc, game-loop, glaze]
@@ -22,6 +22,6 @@ L'état par frame (`time`, `deltaTime`, `width`, `height`, `frameCount`) vit sur
 surface.onFrame(({ time, width }) => { /* ... */ });
 ```
 
-**Gotcha :** le corollaire est que la lib ne doit jamais reconstruire un objet d'état par frame (pas de `{ ...state, time }` retourné) — sinon la déstructuration utilisateur capture une référence morte dès la frame suivante. Le contrat "référence fixe" doit être documenté là où l'état est stampé (voir `FrameDispatcher` : *"state lives on the surface that owns the dispatcher, not in the arguments"*).
+**Gotcha :** le corollaire est que la lib ne doit jamais reconstruire un objet d'état par frame (pas de `{ ...state, time }` retourné) — sinon la déstructuration utilisateur capture une référence morte dès la frame suivante. Le contrat "référence fixe" doit être documenté là où l'état est stampé (voir `FrameDispatcher` : _"state lives on the surface that owns the dispatcher, not in the arguments"_).
 
 **Lien codebase :** `packages/glaze/src/gpu/GpuSurface.ts` (champs publics + `#onFrame`), `packages/glaze/src/core/FrameDispatcher.ts`

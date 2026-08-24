@@ -12,8 +12,8 @@ export interface FrameToken {
 /** The owner's frame step: stamped state, then the loop fans out to subscribers. */
 export type FrameStep = (time: Seconds, delta: NonNegativeSeconds, frame: FrameToken) => void;
 
-/** Per-frame callback; state lives on the surface that owns the loop, not in the arguments. */
-export type FrameHandler = () => void;
+/** One subscriber of the frame fan-out, invoked by the owner's step via `runFrameSubscribers`. */
+export type FrameSubscriber = () => void;
 
 /** Environment capabilities of the heartbeat; defaults bind it to the browser's rAF clock. */
 export interface FrameLoopOptions {
@@ -40,14 +40,14 @@ const issueFrameToken = (): FrameToken => ({}) as FrameToken;
 /**
  * The heartbeat: reads the injected `now`, converts to seconds, and hands time + a non-negative
  * delta + a fresh `FrameToken` to the owner's frame step, which fans out to subscribers via
- * `runFrameHandlers`. Starts on the first subscriber, stops when the last one leaves, so an idle
+ * `runFrameSubscribers`. Starts on the first subscriber, stops when the last one leaves, so an idle
  * surface never keeps ticking.
  */
 export class FrameLoop {
     readonly #step: FrameStep;
     readonly #now: () => Milliseconds;
     readonly #schedule: (callback: (time: Milliseconds) => void) => () => void;
-    readonly #subscribers = new Set<FrameHandler>();
+    readonly #subscribers = new Set<FrameSubscriber>();
     #cancelScheduled: (() => void) | null = null;
     #running = false;
     #lastTime: Seconds = createSeconds(0);
@@ -62,7 +62,7 @@ export class FrameLoop {
         return this.#running;
     }
 
-    subscribe(callback: FrameHandler): () => void {
+    subscribe(callback: FrameSubscriber): () => void {
         this.#subscribers.add(callback);
         this.#start();
 
@@ -74,10 +74,10 @@ export class FrameLoop {
     }
 
     /**
-     * Runs every subscriber once over a snapshot taken at entry: subscribing mid-frame joins at
-     * the next frame, unsubscribing skips at the next frame — never mid-pass.
+     * Runs every subscriber once over a snapshot taken at entry: subscribing mid-frame joins at the
+     * next frame, unsubscribing skips at the next frame — never mid-pass.
      */
-    runFrameHandlers(): void {
+    runFrameSubscribers(): void {
         for (const callback of [...this.#subscribers]) callback();
     }
 

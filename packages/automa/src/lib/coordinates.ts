@@ -1,8 +1,4 @@
-import {
-    defaultCamera,
-    toScreenPoint,
-    type Camera
-} from '@repo/glaze/core/Camera';
+import { defaultCamera, toScreenPoint, type Camera } from '@repo/glaze/core/Camera';
 
 import { computeGridRect, getCellAtWorld, type GridCell } from './gridPlacement';
 

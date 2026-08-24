@@ -5,7 +5,7 @@
 **Description :**
 Interdire les numéros de ligne dans les documents vivants ; ancrer sur des noms de symboles stables (`CpuSurface#onFrame`, `FrameDispatcher#subscribe`) ou des chemins de fichiers seuls. Pistes :
 
-- Remplacer progressivement chaque `<Code>CpuSurface.ts:269</Code>` par le symbole qualifié — un renommage casse alors la *recherche*, pas la *vérité*.
+- Remplacer progressivement chaque `<Code>CpuSurface.ts:269</Code>` par le symbole qualifié — un renommage casse alors la _recherche_, pas la _vérité_.
 - Option outillage : un check lint/CI qui extrait les patterns `\.ts:\d+` des sources de docs et échoue si le fichier a bougé depuis le dernier commit touchant ce symbole.
 - Si un numéro est vraiment indispensable (capture d'écran mentale), le coupler au symbole : `#onFrame (CpuSurface.ts)`.
 

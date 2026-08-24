@@ -92,7 +92,7 @@ export class GpuSurface {
             camera: this.camera,
             getViewport: () => ({ width: this.#cssWidth, height: this.#cssHeight })
         });
-        this.#loop = new FrameLoop(this.#onFrame);
+        this.#loop = new FrameLoop(this.#frameStep);
 
         this.#configureState();
         this.#resize();
@@ -390,7 +390,7 @@ export class GpuSurface {
         for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
-    #onFrame: FrameStep = (time, deltaTime): void => {
+    #frameStep: FrameStep = (time, deltaTime): void => {
         this.#resize();
         this.frameCount++;
         this.time = time;
@@ -399,7 +399,7 @@ export class GpuSurface {
         this.height = this.#cssHeight;
         this.clock.update(deltaTime);
 
-        this.#loop.runFrameHandlers();
+        this.#loop.runFrameSubscribers();
         this.#flushBatch();
         this.input.endFrame();
     };
