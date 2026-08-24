@@ -65,7 +65,10 @@ export function createZoomBounds(minZoom: number, maxZoom: number): ZoomBounds {
 
 export const DEFAULT_ZOOM_BOUNDS: ZoomBounds = createZoomBounds(0.05, 64);
 
-export function createZoomClamp(minZoom: number, maxZoom: number): (value: number) => ZoomFactor {
+/** Validated zoom policy — every value comes back finite, in bounds, and branded. */
+export type ZoomClamp = (value: number) => ZoomFactor;
+
+export function createZoomClamp(minZoom: number, maxZoom: number): ZoomClamp {
     const bounds = createZoomBounds(minZoom, maxZoom);
 
     return (value: number): ZoomFactor => {
@@ -110,3 +113,8 @@ export function createCamera(x: number, y: number, zoom: ZoomFactor): Camera {
 }
 
 export const defaultCamera = (): Camera => createCamera(0, 0, createZoomFactor(1));
+
+/** Fresh camera with identical state — the snapshot primitive behind `reset()` semantics. */
+export function copyCamera(camera: Camera): Camera {
+    return createCamera(camera.x, camera.y, camera.zoom);
+}
