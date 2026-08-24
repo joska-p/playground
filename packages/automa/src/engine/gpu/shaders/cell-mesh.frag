@@ -8,6 +8,9 @@ uniform float u_trailStrength;
 uniform vec2 u_gridOrigin;
 uniform float u_gridScale;
 uniform vec2 u_gridSize;
+uniform vec2 u_resolution;
+uniform float u_dpr;
+uniform vec3 u_camera;
 
 in vec2 vUv;
 out vec4 fragColor;
