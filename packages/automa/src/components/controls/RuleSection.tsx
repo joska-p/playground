@@ -1,6 +1,6 @@
+import { createCssColor } from '@repo/glaze/core/types';
 import { ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-
 import { allRules, rules, type RuleId } from '../../engine/rules/registry';
 import { setRule, setStateColor } from '../../stores/automa/actions';
 import { useRuleId, useStateColors } from '../../stores/automa/selectors';
@@ -41,7 +41,7 @@ function RuleSection() {
                         type="color"
                         value={color}
                         onChange={(e) => {
-                            setStateColor(i, e.target.value);
+                            setStateColor(i, createCssColor(e.target.value));
                         }}
                         className="h-8 w-full cursor-pointer rounded border"
                     />

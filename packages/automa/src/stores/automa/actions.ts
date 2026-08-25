@@ -1,3 +1,4 @@
+import { createCssColor } from '@repo/glaze/core/types';
 import { automaStore } from './store';
 import { GRID_DEFAULT_DENSITY, GRID_DEFAULT_SEED } from '../../engine/config';
 import { creatures } from '../../engine/creature/registry';
@@ -6,14 +7,13 @@ import simStepShader from '../../engine/gpu/shaders/sim-step.frag?raw';
 import { SimulationEngine } from '../../engine/gpu/SimulationEngine';
 import { rules, type RuleId } from '../../engine/rules/registry';
 import { computeDerivedColors } from '../../lib/colors';
-
 import type { BrushMode } from './store';
 import type { CreatureId } from '../../engine/creature/registry';
-import type { NonNegativeSeconds } from '@repo/glaze/core/types';
+import type { NonNegativeSeconds, CssColor } from '@repo/glaze/core/types';
 import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
 
-const DEAD_COLOR_FALLBACK = '#070a14';
-const ALIVE_COLOR_FALLBACK = '#d97706';
+const DEAD_COLOR_FALLBACK = createCssColor('#070a14');
+const ALIVE_COLOR_FALLBACK = createCssColor('#d97706');
 
 // ── Engine lifecycle ──
 
@@ -102,7 +102,7 @@ export function setRule(id: RuleId): void {
     recomputeDerivedColors();
 }
 
-export function setStateColor(index: number, color: string): void {
+export function setStateColor(index: number, color: CssColor): void {
     automaStore.setState((state) => {
         const dead = index === 0 ? color : (state.stateColors[0] ?? DEAD_COLOR_FALLBACK);
         const alive = index === 1 ? color : (state.stateColors[1] ?? ALIVE_COLOR_FALLBACK);

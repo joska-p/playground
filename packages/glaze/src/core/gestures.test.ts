@@ -1,15 +1,16 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { defaultCamera, toScreenPoint, type Point2D } from './Camera';
-import { createCameraControls, type CameraControls } from './CameraControls';
+import { defaultCamera } from './Camera';
+import { createCameraControls } from './CameraControls';
+import { createInputRouter, createPanGesture, createZoomGesture } from './gestures';
 import {
-    createInputRouter,
-    createPanGesture,
-    createZoomGesture,
     DEFAULT_WHEEL_SPEED,
+    toScreenPoint,
+    type CameraControls,
     type Gesture,
-    type InteractionEvent
-} from './gestures';
+    type InteractionEvent,
+    type Point2D
+} from './types';
 import type { InputStore } from './InputStore';
 
 interface Surface {

@@ -1,11 +1,5 @@
+import type { RGBA } from './types';
 import type { Color } from '../../cpu/shapes/types';
-
-export interface RGBA {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-}
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
 

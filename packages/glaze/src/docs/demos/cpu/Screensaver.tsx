@@ -2,7 +2,7 @@ import { createCssColor, createFontSize, createPositiveNumber } from '../../../c
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 import type { CssColor, PositiveNumber } from '../../../core/types';
-import type { CpuDraw } from '../../../cpu/CpuSurface';
+import type { CpuDraw } from '../../../cpu/types';
 
 const PARTICLE_COUNT = 120;
 const GRAVITY = 260;

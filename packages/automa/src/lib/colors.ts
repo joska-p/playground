@@ -1,8 +1,8 @@
+import { createCssColor, type CssColor } from '@repo/glaze/core/types';
 import { parseColor } from '@repo/glaze/gpu/shapes/color';
-
 import { MAX_STATE_COUNT } from './constants';
 
-export function buildStateColorArray(stateColors: string[]): Float32Array {
+export function buildStateColorArray(stateColors: CssColor[]): Float32Array {
     const floats = new Float32Array(MAX_STATE_COUNT * 3);
 
     for (let i = 0; i < MAX_STATE_COUNT; i++) {
@@ -16,7 +16,7 @@ export function buildStateColorArray(stateColors: string[]): Float32Array {
     return floats;
 }
 
-function lerpColor(hexA: string, hexB: string, t: number): string {
+function lerpColor(hexA: CssColor, hexB: CssColor, t: number): CssColor {
     const rA = parseInt(hexA.slice(1, 3), 16);
     const gA = parseInt(hexA.slice(3, 5), 16);
     const bA = parseInt(hexA.slice(5, 7), 16);
@@ -29,15 +29,15 @@ function lerpColor(hexA: string, hexB: string, t: number): string {
     const g = Math.round(gA + (gB - gA) * t);
     const b = Math.round(bA + (bB - bA) * t);
 
-    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+    return createCssColor(`#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`);
 }
 
 // Computes all derived state colors given a rule's stateCount plus the dead and alive colors.
 export function computeDerivedColors(
     stateCount: number,
-    deadHex: string,
-    aliveHex: string
-): string[] {
+    deadHex: CssColor,
+    aliveHex: CssColor
+): CssColor[] {
     const colors = [deadHex, aliveHex];
 
     // States 2..N-1 decay from alive toward dead.

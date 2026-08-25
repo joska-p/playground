@@ -1,11 +1,6 @@
-import {
-    compileProgram,
-    type CompiledShaderProgram,
-    type UniformEntry,
-    type UniformValue,
-    FULLSCREEN_TRIANGLE
-} from './compileProgram';
+import { compileProgram, FULLSCREEN_TRIANGLE } from './compileProgram';
 import { setUniforms } from './setUniforms';
+import type { CompiledShaderProgram, UniformEntry, UniformValue } from './types';
 
 /** A compiled program; call `destroy()` to release its GPU resources. */
 export class Program {

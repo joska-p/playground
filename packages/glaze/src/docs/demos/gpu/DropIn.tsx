@@ -5,8 +5,8 @@ import { CpuCanvas } from '../../../react/CpuCanvas';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
 import type { CssColor, FontSize, PositiveNumber } from '../../../core/types';
-import type { CpuDraw } from '../../../cpu/CpuSurface';
-import type { GpuDraw } from '../../../gpu/GpuSurface';
+import type { CpuDraw } from '../../../cpu/types';
+import type { GpuDraw } from '../../../gpu/types';
 
 /**
  * Structural contract satisfied by both `CpuSurface` and `GpuSurface`, so one scene function drives

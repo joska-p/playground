@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-    type Mat3,
     cameraMatrix,
     capSegments,
     circleFillVertices,
@@ -16,6 +15,7 @@ import {
     sameMat3,
     viewportMatrix
 } from './geometry';
+import type { Mat3 } from './types';
 import { createCamera, defaultCamera } from '../../core/Camera';
 import { createZoomFactor } from '../../core/types';
 

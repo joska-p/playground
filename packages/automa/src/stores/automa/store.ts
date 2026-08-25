@@ -6,6 +6,7 @@ import { DEFAULT_STATE_COLORS, SPEED_DEFAULT_MS } from '../../lib/constants';
 import type { CreatureId } from '../../engine/creature/registry';
 import type { SimulationEngine } from '../../engine/gpu/SimulationEngine';
 import type { RuleId } from '../../engine/rules/registry';
+import type { CssColor } from '@repo/glaze/core/types';
 
 export type BrushMode = 'draw' | 'erase';
 
@@ -13,7 +14,7 @@ export type AutomaState = {
     engine: SimulationEngine | null;
     toolMode: BrushMode;
     paletteBrush: CreatureId | 'pixel';
-    stateColors: string[];
+    stateColors: CssColor[];
     cols: number;
     rows: number;
     generation: number;

@@ -1,8 +1,9 @@
 import { createObservable } from './observable';
 import type { Clock } from '../core/Clock';
 import type { Seconds, DurationSeconds, TimeSpeed } from '../core/types';
+import type { ClockStore } from './types';
 
-export function createClockStore(clock: Clock) {
+export function createClockStore(clock: Clock): ClockStore {
     const observable = createObservable();
 
     return {
@@ -45,4 +46,3 @@ export function createClockStore(clock: Clock) {
         getIsPlaying: () => clock.isPlaying
     };
 }
-export type ClockStore = ReturnType<typeof createClockStore>;

@@ -1,40 +1,29 @@
-import {
-    defaultCamera,
-    toScreenPoint,
-    type Camera,
-    type Point2D,
-    type ScreenPoint,
-    type WorldPoint
-} from '../core/Camera';
-import { FrameLoop, type FrameStep } from '../core/FrameLoop';
+import { defaultCamera, type Camera } from '../core/Camera';
+import { FrameLoop } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
 import {
-    createSeconds,
-    createNonNegativeSeconds,
     createCanvasDimension,
-    createDevicePixelRatio
-} from '../core/types';
-
-import type { NonNegativeSeconds, Seconds } from '../core/types';
-import type {
-    CssColor,
-    DevicePixelRatio,
-    FontSize,
-    PositiveNumber,
-    CanvasDimension
+    createDevicePixelRatio,
+    createNonNegativeSeconds,
+    createSeconds,
+    toScreenPoint,
+    type CanvasDimension,
+    type CssColor,
+    type DevicePixelRatio,
+    type FontSize,
+    type FrameStep,
+    type NonNegativeSeconds,
+    type Point2D,
+    type PositiveNumber,
+    type ScreenPoint,
+    type Seconds,
+    type WorldPoint
 } from '../core/types';
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
+import type { CpuSurfaceConfig } from './types';
 
 const DEFAULT_STROKE_WIDTH = 1;
 const DEFAULT_FONT_FAMILY = 'sans-serif';
-
-export interface CpuSurfaceConfig {
-    canvas: HTMLCanvasElement;
-    camera?: Camera;
-    dpr?: DevicePixelRatio;
-}
-
-export type CpuDraw = (surface: CpuSurface) => void;
 
 /**
  * Immediate-mode Canvas2D drawing in world space; `applyCamera()` runs automatically before each

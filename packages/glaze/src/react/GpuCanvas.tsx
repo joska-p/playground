@@ -1,35 +1,10 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
-
-import { createInteractionAdapter } from './interactions';
-import { createGpuStack, type GpuSurfaceOptions } from './surfaceStack';
-import { useNodeResource } from './useNodeResource';
-
-import type { ClockStore } from './clockStore';
-import type { CanvasInteractions } from './interactions';
-import type { GpuDraw, GpuSurface } from '../gpu/GpuSurface';
-import type { UniformValue } from '../gpu/shader/compileProgram';
+import { useEffect, useRef } from 'react';
 import type { Program } from '../gpu/shader/Program';
-
-export interface GpuCanvasProps extends GpuSurfaceOptions {
-    /** Compiled on mount and recompiled whenever the source changes. */
-    fragmentShader?: string;
-    /** Computed from the surface before each frame's draw. */
-    uniforms?: (surface: GpuSurface) => Record<string, UniformValue>;
-    onFrame?: GpuDraw;
-    /**
-     * Called exactly once per `GpuSurface` instance, right after it's created — the right place for
-     * one-time setup (`createProgram`, `createStateBuffer`, seeding simulation state).
-     *
-     * This guarantee holds regardless of how often the `onMount` callback itself changes identity
-     * across renders: it is keyed to the surface, not to React's effect dependencies.
-     */
-    onMount?: (surface: GpuSurface) => void;
-    /** Called once per `GpuSurface` instance, alongside `onMount`. */
-    onClockStore?: (clockStore: ClockStore) => void;
-    canvasInteractions?: CanvasInteractions<GpuSurface>;
-    className?: string;
-    style?: CSSProperties;
-}
+import type { GpuSurface } from '../gpu/types';
+import { createInteractionAdapter } from './interactions';
+import { createGpuStack } from './surfaceStack';
+import type { GpuCanvasProps } from './types';
+import { useNodeResource } from './useNodeResource';
 
 export function GpuCanvas({
     fragmentShader,

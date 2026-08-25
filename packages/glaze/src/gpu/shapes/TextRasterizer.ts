@@ -1,9 +1,8 @@
 import { colorArray } from './color';
-import { createCssColor } from '../../core/types';
-
-import type { Point2D } from '../../core/Camera';
+import { createCssColor, type Point2D } from '../../core/types';
 import type { TextStyle } from '../../cpu/shapes/types';
-import type { UniformValue } from '../shader/compileProgram';
+import type { UniformValue } from '../shader/types';
+import type { TextRaster } from './types';
 
 /** @internal */
 export const DEFAULT_FONT_FAMILY = 'sans-serif';
@@ -42,12 +41,6 @@ void main() {
   out_color = vec4(u_color.rgb, u_color.a * a);
 }
 `.trim();
-
-export interface TextRaster {
-    texture: WebGLTexture;
-    width: number;
-    height: number;
-}
 
 /** Rasterizes text to a texture via an offscreen canvas, at 2× size so edges stay crisp when scaled. */
 export class TextRasterizer {

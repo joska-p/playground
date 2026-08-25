@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
-import type { GpuDraw } from '../../../gpu/GpuSurface';
+import type { GpuDraw } from '../../../gpu/types';
 import type { Program } from '../../../gpu/shader/Program';
 
 const gridFragmentSource = /* glsl */ `

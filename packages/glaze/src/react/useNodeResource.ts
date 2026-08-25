@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
-import type { StackDisposable } from './surfaceStack';
+import type { StackDisposable } from './types';
 
 /**
  * Owns a resource for as long as a node is attached: created on attach, disposed on detach/unmount.

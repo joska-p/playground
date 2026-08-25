@@ -1,26 +1,16 @@
+import { copyCamera, createCamera, type Camera } from './Camera';
 import {
     DEFAULT_ZOOM_BOUNDS,
-    copyCamera,
-    createCamera,
     createZoomClamp,
     toScreenDelta,
     toScreenPoint,
-    type Camera,
+    type CameraControls,
+    type CameraPatch,
     type Point2D,
     type ScreenDelta,
     type ScreenPoint,
     type ZoomClamp
-} from './Camera';
-
-/**
- * Partial camera update accepted by `patchCamera`. Unlike a raw `Partial<Camera>` assign, `zoom`
- * flows through the active clamp, so no path can inject an out-of-bounds or degenerate value.
- */
-export interface CameraPatch {
-    x?: number;
-    y?: number;
-    zoom?: number;
-}
+} from './types';
 
 /** Moves the camera translation so the world origin lands on `position`. */
 export function panTo(camera: Camera, position: ScreenPoint): Camera {
@@ -82,21 +72,6 @@ export function patchCamera(camera: Camera, patch: CameraPatch, clampZoom: ZoomC
     const zoom = patch.zoom === undefined ? camera.zoom : clampZoom(patch.zoom);
 
     return createCamera(patch.x ?? camera.x, patch.y ?? camera.y, zoom);
-}
-
-/**
- * Mutable edge adapter over the pure transforms: raw numbers come in, each call recomputes a full
- * camera and commits it through this single write point. `reset()` restores the camera state
- * captured at controls creation.
- */
-export interface CameraControls {
-    panTo(position: Point2D): void;
-    panBy(dx: number, dy: number): void;
-    zoomTo(zoom: number, focalPoint?: Point2D): void;
-    zoomAt(focalPoint: Point2D, zoom: number): void;
-    zoomBy(factor: number, focalPoint: Point2D): void;
-    reset(): void;
-    patch(patch: CameraPatch): void;
 }
 
 export function createCameraControls(

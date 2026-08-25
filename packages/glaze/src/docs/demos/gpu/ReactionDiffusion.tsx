@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react';
 import { createStateBuffer, type StateBuffer } from '../../../gpu/StateBuffer';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
-import type { GpuDraw, GpuSurface } from '../../../gpu/GpuSurface';
-import type { LiveInteractionEvent } from '../../../react/interactions';
+import type { GpuDraw, GpuSurface } from '../../../gpu/types';
+import type { LiveInteractionEvent } from '../../../react/types';
 
 const SIZE = 256;
 const INJECT_RADIUS = 0.025;

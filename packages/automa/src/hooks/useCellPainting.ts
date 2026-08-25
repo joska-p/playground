@@ -5,7 +5,7 @@ import { paintCell, placeCreature } from '../stores/automa/actions';
 import { automaStore } from '../stores/automa/store';
 
 import type { GpuSurface } from '@repo/glaze/gpu/GpuSurface';
-import type { CanvasInteractions, LiveInteractionEvent } from '@repo/glaze/react/interactions';
+import type { CanvasInteractions, LiveInteractionEvent } from '@repo/glaze/react/types';
 
 function paintAtEvent(event: PointerEvent, surface: GpuSurface): void {
     const canvas = event.currentTarget;

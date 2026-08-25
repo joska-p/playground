@@ -1,5 +1,4 @@
 import {
-    type Mat3,
     circleFillVertices,
     circleRing,
     circleSegments,
@@ -11,10 +10,10 @@ import {
     rectStrokeVertices,
     sameMat3
 } from './geometry';
-import { createLineSegment, createNormalizedVec2 } from '../../core/types';
+import { createLineSegment, createNormalizedVec2, type Point2D } from '../../core/types';
 import { colorArray } from '../shapes/color';
-
-import type { Camera, Point2D } from '../../core/Camera';
+import type { Mat3, ShapeBatcherOptions } from './types';
+import type { Camera } from '../../core/Camera';
 import type { DrawStyle, Rect } from '../../cpu/shapes/types';
 
 const VERTEX_STRIDE = 6; // x, y, r, g, b, a
@@ -37,12 +36,6 @@ precision mediump float;
 in vec4 v_color;
 out vec4 out_color;
 void main() { out_color = v_color; }`;
-
-export interface ShapeBatcherOptions {
-    gl: WebGL2RenderingContext;
-    camera: Camera;
-    getViewport: () => { width: number; height: number };
-}
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
     const shader = gl.createShader(type);

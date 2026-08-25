@@ -1,9 +1,16 @@
-import type { Point2D } from './Camera';
-import type { FrameToken } from './FrameLoop';
-
-type PointerEventName = 'pointerdown' | 'pointermove' | 'pointerup' | 'pointercancel';
-
-type PointerHandlerName = 'onPointerDown' | 'onPointerMove' | 'onPointerUp' | 'onPointerCancel';
+import type {
+    AttachedHandle,
+    EventSource,
+    FrameToken,
+    InputHandlers,
+    InputStoreOptions,
+    Point2D,
+    PointerEventName,
+    PointerHandlerName,
+    Rect,
+    TargetBinding,
+    WindowBinding
+} from './types';
 
 /** Approximate CSS pixels per line — used to normalise wheel deltaMode === 1. */
 const LINE_HEIGHT_PX = 16;
@@ -14,45 +21,6 @@ const POINTER_HANDLER_BY_EVENT: Record<PointerEventName, PointerHandlerName> = {
     pointerup: 'onPointerUp',
     pointercancel: 'onPointerCancel'
 };
-
-/** Proof that `attach()` has been called; consumed by `detach()`. */
-export interface AttachedHandle {
-    readonly __brand: 'AttachedHandle';
-}
-
-/** Abstraction over DOM event subscription; swap in tests without touching the global `window`. */
-export interface EventSource {
-    on(
-        target: HTMLElement,
-        type: string,
-        cb: EventListener,
-        opts?: AddEventListenerOptions
-    ): () => void;
-    onWindow(type: string, cb: EventListener): () => void;
-}
-
-/** Axis-aligned rectangle, typically from `getBoundingClientRect`. */
-export interface Rect {
-    left: number;
-    top: number;
-    width: number;
-    height: number;
-}
-
-/** `point` is canvas-relative, in CSS pixels. */
-export interface InputHandlers {
-    onPointerDown?: (event: PointerEvent, point: Point2D) => void;
-    onPointerMove?: (event: PointerEvent, point: Point2D) => void;
-    onPointerUp?: (event: PointerEvent, point: Point2D) => void;
-    onPointerCancel?: (event: PointerEvent, point: Point2D) => void;
-    onWheel?: (event: WheelEvent, point: Point2D) => void;
-    onContextMenu?: (event: MouseEvent) => void;
-}
-
-export interface InputStoreOptions {
-    eventSource?: EventSource;
-    bounds?: () => Rect;
-}
 
 // ---------------------------------------------------------------------------
 // Defaults
@@ -75,17 +43,6 @@ const domEventSource: EventSource = {
         };
     }
 };
-
-// ---------------------------------------------------------------------------
-// Table-driven bindings
-// ---------------------------------------------------------------------------
-
-type TargetBinding = readonly [
-    type: string,
-    handler: EventListener,
-    opts?: AddEventListenerOptions
-];
-type WindowBinding = readonly [type: string, handler: EventListener];
 
 /**
  * Raw input signal bus for a canvas; transient state (`wasKeyPressed`, `wheelDelta`) is cleared by

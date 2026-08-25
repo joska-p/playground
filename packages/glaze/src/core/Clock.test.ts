@@ -5,11 +5,12 @@ import {
     createDurationSeconds,
     createNonNegativeSeconds,
     createSeconds,
-    createTimeSpeed
+    createTimeSpeed,
+    type ClockOptions,
+    type NonNegativeSeconds
 } from './types';
 
-import type { Clock, ClockOptions } from './Clock';
-import type { NonNegativeSeconds } from './types';
+import type { Clock } from './Clock';
 
 const second = (value: number) => createSeconds(value);
 

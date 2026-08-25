@@ -1,26 +1,9 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
-
+import { useEffect, useRef } from 'react';
+import type { CpuSurface } from '../cpu/types';
 import { createInteractionAdapter } from './interactions';
-import { createCpuStack, type CpuSurfaceOptions } from './surfaceStack';
+import { createCpuStack } from './surfaceStack';
+import type { CpuCanvasProps } from './types';
 import { useNodeResource } from './useNodeResource';
-
-import type { CanvasInteractions } from './interactions';
-import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
-
-export interface CpuCanvasProps extends CpuSurfaceOptions {
-    onFrame?: CpuDraw;
-    /**
-     * Called exactly once per `CpuSurface` instance, right after it's created — the right place for
-     * one-time setup.
-     *
-     * This guarantee holds regardless of how often the `onMount` callback itself changes identity
-     * across renders: it is keyed to the surface, not to React's effect dependencies.
-     */
-    onMount?: (surface: CpuSurface) => void;
-    canvasInteractions?: CanvasInteractions<CpuSurface>;
-    className?: string;
-    style?: CSSProperties;
-}
 
 export function CpuCanvas({
     onFrame,

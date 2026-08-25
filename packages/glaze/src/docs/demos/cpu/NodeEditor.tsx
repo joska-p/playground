@@ -3,9 +3,9 @@ import { useRef } from 'react';
 import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
-import type { Point2D } from '../../../core/Camera';
-import type { CpuDraw, CpuSurface } from '../../../cpu/CpuSurface';
-import type { LiveInteractionEvent } from '../../../react/interactions';
+import type { Point2D } from '../../../core/types';
+import type { CpuDraw, CpuSurface } from '../../../cpu/types';
+import type { LiveInteractionEvent } from '../../../react/types';
 
 const NODE_RADIUS = 16;
 const HIT_RADIUS = 18;

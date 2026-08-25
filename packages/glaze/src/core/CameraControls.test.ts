@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-    createCamera,
-    createZoomClamp,
-    defaultCamera,
-    toScreenDelta,
-    toScreenPoint
-} from './Camera';
+import { createCamera, defaultCamera } from './Camera';
 import {
     createCameraControls,
     panBy,
@@ -14,10 +8,15 @@ import {
     patchCamera,
     zoomAt,
     zoomBy,
-    zoomTo,
-    type CameraPatch
+    zoomTo
 } from './CameraControls';
-import { createZoomFactor } from './types';
+import {
+    createZoomClamp,
+    createZoomFactor,
+    toScreenDelta,
+    toScreenPoint,
+    type CameraPatch
+} from './types';
 
 const cameraAt = (x: number, y: number, zoom: number) => createCamera(x, y, createZoomFactor(zoom));
 const clampZoom = createZoomClamp(0.05, 64);

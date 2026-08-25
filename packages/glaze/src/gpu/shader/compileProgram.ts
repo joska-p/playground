@@ -10,19 +10,7 @@ export const FULLSCREEN_TRIANGLE = /* glsl */ `
   }
 `.trim();
 
-export interface UniformEntry {
-    location: WebGLUniformLocation;
-    type: number;
-    size: number;
-}
-
-/** Uniform values; a `WebGLTexture` is bound to a texture unit automatically. */
-export type UniformValue = number | number[] | Float32Array | Int32Array | WebGLTexture;
-
-export interface CompiledShaderProgram {
-    program: WebGLProgram;
-    uniforms: Map<string, UniformEntry>;
-}
+import type { CompiledShaderProgram, UniformEntry } from './types';
 
 function withVersionDirective(source: string): string {
     const stripped = source.replace(/^\uFEFF/, '').replace(/^\s*#version\s+\d+\s+\w+\s*/m, '');

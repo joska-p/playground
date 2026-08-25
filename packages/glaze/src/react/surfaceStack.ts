@@ -1,60 +1,26 @@
-import { createClockStore, type ClockStore } from './clockStore';
-import { createCamera, type Camera, type Point2D } from '../core/Camera';
-import { createCameraControls, type CameraControls } from '../core/CameraControls';
-import { InputRouter, type Gesture } from '../core/gestures';
-import { createDevicePixelRatio, createZoomFactor } from '../core/types';
-import { createCpuSurface, type CpuSurface } from '../cpu/CpuSurface';
-import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
-
-import type { Clock, ClockOptions } from '../core/Clock';
-import type { InputStore } from '../core/InputStore';
-import type { DevicePixelRatio } from '../core/types';
-
-/** Resource created alongside a surface node; `dispose` runs exactly once at detach. */
-export interface StackDisposable {
-    dispose(): void;
-}
-
-/** `initialCamera` only applies when no `camera` instance is provided. */
-export interface CpuSurfaceOptions {
-    camera?: Camera;
-    cameraControls?: CameraControls;
-    initialCamera?: InitialCamera;
-    dpr?: DevicePixelRatio;
-}
-
-export interface GpuSurfaceOptions extends CpuSurfaceOptions {
-    clock?: Clock;
-    clockOptions?: ClockOptions;
-}
-
-/** Declared spawn state of a camera created by the stack; `reset()` restores it. */
-export interface InitialCamera {
-    zoom?: number;
-    pan?: Point2D;
-    minZoom?: number;
-    maxZoom?: number;
-}
-
-/** One mounted CPU surface and everything wired to it; created and disposed together. */
-export interface CpuStack {
-    readonly surface: CpuSurface;
-    readonly controls: CameraControls;
-    readonly router: InputRouter<CpuSurface>;
-}
-
-/** One mounted GPU surface and everything wired to it; created and disposed together. */
-export interface GpuStack {
-    readonly surface: GpuSurface;
-    readonly controls: CameraControls;
-    readonly router: InputRouter<GpuSurface>;
-    readonly clockStore: ClockStore;
-}
-
-interface RoutableSurface {
-    readonly input: InputStore;
-    destroy(): void;
-}
+import { createCamera, type Camera } from '../core/Camera';
+import { createCameraControls } from '../core/CameraControls';
+import { InputRouter } from '../core/gestures';
+import {
+    createDevicePixelRatio,
+    createZoomFactor,
+    type CameraControls,
+    type Gesture
+} from '../core/types';
+import { createCpuSurface } from '../cpu/CpuSurface';
+import type { CpuSurface } from '../cpu/types';
+import { createGpuSurface } from '../gpu/GpuSurface';
+import type { GpuSurface } from '../gpu/types';
+import { createClockStore } from './clockStore';
+import type {
+    CpuStack,
+    CpuSurfaceOptions,
+    GpuStack,
+    GpuSurfaceOptions,
+    InitialCamera,
+    RoutableSurface,
+    StackDisposable
+} from './types';
 
 /** `T` with every possibly-undefined property narrowed to its defined form. */
 type Compact<T> = {

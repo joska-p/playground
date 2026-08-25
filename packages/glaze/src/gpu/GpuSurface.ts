@@ -1,52 +1,37 @@
-import {
-    defaultCamera,
-    toScreenPoint,
-    type Camera,
-    type Point2D,
-    type ScreenPoint,
-    type WorldPoint
-} from '../core/Camera';
-import { createClock, type ClockOptions } from '../core/Clock';
-import { FrameLoop, type FrameStep } from '../core/FrameLoop';
+import { defaultCamera, type Camera } from '../core/Camera';
+import { createClock, type Clock } from '../core/Clock';
+import { FrameLoop } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
+import {
+    createCssColor,
+    createDevicePixelRatio,
+    createNonNegativeSeconds,
+    createSeconds,
+    toScreenPoint,
+    type CssColor,
+    type DevicePixelRatio,
+    type FontSize,
+    type FrameStep,
+    type NonNegativeSeconds,
+    type Point2D,
+    type PositiveNumber,
+    type ScreenPoint,
+    type Seconds,
+    type WorldPoint
+} from '../core/types';
+import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
 import { createStandardUniformValues } from './shader/setUniforms';
 import { parseColor } from './shapes/color';
 import {
-    TextRasterizer,
     DEFAULT_FONT_FAMILY,
+    TextRasterizer,
     textFragmentSource,
     textUniforms
 } from './shapes/TextRasterizer';
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
-import {
-    createSeconds,
-    createNonNegativeSeconds,
-    createCssColor,
-    createDevicePixelRatio
-} from '../core/types';
-
-import type { Clock } from '../core/Clock';
-import type {
-    CssColor,
-    DevicePixelRatio,
-    FontSize,
-    NonNegativeSeconds,
-    PositiveNumber,
-    Seconds
-} from '../core/types';
-import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
-
-export interface GpuSurfaceConfig {
-    canvas: HTMLCanvasElement;
-    camera?: Camera;
-    clock?: Clock;
-    dpr?: DevicePixelRatio;
-    clockOptions?: ClockOptions;
-}
-
-export type GpuDraw = (surface: GpuSurface) => void;
+import type { GpuSurfaceConfig } from './types';
 
 const buildStyle = (fill?: CssColor, stroke?: CssColor, lineWidth?: PositiveNumber): DrawStyle => ({
     ...(fill !== undefined ? { fill } : {}),

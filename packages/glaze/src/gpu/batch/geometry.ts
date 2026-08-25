@@ -1,17 +1,6 @@
-import type { Camera, Point2D } from '../../core/Camera';
-
-/** 3x3 matrix in the layout WebGL expects; `uniformMatrix3fv` takes it as-is. */
-export type Mat3 = readonly [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
-];
+import type { Camera } from '../../core/Camera';
+import type { Point2D } from '../../core/types';
+import type { Mat3 } from './types';
 
 export function multiplyMat3(a: Mat3, b: Mat3): Mat3 {
     return [

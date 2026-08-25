@@ -1,7 +1,6 @@
-type Notify = () => void;
-type Unsubscribe = () => void;
+import type { Notify, Observable, Unsubscribe } from './types';
 
-export function createObservable() {
+export function createObservable(): Observable {
     const listeners = new Set<Notify>();
 
     return {
@@ -17,4 +16,3 @@ export function createObservable() {
         }
     };
 }
-export type Observable = ReturnType<typeof createObservable>;

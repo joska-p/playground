@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { createInputStore, type EventSource, type InputStore } from './InputStore';
-import type { FrameToken } from './FrameLoop';
+import { createInputStore, type InputStore } from './InputStore';
+import type { EventSource, FrameToken } from './types';
 
 // ---------------------------------------------------------------------------
 // Helpers

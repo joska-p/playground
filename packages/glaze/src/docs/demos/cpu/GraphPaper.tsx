@@ -1,8 +1,8 @@
 import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
-import type { Point2D } from '../../../core/Camera';
-import type { CpuDraw } from '../../../cpu/CpuSurface';
+import type { Point2D } from '../../../core/types';
+import type { CpuDraw } from '../../../cpu/types';
 
 const MINOR = 20;
 const MAJOR = 100;
