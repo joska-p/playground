@@ -108,7 +108,6 @@ describe('createZoomGesture', () => {
 
         expect(preventDefault).toHaveBeenCalledTimes(1);
     });
-
 });
 
 describe('PanGesture decisions', () => {
@@ -126,9 +125,7 @@ describe('PanGesture decisions', () => {
         const setPointerCapture = vi.fn();
         const pan = createPanGesture<Surface>();
 
-        pan.onStart(
-            interaction(fakePointer({ currentTarget: { setPointerCapture } }))
-        );
+        pan.onStart(interaction(fakePointer({ currentTarget: { setPointerCapture } })));
 
         expect(setPointerCapture).not.toHaveBeenCalled();
     });
@@ -230,17 +227,13 @@ describe('InputRouter dispatch', () => {
 
     it('captures exactly once even when several gestures claim', () => {
         const setPointerCapture = vi.fn();
-        const claimers: Gesture<Surface>[] = [
-            { onStart: () => true },
-            { onStart: () => true }
-        ];
+        const claimers: Gesture<Surface>[] = [{ onStart: () => true }, { onStart: () => true }];
         const { fire } = makeRouter(claimers);
 
-        fire(
-            'onPointerDown',
-            fakePointer({ currentTarget: { setPointerCapture } }),
-            { x: 0, y: 0 }
-        );
+        fire('onPointerDown', fakePointer({ currentTarget: { setPointerCapture } }), {
+            x: 0,
+            y: 0
+        });
 
         expect(setPointerCapture).toHaveBeenCalledTimes(1);
     });
@@ -250,16 +243,14 @@ describe('InputRouter dispatch', () => {
         const bystander: Gesture<Surface> = { onStart: () => undefined };
         const { fire } = makeRouter([bystander]);
 
-        fire(
-            'onPointerDown',
-            fakePointer({ currentTarget: { setPointerCapture } }),
-            { x: 0, y: 0 }
-        );
-        fire(
-            'onPointerMove',
-            fakePointer({ currentTarget: { setPointerCapture } }),
-            { x: 0, y: 0 }
-        );
+        fire('onPointerDown', fakePointer({ currentTarget: { setPointerCapture } }), {
+            x: 0,
+            y: 0
+        });
+        fire('onPointerMove', fakePointer({ currentTarget: { setPointerCapture } }), {
+            x: 0,
+            y: 0
+        });
 
         expect(setPointerCapture).not.toHaveBeenCalled();
     });

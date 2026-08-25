@@ -8,9 +8,9 @@ import {
 } from '../core/Camera';
 import { FrameLoop, type FrameStep } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
-import { createSeconds } from '../core/types';
+import { createSeconds, createNonNegativeSeconds } from '../core/types';
 
-import type { Seconds } from '../core/types';
+import type { NonNegativeSeconds, Seconds } from '../core/types';
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
 
 const DEFAULT_STROKE_WIDTH = 1;
@@ -33,7 +33,7 @@ export class CpuSurface {
     /** Seconds since the frame loop started. */
     time: Seconds = createSeconds(0);
     /** Seconds since the previous frame. */
-    deltaTime: Seconds = createSeconds(0);
+    deltaTime: NonNegativeSeconds = createNonNegativeSeconds(0);
     frameCount = 0;
     /** CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size. */
     width = 0;

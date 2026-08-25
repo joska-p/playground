@@ -11,8 +11,7 @@
         "check-types": "tsc -b",
         "clean": "rm -rf node_modules dist .turbo",
         "dev": "vite --host",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
+        "lint": "eslint . --fix",
         "preview": "vite preview --host"
     },
     "dependencies": {

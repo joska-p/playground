@@ -23,8 +23,7 @@
     },
     "scripts": {
         "check-types": "tsc -b",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix"
+        "lint": "eslint . --fix"
     },
     "dependencies": {
         "class-variance-authority": "catalog:",

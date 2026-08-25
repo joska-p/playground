@@ -1,6 +1,6 @@
-import { createSeconds, createTimeSpeed } from './types';
+import { createSeconds, createTimeSpeed, createNonNegativeSeconds } from './types';
 
-import type { DurationSeconds, Seconds, TimeSpeed } from './types';
+import type { DurationSeconds, Seconds, TimeSpeed, NonNegativeSeconds } from './types';
 
 const DEFAULT_TIME_SPEED = createTimeSpeed(1);
 const ZERO_SECONDS = createSeconds(0);
@@ -14,31 +14,22 @@ export function advanceFree(time: Seconds, delta: Seconds): Seconds {
 }
 
 /**
- * Reflects between the duration bounds like a ball between two walls; returns the flipped
- * direction so the caller can carry it into the next update.
+ * Reflects between the duration bounds like a ball between two walls; returns the flipped direction
+ * so the caller can carry it into the next update.
  */
 export function advancePingPong(
     time: Seconds,
-    delta: Seconds,
+    delta: NonNegativeSeconds,
     duration: DurationSeconds,
     direction: 1 | -1
 ): { time: Seconds; direction: 1 | -1 } {
-    let t = time + delta * direction;
-    let nextDirection = direction;
+    const period = duration * 2;
+    const odometer = (direction === 1 ? time : period - time) + delta;
+    const folded = ((odometer % period) + period) % period;
 
-    if (t >= duration) {
-        t = duration - (t - duration);
-        nextDirection = -1;
-
-        if (t < 0) t = 0;
-    } else if (t <= 0) {
-        t = -t;
-        nextDirection = 1;
-
-        if (t > duration) t = duration;
-    }
-
-    return { time: createSeconds(Math.max(0, Math.min(duration, t))), direction: nextDirection };
+    return folded <= duration
+        ? { time: createSeconds(folded), direction: 1 }
+        : { time: createSeconds(period - folded), direction: -1 };
 }
 
 /** Wraps around the duration like a modulo timeline, in both directions. */
@@ -93,8 +84,7 @@ type ClockState =
 
 /**
  * Playback state driven by explicit seconds deltas (`update(delta)`); owns no clock of its own.
- * Options carry branded values only — build them through the `create*` factories in
- * `core/types`.
+ * Options carry branded values only — build them through the `create*` factories in `core/types`.
  */
 export class Clock {
     #time: Seconds = ZERO_SECONDS;
@@ -193,14 +183,14 @@ export class Clock {
         return this;
     }
 
-    update(delta: Seconds): this {
+    update(delta: NonNegativeSeconds): this {
         if (!this.#isPlaying) {
             this.#deltaTime = ZERO_SECONDS;
 
             return this;
         }
 
-        const scaledDelta = (delta * this.#speed) as Seconds;
+        const scaledDelta = createNonNegativeSeconds(delta * this.#speed);
 
         this.#deltaTime = scaledDelta;
 
@@ -209,7 +199,12 @@ export class Clock {
         if (state.kind === 'free') {
             this.#time = advanceFree(this.#time, scaledDelta);
         } else if (state.pingPong) {
-            const advanced = advancePingPong(this.#time, scaledDelta, state.duration, this.#direction);
+            const advanced = advancePingPong(
+                this.#time,
+                scaledDelta,
+                state.duration,
+                this.#direction
+            );
 
             this.#time = advanced.time;
             this.#direction = advanced.direction;

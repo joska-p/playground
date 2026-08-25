@@ -168,8 +168,8 @@ export class InputRouter<TSurface> {
     };
 
     /**
-     * Fans one hook out across every gesture and reports whether any claimed the interaction.
-     * All gestures always receive the event — a claim never short-circuits the pass.
+     * Fans one hook out across every gesture and reports whether any claimed the interaction. All
+     * gestures always receive the event — a claim never short-circuits the pass.
      */
     #dispatch = (invoke: (gesture: Gesture<TSurface>) => unknown): boolean => {
         let claimed = false;

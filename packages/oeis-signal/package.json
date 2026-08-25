@@ -11,8 +11,7 @@
     "scripts": {
         "check-types": "tsc -b",
         "dev": "vite --host",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
+        "lint": "eslint . --fix",
         "preview": "vite preview --host",
         "test": "tsx ./src/test.ts"
     },

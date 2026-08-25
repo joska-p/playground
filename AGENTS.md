@@ -10,4 +10,3 @@ The environment is optimized for flow. We navigate instantly with `rg` (ripgrep)
 - **Mental Model**: Treat this ecosystem as a shared consciousness and playground. Focus on high-quality, one-shot implementations tailored to the local architecture.
 - **Tooling as a Compass**: Linters and type-checkers are diagnostic tools during refactoring to map broken imports or structural shifts, not just validation gates. Use them to navigate complex changes efficiently.
 - **Knowledge & SSOT**: Conventions, docs, and skills live in `./codex/docs/` as the Single Source of Truth (SSOT). When patterns repeat or approaches diverge, propose updates to keep the ecosystem alive.
-- **AI Workshop**: A persistent personal toolbox lives at `~/.ai-workshop/` (`scripts/`, `TOOLS.md`, `CHANGELOG.md`). Build reusable helpers there instead of fragile bash pipelines; load the `workshop` skill before creating or updating these tools.

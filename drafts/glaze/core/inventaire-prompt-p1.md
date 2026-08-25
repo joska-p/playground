@@ -1,8 +1,8 @@
-You are an expert TypeScript Graphics Architect auditing the `core/` folder of our graphics library `glaze`.
+You are an expert TypeScript Graphics Architect auditing the `cpu/` folder of our graphics library `glaze`.
 
 Your goal for this sweep (Pass 1) is to identify implicitly assumed mathematical invariants and runtime checks that can be enforced at compile time using Branded Types.
 
-Target Scope: `src/core/` (or `core/` directory)
+Target Scope: `src/cpu/` (or `cpu/` directory)
 
 Search for the following patterns:
 1. Bare vector types ({ x: number, y: number } or number[]) used in operations that require normalized vectors (e.g., directions, normals, reflections).
@@ -19,4 +19,4 @@ Instructions:
    - Proposed Branded Type (e.g., `NormalizedVec2`, `PositiveNumber`, `Radian`)
    - Impact (e.g., eliminates division by zero risk, removes runtime check)
 
-Do NOT refactor any code yet. Just write the inventory file for `core/`.
+Do NOT refactor any code yet. Just write the inventory file for `cpu/`.

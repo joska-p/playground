@@ -1,8 +1,8 @@
-You are an expert TypeScript Graphics Architect continuing the audit of the `core/` folder in `glaze`.
+You are an expert TypeScript Graphics Architect continuing the audit of the `cpu/` folder in `glaze`.
 
 Your goal for this sweep (Pass 2) is to identify "dishonest" functions, hidden global state reads, and side effects that should be pushed to the edges of the application shell.
 
-Target Scope: `src/core/` (or `core/` directory)
+Target Scope: `src/cpu/` (or `cpu/` directory)
 
 Search for the following patterns:
 1. Core functions reading non-deterministic or global environment data (`Math.random()`, `performance.now()`, `Date.now()`, `window`, `document`).

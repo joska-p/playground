@@ -33,8 +33,8 @@ export function panBy(camera: Camera, delta: ScreenDelta): Camera {
 }
 
 /**
- * Sets the absolute zoom while keeping the world point under `focalPoint` pinned to the same
- * screen location — the anchor every zoom interaction reduces to.
+ * Sets the absolute zoom while keeping the world point under `focalPoint` pinned to the same screen
+ * location — the anchor every zoom interaction reduces to.
  */
 export function zoomAt(
     camera: Camera,

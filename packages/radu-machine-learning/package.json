@@ -13,8 +13,7 @@
         "dev": "vite --host",
         "extract-features": "pnpm exec node ./src/scripts/features-extractor.ts",
         "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
+        "lint": "eslint . --fix",
         "preview": "vite preview --host"
     },
     "dependencies": {

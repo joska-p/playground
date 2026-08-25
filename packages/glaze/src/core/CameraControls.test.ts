@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { createCamera, createZoomClamp, defaultCamera, toScreenDelta, toScreenPoint } from './Camera';
+import {
+    createCamera,
+    createZoomClamp,
+    defaultCamera,
+    toScreenDelta,
+    toScreenPoint
+} from './Camera';
 import {
     createCameraControls,
     panBy,

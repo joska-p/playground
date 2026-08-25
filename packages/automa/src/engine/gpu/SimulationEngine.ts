@@ -12,7 +12,7 @@ import { createGrid, seedGrid } from '../grid';
 import { rules, type Rule } from '../rules/registry';
 
 import type { Creature } from '../creature/registry';
-import type { Seconds } from '@repo/glaze/core/types';
+import type { NonNegativeSeconds, Seconds } from '@repo/glaze/core/types';
 import type { StateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
 export type SimulationOptions = {
@@ -73,7 +73,7 @@ export class SimulationEngine {
     // ── Frame-driven stepping ──
 
     /** Feed the surface's frame delta (seconds); runs generations while the clock plays. */
-    tick(delta: Seconds): void {
+    tick(delta: NonNegativeSeconds): void {
         this.#clock.update(delta);
 
         if (!this.#clock.isPlaying) return;

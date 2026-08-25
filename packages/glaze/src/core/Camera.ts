@@ -91,17 +91,17 @@ export class Camera {
     }
 
     screenToWorld(screen: ScreenPoint): WorldPoint {
-        return {
+        return toWorldPoint({
             x: (screen.x - this.x) / this.zoom,
             y: (screen.y - this.y) / this.zoom
-        } as WorldPoint;
+        });
     }
 
     worldToScreen(world: WorldPoint): ScreenPoint {
-        return {
+        return toScreenPoint({
             x: world.x * this.zoom + this.x,
             y: world.y * this.zoom + this.y
-        } as ScreenPoint;
+        });
     }
 }
 

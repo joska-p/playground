@@ -10,8 +10,7 @@
     "scripts": {
         "check-types": "tsc -b",
         "clean": "rm -rf node_modules dist .turbo",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix"
+        "lint": "eslint . --fix"
     },
     "devDependencies": {
         "@repo/config-eslint": "workspace:*",
