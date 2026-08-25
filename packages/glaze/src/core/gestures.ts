@@ -168,8 +168,9 @@ export class InputRouter<TSurface> {
     };
 
     /**
-     * Fans one hook out across every gesture and reports whether any claimed the interaction. All
-     * gestures always receive the event — a claim never short-circuits the pass.
+     * Calls the same hook on every gesture. If several gestures react to the same event, they all
+     * run — the first one claiming does not prevent the others from executing. Returns `true` when
+     * at least one gesture claimed.
      */
     #dispatch = (invoke: (gesture: Gesture<TSurface>) => unknown): boolean => {
         let claimed = false;

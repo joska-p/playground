@@ -18,8 +18,14 @@ const fakePointer = (overrides: Record<string, unknown> = {}): PointerEvent =>
         ...overrides
     }) as unknown as PointerEvent;
 
-const fakeWheelEvent = (deltaY: number): WheelEvent =>
-    ({ deltaY, clientX: 0, clientY: 0, preventDefault: vi.fn() }) as unknown as WheelEvent;
+const fakeWheelEvent = (deltaY: number, deltaMode = 0): WheelEvent =>
+    ({
+        deltaY,
+        deltaMode,
+        clientX: 0,
+        clientY: 0,
+        preventDefault: vi.fn()
+    }) as unknown as WheelEvent;
 
 const fakeKey = (code: string): KeyboardEvent => ({ code }) as unknown as KeyboardEvent;
 
@@ -454,6 +460,37 @@ describe('wheel accumulation', () => {
 
         store.endFrame(fakeToken);
         expect(store.wheelDelta).toBe(0);
+    });
+
+    it('normalises line-mode delta to CSS pixels (deltaMode 1)', () => {
+        const { store, target, source } = attachedStore();
+
+        // deltaMode 1 = lines; 3 lines × 16 px/line = 48
+        source.emit(target, 'wheel', fakeWheelEvent(3, 1));
+        expect(store.wheelDelta).toBe(48);
+    });
+
+    it('normalises page-mode delta to CSS pixels (deltaMode 2)', () => {
+        const source = createFakeEventSource();
+        const store = createInputStore({ eventSource: source });
+        const target = document.createElement('div');
+
+        vi.spyOn(target, 'getBoundingClientRect').mockReturnValue(
+            DOMRect.fromRect({ x: 0, y: 0, width: 800, height: 600 })
+        );
+
+        store.attach(target);
+
+        // deltaMode 2 = pages; 1 page × 600 px viewport = 600
+        source.emit(target, 'wheel', fakeWheelEvent(1, 2));
+        expect(store.wheelDelta).toBe(600);
+    });
+
+    it('pixel-mode delta is unchanged (deltaMode 0)', () => {
+        const { store, target, source } = attachedStore();
+
+        source.emit(target, 'wheel', fakeWheelEvent(120, 0));
+        expect(store.wheelDelta).toBe(120);
     });
 });
 

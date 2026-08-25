@@ -1,13 +1,25 @@
 import { createObservable } from './observable';
-
 import type { Clock } from '../core/Clock';
-import type { TimeSpeed } from '../core/types';
+import type { Seconds, DurationSeconds, TimeSpeed } from '../core/types';
 
 export function createClockStore(clock: Clock) {
     const observable = createObservable();
 
     return {
         clock,
+        get time(): Seconds {
+            return clock.time;
+        },
+        get deltaTime(): Seconds {
+            return clock.deltaTime;
+        },
+        get duration(): DurationSeconds | undefined {
+            return clock.duration;
+        },
+        get progress(): number {
+            return clock.progress;
+        },
+        // ── Actions (existantes) ──
         togglePlay() {
             clock.togglePlay();
             observable.notify();
@@ -18,6 +30,10 @@ export function createClockStore(clock: Clock) {
         },
         pause() {
             clock.pause();
+            observable.notify();
+        },
+        reset() {
+            clock.reset();
             observable.notify();
         },
         setSpeed(speed: TimeSpeed) {

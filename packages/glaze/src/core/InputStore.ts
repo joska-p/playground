@@ -5,6 +5,9 @@ type PointerEventName = 'pointerdown' | 'pointermove' | 'pointerup' | 'pointerca
 
 type PointerHandlerName = 'onPointerDown' | 'onPointerMove' | 'onPointerUp' | 'onPointerCancel';
 
+/** Approximate CSS pixels per line — used to normalise wheel deltaMode === 1. */
+const LINE_HEIGHT_PX = 16;
+
 const POINTER_HANDLER_BY_EVENT: Record<PointerEventName, PointerHandlerName> = {
     pointerdown: 'onPointerDown',
     pointermove: 'onPointerMove',
@@ -113,6 +116,9 @@ export class InputStore {
         this.#source = options.eventSource ?? domEventSource;
         this.#bounds = options.bounds ?? (() => ({ left: 0, top: 0, width: 0, height: 0 }));
 
+        // `addEventListener` expects `EventListener` (Event → void) but our handlers
+        // are typed more precisely (PointerEvent, WheelEvent …). The cast is intentional
+        // and localised here — this table is where all DOM impurity is concentrated.
         this.#targetBindings = [
             ['pointermove', this.#onPointerMove as EventListener],
             ['pointerdown', this.#onPointerDown as EventListener],
@@ -193,6 +199,10 @@ export class InputStore {
         this.#subscribers.clear();
     }
 
+    /**
+     * Mutates pointer state in place, then #notifyPointer fans out a frozen snapshot. This two-step
+     * pattern (mutate → snapshot → dispatch) is the model for all new event types added here.
+     */
     #updatePointer(event: PointerEvent): void {
         const rect = this.#bounds();
 
@@ -246,7 +256,17 @@ export class InputStore {
 
         this.wheelPosition.x = event.clientX - rect.left;
         this.wheelPosition.y = event.clientY - rect.top;
-        this.wheelDelta += event.deltaY;
+
+        // Normalize to CSS pixels: lineMode ≈ 16 px/line, pageMode ≈ viewport height.
+        const raw = event.deltaY;
+        const delta =
+            event.deltaMode === 1
+                ? raw * LINE_HEIGHT_PX
+                : event.deltaMode === 2
+                  ? raw * this.#bounds().height
+                  : raw;
+
+        this.wheelDelta += delta;
 
         const snapshot = Object.freeze({ x: this.wheelPosition.x, y: this.wheelPosition.y });
 

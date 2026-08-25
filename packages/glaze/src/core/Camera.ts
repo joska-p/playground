@@ -90,6 +90,7 @@ export class Camera {
         this.zoom = zoom;
     }
 
+    /** Returns a new point; never mutates its arguments. */
     screenToWorld(screen: ScreenPoint): WorldPoint {
         return toWorldPoint({
             x: (screen.x - this.x) / this.zoom,

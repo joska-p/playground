@@ -3,7 +3,6 @@ import { createProgram, type Program } from './shader/Program';
 import type { UniformValue } from './shader/compileProgram';
 
 /** Ping-pong render targets; `swap()` exchanges the read and write roles. */
-// fallow-ignore-next-line unused-export -- public types of createStateBuffer, consumed via the factory's return type
 export class StateBufferTargets {
     readonly #gl: WebGL2RenderingContext;
     #pingPong = 0;

@@ -10,7 +10,7 @@ Search for the following patterns:
 3. Missing parameter injections (e.g., hardcoded delta times, unseeded randomness, or unpassed canvas bounds).
 
 Instructions:
-1. Read the existing `GLAZE_REFACTOR_INVENTORY.md` at the root of the repository.
+1. Read the existing `GLAZE_REFACTOR_INVENTORY_CPU.md` and `GLAZE_REFACTOR_INVENTORY_GPU.md`inside ./drafts/glaze/cpu-gpu/.
 2. Append Section 2: "Pass 2: Dishonesty & Side-Effects Isolation".
 3. For each opportunity found, report:
    - File & Line Number
@@ -18,4 +18,4 @@ Instructions:
    - Fix Strategy (e.g., inject explicit `seed: number` or `dt`, return new object `{ ... }`)
    - Impact (e.g., makes update function 100% deterministic and unit-testable)
 
-Do NOT refactor any code yet. Just append Section 2 to `GLAZE_REFACTOR_INVENTORY.md`.
+Do NOT refactor any code yet. Just append Section 2 to `GLAZE_REFACTOR_INVENTORY_CPU.md` and `GLAZE_REFACTOR_INVENTORY_GPU.md`.

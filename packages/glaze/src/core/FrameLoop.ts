@@ -102,6 +102,11 @@ export class FrameLoop {
         this.#cancelScheduled = null;
     }
 
+    /**
+     * Schedule-before-dispatch: the next frame is re-linked before any callback runs, so a throwing
+     * callback can never kill the animation chain.
+     */
+
     #tick = (rafTime: Milliseconds): void => {
         if (!this.#running) return;
 
