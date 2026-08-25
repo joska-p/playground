@@ -77,9 +77,9 @@ const CAST = [
     ],
     [
         'InputStore',
-        'core/InputStore.ts:23',
-        'DOM listeners (canvas + window), pointer/delta/wheel/key state, a subscriber set',
-        'Raw signal capture. Normalizes events to CSS-px coordinates relative to the canvas and fans each one out to its subscribers.'
+        'core/InputStore.ts:94',
+        'DOM listeners via injected EventSource, AttachedHandle lifecycle, pointer/delta/wheel/key state, frozen snapshots, table-driven bindings, a subscriber set',
+        'Raw signal capture. Injects all environment dependencies (EventSource, bounds), publishes frozen snapshots to subscribers, and clears transient state per frame via endFrame(token).'
     ],
     [
         'InputRouter',
@@ -173,10 +173,10 @@ export function LifecycleReport() {
                         Same assembly: <Code>{'createCpuSurface({ canvas, camera, dpr })'}</Code>.{' '}
                         The constructor<Code>CpuSurface.ts:38</Code> grabs the 2D context (throws if
                         unavailable), creates an <Code>InputStore</Code>, and calls{' '}
-                        <Code>input.attach(this.canvas)</Code> — <Code>InputStore.ts:64</Code> binds
-                        the pointer/wheel/context listeners on the canvas and key listeners on the
-                        window, right here. It then resizes the canvas once so one-shot draws made
-                        outside the loop survive.
+                        <Code>input.attach(this.canvas)</Code> — <Code>InputStore.ts:163</Code>{' '}
+                        binds the pointer/wheel/context listeners on the canvas and key listeners on
+                        the window via table-driven bindings, right here. It then resizes the canvas
+                        once so one-shot draws made outside the loop survive.
                     </li>
                     <li>
                         Still in the assembly:{' '}
@@ -244,9 +244,10 @@ export function LifecycleReport() {
                         camera was applied for it.
                     </li>
                     <li>
-                        <Code>input.endFrame()</Code> <Code>InputStore.ts:59</Code> — clear{' '}
-                        <Code>pressed</Code> keys and <Code>wheelDelta</Code>. Everything else
-                        (pointer position, held keys, button state) persists across frames.
+                        <Code>input.endFrame(frame)</Code> <Code>InputStore.ts:156</Code> — clear{' '}
+                        <Code>pressed</Code> keys and <Code>wheelDelta</Code>. Requires a{' '}
+                        <Code>FrameToken</Code> proof from the frame loop; everything else (pointer
+                        position, held keys, button state) persists across frames.
                     </li>
                 </ol>
                 <p className="text-sm leading-relaxed text-foreground-muted">
@@ -270,11 +271,11 @@ export function LifecycleReport() {
                 <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground-muted">
                     <li>
                         <strong>pointerdown</strong> — <Code>InputStore.#onPointerDown</Code>{' '}
-                        <Code>InputStore.ts:111</Code> sets <Code>mouseDown</Code> /{' '}
+                        <Code>InputStore.ts:224</Code> sets <Code>mouseDown</Code> /{' '}
                         <Code>mouseButtons</Code>, recomputes pointer + pointerDelta against the
-                        canvas rect, and notifies subscribers. The router&apos;s{' '}
-                        <Code>#onStart</Code> <Code>gestures.ts:184</Code> builds the event and
-                        iterates gestures: <Code>PanGesture.onStart</Code>{' '}
+                        canvas rect, and notifies subscribers with a frozen snapshot. The
+                        router&apos;s <Code>#onStart</Code> <Code>gestures.ts:184</Code> builds the
+                        event and iterates gestures: <Code>PanGesture.onStart</Code>{' '}
                         <Code>gestures.ts:51</Code> matches the button (default: any), sets{' '}
                         <Code>active = true</Code>, and claims the interaction by returning{' '}
                         <Code>true</Code>. The router owns capture policy: if any gesture claimed,
@@ -284,10 +285,10 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         <strong>pointermove</strong> — <Code>InputStore.#onPointerMove</Code>{' '}
-                        <Code>InputStore.ts:106</Code> recomputes <Code>pointerDelta</Code> (this
-                        move minus last frame&apos;s pointer) and notifies. The router&apos;s{' '}
-                        <Code>#onMove</Code> delivers to <Code>PanGesture.onMove</Code>{' '}
-                        <Code>gestures.ts:59</Code>: if active,{' '}
+                        <Code>InputStore.ts:219</Code> recomputes <Code>pointerDelta</Code> (this
+                        move minus last frame&apos;s pointer) and notifies with a frozen snapshot.
+                        The router&apos;s <Code>#onMove</Code> delivers to{' '}
+                        <Code>PanGesture.onMove</Code> <Code>gestures.ts:59</Code>: if active,{' '}
                         <Code>cameraControls.panBy(pointerDelta.x, pointerDelta.y)</Code> — just{' '}
                         <Code>camera.x += dx</Code>. Your draw code never sees this; next
                         frame&apos;s camera transform is simply elsewhere.
@@ -303,9 +304,9 @@ export function LifecycleReport() {
                     </li>
                     <li>
                         <strong>wheel</strong> — bound <Code>passive: false</Code>{' '}
-                        <Code>InputStore.ts:71</Code> so the gesture may{' '}
+                        <Code>InputStore.ts:121</Code> so the gesture may{' '}
                         <Code>preventDefault()</Code> page scroll. <Code>#onWheel</Code>{' '}
-                        <Code>InputStore.ts:131</Code> records <Code>wheelPosition</Code> and
+                        <Code>InputStore.ts:244</Code> records <Code>wheelPosition</Code> and
                         accumulates <Code>wheelDelta</Code>, then notifies.{' '}
                         <Code>ZoomGesture.onZoom</Code> <Code>gestures.ts:91</Code> calls{' '}
                         <Code>cameraControls.zoomBy(Math.exp(−deltaY·speed), point)</Code>.
@@ -432,7 +433,7 @@ export function LifecycleReport() {
                         <Code>surface.destroy()</Code> <Code>CpuSurface.ts</Code> —{' '}
                         <Code>#loop.dispose()</Code> stops the rAF loop, cancels the pending frame
                         and clears the subscriber set. Then <Code>input.destroy()</Code> (unbind
-                        every DOM listener, clear key/state, <Code>InputStore.ts:81</Code>).
+                        every DOM listener, clear key/state, <Code>InputStore.ts:189</Code>).
                     </li>
                     <li>
                         The GPU surface additionally removes the context-loss listeners and destroys

@@ -5,7 +5,7 @@ Ne me fais pas un résumé linéaire de ces fichiers. Je veux que tu les analyse
 
 # Instructions d'analyse
 
-Lis tous les fichiers markdown correspondants au pattern `observation_*.md` dans le dossier `./codex/inbox/`.
+Lis tous les fichiers markdown correspondants au pattern `observation_*.md` dans le dossier `./codex/knowledge/inbox/`.
 Ensuite, rédige un rapport d'audit en te concentrant sur ces 3 axes :
 
 1. **Habitudes Structurelles :** Comment je nomme les choses, comment je découpe mes fichiers/composants, mes patterns récurrents.

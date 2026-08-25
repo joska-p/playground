@@ -1,6 +1,6 @@
 ## Rôle et Objectif
 
-Tu es un extracteur de connaissances. Nous approchons de la fin de notre session de codage. Le contexte va s'effacer, mais notre interaction contient de la matière première intellectuelle. Ton objectif est d'extraire les "unités de savoir" atomiques et de les sauvegarder dans `./codex/inbox/`.
+Tu es un extracteur de connaissances. Nous approchons de la fin de notre session de codage. Le contexte va s'effacer, mais notre interaction contient de la matière première intellectuelle. Ton objectif est d'extraire les "unités de savoir" atomiques et de les sauvegarder dans `./codex/knowledge/inbox/`.
 
 ## Instructions d'extraction
 
@@ -10,14 +10,14 @@ Tu es un extracteur de connaissances. Nous approchons de la fin de notre session
 
 ## Règles de formatage et de routage
 
-Pour chaque unité, crée le dossier `./codex/inbox/` si nécessaire et génère un fichier `.md`.
+Pour chaque unité, crée le dossier `./codex/knowledge/inbox/` si nécessaire et génère un fichier `.md`.
 Nom du fichier : `<type>_<slug-court-descriptif>.md` (ex: `bug_react-useeffect-cleanup.md`).
 
 Choisis le type le plus approprié parmi les 5 suivants :
 
 ### Type 1 : IDEA (Pistes d'amélioration / features)
 
-Fichier : `./codex/inbox/idea_<slug>.md`
+Fichier : `./codex/knowledge/inbox/idea_<slug>.md`
 Contenu :
 ---
 
@@ -38,7 +38,7 @@ Contenu :
 
 ### Type 2 : BUG (Dysfonctionnements à corriger)
 
-## Fichier : `./codex/inbox/bug_<slug>.md`
+## Fichier : `./codex/knowledge/inbox/bug_<slug>.md`
 
 Contenu :
 
@@ -59,7 +59,7 @@ gh issue create --title "[Titre]" --body "[Contexte + Corps]"
 
 ### Type 3 & 4 : RULE & SNIPPET (Grimoire Astro)
 
-## Fichier : `./codex/inbox/rule_<slug>.md` ou `./codex/inbox/snippet_<slug>.md`
+## Fichier : `./codex/knowledge/inbox/rule_<slug>.md` ou `./codex/knowledge/inbox/snippet_<slug>.md`
 
 Contenu :
 
@@ -81,7 +81,7 @@ tags: [tags pertinents, ex: react, bash, architecture]
 
 ### Type 5 : OBSERVATION (Matière pour audit de style)
 
-## Fichier : `./codex/inbox/observation_<slug>.md`
+## Fichier : `./codex/knowledge/inbox/observation_<slug>.md`
 
 Contenu :
 
@@ -93,5 +93,5 @@ Contenu :
 
 ## Exécution
 
-Génère et sauvegarde tous les fichiers pertinents maintenant dans `./codex/inbox/`.
+Génère et sauvegarde tous les fichiers pertinents maintenant dans `./codex/knowledge/inbox/`.
 Confirme-moi la liste exacte des fichiers créés à la fin.

@@ -9,7 +9,7 @@ Donc non, ça n'en finit pas, c'est un écosystème qui s'auto-alimente. Et c'es
 Repartons sur ton flux, en restant strictement dans ton repo et sur GitHub, et en intégrant ta vision "multidimensionnelle".
 
 ### Étape A : La station de tri (L'inbox)
-Ton dossier `@codex/inbox` reçoit les fichiers générés en fin de session.
+Ton dossier `@codex/knowledge/inbox` reçoit les fichiers générés en fin de session.
 - Tu les lis un par un.
 - **La poubelle :** Tu supprimes ce qui n'a plus de sens. La mémoire à court terme a fait son travail de consolidation, maintenant tu nettoies.
 - **La multidimensionnalité (L'inspection) :** C'est ici que tu regardes le fichier sous tous ses angles. Une même note `bug` peut contenir un bout de code qui est en fait un `snippet` génial, et la cause du bug révèle une `règle` à appliquer. Si c'est le cas, tu scindes le fichier en deux ou trois dans l'inbox avant de les router.
@@ -20,14 +20,14 @@ Puisque tu ne veux pas t'éparpiller, le repo GitHub et tes fichiers `.md` devie
 1. **`IDEA` -> Le Kanban GitHub**
    - Tu as la commande exacte générée par l'agent dans le fichier.
    - Tu l'exécutes : `./scripts/kanban.sh idea "Titre" -b "Corps"`.
-   - La carte est créée sur le board GitHub. **Le fichier `.md` dans `@codex/inbox` est supprimé.** L'information vit maintenant dans le Kanban.
+   - La carte est créée sur le board GitHub. **Le fichier `.md` dans `@codex/knowledge/inbox` est supprimé.** L'information vit maintenant dans le Kanban.
 
 2. **`BUG` -> Les Issues GitHub natives**
    - Même logique. Tu utilises `gh issue create --title "..." --body "..."` directement depuis le contenu de la note.
    - Une fois l'issue créée, tu supprimes le fichier `.md`. Le cycle de vie du bug appartient à l'issue tracker.
 
 3. **`RULE` & `SNIPPET` -> Le Grimoire (fichiers .md dans le repo)**
-   - Ceux-là, tu les sors de `@codex/inbox` et tu les ranges de manière **co-locée** ou centralisée. 
+   - Ceux-là, tu les sors de `@codex/knowledge/inbox` et tu les ranges de manière **co-locée** ou centralisée. 
    - Ex: Un dossier `docs/rules/` et `docs/snippets/`. Ou mieux : si une règle ne s'applique qu'au module X, tu la mets dans `modules/X/README.md`.
    - Ces fichiers `.md` vivent dans ton repo, versionnés. Tu peux les consulter pendant que tu codes.
 
