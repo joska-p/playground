@@ -205,7 +205,14 @@ export class CpuSurface {
         return this;
     }
 
-    line(x1: number, y1: number, x2: number, y2: number, stroke?: CssColor, lineWidth?: PositiveNumber): this;
+    line(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
+    ): this;
     line(a: Point2D, b: Point2D, style?: DrawStyle): this;
     line(
         x1OrA: number | Point2D,
@@ -216,7 +223,14 @@ export class CpuSurface {
         lineWidth?: PositiveNumber
     ): this {
         if (typeof x1OrA === 'number') {
-            this.#strokeLine(x1OrA, y1OrB as number, x2OrStyle as number, y2 ?? 0, stroke, lineWidth);
+            this.#strokeLine(
+                x1OrA,
+                y1OrB as number,
+                x2OrStyle as number,
+                y2 ?? 0,
+                stroke,
+                lineWidth
+            );
         } else {
             const b = y1OrB as Point2D;
             const style = x2OrStyle as DrawStyle | undefined;

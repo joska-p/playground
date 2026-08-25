@@ -20,10 +20,22 @@ import {
     textUniforms
 } from './shapes/TextRasterizer';
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
-import { createSeconds, createNonNegativeSeconds, createCssColor, createDevicePixelRatio } from '../core/types';
+import {
+    createSeconds,
+    createNonNegativeSeconds,
+    createCssColor,
+    createDevicePixelRatio
+} from '../core/types';
 
 import type { Clock } from '../core/Clock';
-import type { CssColor, DevicePixelRatio, FontSize, NonNegativeSeconds, PositiveNumber, Seconds } from '../core/types';
+import type {
+    CssColor,
+    DevicePixelRatio,
+    FontSize,
+    NonNegativeSeconds,
+    PositiveNumber,
+    Seconds
+} from '../core/types';
 import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 
 export interface GpuSurfaceConfig {
@@ -218,7 +230,14 @@ export class GpuSurface {
         return this;
     }
 
-    line(x1: number, y1: number, x2: number, y2: number, stroke?: CssColor, lineWidth?: PositiveNumber): this;
+    line(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
+    ): this;
     line(a: Point2D, b: Point2D, style?: DrawStyle): this;
     line(
         x1OrA: number | Point2D,

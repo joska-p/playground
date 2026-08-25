@@ -105,12 +105,13 @@
 
 ---
 
-### 1. `src/cpu/CpuSurface.ts:59` — Constructor reads `window.devicePixelRatio` as fallback
+### 1. `src/cpu/CpuSurface.ts:59` — Constructor reads `window.devicePixelRatio` as fallback ✅ DONE
 
 - **File & Line:** `src/cpu/CpuSurface.ts:59`
 - **Current Code / Issue:** `this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);` — silently reads the global `window.devicePixelRatio` when no explicit `dpr` is passed. This is a hidden global environment read that makes the surface non-deterministic: same config produces different DPR on a Retina display vs a standard monitor.
 - **Fix Strategy:** Make `dpr` a required field in `CpuSurfaceConfig` (or inject a `() => number` accessor). The shell (app entry point) reads `window.devicePixelRatio` once and passes it in.
 - **Impact:** Makes `CpuSurface` construction 100% deterministic and testable without mocking `window`.
+- **Resolution:** DPR default resolved in `surfaceStack.ts` (`createCpuStack`/`createGpuStack`) via `dpr ?? createDevicePixelRatio(window.devicePixelRatio)`. Surface constructors keep a safety-net fallback to 1 but the stack always provides the real value. Both CPU and GPU surfaces are now deterministic from the factory edge.
 
 ---
 
@@ -123,21 +124,23 @@
 
 ---
 
-### 3. `src/cpu/CpuSurface.ts:292-303` — `#frameStep` mutates instance fields before subscribers run
+### 3. `src/cpu/CpuSurface.ts:292-303` — `#frameStep` mutates instance fields before subscribers run ✅ DONE
 
 - **File & Line:** `src/cpu/CpuSurface.ts:292-303`
 - **Current Code / Issue:** `#frameStep` writes `this.time`, `this.deltaTime`, `this.width`, `this.height`, then calls `this.#loop.runFrameSubscribers()` and `this.input.endFrame(frame)`. Subscribers see half-updated state: `width`/`height` are set, but `input` hasn't ended the frame yet. If a subscriber reads `input.wasKeyPressed`, it sees stale per-frame state.
 - **Fix Strategy:** Split the frame step into two phases: (1) stamp all state atomically (`time`, `deltaTime`, `width`, `height`), (2) fan out to subscribers, (3) `endFrame`. Currently phases 1 and 3 overlap. The ordering should be: stamp → subscribers → endFrame. The current code does stamp → subscribers → endFrame, but `width`/`height` are set mid-step rather than from a pre-computed snapshot.
 - **Impact:** Eliminates the window where a subscriber sees inconsistent frame state. Makes the update cycle a clean state-machine.
+- **Resolution:** Extracted `#stampFrameState(time, deltaTime)` helper. `#frameStep` now runs: `#resize → frameCount++ → #stampFrameState → applyCamera → runFrameSubscribers → endFrame`. All four state fields are written atomically before any subscriber runs.
 
 ---
 
-### 4. `src/gpu/GpuSurface.ts:87` — Constructor reads `window.devicePixelRatio` as fallback
+### 4. `src/gpu/GpuSurface.ts:87` — Constructor reads `window.devicePixelRatio` as fallback ✅ DONE
 
 - **File & Line:** `src/gpu/GpuSurface.ts:87`
 - **Current Code / Issue:** `this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);` — identical pattern to CPU item 1.
 - **Fix Strategy:** Same as CPU item 1: make `dpr` required in `GpuSurfaceConfig`, inject from app shell.
 - **Impact:** Makes `GpuSurface` construction deterministic.
+- **Resolution:** Same as CPU item 1 — resolved in `surfaceStack.ts`.
 
 ---
 
@@ -216,21 +219,23 @@
 
 ---
 
-### 1. `src/cpu/CpuSurface.ts:292-304` — `#frameStep` applies camera before stamping frame state
+### 1. `src/cpu/CpuSurface.ts:292-304` — `#frameStep` applies camera before stamping frame state ✅ DONE
 
 - **File & Line:** `src/cpu/CpuSurface.ts:292-304`
 - **Current Code / Issue:** The frame step calls `applyCamera()` at line 295, *then* stamps `this.time`, `this.deltaTime`, `this.width`, `this.height` at lines 297-300. Subscribers (line 302) see the new camera transform but the *previous* frame's time and dimensions. A subscriber that reads `surface.time` during its callback gets stale data for one frame. Additionally, `applyCamera()` uses `this.dpr` and `this.camera`, which are stable, but `this.width`/`this.height` are still zero on the very first frame (they're stamped after `applyCamera`).
 - **Proposed Refactoring:** Reorder to stamp all surface state *before* applying camera and fanning out to subscribers: `#resize → frameCount++ → stamp time/deltaTime/width/height → applyCamera → runFrameSubscribers → endFrame`. This makes `applyCamera` a pure function of the just-stamped state.
 - **Impact:** Ensures subscribers always see a fully consistent snapshot of the frame; `applyCamera` no longer runs against stale dimension state.
+- **Resolution:** Done. `#frameStep` now runs: resize → frameCount++ → #stampFrameState → applyCamera → runFrameSubscribers → endFrame.
 
 ---
 
-### 2. `src/cpu/CpuSurface.ts:292-304` — `#frameStep` mixes resize, state stamping, camera application, and subscriber fan-out
+### 2. `src/cpu/CpuSurface.ts:292-304` — `#frameStep` mixes resize, state stamping, camera application, and subscriber fan-out ✅ DONE
 
 - **File & Line:** `src/cpu/CpuSurface.ts:292-304`
 - **Current Code / Issue:** The method performs four distinct tasks: (1) `#resize()` — DOM measurement + canvas buffer sizing, (2) state mutation (`frameCount++`, `time`, `deltaTime`, `width`, `height`), (3) `applyCamera()` — Canvas2D transform setup, (4) subscriber fan-out + input endFrame. These are different abstraction levels — DOM I/O, mutable state mutation, Canvas2D API calls, and orchestration — crammed into one method body. Without section comments, the ordering contract is implicit.
 - **Proposed Refactoring:** Extract each phase into a named private helper: `#syncDimensions()`, `#stampFrameState(time, deltaTime)`, `#applyCamera()`. The `#frameStep` becomes a clear 5-line orchestration: `sync → stamp → camera → subscribers → endFrame`. Each helper has a single responsibility.
 - **Impact:** Enforces SLAP by isolating DOM I/O, state stamping, and Canvas2D calls. Makes the lifecycle ordering explicit and auditable.
+- **Resolution:** Extracted `#stampFrameState(time, deltaTime)`. `#resize()` already serves as the dimensions sync. `#frameStep` is now a 6-line orchestrator: `#resize → frameCount++ → #stampFrameState → applyCamera → runFrameSubscribers → endFrame`.
 
 ---
 
@@ -270,12 +275,13 @@
 
 ---
 
-### 7. `src/cpu/CpuSurface.ts:108-116` — `applyCamera` is public but only safe to call when canvas is sized
+### 7. `src/cpu/CpuSurface.ts:108-116` — `applyCamera` is public but only safe to call when canvas is sized ✅ DONE
 
 - **File & Line:** `src/cpu/CpuSurface.ts:108-116`
 - **Current Code / Issue:** `applyCamera()` reads `this.camera` and `this.dpr` and applies them to the canvas context. It's documented as "call manually before one-shot draws outside the loop." However, it depends on the canvas having been sized by `#resize()` first — if called before any resize (e.g., before the first frame), `this.dpr` may be valid but the canvas buffer dimensions are zero (lines 39-40: `width = 0; height = 0`). `context.scale(this.dpr, this.dpr)` works on a zero-dimension canvas, but the transform is meaningless.
 - **Proposed Refactoring:** Either: (a) introduce an `ActiveCanvasToken` that `#resize()` issues after sizing, and `applyCamera()` demands as proof, or (b) make `applyCamera` a no-op if `this.width === 0 || this.height === 0`.
 - **Impact:** Prevents the public API from being called in a lifecycle state where it produces no visible effect (zero-dimension canvas). Enforces the precondition at the type or runtime level.
+- **Resolution:** Applied option (b) — no-op guard `if (this.width === 0) return this;`. Simple, no token complexity.
 
 ---
 
@@ -290,16 +296,16 @@
 
 ### Summary — CPU Directory (Pass 3)
 
-| # | Location | Issue | Proposed Refactoring | Impact |
-|---|----------|-------|---------------------|--------|
-| 1 | `CpuSurface.ts:292-304` | Camera applied before state stamped | Reorder: stamp → camera → subscribers | Consistent frame snapshot |
-| 2 | `CpuSurface.ts:292-304` | `#frameStep` mixes 4 abstraction levels | Extract `#syncDimensions`, `#stampFrameState`, `#applyCamera` | SLAP: DOM I/O, state, rendering separated |
-| 3 | `CpuSurface.ts:360-385` | `#drawText` mixes config + render, no save/restore | Add save/restore, extract `#setFont`, `#strokeText`, `#fillText` | Isolate Canvas2D state mutations |
-| 4 | `CpuSurface.ts:317-330` | `#begin` conflates fill + stroke config | Split into `#beginPath`, `#applyFillStyle`, `#applyStrokeStyle` | Single-responsibility helpers |
-| 5 | `CpuSurface.ts:95-105` | Duplicated `setTransform(1,0,0,1,0,0)` | Extract `#resetTransform()` | Eliminate repeated boilerplate |
-| 6 | `CpuSurface.ts:128-285` | Overloads self-recursive for arg normalization | Extract `_drawRect`, `_drawCircle`, etc. as private drawing primitives | Separate API ergonomics from rendering |
-| 7 | `CpuSurface.ts:108-116` | `applyCamera` safe only after resize | Introduce `ActiveCanvasToken` or guard on `width > 0` | Prevent no-op lifecycle misuse |
-| 8 | `CpuSurface.ts:131,139,177,201` | Overloaded defaults of `0` for geometry params | Use `undefined` defaults, narrow inside branches | Eliminate degenerate value vectors |
+| # | Location | Issue | Proposed Refactoring | Impact | Status |
+|---|----------|-------|---------------------|--------|--------|
+| 1 | `CpuSurface.ts:292-304` | Camera applied before state stamped | Reorder: stamp → camera → subscribers | Consistent frame snapshot | ✅ DONE |
+| 2 | `CpuSurface.ts:292-304` | `#frameStep` mixes 4 abstraction levels | Extract `#syncDimensions`, `#stampFrameState`, `#applyCamera` | SLAP: DOM I/O, state, rendering separated | ✅ DONE |
+| 3 | `CpuSurface.ts:360-385` | `#drawText` mixes config + render, no save/restore | Add save/restore, extract `#setFont`, `#strokeText`, `#fillText` | Isolate Canvas2D state mutations | PENDING |
+| 4 | `CpuSurface.ts:317-330` | `#begin` conflates fill + stroke config | Split into `#beginPath`, `#applyFillStyle`, `#applyStrokeStyle` | Single-responsibility helpers | PENDING |
+| 5 | `CpuSurface.ts:95-105` | Duplicated `setTransform(1,0,0,1,0,0)` | Extract `#resetTransform()` | Eliminate repeated boilerplate | PENDING |
+| 6 | `CpuSurface.ts:128-285` | Overloads self-recursive for arg normalization | Extract `_drawRect`, `_drawCircle`, etc. as private drawing primitives | Separate API ergonomics from rendering | PENDING |
+| 7 | `CpuSurface.ts:108-116` | `applyCamera` safe only after resize | No-op guard if width === 0 | Prevent no-op lifecycle misuse | ✅ DONE |
+| 8 | `CpuSurface.ts:131,139,177,201` | Overloaded defaults of `0` for geometry params | Use `undefined` defaults, narrow inside branches | Eliminate degenerate value vectors | PENDING |
 
 ---
 
@@ -307,25 +313,25 @@
 
 Ordered from lowest-level leaves (math/utilities) up to high-level core modules. Each tier depends on the one before it.
 
-### Tier 0 — Shared Primitives (no dependencies)
+### Tier 0 — Shared Primitives (no dependencies) ✅ DONE
 1. `types.ts` — Introduce `CssColor`, `PositiveNumber`, `FontSize` branded types (CPU Pass 1 #1-3)
 2. `types.ts` — Make `Color` brand shared between CPU and GPU (CPU Pass 1 #1)
 3. `core/types.ts` — Add `CanvasDimension`, `DevicePixelRatio` branded types (CPU Pass 1 #4-5)
 
-### Tier 1 — State Management (depends on Tier 0)
+### Tier 1 — State Management (depends on Tier 0) ✅ DONE
 4. `CpuSurface.ts` — Introduce `CanvasDimension` for `#resize()` (CPU Pass 1 #8)
 5. `CpuSurface.ts` — Apply `DevicePixelRatio` brand to `dpr` (CPU Pass 1 #4)
 6. `CpuSurface.ts` — Remove `window.devicePixelRatio` fallback; require `dpr` in config (CPU Pass 2 #1)
 7. `CpuSurface.ts` — Apply `PositiveNumber` to `rect`, `circle` params (CPU Pass 1 #6-7)
 8. `CpuSurface.ts` — Apply `FontSize` to `#drawText` (CPU Pass 1 #9)
 
-### Tier 2 — Frame Lifecycle (depends on Tier 1)
+### Tier 2 — Frame Lifecycle (depends on Tier 1) ✅ DONE
 9. `CpuSurface.ts` — Reorder `#frameStep`: stamp state before `applyCamera` (CPU Pass 3 #1)
 10. `CpuSurface.ts` — Extract `#syncDimensions`, `#stampFrameState`, `#applyCamera` helpers (CPU Pass 3 #2)
 11. `CpuSurface.ts` — Add `ActiveCanvasToken` or guard for `applyCamera` (CPU Pass 3 #7)
 12. `CpuSurface.ts` — Atomic state stamping: ensure subscribers see consistent frame (CPU Pass 2 #3)
 
-### Tier 3 — Drawing Primitives (depends on Tier 2)
+### Tier 3 — Drawing Primitives (depends on Tier 2) ← NEXT
 13. `CpuSurface.ts` — Split `#begin` into `#beginPath`, `#applyFillStyle`, `#applyStrokeStyle` (CPU Pass 3 #4)
 14. `CpuSurface.ts` — Extract `#resetTransform()` helper (CPU Pass 3 #5)
 15. `CpuSurface.ts` — Add `save()`/`restore()` to `#drawText`, extract `#setFont`, `#strokeText`, `#fillText` (CPU Pass 3 #3)

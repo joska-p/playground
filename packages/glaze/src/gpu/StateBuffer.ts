@@ -1,5 +1,5 @@
 import { createProgram, type Program } from './shader/Program';
-
+import { createBufferDimension, createStateData, type StateData } from '../core/types';
 import type { UniformValue } from './shader/compileProgram';
 
 /** Ping-pong render targets; `swap()` exchanges the read and write roles. */
@@ -59,12 +59,12 @@ export class StateBufferTargets {
         this.#pingPong = 1 - this.#pingPong;
     }
 
-    init(data: Uint8Array): void {
-        if (data.length !== this.#currentWidth * this.#currentHeight) {
-            throw new Error(
-                `Glaze: StateBuffer init data length ${String(data.length)} does not match ${String(this.#currentWidth)}x${String(this.#currentHeight)} cells`
-            );
-        }
+    init(data: Uint8Array | StateData): void {
+        createStateData(
+            data,
+            createBufferDimension(this.#currentWidth),
+            createBufferDimension(this.#currentHeight)
+        );
 
         const rgba = new Uint8Array(data.length * 4);
 

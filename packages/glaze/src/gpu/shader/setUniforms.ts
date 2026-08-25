@@ -92,26 +92,6 @@ export function setUniforms(
     }
 }
 
-const U_RESOLUTION = [0, 0];
-const U_MOUSE = [0, 1];
-const U_CAMERA = [0, 0, 1];
-
-/** One object + three arrays for the whole process; `createStandardUniformValues` rewrites them. */
-const STANDARD_UNIFORM_VALUES: Record<string, UniformValue> = {
-    u_resolution: U_RESOLUTION,
-    u_aspect: 0,
-    u_mouse: U_MOUSE,
-    u_camera: U_CAMERA,
-    u_dpr: 0,
-    u_time: 0,
-    u_clockTime: 0
-};
-
-/**
- * Stamps the standard per-frame uniforms (`u_resolution`, `u_aspect`, `u_mouse`, `u_camera`,
- * `u_dpr`, `u_time`, `u_clockTime`) into a shared object — zero allocation per frame. Consume it
- * synchronously: the next call overwrites it. Omitted inputs fall back to neutral defaults.
- */
 export function createStandardUniformValues(
     width: number,
     height: number,
@@ -121,31 +101,24 @@ export function createStandardUniformValues(
     time?: number,
     clockTime?: number
 ): Record<string, UniformValue> {
-    U_RESOLUTION[0] = width * dpr;
-    U_RESOLUTION[1] = height * dpr;
-    STANDARD_UNIFORM_VALUES['u_aspect'] = height > 0 ? width / height : 0;
+    const u_resolution = [width * dpr, width * dpr >= 0 ? height * dpr : 0]; // keep array
+    const u_mouse = [
+        mouse === undefined ? 0 : width > 0 ? mouse.x / width : 0,
+        mouse === undefined ? 1 : height > 0 ? 1 - mouse.y / height : 1
+    ];
+    const u_camera = [
+        camera === undefined ? 0 : camera.x,
+        camera === undefined ? 0 : camera.y,
+        camera === undefined ? 1 : camera.zoom
+    ];
 
-    if (mouse === undefined) {
-        U_MOUSE[0] = 0;
-        U_MOUSE[1] = 1;
-    } else {
-        U_MOUSE[0] = width > 0 ? mouse.x / width : 0;
-        U_MOUSE[1] = 1 - mouse.y / height;
-    }
-
-    if (camera === undefined) {
-        U_CAMERA[0] = 0;
-        U_CAMERA[1] = 0;
-        U_CAMERA[2] = 1;
-    } else {
-        U_CAMERA[0] = camera.x;
-        U_CAMERA[1] = camera.y;
-        U_CAMERA[2] = camera.zoom;
-    }
-
-    STANDARD_UNIFORM_VALUES['u_dpr'] = dpr;
-    STANDARD_UNIFORM_VALUES['u_time'] = time ?? 0;
-    STANDARD_UNIFORM_VALUES['u_clockTime'] = clockTime ?? time ?? 0;
-
-    return STANDARD_UNIFORM_VALUES;
+    return {
+        u_resolution,
+        u_aspect: height > 0 ? width / height : 0,
+        u_mouse,
+        u_camera,
+        u_dpr: dpr,
+        u_time: time ?? 0,
+        u_clockTime: clockTime ?? time ?? 0
+    };
 }

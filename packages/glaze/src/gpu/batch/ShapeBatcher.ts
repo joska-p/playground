@@ -15,6 +15,7 @@ import { colorArray } from '../shapes/color';
 
 import type { Camera, Point2D } from '../../core/Camera';
 import type { DrawStyle, Rect } from '../../cpu/shapes/types';
+import { createLineSegment, createNormalizedVec2 } from '../../core/types';
 
 const VERTEX_STRIDE = 6; // x, y, r, g, b, a
 const INITIAL_CAPACITY = 4096;
@@ -423,29 +424,34 @@ export class ShapeBatcher {
         width: number,
         color: readonly [number, number, number, number]
     ): void {
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
+        const segment = createLineSegment(a, b);
+        const dx = segment.b.x - segment.a.x;
+        const dy = segment.b.y - segment.a.y;
         const length = Math.hypot(dx, dy);
 
         if (length === 0) return;
 
-        const ux = dx / length;
-        const uy = dy / length;
-        const nx = -uy;
-        const ny = ux;
+        const rawUx = dx / length;
+        const rawUy = dy / length;
+        const uxVec = createNormalizedVec2(rawUx, rawUy);
+        const ux = uxVec.x;
+        const uy = uxVec.y;
+        const nxVec = createNormalizedVec2(-uy, ux);
+        const nx = nxVec.x;
+        const ny = nxVec.y;
         const half = width / 2;
         const segments = capSegments(width, this.#camera.zoom);
 
         this.#ensureCapacity(lineVertices(width, this.#camera.zoom));
         this.#pushQuad(
-            { x: a.x + nx * half, y: a.y + ny * half },
-            { x: a.x - nx * half, y: a.y - ny * half },
-            { x: b.x - nx * half, y: b.y - ny * half },
-            { x: b.x + nx * half, y: b.y + ny * half },
+            { x: segment.a.x + nx * half, y: segment.a.y + ny * half },
+            { x: segment.a.x - nx * half, y: segment.a.y - ny * half },
+            { x: segment.b.x - nx * half, y: segment.b.y - ny * half },
+            { x: segment.b.x + nx * half, y: segment.b.y + ny * half },
             color
         );
-        this.#pushCap(a, -ux, -uy, nx, ny, half, segments, color);
-        this.#pushCap(b, ux, uy, nx, ny, half, segments, color);
+        this.#pushCap(segment.a, -ux, -uy, nx, ny, half, segments, color);
+        this.#pushCap(segment.b, ux, uy, nx, ny, half, segments, color);
     }
 
     #setBatchProjection(): void {

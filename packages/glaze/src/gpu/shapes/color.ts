@@ -184,7 +184,7 @@ export function parseColor(color: Color): RGBA {
         if (viaCanvas) return viaCanvas;
     }
 
-    return { r: 1, g: 0, b: 1, a: 1 };
+    throw new Error(`Glaze: unrecognized color format "${String(color)}"`);
 }
 
 export function colorArray(color: Color): [number, number, number, number] {

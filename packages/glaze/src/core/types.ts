@@ -1,3 +1,5 @@
+import type { Point2D } from './Camera';
+
 export type Brand<T, B extends string> = T & { readonly __brand: B };
 
 export type ZoomFactor = Brand<number, 'ZoomFactor'>;
@@ -86,11 +88,65 @@ export function secondsToMs(value: number): Milliseconds {
 // Shapes & rendering brands
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Shapes & rendering brands
+// ---------------------------------------------------------------------------
+
 export type CssColor = Brand<string, 'CssColor'>;
 export type PositiveNumber = Brand<number, 'PositiveNumber'>;
 export type FontSize = Brand<number, 'FontSize'>;
 export type CanvasDimension = Brand<number, 'CanvasDimension'>;
+export type BufferDimension = Brand<number, 'BufferDimension'>;
 export type DevicePixelRatio = Brand<number, 'DevicePixelRatio'>;
+export type StateData = Brand<Uint8Array, 'StateData'>;
+export type NormalizedVec2 = Brand<{ readonly x: number; readonly y: number }, 'NormalizedVec2'>;
+export type LineSegment = Brand<{ readonly a: Point2D; readonly b: Point2D }, 'LineSegment'>;
+
+export function createNormalizedVec2(x: number, y: number): NormalizedVec2 {
+    const lenSq = x * x + y * y;
+    if (!Number.isFinite(lenSq) || Math.abs(lenSq - 1) > 1e-4) {
+        throw new Error(
+            `Glaze: vector must be normalized (x² + y² ≈ 1), received (${String(x)}, ${String(y)}) with length² ${String(lenSq)}`
+        );
+    }
+
+    return { x, y } as NormalizedVec2;
+}
+
+export function createLineSegment(a: Point2D, b: Point2D): LineSegment {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    if (Math.hypot(dx, dy) === 0) {
+        throw new Error(
+            `Glaze: line segment endpoints must be distinct, received a=(${String(a.x)}, ${String(a.y)}) and b=(${String(b.x)}, ${String(b.y)})`
+        );
+    }
+
+    return { a, b } as LineSegment;
+}
+
+export function createBufferDimension(value: number): BufferDimension {
+    if (!Number.isFinite(value) || value < 1) {
+        throw new Error(`Glaze: buffer dimension must be >= 1, received ${String(value)}`);
+    }
+
+    return value as BufferDimension;
+}
+
+export function createStateData(
+    data: Uint8Array,
+    width: BufferDimension,
+    height: BufferDimension
+): StateData {
+    const expectedLength = width * height;
+    if (data.length !== expectedLength) {
+        throw new Error(
+            `Glaze: StateData length ${String(data.length)} does not match ${String(width)}x${String(height)} cells`
+        );
+    }
+
+    return data as StateData;
+}
 
 export function createCssColor(value: string): CssColor {
     if (value.length === 0) {

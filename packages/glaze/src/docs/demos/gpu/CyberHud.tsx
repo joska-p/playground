@@ -62,14 +62,45 @@ export function CyberHud() {
             .line(p.x + 6, p.y, p.x + 18, p.y, createCssColor('#22d3ee'), createPositiveNumber(2))
             .line(p.x, p.y - 18, p.x, p.y - 6, createCssColor('#22d3ee'), createPositiveNumber(2))
             .line(p.x, p.y + 6, p.x, p.y + 18, createCssColor('#22d3ee'), createPositiveNumber(2))
-            .circle(p.x, p.y, createPositiveNumber(24), undefined, createCssColor('#22d3ee'), createPositiveNumber(1.5));
+            .circle(
+                p.x,
+                p.y,
+                createPositiveNumber(24),
+                undefined,
+                createCssColor('#22d3ee'),
+                createPositiveNumber(1.5)
+            );
 
         surface
-            .rect(24, 24, createPositiveNumber(220), createPositiveNumber(14), createCssColor('#1e293b'))
-            .rect(26, 26, createPositiveNumber(216 * hull), createPositiveNumber(10), createCssColor('#34d399'))
+            .rect(
+                24,
+                24,
+                createPositiveNumber(220),
+                createPositiveNumber(14),
+                createCssColor('#1e293b')
+            )
+            .rect(
+                26,
+                26,
+                createPositiveNumber(216 * hull),
+                createPositiveNumber(10),
+                createCssColor('#34d399')
+            )
             .text('HULL', 26, 20, createCssColor('#34d399'), createFontSize(10))
-            .rect(24, 46, createPositiveNumber(220), createPositiveNumber(14), createCssColor('#1e293b'))
-            .rect(26, 48, createPositiveNumber(216 * shield), createPositiveNumber(10), createCssColor('#818cf8'))
+            .rect(
+                24,
+                46,
+                createPositiveNumber(220),
+                createPositiveNumber(14),
+                createCssColor('#1e293b')
+            )
+            .rect(
+                26,
+                48,
+                createPositiveNumber(216 * shield),
+                createPositiveNumber(10),
+                createCssColor('#818cf8')
+            )
             .text('SHIELD', 26, 42, createCssColor('#818cf8'), createFontSize(10))
             .text(
                 `SECTOR ${String(Math.round(p.x / 48))}:${String(Math.round(p.y / 48))}`,
@@ -78,7 +109,13 @@ export function CyberHud() {
                 createCssColor('#e2e8f0'),
                 createFontSize(11)
             )
-            .text('drag to pan · scroll to zoom', 26, 306, createCssColor('#475569'), createFontSize(10));
+            .text(
+                'drag to pan · scroll to zoom',
+                26,
+                306,
+                createCssColor('#475569'),
+                createFontSize(10)
+            );
     };
 
     return (

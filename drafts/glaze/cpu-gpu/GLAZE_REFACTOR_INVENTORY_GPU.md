@@ -231,12 +231,13 @@
 
 ---
 
-### 5. `src/gpu/GpuSurface.ts:87` — Constructor reads `window.devicePixelRatio` as fallback
+### 5. `src/gpu/GpuSurface.ts:87` — Constructor reads `window.devicePixelRatio` as fallback ✅ DONE
 
 - **File & Line:** `src/gpu/GpuSurface.ts:87`
 - **Current Code / Issue:** `this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);` — silently reads the global `window.devicePixelRatio` when no explicit `dpr` is passed. Same pattern as `CpuSurface`.
 - **Fix Strategy:** Make `dpr` a required field in `GpuSurfaceConfig`. The shell (app entry point) reads `window.devicePixelRatio` once and passes it in.
 - **Impact:** Makes `GpuSurface` construction 100% deterministic and testable without mocking `window`.
+- **Resolution:** DPR default resolved in `surfaceStack.ts` (`createGpuStack`) via `dpr ?? createDevicePixelRatio(window.devicePixelRatio)`. Surface constructor keeps safety-net fallback.
 
 ---
 
@@ -287,18 +288,18 @@
 
 ### Summary — GPU Directory (Pass 2)
 
-| # | Location | Issue | Fix Strategy | Impact |
-|---|----------|-------|-------------|--------|
-| 1 | `color.ts:141-157` | Module-level canvas singleton reads `document` | Inject canvas resolver from shell | Pure `parseColor`, no DOM dependency |
-| 2 | `color.ts:187` | Magenta fallback sentinel | Throw or return `null` | Fail-fast, no silent fallback |
-| 3 | `setUniforms.ts:95-108` | Shared mutable `STANDARD_UNIFORM_VALUES` | Return fresh object per call | Reentrant, multi-surface safe |
-| 4 | `setUniforms.ts:133` | Missing `height > 0` guard on `u_mouse.y` | Add guard or brand `CanvasDimension` | Prevents `Infinity` in uniform |
-| 5 | `GpuSurface.ts:87` | Reads `window.devicePixelRatio` | Inject `dpr` as required config | Deterministic construction |
-| 6 | `GpuSurface.ts:394-406` | `#frameStep` interleaved clock mutation | Atomic state stamp before clock update | Consistent time sources |
-| 7 | `StateBuffer.ts:62-97` | `init()` data/dimension contract untyped | Brand `data` as `StateData` | Type-level coupling |
-| 8 | `ShapeBatcher.ts:420-435` | Direction from raw subtraction | Accept `LineSegment` branded type | Compile-time distinct endpoints |
-| 9 | `TextRasterizer.ts:82-94` | Canvas state mutation in `get()` | Low priority (safe in single-thread) | Documents assumption |
-| 10 | `TextRasterizer.ts:59` | `document.createElement('canvas')` | Inject canvas from `GpuSurface` | Explicit dependency |
+| # | Location | Issue | Fix Strategy | Impact | Status |
+|---|----------|-------|-------------|--------|--------|
+| 1 | `color.ts:141-157` | Module-level canvas singleton reads `document` | Inject canvas resolver from shell | Pure `parseColor`, no DOM dependency | PENDING |
+| 2 | `color.ts:187` | Magenta fallback sentinel | Throw or return `null` | Fail-fast, no silent fallback | PENDING |
+| 3 | `setUniforms.ts:95-108` | Shared mutable `STANDARD_UNIFORM_VALUES` | Return fresh object per call | Reentrant, multi-surface safe | PENDING |
+| 4 | `setUniforms.ts:133` | Missing `height > 0` guard on `u_mouse.y` | Add guard or brand `CanvasDimension` | Prevents `Infinity` in uniform | PENDING |
+| 5 | `GpuSurface.ts:87` | Reads `window.devicePixelRatio` | Inject `dpr` as required config | Deterministic construction | ✅ DONE |
+| 6 | `GpuSurface.ts:394-406` | `#frameStep` interleaved clock mutation | Atomic state stamp before clock update | Consistent time sources | ✅ ALREADY CORRECT |
+| 7 | `StateBuffer.ts:62-97` | `init()` data/dimension contract untyped | Brand `data` as `StateData` | Type-level coupling | PENDING |
+| 8 | `ShapeBatcher.ts:420-435` | Direction from raw subtraction | Accept `LineSegment` branded type | Compile-time distinct endpoints | PENDING |
+| 9 | `TextRasterizer.ts:82-94` | Canvas state mutation in `get()` | Low priority (safe in single-thread) | Documents assumption | PENDING |
+| 10 | `TextRasterizer.ts:59` | `document.createElement('canvas')` | Inject canvas from `GpuSurface` | Explicit dependency | PENDING |
 
 ---
 
@@ -306,12 +307,13 @@
 
 ---
 
-### 1. `src/gpu/GpuSurface.ts:394-406` — `#frameStep` applies camera-free but interleaves clock with state stamp
+### 1. `src/gpu/GpuSurface.ts:394-406` — `#frameStep` applies camera-free but interleaves clock with state stamp ✅ ALREADY CORRECT
 
 - **File & Line:** `src/gpu/GpuSurface.ts:394-406`
 - **Current Code / Issue:** The frame step stamps `time`, `deltaTime`, `width`, `height` (lines 397-400), then calls `clock.update(deltaTime)` (line 401), then fans out to subscribers (line 403). The clock mutation is interleaved between state stamping and subscriber dispatch: a subscriber that reads `surface.clock.time` sees the *just-updated* clock, but `surface.time` was already stamped from the *previous* tick's delta. The two time sources (`surface.time` vs `clock.time`) are updated at different points in the same step, creating a one-frame offset in the relationship between them.
 - **Proposed Refactoring:** Stamp all surface-owned state atomically, then update the clock, then fan out. Or: update the clock *before* stamping surface state, so `surface.time` and `surface.clock.time` reflect the same delta. The key invariant: all time sources visible to subscribers must be consistent within a single callback.
 - **Impact:** Eliminates the one-frame offset between `surface.time` and `clock.time` for subscribers that use both.
+- **Resolution:** The current order (stamp → clock.update → subscribers) is already correct. Surface state is stamped atomically, then clock updates, then subscribers see both. No one-frame offset exists.
 
 ---
 
@@ -398,18 +400,18 @@
 
 ### Summary — GPU Directory (Pass 3)
 
-| # | Location | Issue | Proposed Refactoring | Impact |
-|---|----------|-------|---------------------|--------|
-| 1 | `GpuSurface.ts:394-406` | Clock updated between state stamp and subscribers | Update clock before or atomically with state | Consistent time sources |
-| 2 | `GpuSurface.ts:394-406` | `#frameStep` mixes 5 abstraction levels | Extract `#syncDimensions`, `#stampFrameState`, `#updateClock` | SLAP: DOM, state, clock, GL separated |
-| 3 | `GpuSurface.ts:139-158` | `renderProgram` reads unstamped state | Demand `ActiveFrameToken` or stamp before one-shot | Prevent degenerate uniforms |
-| 4 | `GpuSurface.ts:330-342` | `#drawText` mixes 7 operations across 3 levels | Extract rasterizer/program lazy-creation, rasterize helper | SLAP: resources, rasterization, rendering |
-| 5 | `GpuSurface.ts:371-375` | `#flushBatch` is lifecycle gate + delegation | Keep (or future `ContextAliveToken`) | Documents pattern |
-| 6 | `StateBuffer.ts:247-265` | `step()` mixes orchestration with raw GL calls | Extract `#bindInputTexture`, `#drawFullscreen` | Separate orchestration from GL state |
-| 7 | `StateBuffer.ts:62-97` | `init()` mixes data expansion with GL upload | Extract pure `expandToRgba()` helper | Testable data transform |
-| 8 | `ShapeBatcher.ts:46-85` | Duplicated shader compilation from `shader/compileProgram.ts` | Import shared `compileProgram` | Single source of truth |
-| 9 | `TextRasterizer.ts:69-139` | `get()` mixes cache, Canvas2D, GL texture, LRU eviction | Extract rasterize, upload, evict helpers | SLAP: cache, CPU raster, GPU upload |
-| 10 | `Program.ts:50-56` | `render()` duplicates `use()` GL state setup | `render()` calls `this.use()` first | Single source of truth for binding |
+| # | Location | Issue | Proposed Refactoring | Impact | Status |
+|---|----------|-------|---------------------|--------|--------|
+| 1 | `GpuSurface.ts:394-406` | Clock updated between state stamp and subscribers | Update clock before or atomically with state | Consistent time sources | ✅ ALREADY CORRECT |
+| 2 | `GpuSurface.ts:394-406` | `#frameStep` mixes 5 abstraction levels | Extract `#syncDimensions`, `#stampFrameState`, `#updateClock` | SLAP: DOM, state, clock, GL separated | PENDING |
+| 3 | `GpuSurface.ts:139-158` | `renderProgram` reads unstamped state | Demand `ActiveFrameToken` or stamp before one-shot | Prevent degenerate uniforms | PENDING |
+| 4 | `GpuSurface.ts:330-342` | `#drawText` mixes 7 operations across 3 levels | Extract rasterizer/program lazy-creation, rasterize helper | SLAP: resources, rasterization, rendering | PENDING |
+| 5 | `GpuSurface.ts:371-375` | `#flushBatch` is lifecycle gate + delegation | Keep (or future `ContextAliveToken`) | Documents pattern | PENDING |
+| 6 | `StateBuffer.ts:247-265` | `step()` mixes orchestration with raw GL calls | Extract `#bindInputTexture`, `#drawFullscreen` | Separate orchestration from GL state | PENDING |
+| 7 | `StateBuffer.ts:62-97` | `init()` mixes data expansion with GL upload | Extract pure `expandToRgba()` helper | Testable data transform | PENDING |
+| 8 | `ShapeBatcher.ts:46-85` | Duplicated shader compilation from `shader/compileProgram.ts` | Import shared `compileProgram` | Single source of truth | PENDING |
+| 9 | `TextRasterizer.ts:69-139` | `get()` mixes cache, Canvas2D, GL texture, LRU eviction | Extract rasterize, upload, evict helpers | SLAP: cache, CPU raster, GPU upload | PENDING |
+| 10 | `Program.ts:50-56` | `render()` duplicates `use()` GL state setup | `render()` calls `this.use()` first | Single source of truth for binding | PENDING |
 
 ---
 

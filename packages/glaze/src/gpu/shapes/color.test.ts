@@ -5,11 +5,21 @@ import { createCssColor } from '../../core/types';
 
 describe('parseColor', () => {
     it('parses #rrggbb', () => {
-        expect(parseColor(createCssColor('#ff8000'))).toEqual({ r: 1, g: 0.5019607843137255, b: 0, a: 1 });
+        expect(parseColor(createCssColor('#ff8000'))).toEqual({
+            r: 1,
+            g: 0.5019607843137255,
+            b: 0,
+            a: 1
+        });
     });
 
     it('parses #rgb shorthand', () => {
-        expect(parseColor(createCssColor('#f80'))).toEqual({ r: 1, g: 0.5333333333333333, b: 0, a: 1 });
+        expect(parseColor(createCssColor('#f80'))).toEqual({
+            r: 1,
+            g: 0.5333333333333333,
+            b: 0,
+            a: 1
+        });
     });
 
     it('parses #rrggbbaa with alpha', () => {
@@ -51,5 +61,11 @@ describe('parseColor', () => {
 
     it('colorArray returns a flat rgba tuple', () => {
         expect(colorArray(createCssColor('#ff0000'))).toEqual([1, 0, 0, 1]);
+    });
+
+    it('throws on invalid color format instead of silent magenta fallback', () => {
+        expect(() => parseColor(createCssColor('not-a-color'))).toThrowError(
+            /unrecognized color format/
+        );
     });
 });
