@@ -98,3 +98,114 @@
 | 7 | `CpuSurface.ts:119-121` | `w/h: number` | `PositiveNumber` | Degenerate rect dimensions |
 | 8 | `CpuSurface.ts:307-308` | `Math.max(1, ...)` runtime | `CanvasDimension` factory | Runtime clamping |
 | 9 | `CpuSurface.ts:369` | `fontSize ?? 16` | `FontSize` | User-supplied invalid size |
+
+---
+
+## Section 2: Pass 2 — Dishonesty & Side-Effects Isolation
+
+---
+
+### 1. `src/cpu/CpuSurface.ts:59` — Constructor reads `window.devicePixelRatio` as fallback
+
+- **File & Line:** `src/cpu/CpuSurface.ts:59`
+- **Current Code / Issue:** `this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);` — silently reads the global `window.devicePixelRatio` when no explicit `dpr` is passed. This is a hidden global environment read that makes the surface non-deterministic: same config produces different DPR on a Retina display vs a standard monitor.
+- **Fix Strategy:** Make `dpr` a required field in `CpuSurfaceConfig` (or inject a `() => number` accessor). The shell (app entry point) reads `window.devicePixelRatio` once and passes it in.
+- **Impact:** Makes `CpuSurface` construction 100% deterministic and testable without mocking `window`.
+
+---
+
+### 2. `src/cpu/CpuSurface.ts:52` — Constructor reads `canvas.getContext('2d')` from injected DOM element
+
+- **File & Line:** `src/cpu/CpuSurface.ts:52`
+- **Current Code / Issue:** `config.canvas.getContext('2d')` — while the canvas is injected via config, the context acquisition is a side effect that can fail (`null` return). The error is thrown, but the pattern mixes DI with imperative DOM queries.
+- **Fix Strategy:** Already acceptable for an edge-boundary constructor (the canvas is injected). No change needed — noted for completeness.
+- **Impact:** Low. The canvas is the app shell's responsibility; this is a valid edge boundary.
+
+---
+
+### 3. `src/cpu/CpuSurface.ts:292-303` — `#frameStep` mutates instance fields before subscribers run
+
+- **File & Line:** `src/cpu/CpuSurface.ts:292-303`
+- **Current Code / Issue:** `#frameStep` writes `this.time`, `this.deltaTime`, `this.width`, `this.height`, then calls `this.#loop.runFrameSubscribers()` and `this.input.endFrame(frame)`. Subscribers see half-updated state: `width`/`height` are set, but `input` hasn't ended the frame yet. If a subscriber reads `input.wasKeyPressed`, it sees stale per-frame state.
+- **Fix Strategy:** Split the frame step into two phases: (1) stamp all state atomically (`time`, `deltaTime`, `width`, `height`), (2) fan out to subscribers, (3) `endFrame`. Currently phases 1 and 3 overlap. The ordering should be: stamp → subscribers → endFrame. The current code does stamp → subscribers → endFrame, but `width`/`height` are set mid-step rather than from a pre-computed snapshot.
+- **Impact:** Eliminates the window where a subscriber sees inconsistent frame state. Makes the update cycle a clean state-machine.
+
+---
+
+### 4. `src/gpu/GpuSurface.ts:87` — Constructor reads `window.devicePixelRatio` as fallback
+
+- **File & Line:** `src/gpu/GpuSurface.ts:87`
+- **Current Code / Issue:** `this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);` — identical pattern to CPU item 1.
+- **Fix Strategy:** Same as CPU item 1: make `dpr` required in `GpuSurfaceConfig`, inject from app shell.
+- **Impact:** Makes `GpuSurface` construction deterministic.
+
+---
+
+### 5. `src/gpu/GpuSurface.ts:394-406` — `#frameStep` mutates instance fields with interleaved side effects
+
+- **File & Line:** `src/gpu/GpuSurface.ts:394-406`
+- **Current Code / Issue:** `#frameStep` sets `this.time`, `this.deltaTime`, `this.width`, `this.height`, then calls `this.clock.update(deltaTime)` before subscribers run. The clock mutation is a side effect interleaved with state stamping. If a subscriber reads `this.clock.time`, it sees the updated clock — but `this.time` (surface time) was already stamped. The two time sources are updated at different points in the step.
+- **Fix Strategy:** Stamp all surface state atomically, then update the clock, then fan out. Or: stamp surface time and clock time in one batch before subscribers.
+- **Impact:** Ensures `surface.time` and `surface.clock.time` are consistent within a single frame callback.
+
+---
+
+### 6. `src/gpu/shapes/color.ts:141-157` — Module-level `canvasContext` singleton reads `document`
+
+- **File & Line:** `src/gpu/shapes/color.ts:141-157`
+- **Current Code / Issue:** `let canvasContext: CanvasRenderingContext2D | null = null;` at module scope. `parseViaCanvas` lazily creates a hidden `<canvas>` via `document.createElement('canvas')` and caches the 2D context. This is: (a) a hidden global state read (`document`), (b) non-deterministic (DOM must exist), (c) a shared mutable singleton across all callers. Two concurrent `parseColor` calls share the same hidden canvas.
+- **Fix Strategy:** Inject a `CanvasColorResolver` interface from the app shell: `{ resolve(name: string): string | null }`. The shell creates the canvas, passes it in. `parseColor` receives it as a parameter or through a factory. Alternatively, move `parseViaCanvas` to the edge (app shell) and have `parseColor` only handle hex/rgb/hsl/named.
+- **Impact:** Eliminates the hidden DOM dependency; `parseColor` becomes pure for hex/rgb/hsl/named colors. Canvas-based fallback is an explicit edge concern.
+
+---
+
+### 7. `src/gpu/shader/setUniforms.ts:95-108` — Shared mutable `STANDARD_UNIFORM_VALUES` singleton
+
+- **File & Line:** `src/gpu/shader/setUniforms.ts:95-108`
+- **Current Code / Issue:** `U_RESOLUTION`, `U_MOUSE`, `U_CAMERA` are module-level arrays mutated in-place by `createStandardUniformValues`. The function is called once per frame per surface. If two `GpuSurface` instances exist and both call `createStandardUniformValues` in the same microtask (unlikely but possible), they overwrite each other's values. The shared object means the previous call's values are lost.
+- **Fix Strategy:** Return a fresh object `{ u_resolution: [w*dpr, h*dpr], u_aspect: ..., ... }` per call. The allocation is negligible (one object + three small arrays per frame) and eliminates the shared-mutation hazard. If zero-allocation is critical, use a `FrameLocalUniforms` class owned by each surface.
+- **Impact:** Makes `createStandardUniformValues` reentrant and safe for multiple surfaces. Removes the hidden "last writer wins" race.
+
+---
+
+### 8. `src/gpu/shader/setUniforms.ts:133` — Missing `height > 0` guard on `u_mouse.y`
+
+- **File & Line:** `src/gpu/shader/setUniforms.ts:133`
+- **Current Code / Issue:** `U_MOUSE[1] = 1 - mouse.y / height;` — no guard against `height === 0` (unlike line 132 which guards `width > 0` for `U_MOUSE[0]`). If `height` is 0, `u_mouse.y` becomes `Infinity`.
+- **Fix Strategy:** Add the same guard: `U_MOUSE[1] = height > 0 ? 1 - mouse.y / height : 0;`. Or (better) if `height` is branded `CanvasDimension` (≥ 1), the guard is unnecessary.
+- **Impact:** Prevents `Infinity` in `u_mouse.y` uniform, which would corrupt fragment shader calculations.
+
+---
+
+### 9. `src/gpu/batch/ShapeBatcher.ts:420-448` — `#pushLine` computes direction from raw `Point2D` subtraction
+
+- **File & Line:** `src/gpu/batch/ShapeBatcher.ts:426-435`
+- **Current Code / Issue:** `const dx = b.x - a.x; const dy = b.y - a.y; const length = Math.hypot(dx, dy); if (length === 0) return; const ux = dx / length; const uy = dy / length;` — the direction vector is computed from arbitrary points. The `length === 0` guard prevents division-by-zero, but the function accepts any two `Point2D`s with no compile-time guarantee they're distinct. The direction vectors `ux/uy` and `nx/ny` are bare numbers — nothing guarantees they're unit-length after this function.
+- **Fix Strategy:** Accept a `LineSegment` branded type (pair of distinct points) constructed via `createLineSegment(a, b)` that throws if distance < epsilon. This moves the zero-length guard from runtime to construction time.
+- **Impact:** Eliminates the `length === 0` early-return and makes the "distinct endpoints" invariant a compile-time property.
+
+---
+
+### 10. `src/gpu/shapes/color.ts:187` — `parseColor` returns magenta fallback (silent non-determinism)
+
+- **File & Line:** `src/gpu/shapes/color.ts:187`
+- **Current Code / Issue:** Unrecognized strings resolve to `{ r: 1, g: 0, b: 1, a: 1 }` (magenta) — a sentinel value that silently propagates. This is "dishonest" because the function promises to parse *any* string but actually returns a magic fallback for invalid input.
+- **Fix Strategy:** Throw on unrecognized input (fail-fast), or return `null` and let callers decide the fallback. The magenta sentinel hides typos like `"bluw"` → hot pink.
+- **Impact:** Makes `parseColor` honest: it either returns a valid RGBA or throws. Eliminates the "magenta bug" class.
+
+---
+
+### Summary — CPU Directory (Pass 2)
+
+| # | Location | Issue | Fix Strategy | Impact |
+|---|----------|-------|-------------|--------|
+| 1 | `CpuSurface.ts:59` | Reads `window.devicePixelRatio` | Inject `dpr` as required config | Deterministic construction |
+| 2 | `CpuSurface.ts:52` | `getContext('2d')` side effect | Acceptable edge boundary | N/A (noted) |
+| 3 | `CpuSurface.ts:292-303` | `#frameStep` interleaved mutation | Atomic state stamp before subscribers | Consistent frame state |
+| 4 | `GpuSurface.ts:87` | Reads `window.devicePixelRatio` | Inject `dpr` as required config | Deterministic construction |
+| 5 | `GpuSurface.ts:394-406` | `#frameStep` interleaved clock mutation | Atomic state stamp before clock update | Consistent time sources |
+| 6 | `color.ts:141-157` | Module-level canvas singleton reads `document` | Inject canvas resolver from shell | Pure `parseColor`, no DOM dependency |
+| 7 | `setUniforms.ts:95-108` | Shared mutable `STANDARD_UNIFORM_VALUES` | Return fresh object per call | Reentrant, multi-surface safe |
+| 8 | `setUniforms.ts:133` | Missing `height > 0` guard on `u_mouse.y` | Add guard or brand `CanvasDimension` | Prevents `Infinity` in uniform |
+| 9 | `ShapeBatcher.ts:420-435` | Direction from raw subtraction | Accept `LineSegment` branded type | Compile-time distinct endpoints |
+| 10 | `color.ts:187` | Magenta fallback sentinel | Throw or return `null` | Fail-fast, no silent fallback |
