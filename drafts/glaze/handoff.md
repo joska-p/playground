@@ -23,7 +23,7 @@
 
 > Note d'ordre : la tâche #6 (FrameLoop) a été faite avant #3–#5 — ses seules dépendances sont la couche 1 (types), déjà en place.
 >
-> **État du dépôt au stop** : dernier commit = tâche #3 (`85a12694a`). Les tâches **#4 et #5 sont terminées mais non committées** — working tree : `core/Camera.ts`, `core/CameraControls.ts` (+ `CameraControls.test.ts`), `core/gestures.ts` (+ `gestures.test.ts`), `docs/LifecycleReport.tsx`, et ce handoff. Gates vertes au moment du stop (glaze check-types/lint/vitest 93/93 + monorepo check-types). À la reprise : committer #4 et #5 (idéalement deux commits distincts), puis attaquer #7.
+> **État du dépôt au stop** : dernier commit = `f3e6a3889`. Toutes les tâches #1–#6 sont committées. Le refinement `NonNegativeSeconds` a été propagé de `Clock.update()` vers `CpuSurface`/`GpuSurface.deltaTime` et les consommateurs automa (`SimulationEngine.tick`, `tickSimulation`). Camera.ts nettoyé (`as` casts → vrais construdeurs brandés). Working tree propre. Gates verts : glaze check-types/lint/vitest 93/93 + monorepo check-types entier vert. **Tâches #7 et #8 restent à faire.**
 
 ### Tâche #1 — `core/types.ts` (vocabulaire numérique brandé)
 
@@ -43,7 +43,7 @@
     * `createZoomClamp(minZoom, maxZoom)` : retourne `(value) => ZoomFactor`, **throw sur NaN** au lieu de le propager.
     * `DEFAULT_ZOOM_BOUNDS` validé une fois à l'import du module.
 * **Factory obligatoire (Pass 1 F1)** : constructeur privé ; `createCamera(x, y, zoom: ZoomFactor)` valide x/y ; `defaultCamera()` = identité. Un zoom nu ne se compile plus.
-* **Migration interne effectuée** (adaptation mécanique uniquement, sauf mention) : `CameraControls.ts`, `cpu/CpuSurface.ts`, `gpu/GpuSurface.ts`, `react/useCpuSurface.ts`, `react/useGpuSurface.ts`.
+* **Migration interne effectuée** (adaptation mécanique uniquement, sauf mention) : `CameraControls.ts`, `cpu/CpuSurface.ts`, `gpu/GpuSurface.ts`, `react/useCpuSurface.ts`, `react/useGpuSurface.ts`. Nettoyage ultérieur : les `as WorldPoint` / `as ScreenPoint` dans `screenToWorld` / `worldToScreen` ont été remplacés par les vrais construdeurs brandés (`toWorldPoint` / `toScreenPoint`).
 * **Bug latent capturé au passage** : event sans coordonnées → point NaN → l'ancien code empoisonnait silencieusement la caméra. Le nouveau garde-fou jette à la frontière.
 * Gates vertes sur `@repo/glaze` : `check-types`, `lint`.
 
@@ -67,10 +67,10 @@
 * **Union discriminée (Pass 3 F5)** : `ClockOptions = FreeClockOptions | TimedClockOptions` — `{ mode?: 'free' }` vs `{ mode: 'timed'; duration: DurationSeconds; loop?; pingPong? }`, avec `speed?: TimeSpeed` et `autoStart?` partagés. `pingPong` sans duration ne compile plus ; la dérivation cachée `loop = duration !== undefined` devient un défaut explicite (`loop: true` dans la variante timed).
 * **Stratégies pures exportées (Pass 3 F1)** : `advanceFree`, `advancePingPong` (retourne `{ time, direction }`), `advanceLooping`, `advanceOnce` (retourne `{ time, finished }`) — arithmétique pure testable aux bornes ; `update()` réduit au gating + dispatch + application, l'état interne étant résolu en union miroir (`ClockState`).
 * **Gardes effondrés (Pass 1 F3)** : les 3 comparaisons `duration <= 0` deviennent des checks de kind sur l'union ; une durée invalide est rejetée à la frontière par `createDurationSeconds` au lieu d'être réinterprétée en « free-run » silencieux.
-* **Signatures brandées** : `update(delta: Seconds)` (accepte le `NonNegativeSeconds` du FrameStep), `seek(time: Seconds)`, `setSpeed(speed: TimeSpeed)` ; getters `time/deltaTime/duration/speed` brandés. Constructeur public mais à options déjà validées par les brands (pattern Camera), `createClock` reste l'entrée ergonomique.
-* **Adaptations internes** : `clockStore.setSpeed(TimeSpeed)` strict ; champs publics `time`/`deltaTime` de `CpuSurface`/`GpuSurface` typés `Seconds`.
+* **Signatures brandées** : `update(delta: NonNegativeSeconds)` (rejette les deltas négatifs à la compilation ; le `FrameLoop` émet déjà des `NonNegativeSeconds`), `seek(time: Seconds)`, `setSpeed(speed: TimeSpeed)` ; getters `time/deltaTime/duration/speed` brandés. Constructeur public mais à options déjà validées par les brands (pattern Camera), `createClock` reste l'entrée ergonomique.
+* **Adaptations internes** : `clockStore.setSpeed(TimeSpeed)` strict ; champs publics `time`/`deltaTime` de `CpuSurface`/`GpuSurface` promus en `NonNegativeSeconds` (assignation possible car `NonNegativeSeconds extends Seconds`) ; `SimulationEngine.tick()` et `tickSimulation()` en `automa` adaptés pour accepter `NonNegativeSeconds` bout en bout.
 * **Bug latent corrigé au passage (classe Pass 1 F4)** : `SimulationEngine.tick()` de `@repo/automa` recevait `surface.deltaTime` en **secondes** mais accumulait contre le seuil `#speedMs` en **ms** → ~1000× plus lent que la vitesse configurée. L'intervalle est maintenant converti une fois via `msToSeconds` (constructeur + `setSpeed(ms)`), `tickSimulation(delta: Seconds)` est typé bout en bout.
-* **Tests** : nouveau `core/Clock.test.ts` — stratégies pures aux bornes (deltas géants, hits exacts, rebonds ping-pong), comportement des 4 modes, rejet compile-time (`@ts-expect-error` sur `{ pingPong: true }`). Gates : check-types ✓, lint ✓, vitest glaze 56/56 ✓, monorepo `check-types` entier vert ✓ (+ lint automa).
+* **Tests** : `core/Clock.test.ts` — stratégies pures aux bornes (deltas géants, hits exacts, rebonds ping-pong), comportement des 4 modes, rejet compile-time (`@ts-expect-error` sur `{ pingPong: true }`). Adapté au refinement `NonNegativeSeconds` (deltas passés via `createNonNegativeSeconds`). Gates : check-types ✓, lint ✓, vitest glaze **93/93** ✓, monorepo `check-types` entier vert ✓ (+ lint automa).
 
 ### Tâche #4 — `core/CameraControls.ts` (transforms purs + façade mince) ✅
 
