@@ -1,32 +1,8 @@
 import { PanGesture, ZoomGesture } from '../core/gestures';
+import type { Gesture, InteractionEvent } from '../core/gestures';
+import type { LiveInteractionEvent, CanvasInteractions } from './useInteractionAdapter';
 
-import type { Gesture, InteractionEvent, PanOptions, ZoomOptions } from '../core/gestures';
-
-/**
- * `InteractionEvent` with a non-null `surface` — the pipeline only routes events while a surface is
- * mounted.
- */
-export interface LiveInteractionEvent<TEvent, TSurface> extends Omit<
-    InteractionEvent<TEvent, TSurface>,
-    'surface'
-> {
-    surface: TSurface;
-}
-
-/**
- * `onStart` / `onMove` / `onZoom` replace the built-in pan/zoom; `onEnd` / `onContextMenu` run
- * alongside, so drag state always gets released. `pan` / `zoom` configure the built-ins (`false`
- * disables).
- */
-export interface CanvasInteractions<TSurface> {
-    pan?: boolean | PanOptions;
-    zoom?: boolean | ZoomOptions;
-    onStart?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
-    onMove?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
-    onEnd?: (event: LiveInteractionEvent<PointerEvent, TSurface>) => void;
-    onZoom?: (event: LiveInteractionEvent<WheelEvent, TSurface>) => void;
-    onContextMenu?: (event: LiveInteractionEvent<MouseEvent, TSurface>) => void;
-}
+export type { LiveInteractionEvent, CanvasInteractions };
 
 function withSurface<TEvent, TSurface>(
     event: InteractionEvent<TEvent, TSurface>,
@@ -36,35 +12,57 @@ function withSurface<TEvent, TSurface>(
 }
 
 export function createInteractionAdapter<TSurface>(
-    interactions: CanvasInteractions<TSurface> = {}
+    interactions: CanvasInteractions<TSurface> = {},
+    handlers: {
+        onStart?: ((e: LiveInteractionEvent<PointerEvent, TSurface>) => void) | undefined;
+        onMove?: ((e: LiveInteractionEvent<PointerEvent, TSurface>) => void) | undefined;
+        onEnd?: ((e: LiveInteractionEvent<PointerEvent, TSurface>) => void) | undefined;
+        onZoom?: ((e: LiveInteractionEvent<WheelEvent, TSurface>) => void) | undefined;
+        onContextMenu?: ((e: LiveInteractionEvent<MouseEvent, TSurface>) => void) | undefined;
+    } = {}
 ): Gesture<TSurface>[] {
     const gestures: Gesture<TSurface>[] = [];
-
     const lifecycle: Gesture<TSurface> = {};
 
-    if (interactions.onStart)
+    const hStart = handlers.onStart ?? interactions.onStart;
+    const hMove = handlers.onMove ?? interactions.onMove;
+    const hZoom = handlers.onZoom ?? interactions.onZoom;
+    const hEnd = handlers.onEnd ?? interactions.onEnd;
+    const hContext = handlers.onContextMenu ?? interactions.onContextMenu;
+
+    if (hStart)
         lifecycle.onStart = (event: InteractionEvent<PointerEvent, TSurface>) => {
-            withSurface(event, (e) => interactions.onStart?.(e));
+            withSurface(event, (e) => {
+                hStart(e);
+            });
         };
 
-    if (interactions.onMove)
+    if (hMove)
         lifecycle.onMove = (event: InteractionEvent<PointerEvent, TSurface>) => {
-            withSurface(event, (e) => interactions.onMove?.(e));
+            withSurface(event, (e) => {
+                hMove(e);
+            });
         };
 
-    if (interactions.onZoom)
+    if (hZoom)
         lifecycle.onZoom = (event: InteractionEvent<WheelEvent, TSurface>) => {
-            withSurface(event, (e) => interactions.onZoom?.(e));
+            withSurface(event, (e) => {
+                hZoom(e);
+            });
         };
 
-    if (interactions.onEnd)
+    if (hEnd)
         lifecycle.onEnd = (event: InteractionEvent<PointerEvent, TSurface>) => {
-            withSurface(event, (e) => interactions.onEnd?.(e));
+            withSurface(event, (e) => {
+                hEnd(e);
+            });
         };
 
-    if (interactions.onContextMenu)
+    if (hContext)
         lifecycle.onContextMenu = (event: InteractionEvent<MouseEvent, TSurface>) => {
-            withSurface(event, (e) => interactions.onContextMenu?.(e));
+            withSurface(event, (e) => {
+                hContext(e);
+            });
         };
 
     if (

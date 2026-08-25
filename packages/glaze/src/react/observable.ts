@@ -17,3 +17,4 @@ export function createObservable() {
         }
     };
 }
+export type Observable = ReturnType<typeof createObservable>;

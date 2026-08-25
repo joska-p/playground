@@ -19,7 +19,7 @@ export function createClockStore(clock: Clock) {
         get progress(): number {
             return clock.progress;
         },
-        // ── Actions (existantes) ──
+        // ── Actions ──
         togglePlay() {
             clock.togglePlay();
             observable.notify();
@@ -41,6 +41,7 @@ export function createClockStore(clock: Clock) {
             observable.notify();
         },
         subscribe: (fn: () => void) => observable.subscribe(fn),
+        getSnapshot: () => clock.time,
         getIsPlaying: () => clock.isPlaying
     };
 }

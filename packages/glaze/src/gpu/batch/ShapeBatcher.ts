@@ -11,11 +11,11 @@ import {
     rectStrokeVertices,
     sameMat3
 } from './geometry';
+import { createLineSegment, createNormalizedVec2 } from '../../core/types';
 import { colorArray } from '../shapes/color';
 
 import type { Camera, Point2D } from '../../core/Camera';
 import type { DrawStyle, Rect } from '../../cpu/shapes/types';
-import { createLineSegment, createNormalizedVec2 } from '../../core/types';
 
 const VERTEX_STRIDE = 6; // x, y, r, g, b, a
 const INITIAL_CAPACITY = 4096;

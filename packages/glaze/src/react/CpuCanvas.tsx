@@ -1,10 +1,10 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 
-import { createInteractionAdapter, type CanvasInteractions } from './interactions';
+import { useInteractionAdapter } from './useInteractionAdapter';
 import { createCpuStack, type CpuSurfaceOptions } from './surfaceStack';
 import { useNodeResource } from './useNodeResource';
 
-import type { Gesture } from '../core/gestures';
+import type { CanvasInteractions } from './interactions';
 import type { CpuDraw, CpuSurface } from '../cpu/CpuSurface';
 
 export interface CpuCanvasProps extends CpuSurfaceOptions {
@@ -30,16 +30,14 @@ export function CpuCanvas({
     style,
     ...surfaceOptions
 }: CpuCanvasProps) {
-    const gesturesRef = useRef<Gesture<CpuSurface>[]>([]);
+    const gestures = useInteractionAdapter(canvasInteractions);
+    const gesturesRef = useRef(gestures);
+    gesturesRef.current = gestures;
 
     const { ref: canvasRef, resource: stack } = useNodeResource((canvas: HTMLCanvasElement) =>
         createCpuStack(canvas, surfaceOptions, () => gesturesRef.current)
     );
     const mountedSurfaceRef = useRef<CpuSurface | null>(null);
-
-    useEffect(() => {
-        gesturesRef.current = createInteractionAdapter(canvasInteractions);
-    }, [canvasInteractions, gesturesRef]);
 
     useEffect(() => {
         if (!stack || mountedSurfaceRef.current === stack.surface) return;
