@@ -299,3 +299,163 @@
 | 8 | `ShapeBatcher.ts:420-435` | Direction from raw subtraction | Accept `LineSegment` branded type | Compile-time distinct endpoints |
 | 9 | `TextRasterizer.ts:82-94` | Canvas state mutation in `get()` | Low priority (safe in single-thread) | Documents assumption |
 | 10 | `TextRasterizer.ts:59` | `document.createElement('canvas')` | Inject canvas from `GpuSurface` | Explicit dependency |
+
+---
+
+## Section 3: Pass 3 — Lifecycle Guarantees & Abstraction Levels (SLAP)
+
+---
+
+### 1. `src/gpu/GpuSurface.ts:394-406` — `#frameStep` applies camera-free but interleaves clock with state stamp
+
+- **File & Line:** `src/gpu/GpuSurface.ts:394-406`
+- **Current Code / Issue:** The frame step stamps `time`, `deltaTime`, `width`, `height` (lines 397-400), then calls `clock.update(deltaTime)` (line 401), then fans out to subscribers (line 403). The clock mutation is interleaved between state stamping and subscriber dispatch: a subscriber that reads `surface.clock.time` sees the *just-updated* clock, but `surface.time` was already stamped from the *previous* tick's delta. The two time sources (`surface.time` vs `clock.time`) are updated at different points in the same step, creating a one-frame offset in the relationship between them.
+- **Proposed Refactoring:** Stamp all surface-owned state atomically, then update the clock, then fan out. Or: update the clock *before* stamping surface state, so `surface.time` and `surface.clock.time` reflect the same delta. The key invariant: all time sources visible to subscribers must be consistent within a single callback.
+- **Impact:** Eliminates the one-frame offset between `surface.time` and `clock.time` for subscribers that use both.
+
+---
+
+### 2. `src/gpu/GpuSurface.ts:394-406` — `#frameStep` mixes resize, state mutation, clock update, batch flush, and subscriber fan-out
+
+- **File & Line:** `src/gpu/GpuSurface.ts:394-406`
+- **Current Code / Issue:** The method performs five distinct tasks: (1) `#resize()` — DOM measurement + GL viewport, (2) state mutation (`frameCount++`, `time`, `deltaTime`, `width`, `height`), (3) `clock.update(deltaTime)` — Clock internal state mutation, (4) `runFrameSubscribers()` + `#flushBatch()`, (5) `input.endFrame()`. These mix DOM I/O, mutable state stamping, Clock protocol, GL batch flushing, and input lifecycle — five abstraction levels in one method body.
+- **Proposed Refactoring:** Extract into named helpers: `#syncDimensions()`, `#stampFrameState(time, deltaTime)`, `#updateClock(deltaTime)`. The `#frameStep` becomes: `sync → stamp → clock → subscribers → flush → endFrame`. Each helper has a single responsibility.
+- **Impact:** Enforces SLAP: each phase is isolated. Makes the lifecycle ordering explicit and auditable.
+
+---
+
+### 3. `src/gpu/GpuSurface.ts:139-158` — `renderProgram` depends on unstamped frame state
+
+- **File & Line:** `src/gpu/GpuSurface.ts:139-158`
+- **Current Code / Issue:** `renderProgram` calls `createStandardUniformValues(this.width, this.height, this.dpr, this.input.pointer, this.camera, this.time, this.clock.time)`. It reads `this.width`, `this.height`, `this.time`, and `this.clock.time` — all of which are only valid *after* `#frameStep` has stamped them. If `renderProgram` is called outside the frame loop (e.g., in a one-shot draw), these values are zero/stale. The method has no compile-time or runtime proof that the frame state is current.
+- **Proposed Refactoring:** Introduce an `ActiveFrameToken` (already defined in `FrameLoop.ts`!) that `#frameStep` passes to subscribers. `renderProgram` could accept it as proof, or the public API could require it. For one-shot draws outside the loop, stamp the state first (call `#frameStep` manually or expose a `#stampOnce()` method).
+- **Impact:** Prevents `renderProgram` from producing degenerate uniforms (zero dimensions, zero time) when called outside the frame lifecycle.
+
+---
+
+### 4. `src/gpu/GpuSurface.ts:330-342` — `#drawText` mixes rasterization, program lookup, uniform setup, and rendering
+
+- **File & Line:** `src/gpu/GpuSurface.ts:330-342`
+- **Current Code / Issue:** `#drawText` does: (1) `#flushBatch()` — GL state management, (2) lazy-creates `TextRasterizer` — DOM/global dependency, (3) computes font string — string interpolation, (4) `rasterizer.get()` — Canvas2D rasterization + GL texture upload, (5) lazy-creates text `Program` — GL resource management, (6) `program.setUniforms()` — uniform upload, (7) `this.renderProgram(program)` — full render pass. This is seven distinct operations across three abstraction levels (Canvas2D, GL texture, GL program) in one method.
+- **Proposed Refactoring:** Extract into: `#ensureTextRasterizer()`, `#ensureTextProgram()`, `#rasterizeText(text, font, size)`. The `#drawText` becomes: `flush → rasterize → setUniforms → render`. Each helper owns one resource lifecycle.
+- **Impact:** SLAP: resource management (lazy creation), rasterization (Canvas2D), and rendering (GL) are separated. Easier to test each phase independently.
+
+---
+
+### 5. `src/gpu/GpuSurface.ts:371-375` — `#flushBatch` is a one-liner indirection
+
+- **File & Line:** `src/gpu/GpuSurface.ts:371-375`
+- **Current Code / Issue:** `#flushBatch` checks `this.#lost`, then delegates to `this.#batch.flush()`. It's called from `renderProgram`, `clear`, `#drawText`, and `#frameStep`. The method is a thin wrapper that adds the `#lost` guard. While small, it's a lifecycle gate (proof that context is alive) mixed with delegation — two concerns.
+- **Proposed Refactoring:** Keep as-is — the `#lost` guard is a legitimate cross-cutting concern (context-loss safety). Alternatively, if `#lost` becomes a branded `ContextAliveToken`, the guard moves to the type system. Low priority.
+- **Impact:** Minimal; documents the pattern for future context-loss token introduction.
+
+---
+
+### 6. `src/gpu/StateBuffer.ts:247-265` — `step()` mixes program activation, GL state binding, draw call, and swap
+
+- **File & Line:** `src/gpu/StateBuffer.ts:247-265`
+- **Current Code / Issue:** `step()` does: (1) `#activeProgram()` — lookup, (2) `program.use()` — GL state change, (3) `gl.activeTexture` + `gl.bindTexture` — texture binding, (4) `#targets.bindWrite()` — framebuffer binding, (5) `gl.uniform1i` — uniform upload, (6) `gl.drawArrays` — draw call, (7) `#targets.unbind()` + `#targets.swap()` — state management. Seven GL operations at the same abstraction level (raw GL calls), but the method mixes orchestration (which program? which texture?) with imperative GL state machine calls.
+- **Proposed Refactoring:** Extract `#bindInputTexture(texture, unit)` and `#drawFullscreen()` helpers. The `step()` becomes: `lookup program → use program → bind input → bind FBO → set uniform → draw → unbind → swap`. Or: collapse the GL calls into a `#executePass(program, inputTexture, fbo)` helper.
+- **Impact:** SLAP: orchestration (which resources) separated from GL state machine (how to bind/draw). Makes the ping-pong pattern clearer.
+
+---
+
+### 7. `src/gpu/StateBuffer.ts:62-97` — `init()` mixes data validation, RGBA expansion, and texture upload
+
+- **File & Line:** `src/gpu/StateBuffer.ts:62-97`
+- **Current Code / Issue:** `init(data)` does: (1) runtime length validation, (2) allocates a `Uint8Array(data.length * 4)`, (3) expands each byte to RGBA in a loop, (4) iterates over `#textures` to call `texSubImage2D`. The method mixes data transformation (byte → RGBA expansion) with GL resource management (texture upload). The expansion loop is a pure data operation that has nothing to do with WebGL.
+- **Proposed Refactoring:** Extract `expandToRgba(data: Uint8Array): Uint8Array` as a pure helper function (no GL dependency). The `init()` becomes: `validate → expand → upload`. The expansion function is testable in isolation.
+- **Impact:** SLAP: data transformation (pure) separated from GL I/O (side-effectful). Enables unit testing the RGBA expansion without a GL context.
+
+---
+
+### 8. `src/gpu/batch/ShapeBatcher.ts:46-85` — Module-level `compileShader` / `compileProgram` duplicate `shader/compileProgram.ts`
+
+- **File & Line:** `src/gpu/batch/ShapeBatcher.ts:46-85`
+- **Current Code / Issue:** `compileShader` (lines 46-62) and `compileProgram` (lines 64-85) are local functions in `ShapeBatcher.ts` that duplicate the shader compilation logic in `src/gpu/shader/compileProgram.ts`. The batcher versions lack the `#version 300 es` auto-injection that the shared `compileProgram` provides. This means the batcher's shaders must include `#version 300 es` explicitly (and they do, in `SHAPE_VERTEX_SRC` / `SHAPE_FRAGMENT_SRC`).
+- **Proposed Refactoring:** Replace the local `compileShader`/`compileProgram` with imports from `shader/compileProgram.ts`. The batcher's inline GLSL strings already include `#version 300 es`, so the shared `withVersionDirective` will strip and re-inject it (idempotent).
+- **Impact:** Eliminates code duplication; single source of truth for shader compilation. The batcher's shader compilation becomes consistent with the rest of the GPU pipeline.
+
+---
+
+### 9. `src/gpu/shapes/TextRasterizer.ts:69-139` — `get()` mixes cache management, Canvas2D rasterization, GL texture creation, and LRU eviction
+
+- **File & Line:** `src/gpu/shapes/TextRasterizer.ts:69-139`
+- **Current Code / Issue:** `get(text, font, size)` does: (1) cache lookup + LRU touch (lines 71-78), (2) Canvas2D measurement + rasterization (lines 80-94), (3) GL texture allocation + upload (lines 96-120), (4) cache insertion + LRU eviction (lines 124-136). Four distinct responsibilities: caching policy, Canvas2D rendering, GL resource management, and memory pressure management.
+- **Proposed Refactoring:** Extract into: `#rasterizeToCanvas(text, font, size): { canvas, width, height }`, `#uploadToGpu(canvas): WebGLTexture`, `#evictIfNeeded()`. The `get()` becomes: `check cache → rasterize → upload → cache → evict`. Each helper owns one concern.
+- **Impact:** SLAP: Canvas2D rasterization (CPU) separated from GL texture upload (GPU) from cache management (memory). Each phase is independently testable.
+
+---
+
+### 10. `src/gpu/shader/Program.ts:50-56` — `render()` duplicates GL state setup from `use()`
+
+- **File & Line:** `src/gpu/shader/Program.ts:50-56`
+- **Current Code / Issue:** `render()` calls `gl.useProgram(this.#compiled.program)` and `gl.bindVertexArray(this.#vao)` — the exact same two calls that `use()` (lines 40-43) makes. `render` then adds `viewport` + `drawArrays`. This means `render()` always redundantly re-binds the program and VAO even if `use()` was just called. The duplication is small but creates two entry points with overlapping GL state mutations.
+- **Proposed Refactoring:** Have `render()` call `this.use()` first, then the viewport + draw calls. Or: document that `render()` implies `use()` and remove the redundancy. Either way, the GL state setup is in one place.
+- **Impact:** Single source of truth for GL program binding; `render()` is composable with `use()` without redundancy.
+
+---
+
+### Summary — GPU Directory (Pass 3)
+
+| # | Location | Issue | Proposed Refactoring | Impact |
+|---|----------|-------|---------------------|--------|
+| 1 | `GpuSurface.ts:394-406` | Clock updated between state stamp and subscribers | Update clock before or atomically with state | Consistent time sources |
+| 2 | `GpuSurface.ts:394-406` | `#frameStep` mixes 5 abstraction levels | Extract `#syncDimensions`, `#stampFrameState`, `#updateClock` | SLAP: DOM, state, clock, GL separated |
+| 3 | `GpuSurface.ts:139-158` | `renderProgram` reads unstamped state | Demand `ActiveFrameToken` or stamp before one-shot | Prevent degenerate uniforms |
+| 4 | `GpuSurface.ts:330-342` | `#drawText` mixes 7 operations across 3 levels | Extract rasterizer/program lazy-creation, rasterize helper | SLAP: resources, rasterization, rendering |
+| 5 | `GpuSurface.ts:371-375` | `#flushBatch` is lifecycle gate + delegation | Keep (or future `ContextAliveToken`) | Documents pattern |
+| 6 | `StateBuffer.ts:247-265` | `step()` mixes orchestration with raw GL calls | Extract `#bindInputTexture`, `#drawFullscreen` | Separate orchestration from GL state |
+| 7 | `StateBuffer.ts:62-97` | `init()` mixes data expansion with GL upload | Extract pure `expandToRgba()` helper | Testable data transform |
+| 8 | `ShapeBatcher.ts:46-85` | Duplicated shader compilation from `shader/compileProgram.ts` | Import shared `compileProgram` | Single source of truth |
+| 9 | `TextRasterizer.ts:69-139` | `get()` mixes cache, Canvas2D, GL texture, LRU eviction | Extract rasterize, upload, evict helpers | SLAP: cache, CPU raster, GPU upload |
+| 10 | `Program.ts:50-56` | `render()` duplicates `use()` GL state setup | `render()` calls `this.use()` first | Single source of truth for binding |
+
+---
+
+## Recommended Order of Refactoring for gpu/
+
+Ordered from lowest-level leaves (math/utilities) up to high-level core modules. Each tier depends on the one before it.
+
+### Tier 0 — Shared Primitives (no dependencies)
+1. `shapes/color.ts` — Introduce `UnitInterval` branded type for RGBA channels (GPU Pass 1 #1)
+2. `shapes/color.ts` — Replace `clamp01` with `createUnitInterval` factory (GPU Pass 1 #3)
+3. `shapes/color.ts` — Eliminate magenta fallback; throw or return `null` (GPU Pass 1 #2, GPU Pass 2 #2)
+4. `core/types.ts` — Add `CanvasDimension`, `DevicePixelRatio` brands shared with CPU (GPU Pass 1 #4-5)
+5. `batch/geometry.ts` — Apply `CanvasDimension` to `viewportMatrix`/`projectionFor` (GPU Pass 1 #12)
+6. `batch/geometry.ts` — Introduce `SegmentCount` brand for `circleSegments`/`capSegments` (GPU Pass 1 #13)
+
+### Tier 1 — Data Layer (depends on Tier 0)
+7. `StateBuffer.ts` — Apply `BufferDimension` brand to `resize`/`init`/constructor (GPU Pass 1 #6-7)
+8. `StateBuffer.ts` — Introduce `StateData` branded `Uint8Array` (GPU Pass 1 #8)
+9. `StateBuffer.ts` — Extract pure `expandToRgba()` from `init()` (GPU Pass 3 #7)
+10. `shader/setUniforms.ts` — Return fresh object per call from `createStandardUniformValues` (GPU Pass 2 #3)
+11. `shader/setUniforms.ts` — Guard `height > 0` on `u_mouse.y` (or rely on `CanvasDimension`) (GPU Pass 2 #4)
+12. `shader/compileProgram.ts` — Apply `PositiveInteger` to `UniformEntry.size` (GPU Pass 1 #18)
+
+### Tier 2 — Shader & Program Management (depends on Tier 1)
+13. `shader/Program.ts` — Have `render()` call `this.use()` to eliminate duplicate GL state setup (GPU Pass 3 #10)
+14. `batch/ShapeBatcher.ts` — Replace local `compileShader`/`compileProgram` with shared import (GPU Pass 3 #8)
+15. `batch/ShapeBatcher.ts` — Apply `PositiveNumber` brand to `drawCircle` radius (GPU Pass 1 #9)
+
+### Tier 3 — Geometry & Batching (depends on Tier 2)
+16. `batch/ShapeBatcher.ts` — Introduce `LineSegment` brand for `#pushLine` (GPU Pass 1 #10, GPU Pass 2 #8)
+17. `batch/ShapeBatcher.ts` — Introduce `NormalizedVec2` for direction vectors (GPU Pass 1 #11)
+18. `StateBuffer.ts` — Extract `#bindInputTexture`, `#drawFullscreen` from `step()` (GPU Pass 3 #6)
+
+### Tier 4 — Surface Lifecycle (depends on Tier 3)
+19. `GpuSurface.ts` — Remove `window.devicePixelRatio` fallback; require `dpr` in config (GPU Pass 2 #5)
+20. `GpuSurface.ts` — Atomic state stamping in `#frameStep`; clock update before subscribers (GPU Pass 2 #6, GPU Pass 3 #1)
+21. `GpuSurface.ts` — Extract `#syncDimensions`, `#stampFrameState`, `#updateClock` from `#frameStep` (GPU Pass 3 #2)
+22. `GpuSurface.ts` — Introduce `ActiveFrameToken` demand for `renderProgram` (GPU Pass 3 #3)
+
+### Tier 5 — Text & Rasterization (depends on Tier 4)
+23. `shapes/TextRasterizer.ts` — Inject canvas from `GpuSurface` instead of `document.createElement` (GPU Pass 2 #10)
+24. `shapes/TextRasterizer.ts` — Apply `FontSize` brand to `get()` size param (GPU Pass 1 #15)
+25. `shapes/TextRasterizer.ts` — Extract `#rasterizeToCanvas`, `#uploadToGpu`, `#evictIfNeeded` from `get()` (GPU Pass 3 #9)
+26. `GpuSurface.ts` — Extract `#ensureTextRasterizer`, `#ensureTextProgram`, `#rasterizeText` from `#drawText` (GPU Pass 3 #4)
+
+### Tier 6 — Cross-Cutting Polish (depends on Tier 5)
+27. Share all branded types (`CssColor`, `UnitInterval`, `PositiveNumber`, `FontSize`, `CanvasDimension`, `DevicePixelRatio`, `BufferDimension`) between CPU and GPU via `core/types.ts` or a shared `types/` package.
+28. `shapes/color.ts` — Inject `CanvasColorResolver` from shell instead of module-level singleton (GPU Pass 2 #1)
+29. `GpuSurface.ts:371-375` — Future: introduce `ContextAliveToken` for `#lost` guard (GPU Pass 3 #5)
