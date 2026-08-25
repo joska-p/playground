@@ -117,6 +117,8 @@ export class CpuSurface {
 
     /** Applied automatically each frame; call manually before one-shot draws outside the loop. */
     applyCamera(): this {
+        if (this.width === 0) return this;
+
         const context = this.context;
 
         context.setTransform(1, 0, 0, 1, 0, 0);
@@ -303,16 +305,18 @@ export class CpuSurface {
     #frameStep: FrameStep = (time, deltaTime, frame): void => {
         this.#resize();
         this.frameCount++;
+        this.#stampFrameState(time, deltaTime);
         this.applyCamera();
+        this.#loop.runFrameSubscribers();
+        this.input.endFrame(frame);
+    };
 
+    #stampFrameState(time: Seconds, deltaTime: NonNegativeSeconds): void {
         this.time = time;
         this.deltaTime = deltaTime;
         this.width = this.#cssWidth;
         this.height = this.#cssHeight;
-
-        this.#loop.runFrameSubscribers();
-        this.input.endFrame(frame);
-    };
+    }
 
     #resize(): void {
         this.#cssWidth = createCanvasDimension(Math.max(1, this.canvas.clientWidth));

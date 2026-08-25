@@ -2,7 +2,7 @@ import { createClockStore, type ClockStore } from './clockStore';
 import { createCamera, type Camera, type Point2D } from '../core/Camera';
 import { createCameraControls, type CameraControls } from '../core/CameraControls';
 import { InputRouter, type Gesture } from '../core/gestures';
-import { createZoomFactor } from '../core/types';
+import { createDevicePixelRatio, createZoomFactor } from '../core/types';
 import { createCpuSurface, type CpuSurface } from '../cpu/CpuSurface';
 import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
 
@@ -135,7 +135,8 @@ export function createCpuStack(
         cameraControls,
         initialCamera
     );
-    const surface = createCpuSurface(compact({ canvas, camera: resolvedCamera, dpr }));
+    const resolvedDpr = dpr ?? createDevicePixelRatio(window.devicePixelRatio);
+    const surface = createCpuSurface(compact({ canvas, camera: resolvedCamera, dpr: resolvedDpr }));
     const router = createRouter(surface, resolvedControls, getGestures);
 
     return {
@@ -160,8 +161,9 @@ export function createGpuStack(
         cameraControls,
         initialCamera
     );
+    const resolvedDpr = dpr ?? createDevicePixelRatio(window.devicePixelRatio);
     const surface = createGpuSurface(
-        compact({ canvas, camera: resolvedCamera, dpr, clock, clockOptions })
+        compact({ canvas, camera: resolvedCamera, dpr: resolvedDpr, clock, clockOptions })
     );
     const router = createRouter(surface, resolvedControls, getGestures);
 
