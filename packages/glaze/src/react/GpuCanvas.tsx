@@ -1,11 +1,11 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 
-import { useInteractionAdapter } from './useInteractionAdapter';
+import { createInteractionAdapter } from './interactions';
 import { createGpuStack, type GpuSurfaceOptions } from './surfaceStack';
 import { useNodeResource } from './useNodeResource';
 
-import type { CanvasInteractions } from './interactions';
 import type { ClockStore } from './clockStore';
+import type { CanvasInteractions } from './interactions';
 import type { GpuDraw, GpuSurface } from '../gpu/GpuSurface';
 import type { UniformValue } from '../gpu/shader/compileProgram';
 import type { Program } from '../gpu/shader/Program';
@@ -42,16 +42,15 @@ export function GpuCanvas({
     style,
     ...surfaceOptions
 }: GpuCanvasProps) {
-    const gestures = useInteractionAdapter(canvasInteractions);
+    const gestures = createInteractionAdapter(canvasInteractions);
     const gesturesRef = useRef(gestures);
-    gesturesRef.current = gestures;
 
     const { ref: canvasRef, resource: stack } = useNodeResource((canvas: HTMLCanvasElement) =>
         createGpuStack(canvas, surfaceOptions, () => gesturesRef.current)
     );
     const programRef = useRef<Program | null>(null);
-    const mountedSurfaceRef = useRef<GpuSurface | null>(null);
 
+    // ── Shader Compilation Effect ──
     useEffect(() => {
         if (!stack || !fragmentShader) return;
 
@@ -65,6 +64,9 @@ export function GpuCanvas({
         };
     }, [fragmentShader, stack]);
 
+    // ── Mount Effect ──
+    const mountedSurfaceRef = useRef<GpuSurface | null>(null);
+
     useEffect(() => {
         if (!stack || mountedSurfaceRef.current === stack.surface) return;
 
@@ -73,6 +75,7 @@ export function GpuCanvas({
         onClockStore?.(stack.clockStore);
     }, [onClockStore, onMount, stack]);
 
+    // ── Frame Loop Effect ──
     useEffect(() => {
         if (!stack) return;
 

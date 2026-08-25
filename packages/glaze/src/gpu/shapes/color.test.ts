@@ -64,7 +64,7 @@ describe('parseColor', () => {
     });
 
     it('throws on invalid color format instead of silent magenta fallback', () => {
-        expect(() => parseColor(createCssColor('not-a-color'))).toThrowError(
+        expect(() => parseColor(createCssColor('not-a-color'))).toThrow(
             /unrecognized color format/
         );
     });

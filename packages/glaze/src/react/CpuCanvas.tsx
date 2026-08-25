@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 
-import { useInteractionAdapter } from './useInteractionAdapter';
+import { createInteractionAdapter } from './interactions';
 import { createCpuStack, type CpuSurfaceOptions } from './surfaceStack';
 import { useNodeResource } from './useNodeResource';
 
@@ -30,13 +30,14 @@ export function CpuCanvas({
     style,
     ...surfaceOptions
 }: CpuCanvasProps) {
-    const gestures = useInteractionAdapter(canvasInteractions);
+    const gestures = createInteractionAdapter(canvasInteractions);
     const gesturesRef = useRef(gestures);
-    gesturesRef.current = gestures;
 
     const { ref: canvasRef, resource: stack } = useNodeResource((canvas: HTMLCanvasElement) =>
         createCpuStack(canvas, surfaceOptions, () => gesturesRef.current)
     );
+
+    // ── Mount Effect ──
     const mountedSurfaceRef = useRef<CpuSurface | null>(null);
 
     useEffect(() => {
@@ -46,6 +47,7 @@ export function CpuCanvas({
         onMount?.(stack.surface);
     }, [onMount, stack]);
 
+    // ── Frame Loop Effect ──
     useEffect(() => {
         if (!stack || !onFrame) return;
 
