@@ -289,7 +289,7 @@ export class CpuSurface {
         this.input.destroy();
     }
 
-    #frameStep: FrameStep = (time, deltaTime): void => {
+    #frameStep: FrameStep = (time, deltaTime, frame): void => {
         this.#resize();
         this.frameCount++;
         this.applyCamera();
@@ -300,7 +300,7 @@ export class CpuSurface {
         this.height = this.#cssHeight;
 
         this.#loop.runFrameSubscribers();
-        this.input.endFrame();
+        this.input.endFrame(frame);
     };
 
     #resize(): void {

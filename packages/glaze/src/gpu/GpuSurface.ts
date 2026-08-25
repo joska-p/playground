@@ -30,7 +30,6 @@ export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     clock?: Clock;
-    /** Defaults to `window.devicePixelRatio` (1 off-browser). */
     dpr?: number;
     clockOptions?: ClockOptions;
 }
@@ -392,7 +391,7 @@ export class GpuSurface {
         for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
-    #frameStep: FrameStep = (time, deltaTime): void => {
+    #frameStep: FrameStep = (time, deltaTime, frame): void => {
         this.#resize();
         this.frameCount++;
         this.time = time;
@@ -403,7 +402,7 @@ export class GpuSurface {
 
         this.#loop.runFrameSubscribers();
         this.#flushBatch();
-        this.input.endFrame();
+        this.input.endFrame(frame);
     };
 }
 
