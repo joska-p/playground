@@ -20,23 +20,23 @@ import {
     textUniforms
 } from './shapes/TextRasterizer';
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
-import { createSeconds, createNonNegativeSeconds } from '../core/types';
+import { createSeconds, createNonNegativeSeconds, createCssColor, createDevicePixelRatio } from '../core/types';
 
 import type { Clock } from '../core/Clock';
-import type { NonNegativeSeconds, Seconds } from '../core/types';
-import type { DrawStyle, Color, Rect, TextStyle } from '../cpu/shapes/types';
+import type { CssColor, DevicePixelRatio, FontSize, NonNegativeSeconds, PositiveNumber, Seconds } from '../core/types';
+import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 
 export interface GpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
     clock?: Clock;
-    dpr?: number;
+    dpr?: DevicePixelRatio;
     clockOptions?: ClockOptions;
 }
 
 export type GpuDraw = (surface: GpuSurface) => void;
 
-const buildStyle = (fill?: string, stroke?: string, lineWidth?: number): DrawStyle => ({
+const buildStyle = (fill?: CssColor, stroke?: CssColor, lineWidth?: PositiveNumber): DrawStyle => ({
     ...(fill !== undefined ? { fill } : {}),
     ...(stroke !== undefined ? { stroke } : {}),
     ...(lineWidth !== undefined ? { lineWidth } : {})
@@ -55,7 +55,7 @@ export class GpuSurface {
     /** CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size. */
     width = 0;
     height = 0;
-    readonly dpr: number;
+    readonly dpr: DevicePixelRatio;
     readonly canvas: HTMLCanvasElement;
     readonly gl: WebGL2RenderingContext;
     readonly camera: Camera;
@@ -84,7 +84,7 @@ export class GpuSurface {
         this.canvas = config.canvas;
         this.gl = gl;
         this.camera = config.camera ?? defaultCamera();
-        this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
+        this.dpr = config.dpr ?? createDevicePixelRatio(1);
         this.clock = config.clock ?? createClock(config.clockOptions);
         this.input = createInputStore();
         this.input.attach(this.canvas);
@@ -162,9 +162,9 @@ export class GpuSurface {
         y: number,
         w: number,
         h: number,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this;
     rect(rect: Rect, style?: DrawStyle): this;
     rect(
@@ -172,9 +172,9 @@ export class GpuSurface {
         yOrStyle?: number | DrawStyle,
         w = 0,
         h = 0,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof xOrRect === 'number') {
             this.#drawRect(
@@ -192,18 +192,18 @@ export class GpuSurface {
         x: number,
         y: number,
         radius: number,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this;
     circle(center: Point2D, radius: number, style?: DrawStyle): this;
     circle(
         xOrCenter: number | Point2D,
         yOrRadius: number,
         radiusOrStyle?: number | DrawStyle,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof xOrCenter === 'number') {
             this.#drawCircle(
@@ -218,15 +218,15 @@ export class GpuSurface {
         return this;
     }
 
-    line(x1: number, y1: number, x2: number, y2: number, stroke?: string, lineWidth?: number): this;
+    line(x1: number, y1: number, x2: number, y2: number, stroke?: CssColor, lineWidth?: PositiveNumber): this;
     line(a: Point2D, b: Point2D, style?: DrawStyle): this;
     line(
         x1OrA: number | Point2D,
         y1OrB: number | Point2D,
         x2OrStyle?: number | DrawStyle,
         y2 = 0,
-        stroke?: string,
-        lineWidth?: number
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof x1OrA === 'number') {
             this.#drawLine(
@@ -241,15 +241,15 @@ export class GpuSurface {
         return this;
     }
 
-    text(text: string, x: number, y: number, fill?: string, fontSize?: number): this;
+    text(text: string, x: number, y: number, fill?: CssColor, fontSize?: FontSize): this;
     text(text: string, x: number, y: number, style: TextStyle): this;
     text(text: string, position: Point2D, style: TextStyle): this;
     text(
         text: string,
         xOrPosition: number | Point2D,
         yOrStyle: number | TextStyle,
-        fillOrStyle?: string | TextStyle,
-        fontSize?: number
+        fillOrStyle?: CssColor | TextStyle,
+        fontSize?: FontSize
     ): this {
         if (typeof xOrPosition === 'number') {
             if (typeof fillOrStyle === 'object') {
@@ -268,12 +268,12 @@ export class GpuSurface {
     }
 
     /** Clears the framebuffer with a CSS color — same signature as `CpuSurface.clear`. */
-    clear(color: Color = '#000000'): this {
+    clear(color?: CssColor): this {
         this.#flushBatch();
 
         if (this.#lost) return this;
 
-        const { r, g, b, a } = parseColor(color);
+        const { r, g, b, a } = parseColor(color ?? createCssColor('#000000'));
 
         this.gl.clearColor(r, g, b, a);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);

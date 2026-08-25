@@ -1,18 +1,19 @@
 import { describe, expect, it } from 'vitest';
 
 import { colorArray, parseColor } from './color';
+import { createCssColor } from '../../core/types';
 
 describe('parseColor', () => {
     it('parses #rrggbb', () => {
-        expect(parseColor('#ff8000')).toEqual({ r: 1, g: 0.5019607843137255, b: 0, a: 1 });
+        expect(parseColor(createCssColor('#ff8000'))).toEqual({ r: 1, g: 0.5019607843137255, b: 0, a: 1 });
     });
 
     it('parses #rgb shorthand', () => {
-        expect(parseColor('#f80')).toEqual({ r: 1, g: 0.5333333333333333, b: 0, a: 1 });
+        expect(parseColor(createCssColor('#f80'))).toEqual({ r: 1, g: 0.5333333333333333, b: 0, a: 1 });
     });
 
     it('parses #rrggbbaa with alpha', () => {
-        expect(parseColor('#ff000080')).toEqual({
+        expect(parseColor(createCssColor('#ff000080'))).toEqual({
             r: 1,
             g: 0,
             b: 0,
@@ -21,13 +22,13 @@ describe('parseColor', () => {
     });
 
     it('parses rgb() and rgba()', () => {
-        expect(parseColor('rgb(255, 128, 0)')).toEqual({
+        expect(parseColor(createCssColor('rgb(255, 128, 0)'))).toEqual({
             r: 1,
             g: 0.5019607843137255,
             b: 0,
             a: 1
         });
-        expect(parseColor('rgba(255, 128, 0, 0.5)')).toEqual({
+        expect(parseColor(createCssColor('rgba(255, 128, 0, 0.5)'))).toEqual({
             r: 1,
             g: 0.5019607843137255,
             b: 0,
@@ -36,7 +37,7 @@ describe('parseColor', () => {
     });
 
     it('parses hsl()', () => {
-        const color = parseColor('hsl(120, 100%, 50%)');
+        const color = parseColor(createCssColor('hsl(120, 100%, 50%)'));
 
         expect(color.r).toBeCloseTo(0);
         expect(color.g).toBeCloseTo(1);
@@ -44,11 +45,11 @@ describe('parseColor', () => {
     });
 
     it('parses named colors', () => {
-        expect(parseColor('red')).toEqual({ r: 1, g: 0, b: 0, a: 1 });
-        expect(parseColor('transparent')).toEqual({ r: 0, g: 0, b: 0, a: 0 });
+        expect(parseColor(createCssColor('red'))).toEqual({ r: 1, g: 0, b: 0, a: 1 });
+        expect(parseColor(createCssColor('transparent'))).toEqual({ r: 0, g: 0, b: 0, a: 0 });
     });
 
     it('colorArray returns a flat rgba tuple', () => {
-        expect(colorArray('#ff0000')).toEqual([1, 0, 0, 1]);
+        expect(colorArray(createCssColor('#ff0000'))).toEqual([1, 0, 0, 1]);
     });
 });

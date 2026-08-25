@@ -1,4 +1,6 @@
-export type Color = string;
+import type { CssColor, FontSize, PositiveNumber } from '../../core/types';
+
+export type Color = CssColor;
 
 export interface Rect {
     x: number;
@@ -10,14 +12,14 @@ export interface Rect {
 export interface DrawStyle {
     fill?: Color;
     stroke?: Color;
-    lineWidth?: number;
+    lineWidth?: PositiveNumber;
 }
 
 export interface TextStyle {
     fill?: Color;
     stroke?: Color;
-    lineWidth?: number;
-    fontSize?: number;
+    lineWidth?: PositiveNumber;
+    fontSize?: FontSize;
     fontFamily?: string;
     align?: 'left' | 'center' | 'right';
     baseline?: 'alphabetic' | 'top' | 'middle' | 'bottom';

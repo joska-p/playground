@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
 import type { GpuDraw } from '../../../gpu/GpuSurface';
@@ -43,7 +44,7 @@ export function CyberHud() {
     const programRef = useRef<Program | null>(null);
 
     const onFrame: GpuDraw = (surface) => {
-        surface.clear('#000000');
+        surface.clear(createCssColor('#000000'));
 
         let program = programRef.current;
 
@@ -57,27 +58,27 @@ export function CyberHud() {
         const p = surface.pointer;
 
         surface
-            .line(p.x - 18, p.y, p.x - 6, p.y, '#22d3ee', 2)
-            .line(p.x + 6, p.y, p.x + 18, p.y, '#22d3ee', 2)
-            .line(p.x, p.y - 18, p.x, p.y - 6, '#22d3ee', 2)
-            .line(p.x, p.y + 6, p.x, p.y + 18, '#22d3ee', 2)
-            .circle(p.x, p.y, 24, undefined, '#22d3ee', 1.5);
+            .line(p.x - 18, p.y, p.x - 6, p.y, createCssColor('#22d3ee'), createPositiveNumber(2))
+            .line(p.x + 6, p.y, p.x + 18, p.y, createCssColor('#22d3ee'), createPositiveNumber(2))
+            .line(p.x, p.y - 18, p.x, p.y - 6, createCssColor('#22d3ee'), createPositiveNumber(2))
+            .line(p.x, p.y + 6, p.x, p.y + 18, createCssColor('#22d3ee'), createPositiveNumber(2))
+            .circle(p.x, p.y, createPositiveNumber(24), undefined, createCssColor('#22d3ee'), createPositiveNumber(1.5));
 
         surface
-            .rect(24, 24, 220, 14, '#1e293b')
-            .rect(26, 26, 216 * hull, 10, '#34d399')
-            .text('HULL', 26, 20, '#34d399', 10)
-            .rect(24, 46, 220, 14, '#1e293b')
-            .rect(26, 48, 216 * shield, 10, '#818cf8')
-            .text('SHIELD', 26, 42, '#818cf8', 10)
+            .rect(24, 24, createPositiveNumber(220), createPositiveNumber(14), createCssColor('#1e293b'))
+            .rect(26, 26, createPositiveNumber(216 * hull), createPositiveNumber(10), createCssColor('#34d399'))
+            .text('HULL', 26, 20, createCssColor('#34d399'), createFontSize(10))
+            .rect(24, 46, createPositiveNumber(220), createPositiveNumber(14), createCssColor('#1e293b'))
+            .rect(26, 48, createPositiveNumber(216 * shield), createPositiveNumber(10), createCssColor('#818cf8'))
+            .text('SHIELD', 26, 42, createCssColor('#818cf8'), createFontSize(10))
             .text(
                 `SECTOR ${String(Math.round(p.x / 48))}:${String(Math.round(p.y / 48))}`,
                 p.x + 32,
                 p.y - 24,
-                '#e2e8f0',
-                11
+                createCssColor('#e2e8f0'),
+                createFontSize(11)
             )
-            .text('drag to pan · scroll to zoom', 26, 306, '#475569', 10);
+            .text('drag to pan · scroll to zoom', 26, 306, createCssColor('#475569'), createFontSize(10));
     };
 
     return (

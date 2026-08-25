@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 import type { Point2D } from '../../../core/Camera';
@@ -131,13 +132,21 @@ export function NodeEditor() {
     };
 
     const onFrame: CpuDraw = (surface) => {
-        surface.clear('#0b0e13');
+        surface.clear(createCssColor('#0b0e13'));
 
         for (const [fromId, toId] of edges.current) {
             const from = nodes.current.find((node) => node.id === fromId);
             const to = nodes.current.find((node) => node.id === toId);
 
-            if (from && to) surface.line(from.x, from.y, to.x, to.y, '#334155', 2);
+            if (from && to)
+                surface.line(
+                    from.x,
+                    from.y,
+                    to.x,
+                    to.y,
+                    createCssColor('#334155'),
+                    createPositiveNumber(2)
+                );
         }
 
         const active = drag.current;
@@ -157,8 +166,8 @@ export function NodeEditor() {
                     dragged.y,
                     target ? target.x : pointer.x,
                     target ? target.y : pointer.y,
-                    target ? '#22d3ee' : '#334155',
-                    1.5
+                    createCssColor(target ? '#22d3ee' : '#334155'),
+                    createPositiveNumber(1.5)
                 );
             }
         }
@@ -170,20 +179,26 @@ export function NodeEditor() {
                 .circle(
                     node.x,
                     node.y,
-                    NODE_RADIUS,
-                    isDragged ? '#0f766e' : '#0e7490',
-                    '#22d3ee',
-                    2
+                    createPositiveNumber(NODE_RADIUS),
+                    createCssColor(isDragged ? '#0f766e' : '#0e7490'),
+                    createCssColor('#22d3ee'),
+                    createPositiveNumber(2)
                 )
-                .text(String(node.id), node.x - 4, node.y + 4, '#e2e8f0', 11);
+                .text(
+                    String(node.id),
+                    node.x - 4,
+                    node.y + 4,
+                    createCssColor('#e2e8f0'),
+                    createFontSize(11)
+                );
         }
 
         surface.text(
             'click to place · drag a node to move · release on another to connect · middle-drag pans · right-click deletes',
             8,
             16,
-            '#64748b',
-            10
+            createCssColor('#64748b'),
+            createFontSize(10)
         );
     };
 

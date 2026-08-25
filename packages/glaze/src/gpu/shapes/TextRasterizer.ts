@@ -1,4 +1,5 @@
 import { colorArray } from './color';
+import { createCssColor } from '../../core/types';
 
 import type { Point2D } from '../../core/Camera';
 import type { TextStyle } from '../../cpu/shapes/types';
@@ -161,6 +162,6 @@ export function textUniforms(
         u_position: [position.x, position.y - size],
         u_size: [width, height],
         u_texture: texture,
-        u_color: colorArray(style.fill ?? '#ffffff')
+        u_color: colorArray(style.fill ?? createCssColor('#ffffff'))
     };
 }

@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import { textUniforms } from './TextRasterizer';
+import { createCssColor } from '../../core/types';
 
 describe('text uniform builder', () => {
     it('positions the baseline and tints the fill', () => {
         const texture = {} as WebGLTexture;
         const uniforms = textUniforms({ x: 100, y: 50 }, 60, 40, 28, texture, {
-            fill: '#ff0000'
+            fill: createCssColor('#ff0000')
         });
 
         expect(uniforms['u_position']).toEqual([100, 22]);

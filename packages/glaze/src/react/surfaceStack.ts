@@ -8,6 +8,7 @@ import { createGpuSurface, type GpuSurface } from '../gpu/GpuSurface';
 
 import type { Clock, ClockOptions } from '../core/Clock';
 import type { InputStore } from '../core/InputStore';
+import type { DevicePixelRatio } from '../core/types';
 
 /** Resource created alongside a surface node; `dispose` runs exactly once at detach. */
 export interface StackDisposable {
@@ -19,7 +20,7 @@ export interface CpuSurfaceOptions {
     camera?: Camera;
     cameraControls?: CameraControls;
     initialCamera?: InitialCamera;
-    dpr?: number;
+    dpr?: DevicePixelRatio;
 }
 
 export interface GpuSurfaceOptions extends CpuSurfaceOptions {

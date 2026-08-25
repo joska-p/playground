@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 import { GpuCanvas } from '../../../react/GpuCanvas';
 
+import type { CssColor, FontSize, PositiveNumber } from '../../../core/types';
 import type { CpuDraw } from '../../../cpu/CpuSurface';
 import type { GpuDraw } from '../../../gpu/GpuSurface';
 
@@ -18,17 +20,23 @@ interface ShapeSurface {
     circle(
         x: number,
         y: number,
-        radius: number,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        radius: PositiveNumber,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): ShapeSurface;
-    text(text: string, x: number, y: number, fill?: string, fontSize?: number): ShapeSurface;
+    text(text: string, x: number, y: number, fill?: CssColor, fontSize?: FontSize): ShapeSurface;
 }
 
-const STAR_COLORS = ['#38bdf8', '#a78bfa', '#f472b6', '#fbbf24', '#e2e8f0'] as const;
+const STAR_COLORS = [
+    createCssColor('#38bdf8'),
+    createCssColor('#a78bfa'),
+    createCssColor('#f472b6'),
+    createCssColor('#fbbf24'),
+    createCssColor('#e2e8f0')
+];
 
-const colorAt = (index: number): string =>
+const colorAt = (index: number): CssColor =>
     STAR_COLORS[index % STAR_COLORS.length] ?? STAR_COLORS[0];
 
 const fract = (value: number): number => value - Math.floor(value);
@@ -38,17 +46,17 @@ const hash = (index: number): number => fract(Math.sin(index * 127.1) * 43758.54
 interface Star {
     sx: number;
     sy: number;
-    radius: number;
+    radius: PositiveNumber;
     phase: number;
     drift: number;
-    color: string;
+    color: CssColor;
 }
 
 const makeStars = (count: number): Star[] =>
     Array.from({ length: count }, (_, i) => ({
         sx: hash(i * 3 + 1),
         sy: hash(i * 3 + 2),
-        radius: 0.6 + hash(i * 3 + 3) * 1.8,
+        radius: createPositiveNumber(0.6 + hash(i * 3 + 3) * 1.8),
         phase: hash(i * 3 + 4) * Math.PI * 2,
         drift: 0.02 + hash(i * 3 + 5) * 0.05,
         color: colorAt(i)
@@ -61,15 +69,15 @@ const drawScene = (surface: ShapeSurface, stars: Star[]): void => {
         const x = star.sx * surface.width;
         const y = ((star.sy + surface.time * star.drift) % 1) * surface.height;
 
-        surface.circle(x, y, star.radius * twinkle, star.color);
+        surface.circle(x, y, createPositiveNumber(star.radius * twinkle), star.color);
     }
 
     surface.text(
         `${String(stars.length)} circles · frame ${String(surface.frameCount)}`,
         12,
         20,
-        '#64748b',
-        11
+        createCssColor('#64748b'),
+        createFontSize(11)
     );
 };
 
@@ -81,12 +89,12 @@ export function DropIn() {
     const stars = makeStars(count);
 
     const onCpuDraw: CpuDraw = (surface) => {
-        surface.clear('#05070b');
+        surface.clear(createCssColor('#05070b'));
         drawScene(surface, stars);
     };
 
     const onGpuDraw: GpuDraw = (surface) => {
-        surface.clear('#05080b');
+        surface.clear(createCssColor('#05080b'));
         drawScene(surface, stars);
     };
 

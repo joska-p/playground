@@ -1,3 +1,4 @@
+import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
 import type { Point2D } from '../../../core/Camera';
@@ -30,7 +31,7 @@ export function GraphPaper() {
     const onFrame: CpuDraw = (surface) => {
         const { min, max } = bounds(surface);
 
-        surface.clear('#0a0d12');
+        surface.clear(createCssColor('#0a0d12'));
 
         const minorCulled = (MAJOR / MINOR) * surface.camera.zoom < MINOR_CULL;
         const step = minorCulled ? MAJOR : MINOR;
@@ -38,20 +39,40 @@ export function GraphPaper() {
         for (const x of range(min.x, max.x, step)) {
             const major = step === MAJOR || Math.round(x / MAJOR) === x / MAJOR;
 
-            surface.line(x, min.y, x, max.y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
+            surface.line(
+                x,
+                min.y,
+                x,
+                max.y,
+                createCssColor(major ? '#1f2937' : '#131a24'),
+                createPositiveNumber(major ? 1.5 : 1)
+            );
         }
 
         for (const y of range(min.y, max.y, step)) {
             const major = step === MAJOR || Math.round(y / MAJOR) === y / MAJOR;
 
-            surface.line(min.x, y, max.x, y, major ? '#1f2937' : '#131a24', major ? 1.5 : 1);
+            surface.line(
+                min.x,
+                y,
+                max.x,
+                y,
+                createCssColor(major ? '#1f2937' : '#131a24'),
+                createPositiveNumber(major ? 1.5 : 1)
+            );
         }
 
         surface
-            .line(0, min.y, 0, max.y, '#f43f5e', 2)
-            .line(min.x, 0, max.x, 0, '#38bdf8', 2)
-            .text('world origin', 6, -6, '#64748b', 11)
-            .text(`zoom ${surface.camera.zoom.toFixed(2)}×`, 8, 20, '#475569', 11);
+            .line(0, min.y, 0, max.y, createCssColor('#f43f5e'), createPositiveNumber(2))
+            .line(min.x, 0, max.x, 0, createCssColor('#38bdf8'), createPositiveNumber(2))
+            .text('world origin', 6, -6, createCssColor('#64748b'), createFontSize(11))
+            .text(
+                `zoom ${surface.camera.zoom.toFixed(2)}×`,
+                8,
+                20,
+                createCssColor('#475569'),
+                createFontSize(11)
+            );
     };
 
     return (

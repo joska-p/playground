@@ -8,9 +8,21 @@ import {
 } from '../core/Camera';
 import { FrameLoop, type FrameStep } from '../core/FrameLoop';
 import { createInputStore, type InputStore } from '../core/InputStore';
-import { createSeconds, createNonNegativeSeconds } from '../core/types';
+import {
+    createSeconds,
+    createNonNegativeSeconds,
+    createCanvasDimension,
+    createDevicePixelRatio
+} from '../core/types';
 
 import type { NonNegativeSeconds, Seconds } from '../core/types';
+import type {
+    CssColor,
+    DevicePixelRatio,
+    FontSize,
+    PositiveNumber,
+    CanvasDimension
+} from '../core/types';
 import type { DrawStyle, PathOptions, Rect, TextStyle } from './shapes/types';
 
 const DEFAULT_STROKE_WIDTH = 1;
@@ -19,8 +31,7 @@ const DEFAULT_FONT_FAMILY = 'sans-serif';
 export interface CpuSurfaceConfig {
     canvas: HTMLCanvasElement;
     camera?: Camera;
-    /** Defaults to `window.devicePixelRatio` (1 off-browser). */
-    dpr?: number;
+    dpr?: DevicePixelRatio;
 }
 
 export type CpuDraw = (surface: CpuSurface) => void;
@@ -38,15 +49,15 @@ export class CpuSurface {
     /** CSS pixels, not device pixels — multiply by `dpr` for the backing-buffer size. */
     width = 0;
     height = 0;
-    readonly dpr: number;
+    readonly dpr: DevicePixelRatio;
     readonly canvas: HTMLCanvasElement;
     readonly context: CanvasRenderingContext2D;
     readonly camera: Camera;
     readonly input: InputStore;
 
     readonly #loop: FrameLoop;
-    #cssWidth = 0;
-    #cssHeight = 0;
+    #cssWidth: CanvasDimension = createCanvasDimension(1);
+    #cssHeight: CanvasDimension = createCanvasDimension(1);
 
     constructor(config: CpuSurfaceConfig) {
         const context = config.canvas.getContext('2d');
@@ -56,7 +67,7 @@ export class CpuSurface {
         this.canvas = config.canvas;
         this.context = context;
         this.camera = config.camera ?? defaultCamera();
-        this.dpr = config.dpr ?? (typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
+        this.dpr = config.dpr ?? createDevicePixelRatio(1);
         this.input = createInputStore();
         this.input.attach(this.canvas);
         this.#loop = new FrameLoop(this.#frameStep);
@@ -92,7 +103,7 @@ export class CpuSurface {
         return this.#loop.subscribe(wrapped);
     }
 
-    clear(color: string): this {
+    clear(color: CssColor): this {
         const context = this.context;
 
         context.save();
@@ -118,25 +129,25 @@ export class CpuSurface {
     rect(
         x: number,
         y: number,
-        w: number,
-        h: number,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        w: PositiveNumber,
+        h: PositiveNumber,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this;
     rect(rect: Rect, style?: DrawStyle): this;
     rect(
         xOrRect: number | Rect,
         yOrStyle?: number | DrawStyle,
-        w = 0,
-        h = 0,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        w?: PositiveNumber,
+        h?: PositiveNumber,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof xOrRect === 'number') {
             this.#begin(fill, stroke, lineWidth);
-            this.context.rect(xOrRect, yOrStyle as number, w, h);
+            this.context.rect(xOrRect, yOrStyle as number, w ?? 0, h ?? 0);
             this.#paintShape(fill, stroke);
         } else {
             const style = yOrStyle as DrawStyle | undefined;
@@ -144,8 +155,8 @@ export class CpuSurface {
             this.rect(
                 xOrRect.x,
                 xOrRect.y,
-                xOrRect.w,
-                xOrRect.h,
+                xOrRect.w as PositiveNumber,
+                xOrRect.h as PositiveNumber,
                 style?.fill,
                 style?.stroke,
                 style?.lineWidth
@@ -158,19 +169,19 @@ export class CpuSurface {
     circle(
         x: number,
         y: number,
-        radius: number,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        radius: PositiveNumber,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this;
-    circle(center: Point2D, radius: number, style?: DrawStyle): this;
+    circle(center: Point2D, radius: PositiveNumber, style?: DrawStyle): this;
     circle(
         xOrCenter: number | Point2D,
         yOrRadius: number,
-        radiusOrStyle?: number | DrawStyle,
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number
+        radiusOrStyle?: PositiveNumber | DrawStyle,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof xOrCenter === 'number') {
             this.#begin(fill, stroke, lineWidth);
@@ -182,7 +193,7 @@ export class CpuSurface {
             this.circle(
                 xOrCenter.x,
                 xOrCenter.y,
-                yOrRadius,
+                yOrRadius as PositiveNumber,
                 style?.fill,
                 style?.stroke,
                 style?.lineWidth
@@ -192,18 +203,18 @@ export class CpuSurface {
         return this;
     }
 
-    line(x1: number, y1: number, x2: number, y2: number, stroke?: string, lineWidth?: number): this;
+    line(x1: number, y1: number, x2: number, y2: number, stroke?: CssColor, lineWidth?: PositiveNumber): this;
     line(a: Point2D, b: Point2D, style?: DrawStyle): this;
     line(
         x1OrA: number | Point2D,
         y1OrB: number | Point2D,
         x2OrStyle?: number | DrawStyle,
-        y2 = 0,
-        stroke?: string,
-        lineWidth?: number
+        y2?: number,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): this {
         if (typeof x1OrA === 'number') {
-            this.#strokeLine(x1OrA, y1OrB as number, x2OrStyle as number, y2, stroke, lineWidth);
+            this.#strokeLine(x1OrA, y1OrB as number, x2OrStyle as number, y2 ?? 0, stroke, lineWidth);
         } else {
             const b = y1OrB as Point2D;
             const style = x2OrStyle as DrawStyle | undefined;
@@ -214,15 +225,15 @@ export class CpuSurface {
         return this;
     }
 
-    text(text: string, x: number, y: number, fill?: string, fontSize?: number): this;
+    text(text: string, x: number, y: number, fill?: CssColor, fontSize?: FontSize): this;
     text(text: string, x: number, y: number, style: TextStyle): this;
     text(text: string, position: Point2D, style: TextStyle): this;
     text(
         text: string,
         xOrPosition: number | Point2D,
         yOrStyle: number | TextStyle,
-        fillOrStyle?: string | TextStyle,
-        fontSize?: number
+        fillOrStyle?: CssColor | TextStyle,
+        fontSize?: FontSize
     ): this {
         if (typeof xOrPosition === 'number') {
             const style = typeof fillOrStyle === 'object' ? fillOrStyle : undefined;
@@ -247,24 +258,24 @@ export class CpuSurface {
 
     path(
         points: readonly Point2D[],
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber,
         closed?: boolean
     ): this;
     path(points: readonly Point2D[], style?: DrawStyle, options?: PathOptions): this;
     path(
         points: readonly Point2D[],
-        fillOrStyle?: string | DrawStyle,
-        strokeOrOptions?: string | PathOptions,
-        lineWidth?: number,
+        fillOrStyle?: CssColor | DrawStyle,
+        strokeOrOptions?: CssColor | PathOptions,
+        lineWidth?: PositiveNumber,
         closed?: boolean
     ): this {
         if (typeof fillOrStyle === 'string') {
             this.#drawPath(
                 points,
                 fillOrStyle,
-                strokeOrOptions as string | undefined,
+                strokeOrOptions as CssColor | undefined,
                 lineWidth,
                 closed
             );
@@ -304,8 +315,8 @@ export class CpuSurface {
     };
 
     #resize(): void {
-        this.#cssWidth = Math.max(1, this.canvas.clientWidth);
-        this.#cssHeight = Math.max(1, this.canvas.clientHeight);
+        this.#cssWidth = createCanvasDimension(Math.max(1, this.canvas.clientWidth));
+        this.#cssHeight = createCanvasDimension(Math.max(1, this.canvas.clientHeight));
         const deviceWidth = Math.round(this.#cssWidth * this.dpr);
         const deviceHeight = Math.round(this.#cssHeight * this.dpr);
 
@@ -314,7 +325,7 @@ export class CpuSurface {
         if (this.canvas.height !== deviceHeight) this.canvas.height = deviceHeight;
     }
 
-    #begin(fill?: string, stroke?: string, lineWidth?: number): void {
+    #begin(fill?: CssColor, stroke?: CssColor, lineWidth?: PositiveNumber): void {
         const context = this.context;
 
         context.beginPath();
@@ -329,7 +340,7 @@ export class CpuSurface {
         }
     }
 
-    #paintShape(fill?: string, stroke?: string, options?: PathOptions): void {
+    #paintShape(fill?: CssColor, stroke?: CssColor, options?: PathOptions): void {
         const doFill = options?.fill ?? fill !== undefined;
         const doStroke = options?.stroke ?? stroke !== undefined;
 
@@ -343,8 +354,8 @@ export class CpuSurface {
         y1: number,
         x2: number,
         y2: number,
-        stroke?: string,
-        lineWidth?: number
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber
     ): void {
         const context = this.context;
 
@@ -361,8 +372,8 @@ export class CpuSurface {
         text: string,
         x: number,
         y: number,
-        fill: string | undefined,
-        fontSize: number | undefined,
+        fill: CssColor | undefined,
+        fontSize: FontSize | undefined,
         style?: TextStyle
     ): void {
         const context = this.context;
@@ -386,9 +397,9 @@ export class CpuSurface {
 
     #drawPath(
         points: readonly Point2D[],
-        fill?: string,
-        stroke?: string,
-        lineWidth?: number,
+        fill?: CssColor,
+        stroke?: CssColor,
+        lineWidth?: PositiveNumber,
         closed?: boolean,
         options?: PathOptions
     ): void {

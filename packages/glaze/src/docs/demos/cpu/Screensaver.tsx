@@ -1,30 +1,32 @@
+import { createCssColor, createFontSize, createPositiveNumber } from '../../../core/types';
 import { CpuCanvas } from '../../../react/CpuCanvas';
 
+import type { CssColor, PositiveNumber } from '../../../core/types';
 import type { CpuDraw } from '../../../cpu/CpuSurface';
 
 const PARTICLE_COUNT = 120;
 const GRAVITY = 260;
-const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)';
+const TRAIL_COLOR = 'rgba(5, 7, 11, 0.06)' as CssColor;
 
 interface Particle {
     x: number;
     y: number;
     vx: number;
     vy: number;
-    radius: number;
-    color: string;
+    radius: PositiveNumber;
+    color: CssColor;
 }
 
-const FILLS = ['#38bdf8', '#a78bfa', '#f472b6', '#34d399', '#fbbf24'] as const;
+const FILLS = ['#38bdf8', '#a78bfa', '#f472b6', '#34d399', '#fbbf24'] as CssColor[];
 
-const colorAt = (index: number): string => FILLS[index % FILLS.length] ?? FILLS[0];
+const colorAt = (index: number): CssColor => FILLS[index % FILLS.length] ?? FILLS[0];
 
 const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
     x: 200 + (i % 5) * 130,
     y: -40 - i * 8,
     vx: (Math.random() - 0.5) * 60,
     vy: Math.random() * 40,
-    radius: 2 + Math.random() * 4,
+    radius: createPositiveNumber(2 + Math.random() * 4),
     color: colorAt(i)
 }));
 
@@ -34,16 +36,16 @@ export function Screensaver() {
             .rect(
                 -surface.camera.x / surface.camera.zoom,
                 -surface.camera.y / surface.camera.zoom,
-                surface.width / surface.camera.zoom,
-                surface.height / surface.camera.zoom,
+                createPositiveNumber(surface.width / surface.camera.zoom),
+                createPositiveNumber(surface.height / surface.camera.zoom),
                 TRAIL_COLOR
             )
             .text(
                 `frame ${String(surface.frameCount)} · time ${surface.time.toFixed(1)}s · dpr ${String(surface.dpr)}`,
                 16,
                 24,
-                '#475569',
-                11
+                createCssColor('#475569'),
+                createFontSize(11)
             );
 
         for (const particle of particles) {
