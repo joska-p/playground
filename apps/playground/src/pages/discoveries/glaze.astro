@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PackageDoc from '../../components/ui/docs/api-reference/PackageDoc.astro';
-import { GlazeDocs } from '@repo/glaze/docs/GlazeDocs';
 
 const packageName = '@repo/glaze';
 ---
@@ -11,9 +10,5 @@ const packageName = '@repo/glaze';
     description="2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures."
     keywords="canvas, webgl, framework, 2d, shader"
 >
-    <section class="min-h-screen w-full">
-        <GlazeDocs client:only="react" />
-    </section>
-
     <PackageDoc packageName={packageName} />
 </BaseLayout>

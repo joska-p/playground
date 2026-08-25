@@ -302,13 +302,13 @@ export class CpuSurface {
         this.input.destroy();
     }
 
-    #frameStep: FrameStep = (time, deltaTime, frame): void => {
+    #frameStep: FrameStep = (time, deltaTime, frameToken): void => {
         this.#resize();
         this.frameCount++;
         this.#stampFrameState(time, deltaTime);
         this.applyCamera();
         this.#loop.runFrameSubscribers();
-        this.input.endFrame(frame);
+        this.input.endFrame(frameToken);
     };
 
     #stampFrameState(time: Seconds, deltaTime: NonNegativeSeconds): void {

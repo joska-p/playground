@@ -391,7 +391,7 @@ export class GpuSurface {
         for (const buffer of this.#buffers) buffer.resize(buffer.width, buffer.height);
     };
 
-    #frameStep: FrameStep = (time, deltaTime, frame): void => {
+    #frameStep: FrameStep = (time, deltaTime, frameToken): void => {
         this.#resize();
         this.frameCount++;
         this.time = time;
@@ -402,7 +402,7 @@ export class GpuSurface {
 
         this.#loop.runFrameSubscribers();
         this.#flushBatch();
-        this.input.endFrame(frame);
+        this.input.endFrame(frameToken);
     };
 }
 

@@ -10,7 +10,7 @@ export interface FrameToken {
 }
 
 /** The owner's frame step: stamped state, then the loop fans out to subscribers. */
-export type FrameStep = (time: Seconds, delta: NonNegativeSeconds, frame: FrameToken) => void;
+export type FrameStep = (time: Seconds, delta: NonNegativeSeconds, frameToken: FrameToken) => void;
 
 /** One subscriber of the frame fan-out, invoked by the owner's step via `runFrameSubscribers`. */
 export type FrameSubscriber = () => void;

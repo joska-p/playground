@@ -244,7 +244,7 @@ export function LifecycleReport() {
                         camera was applied for it.
                     </li>
                     <li>
-                        <Code>input.endFrame(frame)</Code> <Code>InputStore.ts:156</Code> — clear{' '}
+                        <Code>input.endFrame(frameToken)</Code> <Code>InputStore.ts:156</Code> — clear{' '}
                         <Code>pressed</Code> keys and <Code>wheelDelta</Code>. Requires a{' '}
                         <Code>FrameToken</Code> proof from the frame loop; everything else (pointer
                         position, held keys, button state) persists across frames.
