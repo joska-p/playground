@@ -1,6 +1,7 @@
 import { useId, type InputHTMLAttributes } from "react";
 
 import { cn } from "../lib/cn";
+import { useFieldContext } from "../lib/field-context";
 import { useControllableState } from "../lib/use-controllable-state";
 
 interface ColorFieldProps
@@ -15,9 +16,12 @@ function ColorField({
     defaultValue = "#fe8019",
     onChange,
     className,
+    id: idProp,
     ...props
 }: ColorFieldProps) {
-    const id = useId();
+    const fallbackId = useId();
+    const field = useFieldContext();
+    const id = idProp ?? field?.id ?? fallbackId;
     const [state, setState] = useControllableState(value, defaultValue, onChange);
 
     return (

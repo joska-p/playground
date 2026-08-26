@@ -3,6 +3,7 @@ import { useId, type InputHTMLAttributes } from "react";
 
 import { sliderVariants } from "./slider.variants";
 import { cn } from "../lib/cn";
+import { useFieldContext } from "../lib/field-context";
 import { useControllableState } from "../lib/use-controllable-state";
 
 interface SliderProps
@@ -27,9 +28,12 @@ function Slider({
     min = 0,
     max = 100,
     step = 1,
+    id: idProp,
     ...props
 }: SliderProps) {
-    const id = useId();
+    const fallbackId = useId();
+    const field = useFieldContext();
+    const id = idProp ?? field?.id ?? fallbackId;
     const [state, setState] = useControllableState(value, defaultValue, onChange);
 
     return (

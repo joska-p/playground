@@ -37,7 +37,7 @@ function PanelSection({
             <button
                 type="button"
                 aria-expanded={open}
-                onClick={() => setOpen((o) => !o)}
+                onClick={() => { setOpen((o) => !o); }}
                 className="flex items-center justify-between cursor-pointer text-muted-foreground text-[10px] uppercase tracking-widest font-semibold select-none"
             >
                 {label}

@@ -8,7 +8,7 @@
     --gb-bg3: #665c54;
     --gb-fg0: #fbf1c7;
     --gb-fg1: #ebdbb2;
-    --gb-fg4: #a89984;
+    --gb-fg4: #b0a090;
     --gb-red: #fb4934;
     --gb-green: #b8bb26;
     --gb-yellow: #fabd2f;
@@ -22,6 +22,7 @@
     --gb-bg0-hard-l: #f9f5d7;
     --gb-bg0-l: #fbf1c7;
     --gb-fg1-l: #3c3836;
+    --gb-fg4-l: #725e48;
     --gb-red-l: #9d0006;
     --gb-green-l: #79740e;
     --gb-yellow-l: #b57614;
@@ -53,7 +54,7 @@
     --accent-foreground: oklch(from var(--gb-bg0-hard) l c h);
 
     --destructive: oklch(from var(--gb-red) l c h);
-    --destructive-foreground: oklch(from var(--gb-fg0) l c h);
+    --destructive-foreground: oklch(from var(--gb-bg0-hard) l c h);
 
     --border: oklch(from var(--gb-bg2) l c h);
     --input: oklch(from var(--gb-bg2) l c h);
@@ -81,7 +82,7 @@
     --secondary: oklch(from var(--gb-bg0-l) l calc(c * 0.8) h);
     --secondary-foreground: oklch(from var(--gb-fg1-l) l c h);
     --muted: oklch(from var(--gb-bg0-hard-l) l c h);
-    --muted-foreground: oklch(from var(--gb-fg1-l) l c h / 0.6);
+    --muted-foreground: oklch(from var(--gb-fg4-l) l c h);
     --accent: oklch(from var(--gb-blue-l) l c h);
     --accent-foreground: oklch(from var(--gb-bg0-hard-l) l c h);
     --destructive: oklch(from var(--gb-red-l) l c h);
