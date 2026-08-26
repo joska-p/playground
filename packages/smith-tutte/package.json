@@ -15,7 +15,6 @@
         "test": "vitest"
     },
     "dependencies": {
-        "@repo/ui": "workspace:*",
         "zod": "catalog:",
         "zustand": "catalog:"
     },

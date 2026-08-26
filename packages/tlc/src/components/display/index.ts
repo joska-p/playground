@@ -11,3 +11,5 @@ export type { AccordionProps, AccordionItemProps } from "./accordion";
 
 export { ErrorBoundary } from "./error-boundary";
 export type { ErrorBoundaryProps } from "./error-boundary";
+
+export { Spinner } from "./spinner";

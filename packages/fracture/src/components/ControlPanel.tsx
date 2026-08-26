@@ -1,5 +1,5 @@
-import { ControlGrid, ControlPanel as Panel, ControlRow } from '@repo/ui/control-panel';
-import { Select, Slider } from '@repo/ui/data-entry';
+import { ControlGrid, FieldRow, Select, Slider } from '@repo/tlc/components/forms';
+import { Panel } from '@repo/tlc/layout';
 
 import { computeMaxIterations } from '../core/perturbationOrbit';
 import { setParam, useParams } from '../stores/createParamStore';
@@ -24,146 +24,158 @@ function ControlPanel() {
 
     return (
         <Panel title="mandelbrot">
-            <ControlRow label="renderer">
+            <FieldRow label="renderer">
                 <Select
                     value={renderer}
-                    onChange={(e) => {
-                        setRenderer(e.target.value as Renderer);
+                    onChange={(value) => {
+                        setRenderer(value as Renderer);
                     }}
-                >
-                    <option value="original">original</option>
-                    <option value="double-single">double-single</option>
-                    <option value="perturbation">perturbation</option>
-                </Select>
-            </ControlRow>
+                    options={[
+                        { label: "original", value: "original" },
+                        { label: "double-single", value: "double-single" },
+                        { label: "perturbation", value: "perturbation" },
+                    ]}
+                />
+            </FieldRow>
 
             <ControlGrid columns={2}>
-                <Slider
-                    label="iteration base"
-                    min="20"
-                    max="200"
-                    step="5"
-                    value={params.iterationBase}
-                    onChange={(value) => {
-                        setParam(active, 'iterationBase', value);
-                    }}
-                />
+                <FieldRow label="iteration base">
+                    <Slider
+                        min="20"
+                        max="200"
+                        step="5"
+                        value={params.iterationBase}
+                        onChange={(value) => {
+                            setParam(active, 'iterationBase', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="iteration / octave"
-                    min="5"
-                    max="80"
-                    step="1"
-                    value={params.iterationScale}
-                    onChange={(value) => {
-                        setParam(active, 'iterationScale', value);
-                    }}
-                />
+                <FieldRow label="iteration / octave">
+                    <Slider
+                        min="5"
+                        max="80"
+                        step="1"
+                        value={params.iterationScale}
+                        onChange={(value) => {
+                            setParam(active, 'iterationScale', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="iteration cap (perf)"
-                    min="200"
-                    max="3000"
-                    step="50"
-                    value={params.iterationCap}
-                    onChange={(value) => {
-                        setParam(active, 'iterationCap', value);
-                    }}
-                />
+                <FieldRow label="iteration cap (perf)">
+                    <Slider
+                        min="200"
+                        max="3000"
+                        step="50"
+                        value={params.iterationCap}
+                        onChange={(value) => {
+                            setParam(active, 'iterationCap', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="pixel eps"
-                    min="0.0005"
-                    max="0.1"
-                    step="0.0005"
-                    value={params.pixelEps}
-                    onChange={(value) => {
-                        setParam(active, 'pixelEps', value);
-                    }}
-                />
+                <FieldRow label="pixel eps">
+                    <Slider
+                        min="0.0005"
+                        max="0.1"
+                        step="0.0005"
+                        value={params.pixelEps}
+                        onChange={(value) => {
+                            setParam(active, 'pixelEps', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="interior scale"
-                    min="2.0"
-                    max="25.0"
-                    step="0.5"
-                    value={params.interiorScale}
-                    onChange={(value) => {
-                        setParam(active, 'interiorScale', value);
-                    }}
-                />
+                <FieldRow label="interior scale">
+                    <Slider
+                        min="2.0"
+                        max="25.0"
+                        step="0.5"
+                        value={params.interiorScale}
+                        onChange={(value) => {
+                            setParam(active, 'interiorScale', value);
+                        }}
+                    />
+                </FieldRow>
             </ControlGrid>
 
-            <ControlRow label="iterations @ 1 / 1e3 / 1e6">
+            <FieldRow label="iterations @ 1 / 1e3 / 1e6">
                 <span className="text-foreground-dim text-sm">{iterationsHint}</span>
-            </ControlRow>
+            </FieldRow>
 
             <ControlGrid columns={2}>
-                <Slider
-                    label="sun angle"
-                    min="0"
-                    max="6.283"
-                    step="0.01"
-                    value={params.sunAngle}
-                    onChange={(value) => {
-                        setParam(active, 'sunAngle', value);
-                    }}
-                />
+                <FieldRow label="sun angle">
+                    <Slider
+                        min="0"
+                        max="6.283"
+                        step="0.01"
+                        value={params.sunAngle}
+                        onChange={(value) => {
+                            setParam(active, 'sunAngle', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="bump height"
-                    min="1.0"
-                    max="50.0"
-                    step="0.5"
-                    value={params.bumpHeight}
-                    onChange={(value) => {
-                        setParam(active, 'bumpHeight', value);
-                    }}
-                />
+                <FieldRow label="bump height">
+                    <Slider
+                        min="1.0"
+                        max="50.0"
+                        step="0.5"
+                        value={params.bumpHeight}
+                        onChange={(value) => {
+                            setParam(active, 'bumpHeight', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="ambient light"
-                    min="0.0"
-                    max="0.8"
-                    step="0.01"
-                    value={params.ambientLight}
-                    onChange={(value) => {
-                        setParam(active, 'ambientLight', value);
-                    }}
-                />
+                <FieldRow label="ambient light">
+                    <Slider
+                        min="0.0"
+                        max="0.8"
+                        step="0.01"
+                        value={params.ambientLight}
+                        onChange={(value) => {
+                            setParam(active, 'ambientLight', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="hue shift"
-                    min="0"
-                    max="6.283"
-                    step="0.01"
-                    value={params.hueShift}
-                    onChange={(value) => {
-                        setParam(active, 'hueShift', value);
-                    }}
-                />
+                <FieldRow label="hue shift">
+                    <Slider
+                        min="0"
+                        max="6.283"
+                        step="0.01"
+                        value={params.hueShift}
+                        onChange={(value) => {
+                            setParam(active, 'hueShift', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="hue frequency"
-                    min="0.01"
-                    max="0.5"
-                    step="0.001"
-                    value={params.hueFrequency}
-                    onChange={(value) => {
-                        setParam(active, 'hueFrequency', value);
-                    }}
-                />
+                <FieldRow label="hue frequency">
+                    <Slider
+                        min="0.01"
+                        max="0.5"
+                        step="0.001"
+                        value={params.hueFrequency}
+                        onChange={(value) => {
+                            setParam(active, 'hueFrequency', value);
+                        }}
+                    />
+                </FieldRow>
 
-                <Slider
-                    label="chroma scale"
-                    min="0.0"
-                    max="0.25"
-                    step="0.005"
-                    value={params.chromaScale}
-                    onChange={(value) => {
-                        setParam(active, 'chromaScale', value);
-                    }}
-                />
+                <FieldRow label="chroma scale">
+                    <Slider
+                        min="0.0"
+                        max="0.25"
+                        step="0.005"
+                        value={params.chromaScale}
+                        onChange={(value) => {
+                            setParam(active, 'chromaScale', value);
+                        }}
+                    />
+                </FieldRow>
             </ControlGrid>
         </Panel>
     );

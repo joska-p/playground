@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 import { RotateCcw, SlidersHorizontal, X } from 'lucide-react';
 import { type LookState } from '../lib/mandelbrot/look';
 

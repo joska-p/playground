@@ -1,4 +1,4 @@
-import { Button, Input } from '@repo/ui/data-entry';
+import { Button, Input } from '@repo/tlc/components/forms';
 import { useEffect, useRef } from 'react';
 
 import {

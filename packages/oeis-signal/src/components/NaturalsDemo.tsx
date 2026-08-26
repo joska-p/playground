@@ -1,5 +1,5 @@
+import { createPositiveNumber, createCssColor } from '@repo/glaze/core/types';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
-
 import { getModule } from '../core/registry';
 
 export function NaturalsDemo() {
@@ -17,7 +17,7 @@ export function NaturalsDemo() {
                 const x = next.value;
                 const y = x;
 
-                surface.circle(x, y, 5, 'red');
+                surface.circle(x, y, createPositiveNumber(5), createCssColor('red'));
             }}
         />
     );

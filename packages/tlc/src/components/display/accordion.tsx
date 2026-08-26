@@ -1,6 +1,6 @@
 import { cn } from "../../lib/cn";
 
-import type { HTMLAttributes, ReactNode, Ref } from "react";
+import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from "react";
 
 interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
@@ -20,7 +20,7 @@ function Accordion({ className, children, ref, ...props }: AccordionProps) {
 }
 
 interface AccordionItemProps
-    extends Omit<HTMLAttributes<HTMLDetailsElement>, "title"> {
+    extends Omit<DetailsHTMLAttributes<HTMLDetailsElement>, "title"> {
     title: string;
     children: ReactNode;
     ref?: Ref<HTMLDetailsElement>;

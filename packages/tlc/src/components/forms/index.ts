@@ -1,6 +1,9 @@
 export { Field } from "./field";
 export type { FieldProps } from "./field";
 
+export { FieldRow } from "./field-row";
+export type { FieldRowProps } from "./field-row";
+
 export { Slider } from "./slider";
 export type { SliderProps } from "./slider";
 export { sliderVariants } from "./slider.variants";

@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Badge } from '@repo/ui/data-display';
+import { Accordion, AccordionItem, Badge } from '@repo/tlc/components/display';
 import { useState } from 'react';
 
 import { useCases, useCaseLevels } from './useCases';
@@ -31,7 +31,7 @@ export function DemoGallery() {
                     {useCaseLevels.map((level) => (
                         <Badge
                             key={level.level}
-                            appearance="outline"
+                            variant="secondary"
                             size="sm"
                             title={level.description}
                         >
@@ -63,7 +63,7 @@ export function DemoGallery() {
                                     </p>
                                     <div className="flex items-center gap-2">
                                         <Badge
-                                            variant="warning"
+                                            variant="accent"
                                             size="sm"
                                         >
                                             Level {useCase.level}

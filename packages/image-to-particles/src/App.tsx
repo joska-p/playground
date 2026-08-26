@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui/feedback';
+import { ErrorBoundary } from '@repo/tlc/components/display';
 
 import { ImageToParticles } from './components/ImageToParticles';
 

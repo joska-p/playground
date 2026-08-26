@@ -674,9 +674,9 @@ importers:
       '@repo/glaze':
         specifier: workspace:*
         version: link:../glaze
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -735,6 +735,9 @@ importers:
 
   packages/glaze:
     dependencies:
+      '@repo/tlc':
+        specifier: workspace:*
+        version: link:../tlc
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
@@ -899,9 +902,9 @@ importers:
 
   packages/image-to-particles:
     dependencies:
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
     devDependencies:
       '@babel/core':
         specifier: 'catalog:'
@@ -972,9 +975,6 @@ importers:
       '@repo/l-system-engine':
         specifier: workspace:*
         version: link:../l-system-engine
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@types/three':
         specifier: 'catalog:'
         version: 0.184.1
@@ -1063,9 +1063,9 @@ importers:
       '@repo/glaze':
         specifier: workspace:*
         version: link:../glaze
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       '@repo/worker-pool':
         specifier: workspace:*
         version: link:../worker-pool
@@ -1203,9 +1203,6 @@ importers:
       '@repo/glaze':
         specifier: workspace:*
         version: link:../glaze
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -1731,9 +1728,6 @@ importers:
       '@react-three/fiber':
         specifier: 'catalog:'
         version: 9.6.1(@types/react@19.2.17)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       three:
         specifier: 'catalog:'
         version: 0.184.0
@@ -1889,9 +1883,6 @@ importers:
 
   packages/smith-tutte:
     dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       zod:
         specifier: 'catalog:'
         version: 4.4.3
@@ -2184,9 +2175,6 @@ importers:
 
   packages/workshop:
     dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))

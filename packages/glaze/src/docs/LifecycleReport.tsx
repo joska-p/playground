@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem } from '@repo/ui/data-display';
+import { Accordion, AccordionItem } from '@repo/tlc/components/display';
 
 import type { ReactNode } from 'react';
 

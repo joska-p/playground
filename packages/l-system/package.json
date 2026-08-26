@@ -17,7 +17,6 @@
         "@react-three/drei": "catalog:",
         "@react-three/fiber": "catalog:",
         "@repo/l-system-engine": "workspace:*",
-        "@repo/ui": "workspace:*",
         "@types/three": "catalog:",
         "leva": "catalog:",
         "three": "catalog:",

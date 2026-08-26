@@ -15,7 +15,6 @@
         "preview": "vite preview --host"
     },
     "dependencies": {
-        "@repo/ui": "workspace:*",
         "zustand": "catalog:"
     },
     "devDependencies": {
