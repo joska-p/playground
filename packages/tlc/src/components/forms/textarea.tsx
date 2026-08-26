@@ -1,13 +1,12 @@
-import { type VariantProps } from "class-variance-authority";
+import { type VariantProps } from 'class-variance-authority';
 
-import { textareaVariants } from "./textarea.variants";
-import { cn } from "../../lib/cn";
-import { useFieldContext } from "../../lib/field-context";
-import type { TextareaHTMLAttributes } from "react";
+import { textareaVariants } from './textarea.variants';
+import { cn } from '../../lib/cn';
+import { useFieldContext } from '../../lib/field-context';
+import type { TextareaHTMLAttributes } from 'react';
 
 interface TextareaProps
-    extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-        VariantProps<typeof textareaVariants> {
+    extends TextareaHTMLAttributes<HTMLTextAreaElement>, VariantProps<typeof textareaVariants> {
     autoGrow?: boolean;
 }
 
@@ -30,8 +29,8 @@ function Textarea({
             id={id}
             className={cn(
                 textareaVariants({ variant }),
-                autoGrow && "field-sizing-content max-h-[15lh] min-h-[3lh]",
-                className,
+                autoGrow && 'field-sizing-content max-h-[15lh] min-h-[3lh]',
+                className
             )}
             style={style}
             {...props}

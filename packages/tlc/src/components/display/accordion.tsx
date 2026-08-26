@@ -1,6 +1,6 @@
-import { cn } from "../../lib/cn";
+import { cn } from '../../lib/cn';
 
-import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from "react";
+import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react';
 
 interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
@@ -11,7 +11,7 @@ function Accordion({ className, children, ref, ...props }: AccordionProps) {
     return (
         <div
             ref={ref}
-            className={cn("flex flex-col gap-2", className)}
+            className={cn('flex flex-col gap-2', className)}
             {...props}
         >
             {children}
@@ -19,24 +19,17 @@ function Accordion({ className, children, ref, ...props }: AccordionProps) {
     );
 }
 
-interface AccordionItemProps
-    extends Omit<DetailsHTMLAttributes<HTMLDetailsElement>, "title"> {
+interface AccordionItemProps extends Omit<DetailsHTMLAttributes<HTMLDetailsElement>, 'title'> {
     title: string;
     children: ReactNode;
     ref?: Ref<HTMLDetailsElement>;
 }
 
-function AccordionItem({
-    className,
-    title,
-    children,
-    ref,
-    ...props
-}: AccordionItemProps) {
+function AccordionItem({ className, title, children, ref, ...props }: AccordionItemProps) {
     return (
         <details
             ref={ref}
-            className={cn("group bg-card overflow-hidden rounded-lg", className)}
+            className={cn('group bg-card overflow-hidden rounded-lg', className)}
             {...props}
         >
             <summary className="text-foreground flex cursor-pointer items-center justify-between px-5 py-4 font-medium transition-colors duration-150 hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring">
@@ -57,9 +50,7 @@ function AccordionItem({
                     </svg>
                 </span>
             </summary>
-            <div className="text-muted-foreground px-5 pb-4 leading-relaxed">
-                {children}
-            </div>
+            <div className="text-muted-foreground px-5 pb-4 leading-relaxed">{children}</div>
         </details>
     );
 }

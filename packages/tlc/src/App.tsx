@@ -4,9 +4,9 @@ import {
     ControlGroup,
     Field,
     Slider,
-    Toggle,
-} from "@repo/tlc/components/forms";
-import { Panel, PanelSection, Shell, ShellCanvas, ShellPanels } from "@repo/tlc/layout";
+    Toggle
+} from '@repo/tlc/components/forms';
+import { Panel, PanelSection, Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 
 function App() {
     return (
@@ -21,7 +21,10 @@ function App() {
                 <Panel title="Controls">
                     <PanelSection label="Parameters">
                         <ControlGroup>
-                            <Field label="Tile Size" hint="px">
+                            <Field
+                                label="Tile Size"
+                                hint="px"
+                            >
                                 <Slider
                                     defaultValue={64}
                                     min={32}
@@ -30,7 +33,10 @@ function App() {
                                 />
                             </Field>
 
-                            <Field label="Gap Size" hint="px">
+                            <Field
+                                label="Gap Size"
+                                hint="px"
+                            >
                                 <Slider
                                     defaultValue={0}
                                     min={0}
@@ -40,7 +46,10 @@ function App() {
                             </Field>
 
                             <Field label="Rotation">
-                                <Toggle defaultPressed aria-label="Rotation" />
+                                <Toggle
+                                    defaultPressed
+                                    aria-label="Rotation"
+                                />
                             </Field>
 
                             <Field label="Accent Color">
@@ -48,10 +57,16 @@ function App() {
                             </Field>
 
                             <div className="flex gap-2 pt-1">
-                                <Button variant="primary" size="sm">
+                                <Button
+                                    variant="primary"
+                                    size="sm"
+                                >
                                     Shuffle
                                 </Button>
-                                <Button variant="default" size="sm">
+                                <Button
+                                    variant="default"
+                                    size="sm"
+                                >
                                     Reset
                                 </Button>
                             </div>

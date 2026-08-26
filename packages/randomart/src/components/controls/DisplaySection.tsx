@@ -91,7 +91,9 @@ function DisplaySection() {
                 disabled={downloading}
                 onClick={handleDownload}
             >
-                {downloading ? 'Rendering PNG...' : `Download ${String(DOWNLOAD_SIZE)}×${String(DOWNLOAD_SIZE)} PNG`}
+                {downloading
+                    ? 'Rendering PNG...'
+                    : `Download ${String(DOWNLOAD_SIZE)}×${String(DOWNLOAD_SIZE)} PNG`}
             </Button>
         </PanelSection>
     );

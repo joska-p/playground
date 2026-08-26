@@ -1,5 +1,5 @@
-import { type ReactNode } from "react";
-import { cn } from "../../lib/cn";
+import { type ReactNode } from 'react';
+import { cn } from '../../lib/cn';
 
 interface ControlGroupProps {
     children: ReactNode;
@@ -7,9 +7,7 @@ interface ControlGroupProps {
 }
 
 function ControlGroup({ children, className }: ControlGroupProps) {
-    return (
-        <div className={cn("flex flex-col gap-3", className)}>{children}</div>
-    );
+    return <div className={cn('flex flex-col gap-3', className)}>{children}</div>;
 }
 
 export { ControlGroup };

@@ -8,6 +8,7 @@ tags: [design-system, tlc, architecture]
 
 **Corps:**
 When building a replacement component in @repo/tlc:
+
 1. Read the spec for the component's contract (if it exists)
 2. Read how the consuming code actually uses the component (props, layout context)
 3. Design from TLC patterns (cva variants, cn(), native HTML, semantic tokens)

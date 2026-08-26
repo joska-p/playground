@@ -1,20 +1,21 @@
-import { type VariantProps } from "class-variance-authority";
-import { useId, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { type VariantProps } from 'class-variance-authority';
+import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
-import { toggleVariants } from "./toggle.variants";
-import { cn } from "../../lib/cn";
-import { useControllableState } from "../../lib/use-controllable-state";
-import { Spinner } from "../display/spinner";
+import { toggleVariants } from './toggle.variants';
+import { cn } from '../../lib/cn';
+import { useControllableState } from '../../lib/use-controllable-state';
+import { Spinner } from '../display/spinner';
 
 interface ToggleProps
-    extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange">,
+    extends
+        Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>,
         VariantProps<typeof toggleVariants> {
     pressed?: boolean;
     defaultPressed?: boolean;
     onChange?: (pressed: boolean) => void;
     label?: ReactNode;
     loading?: boolean;
-    "aria-label": string;
+    'aria-label': string;
 }
 
 function Toggle({
@@ -26,15 +27,11 @@ function Toggle({
     label,
     loading = false,
     disabled,
-    "aria-label": ariaLabel,
+    'aria-label': ariaLabel,
     ...props
 }: ToggleProps) {
     const id = useId();
-    const [state, setState] = useControllableState(
-        pressed,
-        defaultPressed,
-        onChange,
-    );
+    const [state, setState] = useControllableState(pressed, defaultPressed, onChange);
 
     const toggle = (
         <button
@@ -44,8 +41,8 @@ function Toggle({
             aria-checked={state}
             aria-busy={loading || undefined}
             aria-label={ariaLabel}
-            data-state={state ? "on" : "off"}
-            disabled={disabled || loading}
+            data-state={state ? 'on' : 'off'}
+            disabled={disabled ?? loading}
             onClick={() => {
                 setState(!state);
             }}
@@ -57,8 +54,8 @@ function Toggle({
             ) : (
                 <span
                     className={cn(
-                        "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform duration-200",
-                        state ? "translate-x-5" : "translate-x-0",
+                        'pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform duration-200',
+                        state ? 'translate-x-5' : 'translate-x-0'
                     )}
                 />
             )}

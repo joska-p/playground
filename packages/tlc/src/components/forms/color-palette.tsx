@@ -1,16 +1,15 @@
-import { useId, type InputHTMLAttributes } from "react";
+import { useId, type InputHTMLAttributes } from 'react';
 
 import {
     colorPaletteVariants,
     colorPaletteRingVariants,
     colorSwatchVariants,
-    type ColorPaletteVariants,
-} from "./color-palette.variants";
-import { cn } from "../../lib/cn";
+    type ColorPaletteVariants
+} from './color-palette.variants';
+import { cn } from '../../lib/cn';
 
 interface ColorPaletteProps
-    extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size">,
-        ColorPaletteVariants {
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'size'>, ColorPaletteVariants {
     name: string;
     value: string;
     colors: string[];
@@ -36,10 +35,7 @@ function ColorPalette({
         <label
             htmlFor={id}
             title={title}
-            className={cn(
-                colorPaletteVariants({ size, orientation }),
-                className,
-            )}
+            className={cn(colorPaletteVariants({ size, orientation }), className)}
         >
             <input
                 id={id}
@@ -57,7 +53,7 @@ function ColorPalette({
             <div
                 className={cn(
                     colorPaletteVariants({ size, orientation }),
-                    "overflow-hidden rounded-[inherit]",
+                    'overflow-hidden rounded-[inherit]'
                 )}
             >
                 {colors.map((color) => (
@@ -69,12 +65,7 @@ function ColorPalette({
                 ))}
             </div>
 
-            <div
-                className={cn(
-                    colorPaletteRingVariants({ checked }),
-                    "rounded-[inherit]",
-                )}
-            />
+            <div className={cn(colorPaletteRingVariants({ checked }), 'rounded-[inherit]')} />
         </label>
     );
 }

@@ -128,7 +128,7 @@
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
 
-    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 @layer base {

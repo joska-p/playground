@@ -1,16 +1,14 @@
-import { type VariantProps } from "class-variance-authority";
-import { useId, type InputHTMLAttributes } from "react";
+import { type VariantProps } from 'class-variance-authority';
+import { useId, type InputHTMLAttributes } from 'react';
 
-import { sliderVariants } from "./slider.variants";
-import { cn } from "../../lib/cn";
-import { useFieldContext } from "../../lib/field-context";
-import { useControllableState } from "../../lib/use-controllable-state";
+import { sliderVariants } from './slider.variants';
+import { cn } from '../../lib/cn';
+import { useFieldContext } from '../../lib/field-context';
+import { useControllableState } from '../../lib/use-controllable-state';
 
 interface SliderProps
-    extends Omit<
-            InputHTMLAttributes<HTMLInputElement>,
-            "onChange" | "value" | "color"
-        >,
+    extends
+        Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'color'>,
         VariantProps<typeof sliderVariants> {
     value?: number;
     defaultValue?: number;
@@ -29,7 +27,7 @@ function Slider({
     max: maxProp = 100,
     step: stepProp = 1,
     id: idProp,
-    "aria-label": ariaLabel,
+    'aria-label': ariaLabel,
     ...props
 }: SliderProps) {
     const fallbackId = useId();
@@ -44,7 +42,10 @@ function Slider({
     return (
         <div className="flex items-center gap-2 w-full">
             <input
-                {...(props as Omit<typeof props, "aria-valuemax" | "aria-valuemin" | "aria-valuenow">)}
+                {...(props as Omit<
+                    typeof props,
+                    'aria-valuemax' | 'aria-valuemin' | 'aria-valuenow'
+                >)}
                 id={id}
                 type="range"
                 min={min}

@@ -1,6 +1,6 @@
-import { type ReactNode, useId } from "react";
-import { cn } from "../../lib/cn";
-import { FieldContext } from "../../lib/field-context";
+import { type ReactNode, useId } from 'react';
+import { cn } from '../../lib/cn';
+import { FieldContext } from '../../lib/field-context';
 
 interface FieldProps {
     label: string;
@@ -17,9 +17,9 @@ function Field({ label, hint, value, children, className }: FieldProps) {
         <FieldContext value={{ id }}>
             <div
                 className={cn(
-                    "grid grid-cols-[1fr_auto] items-center gap-2",
-                    "[container:inline-size]",
-                    className,
+                    'grid grid-cols-[1fr_auto] items-center gap-2',
+                    '[container:inline-size]',
+                    className
                 )}
             >
                 <div className="flex items-baseline gap-1.5 min-w-0">
@@ -34,11 +34,7 @@ function Field({ label, hint, value, children, className }: FieldProps) {
                             {value}
                         </span>
                     )}
-                    {hint && (
-                        <span className="text-muted-foreground/60 text-[10px]">
-                            {hint}
-                        </span>
-                    )}
+                    {hint && <span className="text-muted-foreground/60 text-[10px]">{hint}</span>}
                 </div>
                 <div className="flex items-center">{children}</div>
             </div>

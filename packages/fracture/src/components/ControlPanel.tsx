@@ -31,9 +31,9 @@ function ControlPanel() {
                         setRenderer(value as Renderer);
                     }}
                     options={[
-                        { label: "original", value: "original" },
-                        { label: "double-single", value: "double-single" },
-                        { label: "perturbation", value: "perturbation" },
+                        { label: 'original', value: 'original' },
+                        { label: 'double-single', value: 'double-single' },
+                        { label: 'perturbation', value: 'perturbation' }
                     ]}
                 />
             </FieldRow>

@@ -1,1 +1,1 @@
-export { Slot } from "./slot";
+export { Slot } from './slot';

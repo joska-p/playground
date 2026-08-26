@@ -2,7 +2,7 @@ import { generateSciFiPaths } from './generateSciFiPaths';
 import styles from './SciFiCard.module.css';
 import { sciFiCardVariants, type SciFiCardVariantProps } from './variants';
 import { cn } from '../../../lib/cn';
-import { Badge } from '../../data-display';
+import { Badge } from '../../display';
 
 import type { HTMLAttributes } from 'react';
 
@@ -74,7 +74,7 @@ export function SciFiCard({
             <div className="relative z-20 flex h-full flex-col justify-between">
                 <div className="flex items-start justify-between gap-4">
                     <Badge
-                        appearance="outline"
+                        variant="primary"
                         className="border-(--variant-color) text-(--variant-color)"
                     >
                         {cardId}

@@ -1,11 +1,13 @@
-import { useId, type InputHTMLAttributes } from "react";
+import { useId, type InputHTMLAttributes } from 'react';
 
-import { cn } from "../../lib/cn";
-import { useFieldContext } from "../../lib/field-context";
-import { useControllableState } from "../../lib/use-controllable-state";
+import { cn } from '../../lib/cn';
+import { useFieldContext } from '../../lib/field-context';
+import { useControllableState } from '../../lib/use-controllable-state';
 
-interface ColorFieldProps
-    extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
+interface ColorFieldProps extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'value'
+> {
     value?: string;
     defaultValue?: string;
     onChange?: (value: string) => void;
@@ -13,7 +15,7 @@ interface ColorFieldProps
 
 function ColorField({
     value,
-    defaultValue = "#fe8019",
+    defaultValue = '#fe8019',
     onChange,
     className,
     id: idProp,
@@ -34,16 +36,14 @@ function ColorField({
                     setState(e.target.value);
                 }}
                 className={cn(
-                    "h-8 w-8 cursor-pointer rounded-md border border-input bg-transparent p-0.5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                    "[&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-sm [&::-webkit-color-swatch]:border-0",
-                    "[&::-moz-color-swatch]:rounded-sm [&::-moz-color-swatch]:border-0",
-                    className,
+                    'h-8 w-8 cursor-pointer rounded-md border border-input bg-transparent p-0.5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+                    '[&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-sm [&::-webkit-color-swatch]:border-0',
+                    '[&::-moz-color-swatch]:rounded-sm [&::-moz-color-swatch]:border-0',
+                    className
                 )}
                 {...props}
             />
-            <span className="text-xs font-mono text-muted-foreground uppercase">
-                {state}
-            </span>
+            <span className="text-xs font-mono text-muted-foreground uppercase">{state}</span>
         </div>
     );
 }

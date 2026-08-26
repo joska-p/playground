@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { cn } from "../../lib/cn";
+import { cn } from '../../lib/cn';
+import type { ReactNode } from 'react';
 
 interface FieldRowProps {
     label: ReactNode;
@@ -13,8 +13,8 @@ function FieldRow({ label, value, hint, className, children }: FieldRowProps) {
     return (
         <div
             className={cn(
-                "flex min-h-7 flex-col gap-1.5 landscape:flex-row landscape:items-center landscape:gap-2",
-                className,
+                'flex min-h-7 flex-col gap-1.5 landscape:flex-row landscape:items-center landscape:gap-2',
+                className
             )}
         >
             <span

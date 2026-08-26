@@ -1,4 +1,4 @@
-import { Component, type ReactNode, type ErrorInfo } from "react";
+import { Component, type ReactNode, type ErrorInfo } from 'react';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -36,11 +36,14 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             const isDev = import.meta.env?.DEV ?? false;
 
             return (
-                <div role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive-foreground">
+                <div
+                    role="alert"
+                    className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive-foreground"
+                >
                     <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-medium">
-                                {error.message || "Something went wrong."}
+                                {error.message || 'Something went wrong.'}
                             </p>
                             {isDev && stack && (
                                 <pre className="mt-2 max-h-32 overflow-auto whitespace-pre-wrap break-all text-[10px] leading-relaxed opacity-70">

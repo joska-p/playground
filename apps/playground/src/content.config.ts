@@ -1,4 +1,4 @@
-import { iconNames } from '@repo/ui/icons';
+import { iconNames } from '@repo/tlc';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection, reference } from 'astro:content';

@@ -3,14 +3,16 @@
 **Contexte :** Tailwind CSS v4 utilise `@theme inline` dans les fichiers CSS (pas de `tailwind.config.js`) pour mapper les variables CSS vers les utilitaires Tailwind.
 
 **Corps :**
+
 ```css
 @theme inline {
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
     --radius-sm: calc(var(--radius) - 4px);
-    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 ```
+
 - Sans `@theme inline`, la variable CSS existe mais aucune classe Tailwind n'est générée
 - Le préfixe `--color-` génère `bg-primary`, `text-primary-foreground`, etc.
 - Le préfixe `--radius-` génère `rounded-sm`, `rounded-md`, etc.

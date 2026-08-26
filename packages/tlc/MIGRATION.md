@@ -33,6 +33,7 @@ export interface FieldRowProps {
 ```
 
 Comportement :
+
 - Portrait : colonne `flex flex-col gap-1.5`
 - Landscape : `flex-row items-center gap-2` via `@media (orientation: landscape)`
 - Label fixe `w-20` en landscape, `truncate`
@@ -44,6 +45,7 @@ Comportement :
 ### 0b. `Toggle` — vérifier parité API avec `Switch`
 
 `Switch` (@repo/ui) a un prop `loading` que `Toggle` (tlc) n'a pas. Vérifier que :
+
 - `Toggle` accepte `loading?: boolean` (affiche un spinner)
 - `Toggle` accepte `label?: ReactNode` (rend un `<label>` wrapper, comme Switch)
 - Le variant `toggleVariants` est cohérent
@@ -72,14 +74,14 @@ Utilisé uniquement par `art-canvas`. Remplacer par un `&&` classique dans le JS
 
 Ces packages ont `@repo/tlc` ou `@repo/ui` dans `package.json` mais zéro import en source.
 
-| Package | Action |
-|---------|--------|
-| `real-life` | Supprimer `@repo/ui` du `package.json` |
-| `l-system` | Supprimer `@repo/ui` du `package.json` |
-| `smith-tutte` | Supprimer `@repo/ui` du `package.json` |
-| `oeis-signal` | Supprimer `@repo/ui` du `package.json` |
-| `three-stage` | Supprimer `@repo/ui` du `package.json` |
-| `workshop` | Vérifier si `@repo/ui` est en dep, supprimer si oui |
+| Package       | Action                                              |
+| ------------- | --------------------------------------------------- |
+| `real-life`   | Supprimer `@repo/ui` du `package.json`              |
+| `l-system`    | Supprimer `@repo/ui` du `package.json`              |
+| `smith-tutte` | Supprimer `@repo/ui` du `package.json`              |
+| `oeis-signal` | Supprimer `@repo/ui` du `package.json`              |
+| `three-stage` | Supprimer `@repo/ui` du `package.json`              |
+| `workshop`    | Vérifier si `@repo/ui` est en dep, supprimer si oui |
 
 **Validation :** `pnpm install` + `pnpm --filter <pkg> check-types`
 
@@ -92,6 +94,7 @@ Ces packages ont `@repo/tlc` ou `@repo/ui` dans `package.json` mais zéro import
 Imports : `ControlPanel`, `ControlGrid`, `ControlRow`, `Select`, `Slider`
 
 Migration :
+
 - `ControlPanel` → `Panel` (from `@repo/tlc/layout`)
 - `ControlSection` → `PanelSection` (from `@repo/tlc/layout`)
 - `ControlGrid` → `ControlGrid` (from `@repo/tlc/components/forms`)
@@ -105,6 +108,7 @@ Migration :
 Imports : `ErrorBoundary`, `Button`, `Input`
 
 Migration directe :
+
 - `ErrorBoundary` → `@repo/tlc/components/display`
 - `Button` → `@repo/tlc/components/forms`
 - `Input` → `@repo/tlc/components/forms`
@@ -114,6 +118,7 @@ Migration directe :
 Imports : `ErrorBoundary`, `Button` + custom `SliderRow`
 
 Migration :
+
 - `ErrorBoundary` → `@repo/tlc/components/display`
 - `Button` → `@repo/tlc/components/forms`
 - Custom `SliderRow` → `FieldRow` (tlc) ou garder local
@@ -123,6 +128,7 @@ Migration :
 Imports : `Accordion`, `AccordionItem`, `Badge`, `Hero`, `SectionHeading`
 
 Migration :
+
 - `Accordion`/`AccordionItem` → `@repo/tlc/components/display`
 - `Badge` → `@repo/tlc/components/display`
 - `Hero`, `SectionHeading` → garder en local (composants docs, pas dans tlc)
@@ -138,6 +144,7 @@ Migration :
 Imports : `ControlPanel`, `ControlGrid`, `ControlSection`, `ControlRow`, `Button`, `Slider`, `Select`, `ErrorBoundary`
 
 Migration :
+
 - `ControlPanel` → `Panel`
 - `ControlSection` → `PanelSection`
 - `ControlGrid` → `ControlGrid`
@@ -150,6 +157,7 @@ Migration :
 Imports : `Sidebar`, `Button`, `Slider`, `ErrorBoundary`
 
 Migration :
+
 - `Sidebar` → restructurer avec `Shell > ShellPanels`
 - `Button`, `Slider` → `forms`
 - `ErrorBoundary` → `display`
@@ -159,6 +167,7 @@ Migration :
 Imports : `ControlPanel`, `ControlGrid`, `Button`, `Input`, `Label`, `ColorSwatch`, `Card`, `ErrorBoundary`
 
 Migration :
+
 - `ControlPanel` → `Panel`
 - `ControlGrid` → `ControlGrid`
 - `Label` → `<label>` natif ou `Field`
@@ -172,6 +181,7 @@ Migration :
 Imports : `Sidebar`, `Badge`, `Button`, `Switch`, `Icon`
 
 Migration :
+
 - `Sidebar` → restructurer avec `Shell`
 - `Switch` → `Toggle`
 - `Badge`, `Button` → `forms`/`display`
@@ -188,6 +198,7 @@ Migration :
 Imports principaux : `ControlPanel`, `ControlGrid`, `ControlSection`, `ControlRow`, `ControlSubsection`, `Button`, `Slider`, `Select`, `Badge`, `Card`, `ErrorBoundary`
 
 Migration :
+
 - `ControlPanel` → `Panel`
 - `ControlSection` → `PanelSection`
 - `ControlGrid` → `ControlGrid`
@@ -215,6 +226,7 @@ Pattern identique à randomart. Faire randomart d'abord comme référence.
 Le plus gros consommateur. A ses propres wrappers locaux (Badge.tsx wrappe le Badge de @repo/ui).
 
 Migration :
+
 - Supprimer les wrappers locaux qui dupliquent des composants tlc
 - `Switch` → `Toggle`
 - `ControlRow` → `FieldRow`
@@ -237,28 +249,28 @@ Migration :
 
 ## Mapping des imports @repo/ui → @repo/tlc
 
-| @repo/ui | @repo/tlc | Notes |
-|----------|-----------|-------|
-| `data-entry:Button` | `components/forms:Button` | |
-| `data-entry:Input` | `components/forms:Input` | |
-| `data-entry:Select` | `components/forms:Select` | |
-| `data-entry:Slider` | `components/forms:Slider` | |
-| `data-entry:Textarea` | `components/forms:Textarea` | |
-| `data-entry:Checkbox` | `components/forms:Checkbox` | |
-| `data-entry:Switch` | `components/forms:Toggle` | **Renamed** |
-| `data-entry:Label` | `<label>` natif ou `Field` | Pas de standalone |
-| `data-display:Badge` | `components/display:Badge` | |
-| `data-display:Card` | `components/display:Card` | |
-| `data-display:Accordion` | `components/display:Accordion` | |
-| `feedback:ErrorBoundary` | `components/display:ErrorBoundary` | |
-| `control-panel:ControlPanel` | `layout:Panel` | **Renamed** |
-| `control-panel:ControlSection` | `layout:PanelSection` | **Renamed** |
-| `control-panel:ControlGrid` | `components/forms:ControlGrid` | |
-| `control-panel:ControlRow` | `components/forms:FieldRow` | **New** — étape 0a |
-| `control-panel:ControlSubsection` | `layout:PanelSection` | Nested variant |
-| `control-panel:ControlConditional` | `&&` JSX | Pas de replacement |
-| `widgets:Sidebar` | `layout:Shell` | **Different API** — restructurer |
-| `widgets:ColorPalette` | `components/forms:ColorPalette` | |
-| `widgets:Spinner` | — | Plus utilisé |
-| `icons:Icon` | lucide-react direct | |
-| `lib:cn` | `lib/cn` | Inchangé |
+| @repo/ui                           | @repo/tlc                          | Notes                            |
+| ---------------------------------- | ---------------------------------- | -------------------------------- |
+| `data-entry:Button`                | `components/forms:Button`          |                                  |
+| `data-entry:Input`                 | `components/forms:Input`           |                                  |
+| `data-entry:Select`                | `components/forms:Select`          |                                  |
+| `data-entry:Slider`                | `components/forms:Slider`          |                                  |
+| `data-entry:Textarea`              | `components/forms:Textarea`        |                                  |
+| `data-entry:Checkbox`              | `components/forms:Checkbox`        |                                  |
+| `data-entry:Switch`                | `components/forms:Toggle`          | **Renamed**                      |
+| `data-entry:Label`                 | `<label>` natif ou `Field`         | Pas de standalone                |
+| `data-display:Badge`               | `components/display:Badge`         |                                  |
+| `data-display:Card`                | `components/display:Card`          |                                  |
+| `data-display:Accordion`           | `components/display:Accordion`     |                                  |
+| `feedback:ErrorBoundary`           | `components/display:ErrorBoundary` |                                  |
+| `control-panel:ControlPanel`       | `layout:Panel`                     | **Renamed**                      |
+| `control-panel:ControlSection`     | `layout:PanelSection`              | **Renamed**                      |
+| `control-panel:ControlGrid`        | `components/forms:ControlGrid`     |                                  |
+| `control-panel:ControlRow`         | `components/forms:FieldRow`        | **New** — étape 0a               |
+| `control-panel:ControlSubsection`  | `layout:PanelSection`              | Nested variant                   |
+| `control-panel:ControlConditional` | `&&` JSX                           | Pas de replacement               |
+| `widgets:Sidebar`                  | `layout:Shell`                     | **Different API** — restructurer |
+| `widgets:ColorPalette`             | `components/forms:ColorPalette`    |                                  |
+| `widgets:Spinner`                  | —                                  | Plus utilisé                     |
+| `icons:Icon`                       | lucide-react direct                |                                  |
+| `lib:cn`                           | `lib/cn`                           | Inchangé                         |

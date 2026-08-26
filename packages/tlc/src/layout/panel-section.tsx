@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { cn } from "../lib/cn";
+import { cn } from '../lib/cn';
 
 interface PanelSectionProps {
     label?: string;
@@ -15,13 +15,13 @@ function PanelSection({
     children,
     className,
     collapsible = false,
-    defaultOpen = true,
+    defaultOpen = true
 }: PanelSectionProps) {
     const [open, setOpen] = useState(defaultOpen);
 
     if (!collapsible) {
         return (
-            <div className={cn("flex flex-col gap-3", className)}>
+            <div className={cn('flex flex-col gap-3', className)}>
                 {label && (
                     <div className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">
                         {label}
@@ -33,18 +33,20 @@ function PanelSection({
     }
 
     return (
-        <div className={cn("flex flex-col", className)}>
+        <div className={cn('flex flex-col', className)}>
             <button
                 type="button"
                 aria-expanded={open}
-                onClick={() => { setOpen((o) => !o); }}
+                onClick={() => {
+                    setOpen((o) => !o);
+                }}
                 className="flex items-center justify-between cursor-pointer text-muted-foreground text-[10px] uppercase tracking-widest font-semibold select-none transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
             >
                 {label}
                 <span
                     className={cn(
-                        "transition-transform duration-150 text-[8px]",
-                        open ? "rotate-180" : "",
+                        'transition-transform duration-150 text-[8px]',
+                        open ? 'rotate-180' : ''
                     )}
                 >
                     ▼
@@ -52,8 +54,8 @@ function PanelSection({
             </button>
             <div
                 className={cn(
-                    "grid transition-[grid-template-rows] duration-150 ease-out",
-                    open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                    'grid transition-[grid-template-rows] duration-150 ease-out',
+                    open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                 )}
             >
                 <div className="overflow-hidden">

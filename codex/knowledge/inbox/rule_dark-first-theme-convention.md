@@ -3,6 +3,7 @@
 **Contexte :** Gruvbox est nativement un thème sombre. Quand on adapte le système shadcn (qui utilise `.dark` comme variant sombre), il faut inverser la convention.
 
 **Corps :**
+
 - `:root` = thème sombre (Gruvbox dark) — c'est le défaut
 - `.light` = variante claire (Gruvbox light) — pas `.dark`
 - L'HTML a `data-theme='dark'` ou pas d'attribut (dark = défaut)

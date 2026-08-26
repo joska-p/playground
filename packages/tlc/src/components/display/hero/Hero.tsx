@@ -1,6 +1,6 @@
 import { heroVariants, type HeroVariants } from './variants';
 import { cn } from '../../../lib/cn';
-import { Badge } from '../badge/Badge';
+import { Badge } from '../badge';
 
 import type { HTMLAttributes, Ref } from 'react';
 
@@ -41,7 +41,7 @@ function Hero({
             className={cn(heroVariants({ variant }), className)}
         >
             <div className="relative z-10 mx-auto w-full max-w-6xl">
-                {badgeText && <Badge appearance="outline">{badgeText}</Badge>}
+                {badgeText && <Badge variant="primary">{badgeText}</Badge>}
 
                 <h1
                     className={cn(

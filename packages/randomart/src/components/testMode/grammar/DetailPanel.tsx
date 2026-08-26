@@ -92,13 +92,13 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
                 </div>
 
                 <div className="mb-4 flex justify-center">
-                <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => {
-                        rerollRule(rule.id);
-                    }}
-                >
+                    <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                            rerollRule(rule.id);
+                        }}
+                    >
                         reroll
                     </Button>
                 </div>

@@ -22,7 +22,7 @@ function CreatureSection() {
                     }}
                     options={allCreatures.map((creature) => ({
                         label: creature.name,
-                        value: creature.id,
+                        value: creature.id
                     }))}
                 />
             </FieldRow>

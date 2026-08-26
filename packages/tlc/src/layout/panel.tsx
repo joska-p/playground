@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
+import { type ReactNode } from 'react';
 
-import { cn } from "../lib/cn";
+import { cn } from '../lib/cn';
 
 interface PanelProps {
     title?: string;
@@ -12,9 +12,9 @@ function Panel({ title, children, className }: PanelProps) {
     return (
         <div
             className={cn(
-                "flex flex-col h-full bg-card text-card-foreground",
-                "container-[inline-size]",
-                className,
+                'flex flex-col h-full bg-card text-card-foreground',
+                'container-[inline-size]',
+                className
             )}
         >
             {title && (
@@ -22,9 +22,7 @@ function Panel({ title, children, className }: PanelProps) {
                     {title}
                 </div>
             )}
-            <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3">
-                {children}
-            </div>
+            <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3">{children}</div>
         </div>
     );
 }
@@ -38,8 +36,8 @@ function PanelHeader({ children, className }: PanelHeaderProps) {
     return (
         <div
             className={cn(
-                "shrink-0 px-4 py-3 border-b border-border text-muted-foreground font-semibold tracking-wide uppercase text-[10px]",
-                className,
+                'shrink-0 px-4 py-3 border-b border-border text-muted-foreground font-semibold tracking-wide uppercase text-[10px]',
+                className
             )}
         >
             {children}

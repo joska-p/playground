@@ -2,12 +2,7 @@ import { FieldRow, Button, Select } from '@repo/tlc/components/forms';
 import { PanelSection } from '@repo/tlc/layout';
 
 import { RENDER_MODE_OPTIONS } from '../lib/renderModes';
-import {
-    setRenderMode,
-    setResolution,
-    useRenderMode,
-    useResolution
-} from '../store';
+import { setRenderMode, setResolution, useRenderMode, useResolution } from '../store';
 
 export function RenderSection() {
     const resolution = useResolution();

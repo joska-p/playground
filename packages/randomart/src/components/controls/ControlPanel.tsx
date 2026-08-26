@@ -66,7 +66,9 @@ function ControlPanel() {
 function PanelSection({ label, children }: { label: string; children: React.ReactNode }) {
     return (
         <div className="flex flex-col gap-3">
-            <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">{label}</span>
+            <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">
+                {label}
+            </span>
             {children}
         </div>
     );

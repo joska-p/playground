@@ -3,12 +3,14 @@
 **Contexte :** Le thème Gruvbox utilise des hex colors officielles. Plutôt que convertir manuellement en oklch, on utilise la relative color syntax du CSS Color Module 4.
 
 **Corps :**
+
 ```css
 :root {
     --gb-orange: #fe8019;
     --primary: oklch(from var(--gb-orange) l c h);
 }
 ```
+
 - `oklch(from var(--hex) l c h)` — le navigateur convertit le hex en oklch et extrait L/C/H
 - Support natif Chrome/Edge/Safari/Firefox récents (2026 = safe sans fallback pour projet perso)
 - Permet de garder les hex Gruvbox officiels comme source de vérité tout en ayant des tokens oklch pour Tailwind v4

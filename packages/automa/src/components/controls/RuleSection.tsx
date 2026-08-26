@@ -24,7 +24,7 @@ function RuleSection() {
                     }}
                     options={allRules.map((r) => ({
                         label: r.name,
-                        value: r.id,
+                        value: r.id
                     }))}
                 />
             </FieldRow>

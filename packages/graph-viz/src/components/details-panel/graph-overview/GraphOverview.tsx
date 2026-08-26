@@ -39,9 +39,7 @@ function GraphOverview() {
                                 key={type}
                                 className="flex items-center justify-between text-xs"
                             >
-                                <Badge className="font-mono">
-                                    {type}
-                                </Badge>
+                                <Badge className="font-mono">{type}</Badge>
                                 <span className="text-muted-foreground font-mono">{count}</span>
                             </li>
                         ))}

@@ -1,14 +1,11 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-@import '@repo/ui/gruvbox-theme';
+@import '@repo/tlc/theme';
 
-/* @import "@repo/ui/blade-runner-theme"; */
-/* @import "@repo/ui/candy-coated-theme"; */
-/* @import "@repo/ui/pale-asylum-theme"; */
-/* @import "@repo/ui/vintage-theme"; */
+/* @import "@repo/tlc/styles"; */
 
 /* Explicitly tell Tailwind to scan my package sources for classes */
-@source '../../node_modules/@repo/ui';
+@source '../../node_modules/@repo/tlc';
 @source '../../node_modules/@repo/palette-generator';
 @source '../../node_modules/@repo/image-to-particles';
 @source '../../node_modules/@repo/graph-viz';

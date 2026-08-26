@@ -2,16 +2,8 @@ import { Button, Slider, Textarea } from '@repo/tlc/components/forms';
 import { PanelSection } from '@repo/tlc/layout';
 import { startTransition } from 'react';
 
-import {
-    setComplexity,
-    setModulo,
-    setSeed,
-} from '../store/actions';
-import {
-    useComplexity,
-    useModulo,
-    useSeed,
-} from '../store/selectors';
+import { setComplexity, setModulo, setSeed } from '../store/actions';
+import { useComplexity, useModulo, useSeed } from '../store/selectors';
 
 const generateRandomSeed = () => {
     const randomPhrases = [

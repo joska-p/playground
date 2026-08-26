@@ -1,11 +1,11 @@
-import { cloneElement, isValidElement, type ReactElement } from "react";
+import { cloneElement, isValidElement, type ReactElement } from 'react';
 
 export function Slot({
     children,
     ...props
 }: {
     children: ReactElement;
-} & Omit<React.ComponentPropsWithoutRef<"div">, "children">) {
+} & Omit<React.ComponentPropsWithoutRef<'div'>, 'children'>) {
     if (isValidElement(children)) {
         return cloneElement(children, props as Record<string, unknown>);
     }

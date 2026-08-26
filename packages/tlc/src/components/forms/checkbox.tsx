@@ -1,12 +1,11 @@
-import { type VariantProps } from "class-variance-authority";
+import { type VariantProps } from 'class-variance-authority';
 
-import { checkboxVariants } from "./checkbox.variants";
-import { cn } from "../../lib/cn";
-import type { InputHTMLAttributes, ReactNode } from "react";
+import { checkboxVariants } from './checkbox.variants';
+import { cn } from '../../lib/cn';
+import type { InputHTMLAttributes, ReactNode } from 'react';
 
 interface CheckboxProps
-    extends InputHTMLAttributes<HTMLInputElement>,
-        VariantProps<typeof checkboxVariants> {
+    extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof checkboxVariants> {
     label?: ReactNode;
     labelClassName?: string;
 }
@@ -14,7 +13,7 @@ interface CheckboxProps
 function Checkbox({
     className,
     labelClassName,
-    variant = "default",
+    variant = 'default',
     label,
     disabled = false,
     id,
@@ -38,11 +37,9 @@ function Checkbox({
         <label
             htmlFor={id}
             className={cn(
-                "flex items-center gap-2.5 text-sm select-none",
-                disabled
-                    ? "pointer-events-none opacity-40"
-                    : "cursor-pointer",
-                labelClassName,
+                'flex items-center gap-2.5 text-sm select-none',
+                disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer',
+                labelClassName
             )}
         >
             {input}

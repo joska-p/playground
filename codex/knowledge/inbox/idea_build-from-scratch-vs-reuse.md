@@ -3,6 +3,7 @@
 **Contexte :** Le projet avait déjà `@repo/ui` avec des composants fonctionnels (Button, Slider, ControlPanel, etc.). L'utilisateur a choisi de reconstruire from scratch dans `@repo/tlc` plutôt que de réutiliser.
 
 **Corps :**
+
 - Quand le spec est détaillé et l'architecture différente, construire from scratch donne un résultat plus propre et plus fidèle au spec
 - Réutiliser du code existant est plus rapide mais garde les choix d'architecture précédents
 - Pour un design system personnel, la propreté architecturale prime sur la rapidité d'exécution

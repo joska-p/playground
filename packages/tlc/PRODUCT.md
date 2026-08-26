@@ -20,7 +20,7 @@ Eliminate the recurring cost of building canvas + control panel layouts and styl
 
 ## Positioning
 
-TLC is not a general-purpose component library. It is a creative-lab-specific design system with a strong identity (Gruvbox palette, terminal-aesthetic, monospace typography) that makes the "canvas + panels" layout pattern a solved problem. A generic UI kit like shadcn provides the primitives; TLC provides the *composition pattern* and *visual world* for interactive creative tools.
+TLC is not a general-purpose component library. It is a creative-lab-specific design system with a strong identity (Gruvbox palette, terminal-aesthetic, monospace typography) that makes the "canvas + panels" layout pattern a solved problem. A generic UI kit like shadcn provides the primitives; TLC provides the _composition pattern_ and _visual world_ for interactive creative tools.
 
 ## Operating Context
 

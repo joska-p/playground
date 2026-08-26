@@ -3,6 +3,7 @@
 **Contexte :** ESLint `react-refresh/only-export-components` interdit d'exporter des constantes (comme les définitions CVA `xxxVariants`) depuis le même fichier qu'un composant React. Ça casse le fast refresh.
 
 **Corps :**
+
 - Toujours séparer les définitions `cva()` dans un fichier `*.variants.ts` (ex: `button.variants.ts`, `slider.variants.ts`)
 - Le fichier composant (`button.tsx`) importe les variants depuis `./button.variants`
 - Le barrel `index.ts` re-exporte les deux : `export { buttonVariants } from "./button.variants"`
