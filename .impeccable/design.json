@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-26T00:00:00.000Z",
+  "title": "Design System: @repo/ui",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Deep Charcoal",
+        "canonical": "oklch(0.241 0.005 219.672)",
+        "tonalRamp": [
+          "oklch(0.15 0.005 219.672)",
+          "oklch(0.20 0.005 219.672)",
+          "oklch(0.25 0.005 219.672)",
+          "oklch(0.30 0.005 219.672)",
+          "oklch(0.40 0.005 219.672)",
+          "oklch(0.55 0.005 219.672)",
+          "oklch(0.70 0.005 219.672)",
+          "oklch(0.90 0.005 219.672)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Slate Surface",
+        "canonical": "oklch(0.277 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.20 0 0)",
+          "oklch(0.25 0 0)",
+          "oklch(0.30 0 0)",
+          "oklch(0.40 0 0)",
+          "oklch(0.55 0 0)",
+          "oklch(0.70 0 0)",
+          "oklch(0.90 0 0)"
+        ]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Warm Stone",
+        "canonical": "oklch(0.344 0.007 48.523)",
+        "tonalRamp": [
+          "oklch(0.15 0.007 48.523)",
+          "oklch(0.20 0.007 48.523)",
+          "oklch(0.25 0.007 48.523)",
+          "oklch(0.30 0.007 48.523)",
+          "oklch(0.40 0.007 48.523)",
+          "oklch(0.55 0.007 48.523)",
+          "oklch(0.70 0.007 48.523)",
+          "oklch(0.90 0.007 48.523)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Soft Gold",
+        "canonical": "oklch(0.74 0.035 76.31)",
+        "tonalRamp": [
+          "oklch(0.15 0.035 76.31)",
+          "oklch(0.25 0.035 76.31)",
+          "oklch(0.35 0.035 76.31)",
+          "oklch(0.45 0.035 76.31)",
+          "oklch(0.55 0.035 76.31)",
+          "oklch(0.65 0.035 76.31)",
+          "oklch(0.74 0.035 76.31)",
+          "oklch(0.90 0.035 76.31)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Muted Teal",
+        "canonical": "oklch(0.693 0.042 169.768)",
+        "tonalRamp": [
+          "oklch(0.15 0.042 169.768)",
+          "oklch(0.25 0.042 169.768)",
+          "oklch(0.35 0.042 169.768)",
+          "oklch(0.45 0.042 169.768)",
+          "oklch(0.55 0.042 169.768)",
+          "oklch(0.65 0.042 169.768)",
+          "oklch(0.75 0.042 169.768)",
+          "oklch(0.90 0.042 169.768)"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Warm Olive",
+        "canonical": "oklch(0.765 0.158 110.835)",
+        "tonalRamp": [
+          "oklch(0.15 0.158 110.835)",
+          "oklch(0.25 0.158 110.835)",
+          "oklch(0.35 0.158 110.835)",
+          "oklch(0.45 0.158 110.835)",
+          "oklch(0.55 0.158 110.835)",
+          "oklch(0.65 0.158 110.835)",
+          "oklch(0.76 0.158 110.835)",
+          "oklch(0.90 0.158 110.835)"
+        ]
+      },
+      "accent": {
+        "role": "tertiary",
+        "displayName": "Burnt Coral",
+        "canonical": "oklch(0.705 0.098 2.189)",
+        "tonalRamp": [
+          "oklch(0.15 0.098 2.189)",
+          "oklch(0.25 0.098 2.189)",
+          "oklch(0.35 0.098 2.189)",
+          "oklch(0.45 0.098 2.189)",
+          "oklch(0.55 0.098 2.189)",
+          "oklch(0.65 0.098 2.189)",
+          "oklch(0.75 0.098 2.189)",
+          "oklch(0.90 0.098 2.189)"
+        ]
+      },
+      "warning": {
+        "role": "signal",
+        "displayName": "Status Amber",
+        "canonical": "oklch(0.832 0.159 82.987)",
+        "tonalRamp": [
+          "oklch(0.15 0.159 82.987)",
+          "oklch(0.25 0.159 82.987)",
+          "oklch(0.35 0.159 82.987)",
+          "oklch(0.45 0.159 82.987)",
+          "oklch(0.55 0.159 82.987)",
+          "oklch(0.65 0.159 82.987)",
+          "oklch(0.78 0.159 82.987)",
+          "oklch(0.90 0.159 82.987)"
+        ]
+      },
+      "destructive": {
+        "role": "signal",
+        "displayName": "Alert Red",
+        "canonical": "oklch(0.66 0.218 30.392)",
+        "tonalRamp": [
+          "oklch(0.15 0.218 30.392)",
+          "oklch(0.25 0.218 30.392)",
+          "oklch(0.35 0.218 30.392)",
+          "oklch(0.45 0.218 30.392)",
+          "oklch(0.55 0.218 30.392)",
+          "oklch(0.65 0.218 30.392)",
+          "oklch(0.75 0.218 30.392)",
+          "oklch(0.90 0.218 30.392)"
+        ]
+      },
+      "glow": {
+        "role": "accent",
+        "displayName": "Phosphor Glow",
+        "canonical": "oklch(0.75 0.15 90)",
+        "tonalRamp": [
+          "oklch(0.15 0.15 90)",
+          "oklch(0.25 0.15 90)",
+          "oklch(0.35 0.15 90)",
+          "oklch(0.45 0.15 90)",
+          "oklch(0.55 0.15 90)",
+          "oklch(0.65 0.15 90)",
+          "oklch(0.75 0.15 90)",
+          "oklch(0.90 0.15 90)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero titles only. Gradient-filled via bg-clip-text."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles, card headings, page-level navigation."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Descriptions, paragraphs, long-form content. 65-75ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Button text, badge text, input labels, section headers."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 1px 3px oklch(0.344 0.007 48.523 / 0.06)",
+        "purpose": "Nearly invisible lift on cards at rest. Signals elevation without drawing attention."
+      },
+      {
+        "name": "card-hover",
+        "value": "0 4px 12px oklch(0.344 0.007 48.523 / 0.08)",
+        "purpose": "Deliberate shadow on card hover over 200ms. The card is responding to attention."
+      },
+      {
+        "name": "panel",
+        "value": "0 8px 24px oklch(0.344 0.007 48.523 / 0.12)",
+        "purpose": "Control panel overlay shadow. Separates overlay from content beneath."
+      },
+      {
+        "name": "sidebar",
+        "value": "0 1px 3px oklch(0.344 0.007 48.523 / 0.06)",
+        "purpose": "Subtle left/right boundary shadow on the sidebar panel."
+      },
+      {
+        "name": "glow-rest",
+        "value": "inset 0 1px 0 0 currentColor, 0 1px 28px -10px currentColor",
+        "purpose": "Rest-state glow on interactive elements. Uses --glow-color."
+      },
+      {
+        "name": "glow-hover",
+        "value": "inset 0 1px 0 0 currentColor, 0 4px 44px -10px currentColor, 0 0 2px 0 currentColor",
+        "purpose": "Intensified glow on hover. The element is responding to attention."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fast",
+        "value": "150ms ease-in-out",
+        "purpose": "Button press, focus ring, badge color transitions. Instant feedback."
+      },
+      {
+        "name": "normal",
+        "value": "200ms ease-in-out",
+        "purpose": "Card hover shadow, input focus ring, general state changes."
+      },
+      {
+        "name": "slow",
+        "value": "300ms ease-in-out",
+        "purpose": "Sidebar slide, panel open/close. Deliberate, visible transitions."
+      },
+      {
+        "name": "body-theme",
+        "value": "400ms",
+        "purpose": "Body background and color transition on theme switch. Smooth, unhurried."
+      },
+      {
+        "name": "snake-path",
+        "value": "60s linear infinite",
+        "purpose": "SciFi card SVG snake-path animation. A living, breathing circuit."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "portrait",
+        "value": "portrait media query",
+        "purpose": "Control panel switches to horizontal bottom bar in portrait orientation."
+      },
+      {
+        "name": "landscape",
+        "value": "landscape media query",
+        "purpose": "Control panel uses vertical side dock in landscape orientation."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default action button. Solid Muted Teal fill, tactile press animation.",
+      "html": "<button class=\"ds-btn-primary\">SAVE CHANGES</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 6px 12px; background: var(--primary); color: var(--primary-foreground); font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace; font-size: 1rem; font-weight: 500; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease-in-out; outline: none; } .ds-btn-primary:hover { filter: brightness(1.1); } .ds-btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:disabled { pointer-events: none; opacity: 0.4; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action button. Transparent background with subtle border.",
+      "html": "<button class=\"ds-btn-outline\">Cancel</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 6px 12px; background: transparent; color: var(--foreground-dim); font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace; font-size: 1rem; font-weight: 500; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: all 150ms ease-in-out; outline: none; } .ds-btn-outline:hover { filter: brightness(1.1); } .ds-btn-outline:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; } .ds-btn-outline:active { transform: scale(0.97); } .ds-btn-outline:disabled { pointer-events: none; opacity: 0.4; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Translucent content container. Glass treatment with shadow-lift hover.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Experiment Results</h3><p class=\"ds-card-text\">Mandelbrot set rendered at 4096x4096 in 12ms.</p></div>",
+      "css": ".ds-card { overflow: hidden; border-radius: 4px; backdrop-filter: blur(12px); background: oklch(from var(--surface-raised) l c h / 0.1); box-shadow: 0 1px 3px oklch(0.344 0.007 48.523 / 0.06); transition: box-shadow 200ms ease-in-out; } .ds-card:hover { box-shadow: 0 4px 12px oklch(0.344 0.007 48.523 / 0.08); } .ds-card-title { font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 1.125rem; font-weight: 600; color: var(--foreground); padding: 16px; } .ds-card-text { font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 0.875rem; color: var(--foreground-muted); padding: 0 16px 16px; }"
+    },
+    {
+      "name": "Badge Soft",
+      "kind": "chip",
+      "refersTo": "badge-soft",
+      "description": "Compact status indicator. Pill-shaped, 15% tinted background.",
+      "html": "<span class=\"ds-badge-soft\">generative</span>",
+      "css": ".ds-badge-soft { display: inline-flex; align-items: center; justify-content: center; padding: 2px 10px; background: oklch(from var(--primary) l c h / 0.15); color: var(--primary); font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 0.75rem; font-weight: 500; border-radius: 9999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 150ms ease-in-out; }"
+    },
+    {
+      "name": "Input Default",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Text input. Transparent background, 1px border, glow-ring focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search experiments...\" />",
+      "css": ".ds-input { width: 100%; padding: 4px 12px; background: var(--surface); color: var(--foreground); font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 1rem; border: 1px solid var(--border); border-radius: 4px; outline: none; transition: all 200ms ease-in-out; } .ds-input::placeholder { color: var(--foreground-dim); } .ds-input:focus { border-color: var(--foreground-dim); box-shadow: 0 0 0 3px oklch(from var(--foreground-dim) l c h / 0.15); } .ds-input:disabled { pointer-events: none; opacity: 0.4; }"
+    },
+    {
+      "name": "Sidebar Panel",
+      "kind": "nav",
+      "refersTo": "sidebar-panel",
+      "description": "Collapsible navigation panel. Solid surface, 300ms slide transition.",
+      "html": "<nav class=\"ds-sidebar-panel\"><div class=\"ds-sidebar-content\">Navigation content here</div></nav>",
+      "css": ".ds-sidebar-panel { display: flex; flex-direction: column; overflow: hidden; background: var(--surface-raised); box-shadow: 0 1px 3px oklch(0.344 0.007 48.523 / 0.06); transition: width 300ms ease-in-out, height 300ms ease-in-out; width: 280px; } .ds-sidebar-panel[data-state='closed'] { width: 0; } .ds-sidebar-content { flex: 1; overflow-y: auto; padding: 16px; }"
+    },
+    {
+      "name": "Control Panel",
+      "kind": "custom",
+      "refersTo": "control-panel",
+      "description": "Floating dockable settings overlay. Glass treatment, responsive orientation.",
+      "html": "<div class=\"ds-control-panel\"><div class=\"ds-cp-header\">Settings</div><div class=\"ds-cp-content\"><details class=\"ds-cp-section\"><summary>Appearance</summary><div class=\"ds-cp-section-body\">Section content</div></details></div></div>",
+      "css": ".ds-control-panel { position: absolute; z-index: 40; display: flex; flex-direction: column; overflow: hidden; background: oklch(from var(--surface) l c h / 0.8); backdrop-filter: blur(12px); color: var(--foreground); border: 2px solid var(--primary); border-radius: 8px 0 0 8px; min-height: 0; transition: all 200ms ease-in-out; box-shadow: 0 8px 24px oklch(0.344 0.007 48.523 / 0.12); width: 40ch; } .ds-cp-header { padding: 12px 16px; font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--foreground-muted); } .ds-cp-content { padding: 20px; flex: 1; overflow-y: auto; } .ds-cp-section { border-top: 1px solid var(--border); padding-top: 16px; } .ds-cp-section:first-child { border-top: none; padding-top: 0; } .ds-cp-section summary { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; cursor: pointer; font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--foreground-muted); list-style: none; } .ds-cp-section summary::-webkit-details-marker { display: none; } .ds-cp-section[open] summary { padding-bottom: 12px; } .ds-cp-section-body { display: flex; flex-direction: column; gap: 16px; padding-bottom: 12px; }"
+    },
+    {
+      "name": "SciFi Card",
+      "kind": "custom",
+      "refersTo": "sci-fi-card",
+      "description": "Generative art card. Seeded SVG circuit art with snake-path animation.",
+      "html": "<div class=\"ds-scifi-card\" style=\"--variant-color: var(--primary)\"><svg class=\"ds-scifi-svg\" viewBox=\"0 0 200 200\"><circle cx=\"50\" cy=\"80\" r=\"1.2\" /><path d=\"M20,30 Q60,10 100,50 T180,70\" /></svg><div class=\"ds-scifi-meta\"><span class=\"ds-scifi-label\">Seed: 42</span></div></div>",
+      "css": ".ds-scifi-card { position: relative; aspect-ratio: 1; overflow: hidden; border: 1px solid oklch(from var(--variant-color, var(--foreground-dim)) l c h / 0.2); background: oklch(from var(--variant-color, var(--foreground-dim)) l c h / 0.05); backdrop-filter: blur(12px); padding: 20px; transition: border-color 200ms ease-in-out; } .ds-scifi-card:hover { border-color: oklch(from var(--variant-color, var(--foreground-dim)) l c h / 0.95); } .ds-scifi-svg { width: 100%; height: 100%; opacity: 0.9; transition: opacity 200ms ease-in-out; filter: drop-shadow(0 0 6px var(--variant-color, var(--foreground-dim))); } .ds-scifi-card:hover .ds-scifi-svg { opacity: 1; } .ds-scifi-svg path { stroke: var(--variant-color, var(--foreground-dim)); stroke-width: 1; fill: none; stroke-dasharray: 1000 10; animation: ds-snake 60s linear infinite; } .ds-scifi-svg circle { fill: var(--variant-color, var(--foreground-dim)); animation: pulse 2s ease-in-out infinite; } .ds-scifi-meta { position: absolute; bottom: 12px; left: 12px; font-family: 'JetBrainsMono Nerd Font', monospace; font-size: 0.625rem; color: var(--foreground-dim); } @keyframes ds-snake { to { stroke-dashoffset: -1000; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Circuit",
+    "overview": "This is a design system that breathes. Born from a Gruvbox-inspired palette and a developer's instinct to build their own tools, it treats the dark terminal as home and the glow of phosphor as punctuation. Every component is a node in a circuit — connected by shared color tokens, unified by a single variant source of truth, animated by the quiet pulse of generative art.\n\nThe aesthetic is earthy phosphor: warm, organic tones that feel like a vintage CRT's afterglow, applied with restraint. Depth comes from translucent glass layers and tonal surface stacking, never from heavy shadows or decorative gradients. Components respond physically to touch — buttons compress on press, cards lift on hover, inputs glow on focus. The system is monospace-first, not as a costume for 'technical' but because code, data, and measurement are the native language of this playground.\n\nThere is no corporate polish here, no Material Design handbook, no Apple HIG. The identity is earned through craft: 39 hand-drawn SVG icons, a generative sci-fi card system that produces unique circuit art per seed, a glow architecture that animates at 60fps through OKLCH channel manipulation. This is a living thing — it evolves, breaks, and rebuilds itself. The codebase is a garden, not a museum.",
+    "keyCharacteristics": [
+      "Monospace-first typography (JetBrainsMono Nerd Font) — code-native, not decorative",
+      "OKLCH color space with split-channel design for JS-driven animation",
+      "Six-color variant system with a single source of truth (colorVariant.ts)",
+      "Translucent glass layers at carefully tiered opacities (5% → 10% → 15% → 80%)",
+      "Tactile micro-interactions: scale-press on buttons, shadow-lift on cards, glow-ring on inputs",
+      "Generative SVG art system with seeded PRNG and snake-path animations",
+      "Dark-first with a full light theme override"
+    ],
+    "rules": [
+      {
+        "name": "The Opacity Ladder Rule",
+        "body": "Every non-solid surface uses the same hue at a different opacity tier: Hero at 5%, Card at 10%, Badge soft at 15%, Control Panel at 80%. This creates depth through translucency density, not through shadow or border.",
+        "section": "colors"
+      },
+      {
+        "name": "The Glow Budget Rule",
+        "body": "The glow system is an accent, not a texture. It appears on interactive elements at rest and intensifies on hover. Backgrounds, decorative elements, and large surfaces never glow — glow earns attention by being rare on any given viewport.",
+        "section": "colors"
+      },
+      {
+        "name": "The Monospace-First Rule",
+        "body": "JetBrainsMono is the default for every text element. A sans-serif display face is never introduced as a system default.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two-Mechanism Rule",
+        "body": "Every elevated surface uses exactly one depth signal: either tonal progression (surface color change) or glass (backdrop-blur + opacity). Using both on the same element creates visual noise.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the six-color variant system from colorVariant.ts as the single source of truth for all component colors.",
+      "Do tier opacity carefully: Hero 5%, Card 10%, Badge 15%, Control Panel 80%. The ladder creates depth.",
+      "Do use clamp() for responsive typography — it scales fluidly without breakpoint jumps.",
+      "Do respect prefers-reduced-motion — all animations and transitions must degrade gracefully.",
+      "Do use the cn() utility for class composition — it handles CVA output + consumer overrides via tailwind-merge.",
+      "Do keep components stateless — state belongs in hooks, not in component bodies."
+    ],
+    "donts": [
+      "Don't use gradient text outside the Hero component. Emphasis elsewhere comes from weight or size.",
+      "Don't apply glow effects to backgrounds or large surfaces. Glow is earned by interactivity, not decoration.",
+      "Don't introduce shadows heavier than shadow-md in the dark theme. Tonal progression is the depth system.",
+      "Don't use useMemo or useCallback — the React 19 Compiler handles memoization. Write pure functions.",
+      "Don't nest cards inside cards. Cards are containers; nesting breaks the visual hierarchy.",
+      "Don't use monospace as a costume for 'technical' — this system uses it because code, data, and measurement are the native language."
+    ]
+  }
+}

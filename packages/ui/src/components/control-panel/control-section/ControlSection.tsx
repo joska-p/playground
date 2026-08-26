@@ -33,7 +33,7 @@ export function ControlSection({
             open={open}
             onToggle={handleToggle}
             className={cn(
-                'group/section border-border flex flex-none flex-col border-t pt-4 first:border-t-0 first:pt-0',
+                'group/section border-border flex flex-none flex-col border-t pt-3 first:border-t-0 first:pt-0',
                 className
             )}
         >

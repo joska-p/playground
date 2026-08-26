@@ -1,6 +1,5 @@
-import { ControlGrid, ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Button, Slider } from '@repo/ui/data-entry';
-import { ColorPalette } from '@repo/ui/widgets';
+import { Button, ColorPalette, Field, Slider } from '@repo/tlc/controls';
+import { Panel, PanelSection } from '@repo/tlc/layout';
 import { useEffect, useRef, useState } from 'react';
 
 import { TileSetControls } from './TileSetControls';
@@ -73,16 +72,16 @@ function MosaicControlsPanel() {
     }
 
     return (
-        <ControlPanel title="Mosaic Controls">
-            <ControlSection title="Tile set">
+        <Panel title="Mosaic Controls">
+            <PanelSection label="Tile set">
                 <TileSetControls />
-            </ControlSection>
+            </PanelSection>
 
-            <ControlSection
-                title="Actions"
+            <PanelSection
+                label="Actions"
                 defaultOpen={true}
             >
-                <ControlGrid columns={2}>
+                <div className="grid grid-cols-2 gap-2">
                     <Button
                         variant="primary"
                         onClick={shuffleColors}
@@ -109,14 +108,14 @@ function MosaicControlsPanel() {
                     >
                         Regenerate Tiles
                     </Button>
-                </ControlGrid>
-            </ControlSection>
+                </div>
+            </PanelSection>
 
-            <ControlSection
-                title="Layout"
+            <PanelSection
+                label="Layout"
                 defaultOpen={true}
             >
-                <ControlRow
+                <Field
                     label="Tile:"
                     value={tileSize.value.toString() + 'px'}
                 >
@@ -126,10 +125,10 @@ function MosaicControlsPanel() {
                         max={256}
                         step={2}
                         onChange={tileSize.onChange}
-                        showTicks={false}
+                        showValue={false}
                     />
-                </ControlRow>
-                <ControlRow
+                </Field>
+                <Field
                     label="Gap:"
                     value={gapSize.value.toString() + 'px'}
                 >
@@ -139,13 +138,13 @@ function MosaicControlsPanel() {
                         max={64}
                         step={2}
                         onChange={gapSize.onChange}
-                        showTicks={false}
+                        showValue={false}
                     />
-                </ControlRow>
-            </ControlSection>
+                </Field>
+            </PanelSection>
 
-            <ControlSection
-                title="Palettes"
+            <PanelSection
+                label="Palettes"
                 defaultOpen={true}
             >
                 <div className="flex flex-wrap gap-2">
@@ -177,7 +176,7 @@ function MosaicControlsPanel() {
                         );
                     })}
                 </div>
-            </ControlSection>
+            </PanelSection>
 
             {isPalettesLoading && (
                 <div className="border-border/30 text-foreground/60 grid grid-flow-col place-content-center gap-2 border-t pt-3 text-sm">
@@ -185,7 +184,7 @@ function MosaicControlsPanel() {
                     Loading palettes...
                 </div>
             )}
-        </ControlPanel>
+        </Panel>
     );
 }
 

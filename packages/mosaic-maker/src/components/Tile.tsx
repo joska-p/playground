@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/lib/cn';
+import { cn } from '@repo/tlc/lib/cn';
 
 import { TILE_REGISTRY, type Shape } from '../core/TILE_REGISTRY';
 

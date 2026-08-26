@@ -18,9 +18,9 @@ export const badgeVariants = cva(
                 outline: 'bg-transparent border'
             },
             size: {
-                sm: 'px-2 py-0.5 text-xs',
-                md: 'px-2.5 py-0.5 text-sm',
-                lg: 'px-3 py-1 text-base'
+                sm: 'px-1.5 py-px text-[10px]',
+                md: 'px-2 py-0.5 text-xs',
+                lg: 'px-2.5 py-0.5 text-sm'
             },
             dot: {
                 true: 'before:mr-1 before:size-1.5 before:rounded-full before:shrink-0 before:bg-current',

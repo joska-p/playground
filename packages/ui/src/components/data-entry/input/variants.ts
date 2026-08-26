@@ -21,9 +21,9 @@ export const inputVariants = cva(
                     'border-border focus-within:border-foreground-dim focus-within:ring-3 focus-within:ring-foreground-dim/15'
             },
             size: {
-                sm: 'h-8 min-w-10 text-sm',
-                md: 'h-10 min-w-12 text-base',
-                lg: 'h-12 min-w-14 text-lg'
+                sm: 'h-6 min-w-8 text-xs px-2',
+                md: 'h-8 min-w-10 text-sm px-2.5',
+                lg: 'h-10 min-w-12 text-base px-3'
             }
         },
         defaultVariants: {

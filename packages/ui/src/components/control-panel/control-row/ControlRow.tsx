@@ -15,17 +15,17 @@ export function ControlRow({ label, value, hint, className, children }: ControlR
     return (
         <div
             className={cn(
-                'flex min-h-10 flex-col gap-2 landscape:flex-row landscape:items-center landscape:gap-3',
+                'flex min-h-7 flex-col gap-1.5 landscape:flex-row landscape:items-center landscape:gap-2',
                 className
             )}
         >
             <span
-                className="text-foreground flex shrink-0 items-center justify-between gap-2 text-sm landscape:w-24"
+                className="text-foreground flex shrink-0 items-center justify-between gap-1.5 text-xs landscape:w-20"
                 title={hint}
             >
                 <span className="truncate">{label}</span>
                 {value !== undefined && (
-                    <span className="text-foreground ml-auto shrink-0 text-sm landscape:ml-2">
+                    <span className="text-foreground ml-auto shrink-0 text-xs landscape:ml-1.5">
                         {value}
                     </span>
                 )}

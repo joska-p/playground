@@ -1,0 +1,157 @@
+/* tokens/gruvbox.css — Gruvbox raw constants, never used directly in components */
+:root {
+    /* Gruvbox dark */
+    --gb-bg0-hard: #1d2021;
+    --gb-bg0: #282828;
+    --gb-bg1: #3c3836;
+    --gb-bg2: #504945;
+    --gb-bg3: #665c54;
+    --gb-fg0: #fbf1c7;
+    --gb-fg1: #ebdbb2;
+    --gb-fg4: #a89984;
+    --gb-red: #fb4934;
+    --gb-green: #b8bb26;
+    --gb-yellow: #fabd2f;
+    --gb-blue: #83a598;
+    --gb-purple: #d3869b;
+    --gb-aqua: #8ec07c;
+    --gb-orange: #fe8019;
+    --gb-gray: #928374;
+
+    /* Gruvbox light */
+    --gb-bg0-hard-l: #f9f5d7;
+    --gb-bg0-l: #fbf1c7;
+    --gb-fg1-l: #3c3836;
+    --gb-red-l: #9d0006;
+    --gb-green-l: #79740e;
+    --gb-yellow-l: #b57614;
+    --gb-blue-l: #076678;
+    --gb-orange-l: #af3a03;
+}
+
+/* tokens/theme.css — shadcn-compatible mapping, dark = default (labo spirit) */
+:root {
+    --background: oklch(from var(--gb-bg0) l c h);
+    --foreground: oklch(from var(--gb-fg1) l c h);
+
+    --card: oklch(from var(--gb-bg1) l c h);
+    --card-foreground: oklch(from var(--gb-fg1) l c h);
+
+    --popover: oklch(from var(--gb-bg1) l c h);
+    --popover-foreground: oklch(from var(--gb-fg1) l c h);
+
+    --primary: oklch(from var(--gb-orange) l c h);
+    --primary-foreground: oklch(from var(--gb-bg0-hard) l c h);
+
+    --secondary: oklch(from var(--gb-bg2) l c h);
+    --secondary-foreground: oklch(from var(--gb-fg1) l c h);
+
+    --muted: oklch(from var(--gb-bg1) l c h);
+    --muted-foreground: oklch(from var(--gb-fg4) l c h);
+
+    --accent: oklch(from var(--gb-aqua) l c h);
+    --accent-foreground: oklch(from var(--gb-bg0-hard) l c h);
+
+    --destructive: oklch(from var(--gb-red) l c h);
+    --destructive-foreground: oklch(from var(--gb-fg0) l c h);
+
+    --border: oklch(from var(--gb-bg2) l c h);
+    --input: oklch(from var(--gb-bg2) l c h);
+    --ring: oklch(from var(--gb-orange) l c h);
+
+    --chart-1: oklch(from var(--gb-red) l c h);
+    --chart-2: oklch(from var(--gb-green) l c h);
+    --chart-3: oklch(from var(--gb-yellow) l c h);
+    --chart-4: oklch(from var(--gb-blue) l c h);
+    --chart-5: oklch(from var(--gb-purple) l c h);
+
+    --radius: 0.25rem;
+}
+
+/* Gruvbox is natively dark; ".light" as variant (not ".dark") */
+.light {
+    --background: oklch(from var(--gb-bg0-l) l c h);
+    --foreground: oklch(from var(--gb-fg1-l) l c h);
+    --card: oklch(from var(--gb-bg0-hard-l) l c h);
+    --card-foreground: oklch(from var(--gb-fg1-l) l c h);
+    --popover: oklch(from var(--gb-bg0-hard-l) l c h);
+    --popover-foreground: oklch(from var(--gb-fg1-l) l c h);
+    --primary: oklch(from var(--gb-orange-l) l c h);
+    --primary-foreground: oklch(from var(--gb-bg0-hard-l) l c h);
+    --secondary: oklch(from var(--gb-bg0-l) l calc(c * 0.8) h);
+    --secondary-foreground: oklch(from var(--gb-fg1-l) l c h);
+    --muted: oklch(from var(--gb-bg0-hard-l) l c h);
+    --muted-foreground: oklch(from var(--gb-fg1-l) l c h / 0.6);
+    --accent: oklch(from var(--gb-blue-l) l c h);
+    --accent-foreground: oklch(from var(--gb-bg0-hard-l) l c h);
+    --destructive: oklch(from var(--gb-red-l) l c h);
+    --destructive-foreground: oklch(from var(--gb-bg0-hard-l) l c h);
+    --border: oklch(from var(--gb-bg0-l) l calc(c * 1.5) h);
+    --input: oklch(from var(--gb-bg0-l) l calc(c * 1.5) h);
+    --ring: oklch(from var(--gb-orange-l) l c h);
+    --chart-1: oklch(from var(--gb-red-l) l c h);
+    --chart-2: oklch(from var(--gb-green-l) l c h);
+    --chart-3: oklch(from var(--gb-yellow-l) l c h);
+    --chart-4: oklch(from var(--gb-blue-l) l c h);
+    --chart-5: oklch(from var(--gb-purple) l c h);
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--border);
+    }
+
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-mono);
+    }
+
+    ::selection {
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+    }
+}

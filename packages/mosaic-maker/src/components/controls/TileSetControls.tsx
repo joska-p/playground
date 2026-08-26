@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/lib/cn';
+import { cn } from '@repo/tlc/lib/cn';
 
 import { initialPalette } from '../../core/initialPalette';
 import { initialTileSet } from '../../core/initialTileSet';
