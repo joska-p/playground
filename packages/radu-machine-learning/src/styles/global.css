@@ -1,4 +1,4 @@
 @import 'tailwindcss';
 @import '@repo/tlc/theme';
 
-@source '../../node_modules/@repo/tlc/src/components';
+@source '../../node_modules/@repo/tlc/src/';

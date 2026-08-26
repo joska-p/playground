@@ -1,5 +1,5 @@
 import { ErrorBoundary } from '@repo/tlc/components/display';
-
+import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 import { ControlPanel } from './components/controls/ControlPanel';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 import { TestMode } from './components/testMode/TestMode';
@@ -9,12 +9,15 @@ function App() {
     const mode = useMode();
 
     return (
-        <div className="relative h-screen overflow-hidden">
-            <ErrorBoundary>
-                {mode === 'test' ? <TestMode /> : <RandomArtCanvas />}
-                <ControlPanel />
-            </ErrorBoundary>
-        </div>
+        <ErrorBoundary>
+            <Shell>
+                <ShellCanvas>{mode === 'test' ? <TestMode /> : <RandomArtCanvas />}</ShellCanvas>
+
+                <ShellPanels>
+                    <ControlPanel />
+                </ShellPanels>
+            </Shell>
+        </ErrorBoundary>
     );
 }
 

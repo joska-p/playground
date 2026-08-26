@@ -33,9 +33,7 @@
         "./react/clockStore": "./src/react/clockStore.ts",
         "./react/useNodeResource": "./src/react/useNodeResource.ts",
         "./react/surfaceStack": "./src/react/surfaceStack.ts",
-        "./react/types": "./src/react/types.ts",
-        "./docs/GlazeDocs": "./src/docs/GlazeDocs.tsx",
-        "./styles": "./src/styles/global.css"
+        "./react/types": "./src/react/types.ts"
     },
     "scripts": {
         "check-types": "tsc -b",
