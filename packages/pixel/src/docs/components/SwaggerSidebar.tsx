@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/lib/cn';
+import { cn } from '@repo/tlc/lib/cn';
 import { useState } from 'react';
 
 import { isActiveEndpoint } from './data/pipeline-docs-data';

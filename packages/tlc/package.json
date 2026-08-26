@@ -4,11 +4,9 @@
     "private": true,
     "type": "module",
     "exports": {
-        ".": "./src/components/index.ts",
         "./styles": "./src/styles/global.css",
         "./theme": "./src/styles/theme.css",
         "./layout": "./src/layout/index.ts",
-        "./components": "./src/components/index.ts",
         "./components/forms": "./src/components/forms/index.ts",
         "./components/display": "./src/components/display/index.ts",
         "./components/cards": "./src/components/cards/index.ts",

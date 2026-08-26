@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc';
 import { useState } from 'react';
 
 import { usePixel } from '../../../react/usePixel';
@@ -38,7 +38,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
                 {MODES.map((m) => (
                     <Button
                         key={m.id}
-                        variant={selected === m.id ? 'primary' : 'outline'}
+                        variant={selected === m.id ? 'primary' : 'secondary'}
                         size="sm"
                         onClick={() => {
                             setSelected(m.id);

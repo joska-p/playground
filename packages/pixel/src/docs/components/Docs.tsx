@@ -1,4 +1,4 @@
-import { Sidebar } from '@repo/ui/widgets';
+import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 import { useEffect, useState } from 'react';
 
 import { ENDPOINT_GROUPS } from './data/pipeline-docs-data';
@@ -34,28 +34,24 @@ function Docs() {
     }
 
     return (
-        <Sidebar
-            position="left"
-            panelWidth="280px"
-            className="min-h-dvh"
-        >
-            <Sidebar.Panel className="border-border border-r">
+        <Shell>
+            <ShellPanels className="md:w-80">
                 <SwaggerSidebar
                     groups={ENDPOINT_GROUPS}
                     activeEndpoint={activeEndpoint}
                     onSelect={setActiveEndpoint}
                 />
-            </Sidebar.Panel>
+            </ShellPanels>
 
-            <Sidebar.Main className="p-6">
+            <ShellCanvas className="p-6 overflow-y-auto">
                 <EndpointView
                     activeEndpoint={activeEndpoint}
                     sourceData={sourceData}
                     paramValues={paramValues}
                     onParamChange={handleParamChange}
                 />
-            </Sidebar.Main>
-        </Sidebar>
+            </ShellCanvas>
+        </Shell>
     );
 }
 

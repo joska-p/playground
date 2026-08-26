@@ -1347,6 +1347,9 @@ importers:
 
   packages/pixel:
     dependencies:
+      '@repo/tlc':
+        specifier: workspace:*
+        version: link:../tlc
       '@repo/worker-pool':
         specifier: workspace:*
         version: link:../worker-pool
@@ -1947,6 +1950,9 @@ importers:
       '@react-three/fiber':
         specifier: 'catalog:'
         version: 9.6.1(@types/react@19.2.17)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
+      '@repo/tlc':
+        specifier: workspace:*
+        version: link:../tlc
       '@types/three':
         specifier: 'catalog:'
         version: 0.184.1

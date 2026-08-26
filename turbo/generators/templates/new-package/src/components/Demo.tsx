@@ -1,7 +1,7 @@
-import { Badge, Card } from '@repo/ui/data-display';
-import { Button, Input } from '@repo/ui/data-entry';
-import { CardDescription, CardTitle } from '@repo/ui/cards';
-import { ErrorBoundary } from '@repo/ui/feedback';
+import { Badge, Card } from '@repo/tlc/data-display';
+import { Button, Input } from '@repo/tlc/data-entry';
+import { CardDescription, CardTitle } from '@repo/tlc/cards';
+import { ErrorBoundary } from '@repo/tlc/feedback';
 import { useState } from 'react';
 import { demoSchema } from '../demo.schema.ts';
 import {
