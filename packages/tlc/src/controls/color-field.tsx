@@ -34,7 +34,7 @@ function ColorField({
                     setState(e.target.value);
                 }}
                 className={cn(
-                    "h-8 w-8 cursor-pointer rounded-md border border-input bg-transparent p-0.5",
+                    "h-8 w-8 cursor-pointer rounded-md border border-input bg-transparent p-0.5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                     "[&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-sm [&::-webkit-color-swatch]:border-0",
                     "[&::-moz-color-swatch]:rounded-sm [&::-moz-color-swatch]:border-0",
                     className,

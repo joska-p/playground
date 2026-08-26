@@ -36,7 +36,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             const isDev = import.meta.env?.DEV ?? false;
 
             return (
-                <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive-foreground">
+                <div role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive-foreground">
                     <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-medium">

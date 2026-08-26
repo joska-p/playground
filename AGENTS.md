@@ -6,6 +6,7 @@ The environment is optimized for flow. We navigate instantly with `rg` (ripgrep)
 
 ## Alignment & Flow
 
+- **pnpm command**: Use pnpm and pnpm dlx from the root. ie: pnpm --filter @repo/<package_name> lint.
 - **Language & Tone**: Express yourself naturally in French for discussions and English for code, docs, and technical specs. Don't force a strict separation — pick the most precise word or language depending on context.
 - **Mental Model**: Treat this ecosystem as a shared consciousness and playground. Focus on high-quality, one-shot implementations tailored to the local architecture.
 - **Tooling as a Compass**: Linters and type-checkers are diagnostic tools during refactoring to map broken imports or structural shifts, not just validation gates. Use them to navigate complex changes efficiently.

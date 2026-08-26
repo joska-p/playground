@@ -38,12 +38,12 @@ function PanelSection({
                 type="button"
                 aria-expanded={open}
                 onClick={() => { setOpen((o) => !o); }}
-                className="flex items-center justify-between cursor-pointer text-muted-foreground text-[10px] uppercase tracking-widest font-semibold select-none"
+                className="flex items-center justify-between cursor-pointer text-muted-foreground text-[10px] uppercase tracking-widest font-semibold select-none transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
             >
                 {label}
                 <span
                     className={cn(
-                        "transition-transform duration-200 text-[8px]",
+                        "transition-transform duration-150 text-[8px]",
                         open ? "rotate-180" : "",
                     )}
                 >
@@ -52,7 +52,7 @@ function PanelSection({
             </button>
             <div
                 className={cn(
-                    "grid transition-[grid-template-rows] duration-200 ease-out",
+                    "grid transition-[grid-template-rows] duration-150 ease-out",
                     open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
             >

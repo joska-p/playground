@@ -39,9 +39,9 @@ function AccordionItem({
             className={cn("group bg-card overflow-hidden rounded-lg", className)}
             {...props}
         >
-            <summary className="text-foreground flex cursor-pointer items-center justify-between px-5 py-4 font-medium">
+            <summary className="text-foreground flex cursor-pointer items-center justify-between px-5 py-4 font-medium transition-colors duration-150 hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring">
                 {title}
-                <span className="transition-transform group-open:rotate-180">
+                <span className="transition-transform duration-150 group-open:rotate-180">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
