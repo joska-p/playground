@@ -1,4 +1,4 @@
-import { Button, ColorPalette, Field, Slider } from '@repo/tlc/controls';
+import { Button, ColorPalette, Field, Slider } from '@repo/tlc/components/forms';
 import { Panel, PanelSection } from '@repo/tlc/layout';
 import { useEffect, useRef, useState } from 'react';
 

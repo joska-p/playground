@@ -1,8 +1,8 @@
 import { useId, type InputHTMLAttributes } from "react";
 
-import { cn } from "../lib/cn";
-import { useFieldContext } from "../lib/field-context";
-import { useControllableState } from "../lib/use-controllable-state";
+import { cn } from "../../lib/cn";
+import { useFieldContext } from "../../lib/field-context";
+import { useControllableState } from "../../lib/use-controllable-state";
 
 interface ColorFieldProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {

@@ -1,8 +1,8 @@
 import { useId, type SelectHTMLAttributes } from "react";
 
-import { cn } from "../lib/cn";
-import { useFieldContext } from "../lib/field-context";
-import { useControllableState } from "../lib/use-controllable-state";
+import { cn } from "../../lib/cn";
+import { useFieldContext } from "../../lib/field-context";
+import { useControllableState } from "../../lib/use-controllable-state";
 
 interface SelectProps
     extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "onChange"> {

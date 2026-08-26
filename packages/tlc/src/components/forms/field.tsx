@@ -1,6 +1,6 @@
 import { type ReactNode, useId } from "react";
-import { cn } from "../lib/cn";
-import { FieldContext } from "../lib/field-context";
+import { cn } from "../../lib/cn";
+import { FieldContext } from "../../lib/field-context";
 
 interface FieldProps {
     label: string;

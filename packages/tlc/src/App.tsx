@@ -5,7 +5,7 @@ import {
     Field,
     Slider,
     Toggle,
-} from "@repo/tlc/controls";
+} from "@repo/tlc/components/forms";
 import { Panel, PanelSection, Shell, ShellCanvas, ShellPanels } from "@repo/tlc/layout";
 
 function App() {

@@ -1,8 +1,8 @@
 import { type VariantProps } from "class-variance-authority";
 
 import { textareaVariants } from "./textarea.variants";
-import { cn } from "../lib/cn";
-import { useFieldContext } from "../lib/field-context";
+import { cn } from "../../lib/cn";
+import { useFieldContext } from "../../lib/field-context";
 import type { TextareaHTMLAttributes } from "react";
 
 interface TextareaProps

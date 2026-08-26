@@ -2,8 +2,8 @@ import { type VariantProps } from "class-variance-authority";
 import { useId, type ButtonHTMLAttributes } from "react";
 
 import { toggleVariants } from "./toggle.variants";
-import { cn } from "../lib/cn";
-import { useControllableState } from "../lib/use-controllable-state";
+import { cn } from "../../lib/cn";
+import { useControllableState } from "../../lib/use-controllable-state";
 
 interface ToggleProps
     extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange">,

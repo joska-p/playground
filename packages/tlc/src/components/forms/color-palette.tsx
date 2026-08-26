@@ -6,7 +6,7 @@ import {
     colorSwatchVariants,
     type ColorPaletteVariants,
 } from "./color-palette.variants";
-import { cn } from "../lib/cn";
+import { cn } from "../../lib/cn";
 
 interface ColorPaletteProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size">,

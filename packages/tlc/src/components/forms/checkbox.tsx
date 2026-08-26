@@ -1,7 +1,7 @@
 import { type VariantProps } from "class-variance-authority";
 
 import { checkboxVariants } from "./checkbox.variants";
-import { cn } from "../lib/cn";
+import { cn } from "../../lib/cn";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 interface CheckboxProps

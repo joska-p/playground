@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/tlc/controls';
+import { ErrorBoundary } from '@repo/tlc/components/display';
 import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 
 import { MosaicControlsPanel } from './components/controls/MosaicControlsPanel';

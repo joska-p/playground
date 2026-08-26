@@ -2,9 +2,9 @@ import { type VariantProps } from "class-variance-authority";
 import { useId, type InputHTMLAttributes } from "react";
 
 import { sliderVariants } from "./slider.variants";
-import { cn } from "../lib/cn";
-import { useFieldContext } from "../lib/field-context";
-import { useControllableState } from "../lib/use-controllable-state";
+import { cn } from "../../lib/cn";
+import { useFieldContext } from "../../lib/field-context";
+import { useControllableState } from "../../lib/use-controllable-state";
 
 interface SliderProps
     extends Omit<
