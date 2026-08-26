@@ -1,3 +1,4 @@
+import { createCssColor, createPositiveNumber } from '@repo/glaze/core/types';
 import type { Viz } from './types';
 import type { Signal } from '../core/types';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
@@ -39,11 +40,18 @@ export function createPolylineViz(options: PolylineOptions = {}): Viz {
                 const a = points[i - 1] ?? { x: 0, y: 0 };
                 const b = points[i] ?? { x: 0, y: 0 };
 
-                surface.line(a.x, a.y, b.x, b.y, color, lineWidth);
+                surface.line(
+                    a.x,
+                    a.y,
+                    b.x,
+                    b.y,
+                    createCssColor(color),
+                    createPositiveNumber(lineWidth)
+                );
             }
 
             for (const p of points) {
-                surface.circle(p.x, p.y, pointRadius, color);
+                surface.circle(p.x, p.y, createPositiveNumber(pointRadius), createCssColor(color));
             }
         }
     };

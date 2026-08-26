@@ -1,5 +1,5 @@
-import { ControlRow, ControlSubsection } from '@repo/ui/control-panel';
-import { Slider } from '@repo/ui/data-entry';
+import { FieldRow, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { WorkflowNodeControls } from './WorkflowNodeControls';
 import { updateStepOptions } from '../../stores/manipulator/actions';
@@ -16,13 +16,14 @@ type WorkflowNodeProps = {
 
 function WorkflowNode({ step, index, name, argDefinitions }: WorkflowNodeProps) {
     return (
-        <ControlSubsection
-            title={name}
+        <PanelSection
+            label={name}
+            collapsible
             defaultOpen={false}
         >
             <WorkflowNodeControls index={index} />
             {argDefinitions.map((def) => (
-                <ControlRow
+                <FieldRow
                     key={def.key}
                     label={def.label}
                 >
@@ -38,9 +39,9 @@ function WorkflowNode({ step, index, name, argDefinitions }: WorkflowNodeProps) 
                             } as Record<string, number>);
                         }}
                     />
-                </ControlRow>
+                </FieldRow>
             ))}
-        </ControlSubsection>
+        </PanelSection>
     );
 }
 

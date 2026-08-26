@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 import { useEffect } from 'react';
 
 import { STRING_ARGS, buildPreviewNode } from '../lib/evalHelpers';
@@ -60,8 +60,8 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
                 }}
             >
                 <Button
-                    variant="outline"
-                    size="icon"
+                    variant="secondary"
+                    size="sm"
                     className="absolute top-3 right-3"
                     onClick={() => {
                         selectRule(null);
@@ -92,13 +92,13 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
                 </div>
 
                 <div className="mb-4 flex justify-center">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                            rerollRule(rule.id);
-                        }}
-                    >
+                <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                        rerollRule(rule.id);
+                    }}
+                >
                         reroll
                     </Button>
                 </div>

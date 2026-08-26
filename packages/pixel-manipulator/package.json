@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@repo/pixel": "workspace:*",
-        "@repo/ui": "workspace:*",
+        "@repo/tlc": "workspace:*",
         "zustand": "catalog:"
     },
     "devDependencies": {

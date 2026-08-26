@@ -1,5 +1,4 @@
-import { ControlRow } from '@repo/ui/control-panel';
-import { Checkbox, Input, Slider } from '@repo/ui/data-entry';
+import { FieldRow, Checkbox, Input, Slider } from '@repo/tlc/components/forms';
 
 import type { ParamDescriptor } from '../../core/types';
 
@@ -18,10 +17,12 @@ function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProp
                 const currentValue = values[key] ?? descriptor.default;
 
                 return (
-                    <ControlRow label={descriptor.label}>
+                    <FieldRow
+                        key={key}
+                        label={descriptor.label}
+                    >
                         {descriptor.type === 'number' && (
                             <Slider
-                                variant="secondary"
                                 value={Number(currentValue)}
                                 onChange={(value) => {
                                     onChange(key, value);
@@ -33,7 +34,6 @@ function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProp
                         )}
                         {descriptor.type === 'color' && (
                             <Input
-                                variant="secondary"
                                 type="color"
                                 value={(currentValue as string) || '#ffffff'}
                                 onChange={(e) => {
@@ -43,7 +43,6 @@ function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProp
                         )}
                         {descriptor.type === 'string' && (
                             <Input
-                                variant="secondary"
                                 type="text"
                                 value={currentValue as string}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,14 +52,13 @@ function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProp
                         )}
                         {descriptor.type === 'boolean' && (
                             <Checkbox
-                                variant="secondary"
                                 checked={currentValue as boolean}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    onChange(key, e.target.checked);
+                                onChange={(checked) => {
+                                    onChange(key, checked);
                                 }}
                             />
                         )}
-                    </ControlRow>
+                    </FieldRow>
                 );
             })}
         </>

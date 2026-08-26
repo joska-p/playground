@@ -1,12 +1,12 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { UploadZone } from './UploadZone/UploadZone';
 import { clearOutputs } from '../../stores/manipulator/actions';
 
 function ImageSourceControls() {
     return (
-        <ControlSection title="image source">
+        <PanelSection label="image source">
             <UploadZone />
             <Button
                 variant="default"
@@ -18,7 +18,7 @@ function ImageSourceControls() {
             >
                 Clear Outputs
             </Button>
-        </ControlSection>
+        </PanelSection>
     );
 }
 

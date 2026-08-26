@@ -1,5 +1,5 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Select, Slider } from '@repo/ui/data-entry';
+import { FieldRow, Select, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { setArgPreset, setGlobalT, useArgPreset, useGlobalT } from '../store';
 
@@ -16,11 +16,11 @@ export function ConfigSection() {
     const argPreset = useArgPreset();
 
     return (
-        <ControlSection
-            title="config"
+        <PanelSection
+            label="config"
             defaultOpen
         >
-            <ControlRow
+            <FieldRow
                 label="Global Constant (t)"
                 value={<span className="font-mono text-xs">{globalT.toFixed(2)}</span>}
             >
@@ -30,27 +30,18 @@ export function ConfigSection() {
                     step={0.01}
                     value={globalT}
                     onChange={setGlobalT}
-                    showTicks={false}
                 />
-            </ControlRow>
+            </FieldRow>
 
-            <ControlRow label="Arg Preset">
+            <FieldRow label="Arg Preset">
                 <Select
                     value={argPreset}
-                    onChange={(e) => {
-                        setArgPreset(e.target.value as ArgPreset);
+                    onChange={(val) => {
+                        setArgPreset(val as ArgPreset);
                     }}
-                >
-                    {PRESET_OPTIONS.map((option) => (
-                        <option
-                            key={option.value}
-                            value={option.value}
-                        >
-                            {option.label}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
-        </ControlSection>
+                    options={PRESET_OPTIONS.map((opt) => ({ label: opt.label, value: opt.value }))}
+                />
+            </FieldRow>
+        </PanelSection>
     );
 }

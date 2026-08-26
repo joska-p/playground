@@ -1,5 +1,4 @@
-import { ControlRow } from '@repo/ui/control-panel';
-import { Input, Select, Slider } from '@repo/ui/data-entry';
+import { FieldRow, Input, Select, Slider } from '@repo/tlc/components/forms';
 
 import {
     setComplexity,
@@ -38,56 +37,40 @@ function SeedControls() {
 
     return (
         <>
-            <ControlRow label="Seed">
+            <FieldRow label="Seed">
                 <Input
                     value={seed}
                     onChange={(e) => {
                         setSeed(e.target.value);
                     }}
                 />
-            </ControlRow>
-            <ControlRow label="Complexity">
+            </FieldRow>
+            <FieldRow label="Complexity">
                 <Slider
                     value={complexity}
                     onChange={setComplexity}
                     min={1}
                     max={5}
                 />
-            </ControlRow>
-            <ControlRow label="Mood">
+            </FieldRow>
+            <FieldRow label="Mood">
                 <Select
                     value={mood}
-                    onChange={(e) => {
-                        setMood(e.target.value as MoodName);
+                    onChange={(val) => {
+                        setMood(val as MoodName);
                     }}
-                >
-                    {MOOD_OPTIONS.map((opt) => (
-                        <option
-                            key={opt.value}
-                            value={opt.value}
-                        >
-                            {opt.label}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
-            <ControlRow label="Palette">
+                    options={MOOD_OPTIONS.map((opt) => ({ label: opt.label, value: opt.value }))}
+                />
+            </FieldRow>
+            <FieldRow label="Palette">
                 <Select
                     value={palette}
-                    onChange={(e) => {
-                        setPalette(e.target.value as PalettePresetName);
+                    onChange={(val) => {
+                        setPalette(val as PalettePresetName);
                     }}
-                >
-                    {PALETTE_OPTIONS.map((opt) => (
-                        <option
-                            key={opt.value}
-                            value={opt.value}
-                        >
-                            {opt.label}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
+                    options={PALETTE_OPTIONS.map((opt) => ({ label: opt.label, value: opt.value }))}
+                />
+            </FieldRow>
         </>
     );
 }

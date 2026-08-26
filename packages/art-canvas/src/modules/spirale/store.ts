@@ -1,6 +1,6 @@
 import { createStore, useStore } from 'zustand';
 
-import type { ClockStore } from '@repo/glaze/react/clockStore';
+import type { ClockStore } from '@repo/glaze/react/types';
 
 type StoreState = {
     gap: number;

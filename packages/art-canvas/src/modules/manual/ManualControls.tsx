@@ -1,5 +1,5 @@
-import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Button, Slider } from '@repo/ui/data-entry';
+import { ControlGrid, Button, FieldRow, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import {
     setChroma,
@@ -24,8 +24,8 @@ function ManualControls() {
 
     return (
         <>
-            <ControlSection title="manual">
-                <ControlRow label={`div: ${String(divisions)}`}>
+            <PanelSection label="manual">
+                <FieldRowWithLabel label={`div: ${String(divisions)}`}>
                     <Slider
                         value={divisions}
                         onChange={setDivisions}
@@ -33,9 +33,9 @@ function ManualControls() {
                         max={100}
                         step={1}
                     />
-                </ControlRow>
+                </FieldRowWithLabel>
 
-                <ControlRow label={`Chroma`}>
+                <FieldRow label="Chroma">
                     <Slider
                         value={chroma}
                         onChange={setChroma}
@@ -43,9 +43,9 @@ function ManualControls() {
                         max={0.4}
                         step={0.01}
                     />
-                </ControlRow>
+                </FieldRow>
 
-                <ControlRow label={`Lightness`}>
+                <FieldRow label="Lightness">
                     <Slider
                         value={lightness}
                         onChange={setLightness}
@@ -53,13 +53,22 @@ function ManualControls() {
                         max={1}
                         step={0.1}
                     />
-                </ControlRow>
+                </FieldRow>
 
                 <ControlGrid columns={2}>
                     <Button onClick={handlePlay}>{isPlaying ? 'Stop' : 'Play'}</Button>
                 </ControlGrid>
-            </ControlSection>
+            </PanelSection>
         </>
+    );
+}
+
+function FieldRowWithLabel({ label, children }: { label: string; children: React.ReactNode }) {
+    return (
+        <div className="flex flex-col gap-1.5">
+            <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">{label}</span>
+            {children}
+        </div>
     );
 }
 

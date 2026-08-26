@@ -1,5 +1,5 @@
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button, Slider } from '@repo/ui/data-entry';
+import { ControlGrid, Button, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 import { useSyncExternalStore } from 'react';
 
 import { setGap, useGap, useClockStore } from './store';
@@ -18,7 +18,7 @@ function SpiraleControls() {
     );
 
     return (
-        <ControlSection title="spirale">
+        <PanelSection label="spirale">
             <ControlGrid columns={2}>
                 <Button
                     onClick={() => clockStore?.togglePlay()}
@@ -27,15 +27,14 @@ function SpiraleControls() {
                     {isPlaying ? 'Pause' : 'Play'}
                 </Button>
                 <Slider
-                    label="gap"
-                    onChange={setGap}
                     value={gap}
+                    onChange={setGap}
                     min={0.01}
                     max={0.5}
                     step={0.01}
                 />
             </ControlGrid>
-        </ControlSection>
+        </PanelSection>
     );
 }
 

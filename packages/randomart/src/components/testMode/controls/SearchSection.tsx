@@ -1,5 +1,5 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { Button, Input } from '@repo/ui/data-entry';
+import { Button, Input } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { setCategory, setQuery, useCategory, useQuery } from '../store';
 
@@ -10,8 +10,8 @@ export function SearchSection() {
     const category = useCategory();
 
     return (
-        <ControlSection
-            title="search"
+        <PanelSection
+            label="search"
             defaultOpen
         >
             <Input
@@ -25,7 +25,7 @@ export function SearchSection() {
                 {CATEGORIES.map((cat) => (
                     <Button
                         key={cat}
-                        variant={category === cat ? 'primary' : 'outline'}
+                        variant={category === cat ? 'primary' : 'secondary'}
                         size="sm"
                         onClick={() => {
                             setCategory(cat);
@@ -36,6 +36,6 @@ export function SearchSection() {
                     </Button>
                 ))}
             </div>
-        </ControlSection>
+        </PanelSection>
     );
 }

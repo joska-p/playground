@@ -1,5 +1,4 @@
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button, Input, Slider, Textarea } from '@repo/ui/data-entry';
+import { ControlGrid, Button, Input, Slider, Textarea } from '@repo/tlc/components/forms';
 
 import { setAnimationSpeed, setMaxDepth, setSeedText } from '../../stores/randomart/actions/config';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
@@ -20,7 +19,6 @@ function ConfigSection() {
         <ControlGrid columns={2}>
             <Textarea
                 className="col-span-full"
-                autoGrow={false}
                 value={seedText}
                 onChange={(e) => {
                     setSeedText(e.target.value);
@@ -49,17 +47,21 @@ function ConfigSection() {
                 variant="primary"
                 onClick={toggleRunning}
             >
-                {running ? 'Pause' : 'Play'}
+                {running ? 'Pause Animation' : 'Start Animation'}
             </Button>
 
-            <Slider
-                aria-label="animation speed"
-                value={animationSpeed}
-                min={0}
-                max={2}
-                step={0.1}
-                onChange={setAnimationSpeed}
-            />
+            <div className="col-span-full flex flex-col gap-1.5">
+                <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">
+                    Speed: {animationSpeed.toFixed(2)}x
+                </span>
+                <Slider
+                    min={0.1}
+                    max={3}
+                    step={0.1}
+                    value={animationSpeed}
+                    onChange={setAnimationSpeed}
+                />
+            </div>
         </ControlGrid>
     );
 }

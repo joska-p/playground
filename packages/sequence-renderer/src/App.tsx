@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui/feedback';
+import { ErrorBoundary } from '@repo/tlc/components/display';
 
 import { ControlsPanel } from './components/controls/ControlsPanel';
 import { SequenceCanvas } from './components/SequenceCanvas';

@@ -1,4 +1,4 @@
-import { ControlPanel } from '@repo/ui/control-panel';
+import { Panel } from '@repo/tlc/layout';
 
 import { SequenceSection } from './SequenceSection';
 import { ViewportSection } from './ViewportSection';
@@ -6,11 +6,11 @@ import { LayerStackEditor } from '../layers/LayerStackEditor';
 
 function ControlsPanel() {
     return (
-        <ControlPanel>
+        <Panel title="controls">
             <SequenceSection />
             <ViewportSection />
             <LayerStackEditor />
-        </ControlPanel>
+        </Panel>
     );
 }
 

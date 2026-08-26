@@ -1,6 +1,6 @@
 import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { ControlGrid, Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { toggleRule } from '../../stores/randomart/actions/config';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors';
@@ -10,8 +10,8 @@ function GrammarSection() {
     const rules = getAllRules();
 
     return (
-        <ControlSection
-            title="Grammar"
+        <PanelSection
+            label="Grammar"
             defaultOpen={false}
         >
             <ControlGrid columns={3}>
@@ -32,7 +32,7 @@ function GrammarSection() {
                     );
                 })}
             </ControlGrid>
-        </ControlSection>
+        </PanelSection>
     );
 }
 

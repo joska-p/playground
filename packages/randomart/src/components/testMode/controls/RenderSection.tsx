@@ -1,32 +1,29 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Button, Select, Switch } from '@repo/ui/data-entry';
+import { FieldRow, Button, Select } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { RENDER_MODE_OPTIONS } from '../lib/renderModes';
 import {
     setRenderMode,
     setResolution,
-    toggleAnimate,
-    useAnimate,
     useRenderMode,
     useResolution
 } from '../store';
 
 export function RenderSection() {
     const resolution = useResolution();
-    const animate = useAnimate();
     const renderMode = useRenderMode();
 
     return (
-        <ControlSection
-            title="render"
+        <PanelSection
+            label="render"
             defaultOpen
         >
-            <ControlRow label="Renderer">
+            <FieldRow label="Renderer">
                 <div className="flex gap-1">
                     {RENDER_MODE_OPTIONS.map((option) => (
                         <Button
                             key={option.value}
-                            variant={renderMode === option.value ? 'primary' : 'outline'}
+                            variant={renderMode === option.value ? 'primary' : 'secondary'}
                             size="sm"
                             onClick={() => {
                                 setRenderMode(option.value);
@@ -37,31 +34,24 @@ export function RenderSection() {
                         </Button>
                     ))}
                 </div>
-            </ControlRow>
+            </FieldRow>
 
-            <ControlRow label={`Resolution${renderMode === 'gpu' ? ' (CPU only)' : ''}`}>
+            <FieldRow label={`Resolution${renderMode === 'gpu' ? ' (CPU only)' : ''}`}>
                 <Select
-                    value={resolution}
+                    value={String(resolution)}
                     disabled={renderMode === 'gpu'}
-                    onChange={(e) => {
-                        setResolution(Number(e.target.value));
+                    onChange={(val) => {
+                        setResolution(Number(val));
                     }}
-                >
-                    <option value={48}>48</option>
-                    <option value={64}>64</option>
-                    <option value={96}>96</option>
-                    <option value={128}>128</option>
-                    <option value={192}>192</option>
-                </Select>
-            </ControlRow>
-
-            <ControlRow label="Animate">
-                <Switch
-                    checked={animate}
-                    onChange={toggleAnimate}
-                    label={animate ? 'On' : 'Off'}
+                    options={[
+                        { label: '48', value: '48' },
+                        { label: '64', value: '64' },
+                        { label: '96', value: '96' },
+                        { label: '128', value: '128' },
+                        { label: '256', value: '256' }
+                    ]}
                 />
-            </ControlRow>
-        </ControlSection>
+            </FieldRow>
+        </PanelSection>
     );
 }

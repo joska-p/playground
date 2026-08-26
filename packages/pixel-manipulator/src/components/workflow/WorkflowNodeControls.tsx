@@ -1,5 +1,4 @@
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { ControlGrid, Button } from '@repo/tlc/components/forms';
 
 import { moveWorkflowStep, removeWorkflowStep } from '../../stores/manipulator/actions';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
@@ -17,7 +16,7 @@ function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
         <ControlGrid columns={3}>
             <Button
                 variant="default"
-                size="icon"
+                size="sm"
                 disabled={isFirst}
                 onClick={() => {
                     moveWorkflowStep(index, -1);
@@ -39,7 +38,7 @@ function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
             </Button>
             <Button
                 variant="default"
-                size="icon"
+                size="sm"
                 disabled={isLast}
                 onClick={() => {
                     moveWorkflowStep(index, 1);
@@ -61,7 +60,7 @@ function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
             </Button>
             <Button
                 variant="destructive"
-                size="icon"
+                size="sm"
                 onClick={() => {
                     removeWorkflowStep(index);
                 }}

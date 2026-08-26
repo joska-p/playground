@@ -24,7 +24,6 @@
         "@babel/core": "catalog:",
         "@eslint/js": "catalog:",
         "@repo/config-typescript": "workspace:*",
-        "@repo/ui": "workspace:*",
         "@rolldown/plugin-babel": "catalog:",
         "@storybook/addon-mcp": "^0.7.0",
         "@storybook/addon-themes": "^10.5.5",

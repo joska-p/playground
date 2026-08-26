@@ -1,5 +1,5 @@
-import { ControlConditional, ControlPanel, ControlRow } from '@repo/ui/control-panel';
-import { Select } from '@repo/ui/data-entry';
+import { FieldRow, Select } from '@repo/tlc/components/forms';
+import { Panel } from '@repo/tlc/layout';
 
 import { AtlasControls } from '../../modules/atlas/controls/AtlasControls';
 import { ManualControls } from '../../modules/manual/ManualControls';
@@ -19,38 +19,22 @@ function ControlsPanel() {
     const inputMode = useInputMode();
 
     return (
-        <ControlPanel title="controls">
-            <ControlRow label="Mode">
+        <Panel title="controls">
+            <FieldRow label="Mode">
                 <Select
                     value={inputMode}
-                    onChange={(e) => {
-                        setInpuMode(e.target.value as InputMode);
+                    onChange={(val) => {
+                        setInpuMode(val as InputMode);
                     }}
-                >
-                    {inputModeOptions.map((opt) => (
-                        <option
-                            key={opt.value}
-                            value={opt.value}
-                        >
-                            {opt.label}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
+                    options={inputModeOptions}
+                />
+            </FieldRow>
 
-            <ControlConditional when={inputMode === 'spirale'}>
-                <SpiraleControls />
-            </ControlConditional>
-            <ControlConditional when={inputMode === 'seed'}>
-                <SeedControls />
-            </ControlConditional>
-            <ControlConditional when={inputMode === 'atlas'}>
-                <AtlasControls />
-            </ControlConditional>
-            <ControlConditional when={inputMode === 'manual'}>
-                <ManualControls />
-            </ControlConditional>
-        </ControlPanel>
+            {inputMode === 'spirale' && <SpiraleControls />}
+            {inputMode === 'seed' && <SeedControls />}
+            {inputMode === 'atlas' && <AtlasControls />}
+            {inputMode === 'manual' && <ManualControls />}
+        </Panel>
     );
 }
 

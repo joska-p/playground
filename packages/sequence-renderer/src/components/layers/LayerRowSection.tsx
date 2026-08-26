@@ -1,5 +1,5 @@
-import { ControlGrid, ControlSubsection } from '@repo/ui/control-panel';
-import { Button, Switch } from '@repo/ui/data-entry';
+import { ControlGrid, Button, Toggle } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { LayerOptionSection } from './LayerOptionSection';
 
@@ -27,20 +27,20 @@ function LayerRowSection({
     onRemove
 }: LayerRowSectionProps) {
     return (
-        <ControlSubsection title={meta.name}>
+        <PanelSection label={meta.name}>
             <ControlGrid
                 columns={3}
                 className="items-center"
             >
-                <Switch
-                    variant="secondary"
-                    checked={enabled}
+                <Toggle
+                    pressed={enabled}
                     onChange={onToggle}
+                    aria-label={`Toggle ${meta.name}`}
                 />
 
                 <Button
                     variant="default"
-                    size="icon"
+                    size="sm"
                     onClick={onToggleExpand}
                     title="Options"
                     className={isExpanded ? 'text-foreground' : 'text-muted-foreground'}
@@ -72,8 +72,8 @@ function LayerRowSection({
                 </Button>
 
                 <Button
-                    variant="default"
-                    size="icon"
+                    variant="destructive"
+                    size="sm"
                     onClick={onRemove}
                     title="Remove layer"
                     className="text-muted-foreground hover:text-destructive"
@@ -99,7 +99,7 @@ function LayerRowSection({
                     onChange={onParamChange}
                 />
             )}
-        </ControlSubsection>
+        </PanelSection>
     );
 }
 

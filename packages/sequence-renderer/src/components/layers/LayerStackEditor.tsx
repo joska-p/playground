@@ -1,5 +1,5 @@
-import { Button } from '@repo/ui/button';
-import { ControlSection } from '@repo/ui/control-panel';
+import { Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 import { useState } from 'react';
 
 import { LayerRowSection } from './LayerRowSection';
@@ -29,7 +29,7 @@ function LayerStackEditor() {
     }
 
     return (
-        <ControlSection title="Layers">
+        <PanelSection label="Layers">
             {layers.map((entry) => {
                 const meta = allLayerMetas.find((m) => m.id === entry.id);
 
@@ -83,7 +83,7 @@ function LayerStackEditor() {
                         {meta.name}
                     </Button>
                 ))}
-        </ControlSection>
+        </PanelSection>
     );
 }
 

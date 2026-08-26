@@ -1,6 +1,6 @@
 import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button, Switch } from '@repo/ui/data-entry';
+import { Button, FieldRow, Toggle } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 import { useState } from 'react';
 
 import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
@@ -47,62 +47,53 @@ function DisplaySection() {
                 if (blob && blob.size > 0) {
                     triggerDownload(blob, filename);
                     setDownloading(false);
+                } else {
+                    const b = renderTreesToPngBlob(
+                        treeR,
+                        treeG,
+                        treeB,
+                        DOWNLOAD_SIZE,
+                        randomartStore.getState().time
+                    );
 
-                    return;
+                    triggerDownload(b, filename);
+                    setDownloading(false);
                 }
-
-                fallbackDownload();
-            }, 'image/png');
-
-            return;
-        }
-
-        fallbackDownload();
-    }
-
-    function fallbackDownload() {
-        try {
-            const exportR = correlatedRGB ? treeR.args[0] : treeR;
-            const exportG = correlatedRGB ? treeR.args[1] : treeG;
-            const exportB = correlatedRGB ? treeR.args[2] : treeB;
-
-            const currentTime = randomartStore.getState().time;
-
-            const blob = renderTreesToPngBlob(
-                exportR,
-                exportG,
-                exportB,
+            });
+        } else {
+            const b = renderTreesToPngBlob(
+                treeR,
+                treeG,
+                treeB,
                 DOWNLOAD_SIZE,
-                currentTime
+                randomartStore.getState().time
             );
 
-            triggerDownload(blob, filename);
-        } catch (err) {
-            console.error('Fallback render failed:', err);
-        } finally {
+            triggerDownload(b, filename);
             setDownloading(false);
         }
     }
 
     return (
-        <ControlGrid columns={2}>
-            <Switch
-                label="correlated RGB"
-                checked={correlatedRGB}
-                variant="primary"
-                onChange={() => {
-                    setCorrelatedRGB(!correlatedRGB);
-                }}
-            />
+        <PanelSection label="display">
+            <FieldRow label="Correlated RGB">
+                <Toggle
+                    pressed={correlatedRGB}
+                    onChange={(pressed) => {
+                        setCorrelatedRGB(pressed);
+                    }}
+                    aria-label="Correlated RGB"
+                />
+            </FieldRow>
             <Button
-                variant="primary"
+                size="sm"
+                variant="default"
                 disabled={downloading}
                 onClick={handleDownload}
-                size="sm"
             >
-                {downloading ? 'Rendering...' : 'Download PNG'}
+                {downloading ? 'Rendering PNG...' : `Download ${String(DOWNLOAD_SIZE)}×${String(DOWNLOAD_SIZE)} PNG`}
             </Button>
-        </ControlGrid>
+        </PanelSection>
     );
 }
 

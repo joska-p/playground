@@ -1,5 +1,5 @@
 import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
-import { Slider } from '@repo/ui/data-entry';
+import { Slider } from '@repo/tlc/components/forms';
 
 import { setRuleWeight } from '../../stores/randomart/actions/config';
 import { useRuleWeights } from '../../stores/randomart/selectors';
@@ -28,8 +28,7 @@ export function WeightSliders() {
                             min={0}
                             max={3}
                             step={0.1}
-                            value={currentWeight}
-                            showTicks={false}
+                            value={currentWeight ?? 1}
                             onChange={(val) => {
                                 setRuleWeight(rule.id, val);
                             }}

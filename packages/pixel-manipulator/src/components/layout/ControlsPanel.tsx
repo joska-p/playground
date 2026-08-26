@@ -1,6 +1,7 @@
 import { getManipulations } from '@repo/pixel/worker';
-import { ControlGrid, ControlPanel, ControlSection } from '@repo/ui/control-panel';
-import { Button, Select } from '@repo/ui/data-entry';
+import { ControlGrid } from '@repo/tlc/components/forms';
+import { Button, Select } from '@repo/tlc/components/forms';
+import { Panel, PanelSection } from '@repo/tlc/layout';
 import { useState } from 'react';
 
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
@@ -27,9 +28,9 @@ function ControlsPanel() {
     }));
 
     return (
-        <ControlPanel title="controls">
+        <Panel title="controls">
             <ImageSourceControls />
-            <ControlSection title="presets">
+            <PanelSection label="presets">
                 <ControlGrid columns={2}>
                     {WORKFLOW_PRESETS.map((preset) => (
                         <Button
@@ -49,27 +50,18 @@ function ControlsPanel() {
                         </Button>
                     ))}
                 </ControlGrid>
-            </ControlSection>
+            </PanelSection>
 
-            <ControlSection title="manipulation">
+            <PanelSection label="manipulation">
                 <ControlGrid columns={2}>
                     <Select
                         id="select-manip"
                         value={selectedManip}
-                        onChange={(e) => {
-                            setSelectedManip(e.target.value);
+                        onChange={(val) => {
+                            setSelectedManip(val);
                         }}
-                    >
-                        <option value="">Select a manipulation</option>
-                        {manipulationOptions.map((option) => (
-                            <option
-                                key={option.value}
-                                value={option.value}
-                            >
-                                {option.label}
-                            </option>
-                        ))}
-                    </Select>
+                        options={manipulationOptions}
+                    />
 
                     <Button
                         id="add-step"
@@ -81,19 +73,19 @@ function ControlsPanel() {
                         Add to Workflow
                     </Button>
                 </ControlGrid>
-            </ControlSection>
+            </PanelSection>
 
             <WorkflowControls />
 
             <ControlGrid columns={2}>
                 <Button
-                    loading={isProcessing}
+                    disabled={isProcessing}
                     onClick={() => void executeWorkflow()}
                 >
                     Execute workflow
                 </Button>
                 <Button
-                    loading={isProcessing}
+                    disabled={isProcessing}
                     onClick={() => {
                         clearWorkflowSteps();
                     }}
@@ -101,7 +93,7 @@ function ControlsPanel() {
                     Clear Workflow
                 </Button>
             </ControlGrid>
-        </ControlPanel>
+        </Panel>
     );
 }
 

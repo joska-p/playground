@@ -1,5 +1,5 @@
-import { Badge, Card } from '@repo/ui/data-display';
-import { Button } from '@repo/ui/data-entry';
+import { Badge, Card } from '@repo/tlc/components/display';
+import { Button } from '@repo/tlc/components/forms';
 import { useRef, useState } from 'react';
 
 import { ImageLightbox } from './ImageLightbox';
@@ -57,8 +57,8 @@ function OutputCard({
                             {index}. {output.description}
                         </h3>
                         <div className="flex shrink-0 items-center gap-1.5">
-                            {isSource && <Badge color="--color-primary">Original</Badge>}
-                            <Badge appearance="outline">
+                            {isSource && <Badge variant="primary">Original</Badge>}
+                            <Badge variant="secondary">
                                 {output.imageData.width}&times;
                                 {output.imageData.height}
                             </Badge>

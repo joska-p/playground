@@ -1,6 +1,6 @@
 import { allRules } from '@repo/sequence-engine/rules';
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Input, Select, Slider } from '@repo/ui/data-entry';
+import { FieldRow, Input, Select, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { setSeed, setSequenceRule, setSequenceSteps } from '../../stores/sequence/actions';
 import { useSeed, useSequenceRule, useSequenceSteps } from '../../stores/sequence/selectors';
@@ -11,15 +11,15 @@ function SequenceSection() {
     const seed = useSeed();
 
     return (
-        <ControlSection
-            title="Sequence"
+        <PanelSection
+            label="Sequence"
             defaultOpen={true}
         >
-            <ControlRow label="Rule">
+            <FieldRow label="Rule">
                 <Select
                     value={sequenceRule.id}
-                    onChange={(e) => {
-                        const selectedRule = allRules.find((rule) => rule.id === e.target.value);
+                    onChange={(val) => {
+                        const selectedRule = allRules.find((rule) => rule.id === val);
 
                         if (selectedRule) {
                             setSequenceRule({
@@ -27,20 +27,15 @@ function SequenceSection() {
                             });
                         }
                     }}
-                >
-                    {allRules.map((rule) => (
-                        <option
-                            key={rule.id}
-                            value={rule.id}
-                        >
-                            {rule.name}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
-            <ControlRow
+                    options={allRules.map((rule) => ({
+                        label: rule.name,
+                        value: rule.id
+                    }))}
+                />
+            </FieldRow>
+            <FieldRow
                 label="Steps"
-                value={steps}
+                value={String(steps)}
             >
                 <Slider
                     value={steps}
@@ -50,10 +45,9 @@ function SequenceSection() {
                     onChange={(value) => {
                         setSequenceSteps({ steps: value });
                     }}
-                    showTicks={false}
                 />
-            </ControlRow>
-            <ControlRow label="Seed">
+            </FieldRow>
+            <FieldRow label="Seed">
                 <Input
                     type="text"
                     value={seed}
@@ -61,8 +55,8 @@ function SequenceSection() {
                         setSeed(e.target.value);
                     }}
                 />
-            </ControlRow>
-        </ControlSection>
+            </FieldRow>
+        </PanelSection>
     );
 }
 

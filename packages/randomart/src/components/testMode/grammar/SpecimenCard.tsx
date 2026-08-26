@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 
 import { STRING_ARGS } from '../lib/evalHelpers';
 import {
@@ -39,7 +39,7 @@ export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number
             <div className="mb-2 flex items-center justify-between">
                 <span className="text-foreground-muted font-mono text-xs">#{index}</span>
                 <Button
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     onClick={(e) => {
                         e.stopPropagation();

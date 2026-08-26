@@ -512,9 +512,9 @@ importers:
       '@repo/glaze':
         specifier: workspace:*
         version: link:../glaze
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -1417,9 +1417,9 @@ importers:
       '@repo/pixel':
         specifier: workspace:*
         version: link:../pixel
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -1548,9 +1548,9 @@ importers:
       '@repo/randomart-engine':
         specifier: workspace:*
         version: link:../randomart-engine
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -1813,9 +1813,9 @@ importers:
       '@repo/sequence-engine':
         specifier: workspace:*
         version: link:../sequence-engine
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       '@repo/worker-pool':
         specifier: workspace:*
         version: link:../worker-pool

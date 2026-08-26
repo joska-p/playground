@@ -1,4 +1,4 @@
-import { ControlSection, ControlPanel as Panel } from '@repo/ui/control-panel';
+import { Panel } from '@repo/tlc/layout';
 
 import { AnimationSection } from './AnimationSection';
 import { ConfigSection } from './ConfigSection';
@@ -42,10 +42,10 @@ function ModeSelect() {
 function PlayModeControlPanel() {
     return (
         <>
-            <ControlSection title="config">
+            <PanelSection label="config">
                 <ConfigSection />
                 <DisplaySection />
-            </ControlSection>
+            </PanelSection>
             <GrammarSection />
             <AnimationSection />
         </>
@@ -56,10 +56,19 @@ function ControlPanel() {
     const mode = useMode();
 
     return (
-        <Panel title={<ModeSelect />}>
-            {mode === 'play' ? <PlayModeControlPanel /> : null}{' '}
-            {mode === 'test' ? <TestModeControls /> : null}
+        <Panel title="controls">
+            <ModeSelect />
+            {mode === 'play' ? <PlayModeControlPanel /> : <TestModeControls />}
         </Panel>
+    );
+}
+
+function PanelSection({ label, children }: { label: string; children: React.ReactNode }) {
+    return (
+        <div className="flex flex-col gap-3">
+            <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">{label}</span>
+            {children}
+        </div>
     );
 }
 

@@ -1,6 +1,5 @@
 import { getManipulations } from '@repo/pixel/worker';
-import { ControlRow } from '@repo/ui/control-panel';
-import { Button, Select } from '@repo/ui/data-entry';
+import { Button, FieldRow, Select } from '@repo/tlc/components/forms';
 import { useState } from 'react';
 
 import { addWorkflowStep } from '../../stores/manipulator/actions';
@@ -10,23 +9,20 @@ const manipulationIds = Object.keys(getManipulations());
 function ManipulationSelector() {
     const [manipulationId, setManipulationId] = useState(manipulationIds[0]);
 
+    const manipulationOptions = manipulationIds.map((id) => ({
+        label: getManipulations()[id].name,
+        value: id
+    }));
+
     return (
-        <ControlRow label="manipulation">
+        <FieldRow label="manipulation">
             <Select
                 value={manipulationId}
-                onChange={(e) => {
-                    setManipulationId(e.target.value);
+                onChange={(val) => {
+                    setManipulationId(val);
                 }}
-            >
-                {manipulationIds.map((id) => (
-                    <option
-                        key={id}
-                        value={id}
-                    >
-                        {getManipulations()[id].name}
-                    </option>
-                ))}
-            </Select>
+                options={manipulationOptions}
+            />
 
             <Button
                 onClick={() => {
@@ -35,16 +31,7 @@ function ManipulationSelector() {
             >
                 Add to Workflow
             </Button>
-        </ControlRow>
-
-        //   <Button
-        //     onClick={() => {
-        //       addWorkflowStep(manipulationId);
-        //     }}
-        //   >
-        //     Add to Workflow
-        //   </Button>
-        // </div>
+        </FieldRow>
     );
 }
 

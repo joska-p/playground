@@ -1,5 +1,5 @@
 import { getManipulations } from '@repo/pixel/worker';
-import { ControlSection } from '@repo/ui/control-panel';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { WorkEmptyStateSvg } from './WorkEmptyStateSvg';
 import { WorkflowNode } from './WorkflowNode';
@@ -11,17 +11,17 @@ function WorkflowControls() {
 
     if (steps.length === 0) {
         return (
-            <ControlSection title="workflow empty">
+            <PanelSection label="workflow empty">
                 <EmptyState
                     message="Add manipulations to build your pipeline"
                     icon={<WorkEmptyStateSvg />}
                 />
-            </ControlSection>
+            </PanelSection>
         );
     }
 
     return (
-        <ControlSection title="workflow">
+        <PanelSection label="workflow">
             {steps.map((step, index) => {
                 const manip = getManipulations()[step.id];
 
@@ -35,7 +35,7 @@ function WorkflowControls() {
                     />
                 );
             })}
-        </ControlSection>
+        </PanelSection>
     );
 }
 

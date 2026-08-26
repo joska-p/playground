@@ -1,16 +1,16 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { resetViewport } from '../../stores/ui/actions';
 
 function ViewportSection() {
     return (
-        <ControlSection
-            title="Viewport"
+        <PanelSection
+            label="Viewport"
             defaultOpen={true}
         >
             <Button onClick={resetViewport}>Reset</Button>
-        </ControlSection>
+        </PanelSection>
     );
 }
 

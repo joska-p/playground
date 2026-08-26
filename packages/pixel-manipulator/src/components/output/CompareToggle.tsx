@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 
 type CompareToggleProps = {
     mode: 'grid' | 'compare';

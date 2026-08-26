@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 import { useEffect, useRef } from 'react';
 
 import { CloseIcon } from '../shared/CloseIcon';
@@ -46,7 +46,7 @@ function UploadedPreview({ imageSource, fileName, onClear }: UploadedPreviewProp
             </figcaption>
             <Button
                 variant="default"
-                size="icon"
+                size="sm"
                 onClick={onClear}
                 aria-label="Remove image"
                 className="shrink-0"

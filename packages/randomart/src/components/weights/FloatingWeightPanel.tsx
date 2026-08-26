@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 import { useState } from 'react';
 
 import { WEIGHT_PRESETS, type PresetName } from './WeightPresets';

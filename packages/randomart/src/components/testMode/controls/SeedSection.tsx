@@ -1,5 +1,5 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { Button, Input } from '@repo/ui/data-entry';
+import { Button, Input } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { rerollGlobalSeed, setSeed, useSeed } from '../store';
 
@@ -7,8 +7,8 @@ export function SeedSection() {
     const seed = useSeed();
 
     return (
-        <ControlSection
-            title="Global Seed"
+        <PanelSection
+            label="Global Seed"
             defaultOpen
         >
             <div className="flex items-center gap-2">
@@ -21,7 +21,7 @@ export function SeedSection() {
                     className="w-24"
                 />
                 <Button
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     onClick={rerollGlobalSeed}
                     className="text-xs"
@@ -29,6 +29,6 @@ export function SeedSection() {
                     reroll all
                 </Button>
             </div>
-        </ControlSection>
+        </PanelSection>
     );
 }

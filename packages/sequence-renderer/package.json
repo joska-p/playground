@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@repo/sequence-engine": "workspace:*",
-        "@repo/ui": "workspace:*",
+        "@repo/tlc": "workspace:*",
         "@repo/worker-pool": "workspace:*",
         "zustand": "catalog:"
     },
