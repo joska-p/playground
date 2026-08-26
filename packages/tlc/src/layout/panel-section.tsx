@@ -33,12 +33,11 @@ function PanelSection({
     }
 
     return (
-        <details open={defaultOpen} className={cn("group", className)}>
-            <summary
-                onClick={(e) => {
-                    e.preventDefault();
-                    setOpen((o) => !o);
-                }}
+        <div className={cn("flex flex-col", className)}>
+            <button
+                type="button"
+                aria-expanded={open}
+                onClick={() => setOpen((o) => !o)}
                 className="flex items-center justify-between cursor-pointer text-muted-foreground text-[10px] uppercase tracking-widest font-semibold select-none"
             >
                 {label}
@@ -50,7 +49,7 @@ function PanelSection({
                 >
                     ▼
                 </span>
-            </summary>
+            </button>
             <div
                 className={cn(
                     "grid transition-[grid-template-rows] duration-200 ease-out",
@@ -61,7 +60,7 @@ function PanelSection({
                     <div className="flex flex-col gap-3 pt-3">{children}</div>
                 </div>
             </div>
-        </details>
+        </div>
     );
 }
 

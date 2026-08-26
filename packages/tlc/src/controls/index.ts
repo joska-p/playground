@@ -13,9 +13,6 @@ export { Button } from "./button";
 export type { ButtonProps } from "./button";
 export { buttonVariants } from "./button.variants";
 
-export { NumberField } from "./number-field";
-export type { NumberFieldProps } from "./number-field";
-
 export { Select } from "./select";
 export type { SelectProps } from "./select";
 

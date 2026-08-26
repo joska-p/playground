@@ -14,7 +14,7 @@ interface CheckboxProps
 function Checkbox({
     className,
     labelClassName,
-    variant = "primary",
+    variant = "default",
     label,
     disabled = false,
     id,

@@ -11,6 +11,7 @@ interface ToggleProps
     pressed?: boolean;
     defaultPressed?: boolean;
     onChange?: (pressed: boolean) => void;
+    "aria-label": string;
 }
 
 function Toggle({
@@ -19,6 +20,7 @@ function Toggle({
     onChange,
     variant,
     className,
+    "aria-label": ariaLabel,
     ...props
 }: ToggleProps) {
     const id = useId();
@@ -34,6 +36,7 @@ function Toggle({
             type="button"
             role="switch"
             aria-checked={state}
+            aria-label={ariaLabel}
             data-state={state ? "on" : "off"}
             onClick={() => {
                 setState(!state);

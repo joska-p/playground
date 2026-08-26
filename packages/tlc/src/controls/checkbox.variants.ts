@@ -14,7 +14,7 @@ const checkboxVariants = cva(
             },
         },
         defaultVariants: {
-            variant: "primary",
+            variant: "default",
         },
     },
 );

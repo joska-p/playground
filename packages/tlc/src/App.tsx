@@ -3,7 +3,6 @@ import {
     ColorField,
     ControlGroup,
     Field,
-    NumberField,
     Slider,
     Toggle,
 } from "@repo/tlc/controls";
@@ -41,15 +40,7 @@ function App() {
                             </Field>
 
                             <Field label="Rotation">
-                                <Toggle defaultPressed />
-                            </Field>
-
-                            <Field label="Count">
-                                <NumberField
-                                    defaultValue={42}
-                                    min={1}
-                                    max={200}
-                                />
+                                <Toggle defaultPressed aria-label="Rotation" />
                             </Field>
 
                             <Field label="Accent Color">
