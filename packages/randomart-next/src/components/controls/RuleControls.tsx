@@ -1,7 +1,6 @@
 import { listRuleGroups } from '@repo/randomart-engine-next/rules';
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Checkbox, Select } from '@repo/ui/data-entry';
-import { cn } from '@repo/ui/lib/cn';
+import { ControlGrid, Checkbox, Select } from '@repo/tlc/components/forms';
+import { cn } from '@repo/tlc/lib/cn';
 
 import { selectRule, setCorrelatedRGB } from '../../stores/randomart/actions/config';
 import { useCorrelatedRGB, useSelectedRuleId } from '../../stores/randomart/selectors';
@@ -27,28 +26,18 @@ function RuleControls() {
             />
 
             <Select
-                wrapperClassName="col-span-2"
+                className="col-span-2"
                 value={selectedRuleId}
-                onChange={(e) => {
-                    selectRule(e.target.value as RuleId);
+                onChange={(val) => {
+                    selectRule(val as RuleId);
                 }}
-            >
-                {RULE_GROUPS.map((group) => (
-                    <optgroup
-                        key={group.label}
-                        label={group.label}
-                    >
-                        {group.rules.map((rule) => (
-                            <option
-                                key={rule.id}
-                                value={rule.id}
-                            >
-                                {rule.label}
-                            </option>
-                        ))}
-                    </optgroup>
-                ))}
-            </Select>
+                options={RULE_GROUPS.flatMap((group) =>
+                    group.rules.map((rule) => ({
+                        label: `${group.label}: ${rule.label}`,
+                        value: rule.id
+                    }))
+                )}
+            />
         </ControlGrid>
     );
 }

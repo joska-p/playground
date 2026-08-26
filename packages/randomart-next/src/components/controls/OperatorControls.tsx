@@ -1,8 +1,8 @@
 import { getOperatorKinds, type OperatorId } from '@repo/randomart-engine-next/operators';
 import { getRule } from '@repo/randomart-engine-next/rules';
 import { DEFAULT_TERMINALS } from '@repo/randomart-engine-next/tree';
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { ControlGrid, Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { toggleOperator } from '../../stores/randomart/actions/config';
 import { useCustomOperators, useSelectedRuleId } from '../../stores/randomart/selectors';
@@ -18,7 +18,7 @@ function OperatorControls() {
     const activeOperatorIds = customOperators ?? preset.operatorIds;
 
     return (
-        <ControlSection title="Operators">
+        <PanelSection label="Operators">
             {OPERATOR_KINDS.map((kind) => (
                 <div
                     key={kind.label}
@@ -35,7 +35,7 @@ function OperatorControls() {
                             return (
                                 <Button
                                     key={operator.id}
-                                    variant={isActive ? 'secondary' : 'default'}
+                                    variant={isActive ? 'primary' : 'default'}
                                     size="sm"
                                     onClick={() => {
                                         toggleOperator(operator.id);
@@ -49,7 +49,7 @@ function OperatorControls() {
                     </ControlGrid>
                 </div>
             ))}
-        </ControlSection>
+        </PanelSection>
     );
 }
 

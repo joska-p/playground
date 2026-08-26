@@ -1,4 +1,4 @@
-import { ControlPanel as Panel } from '@repo/ui/control-panel';
+import { Panel, PanelHeader } from '@repo/tlc/layout';
 
 import { ActionControls } from './ActionControls';
 import { BehaviorControls } from './BehaviorControls';
@@ -56,7 +56,16 @@ function PlayModeControlPanel() {
 function ControlPanel() {
     const mode = useMode();
 
-    return <Panel title={<ModeSelect />}>{mode === 'play' && <PlayModeControlPanel />}</Panel>;
+    return (
+        <Panel className="h-full">
+            <PanelHeader>
+                <ModeSelect />
+            </PanelHeader>
+            <div className="flex flex-col gap-3 p-4 overflow-y-auto flex-1">
+                {mode === 'play' && <PlayModeControlPanel />}
+            </div>
+        </Panel>
+    );
 }
 
 export { ControlPanel };

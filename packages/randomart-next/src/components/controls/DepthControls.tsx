@@ -1,5 +1,5 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Slider } from '@repo/ui/data-entry';
+import { FieldRow, Slider } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { setMaxDepth, setMinDepth } from '../../stores/randomart/actions/config';
 import { useMaxDepth, useMinDepth } from '../../stores/randomart/selectors';
@@ -9,11 +9,8 @@ function DepthControls() {
     const maxDepth = useMaxDepth();
 
     return (
-        <ControlSection
-            title="Depth"
-            defaultOpen={false}
-        >
-            <ControlRow label={`Min: ${String(minDepth)}`}>
+        <PanelSection label="Depth">
+            <FieldRow label={`Min: ${String(minDepth)}`}>
                 <div className="flex items-center gap-2">
                     <Slider
                         min={1}
@@ -26,9 +23,9 @@ function DepthControls() {
                         {minDepth}
                     </span>
                 </div>
-            </ControlRow>
+            </FieldRow>
 
-            <ControlRow label={`Max: ${String(maxDepth)}`}>
+            <FieldRow label={`Max: ${String(maxDepth)}`}>
                 <div className="flex items-center gap-2">
                     <Slider
                         min={1}
@@ -41,8 +38,8 @@ function DepthControls() {
                         {maxDepth}
                     </span>
                 </div>
-            </ControlRow>
-        </ControlSection>
+            </FieldRow>
+        </PanelSection>
     );
 }
 

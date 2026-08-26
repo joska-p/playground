@@ -1,5 +1,5 @@
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { ControlGrid, Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { getBehaviorKinds } from '../../../../randomart-engine-next/src/behaviors/registry';
 import { toggleBehavior } from '../../stores/randomart/actions/behavior';
@@ -11,7 +11,7 @@ function BehaviorControls() {
     const activeIds = useActiveBehaviorIds();
 
     return (
-        <ControlSection title="Behaviors">
+        <PanelSection label="Behaviors">
             {BEHAVIOR_KINDS.map((kind) => (
                 <div
                     key={kind.label}
@@ -22,7 +22,7 @@ function BehaviorControls() {
                             <Button
                                 size="sm"
                                 key={`animation-${behavior.id}`}
-                                variant={activeIds.includes(behavior.id) ? 'accent' : 'default'}
+                                variant={activeIds.includes(behavior.id) ? 'primary' : 'default'}
                                 onClick={() => {
                                     toggleBehavior(behavior.id);
                                 }}
@@ -33,7 +33,7 @@ function BehaviorControls() {
                     </ControlGrid>
                 </div>
             ))}
-        </ControlSection>
+        </PanelSection>
     );
 }
 

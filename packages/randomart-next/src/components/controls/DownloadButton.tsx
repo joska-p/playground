@@ -1,5 +1,5 @@
 import { evaluate } from '@repo/randomart-engine-next/tree';
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 import { useState } from 'react';
 
 import { useSeedText, useTreeB, useTreeG, useTreeR } from '../../stores/randomart/selectors';

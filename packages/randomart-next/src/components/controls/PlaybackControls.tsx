@@ -1,5 +1,4 @@
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button, Slider } from '@repo/ui/data-entry';
+import { ControlGrid, Button, Slider } from '@repo/tlc/components/forms';
 
 import { setAnimationSpeed } from '../../stores/randomart/actions/config';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
@@ -22,7 +21,6 @@ function PlaybackControls() {
             <Slider
                 className="col-span-2"
                 aria-label="animation speed"
-                showTicks={false}
                 value={animationSpeed}
                 min={0}
                 max={2}

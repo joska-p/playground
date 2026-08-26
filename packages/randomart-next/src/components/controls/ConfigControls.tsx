@@ -1,5 +1,4 @@
-import { ControlGrid } from '@repo/ui/control-panel';
-import { Button, Textarea } from '@repo/ui/data-entry';
+import { ControlGrid, Button, Textarea } from '@repo/tlc/components/forms';
 
 import { RuleControls } from './RuleControls';
 import { setColorSpace, setSeedText } from '../../stores/randomart/actions/config';
@@ -35,7 +34,7 @@ function ConfigControls() {
                     <Button
                         size="sm"
                         key={`color-space-${cs.id}`}
-                        variant={activeSpace === cs.id ? 'accent' : 'default'}
+                        variant={activeSpace === cs.id ? 'primary' : 'default'}
                         onClick={() => {
                             setColorSpace(cs.id);
                         }}

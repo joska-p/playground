@@ -16,7 +16,7 @@
     "dependencies": {
         "@repo/glaze": "workspace:*",
         "@repo/randomart-engine-next": "workspace:*",
-        "@repo/ui": "workspace:*",
+        "@repo/tlc": "workspace:*",
         "zustand": "catalog:"
     },
     "devDependencies": {
