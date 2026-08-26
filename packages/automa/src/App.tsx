@@ -1,16 +1,21 @@
 import { ErrorBoundary } from '@repo/tlc/components/display';
+import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 
 import { CellMesh } from './components/canvas/CellMesh.tsx';
 import { ControlPanel } from './components/controls/ControlPanel';
 
 function App() {
     return (
-        <div className="relative h-screen overflow-hidden">
-            <ErrorBoundary>
-                <CellMesh />
-                <ControlPanel />
-            </ErrorBoundary>
-        </div>
+        <ErrorBoundary>
+            <Shell>
+                <ShellCanvas>
+                    <CellMesh />
+                </ShellCanvas>
+                <ShellPanels>
+                    <ControlPanel />
+                </ShellPanels>
+            </Shell>
+        </ErrorBoundary>
     );
 }
 
