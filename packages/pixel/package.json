@@ -19,7 +19,6 @@
         "lint": "eslint . --fix"
     },
     "dependencies": {
-        "@repo/ui": "workspace:*",
         "@repo/worker-pool": "workspace:*"
     },
     "devDependencies": {
