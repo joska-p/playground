@@ -7,6 +7,7 @@
  * InjectScriptAttrs Astro processes <script> tags by default and rewrites src to its own bundled
  * URL; is:inline opts out. styleMode Astro scopes component styles, which strips preview CSS off
  * the generated variant wrappers, so preview rules are authored global and prefixed instead of
+ *
  * @scope'd.
  */
 

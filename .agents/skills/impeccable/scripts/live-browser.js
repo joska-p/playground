@@ -2239,12 +2239,13 @@
 
     /**
      * Drive the page-level pick / insert cursor through the textContent of one injected <style>,
-     * never by mutating <html> (className or inline style). Frameworks that server-render the
-     * <html>/<body> roots (Next.js App Router) report a React 19 hydration mismatch when the client
-     * adds an attribute the server HTML never emitted, so a `class`/inline `style` toggled on
-     * `document.documentElement` trips "a tree hydrated but some attributes ... didn't match" on the
-     * next Fast-Refresh re-render. Keying the cursor off a stable-id <style> keeps the effect off the
-     * hydrated host elements (same shape as the scroll-anchor lock). A falsy cursor clears the rule.
+     * never by mutating <html> (className or inline style). Frameworks that server-render
+     * the<html>/<body> roots (Next.js App Router) report a React 19 hydration mismatch when the
+     * client adds an attribute the server HTML never emitted, so a `class`/inline `style` toggled
+     * on `document.documentElement` trips "a tree hydrated but some attributes ... didn't match" on
+     * the next Fast-Refresh re-render. Keying the cursor off a stable-id <style> keeps the effect
+     * off the hydrated host elements (same shape as the scroll-anchor lock). A falsy cursor clears
+     * the rule.
      */
     function setPageInteractionCursor(cursor) {
         let style = document.getElementById(PICK_CURSOR_STYLE_ID);
@@ -2284,8 +2285,8 @@
 
     /**
      * Single entry point for interaction-state transitions. The pick-mode crosshair is derived from
-     * `state`, so a bare `state = ...` assignment leaves the page cursor out of sync with the mode it
-     * advertises.
+     * `state`, so a bare `state = ...` assignment leaves the page cursor out of sync with the mode
+     * it advertises.
      */
     function setLiveState(next) {
         state = next;
@@ -2974,8 +2975,8 @@
         '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="14" cy="8" r="2.4" fill="currentColor" stroke="none"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="10" cy="16" r="2.4" fill="currentColor" stroke="none"/></svg>';
 
     /**
-     * Which variant the user is actually looking at. For component previews the mounted component is
-     * the truth; `visibleVariant` is the intent, and the two differ while a mount is in flight.
+     * Which variant the user is actually looking at. For component previews the mounted component
+     * is the truth; `visibleVariant` is the intent, and the two differ while a mount is in flight.
      */
     function cyclingShownVariant() {
         return svelteComponentSession?.sessionId === currentSessionId &&
@@ -2988,8 +2989,8 @@
      * The single counter string. It is built here rather than at each call site because the row
      * builder and the incremental sync used to disagree on the denominator: one showed the planned
      * count, the other the arrived count, so "2/3" turned into "2/2" on the next sync without
-     * anything changing on screen. Arrived wins once anything has arrived; expected covers the window
-     * before the first variant lands.
+     * anything changing on screen. Arrived wins once anything has arrived; expected covers the
+     * window before the first variant lands.
      */
     function cyclingCounterText() {
         const total = arrivedVariants > 0 ? arrivedVariants : expectedVariants;
@@ -7175,9 +7176,9 @@
 
     /**
      * Terminal recovery for a session whose source-side scaffolding no longer exists. The discard
-     * event is best-effort: with no agent polling it parks the durable session in discard_requested,
-     * which no resume path adopts; with an agent attached it triggers the normal discard
-     * finalization.
+     * event is best-effort: with no agent polling it parks the durable session in
+     * discard_requested, which no resume path adopts; with an agent attached it triggers the normal
+     * discard finalization.
      */
     function discardOrphanedSession(reason) {
         const sessionId = currentSessionId;
@@ -7193,9 +7194,9 @@
     }
 
     /**
-     * No-HMR fallback: fetch the raw source file from the live server, parse it, extract the variant
-     * wrapper, and inject it into the live DOM. This works even when the dev server caches HTML (Bun,
-     * static servers).
+     * No-HMR fallback: fetch the raw source file from the live server, parse it, extract the
+     * variant wrapper, and inject it into the live DOM. This works even when the dev server caches
+     * HTML (Bun, static servers).
      *
      * Opts.generationCompleted marks callers that KNOW the agent finished (a `done` arrived or the
      * server reported a completed generation). For them an empty read is a stale source view and no
@@ -8597,9 +8598,9 @@
      * Surface a brief, non-blocking heads-up when the picked element lives inside a container whose
      * visibility is gated by ephemeral state - modals, collapsible panels, popovers, off-screen tab
      * panels. If HMR remounts the parent during generation (Vite Fast Refresh, SvelteKit page
-     * reload), the variants land in source but stay invisible until the user re-opens the container.
-     * Telling the user upfront is much friendlier than the silent timeout-then-toast that they'd
-     * otherwise hit.
+     * reload), the variants land in source but stay invisible until the user re-opens the
+     * container. Telling the user upfront is much friendlier than the silent timeout-then-toast
+     * that they'd otherwise hit.
      *
      * Heuristic, intentionally narrow - only fires for unambiguous cases so we don't cry wolf on
      * every nested element.
@@ -10455,9 +10456,9 @@ void main() {
     }
 
     /**
-     * Mark session as handled (accepted/discarded). The agent will clean up the source, but until it
-     * does the wrapper is still in the HTML. This prevents resumeSession from picking it up again
-     * after reload.
+     * Mark session as handled (accepted/discarded). The agent will clean up the source, but until
+     * it does the wrapper is still in the HTML. This prevents resumeSession from picking it up
+     * again after reload.
      */
     function markSessionHandled() {
         if (!currentSessionId) return;

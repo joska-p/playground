@@ -1,4 +1,4 @@
-import { Card } from '@repo/tlc';
+import { Card } from '@repo/tlc/components/display';
 
 import { CodeBlock } from '../CodeBlock';
 import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';

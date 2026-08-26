@@ -1,4 +1,4 @@
-import { Button } from '@repo/tlc';
+import { Button } from '@repo/tlc/components/forms';
 import { useState } from 'react';
 
 import { usePixel } from '../../../react/usePixel';

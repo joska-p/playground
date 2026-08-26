@@ -1,4 +1,4 @@
-import { Card } from '@repo/tlc';
+import { Card } from '@repo/tlc/components/display';
 
 import { CodeBlock } from '../CodeBlock';
 import { TryItOut } from '../demos/TryItOut';

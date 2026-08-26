@@ -5,6 +5,7 @@ dist
 graphify-out
 storybook-static
 drafts
+.agents/skills/impeccable/scripts
 
 packages/graph-viz/src/data/processes-graph.json
 packages/radu-machine-learning/src/data/raw-samples

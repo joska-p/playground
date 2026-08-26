@@ -1,4 +1,4 @@
-import { Slider } from '@repo/tlc';
+import { Slider } from '@repo/tlc/components/forms';
 import { useEffect, useState } from 'react';
 
 import { processImageInWorker } from '../../../worker/process-image-in-worker';

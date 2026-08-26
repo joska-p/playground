@@ -1240,10 +1240,10 @@ export function removeSvelteComponentSession(id, cwd = process.cwd()) {
 
 /**
  * Compile-check every variant component of a session with the app's own compiler, BEFORE the
- * browser ever imports them. A variant that does not compile (the classic: a second top-level
- * <style> appended next to the seeded one) used to surface as a red Vite overlay in the user's page
- * plus a mount-failure round trip; bounced at publish time it is a private agent-side fix with the
- * exact file and line.
+ * browser ever imports them. A variant that does not compile (the classic: a second
+ * top-level<style> appended next to the seeded one) used to surface as a red Vite overlay in the
+ * user's page plus a mount-failure round trip; bounced at publish time it is a private agent-side
+ * fix with the exact file and line.
  *
  * What this deliberately does NOT prove is that the emitted module is valid JavaScript, and issue
  * #580 was exactly that gap: valid .svelte source whose generated JS did not parse, so this check

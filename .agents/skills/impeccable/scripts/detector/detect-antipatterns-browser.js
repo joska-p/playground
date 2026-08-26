@@ -3204,10 +3204,10 @@
     }
 
     /**
-     * Regex-on-HTML checks shared between browser and Node page-level detection. These don't need DOM
-     * access, just the raw HTML string. CSS-property and utility-class patterns scan the scoped corpora
-     * (styleText / classText — see buildHtmlPatternCorpora) so prose about css never flags; only the
-     * markup-shaped and rendered-text checks read the full source.
+     * Regex-on-HTML checks shared between browser and Node page-level detection. These don't need
+     * DOM access, just the raw HTML string. CSS-property and utility-class patterns scan the scoped
+     * corpora (styleText / classText — see buildHtmlPatternCorpora) so prose about css never flags;
+     * only the markup-shaped and rendered-text checks read the full source.
      */
     function checkHtmlPatterns(html, corpora) {
         const { styleText, classText } = corpora || buildHtmlPatternCorpora(html);

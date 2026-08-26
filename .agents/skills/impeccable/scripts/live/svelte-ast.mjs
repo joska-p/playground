@@ -9,7 +9,7 @@
  * template scope:
  *
  * {#each stages as stage, i} stages -> collection prop (array) <span>{stage.label}</span> bound ->
- * left verbatim {/each}  <p>{footerNote}</p>            free    -> text prop (string)
+ * left verbatim {/each} <p>{footerNote}</p> free -> text prop (string)
  *
  * Constructs that cannot work in a detached component (component tags whose imports live in the
  * route file, bind:/use: directives, await blocks, render tags) mark the analysis unsupported; the

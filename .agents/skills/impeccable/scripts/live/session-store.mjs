@@ -140,8 +140,8 @@ export function createLiveSessionStore({ cwd = process.cwd(), sessionId } = {}) 
             return next;
         },
         /**
-         * True when a journal exists for the id in either root. appendEvent CREATES a journal for any
-         * id it is handed, so callers that should only ever touch existing sessions (browser
+         * True when a journal exists for the id in either root. appendEvent CREATES a journal for
+         * any id it is handed, so callers that should only ever touch existing sessions (browser
          * checkpoints, mount acks) check here first — otherwise a stale id from another project's
          * browser storage materializes a ghost session in this store.
          */
@@ -153,9 +153,10 @@ export function createLiveSessionStore({ cwd = process.cwd(), sessionId } = {}) 
             );
         },
         /**
-         * Read-only. `live-status` and `live-resume` call this against a session a running server owns;
-         * writing the snapshot file here made every read a write and let a reader's replay of a
-         * half-written journal land on disk. Snapshot files are written by appendEvent and by flush().
+         * Read-only. `live-status` and `live-resume` call this against a session a running server
+         * owns; writing the snapshot file here made every read a write and let a reader's replay of
+         * a half-written journal land on disk. Snapshot files are written by appendEvent and by
+         * flush().
          */
         getSnapshot(id = sessionId, opts = {}) {
             if (!id) throw new Error('session id required');
@@ -164,9 +165,9 @@ export function createLiveSessionStore({ cwd = process.cwd(), sessionId } = {}) 
             return snapshot;
         },
         /**
-         * Write the snapshot file for a session without appending an event. The durable truth is the
-         * journal, so this only refreshes the read cache other processes use; callers that need the
-         * state itself should use getSnapshot.
+         * Write the snapshot file for a session without appending an event. The durable truth is
+         * the journal, so this only refreshes the read cache other processes use; callers that need
+         * the state itself should use getSnapshot.
          */
         flush(id = sessionId) {
             if (!id) throw new Error('session id required');
