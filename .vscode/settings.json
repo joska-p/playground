@@ -1,0 +1,7 @@
+{
+    "chat.disableAIFeatures": false,
+    "files.associations": {
+        "*.astro": "astro"
+    },
+    "eslint.workingDirectories": [{ "mode": "auto" }]
+}
