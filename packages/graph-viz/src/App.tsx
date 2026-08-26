@@ -1,4 +1,4 @@
-import { Sidebar } from '@repo/ui/widgets';
+import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
@@ -24,19 +24,16 @@ function App() {
     }
 
     return (
-        <Sidebar
-            position="right"
-            className="min-h-screen"
-        >
-            <Sidebar.Main>
+        <Shell className="min-h-screen">
+            <ShellCanvas>
                 <GraphCanvas />
-            </Sidebar.Main>
+            </ShellCanvas>
 
-            <Sidebar.Panel className="w-100 space-y-4 p-4">
+            <ShellPanels className="w-100 space-y-4 p-4">
                 <DetailsPanel />
                 <FilterControls />
-            </Sidebar.Panel>
-        </Sidebar>
+            </ShellPanels>
+        </Shell>
     );
 }
 

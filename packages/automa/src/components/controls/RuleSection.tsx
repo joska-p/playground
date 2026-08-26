@@ -1,6 +1,7 @@
 import { createCssColor } from '@repo/glaze/core/types';
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Select } from '@repo/ui/data-entry';
+import { FieldRow } from '@repo/tlc/components/forms';
+import { Select } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 import { allRules, rules, type RuleId } from '../../engine/rules/registry';
 import { setRule, setStateColor } from '../../stores/automa/actions';
 import { useRuleId, useStateColors } from '../../stores/automa/selectors';
@@ -11,29 +12,24 @@ function RuleSection() {
     const rule = rules[ruleId];
 
     return (
-        <ControlSection
-            title="Rule"
-            defaultOpen
+        <PanelSection
+            label="Rule"
+            collapsible={false}
         >
-            <ControlRow label="Rule">
+            <FieldRow label="Rule">
                 <Select
                     value={ruleId}
-                    onChange={(e) => {
-                        setRule(e.target.value as RuleId);
+                    onChange={(value) => {
+                        setRule(value as RuleId);
                     }}
-                >
-                    {allRules.map((r) => (
-                        <option
-                            key={r.id}
-                            value={r.id}
-                        >
-                            {r.name}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
+                    options={allRules.map((r) => ({
+                        label: r.name,
+                        value: r.id,
+                    }))}
+                />
+            </FieldRow>
             {stateColors.slice(0, rule.stateCount).map((color, i) => (
-                <ControlRow
+                <FieldRow
                     key={`stateColor-${String(i)}`}
                     label={`Age ${String(i)}`}
                 >
@@ -45,9 +41,9 @@ function RuleSection() {
                         }}
                         className="h-8 w-full cursor-pointer rounded border"
                     />
-                </ControlRow>
+                </FieldRow>
             ))}
-        </ControlSection>
+        </PanelSection>
     );
 }
 

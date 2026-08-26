@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui/data-display';
+import { Badge } from '@repo/tlc/components/display';
 
 import { CONFIG } from '../../../core/config.ts';
 import { useCommunities, useLinks, useNodes } from '../../../stores/content/selectors';
@@ -39,7 +39,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
                     </dd>
                     <dt className="text-muted-foreground">Type</dt>
                     <dd>
-                        <Badge appearance="outline">{node.file_type}</Badge>
+                        <Badge>{node.file_type}</Badge>
                     </dd>
                 </dl>
 

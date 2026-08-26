@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/lib/cn';
+import { cn } from '@repo/tlc/lib/cn';
 
 import { labelToColorMap } from '../../constants';
 import { setScrollTarget, useSelectedDrawingId } from '../../stores/selection';

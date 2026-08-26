@@ -1,5 +1,6 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Select } from '@repo/ui/data-entry';
+import { FieldRow } from '@repo/tlc/components/forms';
+import { Select } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { allCreatures, type CreatureId } from '../../engine/creature/registry';
 import { setPaletteBrush } from '../../stores/automa/actions';
@@ -9,28 +10,23 @@ function CreatureSection() {
     const paletteBrush = usePaletteBrush();
 
     return (
-        <ControlSection
-            title="Creature"
-            defaultOpen
+        <PanelSection
+            label="Creature"
+            collapsible={false}
         >
-            <ControlRow label="Pattern">
+            <FieldRow label="Pattern">
                 <Select
                     value={paletteBrush}
-                    onChange={(e) => {
-                        setPaletteBrush(e.target.value as CreatureId);
+                    onChange={(value) => {
+                        setPaletteBrush(value as CreatureId);
                     }}
-                >
-                    {allCreatures.map((creature) => (
-                        <option
-                            key={creature.id}
-                            value={creature.id}
-                        >
-                            {creature.name}
-                        </option>
-                    ))}
-                </Select>
-            </ControlRow>
-        </ControlSection>
+                    options={allCreatures.map((creature) => ({
+                        label: creature.name,
+                        value: creature.id,
+                    }))}
+                />
+            </FieldRow>
+        </PanelSection>
     );
 }
 

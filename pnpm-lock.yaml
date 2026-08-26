@@ -576,9 +576,9 @@ importers:
       '@repo/glaze':
         specifier: workspace:*
         version: link:../glaze
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -738,9 +738,6 @@ importers:
       '@repo/tlc':
         specifier: workspace:*
         version: link:../tlc
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
     devDependencies:
       '@babel/core':
         specifier: 'catalog:'
@@ -820,9 +817,9 @@ importers:
       '@react-three/fiber':
         specifier: 'catalog:'
         version: 9.6.1(@types/react@19.2.17)(immer@11.1.15)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       three:
         specifier: 'catalog:'
         version: 0.184.0
@@ -1286,9 +1283,9 @@ importers:
       '@repo/palette-engine':
         specifier: workspace:*
         version: link:../palette-engine
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       colorjs.io:
         specifier: 'catalog:'
         version: 0.6.1
@@ -1484,9 +1481,9 @@ importers:
 
   packages/radu-machine-learning:
     dependencies:
-      '@repo/ui':
+      '@repo/tlc':
         specifier: workspace:*
-        version: link:../ui
+        version: link:../tlc
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))

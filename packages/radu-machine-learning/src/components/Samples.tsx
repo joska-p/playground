@@ -1,5 +1,5 @@
-import { Card } from '@repo/ui/card';
-import { cn } from '@repo/ui/lib/cn';
+import { Card } from '@repo/tlc/components/display';
+import { cn } from '@repo/tlc/lib/cn';
 import { useEffect } from 'react';
 
 import { labelToColorMap } from '../constants';

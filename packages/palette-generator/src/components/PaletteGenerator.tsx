@@ -1,19 +1,19 @@
-import { Sidebar } from '@repo/ui/widgets';
+import { Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
 
 import { Controls } from './controls/Controls';
 import { Display } from './display/Display';
 
 function PaletteGenerator() {
     return (
-        <Sidebar className="min-h-dvh">
-            <Sidebar.Panel className="flex flex-col gap-3 p-3">
+        <Shell className="min-h-dvh">
+            <ShellPanels className="flex flex-col gap-3 p-3">
                 <Controls />
-            </Sidebar.Panel>
+            </ShellPanels>
 
-            <Sidebar.Main className="p-3">
+            <ShellCanvas className="p-3">
                 <Display />
-            </Sidebar.Main>
-        </Sidebar>
+            </ShellCanvas>
+        </Shell>
     );
 }
 

@@ -1,5 +1,6 @@
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button } from '@repo/ui/data-entry';
+import { ControlGrid } from '@repo/tlc/components/forms';
+import { Button } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { clearGrid, randomizeGrid, setToolMode } from '../../stores/automa/actions';
 import { useBrushMode } from '../../stores/automa/selectors';
@@ -8,9 +9,9 @@ function EditSection() {
     const brushMode = useBrushMode();
 
     return (
-        <ControlSection
-            title="Edit"
-            defaultOpen
+        <PanelSection
+            label="Edit"
+            collapsible={false}
         >
             <ControlGrid columns={2}>
                 <Button
@@ -31,8 +32,7 @@ function EditSection() {
                 </Button>
 
                 <Button
-                    isActive={brushMode === 'draw'}
-                    variant="secondary"
+                    variant={brushMode === 'draw' ? 'secondary' : 'default'}
                     onClick={() => {
                         setToolMode('draw');
                     }}
@@ -40,8 +40,7 @@ function EditSection() {
                     Draw
                 </Button>
                 <Button
-                    isActive={brushMode === 'erase'}
-                    variant="warning"
+                    variant={brushMode === 'erase' ? 'destructive' : 'default'}
                     onClick={() => {
                         setToolMode('erase');
                     }}
@@ -49,7 +48,7 @@ function EditSection() {
                     Erase
                 </Button>
             </ControlGrid>
-        </ControlSection>
+        </PanelSection>
     );
 }
 

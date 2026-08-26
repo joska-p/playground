@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui/data-display';
+import { Badge } from '@repo/tlc/components/display';
 
 import { useLinks, useNodes } from '../../../stores/content/selectors';
 import { getStats } from '../utils';
@@ -39,10 +39,7 @@ function GraphOverview() {
                                 key={type}
                                 className="flex items-center justify-between text-xs"
                             >
-                                <Badge
-                                    appearance="outline"
-                                    className="font-mono"
-                                >
+                                <Badge className="font-mono">
                                     {type}
                                 </Badge>
                                 <span className="text-muted-foreground font-mono">{count}</span>

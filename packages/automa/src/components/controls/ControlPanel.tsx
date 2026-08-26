@@ -1,4 +1,4 @@
-import { ControlPanel as Panel } from '@repo/ui/control-panel';
+import { Panel } from '@repo/tlc/layout';
 
 import { CreatureSection } from './CreatureSection';
 import { EditSection } from './EditSection';

@@ -1,5 +1,5 @@
-import { toScreenPoint, type Camera } from '@repo/glaze/core/types';
 import { defaultCamera } from '@repo/glaze/core/Camera';
+import { toScreenPoint, type Camera } from '@repo/glaze/core/types';
 import { computeGridRect, getCellAtWorld, type GridCell } from './gridPlacement';
 
 /** Resolves a pointer event to its grid cell, or null when it lands outside the grid. */

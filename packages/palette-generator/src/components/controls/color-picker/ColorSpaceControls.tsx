@@ -1,5 +1,5 @@
 import { colorSpaces } from '@repo/palette-engine/colorSpaces';
-import { Slider } from '@repo/ui/data-entry';
+import { Slider } from '@repo/tlc/components/forms';
 import { useRef, useState } from 'react';
 
 import { ColorSpaceCanvas } from './ColorSpaceCanvas';

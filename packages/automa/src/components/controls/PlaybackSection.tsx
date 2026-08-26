@@ -1,5 +1,6 @@
-import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
-import { Button, Slider } from '@repo/ui/data-entry';
+import { ControlGrid } from '@repo/tlc/components/forms';
+import { Button, Slider, FieldRow } from '@repo/tlc/components/forms';
+import { PanelSection } from '@repo/tlc/layout';
 
 import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../lib/constants';
 import { setSpeed, stepOnce, toggleRunning } from '../../stores/automa/actions';
@@ -10,9 +11,9 @@ function PlaybackSection() {
     const speedMs = useSpeedMs();
 
     return (
-        <ControlSection
-            title="Playback"
-            defaultOpen
+        <PanelSection
+            label="Playback"
+            collapsible={false}
         >
             <ControlGrid columns={2}>
                 <Button
@@ -31,8 +32,9 @@ function PlaybackSection() {
                 >
                     Step
                 </Button>
+            </ControlGrid>
+            <FieldRow label="Speed">
                 <Slider
-                    className="col-span-full"
                     value={speedMs}
                     onChange={(speed) => {
                         setSpeed(speed);
@@ -41,8 +43,8 @@ function PlaybackSection() {
                     max={SPEED_MAX_MS}
                     step={SPEED_STEP_MS}
                 />
-            </ControlGrid>
-        </ControlSection>
+            </FieldRow>
+        </PanelSection>
     );
 }
 

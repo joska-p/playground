@@ -1,5 +1,5 @@
-import { Badge } from '@repo/ui/data-display';
-import { Button, Switch } from '@repo/ui/data-entry';
+import { Badge } from '@repo/tlc/components/display';
+import { Button, Toggle } from '@repo/tlc/components/forms';
 
 import { useCommunities, useNodes } from '../../stores/content/selectors';
 import {
@@ -51,18 +51,20 @@ function FilterControls() {
             <h2 className="text-base">Filters</h2>
             <div className="space-y-4">
                 <div className="item-center grid grid-cols-2 gap-4">
-                    <label className="text-xs">
+                    <label className="text-xs flex items-center justify-between cursor-pointer">
                         Show edges
-                        <Switch
-                            checked={edgesVisible}
+                        <Toggle
+                            aria-label="Show edges"
+                            pressed={edgesVisible}
                             onChange={toggleEdges}
                         />
                     </label>
 
-                    <label className="text-xs">
+                    <label className="text-xs flex items-center justify-between cursor-pointer">
                         Show labels
-                        <Switch
-                            checked={labelsVisible}
+                        <Toggle
+                            aria-label="Show labels"
+                            pressed={labelsVisible}
                             onChange={toggleLabels}
                         />
                     </label>

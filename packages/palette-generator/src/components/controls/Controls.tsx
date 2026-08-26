@@ -4,7 +4,7 @@ import { analogous } from '@repo/palette-engine/rules/analogous';
 import { complementary } from '@repo/palette-engine/rules/complementary';
 import { monochromatic } from '@repo/palette-engine/rules/monochromatic';
 import { triadic } from '@repo/palette-engine/rules/triadic';
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/tlc/components/forms';
 
 import { ColorSpaceControls } from './color-picker/ColorSpaceControls';
 import { addPalette, usePaletteBaseColor } from '../../stores/palette/store';

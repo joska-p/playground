@@ -1,11 +1,11 @@
-import { ControlPanel as Panel } from '@repo/ui/control-panel';
+import { Panel } from '@repo/tlc/layout';
 
 import { Chart } from './chart/Chart';
 import { Sketchpad } from './Sketchpad';
 
 function ControlPanel() {
     return (
-        <Panel size="lg">
+        <Panel className="w-96">
             <Sketchpad />
             <Chart />
         </Panel>

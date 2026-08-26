@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@repo/palette-engine": "workspace:*",
-        "@repo/ui": "workspace:*",
+        "@repo/tlc": "workspace:*",
         "colorjs.io": "catalog:",
         "zustand": "catalog:"
     },

@@ -1,6 +1,6 @@
-import { ControlGrid } from '@repo/ui/control-panel';
-import { ColorSwatch } from '@repo/ui/data-display';
-import { Button, Input, Label } from '@repo/ui/data-entry';
+import { ControlGrid } from '@repo/tlc/components/forms';
+import { ColorPalette } from '@repo/tlc/components/forms';
+import { Button, Input } from '@repo/tlc/components/forms';
 import { useEffect, useRef } from 'react';
 
 import {
@@ -115,7 +115,7 @@ function Sketchpad() {
     return (
         <div className="space-y-2">
             <ControlGrid columns={4}>
-                <Label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 cursor-pointer">
                     <Input
                         className="sr-only"
                         type="color"
@@ -124,16 +124,17 @@ function Sketchpad() {
                             setStrokeColor(e.target.value);
                         }}
                     />
-                    <ColorSwatch
-                        color={strokeColor}
-                        name="color"
-                        token={strokeColor}
+                    <ColorPalette
+                        name="strokeColor"
+                        value={strokeColor}
+                        colors={[strokeColor]}
+                        checked={true}
                     />
-                </Label>
+                </label>
 
                 <Button
                     size="sm"
-                    variant="warning"
+                    variant="secondary"
                     onClick={undoPath}
                 >
                     Undo

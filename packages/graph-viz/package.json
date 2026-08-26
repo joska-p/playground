@@ -18,7 +18,7 @@
     "dependencies": {
         "@react-three/drei": "catalog:",
         "@react-three/fiber": "catalog:",
-        "@repo/ui": "workspace:*",
+        "@repo/tlc": "workspace:*",
         "three": "catalog:",
         "zod": "catalog:",
         "zustand": "catalog:"
