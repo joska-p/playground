@@ -25,7 +25,7 @@ function ManualControls() {
     return (
         <>
             <PanelSection label="manual">
-                <FieldRowWithLabel label={`div: ${String(divisions)}`}>
+                <FieldRow label={`div: ${String(divisions)}`}>
                     <Slider
                         value={divisions}
                         onChange={setDivisions}
@@ -33,7 +33,7 @@ function ManualControls() {
                         max={100}
                         step={1}
                     />
-                </FieldRowWithLabel>
+                </FieldRow>
 
                 <FieldRow label="Chroma">
                     <Slider
@@ -60,17 +60,6 @@ function ManualControls() {
                 </ControlGrid>
             </PanelSection>
         </>
-    );
-}
-
-function FieldRowWithLabel({ label, children }: { label: string; children: React.ReactNode }) {
-    return (
-        <div className="flex flex-col gap-1.5">
-            <span className="text-muted-foreground text-[10px] uppercase tracking-widest font-semibold">
-                {label}
-            </span>
-            {children}
-        </div>
     );
 }
 

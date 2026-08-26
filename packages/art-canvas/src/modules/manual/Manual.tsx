@@ -10,7 +10,6 @@ function Manual() {
 
     return (
         <GpuCanvas
-            className="h-full w-full"
             fragmentShader={manual.fragmentShader}
             uniforms={() => ({
                 uDivisions: divisions,

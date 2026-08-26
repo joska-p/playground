@@ -8,7 +8,6 @@ function Spirale() {
 
     return (
         <GpuCanvas
-            className="h-full w-full"
             fragmentShader={spiraleFragment}
             uniforms={() => ({
                 u_gap: gap

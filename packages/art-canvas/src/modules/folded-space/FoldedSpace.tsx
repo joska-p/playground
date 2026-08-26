@@ -5,7 +5,6 @@ import { foldedSpaceFragment } from './foldedSpace';
 function FoldedSpace() {
     return (
         <GpuCanvas
-            className="h-full w-full"
             fragmentShader={foldedSpaceFragment}
             canvasInteractions={{ pan: false, zoom: false }}
         />
