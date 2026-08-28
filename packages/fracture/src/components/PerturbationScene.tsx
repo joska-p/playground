@@ -14,10 +14,10 @@ import {
 import { useParams } from '../stores/createParamStore';
 import { perturbationStore } from '../stores/perturbationStore';
 
-type Orbits = {
+interface Orbits {
     primary: ReferenceOrbit;
     secondary: ReferenceOrbit;
-};
+}
 
 /**
  * Practical ceiling once the centre is still float64 and the delta is DS. Beyond ~1e15 the float64

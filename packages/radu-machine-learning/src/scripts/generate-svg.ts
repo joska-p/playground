@@ -1,10 +1,10 @@
-type SVGProps = {
+interface SVGProps {
     paths: [number, number][][];
     width?: number;
     height?: number;
     lineWidth?: number;
     color?: string;
-};
+}
 
 function generateSVG({
     paths,

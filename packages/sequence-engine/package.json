@@ -20,5 +20,11 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Pure rule-based mathematical sequence generation engine with persistence abstractions.",
+    "keywords": [
+        "generative",
+        "math",
+        "engine"
+    ]
 }

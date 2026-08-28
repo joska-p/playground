@@ -34,15 +34,17 @@ function ShellCanvas({ children, className }: ShellCanvasProps) {
 interface ShellPanelsProps {
     children: ReactNode;
     className?: string;
+    position?: 'right' | 'left';
 }
 
-function ShellPanels({ children, className }: ShellPanelsProps) {
+function ShellPanels({ children, className, position = 'right' }: ShellPanelsProps) {
     return (
         <aside
             className={cn(
                 'flex flex-col min-h-0 overflow-y-auto',
                 'max-h-[40dvh] border-t border-border',
-                'md:max-h-none md:border-t-0 md:border-l md:w-75',
+                'md:max-h-none md:border-t-0 md:border-l md:w-80',
+                position === 'left' ? 'md:border-l-0 md:border-r md:order-first' : '',
                 className
             )}
         >
@@ -50,6 +52,9 @@ function ShellPanels({ children, className }: ShellPanelsProps) {
         </aside>
     );
 }
+
+Shell.Canvas = ShellCanvas;
+Shell.Panels = ShellPanels;
 
 export { Shell, ShellCanvas, ShellPanels };
 export type { ShellProps, ShellCanvasProps, ShellPanelsProps };

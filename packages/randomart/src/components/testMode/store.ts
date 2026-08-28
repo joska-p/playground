@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware';
 export type ArgPreset = 'gradient' | 'symmetric' | 'interactive';
 export type RenderMode = 'cpu' | 'gpu' | 'compare';
 
-type TestModeState = {
+interface TestModeState {
     globalT: number;
     argPreset: ArgPreset;
     seed: number;
@@ -16,7 +16,7 @@ type TestModeState = {
     selectedRuleId: string | null;
     t: number;
     animate: boolean;
-};
+}
 
 const testModeStore = createStore<TestModeState>()(
     devtools(

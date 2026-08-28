@@ -1,4 +1,4 @@
-export type ReferenceOrbit = {
+export interface ReferenceOrbit {
     /** Interleaved (Xr, Xi) float32 pairs, one RG texel per iteration. */
     data: Float32Array;
     /** Total iterations computed = texture width / shader loop bound. */
@@ -8,7 +8,7 @@ export type ReferenceOrbit = {
      * escapeIndex + 2 and the shader can always build Z = X_{i+1} + dz; else == orbitLength.
      */
     referenceIterations: number;
-};
+}
 
 // Must mirror the loop-count formula in mandelbrot.glsl so CPU and shader never disagree.
 export function computeMaxIterations(

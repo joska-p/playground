@@ -31,5 +31,12 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders.",
+    "keywords": [
+        "generative",
+        "canvas",
+        "engine",
+        "shader"
+    ]
 }

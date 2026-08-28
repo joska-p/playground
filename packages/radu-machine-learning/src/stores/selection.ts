@@ -1,11 +1,11 @@
 import { useStore } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
-type SelectionStore = {
+interface SelectionStore {
     baseUrl: string;
     selectedDrawingId: number | null;
     scrollTargetId: number | null;
-};
+}
 
 const selectionStore = createStore<SelectionStore>(() => ({
     baseUrl: '/',

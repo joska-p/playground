@@ -1,11 +1,11 @@
 import { createStore, useStore } from 'zustand';
 
-export type StoreState = {
+export interface StoreState {
     divisions: number;
     lightness: number;
     chroma: number;
     isPlaying: boolean;
-};
+}
 
 const store = createStore<StoreState>(() => ({
     divisions: 5,

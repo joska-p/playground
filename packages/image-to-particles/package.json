@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./image-to-particles": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/styles.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -41,5 +41,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Deconstruct images into physics-based particle systems with real-time interaction.",
+    "keywords": [
+        "image",
+        "physics",
+        "canvas"
+    ]
 }

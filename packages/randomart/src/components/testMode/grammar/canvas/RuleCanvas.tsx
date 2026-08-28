@@ -5,14 +5,14 @@ import type { RenderMode } from '../../store';
 import type { GrammarRule } from '@repo/randomart-engine/types';
 import type { ReactNode } from 'react';
 
-type RuleCanvasProps = {
+interface RuleCanvasProps {
     rule: GrammarRule;
     seed: number;
     resolution: number;
     t: number;
     sizePx: number;
     renderMode: RenderMode;
-};
+}
 
 /** Single entry point so cards never pick between the CPU/GPU canvases themselves. */
 export function RuleCanvas({ rule, seed, resolution, t, sizePx, renderMode }: RuleCanvasProps) {

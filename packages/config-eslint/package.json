@@ -19,5 +19,10 @@
     },
     "peerDependencies": {
         "eslint": "catalog:"
-    }
+    },
+    "description": "Workspace ESLint configuration package for TypeScript and React.",
+    "keywords": [
+        "config",
+        "infrastructure"
+    ]
 }

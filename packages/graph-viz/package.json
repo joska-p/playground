@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./graph-viz": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -50,5 +50,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Interactive graph, click nodes, search, filter by community.",
+    "keywords": [
+        "data-viz",
+        "graph",
+        "d3"
+    ]
 }

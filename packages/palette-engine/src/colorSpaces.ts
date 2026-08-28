@@ -1,8 +1,13 @@
 import Color from 'colorjs.io';
 
-type Axis = { label: string; min: number; max: number; step?: number };
+interface Axis {
+    label: string;
+    min: number;
+    max: number;
+    step?: number;
+}
 
-type ColorSpaceDef = {
+interface ColorSpaceDef {
     id: string;
     name: string;
     description?: string;
@@ -10,7 +15,7 @@ type ColorSpaceDef = {
     yAxis: Axis;
     zSlider: Axis;
     getColor: (x: number, y: number, z: number) => Color;
-};
+}
 
 const oklab: ColorSpaceDef = {
     id: 'oklab',

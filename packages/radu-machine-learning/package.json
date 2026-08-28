@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./radu-machine-learning": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -42,5 +42,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training.",
+    "keywords": [
+        "machine-learning",
+        "data-viz",
+        "canvas"
+    ]
 }

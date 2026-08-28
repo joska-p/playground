@@ -1,15 +1,15 @@
 import type { Label } from '../../core/types';
 
-export type ChartPoint = {
+export interface ChartPoint {
     drawingId: number | null;
     label: Label | 'current';
     x: number;
     y: number;
-};
+}
 
 export type Domain = [number, number];
 
-export type ChartBounds = {
+export interface ChartBounds {
     xDomain: Domain;
     yDomain: Domain;
-};
+}

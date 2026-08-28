@@ -1,14 +1,14 @@
 import type { TileNames, TileSet } from '../../core/initialTileSet';
 import type { Palette } from '../../core/types';
 
-export type TileInstance = {
+export interface TileInstance {
     id: string;
     name: TileNames;
     colors: [string, string, string, string, string];
     rotation: string;
-};
+}
 
-export type MosaicState = {
+export interface MosaicState {
     mosaicRef: React.RefObject<HTMLDivElement | null>;
     paletteStock: Palette[];
     currentPalettesIndex: number;
@@ -17,4 +17,4 @@ export type MosaicState = {
     tileSet: TileSet;
     tiles: TileInstance[];
     isPalettesLoading: boolean;
-};
+}

@@ -3,11 +3,10 @@
     "version": "0.0.0",
     "private": true,
     "keywords": [
-        "randomart",
-        "hash-visualization",
-        "drunken-bishop",
-        "identicon",
-        "png"
+        "generative",
+        "canvas",
+        "engine",
+        "shader"
     ],
     "license": "MIT",
     "type": "module",
@@ -36,5 +35,6 @@
         "eslint": "catalog:",
         "tsx": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces."
 }

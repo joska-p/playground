@@ -3,10 +3,10 @@ import { create } from 'zustand';
 
 import type { Palette } from '@repo/palette-engine/types';
 
-type PaletteState = {
+interface PaletteState {
     palettes: Palette[];
     baseColor: Color;
-};
+}
 
 const initialBaseColor = new Color('oklch', [0.7, 0.1, 196]);
 

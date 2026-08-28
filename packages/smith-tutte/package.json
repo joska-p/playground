@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        ".": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",

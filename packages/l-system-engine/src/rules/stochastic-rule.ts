@@ -1,10 +1,10 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
 /** Weights across one rule's productions must sum to 1.0. */
-export type StochasticProduction = {
+export interface StochasticProduction {
     readonly weight: number;
     readonly produce: Word;
-};
+}
 
 /** @internal */
 export const STOCHASTIC_PRODUCTIONS_KEY = '__stochasticProductions';

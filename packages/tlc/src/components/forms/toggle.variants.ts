@@ -6,9 +6,11 @@ export const toggleVariants = cva(
         variants: {
             variant: {
                 default: 'bg-input data-[state=on]:bg-primary',
+                primary: 'bg-input data-[state=on]:bg-primary',
                 secondary: 'bg-input data-[state=on]:bg-secondary',
                 accent: 'bg-input data-[state=on]:bg-accent',
-                destructive: 'bg-input data-[state=on]:bg-destructive'
+                destructive: 'bg-input data-[state=on]:bg-destructive',
+                ghost: 'bg-transparent data-[state=on]:bg-muted data-[state=on]:text-foreground'
             }
         },
         defaultVariants: { variant: 'default' }

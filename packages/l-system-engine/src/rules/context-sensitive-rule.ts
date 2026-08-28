@@ -1,6 +1,6 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
-export type ContextSensitiveOptions = {
+export interface ContextSensitiveOptions {
     readonly name: string;
     readonly leftContext?: string;
     readonly rightContext?: string;
@@ -11,7 +11,7 @@ export type ContextSensitiveOptions = {
      * standard.
      */
     readonly ignoreBrackets?: boolean;
-};
+}
 
 const DEFAULT_IGNORED = new Set(['[', ']']);
 

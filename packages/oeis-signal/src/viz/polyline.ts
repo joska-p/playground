@@ -3,14 +3,14 @@ import type { Viz } from './types';
 import type { Signal } from '../core/types';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
-type PolylineOptions = {
+interface PolylineOptions {
     maxTerms?: number;
     yScale?: number;
     xSpacing?: number;
     color?: string;
     pointRadius?: number;
     lineWidth?: number;
-};
+}
 
 export function createPolylineViz(options: PolylineOptions = {}): Viz {
     const {

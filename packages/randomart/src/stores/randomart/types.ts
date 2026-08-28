@@ -3,7 +3,7 @@ import type { ExpressionNode, RuleId, RuleWeights } from '@repo/randomart-engine
 
 export type Mode = 'test' | 'play';
 
-export type RandomartState = {
+export interface RandomartState {
     mode: Mode;
     seedText: string;
     activeChannel: 'red' | 'green' | 'blue';
@@ -21,4 +21,4 @@ export type RandomartState = {
     animationSpeed: number;
     correlatedRGB: boolean;
     activeAnimationBehaviorIds: string[];
-};
+}

@@ -1,10 +1,10 @@
 import type { SequenceRule } from './rules/types';
 
-export type GenerateSequenceOptions = {
+export interface GenerateSequenceOptions {
     sequenceRule: SequenceRule;
     steps: number;
     seed?: string;
-};
+}
 
 function generateSequence({ sequenceRule, steps, seed }: GenerateSequenceOptions): number[] {
     const sequence: number[] = [0];

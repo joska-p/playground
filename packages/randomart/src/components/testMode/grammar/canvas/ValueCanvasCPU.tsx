@@ -6,13 +6,13 @@ import { Corners } from '../ui/Corners';
 
 import type { GrammarRule } from '@repo/randomart-engine/types';
 
-type ValueCanvasCPUProps = {
+interface ValueCanvasCPUProps {
     rule: GrammarRule;
     seed: number;
     resolution: number;
     t: number;
     sizePx: number;
-};
+}
 
 export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanvasCPUProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);

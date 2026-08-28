@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./sequence-renderer": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/styles.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -41,5 +41,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
+    "keywords": [
+        "generative",
+        "math",
+        "svg"
+    ]
 }

@@ -3,9 +3,9 @@ import { createStore } from 'zustand/vanilla';
 
 export type Renderer = 'double-single' | 'perturbation' | 'original';
 
-type ViewState = {
+interface ViewState {
     renderer: Renderer;
-};
+}
 
 const viewStore = createStore<ViewState>(() => ({
     renderer: 'original'

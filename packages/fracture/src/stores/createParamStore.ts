@@ -1,7 +1,7 @@
 import { useStore, type StoreApi } from 'zustand';
 import { createStore } from 'zustand/vanilla';
 
-export type RendererParams = {
+export interface RendererParams {
     iterationBase: number;
     iterationScale: number;
     iterationCap: number;
@@ -13,7 +13,7 @@ export type RendererParams = {
     hueShift: number;
     hueFrequency: number;
     chromaScale: number;
-};
+}
 
 export const DEFAULT_PARAMS: RendererParams = {
     iterationBase: 70,

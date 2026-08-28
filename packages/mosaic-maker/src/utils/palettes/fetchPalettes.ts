@@ -4,11 +4,11 @@ import { initialPalette } from '../../core/initialPalette';
 
 import type { Palette } from '../../core/types';
 
-type CachedPalettes = {
+interface CachedPalettes {
     palettes: Palette[];
     expiration: number;
     version: number;
-};
+}
 
 const CACHE_KEY = 'palettes';
 const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;

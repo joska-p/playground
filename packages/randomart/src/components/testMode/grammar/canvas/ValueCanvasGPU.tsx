@@ -6,11 +6,11 @@ import { Corners } from '../ui/Corners';
 
 import type { GrammarRule } from '@repo/randomart-engine/types';
 
-type ValueCanvasGPUProps = {
+interface ValueCanvasGPUProps {
     rule: GrammarRule;
     seed: number;
     sizePx: number;
-};
+}
 
 function buildShader(
     rule: GrammarRule,

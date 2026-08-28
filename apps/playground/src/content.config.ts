@@ -54,6 +54,7 @@ const api = defineCollection({
         title: z.string(),
         package: z.string(),
         description: z.string().optional(),
+        keywords: z.array(z.string()).optional(),
         hasApp: z.boolean(),
         typedoc: z.custom<JSONOutput.ProjectReflection>()
     })

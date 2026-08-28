@@ -1,11 +1,11 @@
 import type { ReferenceOrbit } from './perturbationOrbit';
 
-export type OrbitTextures = {
+export interface OrbitTextures {
     readonly tex1: WebGLTexture;
     readonly tex2: WebGLTexture;
     upload(primary: ReferenceOrbit, secondary: ReferenceOrbit): void;
     dispose(): void;
-};
+}
 
 // Textures are recreated lazily when the orbit length changes; uploading an
 // unchanged orbit just re-fills the buffer.

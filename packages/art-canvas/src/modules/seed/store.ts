@@ -3,12 +3,12 @@ import { createStore, useStore } from 'zustand';
 import type { MoodName } from '../../assembly/moods';
 import type { PalettePresetName } from '../../palettes/registry';
 
-export type StoreState = {
+export interface StoreState {
     seed: string;
     complexity: number;
     mood: MoodName;
     palette: PalettePresetName;
-};
+}
 
 const store = createStore<StoreState>(() => ({
     seed: 'random seed',

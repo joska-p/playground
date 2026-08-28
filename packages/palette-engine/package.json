@@ -26,5 +26,12 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Pure engine mapping base colors to harmonious palettes across OKLab, OKLCh, HSL, and sRGB color spaces.",
+    "keywords": [
+        "color",
+        "design",
+        "engine",
+        "theory"
+    ]
 }

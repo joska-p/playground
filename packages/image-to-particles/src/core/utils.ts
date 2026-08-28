@@ -6,14 +6,14 @@ import {
     PARTICLE_SIZE
 } from './config';
 
-export type ImageDimensions = {
+export interface ImageDimensions {
     width: number;
     height: number;
     scale: number;
     offset: { x: number; y: number };
-};
+}
 
-type Particle = {
+interface Particle {
     x: number;
     y: number;
     originX: number;
@@ -26,7 +26,7 @@ type Particle = {
     };
     state: 'waiting' | 'falling' | 'landed';
     delay: number;
-};
+}
 
 function calculateImageDimensions(imageWidth: number, imageHeight: number): ImageDimensions {
     const scale = Math.min(CANVAS_WIDTH / imageWidth, CANVAS_HEIGHT / imageHeight);

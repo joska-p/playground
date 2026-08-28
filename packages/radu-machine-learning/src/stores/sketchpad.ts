@@ -5,10 +5,10 @@ import { getPointCount } from '../core/api';
 
 import type { Path } from '../core/types';
 
-type SketchpadStore = {
+interface SketchpadStore {
     paths: Path[];
     strokeColor: string;
-};
+}
 
 const sketchpadStore = createStore<SketchpadStore>(() => ({
     paths: [],

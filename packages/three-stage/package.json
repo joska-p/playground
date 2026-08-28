@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./three-stage": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/styles.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -45,5 +45,12 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "A 3D stage for rendering and animating 3D objects.",
+    "keywords": [
+        "random",
+        "three-js",
+        "3d",
+        "webgl"
+    ]
 }

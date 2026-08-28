@@ -18,5 +18,12 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules.",
+    "keywords": [
+        "generative",
+        "engine",
+        "grammar",
+        "math"
+    ]
 }

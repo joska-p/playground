@@ -1,10 +1,10 @@
 import type { LSymbol, Parameter, Rule, Word } from '../types';
 
-export type ParametricOptions = {
+export interface ParametricOptions {
     readonly name: string;
     readonly guard?: (params: readonly Parameter[]) => boolean;
     readonly produce: (params: readonly Parameter[]) => Word;
-};
+}
 
 export function parametricRule(options: ParametricOptions): Rule {
     return {

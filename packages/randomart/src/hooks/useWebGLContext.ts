@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 
 const POSITIONS = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
 
-export type BitmapSize = {
+export interface BitmapSize {
     width: number;
     height: number;
-};
+}
 
 export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
     const glRef = useRef<WebGL2RenderingContext | null>(null);

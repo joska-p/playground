@@ -1,7 +1,7 @@
-export type Route = {
+export interface Route {
     label: string;
     href: string;
-};
+}
 
 /**
  * A route is "active" when it exactly matches baseUrl (the root), or when the current path starts

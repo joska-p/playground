@@ -100,6 +100,7 @@ export function apiDocsLoader(): Loader {
                 }
 
                 let description: string | undefined;
+                let keywords: string[] | undefined;
                 let pkgJson: Record<string, unknown> = {};
 
                 if (existsSync(pkgJsonPath)) {
@@ -112,9 +113,13 @@ export function apiDocsLoader(): Loader {
                             typeof pkgJson.description === 'string'
                                 ? pkgJson.description
                                 : undefined;
+
+                        if (pkgJson.keywords && Array.isArray(pkgJson.keywords)) {
+                            keywords = pkgJson.keywords.filter((kw): kw is string => typeof kw === 'string');
+                        }
                     } catch (err) {
                         logger.warn(
-                            `[api-docs] failed to parse ${pkgJsonPath}, continuing without description: ${String(err)}`
+                            `[api-docs] failed to parse ${pkgJsonPath}, continuing without description/keywords: ${String(err)}`
                         );
                     }
                 }
@@ -143,6 +148,7 @@ export function apiDocsLoader(): Loader {
                         package: pkgName,
                         title,
                         description,
+                        keywords,
                         hasApp,
                         typedoc: typedocData
                     }

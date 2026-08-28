@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./randomart-next": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -41,5 +41,10 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Generate unique abstract art from any text string using seeded randomness and math expression trees.",
+    "keywords": [
+        "generative",
+        "canvas"
+    ]
 }

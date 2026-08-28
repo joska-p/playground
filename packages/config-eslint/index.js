@@ -64,7 +64,7 @@ export default function createConfig(dirname) {
                 // --- 2. TYPES & SYNTAXE ---
                 'prefer-const': 'error',
                 // Type over Interface
-                '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+                '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
                 // --- 3. LES PUITS SÉMANTIQUES (Audit & Patterns interdits) ---
                 'no-restricted-syntax': [

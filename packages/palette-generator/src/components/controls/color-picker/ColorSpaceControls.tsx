@@ -5,11 +5,11 @@ import { useRef, useState } from 'react';
 import { ColorSpaceCanvas } from './ColorSpaceCanvas';
 import { setPaletteBaseColor } from '../../../stores/palette/store';
 
-type ColorSliceProps = {
+interface ColorSliceProps {
     spaceId?: keyof typeof colorSpaces;
     size?: number;
     isActive?: boolean;
-};
+}
 
 function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);

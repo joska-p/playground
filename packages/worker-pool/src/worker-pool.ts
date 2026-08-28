@@ -2,16 +2,16 @@ import type { WorkerPoolConfig, WorkerResult } from './types';
 
 export type { WorkerPoolConfig, WorkerResult };
 
-type PoolEntry = {
+interface PoolEntry {
     worker: Worker;
     busy: boolean;
-};
+}
 
-type QueuedJob<TTask, TResult> = {
+interface QueuedJob<TTask, TResult> {
     task: TTask;
     resolve: (result: TResult) => void;
     reject: (error: Error) => void;
-};
+}
 
 export class WorkerPool<TTask, TResult> {
     private config: WorkerPoolConfig<TTask, TResult>;

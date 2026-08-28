@@ -1,7 +1,7 @@
 import type { Signal } from '../core/types';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
-export type Viz = {
+export interface Viz {
     readonly id: string;
     readonly name: string;
 
@@ -10,4 +10,4 @@ export type Viz = {
         signal: Signal,
         surface: CpuSurface // Surface | GpuRuntime – we keep it loose for now
     ): void;
-};
+}

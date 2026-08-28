@@ -7,6 +7,7 @@ storybook-static
 drafts
 .agents/skills/impeccable/scripts
 
+codex/knowledge/inbox/
 packages/graph-viz/src/data/processes-graph.json
 packages/radu-machine-learning/src/data/raw-samples
 packages/radu-machine-learning/src/data/subset-samples

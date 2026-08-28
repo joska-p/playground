@@ -22,6 +22,12 @@ export type { SelectProps } from './select';
 export { ColorField } from './color-field';
 export type { ColorFieldProps } from './color-field';
 
+export { NumberField } from './number-field';
+export type { NumberFieldProps } from './number-field';
+
+export { VectorField } from './vector-field';
+export type { VectorFieldProps } from './vector-field';
+
 export { ControlGroup } from './group';
 export type { ControlGroupProps } from './group';
 

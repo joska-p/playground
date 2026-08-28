@@ -2,10 +2,10 @@ import { createStore, useStore } from 'zustand';
 
 import type { ClockStore } from '@repo/glaze/react/types';
 
-type StoreState = {
+interface StoreState {
     gap: number;
     clockStore: ClockStore | null;
-};
+}
 
 const store = createStore<StoreState>(() => ({
     gap: 0.05,

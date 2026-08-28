@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 
 import { scaleTo255 } from '../../../utils/color';
 
-type ColorSpaceCanvasProps = {
+interface ColorSpaceCanvasProps {
     ref: React.RefObject<HTMLCanvasElement | null>;
     spaceId: keyof typeof colorSpaces;
     zValue: number;
     size?: number;
     onPick?: (e: React.PointerEvent<HTMLCanvasElement>) => void;
-};
+}
 
 function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpaceCanvasProps) {
     const config = colorSpaces[spaceId];

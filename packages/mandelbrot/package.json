@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        ".": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "dev": "vite --host",
@@ -41,5 +41,13 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits.",
+    "keywords": [
+        "generative",
+        "webgl",
+        "math",
+        "2d",
+        "shader"
+    ]
 }

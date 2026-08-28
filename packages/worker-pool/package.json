@@ -18,5 +18,12 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    }
+    },
+    "description": "Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown.",
+    "keywords": [
+        "infrastructure",
+        "worker-pool",
+        "webgl",
+        "pipeline"
+    ]
 }

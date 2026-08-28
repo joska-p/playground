@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./palette-generator": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/styles.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -43,5 +43,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Generate harmonious color schemes using mathematical color theory models.",
+    "keywords": [
+        "color",
+        "design",
+        "theory"
+    ]
 }

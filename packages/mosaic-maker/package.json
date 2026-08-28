@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./mosaic-maker": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -42,5 +42,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
+    "keywords": [
+        "generative",
+        "canvas",
+        "zustand"
+    ]
 }

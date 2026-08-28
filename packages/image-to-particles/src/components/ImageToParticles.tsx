@@ -13,7 +13,7 @@ import {
 import { calculateImageDimensions, drawImageToCanvas, initParticles } from '../core/utils';
 import { useImageUpload } from '../hooks/useImageUpload';
 
-type Particle = {
+interface Particle {
     x: number;
     y: number;
     originX: number;
@@ -26,7 +26,7 @@ type Particle = {
     };
     state: 'waiting' | 'falling' | 'landed';
     delay: number;
-};
+}
 
 export function ImageToParticles() {
     const canvasRef = useRef<HTMLCanvasElement>(null);

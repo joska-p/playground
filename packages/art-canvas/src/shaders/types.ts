@@ -6,7 +6,7 @@ export type ParamDefinition =
     | { type: 'range'; min: number; max: number; precision?: number } // e.g. rng scale between 2.0 and 7.0
     | { type: 'literal'; value: string | number }; // Fixed values
 
-export type ShaderModule = {
+export interface ShaderModule {
     name: string;
     category: 'space' | 'shapes' | 'effects';
     code: string;
@@ -14,9 +14,9 @@ export type ShaderModule = {
     params?: Record<string, ParamDefinition>;
     getCall: (args: Record<string, string>) => string;
     deps?: string[];
-};
+}
 
-export type ShaderTemplate = {
+export interface ShaderTemplate {
     name: string;
     weight: number;
     deps?: string[];
@@ -29,4 +29,4 @@ export type ShaderTemplate = {
         palette: PalettePreset;
         uniqueInjectedCode: string;
     }) => string;
-};
+}

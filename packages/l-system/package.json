@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./l-system": "./src/App.tsx",
-        "./styles": "./src/styles/styles.css"
+        "./styles": "./src/styles/styles.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -44,5 +44,13 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.",
+    "keywords": [
+        "generative",
+        "three-js",
+        "3d",
+        "webgl",
+        "simulation"
+    ]
 }

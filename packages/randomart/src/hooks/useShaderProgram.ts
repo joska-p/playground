@@ -13,12 +13,12 @@ void main() {
 }
 `;
 
-export type UniformLocs = {
+export interface UniformLocs {
     time: WebGLUniformLocation | null;
     animSpeed: WebGLUniformLocation | null;
     resolution: WebGLUniformLocation | null;
     mouse: WebGLUniformLocation | null;
-};
+}
 
 export function useShaderProgram(
     glRef: React.RefObject<WebGL2RenderingContext | null>,

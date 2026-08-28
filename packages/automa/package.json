@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./automa": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -40,5 +40,11 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
+    "keywords": [
+        "simulation",
+        "three-js",
+        "webgl"
+    ]
 }

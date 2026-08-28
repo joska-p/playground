@@ -11,30 +11,30 @@ export type Path = Point[];
 
 export type Label = 'car' | 'fish' | 'house' | 'tree' | 'bicycle' | 'guitar' | 'pencil' | 'clock';
 
-export type RawSample = {
+export interface RawSample {
     session: number;
     student: string;
     drawings: Record<Label, Path[]>;
-};
+}
 
-export type Sample = {
+export interface Sample {
     readonly id: number;
     readonly label: Label;
     readonly student_id: number;
     readonly student_name: string;
-};
+}
 
-export type Drawing = {
+export interface Drawing {
     id: number;
     label: Label;
     point?: Point;
-};
+}
 
-export type Student = {
+export interface Student {
     id: number;
     name: string;
     drawings: Drawing[];
-};
+}
 
 export type Students = Record<Student['id'], Student>;
 
@@ -47,7 +47,7 @@ export type FeatureSample = Sample & {
     point: Point;
 };
 
-export type Features = {
+export interface Features {
     readonly featureNames: readonly ['Path Count', 'Point Count'];
     readonly samples: FeatureSample[];
-};
+}

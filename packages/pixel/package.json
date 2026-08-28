@@ -9,8 +9,8 @@
         "./worker/*": "./src/worker/*",
         "./react": "./src/react/usePixel.ts",
         "./react/*": "./src/react/*",
-        "./docs": "./src/docs/App.tsx",
-        "./docs/*": "./src/docs/*"
+        "./docs/*": "./src/docs/*",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -41,5 +41,11 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
-    }
+    },
+    "description": "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.",
+    "keywords": [
+        "image",
+        "pipeline",
+        "docs"
+    ]
 }

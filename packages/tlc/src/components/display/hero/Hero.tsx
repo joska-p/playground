@@ -4,16 +4,14 @@ import { Badge } from '../badge';
 
 import type { HTMLAttributes, Ref } from 'react';
 
-const COLOR_GRADIENT_FROM = {
-    default: 'from-foreground-dim',
+const GRADIENT_FROM = {
+    default: 'from-muted-foreground',
     primary: 'from-primary',
     secondary: 'from-secondary',
     accent: 'from-accent',
-    warning: 'from-warning',
     destructive: 'from-destructive',
-    ghost: 'from-foreground',
-    outline: 'from-foreground-dim'
-};
+    ghost: 'from-foreground'
+} as const;
 
 interface HeroProps extends HTMLAttributes<HTMLElement>, HeroVariants {
     badgeText?: string;
@@ -33,7 +31,7 @@ function Hero({
     className,
     ref
 }: HeroProps) {
-    const fromColor = COLOR_GRADIENT_FROM[variant ?? 'default'];
+    const fromColor = GRADIENT_FROM[variant ?? 'ghost'];
 
     return (
         <section
@@ -46,7 +44,7 @@ function Hero({
                 <h1
                     className={cn(
                         'mt-4 text-[clamp(2.75rem,7.5vw,5.5rem)]',
-                        'bg-linear-to-br bg-clip-text leading-tight font-black text-transparent',
+                        'bg-linear-to-br bg-clip-text leading-tight font-black text-transparent', // impeccable-disable-line gradient-text
                         fromColor,
                         'via-accent to-secondary'
                     )}
@@ -59,7 +57,7 @@ function Hero({
                 </h1>
 
                 {description && (
-                    <p className="text-foreground-muted mt-6 max-w-xl text-[clamp(1rem,2.5vw,1.125rem)]">
+                    <p className="text-muted-foreground mt-6 max-w-xl text-[clamp(1rem,2.5vw,1.125rem)]">
                         {description}
                     </p>
                 )}

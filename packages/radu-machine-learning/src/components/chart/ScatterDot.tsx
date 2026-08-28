@@ -5,11 +5,11 @@ import { setScrollTarget, useSelectedDrawingId } from '../../stores/selection';
 
 import type { ChartPoint } from './types';
 
-type ScatterDotProps = {
+interface ScatterDotProps {
     data: ChartPoint[];
     xScale: (value: number) => number;
     yScale: (value: number) => number;
-};
+}
 
 function ScatterDot({ data, xScale, yScale }: ScatterDotProps) {
     const selectedDrawingId = useSelectedDrawingId();

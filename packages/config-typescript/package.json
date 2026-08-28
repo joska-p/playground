@@ -5,5 +5,10 @@
     "license": "MIT",
     "devDependencies": {
         "@tsconfig/strictest": "catalog:"
-    }
+    },
+    "description": "Workspace shared tsconfig baselines for monorepo packages and apps.",
+    "keywords": [
+        "config",
+        "infrastructure"
+    ]
 }

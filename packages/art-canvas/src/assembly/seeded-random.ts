@@ -1,4 +1,4 @@
-export type SeededRandom = {
+export interface SeededRandom {
     next: () => number;
     pick: <T>(arr: readonly T[]) => T;
     pickWeighted: <T extends { weight?: number }>(arr: readonly T[]) => T;
@@ -6,7 +6,7 @@ export type SeededRandom = {
     /** Raw draws from `next()`, for debugging/replay. */
     readonly rollHistory: readonly number[];
     readonly initialHash: number;
-};
+}
 
 const HISTORY_LIMIT = 1024;
 

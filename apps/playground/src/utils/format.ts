@@ -1,15 +1,15 @@
-export type UnicodeBlockConfig = {
+export interface UnicodeBlockConfig {
     name: string;
     start: number; // e.g., 0x2200
     range: number; // number of symbols in the set
-};
+}
 
-export type SymbolConverter = {
+export interface SymbolConverter {
     name: string;
     config: UnicodeBlockConfig;
     fromText: (input: string) => string;
     fromHash: (input: string, outputLength?: number) => string;
-};
+}
 
 export function createSymbolConverter(config: UnicodeBlockConfig): SymbolConverter {
     const { start, range } = config;

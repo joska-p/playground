@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./art-canvas": "./src/App.tsx",
-        "./styles": "./src/styles/global.css"
+        "./styles": "./src/styles/global.css",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",
@@ -40,5 +40,10 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    }
+    },
+    "description": "Create \"art\" in the canvas using shaders and logarithmic.",
+    "keywords": [
+        "random",
+        "webgl"
+    ]
 }

@@ -12,7 +12,8 @@
         "./components/cards": "./src/components/cards/index.ts",
         "./components/icons": "./src/components/icons/index.ts",
         "./lib/*": "./src/lib/*.ts",
-        "./primitives/*": "./src/primitives/*.tsx"
+        "./primitives/*": "./src/primitives/*.tsx",
+        "./App": "./src/App.tsx"
     },
     "scripts": {
         "check-types": "tsc -b",

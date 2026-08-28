@@ -8,10 +8,10 @@ const getThemePreference = () => {
 const applyTheme = (theme) => {
     const root = document.documentElement;
     if (theme === 'dark') {
-        root.classList.add('dark');
+        root.classList.remove('light');
         root.dataset.theme = 'dark';
     } else {
-        root.classList.remove('dark');
+        root.classList.add('light');
         root.dataset.theme = 'light';
     }
     localStorage.setItem('theme', theme);
@@ -22,7 +22,7 @@ const setupThemeToggle = () => {
     if (!themeToggle || themeToggle.dataset.bound) return;
     themeToggle.dataset.bound = 'true';
     themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.dataset.theme === 'dark';
+        const isDark = !document.documentElement.classList.contains('light');
         applyTheme(isDark ? 'light' : 'dark');
     });
 };

@@ -2,12 +2,12 @@ import { cn } from '@repo/tlc/lib/cn';
 
 import { TILE_REGISTRY, type Shape } from '../core/TILE_REGISTRY';
 
-export type TileProps = {
+export interface TileProps {
     name: string;
     colors: [string, string, string, string, string];
     rotation: string;
     className?: string;
-};
+}
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
     const commonProps = {
