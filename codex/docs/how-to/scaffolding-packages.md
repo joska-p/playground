@@ -89,7 +89,10 @@ const { Content } = await render(entry);
 ---
 
 <DiscoveryLayout entry={entry}>
-    <App slot="app" client:only="react" />
+    <App
+        slot="app"
+        client:only="react"
+    />
     <Content />
 </DiscoveryLayout>
 ```
