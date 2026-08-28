@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ApiReference from '../components/ui/docs/api-reference/ApiReference.astro';
+
+interface Props {
+    entry: CollectionEntry<'packages'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, keywords, hasReference } = entry.data;
+
+const keywordsString = keywords?.join(', ') || '';
+const hasApp = Astro.slots.has('app');
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    keywords={keywordsString}
+>
+    {
+        hasApp && (
+            <section class="relative min-h-screen w-full">
+                <slot name="app" />
+            </section>
+        )
+    }
+
+    <article
+        id="overview"
+        class="prose prose-playground bg-surface/5 text-foreground border-border/40 mx-auto max-w-4xl scroll-mt-28 rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+    >
+        <slot />
+    </article>
+
+    {
+        hasReference && (
+            <section
+                id="api"
+                class="mx-auto max-w-4xl scroll-mt-28 px-6 py-16"
+            >
+                <h2 class="text-foreground mb-8 text-2xl font-bold tracking-tight">
+                    API Reference
+                </h2>
+                <ApiReference typedoc={entry.data.typedoc} />
+            </section>
+        )
+    }
+</BaseLayout>

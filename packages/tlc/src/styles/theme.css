@@ -162,7 +162,7 @@
     }
 }
 
-@utility prose-gruvbox {
+@utility prose-playground {
     /* Dark mode (par défaut) */
     --tw-prose-body: var(--gb-fg1);
     --tw-prose-headings: var(--gb-fg0);

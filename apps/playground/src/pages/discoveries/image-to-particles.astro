@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content';
+import DiscoveryLayout from '../../layouts/DiscoveryLayout.astro';
+import { App } from '../../../../../packages/image-to-particles/src/App.tsx';
+const entry = await getEntry('packages', 'image-to-particles');
+
+if (!entry) {
+    throw new Error(
+        `Missing "packages" collection entry for "image-to-particles" — run \`pnpm generate-typedoc-json\` first.`
+    );
+}
+
+const { Content } = await render(entry);
+---
+
+<DiscoveryLayout entry={entry}>
+    <App
+        slot="app"
+        client:only="react"
+    />
+    <Content />
+</DiscoveryLayout>

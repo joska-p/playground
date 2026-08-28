@@ -1,0 +1,17 @@
+---
+import { getEntry, render } from 'astro:content';
+import DiscoveryLayout from '../../layouts/DiscoveryLayout.astro';
+const entry = await getEntry('packages', 'mandelbrot');
+
+if (!entry) {
+    throw new Error(
+        `Missing "packages" collection entry for "mandelbrot" — run \`pnpm generate-typedoc-json\` first.`
+    );
+}
+
+const { Content } = await render(entry);
+---
+
+<DiscoveryLayout entry={entry}>
+    <Content />
+</DiscoveryLayout>

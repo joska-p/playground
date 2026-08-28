@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content';
+import DiscoveryLayout from '../../layouts/DiscoveryLayout.astro';
+import { App } from '../../../../../packages/radu-machine-learning/src/App.tsx';
+const entry = await getEntry('packages', 'radu-machine-learning');
+
+if (!entry) {
+    throw new Error(
+        `Missing "packages" collection entry for "radu-machine-learning" — run \`pnpm generate-typedoc-json\` first.`
+    );
+}
+
+const { Content } = await render(entry);
+---
+
+<DiscoveryLayout entry={entry}>
+    <App
+        slot="app"
+        client:only="react"
+    />
+    <Content />
+</DiscoveryLayout>

@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content';
+import DiscoveryLayout from '../../layouts/DiscoveryLayout.astro';
+{{#if hasApp}}import { App } from '../../../../../packages/{{pkgDir}}/src/App.tsx';
+{{/if}}const entry = await getEntry('packages', '{{pkgDir}}');
+
+if (!entry) {
+    throw new Error(
+        `Missing "packages" collection entry for "{{pkgDir}}" — run \`pnpm generate-typedoc-json\` first.`
+    );
+}
+
+const { Content } = await render(entry);
+---
+
+<DiscoveryLayout entry={entry}>
+{{#if hasApp}}    <App
+        slot="app"
+        client:only="react"
+    />
+{{/if}}    <Content />
+</DiscoveryLayout>
