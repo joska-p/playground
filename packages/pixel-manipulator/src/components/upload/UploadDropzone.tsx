@@ -2,7 +2,7 @@ import { cn } from '@repo/tlc/lib/cn';
 
 import { UploadIcon } from './UploadIcon';
 
-type UploadDropzoneProps = {
+interface UploadDropzoneProps {
     isDragging: boolean;
     onDragEnter: (e: React.DragEvent) => void;
     onDragLeave: (e: React.DragEvent) => void;
@@ -10,7 +10,7 @@ type UploadDropzoneProps = {
     onDrop: (e: React.DragEvent) => void;
     inputRef: React.RefObject<HTMLInputElement | null>;
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 function UploadDropzone({
     isDragging,

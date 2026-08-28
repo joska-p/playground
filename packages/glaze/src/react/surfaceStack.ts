@@ -1,3 +1,4 @@
+import { createClockStore } from './clockStore';
 import { createCamera, type Camera } from '../core/Camera';
 import { createCameraControls } from '../core/CameraControls';
 import { InputRouter } from '../core/gestures';
@@ -8,10 +9,7 @@ import {
     type Gesture
 } from '../core/types';
 import { createCpuSurface } from '../cpu/CpuSurface';
-import type { CpuSurface } from '../cpu/types';
 import { createGpuSurface } from '../gpu/GpuSurface';
-import type { GpuSurface } from '../gpu/types';
-import { createClockStore } from './clockStore';
 import type {
     CpuStack,
     CpuSurfaceOptions,
@@ -21,6 +19,8 @@ import type {
     RoutableSurface,
     StackDisposable
 } from './types';
+import type { CpuSurface } from '../cpu/types';
+import type { GpuSurface } from '../gpu/types';
 
 /** `T` with every possibly-undefined property narrowed to its defined form. */
 type Compact<T> = {

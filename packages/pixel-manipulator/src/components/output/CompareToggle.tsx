@@ -1,9 +1,9 @@
 import { Button } from '@repo/tlc/components/forms';
 
-type CompareToggleProps = {
+interface CompareToggleProps {
     mode: 'grid' | 'compare';
     onChange: (mode: 'grid' | 'compare') => void;
-};
+}
 
 function CompareToggle({ mode, onChange }: CompareToggleProps) {
     return (

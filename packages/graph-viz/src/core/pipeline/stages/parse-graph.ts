@@ -2,34 +2,34 @@ import type { SimLink, SimNode } from './sim-types.js';
 
 // ── Raw input types (mirrors graphify output) ────────────────────────────────
 
-export type RawNode = {
+export interface RawNode {
     id: string;
     label?: string;
     norm_label?: string;
     file_type?: string;
     community?: number;
     [key: string]: unknown;
-};
+}
 
-export type RawLink = {
+export interface RawLink {
     source: string;
     target: string;
     relation?: string;
     [key: string]: unknown;
-};
+}
 
-export type RawGraph = {
+export interface RawGraph {
     nodes: RawNode[];
     links: RawLink[];
-};
+}
 
 // ── Result ───────────────────────────────────────────────────────────────────
 
-export type ParseResult = {
+export interface ParseResult {
     simNodes: SimNode[];
     simLinks: SimLink[];
     stats: string[];
-};
+}
 
 // ── Stage implementation ─────────────────────────────────────────────────────
 

@@ -8,13 +8,13 @@ import { downloadCanvas } from '../../utils/download';
 
 import type { OutputType } from '../../stores/manipulator/types';
 
-type OutputCardProps = {
+interface OutputCardProps {
     output: OutputType;
     index: number;
     isSource?: boolean;
     isSelected?: boolean;
     onSelect?: () => void;
-};
+}
 
 function OutputCard({
     output,

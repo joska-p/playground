@@ -6,12 +6,12 @@ import { imageDataToUrl } from '../helpers';
 
 import type { ManipInfo } from '../data/pipeline-docs-data';
 
-type TryItOutProps = {
+interface TryItOutProps {
     sourceData: ImageData | null;
     manip: ManipInfo;
     paramValues: Record<string, number>;
     onParamChange: (id: string, key: string, value: number) => void;
-};
+}
 
 function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutProps) {
     const [result, setResult] = useState<ImageData | null>(null);

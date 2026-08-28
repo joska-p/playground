@@ -22,14 +22,14 @@ const RadialGradientShader = {
   `
 };
 
-type GetSpritesDataProps = {
+interface GetSpritesDataProps {
     numSprites?: number;
     radius?: number;
     z?: number;
     hue?: number;
     sat?: number;
     baseSize?: number;
-};
+}
 
 function getSpritesData({
     numSprites = 8,
@@ -60,10 +60,10 @@ function getSpritesData({
     });
 }
 
-type GradientBackgroundProps = {
+interface GradientBackgroundProps {
     opacity?: number;
     numSprites?: number;
-};
+}
 
 export function GradientBackground({ opacity = 0.2, numSprites = 12 }: GradientBackgroundProps) {
     const spritesData = getSpritesData({ numSprites });

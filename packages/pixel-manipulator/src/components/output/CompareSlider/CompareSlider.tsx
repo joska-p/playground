@@ -1,9 +1,9 @@
 import { useCompareSlider } from './useCompareSlider';
 
-type CompareSliderProps = {
+interface CompareSliderProps {
     source: ImageData;
     result: ImageData;
-};
+}
 
 function CompareSlider({ source, result }: CompareSliderProps) {
     const {

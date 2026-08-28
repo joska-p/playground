@@ -6,12 +6,12 @@ import { findManipById } from '../data/pipeline-docs-data';
 
 import type { EndpointId } from '../data/pipeline-docs-data';
 
-type EndpointViewProps = {
+interface EndpointViewProps {
     activeEndpoint: EndpointId;
     sourceData: ImageData | null;
     paramValues: Record<string, number>;
     onParamChange: (id: string, key: string, value: number) => void;
-};
+}
 
 function EndpointView({
     activeEndpoint,

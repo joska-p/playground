@@ -1,11 +1,11 @@
 import { Instance } from '@react-three/drei';
 import { Quaternion, Vector3 } from 'three';
 
-type LeafProps = {
+interface LeafProps {
     scale?: Vector3;
     position?: Vector3;
     quaternion?: Quaternion; // Add this prop
-};
+}
 
 function Leaf({
     scale = new Vector3(1, 1, 1),

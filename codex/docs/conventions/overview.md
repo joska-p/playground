@@ -1,10 +1,6 @@
 ---
 title: Conventions overview
 description: Naming, structure, and coding patterns shared across the project.
-featured: true
-tags:
-    - conventions
-    - reference
 ---
 
 # Conventions

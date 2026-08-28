@@ -7,13 +7,13 @@ import { buildChannelTrees, evaluate } from './tree.js';
 import type { RuleId } from './grammar/rules/registry.js';
 import type { Node } from './tree.js';
 
-export type GenerateOptions = {
+export interface GenerateOptions {
     ruleId?: RuleId;
     enabledRuleIds?: RuleId[];
     size?: number;
-};
+}
 
-export type GenerateResult = {
+export interface GenerateResult {
     png: Buffer;
     shader: string;
     mathR: string;
@@ -22,11 +22,11 @@ export type GenerateResult = {
     treeR: Node;
     treeG: Node;
     treeB: Node;
-};
+}
 
-export type GenerateError = {
+export interface GenerateError {
     error: string;
-};
+}
 
 const DEFAULT_SIZE = 256;
 const MAX_SIZE = 4096;

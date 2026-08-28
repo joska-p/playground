@@ -16,7 +16,7 @@ const MANUAL_NOTES: ManualNote[] = [
         description:
             'L’enchâssement d’une information, du clic humain à la trame Ethernet — huit enveloppes, une seule intention.',
         date: '2026-08-23',
-        cardId: 'explanation'
+        cardId: 'le-voyage'
     }
 ];
 
@@ -44,7 +44,7 @@ const collectedNotes = (await getCollection('notes', ({ data }) => !data.draft))
         title: note.data.title,
         description: note.data.description ?? 'NC',
         date: new Date(note.data.date),
-        cardId: note.data.tags[0].id
+        cardId: note.id.split('/')[0]
     })
 );
 

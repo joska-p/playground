@@ -1,8 +1,8 @@
-type SerializedImageData = {
+interface SerializedImageData {
     data: Uint8ClampedArray;
     width: number;
     height: number;
-};
+}
 
 export function isSerializedImageDataArray(data: unknown): data is SerializedImageData[] {
     return (

@@ -4,24 +4,24 @@ export type ParamDescriptor =
     | { type: 'string'; label: string; default: string }
     | { type: 'boolean'; label: string; default: boolean };
 
-export type CanvasLayout = {
+export interface CanvasLayout {
     minVal: number;
     maxVal: number;
     valueScale: number;
     offsetX: number;
     offsetY: number;
-};
+}
 
-export type CanvasViewport = {
+export interface CanvasViewport {
     enabled: boolean;
     zoom: number;
     panX: number;
     panY: number;
-};
+}
 
 export type LayerCategory = 'cosmetic' | 'drawing';
 
-export type VisualLayer = {
+export interface VisualLayer {
     id: string;
     name: string;
     description: string;
@@ -33,10 +33,10 @@ export type VisualLayer = {
         params: Record<string, unknown>,
         layout: CanvasLayout
     ) => void;
-};
+}
 
-export type LayerConfigEntry = {
+export interface LayerConfigEntry {
     id: string;
     enabled: boolean;
     params: Record<string, unknown>;
-};
+}

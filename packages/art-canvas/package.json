@@ -2,6 +2,11 @@
     "name": "@repo/art-canvas",
     "version": "0.0.0",
     "private": true,
+    "description": "Create \"art\" in the canvas using shaders and logarithmic.",
+    "keywords": [
+        "random",
+        "webgl"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -40,10 +45,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Create \"art\" in the canvas using shaders and logarithmic.",
-    "keywords": [
-        "random",
-        "webgl"
-    ]
+    }
 }

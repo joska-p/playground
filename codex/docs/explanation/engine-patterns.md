@@ -1,9 +1,6 @@
 ---
 title: Engine Patterns
 description: How the Logic/Bridge/Screen model plays out in practice, with the tradeoffs behind each choice in a learning-driven codebase.
-featured: true
-tags:
-    - explanation
 ---
 
 # Engine Patterns

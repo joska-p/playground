@@ -2,6 +2,13 @@
     "name": "@repo/randomart-engine",
     "version": "0.0.0",
     "private": true,
+    "description": "Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders.",
+    "keywords": [
+        "generative",
+        "canvas",
+        "engine",
+        "shader"
+    ],
     "type": "module",
     "exports": {
         "./animation/behaviors": "./src/animation/behaviors.ts",
@@ -31,12 +38,5 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    },
-    "description": "Grammar-driven expression tree engine compiling mathematical functions into CPU buffers and WebGL fragment shaders.",
-    "keywords": [
-        "generative",
-        "canvas",
-        "engine",
-        "shader"
-    ]
+    }
 }

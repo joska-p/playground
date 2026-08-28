@@ -2,6 +2,12 @@
     "name": "@repo/graph-viz",
     "version": "0.0.0",
     "private": true,
+    "description": "Interactive graph, click nodes, search, filter by community.",
+    "keywords": [
+        "data-viz",
+        "graph",
+        "d3"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -50,11 +56,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Interactive graph, click nodes, search, filter by community.",
-    "keywords": [
-        "data-viz",
-        "graph",
-        "d3"
-    ]
+    }
 }

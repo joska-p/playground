@@ -6,7 +6,7 @@ import { CARD_COLORS } from '../utils/palettes';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}discoveries/`;
-const allProjects = await getCollection('api');
+const allProjects = await getCollection('packages');
 const sortedProjects = allProjects.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 function stringToSeed(str: string): number {

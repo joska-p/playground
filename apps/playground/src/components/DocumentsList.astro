@@ -24,7 +24,7 @@ const sortedDocs = allDocs.sort((a, b) => a.data.title.localeCompare(b.data.titl
                     iconName="bluesky"
                     style={cardStyle}
                     title={doc.data.title}
-                    type={doc.data.tags[0].id}
+                    type={doc.id.split('/')[0]}
                 />
             );
         })

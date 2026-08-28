@@ -26,13 +26,13 @@ import type { GlslFunctionsIds } from '../../glsl-library.js';
 
 export type OperatorKind = 'terminal' | 'transform' | 'combinator';
 
-export type EvalContext = {
+export interface EvalContext {
     x: number;
     y: number;
     t: number;
-};
+}
 
-export type Operator<TArgNames extends readonly string[] = readonly string[]> = {
+export interface Operator<TArgNames extends readonly string[] = readonly string[]> {
     readonly arity: number;
     readonly kind: OperatorKind;
     readonly label: string;
@@ -42,7 +42,7 @@ export type Operator<TArgNames extends readonly string[] = readonly string[]> = 
     toMathString(params: { args: Record<TArgNames[number], string> }): string;
 
     readonly noiseDependencies?: readonly GlslFunctionsIds[];
-};
+}
 
 export const OPERATORS = {
     x: xOp,
@@ -85,10 +85,10 @@ const KIND_LABELS: Record<OperatorKind, string> = {
     combinator: 'Combinators'
 };
 
-export type OperatorGroup = {
+export interface OperatorGroup {
     label: string;
     operators: { id: OperatorId; label: string }[];
-};
+}
 
 export function getOperatorKinds(): OperatorGroup[] {
     const grouped = new Map<OperatorKind, { id: OperatorId; label: string }[]>();

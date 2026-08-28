@@ -1,11 +1,11 @@
 import { Quaternion, Vector3 } from 'three';
 
-type LeafProps = {
+interface LeafProps {
     leafAmount: number;
     leafSpread: number;
     distanceFromStem: number;
     spiralAngleFactor: number;
-};
+}
 
 function createLeaves({ leafAmount, leafSpread, distanceFromStem, spiralAngleFactor }: LeafProps) {
     const leaves = Array.from({ length: leafAmount }, (_, i) => {

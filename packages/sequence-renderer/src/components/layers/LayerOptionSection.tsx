@@ -4,11 +4,11 @@ import type { ParamDescriptor } from '../../core/types';
 
 type Params = Record<string, ParamDescriptor>;
 
-type LayerOptionSectionProps = {
+interface LayerOptionSectionProps {
     params: Params;
     values: Record<string, unknown>;
     onChange: (key: string, value: unknown) => void;
-};
+}
 
 function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProps) {
     return (

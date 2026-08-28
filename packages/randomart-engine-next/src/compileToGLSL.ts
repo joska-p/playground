@@ -8,10 +8,10 @@ import type { ApplyCodeContext, Behavior } from './behaviors/registry.js';
 import type { ColorSpaceId } from './glsl-color-spaces.js';
 import type { Node } from './tree.js';
 
-type BuildShaderPreambleProps = {
+interface BuildShaderPreambleProps {
     noiseIds: string[];
     behaviors: Behavior[];
-};
+}
 
 function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps): string {
     const noiseFunctions = resolveGlslDeps(noiseIds);
@@ -32,10 +32,10 @@ function buildShaderPreamble({ noiseIds, behaviors }: BuildShaderPreambleProps):
 }
 
 /** @internal */
-export type CollectNoiseDependenciesProps = {
+export interface CollectNoiseDependenciesProps {
     node: Node;
     deps: Set<string>;
-};
+}
 
 function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps): void {
     const operator = getOperator(node.type);
@@ -56,10 +56,10 @@ function collectNoiseDependencies({ node, deps }: CollectNoiseDependenciesProps)
 }
 
 /** @internal */
-export type ApplyBehaviorsProps = {
+export interface ApplyBehaviorsProps {
     behaviors: Behavior[];
     behaviorType: Behavior['kind'];
-};
+}
 
 function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): string {
     const ctx: ApplyCodeContext = {
@@ -76,24 +76,24 @@ function applyBehaviors({ behaviors, behaviorType }: ApplyBehaviorsProps): strin
 }
 
 /** @internal */
-export type compileColorExpressionProps = {
+export interface compileColorExpressionProps {
     treeR: Node;
     treeG: Node;
     treeB: Node;
-};
+}
 
 function compileColorExpression({ treeR, treeG, treeB }: compileColorExpressionProps): string {
     return `vec3(${toGLSL(treeR, 'p')}, ${toGLSL(treeG, 'p')}, ${toGLSL(treeB, 'p')})`;
 }
 
-export type CompileToShaderProps = {
+export interface CompileToShaderProps {
     seedText: string;
     treeR: Node;
     treeG: Node;
     treeB: Node;
     behaviors?: Behavior[];
     colorSpace?: ColorSpaceId;
-};
+}
 
 export function compileToShader({
     seedText,

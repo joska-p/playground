@@ -1,19 +1,19 @@
 import type { Point2D } from '@repo/glaze/core/types';
 
-export type GridRect = {
+export interface GridRect {
     /** World units per cell edge. */
     scale: number;
     /** World x of the rect's left edge. */
     originX: number;
     /** World y of the rect's top edge; world is Y-down like the DOM. */
     originY: number;
-};
+}
 
-export type GridCell = {
+export interface GridCell {
     column: number;
     row: number;
     index: number;
-};
+}
 
 /**
  * 'contain' fit of a cols×rows grid into a canvas-sized world box, centered on the world origin so

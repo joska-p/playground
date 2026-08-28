@@ -7,12 +7,12 @@ import { updateStepOptions } from '../../stores/manipulator/actions';
 import type { WorkflowStep } from '../../stores/manipulator/types';
 import type { ArgDefinition } from '@repo/pixel/processor';
 
-type WorkflowNodeProps = {
+interface WorkflowNodeProps {
     step: WorkflowStep;
     index: number;
     name: string;
     argDefinitions: readonly ArgDefinition[];
-};
+}
 
 function WorkflowNode({ step, index, name, argDefinitions }: WorkflowNodeProps) {
     return (

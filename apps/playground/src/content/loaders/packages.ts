@@ -50,9 +50,9 @@ function checkHasApp(
     return false;
 }
 
-export function apiDocsLoader(): Loader {
+export function packagesLoader(): Loader {
     return {
-        name: 'api-docs-loader',
+        name: 'packages-loader',
         async load(context) {
             const { store, config, logger } = context;
             const appRoot = fileURLToPath(config.root);
@@ -69,7 +69,7 @@ export function apiDocsLoader(): Loader {
 
             if (!existsSync(genRoot)) {
                 logger.warn(
-                    `[api-docs] no generated docs at ${genRoot}; run \`pnpm generate-typedoc-json\` first`
+                    `[packages] no generated docs at ${genRoot}; run \`pnpm generate-typedoc-json\` first`
                 );
 
                 return;
@@ -95,7 +95,7 @@ export function apiDocsLoader(): Loader {
                         readFileSync(jsonPath, 'utf8')
                     ) as JSONOutput.ProjectReflection;
                 } catch (err) {
-                    logger.error(`[api-docs] failed to parse ${jsonPath}: ${String(err)}`);
+                    logger.error(`[packages] failed to parse ${jsonPath}: ${String(err)}`);
                     continue;
                 }
 
@@ -115,16 +115,20 @@ export function apiDocsLoader(): Loader {
                                 : undefined;
 
                         if (pkgJson.keywords && Array.isArray(pkgJson.keywords)) {
-                            keywords = pkgJson.keywords.filter((kw): kw is string => typeof kw === 'string');
+                            keywords = pkgJson.keywords.filter(
+                                (kw): kw is string => typeof kw === 'string'
+                            );
                         }
                     } catch (err) {
                         logger.warn(
-                            `[api-docs] failed to parse ${pkgJsonPath}, continuing without description/keywords: ${String(err)}`
+                            `[packages] failed to parse ${pkgJsonPath}, continuing without description/keywords: ${String(err)}`
                         );
                     }
                 }
 
                 const hasApp = checkHasApp(packagesDir, pkgDir, pkgJson);
+                const symbolIdMap = typedocData.symbolIdMap;
+                const hasReference = !!symbolIdMap && Object.keys(symbolIdMap).length > 0;
                 const title = deriveTitle(pkgDir);
                 const id = pkgDir;
 
@@ -133,7 +137,7 @@ export function apiDocsLoader(): Loader {
 
                 if (readmeRaw.startsWith('---')) {
                     logger.warn(
-                        `[api-docs] ${pkgDir}/README.md still has frontmatter — title/description/hasApp now come from package.json, remove the frontmatter block`
+                        `[packages] ${pkgDir}/README.md still has frontmatter — title/description/hasApp now come from package.json, remove the frontmatter block`
                     );
                 }
 
@@ -150,6 +154,7 @@ export function apiDocsLoader(): Loader {
                         description,
                         keywords,
                         hasApp,
+                        hasReference,
                         typedoc: typedocData
                     }
                 });

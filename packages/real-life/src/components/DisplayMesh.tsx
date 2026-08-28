@@ -1,8 +1,8 @@
 import type { MeshBasicMaterial } from 'three';
 
-type DisplayMeshProps = {
+interface DisplayMeshProps {
     displayMaterialRef: React.RefObject<MeshBasicMaterial | null>;
-};
+}
 
 export const DisplayMesh = ({ displayMaterialRef }: DisplayMeshProps) => {
     return (

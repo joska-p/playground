@@ -5,7 +5,7 @@ import { LayerOptionSection } from './LayerOptionSection';
 
 import type { VisualLayer } from '../../core/types';
 
-type LayerRowSectionProps = {
+interface LayerRowSectionProps {
     meta: VisualLayer;
     enabled: boolean;
     params: Record<string, unknown>;
@@ -14,7 +14,7 @@ type LayerRowSectionProps = {
     onToggleExpand: () => void;
     onParamChange: (key: string, value: unknown) => void;
     onRemove: () => void;
-};
+}
 
 function LayerRowSection({
     meta,

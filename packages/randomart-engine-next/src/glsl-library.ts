@@ -1,11 +1,11 @@
 // Ported from randomart-engine/src/compile/glslLibrary.ts — the two copies must stay in sync.
 export const GLSL_PI = '3.141592653589793';
 
-export type GlslFunction = {
+export interface GlslFunction {
     id: string;
     glsl: string;
     dependencies?: string[];
-};
+}
 
 const random2d = {
     id: 'random2d',

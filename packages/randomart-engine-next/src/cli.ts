@@ -30,13 +30,13 @@ Example:
   tsx randomart "hello world" out.png --rule paper --size 512
 `.trim();
 
-type ParsedArgs = {
+interface ParsedArgs {
     textSeed?: string;
     outputFile?: string;
     ruleId?: RuleId;
     size?: number;
     help: boolean;
-};
+}
 
 function parseArgs(argv: string[]): ParsedArgs {
     const result: ParsedArgs = { help: false };

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import type { Program } from '../gpu/shader/Program';
-import type { GpuSurface } from '../gpu/types';
 import { createInteractionAdapter } from './interactions';
 import { createGpuStack } from './surfaceStack';
-import type { GpuCanvasProps } from './types';
 import { useNodeResource } from './useNodeResource';
+import type { GpuCanvasProps } from './types';
+import type { Program } from '../gpu/shader/Program';
+import type { GpuSurface } from '../gpu/types';
 
 export function GpuCanvas({
     fragmentShader,

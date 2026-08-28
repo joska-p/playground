@@ -2,6 +2,11 @@
     "name": "@repo/pixel-manipulator",
     "version": "0.0.0",
     "private": true,
+    "description": "A tool for manipulating images using canvas and web workers.",
+    "keywords": [
+        "image",
+        "canvas"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -42,10 +47,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "A tool for manipulating images using canvas and web workers.",
-    "keywords": [
-        "image",
-        "canvas"
-    ]
+    }
 }

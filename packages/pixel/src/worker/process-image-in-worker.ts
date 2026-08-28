@@ -9,7 +9,7 @@ import type { ArgDefinition } from '../processor/types';
 
 export type { ArgDefinition, Step };
 
-export type ManipulationInfo = {
+export interface ManipulationInfo {
     readonly id: string;
     readonly access: 'pixel' | 'neighborhood' | 'global';
     readonly name: string;
@@ -17,13 +17,13 @@ export type ManipulationInfo = {
     readonly longDescription: string;
     readonly defaultArgs: Readonly<Record<string, number>>;
     readonly argDefinitions: readonly ArgDefinition[];
-};
+}
 
-export type RunConfig = {
+export interface RunConfig {
     sourceImageData: ImageData;
     steps: readonly Step[];
     maximumPixels?: number;
-};
+}
 
 const pool = new WorkerPool<RunConfig, ImageData[]>({
     maxPoolSize: navigator.hardwareConcurrency,

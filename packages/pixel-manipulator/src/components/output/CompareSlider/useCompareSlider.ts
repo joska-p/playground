@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import { renderCompareSlider } from './compareSliderRenderer';
 
-type UseCompareSliderArgs = {
+interface UseCompareSliderArgs {
     source: ImageData;
     result: ImageData;
-};
+}
 
 const sliderPositionFromClientX = (container: HTMLElement, clientX: number): number => {
     const rect = container.getBoundingClientRect();

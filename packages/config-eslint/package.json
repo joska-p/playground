@@ -1,6 +1,11 @@
 {
     "name": "@repo/config-eslint",
     "private": true,
+    "description": "Workspace ESLint configuration package for TypeScript and React.",
+    "keywords": [
+        "config",
+        "infrastructure"
+    ],
     "type": "module",
     "exports": {
         ".": {
@@ -19,10 +24,5 @@
     },
     "peerDependencies": {
         "eslint": "catalog:"
-    },
-    "description": "Workspace ESLint configuration package for TypeScript and React.",
-    "keywords": [
-        "config",
-        "infrastructure"
-    ]
+    }
 }

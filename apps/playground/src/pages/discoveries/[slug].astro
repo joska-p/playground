@@ -1,10 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PackageAppHost } from '../../components/discoveries/PackageAppHost.tsx';
+import PackageTabs from '../../components/ui/docs/PackageTabs.astro';
 
 export async function getStaticPaths() {
-    const apiEntries = await getCollection('api');
-    return apiEntries.map((entry) => ({
+    const packagesEntries = await getCollection('packages');
+    return packagesEntries.map((entry) => ({
         params: { slug: entry.id },
         props: { entry }
     }));
@@ -12,28 +14,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 
-// 1. Resolve App component at build time (slug known via getStaticPaths)
-let App: any = null;
-if (entry.data.hasApp) {
-    const apps = import.meta.glob('../../../../packages/*/src/App.tsx');
-    const loader = apps[`../../../../packages/${entry.id}/src/App.tsx`];
-    if (loader) {
-        const mod = await loader() as any;
-        App = mod.default ?? mod.App;
-    }
-}
-
-// 2. Render README content (overview)
+// Render README content (overview)
 const { Content } = await render(entry);
 
-// 3. Determine if this package has API reference documentation (TypeDoc)
-const symbolIdMap = entry.data.typedoc?.symbolIdMap;
-const hasReference = symbolIdMap && Object.keys(symbolIdMap).length > 0;
-
 const keywords = entry.data.keywords?.join(', ') || '';
-
-const overviewUrl = `${import.meta.env.BASE_URL}discoveries/${entry.id}/`;
-const apiUrl = `${import.meta.env.BASE_URL}discoveries/${entry.id}/api/`;
+const hasReference = entry.data.hasReference;
 ---
 
 <BaseLayout
@@ -42,31 +27,23 @@ const apiUrl = `${import.meta.env.BASE_URL}discoveries/${entry.id}/api/`;
     keywords={keywords}
 >
     {
-        App && (
-            <section class="min-h-screen w-full relative">
-                <App client:load />
+        entry.data.hasApp && (
+            <section class="relative min-h-screen w-full">
+                <PackageAppHost
+                    appId={entry.id}
+                    client:only="react"
+                />
             </section>
         )
     }
 
     <div class="mx-auto max-w-4xl px-6 py-10">
-        {/* Navigation tabs if API reference is available */}
         {
             hasReference && (
-                <div class="flex border-b border-border/40 gap-4 mb-8 font-mono text-sm">
-                    <a
-                        href={overviewUrl}
-                        class="border-b-2 border-primary py-2 px-4 font-bold text-foreground transition-all"
-                    >
-                        Overview
-                    </a>
-                    <a
-                        href={apiUrl}
-                        class="py-2 px-4 text-foreground-dim hover:text-foreground transition-all"
-                    >
-                        API Reference
-                    </a>
-                </div>
+                <PackageTabs
+                    slug={entry.id}
+                    active="overview"
+                />
             )
         }
 

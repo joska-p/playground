@@ -1,16 +1,16 @@
-type Rule<TId extends string = string> = {
+interface Rule<TId extends string = string> {
     readonly id: TId;
     readonly name: string;
     readonly stateCount: number;
     readonly birth: readonly boolean[];
     readonly survive: readonly boolean[];
-};
+}
 
-type ParseRuleProps<TId extends string> = {
+interface ParseRuleProps<TId extends string> {
     readonly id: TId;
     readonly name: string;
     readonly notation: string; // e.g., 'B2/S34/C8' or 'B3/S23'
-};
+}
 
 function parseRule<const TId extends string>({
     id,

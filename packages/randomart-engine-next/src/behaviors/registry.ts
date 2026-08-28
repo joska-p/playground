@@ -45,21 +45,21 @@ export type BehaviorKind = 'spatial' | 'color';
  * GLSL variable names interpolated into a behavior's `applyCode` — the strings are identifiers in
  * the generated shader, not values.
  */
-export type ApplyCodeContext = {
+export interface ApplyCodeContext {
     time: string;
     speed: string;
     spatial: string;
     color: string;
-};
+}
 
-export type Behavior = {
+export interface Behavior {
     readonly id: string;
     readonly label: string;
     readonly glslFunction?: string;
     readonly kind: BehaviorKind;
     readonly applyCode: (ctx: ApplyCodeContext) => string;
     readonly noiseDependencies?: readonly string[];
-};
+}
 
 export const BEHAVIORS = {
     // ── Spatial ──
@@ -115,10 +115,10 @@ const KIND_LABELS: Record<Behavior['kind'], string> = {
     color: 'Color'
 };
 
-export type BehaviorGroup = {
+export interface BehaviorGroup {
     label: string;
     behaviors: { id: BehaviorId; label: string }[];
-};
+}
 
 export function getBehaviorKinds(): BehaviorGroup[] {
     const grouped = new Map<BehaviorKind, { id: BehaviorId; label: string }[]>();

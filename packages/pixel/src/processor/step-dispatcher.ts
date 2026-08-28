@@ -6,13 +6,13 @@ import type { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
 import type { ManipulationDefinition, PipelineContext } from './types';
 
-type ExecutorParameters = {
+interface ExecutorParameters {
     definition: ManipulationDefinition;
     options: Record<string, unknown>;
     context: PipelineContext;
     bufferManager: BufferManager;
     scheduler: FusionScheduler;
-};
+}
 
 type ExecutorFunction = (parameters: ExecutorParameters) => void;
 

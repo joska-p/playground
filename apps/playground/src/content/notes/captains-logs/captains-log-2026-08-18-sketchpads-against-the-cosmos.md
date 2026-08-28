@@ -2,11 +2,7 @@
 title: "Captain's Log: Stardate 2026.231"
 description: 'From codebase purge to sketchpad deployment: a season of radical transformation across the Playground Monorepo.'
 date: 2026-08-18
-featured: false
-order: 0
 draft: false
-tags:
-    - log
 ---
 
 ## Captain's Log: Stardate 2026.089

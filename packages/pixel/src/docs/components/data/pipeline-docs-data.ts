@@ -1,15 +1,15 @@
 import { ALL_MANIPULATIONS } from '../../../processor/manipulations/manifest';
 
-export type ParamDef = {
+export interface ParamDef {
     key: string;
     label: string;
     min: number;
     max: number;
     step: number;
     default: number;
-};
+}
 
-export type ManipInfo = {
+export interface ManipInfo {
     id: string;
     label: string;
     type: 'pixel' | 'neighborhood' | 'global';
@@ -17,7 +17,7 @@ export type ManipInfo = {
     params?: ParamDef[];
     description: string;
     longDescription: string;
-};
+}
 
 export type EndpointId =
     | { kind: 'overview' }
@@ -27,19 +27,19 @@ export type EndpointId =
 
 type EndpointItemType = 'overview' | 'pixel' | 'neighborhood' | 'global' | 'pipeline' | 'internals';
 
-export type EndpointItem = {
+export interface EndpointItem {
     id: string;
     label: string;
     type: EndpointItemType;
     description: string;
     path: string;
     params?: ParamDef[];
-};
+}
 
-export type EndpointGroup = {
+export interface EndpointGroup {
     label: string;
     items: EndpointItem[];
-};
+}
 
 export function isActiveEndpoint(a: EndpointId, b: EndpointId): boolean {
     if (a.kind === 'overview' && b.kind === 'overview') return true;

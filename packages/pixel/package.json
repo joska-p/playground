@@ -2,6 +2,12 @@
     "name": "@repo/pixel",
     "version": "0.0.0",
     "private": true,
+    "description": "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.",
+    "keywords": [
+        "image",
+        "pipeline",
+        "docs"
+    ],
     "type": "module",
     "exports": {
         "./processor": "./src/processor/process-image.ts",
@@ -41,11 +47,5 @@
         "tailwindcss": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
-    },
-    "description": "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.",
-    "keywords": [
-        "image",
-        "pipeline",
-        "docs"
-    ]
+    }
 }

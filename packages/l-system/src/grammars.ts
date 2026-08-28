@@ -18,7 +18,7 @@ export const GRUVBOX_DEPTH = [
     '#689d6a'
 ] as const;
 
-export type GrammarDef = {
+export interface GrammarDef {
     id: string;
     name: string;
     description: string;
@@ -26,7 +26,7 @@ export type GrammarDef = {
     defaultAngle: number;
     defaultStepLength: number;
     maxIterations: number;
-};
+}
 
 export const GRAMMARS: GrammarDef[] = [
     {

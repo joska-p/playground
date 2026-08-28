@@ -1,9 +1,6 @@
 ---
 title: TypeScript
 description: TypeScript style, performance rules, and coding principles.
-tags:
-    - conventions
-    - reference
 ---
 
 # TypeScript

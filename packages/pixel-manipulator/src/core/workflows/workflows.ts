@@ -2,11 +2,11 @@ import type { Step } from '@repo/pixel/processor';
 
 type WorkflowPresetStep = Step;
 
-type WorkflowPreset = {
+interface WorkflowPreset {
     name: string;
     description: string;
     steps: WorkflowPresetStep[];
-};
+}
 
 const WORKFLOW_PRESETS: WorkflowPreset[] = [
     {

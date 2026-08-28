@@ -2,6 +2,7 @@
     "name": "@repo/randomart-engine-next",
     "version": "0.0.0",
     "private": true,
+    "description": "Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces.",
     "keywords": [
         "generative",
         "canvas",
@@ -35,6 +36,5 @@
         "eslint": "catalog:",
         "tsx": "catalog:",
         "typescript": "catalog:"
-    },
-    "description": "Next-generation expression tree engine with subpath registries for operators, rules, behaviors, and color spaces."
+    }
 }

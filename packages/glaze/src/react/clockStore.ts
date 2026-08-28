@@ -1,7 +1,7 @@
 import { createObservable } from './observable';
+import type { ClockStore } from './types';
 import type { Clock } from '../core/Clock';
 import type { Seconds, DurationSeconds, TimeSpeed } from '../core/types';
-import type { ClockStore } from './types';
 
 export function createClockStore(clock: Clock): ClockStore {
     const observable = createObservable();

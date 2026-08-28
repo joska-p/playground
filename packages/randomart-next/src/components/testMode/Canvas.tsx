@@ -3,11 +3,11 @@ import { CanvasGPU } from './CanvasGPU';
 
 import type { Node } from '@repo/randomart-engine-next/types';
 
-type CanvasProp = {
+interface CanvasProp {
     node: Node;
     resolution: number;
     sizePx: number;
-};
+}
 
 export function Canvas({ node, resolution, sizePx }: CanvasProp) {
     return (

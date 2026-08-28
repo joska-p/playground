@@ -1,9 +1,6 @@
 ---
 title: UI Components
 description: CSS tokens, responsive layout, and dynamic Tailwind colors.
-tags:
-    - conventions
-    - reference
 ---
 
 # UI Components

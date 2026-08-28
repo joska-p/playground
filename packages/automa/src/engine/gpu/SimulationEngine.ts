@@ -15,7 +15,7 @@ import type { Creature } from '../creature/registry';
 import type { NonNegativeSeconds, Seconds } from '@repo/glaze/core/types';
 import type { StateBuffer } from '@repo/glaze/gpu/StateBuffer';
 
-export type SimulationOptions = {
+export interface SimulationOptions {
     rows?: number;
     cols?: number;
     rule?: Rule;
@@ -24,7 +24,7 @@ export type SimulationOptions = {
     speedMs?: number;
     /** Notified whenever the generation counter changes (steps, paints, resets). */
     onGenerationChange?: (generation: number) => void;
-};
+}
 
 /** Upper bound per frame tick so a huge delta (tab switch) cannot stall a paint. */
 const MAX_STEPS_PER_TICK = 4;

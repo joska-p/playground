@@ -1,9 +1,6 @@
 ---
 title: Validation
 description: Data validation with Zod and schema conventions.
-tags:
-    - conventions
-    - reference
 ---
 
 # Validation

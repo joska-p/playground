@@ -1,8 +1,8 @@
 import type { ParamDef } from './data/pipeline-docs-data';
 
-type ParamTableProps = {
+interface ParamTableProps {
     params: ParamDef[];
-};
+}
 
 function ParamTable({ params }: ParamTableProps) {
     return (

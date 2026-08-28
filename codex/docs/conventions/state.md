@@ -1,9 +1,6 @@
 ---
 title: State
 description: Data fetching, state initialization, and Zustand store conventions.
-tags:
-    - conventions
-    - reference
 ---
 
 # State

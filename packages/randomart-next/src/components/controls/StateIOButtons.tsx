@@ -10,7 +10,7 @@ import type { RandomartState } from '../../stores/randomart/types';
  * (`time`) and active behaviors. `mode`, `activeChannel`, and `running` are pure UI state and stay
  * out; the derived trees are recomputed on import.
  */
-type RandomartRecipe = {
+interface RandomartRecipe {
     seedText: RandomartState['seedText'];
     selectedRuleId: RandomartState['selectedRuleId'];
     customOperatorIds: RandomartState['customOperatorIds'];
@@ -19,7 +19,7 @@ type RandomartRecipe = {
     time: RandomartState['time'];
     activeBehaviorIds: RandomartState['activeBehaviorIds'];
     correlatedRGB?: RandomartState['correlatedRGB'];
-};
+}
 
 function toRecipe(state: RandomartState): RandomartRecipe {
     const {

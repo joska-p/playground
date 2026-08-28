@@ -1,9 +1,6 @@
 ---
 title: Scaffolding Packages
 description: Generate new Vite + React packages with a single command.
-tags:
-    - how-to
-featured: true
 ---
 
 # Scaffolding Packages

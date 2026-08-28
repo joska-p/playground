@@ -1,6 +1,6 @@
-type CloseIconProps = {
+interface CloseIconProps {
     className?: string;
-};
+}
 
 function CloseIcon({ className = '' }: CloseIconProps) {
     return (

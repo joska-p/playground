@@ -2,28 +2,28 @@ import * as THREE from 'three';
 
 import type { Word } from '@repo/l-system-engine/types';
 
-export type TurtleOptions = {
+export interface TurtleOptions {
     angle: number;
     stepLength: number;
     lengthFactor: number;
     lineWidth: number;
     widthFactor: number;
-};
+}
 
-export type LineSegment = {
+export interface LineSegment {
     start: THREE.Vector3;
     end: THREE.Vector3;
     /** Branch depth — used for colouring. */
     depth: number;
-};
+}
 
-type TurtleState = {
+interface TurtleState {
     position: THREE.Vector3;
     direction: THREE.Vector3;
     /** Needed for 3D rolls. */
     up: THREE.Vector3;
     depth: number;
-};
+}
 
 const DEG = Math.PI / 180;
 

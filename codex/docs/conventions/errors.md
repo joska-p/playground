@@ -1,9 +1,6 @@
 ---
 title: Errors
 description: Error handling with the shared ErrorBoundary and patterns for absence.
-tags:
-    - conventions
-    - reference
 ---
 
 # Errors

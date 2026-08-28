@@ -5,11 +5,11 @@ import { CloseIcon } from '../shared/CloseIcon';
 
 import type { OutputType } from '../../stores/manipulator/types';
 
-type UploadedPreviewProps = {
+interface UploadedPreviewProps {
     imageSource: OutputType;
     fileName?: string;
     onClear: () => void;
-};
+}
 
 function UploadedPreview({ imageSource, fileName, onClear }: UploadedPreviewProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);

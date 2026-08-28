@@ -2,6 +2,12 @@
     "name": "@repo/sequence-renderer",
     "version": "0.0.0",
     "private": true,
+    "description": "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
+    "keywords": [
+        "generative",
+        "math",
+        "svg"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -41,11 +47,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
-    "keywords": [
-        "generative",
-        "math",
-        "svg"
-    ]
+    }
 }

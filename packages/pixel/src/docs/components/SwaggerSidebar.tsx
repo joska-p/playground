@@ -5,11 +5,11 @@ import { isActiveEndpoint } from './data/pipeline-docs-data';
 
 import type { EndpointGroup, EndpointId } from './data/pipeline-docs-data';
 
-type SwaggerSidebarProps = {
+interface SwaggerSidebarProps {
     groups: EndpointGroup[];
     activeEndpoint: EndpointId;
     onSelect: (id: EndpointId) => void;
-};
+}
 
 const BADGE_CLASSES: Record<string, string> = {
     overview: 'bg-utility-4 text-background',

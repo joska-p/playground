@@ -10,7 +10,7 @@ import type {
     WebGLRenderTarget
 } from 'three';
 
-type SimulationRendererProps = {
+interface SimulationRendererProps {
     simObjects: React.RefObject<{
         scene: Scene;
         camera: OrthographicCamera;
@@ -22,7 +22,7 @@ type SimulationRendererProps = {
     updateGridTexture: (texture: Texture) => void;
     shouldUpdate: (currentTime: number) => boolean;
     displayMaterialRef: React.RefObject<MeshBasicMaterial | null>;
-};
+}
 
 export const SimulationRenderer = ({
     simObjects,

@@ -17,7 +17,7 @@ void main() {
 }
 `;
 
-export type UseShaderProgramProps = {
+export interface UseShaderProgramProps {
     glRef: React.RefObject<WebGL2RenderingContext | null>;
     bitmapSize: BitmapSize;
     trees: {
@@ -28,7 +28,7 @@ export type UseShaderProgramProps = {
     behaviors: Behavior[];
     colorSpace: ColorSpaceId;
     onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void;
-};
+}
 
 export function useShaderProgram({
     glRef,

@@ -3,11 +3,11 @@ import { useEffect, useRef } from 'react';
 
 import type { Node } from '@repo/randomart-engine-next/types';
 
-type CanvasCPUProps = {
+interface CanvasCPUProps {
     node: Node;
     resolution: number;
     sizePx: number;
-};
+}
 
 function clamp(v: number): number {
     return v < -1 ? -1 : v > 1 ? 1 : v;

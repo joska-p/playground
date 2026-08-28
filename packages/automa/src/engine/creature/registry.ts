@@ -19,13 +19,13 @@ import {
     pixel
 } from './builtin';
 
-type Creature = {
+interface Creature {
     readonly id: string;
     readonly name: string;
     readonly width: number;
     readonly height: number;
     readonly cells: number[][];
-};
+}
 
 const allCreatures = [
     block,

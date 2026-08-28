@@ -10,7 +10,7 @@ import type { CssColor } from '@repo/glaze/core/types';
 
 export type BrushMode = 'draw' | 'erase';
 
-export type AutomaState = {
+export interface AutomaState {
     engine: SimulationEngine | null;
     toolMode: BrushMode;
     paletteBrush: CreatureId | 'pixel';
@@ -21,7 +21,7 @@ export type AutomaState = {
     ruleId: RuleId;
     running: boolean;
     speedMs: number;
-};
+}
 
 export const automaStore = createStore<AutomaState>()(() => ({
     engine: null,

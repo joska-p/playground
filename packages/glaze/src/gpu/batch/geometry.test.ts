@@ -15,9 +15,9 @@ import {
     sameMat3,
     viewportMatrix
 } from './geometry';
-import type { Mat3 } from './types';
 import { createCamera, defaultCamera } from '../../core/Camera';
 import { createZoomFactor } from '../../core/types';
+import type { Mat3 } from './types';
 
 const apply = (m: Mat3, x: number, y: number): [number, number] => [
     m[0] * x + m[3] * y + m[6],

@@ -27,7 +27,8 @@ const {
 
 const paths = generateSciFiPaths(seed);
 
-const baseClass = 'relative aspect-square overflow-hidden border p-5 group transition-colors duration-300';
+const baseClass =
+    'relative aspect-square overflow-hidden border p-5 group transition-colors duration-300';
 
 const variantClasses: Record<string, string> = {
     default: 'border-border bg-card hover:border-border/50',
@@ -47,6 +48,7 @@ const variantColors: Record<string, string> = {
 
 const strokeColor = variantColors[variant];
 ---
+
 <a
     href={href}
     class={`${baseClass} ${variantClasses[variant]} ${className}`}

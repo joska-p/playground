@@ -19,7 +19,6 @@ import {
     type Seconds,
     type WorldPoint
 } from '../core/types';
-import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 import { ShapeBatcher } from './batch/ShapeBatcher';
 import { createProgram, type Program } from './shader/Program';
 import { createStandardUniformValues } from './shader/setUniforms';
@@ -32,6 +31,7 @@ import {
 } from './shapes/TextRasterizer';
 import { createStateBuffer, type StateBuffer } from './StateBuffer';
 import type { GpuSurfaceConfig } from './types';
+import type { DrawStyle, Rect, TextStyle } from '../cpu/shapes/types';
 
 const buildStyle = (fill?: CssColor, stroke?: CssColor, lineWidth?: PositiveNumber): DrawStyle => ({
     ...(fill !== undefined ? { fill } : {}),

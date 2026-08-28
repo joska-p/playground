@@ -1,9 +1,6 @@
 ---
 title: Packages
 description: Package structure, public API, imports/exports, and naming conventions.
-tags:
-    - conventions
-    - reference
 ---
 
 # Packages

@@ -2,13 +2,13 @@
     "name": "@repo/config-typescript",
     "version": "0.0.0",
     "private": true,
-    "license": "MIT",
-    "devDependencies": {
-        "@tsconfig/strictest": "catalog:"
-    },
     "description": "Workspace shared tsconfig baselines for monorepo packages and apps.",
     "keywords": [
         "config",
         "infrastructure"
-    ]
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@tsconfig/strictest": "catalog:"
+    }
 }

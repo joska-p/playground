@@ -9,11 +9,11 @@ import {
 
 const { connected, disconnected } = CONFIG.edges;
 
-type EdgeGroupProps = {
+interface EdgeGroupProps {
     positions: Float32Array;
     color: string;
     opacity: number;
-};
+}
 
 function EdgeGroup({ positions, color, opacity }: EdgeGroupProps) {
     if (positions.length === 0) return null;

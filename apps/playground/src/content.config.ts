@@ -1,36 +1,17 @@
-import { iconNames } from '@repo/tlc/components/icons';
-import { file, glob } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { defineCollection, reference } from 'astro:content';
+import { defineCollection } from 'astro:content';
 
-import { apiDocsLoader } from './content/loaders/api-docs';
+import { packagesLoader } from './content/loaders/packages';
 
 import type { JSONOutput } from 'typedoc';
-
-const iconNameSchema = z.enum(iconNames);
-
-export type IconNameSchemaType = z.infer<typeof iconNameSchema>;
-
-const tags = defineCollection({
-    loader: file('src/content/tags.yml'),
-    schema: z.object({
-        title: z.string(),
-        description: z.string(),
-        iconName: iconNameSchema.optional(),
-        order: z.number().default(0).optional()
-    })
-});
 
 const docs = defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: '../../codex/docs' }),
     schema: z.object({
         title: z.string(),
         description: z.string().optional(),
-        featured: z.boolean().default(false),
-        order: z.number().default(0),
-        draft: z.boolean().default(false),
-        // First tag is the main tag — controls the visual style
-        tags: z.array(reference('tags'))
+        draft: z.boolean().default(false)
     })
 });
 
@@ -40,29 +21,25 @@ const notes = defineCollection({
         title: z.string(),
         description: z.string().optional(),
         date: z.date(),
-        featured: z.boolean().default(false),
-        order: z.number().default(0),
-        draft: z.boolean().default(false),
-        // First tag is the main tag — controls the visual style
-        tags: z.array(reference('tags'))
+        draft: z.boolean().default(false)
     })
 });
 
-const api = defineCollection({
-    loader: apiDocsLoader(),
+const packages = defineCollection({
+    loader: packagesLoader(),
     schema: z.object({
         title: z.string(),
         package: z.string(),
         description: z.string().optional(),
         keywords: z.array(z.string()).optional(),
         hasApp: z.boolean(),
+        hasReference: z.boolean().default(false),
         typedoc: z.custom<JSONOutput.ProjectReflection>()
     })
 });
 
 export const collections = {
-    tags,
     docs,
     notes,
-    api
+    packages
 };

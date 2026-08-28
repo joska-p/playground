@@ -2,6 +2,12 @@
     "name": "@repo/sequence-engine",
     "version": "0.0.0",
     "private": true,
+    "description": "Pure rule-based mathematical sequence generation engine with persistence abstractions.",
+    "keywords": [
+        "generative",
+        "math",
+        "engine"
+    ],
     "type": "module",
     "exports": {
         "./engine": "./src/engine.ts",
@@ -20,11 +26,5 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    },
-    "description": "Pure rule-based mathematical sequence generation engine with persistence abstractions.",
-    "keywords": [
-        "generative",
-        "math",
-        "engine"
-    ]
+    }
 }

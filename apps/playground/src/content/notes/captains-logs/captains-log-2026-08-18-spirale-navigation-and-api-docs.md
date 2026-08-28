@@ -2,13 +2,7 @@
 title: "Captain's Log: Stardate 2026.238"
 description: 'From TypeDoc telemetry integration to Spirale engine synchronization and stellar UI footer deployment.'
 date: 2026-08-18
-featured: false
-order: 0
 draft: false
-tags:
-    - log
-    - architecture
-    - documentation
 ---
 
 ## Captain's Log: Stardate 2026.235

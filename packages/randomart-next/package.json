@@ -2,6 +2,11 @@
     "name": "@repo/randomart-next",
     "version": "0.0.0",
     "private": true,
+    "description": "Generate unique abstract art from any text string using seeded randomness and math expression trees.",
+    "keywords": [
+        "generative",
+        "canvas"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -41,10 +46,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Generate unique abstract art from any text string using seeded randomness and math expression trees.",
-    "keywords": [
-        "generative",
-        "canvas"
-    ]
+    }
 }

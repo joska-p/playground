@@ -3,14 +3,14 @@ import type { RuleId as RuleIdInternal } from './grammar/registry';
 import type { SeededRandom } from './random/SeededRandom';
 
 /** Recursive expression tree; `constantValue` is set only when `ruleId === "constant"`. */
-export type ExpressionNode = {
+export interface ExpressionNode {
     ruleId: string;
     args: ExpressionNode[];
     constantValue?: number;
-};
+}
 
 /** The grammar's extension point: every operator implements this contract. */
-export type GrammarRule = {
+export interface GrammarRule {
     id: string;
     name: string;
     arity: number;
@@ -30,7 +30,7 @@ export type GrammarRule = {
 
     buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
     noiseDependencies?: GlslFunctionsIds[];
-};
+}
 
 export type RuleId = RuleIdInternal;
 
@@ -42,18 +42,18 @@ export type RuleWeights = Partial<RuleWeight>;
  * GLSL variable names interpolated into an {@link AnimationBehavior} `applyCode` — the strings are
  * identifiers in the generated shader, not values.
  */
-export type ApplyCodeContext = {
+export interface ApplyCodeContext {
     time: string;
     speed: string;
     spatial: string;
     color: string;
-};
+}
 
-export type AnimationBehavior = {
+export interface AnimationBehavior {
     id: string;
     name: string;
     glslFunction?: string;
     type: 'spatial' | 'color';
     applyCode: (ctx: ApplyCodeContext) => string;
     noiseDependencies?: GlslFunctionsIds[];
-};
+}

@@ -4,20 +4,20 @@ import { buildChannelTrees } from '@repo/randomart-engine-next/tree';
 
 import type { Node, OperatorId, RuleId } from '@repo/randomart-engine-next/types';
 
-export type TreeOutput = {
+export interface TreeOutput {
     treeR: Node;
     treeG: Node;
     treeB: Node;
-};
+}
 
-export type TreeConfig = {
+export interface TreeConfig {
     seedText: string;
     selectedRuleId: RuleId;
     customOperatorIds: OperatorId[] | null;
     minDepth: number;
     maxDepth: number;
     correlated: boolean;
-};
+}
 
 const CANONICAL_ORDER = Object.keys(OPERATORS) as OperatorId[];
 

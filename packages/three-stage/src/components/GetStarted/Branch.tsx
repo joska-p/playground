@@ -10,10 +10,10 @@ import { leafMaterial } from './materials/leaf/leafMaterial';
 
 import type { ShaderMaterial } from 'three';
 
-type BranchProps = {
+interface BranchProps {
     position?: Vector3;
     rotation?: Euler;
-};
+}
 
 function Branch({ position = new Vector3(0, 0, 0), rotation = new Euler(0, 0, 0) }: BranchProps) {
     const materialRef = useRef<ShaderMaterial>(null);

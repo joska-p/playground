@@ -1,10 +1,10 @@
 import { Euler, Quaternion, Vector3 } from 'three';
 
-export type SpawnPoint = {
+export interface SpawnPoint {
     id: number;
     position: Vector3;
     rotation: Euler;
-};
+}
 
 const LOCAL_UP = new Vector3(0, 1, 0);
 
@@ -82,13 +82,13 @@ const VERTEX_PRESETS: Record<string, number[][]> = {
 export type PresetName =
     'circle' | 'fsphere' | 'tetrahedron' | 'cube' | 'octahedron' | 'dodecahedron' | 'icosahedron';
 
-type GetSpawnPointsProps = {
+interface GetSpawnPointsProps {
     preset: PresetName;
     radius: number;
     offset: number;
     circleSegments: number;
     fsphereFaces: number;
-};
+}
 
 export function getSpawnPoints({
     preset,

@@ -17,7 +17,7 @@ date_discovered: 2025-06-01
 
 1. **Documentation Site**: Markdown content collections under `codex/docs/` covering architecture explanations, conventions, how-to guides, and the package API reference.
 2. **Discovery Pages**: Dynamic showcase routes (`src/pages/discoveries/*.astro`) embedding interactive WebGL/Canvas visualizers and experiment applications.
-3. **Static Asset Hub**: Integrates TypeDoc-generated Markdown API references under `src/content/api/` and Storybook (`/storybook/`) during build time in `@repo/playground`.
+3. **Static Asset Hub**: Integrates TypeDoc-generated API references via the `packages` content collection (custom loader) and Storybook (`/storybook/`) during build time in `@repo/playground`.
 
 ## Quick Start
 

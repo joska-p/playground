@@ -5,14 +5,14 @@ import type { OperatorId } from '../operators/registry.js';
 /** Only `classic` for now — the union is ready for more. */
 export type RuleKind = 'classic';
 
-export type Rule = {
+export interface Rule {
     readonly id: string;
     readonly label: string;
     readonly kind: RuleKind;
     readonly operatorIds: OperatorId[];
     readonly maxDepth: number;
     readonly minDepth: number;
-};
+}
 
 export const RULES = {
     classic: classicRule,
@@ -44,10 +44,10 @@ const RULE_KIND_LABELS: Record<RuleKind, string> = {
     classic: 'Classic'
 };
 
-export type RuleGroup = {
+export interface RuleGroup {
     label: string;
     rules: { id: RuleId; label: string }[];
-};
+}
 
 export function listRuleGroups(): RuleGroup[] {
     const grouped = new Map<RuleKind, { id: RuleId; label: string }[]>();

@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import type { Camera } from '../core/Camera';
 import type { Clock } from '../core/Clock';
 import type { InputRouter } from '../core/gestures';
@@ -16,8 +15,9 @@ import type {
     ZoomOptions
 } from '../core/types';
 import type { CpuDraw, CpuSurface } from '../cpu/types';
-import type { GpuDraw, GpuSurface } from '../gpu/types';
 import type { UniformValue } from '../gpu/shader/types';
+import type { GpuDraw, GpuSurface } from '../gpu/types';
+import type { CSSProperties } from 'react';
 
 // ---------------------------------------------------------------------------
 // Observable & Store types

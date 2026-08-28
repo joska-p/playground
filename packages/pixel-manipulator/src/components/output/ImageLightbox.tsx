@@ -1,10 +1,10 @@
 import { Output } from './Output';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 
-type ImageLightboxProps = {
+interface ImageLightboxProps {
     imageData: ImageData;
     onClose: () => void;
-};
+}
 
 function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
     useEscapeKey(onClose);

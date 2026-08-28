@@ -1,8 +1,8 @@
-export type RGB = {
+export interface RGB {
     r: number;
     g: number;
     b: number;
-};
+}
 
 export function parseHex(hex: string): RGB {
     let h = hex.trim().replace(/^#/, '');

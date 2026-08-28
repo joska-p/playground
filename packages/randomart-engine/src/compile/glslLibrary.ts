@@ -1,8 +1,8 @@
-export type GlslFunction = {
+export interface GlslFunction {
     id: string;
     glsl: string;
     dependencies?: string[];
-};
+}
 
 const random2d = {
     id: 'random2d',

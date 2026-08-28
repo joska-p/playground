@@ -2,6 +2,12 @@
     "name": "@repo/automa",
     "version": "0.0.0",
     "private": true,
+    "description": "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
+    "keywords": [
+        "simulation",
+        "three-js",
+        "webgl"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -40,11 +46,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
-    "keywords": [
-        "simulation",
-        "three-js",
-        "webgl"
-    ]
+    }
 }

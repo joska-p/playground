@@ -4,22 +4,22 @@ import { SeededRandom } from '../random/SeededRandom';
 
 import type { ExpressionNode, GrammarRule, RuleId, RuleWeights } from '../types';
 
-export type TreeConfig = {
+export interface TreeConfig {
     seedText: string;
     maxDepth: number;
     enabledRuleIds: RuleId[];
     correlated: boolean;
     ruleWeights: RuleWeights;
-};
+}
 
-export type TreeOutput = {
+export interface TreeOutput {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
     treeB: ExpressionNode;
     rngR: SeededRandom;
     rngG: SeededRandom;
     rngB: SeededRandom;
-};
+}
 
 /**
  * With `correlated`, all channels draw from one PRNG stream so they stay visually similar for a

@@ -2,6 +2,13 @@
     "name": "@repo/worker-pool",
     "version": "0.0.0",
     "private": true,
+    "description": "Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown.",
+    "keywords": [
+        "infrastructure",
+        "worker-pool",
+        "webgl",
+        "pipeline"
+    ],
     "type": "module",
     "exports": {
         "./worker-pool": "./src/worker-pool.ts",
@@ -18,12 +25,5 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    },
-    "description": "Web Worker concurrency management library handling worker pooling, queuing, Transferable buffers, and teardown.",
-    "keywords": [
-        "infrastructure",
-        "worker-pool",
-        "webgl",
-        "pipeline"
-    ]
+    }
 }

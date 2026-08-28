@@ -1,5 +1,5 @@
 /** Simulation-internal node — d3-force writes the optional position/velocity fields itself. */
-export type SimNode = {
+export interface SimNode {
     index?: number;
     id: string;
     label: string;
@@ -14,10 +14,10 @@ export type SimNode = {
     vx?: number;
     vy?: number;
     vz?: number;
-};
+}
 
-export type SimLink = {
+export interface SimLink {
     source: SimNode | string;
     target: SimNode | string;
     relation: string;
-};
+}

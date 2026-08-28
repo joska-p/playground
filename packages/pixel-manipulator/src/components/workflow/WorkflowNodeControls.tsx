@@ -3,9 +3,9 @@ import { ControlGrid, Button } from '@repo/tlc/components/forms';
 import { moveWorkflowStep, removeWorkflowStep } from '../../stores/manipulator/actions';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
 
-type WorkflowNodeControlsProps = {
+interface WorkflowNodeControlsProps {
     index: number;
-};
+}
 
 function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
     const steps = useWorkflowSteps();

@@ -2,6 +2,13 @@
     "name": "@repo/l-system-engine",
     "version": "0.0.0",
     "private": true,
+    "description": "Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules.",
+    "keywords": [
+        "generative",
+        "engine",
+        "grammar",
+        "math"
+    ],
     "type": "module",
     "exports": {
         "./engine": "./src/engine.ts",
@@ -18,12 +25,5 @@
         "@types/node": "catalog:",
         "eslint": "catalog:",
         "typescript": "catalog:"
-    },
-    "description": "Grammar-agnostic L-system symbol rewriting engine with deterministic, stochastic, and context-sensitive rules.",
-    "keywords": [
-        "generative",
-        "engine",
-        "grammar",
-        "math"
-    ]
+    }
 }

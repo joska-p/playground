@@ -1,8 +1,8 @@
 import { colorArray } from './color';
 import { createCssColor, type Point2D } from '../../core/types';
+import type { TextRaster } from './types';
 import type { TextStyle } from '../../cpu/shapes/types';
 import type { UniformValue } from '../shader/types';
-import type { TextRaster } from './types';
 
 /** @internal */
 export const DEFAULT_FONT_FAMILY = 'sans-serif';

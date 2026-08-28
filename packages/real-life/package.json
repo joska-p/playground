@@ -2,6 +2,13 @@
     "name": "@repo/real-life",
     "version": "0.0.0",
     "private": true,
+    "description": "A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay.",
+    "keywords": [
+        "simulation",
+        "three-js",
+        "webgl",
+        "generative"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -43,12 +50,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay.",
-    "keywords": [
-        "simulation",
-        "three-js",
-        "webgl",
-        "generative"
-    ]
+    }
 }

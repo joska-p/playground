@@ -52,10 +52,10 @@ export class SeededRandom {
 }
 
 /** Tree-shape decisions stay identical across R/G/B while channel values diverge — two streams. */
-export type DualRng = {
+export interface DualRng {
     structure: SeededRandom;
     channels: [SeededRandom, SeededRandom, SeededRandom];
-};
+}
 
 export function createDualRng(seedText: string, maxDepth: number): DualRng {
     return {

@@ -2,10 +2,17 @@
     "name": "@repo/mandelbrot",
     "version": "0.0.0",
     "private": true,
+    "description": "Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits.",
+    "keywords": [
+        "generative",
+        "webgl",
+        "math",
+        "2d",
+        "shader"
+    ],
     "type": "module",
     "exports": {
-        "./styles": "./src/styles/global.css",
-        "./App": "./src/App.tsx"
+        "./styles": "./src/styles/global.css"
     },
     "scripts": {
         "dev": "vite --host",
@@ -41,13 +48,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Deep-zoom Mandelbrot explorer built on perturbation theory with arbitrary-precision BigInt reference orbits.",
-    "keywords": [
-        "generative",
-        "webgl",
-        "math",
-        "2d",
-        "shader"
-    ]
+    }
 }

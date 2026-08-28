@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import type { CpuSurface } from '../cpu/types';
 import { createInteractionAdapter } from './interactions';
 import { createCpuStack } from './surfaceStack';
-import type { CpuCanvasProps } from './types';
 import { useNodeResource } from './useNodeResource';
+import type { CpuCanvasProps } from './types';
+import type { CpuSurface } from '../cpu/types';
 
 export function CpuCanvas({
     onFrame,

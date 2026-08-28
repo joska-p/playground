@@ -3,44 +3,44 @@ import type { Registry } from './registry';
 
 // ─── UI Metadata ──────────────────────────────────────────────────────────────
 
-export type ArgDefinition = {
+export interface ArgDefinition {
     key: string;
     label: string;
     min: number;
     max: number;
     step: number;
-};
+}
 
-export type ManipulationUIMetadata = {
+export interface ManipulationUIMetadata {
     name: string;
     description: string;
     longDescription: string;
     defaultArgs: Record<string, number>;
     argDefinitions: ArgDefinition[];
-};
+}
 
 // ─── Manipulation Function Parameters ────────────────────────────────────────
 
-export type PixelParameters<Options> = {
+export interface PixelParameters<Options> {
     options: Options;
     red: number;
     green: number;
     blue: number;
     alpha: number;
-};
+}
 
-export type NeighborhoodParameters<Options> = {
+export interface NeighborhoodParameters<Options> {
     options: Options;
     source: Uint8ClampedArray;
     destination: Uint8ClampedArray;
     width: number;
     height: number;
-};
+}
 
-export type WholeImageParameters<Options> = {
+export interface WholeImageParameters<Options> {
     options: Options;
     imageData: PixelData;
-};
+}
 
 // ─── Manipulation Function Signatures ────────────────────────────────────────
 
@@ -80,7 +80,7 @@ export type ManipulationDefinition<
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 
-export type PipelineContext = {
+export interface PipelineContext {
     registry: Registry;
     maximumPixels: number;
-};
+}

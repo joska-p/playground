@@ -2,6 +2,12 @@
     "name": "@repo/image-to-particles",
     "version": "0.0.0",
     "private": true,
+    "description": "Deconstruct images into physics-based particle systems with real-time interaction.",
+    "keywords": [
+        "image",
+        "physics",
+        "canvas"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -41,11 +47,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Deconstruct images into physics-based particle systems with real-time interaction.",
-    "keywords": [
-        "image",
-        "physics",
-        "canvas"
-    ]
+    }
 }

@@ -2,7 +2,7 @@ import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } 
 
 import type { SimLink, SimNode } from './sim-types.js';
 
-export type ForceSimulation3D = {
+export interface ForceSimulation3D {
     nodes(nodes: SimNode[]): ForceSimulation3D;
     force(name: string, force: unknown): ForceSimulation3D;
     alpha(alpha: number): ForceSimulation3D;
@@ -10,18 +10,18 @@ export type ForceSimulation3D = {
     numDimensions(dimensions: number): ForceSimulation3D;
     tick(): void;
     stop(): void;
-};
+}
 
 // ── Configuration ────────────────────────────────────────────────────────────
 
-export type SimulationConfig = {
+export interface SimulationConfig {
     ticks: number;
     linkDistance: number;
     chargeStrength: number;
     collideRadius: number;
     alpha: number;
     alphaDecay: number;
-};
+}
 
 const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
     ticks: 300,
@@ -34,11 +34,11 @@ const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
 
 // ── Result ───────────────────────────────────────────────────────────────────
 
-export type SimulationResult = {
+export interface SimulationResult {
     simNodes: SimNode[];
     simLinks: SimLink[];
     stats: string[];
-};
+}
 
 // ── Stage implementation ─────────────────────────────────────────────────────
 

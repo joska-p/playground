@@ -1,7 +1,7 @@
+import type { GpuSurface } from './GpuSurface';
 import type { Camera } from '../core/Camera';
 import type { Clock } from '../core/Clock';
 import type { ClockOptions, DevicePixelRatio } from '../core/types';
-import type { GpuSurface } from './GpuSurface';
 export type { GpuSurface } from './GpuSurface';
 
 export interface GpuSurfaceConfig {

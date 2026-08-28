@@ -2,6 +2,12 @@
     "name": "@repo/radu-machine-learning",
     "version": "0.0.0",
     "private": true,
+    "description": "Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training.",
+    "keywords": [
+        "machine-learning",
+        "data-viz",
+        "canvas"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -42,11 +48,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training.",
-    "keywords": [
-        "machine-learning",
-        "data-viz",
-        "canvas"
-    ]
+    }
 }

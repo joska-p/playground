@@ -9,16 +9,16 @@ import type { RawGraph } from './stages/parse-graph.js';
 
 // ── Configuration ────────────────────────────────────────────────────────────
 
-export type PipelineConfig = {
+export interface PipelineConfig {
     simulation: Partial<SimulationConfig>;
     normalization: Partial<NormalizeConfig>;
-};
+}
 // ── Result ───────────────────────────────────────────────────────────────────
 
-export type PipelineResult = {
+export interface PipelineResult {
     result: GraphData;
     stats: string[];
-};
+}
 
 // ── Orchestrator ─────────────────────────────────────────────────────────────
 

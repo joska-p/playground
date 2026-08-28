@@ -1,5 +1,4 @@
 ---
-import { Icon } from '@repo/tlc/components/icons';
 import { getCollection } from 'astro:content';
 import { hashToColor } from '../../../utils/tag-colors';
 const baseUrl = import.meta.env.BASE_URL || '/';
@@ -12,8 +11,15 @@ type Props = {
 
 const { categoryName, currentPath } = Astro.props;
 
-const category = await getCollection('tags', (data) => data.id === categoryName);
-const docs = await getCollection('docs', ({ data }) => data.tags[0].id === categoryName);
+function prettifyCategory(name: string): string {
+    return name
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+const categoryTitle = prettifyCategory(categoryName);
+const docs = await getCollection('docs', (entry) => entry.id.split('/')[0] === categoryName);
 
 // Check if this category contains the currently active article to auto-open it
 const hasActiveArticle = docs.some((category) => {
@@ -32,16 +38,11 @@ const hasActiveArticle = docs.some((category) => {
         <div
             class="flex items-center gap-2"
             style={{
-                '--variant-color': hashToColor(category[0].id)
+                '--variant-color': hashToColor(categoryName)
             }}
         >
-            <Icon
-                aria-hidden="true"
-                className="h-4 w-4 shrink-0 text-(--variant-color)"
-                name={category[0].data.iconName ?? 'bluesky'}
-            />
             <span class="text-foreground-dim/50 text-xs font-bold uppercase">
-                {category[0].data.title}
+                {categoryTitle}
             </span>
         </div>
 

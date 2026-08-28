@@ -1,9 +1,9 @@
 import type { GraphLink, GraphNode } from '../core/pipeline/graphData.schema';
 
-export type EdgeBuffers = {
+export interface EdgeBuffers {
     connectedPositions: Float32Array;
     disconnectedPositions: Float32Array;
-};
+}
 
 export function computeEdgeBuffers(
     nodes: GraphNode[],

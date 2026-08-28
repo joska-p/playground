@@ -1,6 +1,6 @@
+import type { CpuSurface } from './CpuSurface';
 import type { Camera } from '../core/Camera';
 import type { DevicePixelRatio } from '../core/types';
-import type { CpuSurface } from './CpuSurface';
 export type { CpuSurface } from './CpuSurface';
 
 export interface CpuSurfaceConfig {

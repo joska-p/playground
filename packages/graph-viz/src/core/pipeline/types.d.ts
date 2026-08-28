@@ -1,5 +1,5 @@
 declare module 'd3-force-3d' {
-    export type SimulationNodeDatum = {
+    export interface SimulationNodeDatum {
         index?: number;
         x?: number;
         y?: number;
@@ -7,16 +7,16 @@ declare module 'd3-force-3d' {
         vx?: number;
         vy?: number;
         vz?: number;
-    };
+    }
 
-    export type SimulationLinkDatum<NodeDatum extends SimulationNodeDatum> = {
+    export interface SimulationLinkDatum<NodeDatum extends SimulationNodeDatum> {
         source: number | string | NodeDatum;
         target: number | string | NodeDatum;
-    };
+    }
 
     export type Force = (alpha: number) => void;
 
-    export type Simulation = {
+    export interface Simulation {
         tick(): Simulation;
         stop(): Simulation;
         restart(): Simulation;
@@ -29,7 +29,7 @@ declare module 'd3-force-3d' {
         force(name: string, force: Force): Simulation;
         find(x: number, y: number, radius?: number): SimulationNodeDatum | undefined;
         on(type: string, listener?: (event: unknown) => void): Simulation;
-    };
+    }
 
     export type ForceLink = {
         links(links: SimulationLinkDatum<SimulationNodeDatum>[]): ForceLink;

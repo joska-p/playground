@@ -2,6 +2,14 @@
     "name": "@repo/l-system",
     "version": "0.0.0",
     "private": true,
+    "description": "An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.",
+    "keywords": [
+        "generative",
+        "three-js",
+        "3d",
+        "webgl",
+        "simulation"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -44,13 +52,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.",
-    "keywords": [
-        "generative",
-        "three-js",
-        "3d",
-        "webgl",
-        "simulation"
-    ]
+    }
 }

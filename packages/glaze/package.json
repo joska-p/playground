@@ -2,6 +2,14 @@
     "name": "@repo/glaze",
     "version": "0.0.0",
     "private": true,
+    "description": "2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures.",
+    "keywords": [
+        "canvas",
+        "webgl",
+        "framework",
+        "2d",
+        "shader"
+    ],
     "type": "module",
     "exports": {
         "./core/FrameLoop": "./src/core/FrameLoop.ts",
@@ -75,13 +83,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "2D drawing immediacy and WebGL shader canvas framework with state buffer simulations and gestures.",
-    "keywords": [
-        "canvas",
-        "webgl",
-        "framework",
-        "2d",
-        "shader"
-    ]
+    }
 }

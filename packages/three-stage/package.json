@@ -2,6 +2,13 @@
     "name": "@repo/three-stage",
     "version": "0.0.0",
     "private": true,
+    "description": "A 3D stage for rendering and animating 3D objects.",
+    "keywords": [
+        "random",
+        "three-js",
+        "3d",
+        "webgl"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/styles.css",
@@ -45,12 +52,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "A 3D stage for rendering and animating 3D objects.",
-    "keywords": [
-        "random",
-        "three-js",
-        "3d",
-        "webgl"
-    ]
+    }
 }

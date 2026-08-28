@@ -3,12 +3,12 @@ import { toStructuredView, type Node } from './tree.js';
 
 import type { OperatorId } from './grammar/operators/registry.js';
 
-export type TreeView = {
+export interface TreeView {
     label: string;
     type: OperatorId;
     value?: number;
     children?: TreeView[];
-};
+}
 
 export function toMathString(node: Node): string {
     const op = getOperator(node.type);

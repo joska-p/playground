@@ -6,16 +6,16 @@ import type { OperatorId } from './grammar/operators/registry.js';
 import type { Rule } from './grammar/rules/registry.js';
 import type { SeededRandom } from './prng.js';
 
-export type Node = {
+export interface Node {
     readonly type: OperatorId;
     readonly args: Record<string, Node | number>;
-};
+}
 
-type PoolEntry = {
+interface PoolEntry {
     type: OperatorId;
     arity: number;
     weight: number;
-};
+}
 
 /** Fallback pool when a rule provides no terminals of its own. */
 export const DEFAULT_TERMINALS = [
@@ -59,13 +59,13 @@ function weightedRandomPick(rng: SeededRandom, pool: readonly PoolEntry[]): Pool
     return pool[pool.length - 1];
 }
 
-export type BuildTreeProps = {
+export interface BuildTreeProps {
     rule: Rule;
     maxDepth: number;
     pickRng: (depth: number) => SeededRandom;
     currentDepth?: number;
     seedText?: string;
-};
+}
 
 /**
  * Forces terminals at `maxDepth` and operators above `rule.minDepth`, so trees never run forever
@@ -186,11 +186,11 @@ export function toStructuredView(node: Node): TreeView {
 
 const STRUCTURE_RNG_DEPTH = 3;
 
-export type BuildChannelTreesProps = {
+export interface BuildChannelTreesProps {
     seedText: string;
     rule: Rule;
     correlated?: boolean;
-};
+}
 
 /**
  * Structural decisions come from a shared RNG, channel variation from per-channel RNGs — or a

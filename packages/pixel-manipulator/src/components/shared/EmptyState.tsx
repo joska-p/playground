@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-type EmptyStateProps = {
+interface EmptyStateProps {
     message: string;
     icon?: ReactNode;
-};
+}
 
 function EmptyState({ message, icon }: EmptyStateProps) {
     return (

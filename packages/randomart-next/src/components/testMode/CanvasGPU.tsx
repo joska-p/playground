@@ -4,10 +4,10 @@ import { buildValueFragmentShader } from './buildValueShader';
 
 import type { Node } from '@repo/randomart-engine-next/types';
 
-type CanvasGPUProps = {
+interface CanvasGPUProps {
     node: Node;
     sizePx: number;
-};
+}
 
 function buildShader(node: Node): { shader: string | null; error: string | null } {
     try {

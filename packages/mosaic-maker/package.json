@@ -2,6 +2,12 @@
     "name": "@repo/mosaic-maker",
     "version": "0.0.0",
     "private": true,
+    "description": "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
+    "keywords": [
+        "generative",
+        "canvas",
+        "zustand"
+    ],
     "type": "module",
     "exports": {
         "./styles": "./src/styles/global.css",
@@ -42,11 +48,5 @@
     "peerDependencies": {
         "react": "catalog:",
         "react-dom": "catalog:"
-    },
-    "description": "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
-    "keywords": [
-        "generative",
-        "canvas",
-        "zustand"
-    ]
+    }
 }

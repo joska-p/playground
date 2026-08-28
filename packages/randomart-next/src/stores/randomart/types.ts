@@ -9,7 +9,7 @@ export type { ColorSpaceId } from '@repo/randomart-engine-next/types';
 
 export type Mode = 'test' | 'play';
 
-export type RandomartState = {
+export interface RandomartState {
     mode: Mode;
     seedText: string;
     activeChannel: 'red' | 'green' | 'blue';
@@ -26,4 +26,4 @@ export type RandomartState = {
     activeBehaviorIds: BehaviorId[];
     colorSpace: ColorSpaceId;
     correlatedRGB: boolean;
-};
+}

@@ -7,11 +7,11 @@ import type { Step } from '../processor/manipulations/manifest';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 
-type WorkerMessage = {
+interface WorkerMessage {
     sourceImageData: { data: Uint8ClampedArray; width: number; height: number };
     steps: Step[];
     maximumPixels?: number;
-};
+}
 
 self.addEventListener('message', (event: MessageEvent<WorkerMessage>) => {
     const { sourceImageData, steps, maximumPixels } = event.data;

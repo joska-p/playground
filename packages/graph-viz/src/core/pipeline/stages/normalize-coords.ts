@@ -3,10 +3,10 @@ import type { SimNode } from './sim-types.js';
 
 // ── Configuration ────────────────────────────────────────────────────────────
 
-export type NormalizeConfig = {
+export interface NormalizeConfig {
     /** Max distance from the origin after scaling */
     targetMax: number;
-};
+}
 
 const DEFAULT_NORMALIZE_CONFIG: NormalizeConfig = {
     targetMax: 500
@@ -14,10 +14,10 @@ const DEFAULT_NORMALIZE_CONFIG: NormalizeConfig = {
 
 // ── Result ───────────────────────────────────────────────────────────────────
 
-export type NormalizeResult = {
+export interface NormalizeResult {
     simNodes: SimNode[];
     stats: string[];
-};
+}
 
 // ── Stage implementation ─────────────────────────────────────────────────────
 

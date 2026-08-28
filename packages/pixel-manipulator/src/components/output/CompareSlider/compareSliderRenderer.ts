@@ -1,11 +1,11 @@
-type RenderCompareSliderArgs = {
+interface RenderCompareSliderArgs {
     ctx: CanvasRenderingContext2D;
     srcCanvas: HTMLCanvasElement;
     resCanvas: HTMLCanvasElement;
     sliderPos: number;
     width: number;
     height: number;
-};
+}
 
 export function renderCompareSlider({
     ctx,

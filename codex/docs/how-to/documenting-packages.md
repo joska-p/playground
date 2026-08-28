@@ -1,8 +1,6 @@
 ---
 title: Documenting a Package
 description: Package docs are generated from code TSDoc comments and README files into a unified Astro content collection.
-tags:
-    - how-to
 ---
 
 # Documenting a Package
@@ -51,7 +49,7 @@ pnpm gen:project-pages
 ```
 
 - `pnpm generate-typedoc-json` runs the `generate-typedoc-json` turbo root task (which executes `codex/ateliers/typedoc-pipeline/generate-typedoc-json.mjs`): TypeDoc runs once per package and writes `codex/ateliers/typedoc-pipeline/.generated/api-docs/<package-dir>/docs.json` (raw TypeDoc JSON, gitignored). Turbo caches it, decoupled from `astro build`; it runs before building or dev-ing the app.
-- The custom content loader (`apps/playground/src/content/loaders/api-docs.ts`) reads each `docs.json`, merges the package README and `package.json` metadata (`description`, `hasApp`), and serves the `api` content collection, one entry per package.
+- The custom content loader (`apps/playground/src/content/loaders/packages.ts`) reads each `docs.json`, merges the package README and `package.json` metadata (`description`, `hasApp`, `hasReference`), and serves the `packages` content collection, one entry per package.
 - `pnpm gen:project-pages` reads the generated docs and generates a static Astro page at `/discoveries/<package-dir>/` for every package. Existing pages stay untouched; discovery pages are written by hand.
 
 The collection stands as the single source of truth, with no `index.json` or per-package route config involved.
