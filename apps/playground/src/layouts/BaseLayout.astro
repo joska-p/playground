@@ -189,7 +189,7 @@ const ogImageURL = new URL(ogImage || `${baseUrl}default-og-image.jpg`, Astro.si
         <Image
             src={edgeFiledImage}
             alt=""
-            class="fixed top-0 left-0 h-full w-full object-cover opacity-30"
+            class="pointer-events-none fixed top-0 left-0 h-full w-full object-cover opacity-30"
             loading="lazy"
         />
         <BackgroundCanvas />

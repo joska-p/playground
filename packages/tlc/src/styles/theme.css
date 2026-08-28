@@ -161,3 +161,41 @@
         scrollbar-width: thin;
     }
 }
+
+@utility prose-gruvbox {
+    /* Dark mode (par défaut) */
+    --tw-prose-body: var(--gb-fg1);
+    --tw-prose-headings: var(--gb-fg0);
+    --tw-prose-lead: var(--gb-fg4);
+    --tw-prose-links: var(--gb-aqua);
+    --tw-prose-bold: var(--gb-fg0);
+    --tw-prose-counters: var(--gb-fg4);
+    --tw-prose-bullets: var(--gb-gray);
+    --tw-prose-hr: var(--gb-bg2);
+    --tw-prose-quotes: var(--gb-fg0);
+    --tw-prose-quote-borders: var(--gb-bg2);
+    --tw-prose-captions: var(--gb-fg4);
+    --tw-prose-code: var(--gb-fg0);
+    --tw-prose-pre-code: var(--gb-bg0-hard);
+    --tw-prose-pre-bg: var(--gb-bg1);
+    --tw-prose-th-borders: var(--gb-bg2);
+    --tw-prose-td-borders: var(--gb-bg2);
+
+    /* Light mode (si nécessaire) */
+    --tw-prose-invert-body: var(--gb-fg1-l);
+    --tw-prose-invert-headings: var(--gb-bg0-hard-l);
+    --tw-prose-invert-lead: var(--gb-fg4-l);
+    --tw-prose-invert-links: var(--gb-blue-l);
+    --tw-prose-invert-bold: var(--gb-bg0-hard-l);
+    --tw-prose-invert-counters: var(--gb-fg4-l);
+    --tw-prose-invert-bullets: var(--gb-gray);
+    --tw-prose-invert-hr: var(--gb-bg0-l);
+    --tw-prose-invert-quotes: var(--gb-bg0-hard-l);
+    --tw-prose-invert-quote-borders: var(--gb-bg0-l);
+    --tw-prose-invert-captions: var(--gb-fg4-l);
+    --tw-prose-invert-code: var(--gb-bg0-hard-l);
+    --tw-prose-invert-pre-code: var(--gb-bg0-hard-l);
+    --tw-prose-invert-pre-bg: var(--gb-bg0-l);
+    --tw-prose-invert-th-borders: var(--gb-bg0-l);
+    --tw-prose-invert-td-borders: var(--gb-bg0-l);
+}

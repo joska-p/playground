@@ -1,8 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import { SciFiCard } from '@repo/tlc/components/cards';
+import SciFiCard from './ui/cards/SciFiCard.astro';
 import { toBraille, toOgham, toCanadianSyllabics } from '../utils/format';
-import { CARD_COLORS } from '../utils/palettes';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}discoveries/`;
@@ -24,24 +23,18 @@ function stringToSeed(str: string): number {
     {
         sortedProjects.map((project) => {
             const packageDir = project.data.package.replace(/^@repo\//, '');
-            const color = CARD_COLORS[stringToSeed(project.data.title) % CARD_COLORS.length];
             return (
-                <a
+                <SciFiCard
                     href={`${projectsBaseUrl}${packageDir}/#main`}
-                    title={project.data.title}
-                >
-                    <SciFiCard
-                        cardId={toCanadianSyllabics.fromHash(project.data.package).substring(0, 8)}
-                        cardTitle={project.data.title}
-                        classification={project.data.description ?? project.data.title}
-                        color={color}
-                        density={toBraille
-                            .fromHash(project.data.description ?? project.data.title)
-                            .substring(0, 8)}
-                        resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
-                        seed={stringToSeed(project.data.title)}
-                    />
-                </a>
+                    cardId={toCanadianSyllabics.fromHash(project.data.package).substring(0, 8)}
+                    cardTitle={project.data.title}
+                    classification={project.data.description ?? project.data.title}
+                    density={toBraille
+                        .fromHash(project.data.description ?? project.data.title)
+                        .substring(0, 8)}
+                    resolution={toOgham.fromHash(project.data.title).substring(0, 8)}
+                    seed={stringToSeed(project.data.title)}
+                />
             );
         })
     }

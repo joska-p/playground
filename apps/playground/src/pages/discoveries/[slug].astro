@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { PackageAppHost } from '../../components/discoveries/PackageAppHost.tsx';
-import PackageTabs from '../../components/ui/docs/PackageTabs.astro';
+import { PackageAppHost } from '../../components/PackageAppHost';
+import ApiReference from '../../components/ui/docs/api-reference/ApiReference.astro';
 
 export async function getStaticPaths() {
     const packagesEntries = await getCollection('packages');
@@ -37,25 +37,24 @@ const hasReference = entry.data.hasReference;
         )
     }
 
-    <div class="mx-auto max-w-4xl px-6 py-10">
-        {
-            hasReference && (
-                <PackageTabs
-                    slug={entry.id}
-                    active="overview"
-                />
-            )
-        }
+    <article
+        id="overview"
+        class="prose prose-playground bg-surface/5 text-foreground border-border/40 mx-auto max-w-4xl scroll-mt-28 rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
+    >
+        {Content && <Content />}
+    </article>
 
-        {
-            Content && (
-                <article
-                    id="overview"
-                    class="prose prose-playground bg-surface/5 text-foreground border-border/40 max-w-none rounded-xl border p-[clamp(1.5rem,3vw,2.5rem)] shadow-lg backdrop-blur-xs transition-all"
-                >
-                    <Content />
-                </article>
-            )
-        }
-    </div>
+    {
+        hasReference && (
+            <section
+                id="api"
+                class="mx-auto max-w-4xl scroll-mt-28 px-6 py-16"
+            >
+                <h2 class="text-foreground mb-8 text-2xl font-bold tracking-tight">
+                    API Reference
+                </h2>
+                <ApiReference typedoc={entry.data.typedoc} />
+            </section>
+        )
+    }
 </BaseLayout>
