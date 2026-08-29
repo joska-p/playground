@@ -36,8 +36,8 @@ export function computeGridRect(
 
     return {
         scale,
-        originX: (-cols * scale) / 2,
-        originY: (-rows * scale) / 2
+        originX: (canvasWidth - cols * scale) / 2,
+        originY: (canvasHeight - rows * scale) / 2
     };
 }
 

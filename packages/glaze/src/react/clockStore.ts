@@ -1,7 +1,7 @@
 import { createObservable } from './observable';
+import { type Seconds, type DurationSeconds, type TimeSpeed, createSeconds } from '../core/types';
 import type { ClockStore } from './types';
 import type { Clock } from '../core/Clock';
-import type { Seconds, DurationSeconds, TimeSpeed } from '../core/types';
 
 export function createClockStore(clock: Clock): ClockStore {
     const observable = createObservable();
@@ -44,5 +44,23 @@ export function createClockStore(clock: Clock): ClockStore {
         subscribe: (fn: () => void) => observable.subscribe(fn),
         getSnapshot: () => clock.time,
         getIsPlaying: () => clock.isPlaying
+    };
+}
+
+export function createNullClockStore(): ClockStore {
+    return {
+        clock: null as unknown as Clock, // ou rends `clock` optionnel dans le type si possible
+        time: createSeconds(0),
+        deltaTime: createSeconds(0),
+        duration: undefined,
+        progress: 0,
+        togglePlay() {},
+        play() {},
+        pause() {},
+        reset() {},
+        setSpeed() {},
+        subscribe: () => () => {}, // unsubscribe no-op
+        getSnapshot: () => createSeconds(0),
+        getIsPlaying: () => false
     };
 }
