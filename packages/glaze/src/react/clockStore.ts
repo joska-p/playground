@@ -47,19 +47,22 @@ export function createClockStore(clock: Clock): ClockStore {
     };
 }
 
+const noop = (): void => undefined;
+const noopWithArg = (_arg: unknown): void => undefined;
+
 export function createNullClockStore(): ClockStore {
     return {
-        clock: null as unknown as Clock, // ou rends `clock` optionnel dans le type si possible
+        clock: null as unknown as Clock,
         time: createSeconds(0),
         deltaTime: createSeconds(0),
         duration: undefined,
         progress: 0,
-        togglePlay() {},
-        play() {},
-        pause() {},
-        reset() {},
-        setSpeed() {},
-        subscribe: () => () => {}, // unsubscribe no-op
+        togglePlay: noop,
+        play: noop,
+        pause: noop,
+        reset: noop,
+        setSpeed: noopWithArg,
+        subscribe: () => noop,
         getSnapshot: () => createSeconds(0),
         getIsPlaying: () => false
     };

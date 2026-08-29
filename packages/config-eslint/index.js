@@ -34,6 +34,19 @@ export default function createConfig(dirname) {
                 }
             },
             rules: {
+                '@typescript-eslint/no-unused-vars': [
+                    'error',
+                    {
+                        args: 'all',
+                        argsIgnorePattern: '^_',
+                        caughtErrors: 'all',
+                        caughtErrorsIgnorePattern: '^_',
+                        destructuredArrayIgnorePattern: '^_',
+                        varsIgnorePattern: '^_',
+                        ignoreRestSiblings: true
+                    }
+                ],
+
                 // --- 1. STRUCTURE & IMPORTS (L'ADN de ton codebase) ---
                 'import/no-default-export': 'error',
                 'import/no-cycle': ['error', { maxDepth: 2 }],
