@@ -25,20 +25,20 @@ function App() {
     const source = useSource();
     const output = useOutput();
 
-    const imageSource = output ? toBlittableImage(output) : null;
+    const blittableOutput = output ? toBlittableImage(output) : null;
 
     useEffect(() => {
         if (source) setOutput(processImage(source, TRANSFORMS));
     }, [source]);
 
     function handleOnFrame(surface: CpuSurface) {
-        if (!imageSource) return;
+        if (!blittableOutput) return;
 
         // Lecture de l'état moteur DANS la frame → dimensions fraîches au resize
-        const placement = toPixelAligned(computeFit(imageSource, surface));
+        const placement = toPixelAligned(computeFit(blittableOutput, surface));
 
         surface.clear(BACKGROUND);
-        blit(surface, imageSource, placement);
+        blit(surface, blittableOutput, placement);
     }
 
     return (
