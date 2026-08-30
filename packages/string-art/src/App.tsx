@@ -7,7 +7,7 @@ import { computeFit, toPixelAligned } from './core/fit';
 import { processImage, type PixelTransform } from './core/process';
 import { blit, toBlittableImage } from './core/render';
 import { fileToImageData } from './core/upload';
-import { setOutput, setSource, setSurface, useOutput, useSource } from './stores/store';
+import { setOutput, setSource, useOutput, useSource } from './stores/store';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
 const TRANSFORMS: readonly PixelTransform[] = [];
@@ -44,10 +44,7 @@ function App() {
     return (
         <Shell>
             <ShellCanvas>
-                <CpuCanvas
-                    onMount={setSurface}
-                    onFrame={handleOnFrame}
-                />
+                <CpuCanvas onFrame={handleOnFrame} />
             </ShellCanvas>
 
             <ShellPanels>
