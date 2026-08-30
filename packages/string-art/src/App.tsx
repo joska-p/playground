@@ -1,48 +1,53 @@
+import { createCssColor } from '@repo/glaze/core/types';
 import { CpuCanvas } from '@repo/glaze/react/CpuCanvas';
 import { FieldRow, Input } from '@repo/tlc/components/forms';
 import { Shell, ShellCanvas, ShellPanels, Panel } from '@repo/tlc/layout';
-import { useState } from 'react';
-import { calculateImageDimensions, drawImageToCanvas } from './core/utils';
+import { useEffect } from 'react';
+import { computeFit, toPixelAligned } from './core/fit';
+import { processImage, type PixelTransform } from './core/process';
+import { blit, toBlittableImage } from './core/render';
+import { fileToImageData } from './core/upload';
+import { setOutput, setSource, setSurface, useOutput, useSource } from './stores/store';
 import type { CpuSurface } from '@repo/glaze/cpu/CpuSurface';
 
+const TRANSFORMS: readonly PixelTransform[] = [];
+const BACKGROUND = createCssColor('#000000'); // hoisté, sinon recréé à chaque frame
+
+function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    fileToImageData(file).then(setSource).catch(console.error);
+}
+
 function App() {
-    const [surface, setSurface] = useState<CpuSurface | null>(null);
+    const source = useSource();
+    const output = useOutput();
 
-    function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
-        const file = event.target.files?.[0];
+    const imageSource = output ? toBlittableImage(output) : null;
 
-        if (!file || !surface) return;
+    useEffect(() => {
+        if (source) setOutput(processImage(source, TRANSFORMS));
+    }, [source]);
 
-        console.log('file', file);
-        console.log('surface', surface);
+    function handleOnFrame(surface: CpuSurface) {
+        if (!imageSource) return;
 
-        const { canvas, context } = surface;
-        const reader = new FileReader();
+        // Lecture de l'état moteur DANS la frame → dimensions fraîches au resize
+        const placement = toPixelAligned(computeFit(imageSource, surface));
 
-        reader.onload = (e) => {
-            if (!e.target) return;
-
-            const imageFile = e.target.result as string;
-            const image = new Image();
-
-            image.src = imageFile;
-
-            const dimensions = calculateImageDimensions(
-                image.width,
-                image.height,
-                canvas.width,
-                canvas.height
-            );
-
-            drawImageToCanvas(context, image, dimensions);
-        };
-        reader.readAsDataURL(file);
+        surface.clear(BACKGROUND);
+        blit(surface, imageSource, placement);
     }
 
     return (
         <Shell>
             <ShellCanvas>
-                <CpuCanvas onMount={setSurface} />
+                <CpuCanvas
+                    onMount={setSurface}
+                    onFrame={handleOnFrame}
+                />
             </ShellCanvas>
 
             <ShellPanels>
