@@ -1,0 +1,46 @@
+{
+    "name": "@repo/string-art",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/App.tsx",
+        "./Demo": "./src/components/Demo.tsx",
+        "./styles": "./src/styles/global.css"
+    },
+    "scripts": {
+        "check-types": "tsc -b",
+        "dev": "vite --host",
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix",
+        "preview": "vite preview --host"
+    },
+    "dependencies": {
+        "@repo/glaze": "workspace:*",
+        "@repo/tlc": "workspace:*",
+        "zustand": "catalog:"
+    },
+    "devDependencies": {
+        "@babel/core": "catalog:",
+        "@repo/config-eslint": "workspace:*",
+        "@repo/config-typescript": "workspace:*",
+        "@rolldown/plugin-babel": "catalog:",
+        "@tailwindcss/vite": "catalog:",
+        "@types/babel__core": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "babel-plugin-react-compiler": "catalog:",
+        "eslint": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    }
+}
