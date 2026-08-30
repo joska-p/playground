@@ -1,7 +1,0 @@
-En informatique, le jargon professionnel (interface, API, encapsulation, niveau d'abstraction, boîte noire) crée l'illusion qu'il existe une multitude de mécanismes distincts. Pourtant, ils décrivent tous une seule et même réalité structurelle : l'enchâssement dynamique.
-
-Le voyage d'une information, de l'intention physique d'un humain qui clique jusqu'au paquet réseau qui quitte la machine, n'est pas un simple emboîtement continu qui s'empile vers l'extérieur. C'est une chaîne de transformations où l'encapsulation est régulièrement défaite et refaite. 
-
-À chaque étape, l'information est extraite de son conteneur précédent (désencapsulation), interprétée par une interface (l'API), puis enveloppée dans un nouveau conteneur (ré-encapsulation) adapté au langage ou au médium suivant. Le mouvement physique devient impulsion électrique, qui devient un event système, qui devient un objet JavaScript, qui devient une requête HTTP. La donnée centrale – l'intention – subsiste, mais ses "boîtes" sont continuellement détruites et recréées pour franchir la frontière vers le niveau d'abstraction suivant.
-
-L'idée est de visualiser ce processus non pas comme une accumulation, mais comme une chaîne de transmission où chaque niveau d'abstraction décode l'enchâssement du niveau précédent pour pouvoir le ré-enchâsser à sa manière. Les termes d'API, d'interface et d'encapsulation désignent ainsi les points exacts où s'opèrent ces cycles continus de destruction et de recréation de l'information.

@@ -1,0 +1,119 @@
+.svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+}
+
+@keyframes snake-move {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: -1100;
+    }
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes ring-fade {
+    from {
+        opacity: 0.35;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+@keyframes sweep {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bump {
+    from {
+        transform: scaleY(0.85);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.snake-path {
+    stroke-dasharray: 1000 10;
+    animation: snake-move 60s linear infinite;
+}
+
+.weave-path {
+    stroke-dasharray: 420 18;
+    animation: snake-move 80s linear infinite;
+}
+
+.orbit-dash {
+    stroke-dasharray: 6 8;
+    animation: snake-move 90s linear infinite;
+}
+
+.constellation-line {
+    stroke-dasharray: 80 6;
+    animation: snake-move 120s linear infinite;
+}
+
+.lattice-line {
+    stroke-dasharray: 40 4;
+    animation: snake-move 100s linear infinite;
+}
+
+.twinkle {
+    animation: twinkle 3.2s ease-in-out infinite;
+}
+
+.contour-ring {
+    animation: ring-fade 4s ease-in-out infinite alternate;
+}
+
+.radar-sweep {
+    animation: sweep 6s linear infinite;
+}
+
+.spec-bar {
+    animation: bump 2.4s ease-in-out infinite alternate;
+}
+
+.blip {
+    animation: blink 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .snake-path,
+    .weave-path,
+    .orbit-dash,
+    .constellation-line,
+    .lattice-line,
+    .twinkle,
+    .contour-ring,
+    .radar-sweep,
+    .spec-bar,
+    .blip {
+        animation: none;
+    }
+}

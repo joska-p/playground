@@ -7,13 +7,45 @@ import {
     Toggle
 } from '@repo/tlc/components/forms';
 import { Panel, PanelSection, Shell, ShellCanvas, ShellPanels } from '@repo/tlc/layout';
+import {
+    CircuitVisual,
+    ConstellationVisual,
+    ContourVisual,
+    GlyphVisual,
+    LatticeVisual,
+    OrbitVisual,
+    RadarVisual,
+    SpectrumVisual,
+    WeaveVisual
+} from './visuals';
+
+const visualComponents = [
+    CircuitVisual,
+    ConstellationVisual,
+    ContourVisual,
+    GlyphVisual,
+    LatticeVisual,
+    OrbitVisual,
+    RadarVisual,
+    SpectrumVisual,
+    WeaveVisual
+] as const;
+
+const SEED = 'playground';
 
 function App() {
     return (
         <Shell>
             <ShellCanvas>
-                <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-                    Canvas
+                <div className="flex flex-wrap items-center justify-center gap-8 h-full text-muted-foreground text-sm relative overflow-y-auto">
+                    {visualComponents.map((Visual, i) => (
+                        <div
+                            key={i}
+                            className="w-100 h-100"
+                        >
+                            <Visual seed={SEED} />
+                        </div>
+                    ))}
                 </div>
             </ShellCanvas>
 

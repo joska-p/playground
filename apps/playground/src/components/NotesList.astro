@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { SciFiCard } from '@repo/tlc/components/cards';
-import { hashToColor } from '../utils/tag-colors';
+import SciFiCard from './ui/cards/SciFiCard.astro';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const notesBaseUrl = `${baseUrl}notes/`;
@@ -67,20 +66,15 @@ const cards = [...collectedNotes, ...manualCards].sort((a, b) => a.title.localeC
                 day: 'numeric'
             });
             return (
-                <a
+                <SciFiCard
                     href={noteUrl}
-                    title={card.title}
-                >
-                    <SciFiCard
-                        cardId={card.cardId}
-                        cardTitle={card.description}
-                        classification={card.title}
-                        color={hashToColor(card.title)}
-                        density={String(seed)}
-                        resolution={date}
-                        seed={seed}
-                    />
-                </a>
+                    cardId={card.cardId}
+                    cardTitle={card.description}
+                    classification={card.title}
+                    density={String(seed)}
+                    resolution={date}
+                    seed={seed}
+                />
             );
         })
     }
