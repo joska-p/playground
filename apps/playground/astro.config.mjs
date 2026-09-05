@@ -43,6 +43,12 @@ export default defineConfig({
                 brotliSize: true
             })
         ],
+        optimizeDeps: {
+            // 1. On force le pré-bundling des très grosses libs tierces
+            include: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei'],
+            // 2. On indique à Vite où chercher les dépendances pour qu'il ne s'éparpille pas
+            entries: ['./src/pages/**/*.astro', '../../packages/*/src/App.tsx']
+        },
         resolve: {
             tsconfigPaths: true
         },
