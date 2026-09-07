@@ -7,6 +7,7 @@
 A_mytempgarbagedir
 session*.md
 _TEMP
+.local
 
 # Local workspace config
 .pnpm-store
@@ -82,7 +83,7 @@ result-*
 # --- Environment ---
 .env
 .env.*
-.envrc
+!.envrc
 
 # --- Cloud / infra ---
 gcloud/
