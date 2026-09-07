@@ -12,7 +12,12 @@ const options = [
 const meta = {
     title: 'tlc/Forms/Select',
     component: Select,
-    render: (args) => <Select {...args} className="min-w-40" />,
+    render: (args) => (
+        <Select
+            {...args}
+            className="min-w-40"
+        />
+    ),
     args: {
         options,
         'aria-label': 'Choisir un fruit'

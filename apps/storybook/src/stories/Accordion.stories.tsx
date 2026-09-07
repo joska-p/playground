@@ -6,7 +6,10 @@ const meta = {
     title: 'tlc/Display/Accordion',
     component: Accordion,
     render: (args) => (
-        <Accordion {...args} className="w-full max-w-md">
+        <Accordion
+            {...args}
+            className="w-full max-w-md"
+        >
             <AccordionItem title="Qu'est-ce que c'est ?">
                 Un composant repliable construit sur l'élément natif <code>&lt;details&gt;</code>.
             </AccordionItem>

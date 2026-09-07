@@ -43,15 +43,22 @@ function filledCell(cell: LatticeCell, r: number): string {
     return `M${pts.map((p, i) => `${i === 0 ? '' : 'L'}${f(p[0])},${f(p[1])}`).join(' ')} Z`;
 }
 
-function nextLiveCell(cursor: LatticeCell, live: readonly LatticeCell[], r: number): LatticeCell | undefined {
+function nextLiveCell(
+    cursor: LatticeCell,
+    live: readonly LatticeCell[],
+    r: number
+): LatticeCell | undefined {
     return live
         .map((c) => ({ c, d: dist({ x: cursor.x, y: cursor.y }, { x: c.x, y: c.y }) }))
         .filter((n) => n.d > 8 && n.d < r * 3.2)
         .sort((a, b) => a.d - b.d)[0]?.c;
 }
 
-function trailPath(cells: readonly LatticeCell[], rand: () => number, r: number):
-    { d: string; circles: GraphicCircle[] } {
+function trailPath(
+    cells: readonly LatticeCell[],
+    rand: () => number,
+    r: number
+): { d: string; circles: GraphicCircle[] } {
     const live = cells.filter((c) => c.live);
     const trailLen = 4 + randInt(rand, 0, 5);
     const circles: GraphicCircle[] = [];

@@ -1,6 +1,6 @@
 ---
 title: "Captain's Log: Stardate 2026.231"
-description: "De la purge du codebase au déploiement des sketchpads : une saison de transformation radicale à bord du Playground Monorepo."
+description: 'De la purge du codebase au déploiement des sketchpads : une saison de transformation radicale à bord du Playground Monorepo.'
 date: 2026-08-18
 draft: false
 ---

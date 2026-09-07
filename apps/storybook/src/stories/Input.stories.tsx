@@ -5,7 +5,12 @@ import { Input } from '@repo/tlc/components/forms';
 const meta = {
     title: 'tlc/Forms/Input',
     component: Input,
-    render: (args) => <Input {...args} className="max-w-xs" />,
+    render: (args) => (
+        <Input
+            {...args}
+            className="max-w-xs"
+        />
+    ),
     args: {
         placeholder: 'Saisissez du texte…'
     }

@@ -1,6 +1,6 @@
 ---
 title: "Captain's Log: Stardate 2026.248"
-description: "La grande migration de @repo/ui vers @repo/tlc, une horloge taillée dans le vide, et la naissance du secteur String Art."
+description: 'La grande migration de @repo/ui vers @repo/tlc, une horloge taillée dans le vide, et la naissance du secteur String Art.'
 date: 2026-09-05
 featured: false
 order: 0

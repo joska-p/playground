@@ -9,7 +9,12 @@ export interface ConstellationVisualProps {
     svgRef?: Ref<SVGSVGElement>;
 }
 
-export function ConstellationVisual({ seed, className = '', color = '', svgRef }: ConstellationVisualProps) {
+export function ConstellationVisual({
+    seed,
+    className = '',
+    color = '',
+    svgRef
+}: ConstellationVisualProps) {
     const visual = generateCardVisual(seed, 'constellation');
 
     return (

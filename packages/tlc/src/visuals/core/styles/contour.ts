@@ -20,7 +20,12 @@ export function buildContour(rand: () => number): CardGraphic {
             const t = (i / points) * Math.PI * 2;
             const rr = baseR + Math.sin(t * freq1) * amp1 + Math.cos(t * freq2) * amp2;
 
-            d += (i === 0 ? 'M' : 'L') + f(cx + Math.cos(t) * rr) + ',' + f(cy + Math.sin(t) * rr) + ' ';
+            d +=
+                (i === 0 ? 'M' : 'L') +
+                f(cx + Math.cos(t) * rr) +
+                ',' +
+                f(cy + Math.sin(t) * rr) +
+                ' ';
         }
 
         d += 'Z';

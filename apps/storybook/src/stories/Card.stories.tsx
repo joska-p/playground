@@ -6,7 +6,10 @@ const meta = {
     title: 'tlc/Display/Card',
     component: Card,
     render: (args) => (
-        <Card {...args} className="max-w-sm space-y-2 p-4">
+        <Card
+            {...args}
+            className="max-w-sm space-y-2 p-4"
+        >
             <CardTitle>Titre de la carte</CardTitle>
             <CardDescription>Une description concise du contenu affiché.</CardDescription>
         </Card>
