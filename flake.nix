@@ -70,6 +70,10 @@
 
           # Isolate Pi's configuration states directly to your project workspace
           export PI_HOME="$XDG_DATA_HOME/pi"
+          export PI_CODING_AGENT_DIR="$PI_HOME"
+
+          # Isolate OmniRoute's data to your project workspace
+          export DATA_DIR="$XDG_DATA_HOME/omniroute"
 
           # ── Node / npm / pnpm / corepack ───────────────────────
           export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
