@@ -67,6 +67,9 @@
           export LESS="-R -F -X"
           export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
           export BAT_THEME="TwoDark"
+
+          # Ajoute les binaires locaux de pnpm/node_modules au PATH du shell
+          export PATH="$PWD/node_modules/.bin:$PATH"
         '';
       };
     };
