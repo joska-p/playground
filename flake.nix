@@ -103,7 +103,7 @@
           export LESS="-R -F -X"
           export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
           export BAT_THEME="TwoDark"
-          export PATH="$PWD/node_modules/.bin:$PNPM_HOME:$PATH"
+          export PATH="$PWD/node_modules/.bin:$PNPM_HOME:$PNPM_HOME/bin:$PATH"
         '';
       };
     };
