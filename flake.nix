@@ -94,8 +94,9 @@
           export JUPYTER_RUNTIME_DIR="$JUPYTER_DATA_DIR/runtime"
 
           # ── CLI qui ignorent XDG ───────────────────────────────
-          export LESSHISTFILE="-"                              # pas de ~/.lesshst
-          export WGETRC="$XDG_CONFIG_HOME/wgetrc"              # et pas de ~/.wget-hsts :
+          export STORYBOOK_DISABLE_TELEMETRY=1                  # pas de telemetrie
+          export LESSHISTFILE="-"                               # pas de ~/.lesshst
+          export WGETRC="$XDG_CONFIG_HOME/wgetrc"               # et pas de ~/.wget-hsts :
           grep -q hsts-file "$WGETRC" 2>/dev/null || \
           echo "hsts-file = $XDG_CACHE_HOME/wget-hsts" > "$WGETRC"
 
