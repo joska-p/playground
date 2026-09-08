@@ -4,11 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pi-flake.url = "github:ChauDucToan/pi-flake";
-    omniroute.url = "github:diegosouzapw/OmniRoute";
   };
 
   outputs =
-    { nixpkgs, pi-flake, omniroute }:
+    { self, nixpkgs, pi-flake }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -49,7 +48,6 @@
           # ── CLI agents ─────────────────────────────────────────
           pkgs.opencode
           pi-flake.packages.${system}.default
-          omniroute.packages.${system}.default
 
           # ── Project tools ──────────────────────────────────────
           pkgs.curl
