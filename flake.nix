@@ -4,10 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pi-flake.url = "github:ChauDucToan/pi-flake";
+    nix-vite-plus.url = "github:ryoppippi/nix-vite-plus";
   };
 
   outputs =
-    { self, nixpkgs, pi-flake }:
+    { self, nixpkgs, pi-flake, nix-vite-plus }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -21,6 +22,8 @@
           pkgs.nodejs
           pkgs.pnpm
           pkgs.corepack
+
+          nix-vite-plus.packages.${system}.default
 
           # ── Search ─────────────────────────────────────────────
           pkgs.ripgrep
