@@ -21,10 +21,6 @@
         "reset": "pnpm clean && pnpm install && pnpm verify",
         "verify": "pnpm lint-fix && pnpm check-types && pnpm format && pnpm build"
     },
-    "dependencies": {
-        "fallow": "^3.14.0",
-        "tsx": "^4.23.8"
-    },
     "devDependencies": {
         "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
         "@turbo/gen": "catalog:",
