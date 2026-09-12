@@ -77,5 +77,3 @@ pnpm install && pnpm dev
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
-
-test
