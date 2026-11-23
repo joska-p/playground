@@ -1,3 +1,6 @@
+# ARCHIVED - new repo https://github.com/joska-p/pg_lab
+
+
 # Creative Playground
 
 [![Pipeline Status](https://gitlab.com/jpotin/playground/badges/main/pipeline.svg)](https://gitlab.com/jpotin/playground/-/pipelines)
